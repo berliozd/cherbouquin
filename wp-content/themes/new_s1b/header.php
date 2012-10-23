@@ -21,6 +21,7 @@ global $page;
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
         <meta name="description" content="<?php bloginfo('description'); ?>" />
+        <meta name="verification" content="90976ef46595e2d7ff7ce4419ff6dc05" />
         <title>
             <?php
             $bookId = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, "bid", null);
