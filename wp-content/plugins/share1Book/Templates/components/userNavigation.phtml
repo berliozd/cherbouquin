@@ -1,0 +1,37 @@
+
+<?php
+
+function cssSelected($page) {
+    $ok = strpos($_SERVER['REQUEST_URI'], $page);
+    if ($ok)
+        return "selected";
+}
+?>
+<div id="nav-wrap">
+    <div id="nav-user">
+        <div class="nu-resume">
+            <div class="nur-image"><img src="<?php echo $user->getGravatar(); ?>" /></div>
+            <div class="nur-status">
+                <div class="nurs-status <?php echo $statusCssClass; ?>">
+                    <div class="nurss-title"><?php _e("Statut", "s1b"); ?></div>
+                    <div class="nurss-value"><?php echo $userStatus; ?></div>
+                </div>
+                <div>
+                    <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS); ?>"><?php _e("Mes paramètres", "s1b"); ?></a>
+                </div>
+            </div>
+        </div>
+        <div class="nu-links">
+            <ul class="nul-links">
+                <li><a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_HOME); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_HOME); ?>">A la page</a></li>
+                <li><a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_LIBRARY); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("reset" => 1)); ?>">Ma bibliothèque</a></li>
+                <li><a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_FRIENDS); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS); ?>">Mes amis</a></li>
+                <li><a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_MAILBOX); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX); ?>">Ma messagerie</a></li>
+                <li><a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_PROFILE); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE); ?>">Mon profil</a></li>
+            </ul>
+            <div class="nul-button">
+                <a class="button bt-black-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGOUT); ?>"><?php _e("Se déconnecter", "s1b"); ?></a>
+            </div>            
+        </div>
+    </div>
+</div>

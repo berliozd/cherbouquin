@@ -1,0 +1,20 @@
+<div class="search-form <?php echo ($isConnected? "connected" : "");?>" >
+    <form name="searchForm" method="post" action="<?php echo $formAction;?>">
+        <input type="hidden" name="mode" value="SUBMIT" />
+        <input type="hidden" name="pagenumber" value="1" />
+        <div class="sf-label">
+            <?php if ($isConnected) {
+                _e("Rechercher un titre, un auteur, ISBN", "s1b");
+            }else {
+                _e("Rechercher", "s1b");
+            }?>
+        </div>
+        <div class="sf-field search-field">
+            <div class="sff-input search-field-input">
+                <input class="searchTerm bookSearchTermField" type="text" name="searchTerm" value="<?php echo $searchTerm;?>" />
+                <input type="hidden" class="bookSearchTermDef" value="<?php echo $searchTermDef;?>" />
+            </div>
+            <button class="sff-button search-button">&nbsp;</button>
+        </div>
+    </form>
+</div>

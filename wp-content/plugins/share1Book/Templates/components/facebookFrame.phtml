@@ -1,0 +1,15 @@
+<?php
+if ($_SESSION['WPLANG'] <> 'en_US') {
+    $facebook_js = 'http://connect.facebook.net/fr_FR/all.js#xfbml=1';
+} else {
+    $facebook_js = 'http://connect.facebook.net/en_US/all.js#xfbml=1';
+}
+?>
+<div class="facebook-frame">
+    <div class="ff-title">facebook</div>
+    <div class="ff-content">
+        <div id="fb-root"></div>
+        <script src="<?php echo $facebook_js;?>" type="text/javascript"></script>
+        <fb:like-box href="http://www.facebook.com/cherbouquin" width="300" show_faces="true" border_color="#FFFFFF" stream="false" header="false"></fb:like-box>
+    </div>
+</div>

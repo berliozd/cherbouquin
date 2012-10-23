@@ -1,0 +1,86 @@
+<div class="book-data">
+    <?php if ($addHiddenFields) { ?>
+    <input type="hidden" name="book_Id" class="book_Id" value="<?php echo $id; ?>" />
+    <input type="hidden" name="book_Author" class="book_Author" value="<?php echo $authorEsc; ?>" />
+    <input type="hidden" name="book_ISBN10" class="book_ISBN10" value="<?php echo $isbn10; ?>" />
+    <input type="hidden" name="book_ISBN13" class="book_ISBN13" value="<?php echo $isbn13; ?>" />
+    <input type="hidden" name="book_ASIN" class="book_ASIN" value="<?php echo $asin; ?>" />
+    <input type="hidden" name="book_Title" class="book_Title" value="<?php echo $titleEsc; ?>" />
+    <input type="hidden" name="book_Description" class="book_Description" value="<?php echo $descEsc; ?>" />
+    <input type="hidden" name="book_ImageUrl" class="book_ImageUrl" value="<?php echo $img; ?>"/>
+    <input type="hidden" name="book_SmallImageUrl" class="book_SmallImageUrl" value="<?php echo $smallImg; ?>" />
+    <input type="hidden" name="book_LargeImageUrl" class="book_LargeImageUrl" value="<?php echo $largeImg; ?>" />
+    <input type="hidden" name="book_Publisher" class="book_Publisher" value="<?php echo $pubEsc; ?>" />
+    <input type="hidden" name="book_PublishingDate" class="book_PublishingDate" value="<?php echo $pubDtStr; ?>" />
+    <input type="hidden" name="book_AmazonUrl" class="book_AmazonUrl" value="<?php echo $amazonUrl; ?>" />
+    <?php } ?>
+    <div class="book-view">
+        <div class="pb-item pushedBook">
+            <div class="pbi-image">
+                <?php echo $image; ?>
+                <a href="<?php echo $buyOnAmazonLink; ?>" class="bv-buyonamazon" target="_blank"><img border="0" src="<?php echo $buyOnAmazonBtn;?>" alt="<?php _e("Acheter sur Amazon", "s1b"); ?>" /></a>
+            </div>            
+            <div class="pbi-content">
+                <div class="pbi-flags">
+                    <?php if ($isInLibrary) { ?>
+                        <?php if ($rating) { ?>
+                            <div class="pbif-rating-label"><?php _e("Ma note ", "s1b"); ?></div>
+                            <div class="rating <?php echo $ratingCss; ?>"></div>
+                        <?php } elseif ($averageRating) { ?>
+                            <div class="pbif-rating-label"><?php echo sprintf(__("Note moyenne (%s note(s))", "s1b"), $nbRatings); ?></div>
+                            <div class="rating <?php echo $ratingCss; ?>"></div>
+                        <?php } ?>
+                        <?php if ($isBlowOfHeart) { ?>
+                            <div class="blowofheart <?php echo ($rating ? "picto-sep" : "") ?>"></div>
+                        <?php } ?>
+                        <?php if ($readingStateLabel) { ?>
+                            <div class="pbif-readingstate <?php echo ($rating ? "picto-sep" : "") ?>"><?php echo $readingStateLabel; ?></div>
+                        <?php } ?>
+                        <?php if ($owned) { ?>    
+                            <div class="picto-small picto-owned-small <?php echo ($rating ? "picto-sep" : "") ?>"></div>
+                        <?php } ?>
+                    <?php } else { ?>                    
+                        <?php if ($averageRating) { ?>
+                            <div class="pbif-rating-label"><?php echo sprintf(__("Note moyenne (%s note(s))", "s1b"), $nbRatings); ?></div>
+                            <div class="rating <?php echo $ratingCss; ?>"></div>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+                <h1 class="pbi-title">
+                    <?php echo $bookTitle; ?>
+                </h1>
+                <div class="pbi-authors">
+                    <?php echo sprintf("de %s", $bookAuthors); ?>
+                </div>
+                <div class="pbi-description">
+                    <?php echo $bookDescription; ?>
+                </div>
+                <div class="pbi-publication">
+                    <?php echo $bookPublication; ?>
+                </div>            
+                <?php if ($addButtons) { ?>
+                    <div class="bv-buttons">
+                        <?php if ($isConnected) { ?>
+                            <?php if ($isInLibrary) { ?>
+                                <div class="bv-buttons-group">
+                                    <?php if ($lendingLink) { ?>
+                                        <a href="<?php echo $lendingLink; ?>" class="button bv-lend bt-black-m"><?php echo $lendingText; ?></a>
+                                    <?php } ?>
+                                    <a href="<?php echo $editBookLink; ?>" class="button bv-edit bt-blue-m"><?php _e("Modifier", "s1b"); ?></a>
+                                    <a href="<?php echo $facebookShareLink; ?>" class="button bt-facebook-m bv-sharefacebook"><?php _e("Partager", "s1b"); ?></a>
+                                    <a href="<?php echo $shareLink; ?>" class="button bv-share"><?php echo sprintf(__("Partager sur <strong>%s</strong>", "s1b"), \Sb\Entity\Constants::SITENAME); ?></a>
+                                </div>                        
+                            <?php } else { ?>                        
+                                <a href="<?php echo $requestBorrowLink; ?>" class="button bv-requestborrow bt-black-m"><?php _e("Emprunter", "s1b"); ?></a>
+                                <button class="addUserBookBtn button bv-edit bs-button bt-blue-m"><?php _e("Ajouter", 's1b'); ?></button>
+                            <?php } ?>
+                        <?php } ?>                        
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+        <?php if ($addReviews) {
+            echo $reviews;
+        } ?>
+    </div>
+</div>

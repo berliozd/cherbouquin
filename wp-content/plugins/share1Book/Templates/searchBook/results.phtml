@@ -1,0 +1,28 @@
+<div class="book-search s1bList" id="searchBookResults">
+    <div id="loading"><div id="loadingMsg"><?php _e("Chargement en cours...", "s1b")?></div></div>
+
+    <div class="bs-nav bs-header-nav">
+        <div class="inner-padding">
+            <div class="bsn-resume"><?php _e("Livres [@first] à [@last] sur [@nbItemsTot]", "s1b")?></div>
+            <div class="nav-links pageNav searchBook">[@links]</div>
+        </div>
+    </div>
+
+    <div class="bs-results" id="searchBookResults">        
+        <div class="bsr-header lineHeader">
+            <div class="inner-padding">
+                <div class="bsrh-title"><?php _e("Titre", "s1b")?></div>
+                <div class="bsrh-author"><?php _e("Auteur", "s1b")?></div>
+                <div class="bsrh-button"></div>
+            </div>
+        </div>
+<!--        <button class="addSelectedUserBooksBtn link-button"><?php _e("Ajouter selection", 's1b'); ?></button>-->
+        [@resultRows]
+    </div>
+
+    <div class="bs-nav bs-footer-nav">
+        <div class="inner-padding">
+            <div class="nav-links pageNav searchBook">[@links]</div>
+        </div>
+    </div>
+</div>

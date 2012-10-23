@@ -1,0 +1,2049 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: s1b\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-05 22:26+0100\n"
+"PO-Revision-Date: 2012-05-05 22:26+0100\n"
+"Last-Translator: Rebiffé <rebiffe_olivier@yahoo.fr>\n"
+"Language-Team: Olivier <rebiffe_olivier@yahoo.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-Bookmarks: 75,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
+"X-Poedit-SearchPath-0: C:\\Users\\olivirt\\Documents\\NetBeansProjects\\s1b_project\\s1b\n"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/404.php:17
+msgid "This is somewhat embarrassing, isn&rsquo;t it?"
+msgstr "This is somewhat embarrassing, isn&rsquo;t it?"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/404.php:21
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching, or one of the links below, can help."
+msgstr "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching, or one of the links below, can help."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/404.php:28
+msgid "Most Used Categories"
+msgstr "Most Used Categories"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/404.php:36
+#, php-format
+msgid "Try looking in the monthly archives. %1$s"
+msgstr "Try looking in the monthly archives. %1$s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/archive.php:25
+#, php-format
+msgid "Daily Archives: %s"
+msgstr "Daily Archives: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/archive.php:27
+#, php-format
+msgid "Monthly Archives: %s"
+msgstr "Monthly Archives: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/archive.php:29
+#, php-format
+msgid "Yearly Archives: %s"
+msgstr "Yearly Archives: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/archive.php:31
+msgid "Blog Archives"
+msgstr "Blog Archives"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/archive.php:57
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/author.php:80
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/category.php:50
+msgid "Nothing Found"
+msgstr "Nothing Found"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/archive.php:61
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/author.php:84
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/category.php:54
+msgid "Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post."
+msgstr "Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/author.php:34
+#, php-format
+msgid "Author Archives: %s"
+msgstr "Author Archives: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/author.php:55
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:60
+#, php-format
+msgid "About %s"
+msgstr "About %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/backup-content-page.php:18
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-aside.php:34
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-featured.php:23
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:54
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:28
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-intro.php:18
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-link.php:34
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-page.php:27
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:36
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:24
+msgid "Pages:"
+msgstr "Pages:"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/backup-content-page.php:21
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-aside.php:44
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-featured.php:45
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:90
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:68
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-intro.php:19
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-link.php:44
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-page.php:33
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:72
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:52
+msgid "Edit"
+msgstr "Edit"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/category.php:19
+#, php-format
+msgid "Category Archives: %s"
+msgstr "Category Archives: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:17
+msgid "This post is password protected. Enter the password to view any comments."
+msgstr "This post is password protected. Enter the password to view any comments."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:36
+#, php-format
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "One thought on &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s thoughts on &ldquo;%2$s&rdquo;"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:44
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:64
+msgid "Comment navigation"
+msgstr "Comment navigation"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:45
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:65
+msgid "&larr; Older Comments"
+msgstr "&larr; Older Comments"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:46
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:66
+msgid "Newer Comments &rarr;"
+msgstr "Newer Comments &rarr;"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/comments.php:76
+msgid "Comments are closed."
+msgstr "Comments are closed."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-aside.php:17
+msgid "Aside"
+msgstr "Aside"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-aside.php:22
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:21
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-link.php:22
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:24
+msgid "Reply"
+msgstr "Reply"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-aside.php:33
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:32
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:27
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-link.php:33
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:35
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-aside.php:42
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:87
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:64
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-link.php:42
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:69
+msgid "Leave a reply"
+msgstr "Leave a reply"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-aside.php:42
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:87
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:64
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-link.php:42
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:69
+msgid "<b>1</b> Reply"
+msgstr "<b>1</b> Reply"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-aside.php:42
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:87
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:64
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-link.php:42
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:69
+msgid "<b>%</b> Replies"
+msgstr "<b>%</b> Replies"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-featured.php:29
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-featured.php:38
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:62
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:72
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:47
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:56
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:44
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:54
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:30
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:33
+msgid ", "
+msgstr ", "
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-featured.php:31
+#, php-format
+msgid "This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-featured.php:33
+#, php-format
+msgid "This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:17
+msgid "Gallery"
+msgstr "Gallery"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:47
+#, php-format
+msgid "This gallery contains <a %1$s>%2$s photo</a>."
+msgid_plural "This gallery contains <a %1$s>%2$s photos</a>."
+msgstr[0] "This gallery contains <a %1$s>%2$s photo</a>."
+msgstr[1] "This gallery contains <a %1$s>%2$s photos</a>."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:66
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:51
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:48
+#, php-format
+msgid "<span class=\"%1$s\">Posted in</span> %2$s"
+msgstr "<span class=\"%1$s\">Posted in</span> %2$s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-gallery.php:78
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:59
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:60
+#, php-format
+msgid "<span class=\"%1$s\">Tagged</span> %2$s"
+msgstr "<span class=\"%1$s\">Tagged</span> %2$s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:16
+msgid "Image"
+msgstr "Image"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:34
+#, php-format
+msgid "<a href=\"%1$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%2$s\" pubdate>%3$s</time></a><span class=\"by-author\"> <span class=\"sep\"> by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%4$s\" title=\"%5$s\" rel=\"author\">%6$s</a></span></span>"
+msgstr "<a href=\"%1$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%2$s\" pubdate>%3$s</time></a><span class=\"by-author\"> <span class=\"sep\"> by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%4$s\" title=\"%5$s\" rel=\"author\">%6$s</a></span></span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-image.php:39
+#, php-format
+msgid "View all posts by %s"
+msgstr "View all posts by %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-link.php:17
+msgid "Link"
+msgstr "Link"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-quote.php:15
+msgid "Quote"
+msgstr "Quote"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:35
+#, php-format
+msgid "This entry was posted in %1$s and tagged %2$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "This entry was posted in %1$s and tagged %2$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:37
+#, php-format
+msgid "This entry was posted in %1$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "This entry was posted in %1$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:39
+#, php-format
+msgid "This entry was posted by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "This entry was posted by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-single.php:64
+#, php-format
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content-status.php:16
+msgid "Status"
+msgstr "Status"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/content.php:17
+msgid "Featured"
+msgstr "Featured"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:21
+msgid "retour haut de page"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:32
+#, fuzzy
+msgid "Informations"
+msgstr "For more information:"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:34
+msgid "A propos"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:35
+msgid "L'équipe"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:37
+msgid "Contact"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:49
+msgid "Nous retrouver"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:51
+msgid "share1Book sur Facebook"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:52
+msgid "share1Book sur Twitter"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:64
+msgid "Catégories"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:66
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header.php:117
+msgid "ma bibliothèque"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:66
+msgid "ma bibliothèque | mes livres | mes BD"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:67
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header.php:118
+msgid "mon profil"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:68
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header.php:119
+msgid "mes amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:68
+msgid "mes amis | leurs coups de coeur"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:69
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header.php:120
+msgid "à la page"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:69
+msgid "à la page | ma messagerie "
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:70
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header.php:121
+msgid "offrir"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:70
+msgid "offrir | faire un cadeau "
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:94
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_FacebookCanevas.php:43
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_FacebookCanevas.php:55
+msgid "share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/footer.php:96
+msgid "Copyright © 2011 NOM de la SAS Tous droits réservés | Initialy designed with Twenty_Eleven theme"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:113
+msgid "Primary Menu"
+msgstr "Primary Menu"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:158
+msgid "Wheel"
+msgstr "Wheel"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:164
+msgid "Shore"
+msgstr "Shore"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:170
+msgid "Trolley"
+msgstr "Trolley"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:176
+msgid "Pine Cone"
+msgstr "Pine Cone"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:182
+msgid "Chessboard"
+msgstr "Chessboard"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:188
+msgid "Lanterns"
+msgstr "Lanterns"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:194
+msgid "Willow"
+msgstr "Willow"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:200
+msgid "Hanoi Plant"
+msgstr "Hanoi Plant"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:398
+msgid "Main Sidebar"
+msgstr "Main Sidebar"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:407
+msgid "Showcase Sidebar"
+msgstr "Showcase Sidebar"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:409
+msgid "The sidebar for the optional Showcase Template"
+msgstr "The sidebar for the optional Showcase Template"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:417
+msgid "Footer Area One"
+msgstr "Footer Area One"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:419
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:429
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:439
+msgid "An optional widget area for your site footer"
+msgstr "An optional widget area for your site footer"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:427
+msgid "Footer Area Two"
+msgstr "Footer Area Two"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:437
+msgid "Footer Area Three"
+msgstr "Footer Area Three"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:460
+msgid "Post navigation"
+msgstr "Post navigation"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:461
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr "<span class=\"meta-nav\">&larr;</span> Older posts"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:462
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:535
+msgid "Pingback:"
+msgstr "Pingback:"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:552
+#, php-format
+msgid "%1$s on %2$s <span class=\"says\">said:</span>"
+msgstr "%1$s on %2$s <span class=\"says\">said:</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:553
+#, php-format
+msgid "%1$s at %2$s"
+msgstr "%1$s at %2$s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:562
+msgid "Your comment is awaiting moderation."
+msgstr "Your comment is awaiting moderation."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:571
+msgid "Reply <span>&darr;</span>"
+msgstr "Reply <span>&darr;</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/functions.php:591
+#, php-format
+msgid "<span class=\"sep\">Posted on </span><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"by-author\"> <span class=\"sep\"> by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+msgstr "<span class=\"sep\">Posted on </span><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"by-author\"> <span class=\"sep\"> by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:161
+#, fuzzy
+msgid "Search for:"
+msgstr "Search"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:187
+#, fuzzy
+msgid "Log in"
+msgstr "Link"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:189
+msgid "Log out"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:258
+msgid "Username"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:259
+msgid "Password"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:260
+msgid "Remember Me"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:261
+msgid "Log In"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:336
+msgid "Register"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:340
+msgid "Site Admin"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:405
+#, php-format
+msgid "The <code>%s</code> option is deprecated for the family of <code>bloginfo()</code> functions."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:405
+#, php-format
+msgid "Use the <code>%s</code> option instead."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:587
+#, fuzzy, php-format
+msgid "Search Results %1$s %2$s"
+msgstr "Search Results for: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:592
+msgid "Page not found"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:939
+#, fuzzy, php-format
+msgid "%1$s %2$d"
+msgstr "%1$s at %2$s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1173
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1181
+#, fuzzy, php-format
+msgid "View posts for %1$s %2$s"
+msgstr "View all posts by %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1605
+#, fuzzy, php-format
+msgid "%1$s %2$s Feed"
+msgstr "%1$s at %2$s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1607
+#, php-format
+msgid "%1$s %2$s Comments Feed"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1628
+#, php-format
+msgid "%1$s %2$s %3$s Comments Feed"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1630
+#, php-format
+msgid "%1$s %2$s %3$s Category Feed"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1632
+#, php-format
+msgid "%1$s %2$s %3$s Tag Feed"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1634
+#, php-format
+msgid "%1$s %2$s Posts by %3$s Feed"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1636
+#, php-format
+msgid "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1929
+#, fuzzy
+msgid "&laquo; Previous"
+msgstr "&larr; Previous"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1930
+#, fuzzy
+msgid "Next &raquo;"
+msgstr "Next &rarr;"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/general-template.php:1977
+msgid "&hellip;"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header-pre_connexion.php:39
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header.php:40
+#, php-format
+msgid "Page %s"
+msgstr "Page %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header-pre_connexion.php:104
+msgid "S'identifier"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header-pre_connexion.php:111
+msgid "S'inscrire"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/header.php:116
+msgid "accueil"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/image.php:18
+msgid "Image navigation"
+msgstr "Image navigation"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/image.php:19
+msgid "&larr; Previous"
+msgstr "&larr; Previous"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/image.php:20
+msgid "Next &rarr;"
+msgstr "Next &rarr;"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/image.php:30
+#, php-format
+msgid "<span class=\"meta-prep meta-prep-entry-date\">Published </span> <span class=\"entry-date\"><abbr class=\"published\" title=\"%1$s\">%2$s</abbr></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"
+msgstr "<span class=\"meta-prep meta-prep-entry-date\">Published </span> <span class=\"entry-date\"><abbr class=\"published\" title=\"%1$s\">%2$s</abbr></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_FacebookCanevas.php:50
+msgid "Bienvenue sur share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_FacebookCanevas.php:55
+msgid "Aller sur le site"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_main.php:105
+msgid "Bonjour"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_main.php:107
+msgid "se déconnecter"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_main.php:110
+msgid "Retour à la page précédente"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends.php:113
+msgid "est déjà votre ami(e)"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends.php:115
+msgid "votre demande d'ami a été déclinée"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends.php:117
+msgid "vous avez déjà envoyé une demande à"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends.php:119
+msgid "vous avez déjà refusé une demande"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends.php:122
+msgid "vous a envoyé une demande"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends.php:124
+msgid "voir les demandes en cours"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends.php:126
+msgid "erreur, merci de contacter l'administrateur"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends.php:128
+msgid "envoyer une demande d'ami à"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_is_wished_books.php:74
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_of_friends_list.php:31
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_search.php:20
+msgid "pas de résultat"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_list.php:26
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_of_friends.php:33
+msgid "aucun résultat"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_pending_request.php:42
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:62
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:78
+msgid "Demande d'ami"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_pending_request.php:43
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:63
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:79
+msgid "Bonjour,"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_pending_request.php:43
+msgid "a accepté votre demande d'ami"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_pending_request.php:43
+msgid "Retrouvez son profil sur"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_pending_request.php:78
+msgid "Votre demande d'ami a été refusée"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_pending_request.php:79
+msgid "Votre demande d'ami a été refusée par"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:41
+msgid "vous avez déjà envoyé une demande à ce membre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:51
+msgid "cet utilisateur vous a envoyé une demande en attente de validation"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:63
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:80
+msgid "Vous avez reçu une demande d'ami de"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:66
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_friends_request.php:83
+msgid "Rendez-vous sur le site pour la valider"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_login.php:58
+msgid "Votre compte n'est pas activé, merci de vérifier vos emails pour l'activer"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_login.php:67
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_login.php:177
+msgid "Votre compte a été supprimé, merci de vous ré-inscrire"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_login.php:69
+msgid "l'un des éléments renseigné n'est pas valable, merci de réessayer"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_login.php:179
+msgid "S'il s'agit de votre première connexion merci de vous inscrire au préalable sinon déconnectez-vous de Facebook et réessayer"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_mailbox.php:81
+msgid "aucun message"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_answer.php:53
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:17
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_write.php:46
+msgid "envoyer"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_answer.php:75
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:40
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_write.php:68
+msgid "Vous avez reçu un message de"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_answer.php:76
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_write.php:69
+msgid "--> lire vos messages"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_answer.php:77
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:44
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_write.php:70
+msgid "L'équipe share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_answer.php:79
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_write.php:72
+msgid "Si vous souhaitez ne plus recevoir par email les alertes modifiez les paramêtres de votre profil"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_answer.php:80
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:47
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_write.php:73
+msgid "Mes paramêtres"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_answer.php:94
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:61
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_write.php:87
+msgid "Au moins l'un des champs n'est pas rempli"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:41
+msgid ". Rendez-vous sur votre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:42
+msgid "messagerie"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:43
+msgid ". pour le découvrir"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_message_send.php:46
+msgid "Si vous souhaitez ne plus recevoir par email les alertes modifiez les paramêtres de votre profil dans"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_password.php:24
+msgid ""
+"Vous n'avez pas de mot de passe car vous vous êtes inscrit via Facebook.\n"
+"        Si vous souhaitez utiliser votre email et un mot de passe pour vous connecter merci d'indiquer un \n"
+"\t\tmot de passe dans la case Nouveau mot de passe"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_password.php:50
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_password.php:89
+msgid "Vos modifications ont bien été enregistrées, merci de vous reconnecter"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_password.php:54
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_password.php:93
+msgid "Le mot de passe doit contenir au moins 6 caractères"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_password.php:96
+msgid "Votre ancien mot de passe n'est pas correct"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_profile.php:100
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_profile_settings.php:39
+msgid "Vos modifications ont bien été enregistrées"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_profile.php:104
+msgid "Un membre utilise déjà l'identifiant que vous avez entré, merci d'en choisir un autre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_profile.php:108
+msgid "Un membre utilise déjà l'email que vous avez entré, merci d'en choisir un autre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_profile.php:113
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:214
+msgid "votre nom doit comprendre au moins 3 caractères"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_profile.php:117
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:218
+msgid "merci d'indiquer votre prénom"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_profile.php:121
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:222
+msgid "merci d'indiquer un identifiant"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_recommandation.php:33
+msgid "--> découvrir"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_recommandation.php:54
+msgid "vous recommande"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_recommandation.php:55
+msgid "Découvrez"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_recommandation.php:58
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_recommandation_facebook.php:11
+msgid "de"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_recommandation_facebook.php:10
+msgid "vous recommande via share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_recommandation_facebook.php:35
+msgid "le champ message est vide, merci de le renseigner"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:159
+msgid "Activez votre compte"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:162
+msgid "Veuillez activer votre compte en cliquant sur le lien ci-après --> "
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:167
+msgid "activez votre compte"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:170
+msgid "Nous vous conseillons de mettre à jour votre profil ainsi que vos paramètres puis d'ajoouter vos amis afin de profiter au maximum de share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:172
+msgid "Pour toute question ou remarque n'hhésitez pas à nous envoyer un email à share1book.com@gmail.com ou à utiliser le formulaire de contact du site"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:189
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:372
+msgid "Bienvenue au sein de la communauté share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:191
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:374
+msgid "Merci d'avoir rejoint share1Book."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:192
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:375
+msgid "Toute l'équipe espère que vous profiterez pleinement des fonctionnalités du site, à savoir:"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:193
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:376
+msgid "* partager vos lectures avec vos amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:194
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:377
+msgid "* leurs recommander un coup de coeur"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:195
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:378
+msgid "* trouver vos prochaines lectures grâce à leurs conseils"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:196
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:379
+msgid "* suivre les livres que vous prêtez ou que vous avez emprunté"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:197
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:380
+msgid "* utiliser les bibliothèques de vos amis, surtout leurs envies de lecture, pour leurs faire un cadeau réussi"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:198
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:381
+msgid "Bref, cette liste n'est pas exhaustive et nous espérons que vous nous aiderez à continuer à vous proposer de nouvelles fonctionnalités, par exemple en proposant à vos amis de rejoindre share1Book."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:199
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:382
+msgid "Inviter vos amis de Facebook à rejoindre share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:200
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:383
+msgid "Bonne expérience."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:226
+msgid "votre email n'est pas valide, merci de réessayer"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:250
+msgid "vous êtes déjà inscrit via share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:346
+msgid "Votre compte share1Book a a été activé avec Facebook"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:350
+msgid "Merci d'avoir rejoint share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:352
+msgid "Nous vous conseillons de mettre à jour votre profil ainsi que vos paramètres puis d'ajoouter vos amis afin de profiter au maximum de share1Book--> "
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/s1b_script_registration.php:354
+msgid "Connectez-vous"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/search.php:18
+#, php-format
+msgid "Search Results for: %s"
+msgstr "Search Results for: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/search.php:46
+msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
+msgstr "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/searchform.php:11
+msgid "Search"
+msgstr "Search"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/showcase.php:72
+msgid "Featured Post"
+msgstr "Featured Post"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/showcase.php:155
+msgid "Recent Posts"
+msgstr "Recent Posts"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/sidebar.php:19
+msgid "Archives"
+msgstr "Archives"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/sidebar.php:26
+msgid "Meta"
+msgstr "Meta"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/single.php:19
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr "<span class=\"meta-nav\">&larr;</span> Previous"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/single.php:20
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Next <span class=\"meta-nav\">&rarr;</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/tag.php:19
+#, php-format
+msgid "Tag Archives: %s"
+msgstr "Tag Archives: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_activate.php:40
+msgid "utilisateur déjà actif"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_activate.php:47
+msgid "votre compte est désormais activé"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_activate.php:52
+msgid "Une erreur est survenue lors de l'activation, merci de contacter l'administrateur via le formulaire de "
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_activate.php:53
+msgid "contact"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:21
+msgid "Indiquez votre nom"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:29
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:32
+msgid "Indiquez une adresse mail valide"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:40
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:157
+msgid "Message"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:54
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:62
+msgid "Formulaire de contact"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:56
+msgid "Votre message à bien été reçu. Vous recevrez une réponse au plus vite."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:57
+msgid "Répondre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:63
+msgid "De:"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:84
+msgid "Merci, "
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:85
+msgid "Votre e-mail a été envoyé. Vous recevrez une réponse au plus vite."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:97
+msgid "Une erreur est survenue lors de l'envoi du formulaire."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:106
+msgid "Prénom"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:132
+msgid "email"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:189
+msgid "Recevoir une copie du message"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_contact_form.php:207
+msgid "Merci de ne rien saisir dans ce champ"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:26
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:115
+msgid "Coups de coeur des amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:27
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:21
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:23
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:22
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:16
+msgid "Demandes d'amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:28
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:22
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:24
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:23
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:17
+msgid "Ajouter des amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:29
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:23
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:25
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:24
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:18
+msgid "Mes amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:39
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:45
+msgid "Amis de"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:88
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:87
+msgid "livres"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:92
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:89
+msgid "livre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:103
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:231
+msgid "voir tous les amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_best_books.php:119
+msgid "Top 10 des amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_form_selection.php:49
+msgid "sélectionner"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_is_wished_books.php:20
+msgid "Livres souhaités"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_is_wished_books.php:37
+msgid "Vous n'avez aucun livre souhaité"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_is_wished_books.php:45
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_is_wished_books.php:47
+msgid "Liste de"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:20
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:22
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:21
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:15
+msgid "Leurs coups de coeur"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:32
+msgid "Vous n'avez pas encore d'amis, invitez en pour échanger avec eux"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:106
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:95
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:104
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:171
+msgid "identifiant"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:121
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:105
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:114
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:181
+#, fuzzy
+msgid "pays"
+msgstr "Pages:"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:129
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:113
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:122
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:189
+msgid "membre depuis le"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:144
+msgid "en-cours"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:209
+msgid "Rechercher un ami"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:219
+msgid "Rechercher un ami dans la liste"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:227
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:283
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:201
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:270
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:191
+msgid "chercher"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:242
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:160
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:229
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:150
+msgid "Ajouter des amis avec"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:255
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:173
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:242
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:163
+msgid "Facebook"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:264
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:26
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:182
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:28
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:30
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:251
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:172
+msgid "Amis d'amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_list.php:273
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:191
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:181
+msgid "chercher membre par nom ou email"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends.php:46
+msgid "Vous n'avez pas encore d'amis, invitez en pour voir leurs amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_of_friends_list.php:260
+msgid "Rechercher un membre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:26
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:32
+msgid "Vous avez"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:28
+msgid "demandes à valider"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:30
+msgid "Vous n'avez aucune requête à valider"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:34
+msgid "demande à valider"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:74
+msgid "Ajouter"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:86
+msgid "à vos amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:100
+msgid "accepter"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:110
+msgid "Votre demande d'ami a été ignorée par"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_pending_request.php:113
+msgid "ignorer"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:52
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:102
+msgid "Email"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:87
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:108
+msgid "Identifiant"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:102
+msgid "Anniversaire"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:114
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:135
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:156
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:177
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:198
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:219
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:240
+msgid "non renseigné"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:123
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:110
+msgid "Adresse"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:144
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:111
+msgid "Ville"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:165
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:112
+msgid "Code postal"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:186
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:113
+#, fuzzy
+msgid "Pays"
+msgstr "Pages:"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:207
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:114
+msgid "Langue"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_profile_information.php:228
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:115
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:116
+msgid "Sexe"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_search.php:63
+msgid "Inviter des amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_friends_search.php:249
+msgid "chercher un membre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:29
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:19
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:16
+msgid "paramêtres"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:30
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:20
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:17
+msgid "mot de passe"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:31
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:21
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:18
+msgid "informations générales"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:32
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:22
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:19
+msgid "profil"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:44
+msgid "revenir sur votre profil"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:53
+msgid ""
+"Votre photo provient par défaut de www.gravatar.com ou de votre profil Facebook.\n"
+"                        Si vous n'êtes pas inscrit via Facebook, Gravatar vous propose d'associer une adresse email\n"
+"                        à un ou plusieurs gravatars."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:56
+msgid "Créer votre gravatar est très simple et rapide, pour cela rendez-vous sur"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:58
+msgid "1/ créez votre gravatar"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_gravatar.php:59
+msgid "2/ et voilà c'est terminé"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_homepage.php:22
+msgid "Accueil"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_homepage.php:57
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_homepage.php:60
+msgid "lit actuellement"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_homepage.php:74
+msgid "Derniers coups de coeur des amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_homepage.php:114
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:225
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:263
+msgid "messages non lus"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_homepage.php:117
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:228
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:266
+msgid "message non lu"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_homepage.php:128
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:277
+msgid "aucune demande à valider"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_homepage.php:143
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:233
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_send.php:18
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_write.php:17
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:292
+msgid "Envoyer un message"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:58
+msgid "Connectez-vous avec votre compte share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:113
+msgid "Mot de passe"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:123
+msgid "Connexion"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:131
+msgid "Mot de passe perdu"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:138
+msgid "Pas encore inscrit?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:139
+msgid "Créez votre compte"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:162
+msgid "Connectez-vous avec Facebook"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:190
+msgid "Top10 des membres"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_login.php:200
+msgid "Coups de coeur des membres"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_lost_password.php:57
+msgid "Votre nouveau mot de passe sur share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_lost_password.php:58
+msgid ""
+"Vous recevez cet e-mail parce que vous, ou quelqu'un qui prétend \n"
+"        être vous, a demandé un nouveau mot de passe."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_lost_password.php:59
+msgid "Votre nouveau mot de passe est:"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_lost_password.php:60
+msgid "Rendez-vous dans votre profil section mot de passe pour le modifier."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_lost_password.php:61
+msgid "l'équipe share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_lost_password.php:83
+msgid "Mot de passe oublié?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_lost_password.php:91
+msgid "Indiquez l’e-mail que vous avez utilisé pour vous inscrire et nous vous enverrons un nouveau mot de passe à cette adresse"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_lost_password.php:98
+msgid "Entrez vote email"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:33
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_answer.php:16
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_read.php:15
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_send.php:16
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_write.php:15
+msgid "Mur"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:34
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:211
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_answer.php:17
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_read.php:16
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_send.php:17
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_write.php:16
+msgid "Messagerie"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:70
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_answer.php:32
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_read.php:35
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_send.php:31
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_write.php:30
+msgid "De"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:74
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_answer.php:40
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_read.php:43
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_send.php:39
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_write.php:38
+msgid "Sujet"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:78
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_read.php:39
+msgid "Date"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:164
+msgid "lire"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:169
+msgid "confirmez-vous la suppression?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_mailbox.php:184
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_delete.php:36
+msgid "supprimer"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_answer.php:18
+msgid "Répondre au message"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_answer.php:36
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_send.php:35
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_write.php:34
+msgid "A"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_read.php:92
+msgid "répondre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_message_read.php:98
+msgid "Etes-vous sûr(e) de vouloir supprimer ce message?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:31
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:35
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:316
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:322
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:439
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:445
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:541
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:547
+msgid "Profil de"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:62
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:46
+msgid "modifier"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:70
+msgid "Email:"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:82
+msgid "Sexe:"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:84
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:214
+msgid "masculin"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:89
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:217
+msgid "féminin"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:99
+msgid "Anniversaire:"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:132
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:134
+msgid "Votre dernier livre ou livre en-cours"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:157
+msgid "Vous n'avez pas de livre souhaité"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:159
+msgid "Votre livre souhaité"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:161
+msgid "Vos"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:161
+msgid "derniers livres souhaités"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:163
+msgid "Vos 3 derniers livres souhaités"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:163
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:103
+msgid "(voir tous)"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile.php:226
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:166
+msgid "par"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_delete.php:28
+msgid "supprimer votre compte"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_delete.php:31
+msgid "la suppression de votre compte n'entraînera pas la suppression de vos commentaires. Etes-vous sûr de vouloir le supprimer ?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_delete.php:37
+msgid "abandon"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:20
+msgid "Profil membre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:50
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:53
+msgid "lit actuellement | vient de terminer"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:70
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:72
+msgid "Dernier coup de coeur de"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:88
+msgid "Aucun livre souhaité"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:95
+msgid "Aucun livre souhaité par"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:97
+msgid "Livre souhaité par"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:99
+msgid "Les"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:99
+msgid "derniers livres souhaités par"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:102
+msgid "Tous les livres souhaités par"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:190
+msgid "Demande d'ami par"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:202
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:209
+msgid "le profil et la bibliothèque de"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:204
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:210
+msgid "sont privés"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:205
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:211
+msgid "Vous ne pouvez voir que le profil et la bibliothèque de vos amis ou des utilisateurs dont le profil est public"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:222
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:664
+msgid "est déjà votre ami"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:229
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:671
+msgid "votre demande d'ami a été refusée"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:240
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:682
+msgid "j'ai déjà refusé une demande"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:254
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:696
+msgid "erreur &agrave ,merci de contacter l'administrateur du site"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:401
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:506
+msgid "voir profil"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:418
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:523
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_friend.php:616
+msgid "envoyer un message"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:67
+msgid "Email (non modifiable)"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:105
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:121
+msgid "* champs obligatoires"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:106
+msgid "Nom"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:109
+msgid "Anniversaire (jj/mm/aaaa)"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:200
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:205
+msgid "français"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:201
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_general.php:206
+msgid "anglais"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_password.php:33
+msgid "Email (not modifiable)"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_password.php:61
+msgid "Ancien mot de passe"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_password.php:62
+msgid "Nouveau mot de passe"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:40
+msgid ""
+"Vous pouvez gérer ici le paramétrage de votre compte. Votre Gravatar, \n"
+"                                        votre prénom et votre nom seront toujours visibles sur le site, en revanche \n"
+"                                        vous pouvez masquer votre email et sélectionner les paramètres que vous \n"
+"                                        souhaitez activer. Vos critiques et commentaires sur les livres seront \n"
+"                                        toujours visibles quelque soit le niveau de paramétrage sélectionné"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:54
+msgid "Qui peut voir votre profil?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:62
+msgid ""
+"Si vous limitez l'accès à vos amis seuls vos Gravatar, nom, prénom, identifiant \n"
+"                                                et pays seront visible pour les autres utilisateurs."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:68
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:96
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:120
+msgid "membres share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:73
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:101
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:125
+msgid "seulement mes amis"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:78
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:106
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:130
+msgid "tout le monde"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:85
+msgid "Votre email est visible pour?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:89
+msgid ""
+"Si vous limitez l'accès à vos amis et que vous avez choisi de ne pas limiter \n"
+"                                            votre profil, votre adresse email ne sera visible que par vos amis."
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:114
+msgid "Qui peut vous envoyer des messages internes?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:138
+msgid "Souhaitez-vous recevoir un email lorsqu'un message vous eest envoyé?"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:145
+msgid "oui"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:150
+msgid "non"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:159
+msgid "Utilisation des commentaires"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:168
+msgid "j'accepte de partager mes commentaires sur les sites partenaires de share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_profile_settings.php:177
+msgid "Je refuse que mes commentaires soient partagées ailleurs que sur share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation.php:18
+msgid "Envoyer une recommandation"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation.php:34
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation_facebook.php:74
+msgid "Recommander"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation.php:43
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation_facebook.php:83
+msgid "revenir sur la description du livre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation.php:55
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation_facebook.php:94
+msgid "Vous ne possédez pas ce livre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation.php:57
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation_facebook.php:96
+msgid "à votre bibliothèque"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation.php:66
+msgid "pas de destinataire possible"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation.php:102
+msgid "vous recommande: "
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_recommandation_facebook.php:58
+msgid "Partager sur Facebook"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_registration.php:117
+msgid "Inscrivez-vous via votre compte share1Book"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_registration.php:179
+msgid "*champs obligatoires"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_registration.php:280
+msgid "Pour activer votre compte utlisez l'email que vous allez recevoir"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_registration.php:288
+msgid "Inscrivez-vous via votre compte Facebook"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/user_registration.php:300
+msgid "Vous êtes déjà membre"
+msgstr ""
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:61
+msgid "Color Scheme"
+msgstr "Color Scheme"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:67
+msgid "Link Color"
+msgstr "Link Color"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:68
+msgid "Default Layout"
+msgstr "Default Layout"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:100
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:101
+msgid "Theme Options"
+msgstr "Theme Options"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:116
+msgid "Some themes provide customization options that are grouped together on a Theme Options screen. If you change themes, options may change or disappear, as they are theme-specific. Your current theme, Twenty Eleven, provides the following Theme Options:"
+msgstr "Some themes provide customization options that are grouped together on a Theme Options screen. If you change themes, options may change or disappear, as they are theme-specific. Your current theme, Twenty Eleven, provides the following Theme Options:"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:118
+msgid "<strong>Color Scheme</strong>: You can choose a color palette of \"Light\" (light background with dark text) or \"Dark\" (dark background with light text) for your site."
+msgstr "<strong>Color Scheme</strong>: You can choose a color palette of \"Light\" (light background with dark text) or \"Dark\" (dark background with light text) for your site."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:119
+msgid "<strong>Link Color</strong>: You can choose the color used for text links on your site. You can enter the HTML color or hex code, or you can choose visually by clicking the \"Select a Color\" button to pick from a color wheel."
+msgstr "<strong>Link Color</strong>: You can choose the color used for text links on your site. You can enter the HTML color or hex code, or you can choose visually by clicking the \"Select a Color\" button to pick from a color wheel."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:120
+msgid "<strong>Default Layout</strong>: You can choose if you want your site&#8217;s default layout to have a sidebar on the left, the right, or not at all."
+msgstr "<strong>Default Layout</strong>: You can choose if you want your site&#8217;s default layout to have a sidebar on the left, the right, or not at all."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:122
+msgid "Remember to click \"Save Changes\" to save any changes you have made to the theme options."
+msgstr "Remember to click \"Save Changes\" to save any changes you have made to the theme options."
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:124
+msgid "For more information:"
+msgstr "For more information:"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:125
+msgid "<a href=\"http://codex.wordpress.org/Appearance_Theme_Options_Screen\" target=\"_blank\">Documentation on Theme Options</a>"
+msgstr "<a href=\"http://codex.wordpress.org/Appearance_Theme_Options_Screen\" target=\"_blank\">Documentation on Theme Options</a>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:126
+msgid "<a href=\"http://wordpress.org/support/\" target=\"_blank\">Support Forums</a>"
+msgstr "<a href=\"http://wordpress.org/support/\" target=\"_blank\">Support Forums</a>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:133
+msgid "Overview"
+msgstr "Overview"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:155
+msgid "Light"
+msgstr "Light"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:161
+msgid "Dark"
+msgstr "Dark"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:179
+msgid "Content on left"
+msgstr "Content on left"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:184
+msgid "Content on right"
+msgstr "Content on right"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:189
+msgid "One-column, no sidebar"
+msgstr "One-column, no sidebar"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:282
+#, php-format
+msgid "Default color: %s"
+msgstr "Default color: %s"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/theme-options.php:317
+#, php-format
+msgid "%s Theme Options"
+msgstr "%s Theme Options"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:19
+msgid "Use this widget to list your recent Aside, Status, Quote, and Link posts"
+msgstr "Use this widget to list your recent Aside, Status, Quote, and Link posts"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:20
+msgid "Twenty Eleven Ephemera"
+msgstr "Twenty Eleven Ephemera"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:52
+msgid "Ephemera"
+msgstr "Ephemera"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:91
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:107
+msgid "0 <span class=\"reply\">comments &rarr;</span>"
+msgstr "0 <span class=\"reply\">comments &rarr;</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:91
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:107
+msgid "1 <span class=\"reply\">comment &rarr;</span>"
+msgstr "1 <span class=\"reply\">comment &rarr;</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:91
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:107
+msgid "% <span class=\"reply\">comments &rarr;</span>"
+msgstr "% <span class=\"reply\">comments &rarr;</span>"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:157
+msgid "Title:"
+msgstr "Title:"
+
+#: C:\Users\olivirt\Documents\NetBeansProjects\s1b_project\s1b/inc/widgets.php:160
+msgid "Number of posts to show:"
+msgstr "Number of posts to show:"
+

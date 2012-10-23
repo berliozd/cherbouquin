@@ -1,0 +1,30 @@
+<div class="pb-item pushedBook">
+    <div class="pbi-image">
+        <a title="<?php echo $bookTitle; ?> - <?php echo $bookAuthors; ?>" href="<?php echo $viewBookLink; ?>"><?php echo $image; ?></a>
+    </div>
+    <div class="pbi-content">
+        <div class="pbi-flags">
+            <?php if ($averageRating) {?>
+                <div class="pbif-rating-label"><?php echo sprintf(__("Note moyenne : <span class=\"pbi-avgrating\">%s</span> (%s note(s))","s1b"), $averageRating, $nbRatings);?></div>
+                <div class="rating <?php echo $ratingCss;?>"></div>
+            <?php }?>
+            <?php if ($isBlowOfHeart) {?>
+            <div class="blowofheart <?php echo (($averageRating && $isBlowOfHeart) ? "picto-sep" : "")?>"></div>
+            <span class="pbi-nbBoh">(<?php echo $nbBlowOfHearts;?>)</span>
+            <?php }?>
+        </div>
+        <h2 class="pbi-title">
+            <?php echo $bookTitle; ?>
+        </h2>
+        <div class="pbi-description">
+            <?php echo $bookDescription; ?>
+        </div>
+        <div class="pbi-publication">
+            <?php echo $bookPublication; ?>
+        </div>
+        <div class="pbi-authors">
+            <?php echo $bookAuthors; ?>
+        </div>
+        <a class="book-link" href="<?php echo $viewBookLink; ?>"><?php _e("Découvrir ce livre","s1b");?> </a>
+    </div>
+</div>

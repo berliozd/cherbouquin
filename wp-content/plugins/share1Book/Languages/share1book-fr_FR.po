@@ -1,0 +1,318 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: share1Book\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-26 23:35+0100\n"
+"PO-Revision-Date: 2012-03-26 23:35+0100\n"
+"Last-Translator: Didier Berlioz <berliozd@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: E:\\Dev\\wamp\\www\\share1book\\wp-content\\plugins\\share1Book\n"
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/admin-page.php:5
+msgid "You cannot edit the search-by-category options."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:294
+msgid "Settings"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:646
+msgid "Tops de tous les utilisateurs"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:646
+msgid "Pas de livres pour les tops de tous les utilisateurs"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:654
+msgid "Tops des amis"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:654
+msgid "Pas de livres pour les tops des amis"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:662
+msgid "Coups de coeur de tous les utilisateurs"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:662
+msgid "Pas de livres pour les coups de coeur de tous les utilisateurs"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:670
+msgid "Coups de coeur des amis"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/share1Book.php:670
+msgid "Pas de livres pour les coups de coeur des amis"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/model/PaginatedBookList.php:100
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/model/PaginatedBookList.php:108
+msgid "Détail"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/addBook.php:49
+msgid "Ajouter"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/addBook.php:68
+msgid "Le livre n'est pas valide!"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/addBook.php:112
+#, php-format
+msgid "Le livre \"%s\" a été ajouté à votre bibliothèque."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/allBooks.php:28
+msgid "Tous"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/allBooksLists.php:30
+msgid "Mes livres"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/allBooksLists.php:36
+msgid "Livres souhaités"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/allBooksLists.php:42
+msgid "Livres empruntés"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/allBooksLists.php:48
+msgid "Livres prétés"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/borrowedBooks.php:14
+msgid "empruntés"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/deleteBook.php:25
+#, php-format
+msgid "Le livre \"%s\" a été supprimé de votre bibliothèque."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/deleteBook.php:27
+#, php-format
+msgid "Le livre \"%s\" ne peut pas être supprimé de votre bibliothèque car il est associé à un prêt en cours."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/editBook.php:21
+msgid "Mettre à jour"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/editLending.php:58
+msgid "aucun"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/editLending.php:63
+msgid "Vous n'avez jamais prêté ce livre."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/editLending.php:94
+#, php-format
+msgid "Vous souhaitez prêter ce livre à <select name=\"BorrowerId\">%s</select>"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/editLending.php:99
+msgid "Vous n'avez pas encore d'amis."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/editLending.php:99
+msgid "Retour"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/editLending.php:113
+msgid "Vous ne pouvez pas prêter ce livre car vous ne le possédez pas."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/import.php:12
+msgid "Merci de sélectionner un fichier au format CSV, le séparateur de colonne devant être \",\" et le code ISBN des livres sur 10 caractères devant apparaître dans la première colonne."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/import.php:53
+msgid "Livres qui étaient présents dans votre bibliothèque"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/import.php:57
+msgid "Livres correctement ajoutés à votre bibliothèque"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/lendedBooks.php:14
+msgid "prêtés"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/myBooks.php:14
+msgid "possédés"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/page/wishedBooks.php:14
+msgid "mes envies"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/view/TopsList.php:32
+msgid "Voir plus de livres"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/view/TopsList.php:33
+msgid "Voir moins de livres"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/view/UserBook.php:111
+#, php-format
+msgid "Vous prêtez actuellement ce livre à %s"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/view/UserBook.php:118
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/view/UserBook.php:123
+#, php-format
+msgid "Vous empruntez actuellement ce livre à %s."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/view/UserBook.php:130
+msgid "Vous ne possédez pas ce livre mais il a certainement du faire l'objet d'un emprunt par le passé."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/allBooksLists.phtml:1
+msgid "Bibliothèque"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail.phtml:11
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookView.phtml:9
+msgid "Retour à la page précédente"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/header.phtml:5
+msgid "tops et coups de coeur"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/header.phtml:27
+msgid "Importer une liste"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/tops.phtml:1
+msgid "Tops et coups de coeur"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail/owningForm.phtml:3
+msgid "Vous possèdez ce livre : "
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail/owningForm.phtml:7
+msgid "Vous souhaitez ce livre : "
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail/owningFormBis.phtml:4
+msgid "Vous souhaitez marquez ce livre comme 'souhaité': "
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail/userBookDetail.phtml:6
+msgid "Votre commentaire : "
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail/userBookDetail.phtml:10
+msgid "Votre note : "
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail/userBookDetail.phtml:21
+msgid "C'est un coup de coeur ?"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail/userBookDetail.phtml:28
+msgid "Etat de lecture : "
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookDetail/userBookDetail.phtml:36
+msgid "Date de lecture : "
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTable.phtml:2
+msgid "Chargement en cours..."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTable.phtml:10
+msgid "Livre [@first] à [@last] sur [@nbItemsTot]"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTableHeader.phtml:3
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTableHeaderFull.phtml:3
+msgid "Titre"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTableHeader.phtml:4
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTableHeaderFull.phtml:4
+msgid "Auteur"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTableHeader.phtml:5
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTableHeaderFull.phtml:5
+msgid "Note"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/bookTableHeaderFull.phtml:6
+msgid "Prêt"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookList/emptyBookTable.phtml:2
+msgid "Vous n'avez aucun livre dans cette liste."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookView/viewBook.phtml:1
+msgid "Vous avez déjà ce livre dans votre bibliothèque."
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/bookView/viewBook.phtml:1
+msgid "Voir"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/import/notImported.phtml:1
+msgid "Codes ISBN des livres qui n'ont pas pu être ajouté à votre bibliothèque"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/import/table.phtml:5
+msgid "ISBN"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/lendingDetail/activeBorrowingLine.phtml:1
+msgid "Vous empruntez actuellement ce livre à [@lenderName] depuis le [@startDate]"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/lendingDetail/activeLendingLine.phtml:1
+msgid "Vous prêtez actuellement ce livre à [@borrowerName] depuis le [@startDate]"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/lendingDetail/inActiveBorrowingLine.phtml:1
+msgid "Vous avez emprunté ce livre à [@lenderName] du [@startDate] au [@endDate]"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/lendingDetail/inActiveLendingLine.phtml:1
+msgid "Vous avez prêté ce livre à [@borrowerName] du [@startDate] au [@endDate]"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/lendingDetail/lendingsHisto.phtml:1
+msgid "Historique de prêts/emprunts de ce livre : "
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/searchBook/results.phtml:11
+msgid "Catégories"
+msgstr ""
+
+#: E:\Dev\wamp\www\share1book\wp-content\plugins\share1Book/template/topsList/header.phtml:4
+msgid "Note moyenne"
+msgstr ""
+
+msgid "Ajouter ce livre"
+msgstr ""
+
+

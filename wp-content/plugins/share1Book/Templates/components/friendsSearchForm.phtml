@@ -1,0 +1,16 @@
+<form action="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS_FIND); ?>" method="get">
+    <div class="utf-searchform">
+        <div class="utfs-field search-field">
+            <div class="utf-input search-field-input">
+                <?php 
+                $value = $_GET['q'];
+                if ($value == "")
+                    $value = __("Nom, prénom, email...","");
+                ?>
+                <input class="friendSearchField" type="text" style="width: 200px" name="q" value="<?php echo $value; ?>"/>
+                <input type="hidden" class="friendSearchDef" value="<?php echo $value; ?>"/>
+            </div>
+            <button class="search-button">&nbsp;</button>
+        </div>
+    </div>
+</form>
