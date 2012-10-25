@@ -10,10 +10,14 @@
  * @since Twenty Eleven 1.0
  */
 global $context;
+global $config;
 global $page;
 ?>
 <html xmlns:fb="http://ogp.me/ns/fb#">
     <head>
+        <?php if ($config->getIsProduction()) {?>
+        <!-- PRODUCTION -->
+        <?php }?>
         <link rel="icon" type="image/png" href="<?php echo $context->getBaseUrl() . "Resources/images/favicons/favicon.ico";?>" />
         <meta charset="UTF-8" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><!--HTML4-->
@@ -62,7 +66,7 @@ global $page;
         <script type="text/javascript" src="<?php echo $context->getBaseUrl() . "Resources/js/pushedBooks.js"; ?>"></script>
         <script type="text/javascript" src="<?php echo $context->getBaseUrl() . "Resources/js/facebook.js"; ?>"></script>
         <script type="text/javascript" src="<?php echo $context->getBaseUrl() . "Resources/js/simple.carousel.js"; ?>"></script>
-        
+        <?php if ($config->getIsProduction()) {?>
         <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-34691855-1']);
@@ -75,6 +79,7 @@ global $page;
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
         </script>
+        <?php } ?>
     </head>
     <body>
         <div id="loading"><div id="loadingMsg"><?php _e("Chargement en cours...", "s1b") ?></div></div>

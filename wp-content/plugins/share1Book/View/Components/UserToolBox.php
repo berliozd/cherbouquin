@@ -28,7 +28,7 @@ class UserToolBox extends \Sb\View\AbstractView {
             "defImage" => $this->getContext()->getDefaultImage());
 
         // Temporary desactivate the currently readings books in usertoolbox
-        if ($this->getConfig()->getIsProduction()) {
+        if (!$this->getConfig()->getIsProduction()) {
             // Add the currently reading books in requested
             if ($this->currentlyReadingBooks) {
                 $currentlyReadingUserBooks = \Sb\Db\Dao\UserBookDao::getInstance()->getCurrentlyReadingsNow($user->getId());

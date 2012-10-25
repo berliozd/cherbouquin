@@ -81,7 +81,7 @@ echo $userNavigation->get();
     <div id="content-right">
         <div class="right-frame">
             <?php
-            $userToolBox = new \Sb\View\Components\UserToolBox;
+            $userToolBox = new \Sb\View\Components\UserToolBox(true);
             echo $userToolBox->get();
             ?>
         </div>
