@@ -11,7 +11,6 @@ if (isset($_REQUEST['submit'])) {
     update_option("share1Book", $options);
 }
 
-
 if (!function_exists('getSafeFromArray')) {
 
     function getSafeFromArray($array, $key, $def) {
@@ -33,6 +32,12 @@ if ($optionsFromDb) {
     $amazonAssociateTag = getSafeFromArray($optionsFromDb, 'amazonAT', '');
     $amazonNumberOfPageRequested = getSafeFromArray($optionsFromDb, 'amazonNOfPR', 2);
 
+    
+    $isProductionChecked = "";
+    $isProduction = getSafeFromArray($optionsFromDb, 'isProduction', true);
+    if ($isProduction)
+        $isProductionChecked = "checked";
+    
     $tracesEnabledChecked = "";
     $tracesEnabled = getSafeFromArray($optionsFromDb, 'tracesEnabled', false);
     if ($tracesEnabled)
@@ -76,6 +81,13 @@ if ($optionsFromDb) {
             ?>
             <tr>
                 <th scope="row" valign="top" colspan="2"><b>Général</b></th>
+            </tr>
+            <tr>
+                <th scope="row" valign="top">Site en production</th>                
+                <td>
+                    <input type="hidden" name="isProduction" value="0">
+                    <input type="checkbox" name="isProduction" value="1" <?php echo $isProductionChecked ?>/>
+                </td>
             </tr>
             <tr>
                 <th scope="row" valign="top">Nombre de livres maximum par utilisateur (public)</th>

@@ -48,4 +48,6 @@ interface Config {
     public function getFacebookSecret();
     
     public function getMaximumNbUserBooksForPublic();
+    
+    public function getIsProduction();
 }

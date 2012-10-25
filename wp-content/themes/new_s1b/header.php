@@ -12,7 +12,7 @@
 global $context;
 global $page;
 ?>
-<html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
     <head>
         <link rel="icon" type="image/png" href="<?php echo $context->getBaseUrl() . "Resources/images/favicons/favicon.ico";?>" />
         <meta charset="UTF-8" />

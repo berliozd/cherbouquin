@@ -2,6 +2,8 @@
 
 namespace Sb\Config\Model;
 
+use \Sb\Helpers\ArrayHelper;
+
 /**
  * Description of Config
  *
@@ -26,7 +28,8 @@ class WordPressConfig implements Config {
     private $facebookApiId;
     private $facebookSecret;
     private $maximumNbUserBooksForPublic;
-
+    private $isProduction = true;
+    
     private static $instance;
 
     private function __construct() {
@@ -47,23 +50,24 @@ class WordPressConfig implements Config {
 //        var_dump("call db");
         $options = get_option("share1Book");
         // options du module
-        $this->tracesEnabled = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'tracesEnabled', false);
-        $this->logsEnabled = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'logsEnabled', false);
-        $this->cacheTemplatingEnabled = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'cacheTemplate', false);
-        $this->amazonApiKey = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'amazonAK', '');
-        $this->amazonSecretKey = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'amazonSK', '');
-        $this->amazonAssociateTag = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'amazonAT', '');
-        $this->googleApiKey = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'googleBooksAK', '');
-        $this->searchNbResultsToShow = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'searchNRTS', 20);
-        $this->searchNbResultsPerPage = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'searchNRPP', 3);
-        $this->listNbBooksPerPage = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'listNbBooksPerPage', 3);
-        $this->amazonNumberOfPageRequested = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'amazonNOfPR', 2);
-        $this->maxImportNb = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'maxImportNb', 2);
-        $this->userLibraryPageName = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'userLibraryPageName', '');
-        $this->friendLibraryPageName = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'friendLibraryPageName', '');
-        $this->facebookApiId = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'facebookApiId', "");
-        $this->facebookSecret = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'facebookSecret', "");
-        $this->maximumNbUserBooksForPublic = \Sb\Helpers\ArrayHelper::getSafeFromArray($options, 'maximumNbUserBooksForPublic', 300);
+        $this->tracesEnabled = ArrayHelper::getSafeFromArray($options, 'tracesEnabled', false);
+        $this->logsEnabled = ArrayHelper::getSafeFromArray($options, 'logsEnabled', false);
+        $this->cacheTemplatingEnabled = ArrayHelper::getSafeFromArray($options, 'cacheTemplate', false);
+        $this->amazonApiKey = ArrayHelper::getSafeFromArray($options, 'amazonAK', '');
+        $this->amazonSecretKey = ArrayHelper::getSafeFromArray($options, 'amazonSK', '');
+        $this->amazonAssociateTag = ArrayHelper::getSafeFromArray($options, 'amazonAT', '');
+        $this->googleApiKey = ArrayHelper::getSafeFromArray($options, 'googleBooksAK', '');
+        $this->searchNbResultsToShow = ArrayHelper::getSafeFromArray($options, 'searchNRTS', 20);
+        $this->searchNbResultsPerPage = ArrayHelper::getSafeFromArray($options, 'searchNRPP', 3);
+        $this->listNbBooksPerPage = ArrayHelper::getSafeFromArray($options, 'listNbBooksPerPage', 3);
+        $this->amazonNumberOfPageRequested = ArrayHelper::getSafeFromArray($options, 'amazonNOfPR', 2);
+        $this->maxImportNb = ArrayHelper::getSafeFromArray($options, 'maxImportNb', 2);
+        $this->userLibraryPageName = ArrayHelper::getSafeFromArray($options, 'userLibraryPageName', '');
+        $this->friendLibraryPageName = ArrayHelper::getSafeFromArray($options, 'friendLibraryPageName', '');
+        $this->facebookApiId = ArrayHelper::getSafeFromArray($options, 'facebookApiId', "");
+        $this->facebookSecret = ArrayHelper::getSafeFromArray($options, 'facebookSecret', "");
+        $this->maximumNbUserBooksForPublic = ArrayHelper::getSafeFromArray($options, 'maximumNbUserBooksForPublic', 300);
+        $this->isProduction = ArrayHelper::getSafeFromArray($options, 'isProduction', true);
     }
 
     public function getTracesEnabled() {
@@ -132,6 +136,10 @@ class WordPressConfig implements Config {
 
     public function getMaximumNbUserBooksForPublic() {
         return $this->maximumNbUserBooksForPublic;
+    }
+
+    public function getIsProduction() {
+        return $this->isProduction;
     }
 
 }

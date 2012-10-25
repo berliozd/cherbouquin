@@ -27,12 +27,15 @@ class UserToolBox extends \Sb\View\AbstractView {
             "nbFriends" => $nbFriends,
             "defImage" => $this->getContext()->getDefaultImage());
 
-        // Add the currently reading books in requested
-        if ($this->currentlyReadingBooks) {
-            $currentlyReadingUserBooks = \Sb\Db\Dao\UserBookDao::getInstance()->getCurrentlyReadingsNow($user->getId());
-            // Getting only first 5 items
-            $currentlyReadingUserBooks = array_slice($currentlyReadingUserBooks, 0, 5);
-            $params["currentlyReadingUserBooks"] = $currentlyReadingUserBooks;
+        // Temporary desactivate the currently readings books in usertoolbox
+        if ($this->getConfig()->getIsProduction()) {
+            // Add the currently reading books in requested
+            if ($this->currentlyReadingBooks) {
+                $currentlyReadingUserBooks = \Sb\Db\Dao\UserBookDao::getInstance()->getCurrentlyReadingsNow($user->getId());
+                // Getting only first 5 items
+                $currentlyReadingUserBooks = array_slice($currentlyReadingUserBooks, 0, 5);
+                $params["currentlyReadingUserBooks"] = $currentlyReadingUserBooks;
+            }
         }
 
         $tpl->setVariables($params);

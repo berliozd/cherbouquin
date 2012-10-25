@@ -12,12 +12,28 @@ echo $userNavigation->get();
 ?>
 <?php showFlashes(); ?>
 <div id="content-wrap">
-    <div id="content-center">        
+    <div id="content-center">
+        <div class="pushed-books pushedBooks">
+            <div class="pb-title">
+                <?php _e("Vous lisez actuellement", "s1b"); ?>
+            </div>
+            <?php
+            $currentlyReadingBook = \Sb\Db\Dao\UserBookDao::getInstance()->getReadingNow($context->getConnectedUser()->getId());
+            if ($currentlyReadingBook) {
+                $currentlyReadingBookView = new \Sb\View\CurrentlyReadingBook($config->getUserLibraryPageName(), true, $currentlyReadingBook);
+                echo $currentlyReadingBookView->get();
+            } else {
+                $readingWhatform = new \Sb\View\Components\ReadingWhatForm();
+                echo $readingWhatform->get();
+            }
+            ?>
+        </div>
+        <div class="horizontal-sep-1"></div>
         <div class="pushed-books pushedBooks">
             <div class="pb-title">
                 <?php _e("Vos livres souhaités", "s1b"); ?>
             </div>
-            <?php            
+            <?php
             $allWishedBooks = \Sb\Db\Dao\UserBookDao::getInstance()->getListWishedBooks($context->getConnectedUser()->getId(), -1, true);
             $wishedBooks = array_slice($allWishedBooks, 0, 10);
             if (count($wishedBooks) == 0) {
@@ -65,7 +81,7 @@ echo $userNavigation->get();
     <div id="content-right">
         <div class="right-frame">
             <?php
-            $userToolBox = new \Sb\View\Components\UserToolBox(true);
+            $userToolBox = new \Sb\View\Components\UserToolBox;
             echo $userToolBox->get();
             ?>
         </div>
@@ -82,4 +98,4 @@ echo $userNavigation->get();
             ?>
         </div>  
     </div>
-<?php get_footer(); ?>
+    <?php get_footer(); ?>
