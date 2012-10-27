@@ -178,7 +178,8 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .ft-item-content { float:left; color: #FFFFFF;}
 .ft-item-title { float:left; color: #239cd3; font-size: 1.6em; margin-bottom: 5px; width: 100%; font-weight: normal;  margin-top: 0;}
 .ft-facebook {background: url("../images/sprite.png") no-repeat scroll 0px -1230px transparent;display: block;height: 45px;width: 45px;}
-.ft-twitter {background: url("../images/sprite.png") no-repeat scroll -55px -1230px transparent;display: block;height: 45px;width: 41px;}
+.ft-twitter {background: url("../images/sprite.png") no-repeat scroll -53px -1230px transparent;display: block;height: 45px;width: 45px;}
+.ft-pinterest {background: url("../images/sprite.png") no-repeat scroll -105px -1230px transparent;display: block;height: 45px;width: 45px;}
 
 
 /* login form */
