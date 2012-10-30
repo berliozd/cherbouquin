@@ -32,10 +32,10 @@ class UserToolBox extends \Sb\View\AbstractView {
             "nbFriends" => $nbFriends,
             "defImage" => $this->getContext()->getDefaultImage());
 
-        // Temporary desactivate the currently readings books in usertoolbox
+        // Temporary desactivate the currently readings books and wished books in usertoolbox
         if (!$this->getConfig()->getIsProduction()) {
 
-            // Add the currently reading books in requested
+            // Add the currently reading books if requested
             if ($this->currentlyReadingBooks) {
                 $allCurrentlyReadingUserBooks = UserBookDao::getInstance()->getCurrentlyReadingsNow($user->getId());
                 // Getting only first 5 items
@@ -43,7 +43,7 @@ class UserToolBox extends \Sb\View\AbstractView {
                 $params["currentlyReadingUserBooks"] = $currentlyReadingUserBooks;
             }
 
-            // Add the wished books in requested
+            // Add the wished books if requested
             if ($this->wishedBooks) {
                 $wishedBooks = UserBookDao::getInstance()->getListWishedBooks($this->getContext()->getConnectedUser()->getId(), -1, true);
                 $params["wishedBooks"] = $wishedBooks;
