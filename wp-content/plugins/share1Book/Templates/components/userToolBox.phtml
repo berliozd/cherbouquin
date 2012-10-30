@@ -43,6 +43,39 @@
         </div>
     </div>
     <?php }?>
+    <?php if ($wishedBooks) {?>
+    <div class="ut-wished">
+        <div class="ut-title"><?php _e("Vos livres souhaitez", "s1b") ?></div>
+        <div class="ut-content">
+            <div class="utc-part">
+                <?php if (count($wishedBooks) > 0) { ?>                
+                    <?php 
+                    $first3WishedBooks = array_slice($wishedBooks, 0, 3);
+                    foreach ($first3WishedBooks as $userBook) { 
+                    ?>
+                    <div class="utwb">
+                        <div class="utwb-image">
+                            <?php echo \Sb\Helpers\BookHelper::getSmallImageTag($userBook->getBook(), $defImage); ?>
+                        </div>
+                        <div class="utwb-text">
+                            <div><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getBook()->getTitle(), 30);?></div>
+                            <div><?php echo sprintf(__("Auteur(s) : %s", "s1b"), $userBook->getBook()->getOrderableContributors());?></div>
+                            <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">voir ce livre</a>","s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if (count($wishedBooks) > 3) { ?>
+                    <div class="utwb-link">
+                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::WISHED_BOOKS_KEY, "reset" => 1));?>" class="link"><?php _e("Voir plus de livres", "s1b");?></a>
+                    </div>
+                    <?php } ?>
+                <?php } else { ?>
+                <?php _e("Vous n'avez pas de livre souhaités.","s1b");?>
+                <?php }?>
+            </div>          
+        </div>
+    </div>
+    <?php }?>
     <div class="ut-friends">
         <div class="ut-title"><?php _e("Mes amis", "s1b") ?></div>
         <div class="ut-content">

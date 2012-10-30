@@ -257,6 +257,12 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .ut-currentreadingbook {float:left; width: 98%; font-size: 0.9em;}
 .utcb-image {float:left; width:45%;}
 .utcb-text {float:right; width:55%;} 
+.ut-wished {float:left;}
+.ut-wished .ut-title { background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1362px transparent; color: #FFFFFF; line-height: 35px; padding-left: 30px;}
+.utwb {float: left; width:100%; margin-bottom:5px;}
+.utwb-image {float:left; width:30%;}
+.utwb-text {float:right; width:70%;} 
+.utwb-link {float:right; text-transform: uppercase;}
 
 
 /* pushed books */
