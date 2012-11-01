@@ -14,7 +14,7 @@
     <?php } ?>
 </script>
 <div class="user-toolbox">
-    <?php if ($currentlyReadingUserBooks) {?>
+    <?php if ($showCurrentlyReadingUserBooks) {?>    
     <div class="ut-currentreading">
         <div class="ut-title"><?php _e("Vous lisez actuellement", "s1b") ?></div>
         <div class="ut-content">
@@ -36,14 +36,15 @@
                     </li>
                     <?php } ?>
                 </ul>
-                <?php } else { ?>
-                <?php _e("Vous n'avez pas de livre en cours de lecture.","s1b");?>
+                <?php } else { 
+                    $readingWhatform = new \Sb\View\Components\ReadingWhatForm();
+                    echo $readingWhatform->get();?>
                 <?php }?>
             </div>          
         </div>
     </div>
     <?php }?>
-    <?php if ($wishedBooks) {?>
+    <?php if ($showWishedBooks && $wishedBooks) {?>
     <div class="ut-wished">
         <div class="ut-title"><?php _e("Vos livres souhaités", "s1b") ?></div>
         <div class="ut-content">

@@ -1,11 +1,9 @@
-<div class="pb-item pushedBook rw-search">
-    <div class="pbi-image">
-        <img class="image-frame" img src="<?php echo $coverImage ?>"/><br/>
+<div class="rw-search">
+    <div class="rw-image">
+        <img class="image-thumb-small image-frame" img src="<?php echo $coverImage ?>"/>
+        <?php _e("Que lisez-vous actuellement ?", "s1b"); ?>        
     </div>
-    <div class="pbi-content">
-        <div class="pbi-content-title">
-            <?php _e("Que lisez-vous actuellement ?", "s1b"); ?>
-        </div>        
+    <div class="rw-field">
         <?php
         $searchFormView = new \Sb\View\Components\SearchForm;
         echo $searchFormView->get();

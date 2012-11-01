@@ -503,8 +503,9 @@ TABLE TH.llh-title {padding-left: 80px;}
 .pd-description {font-size: 1.5em;}
 .pd-title {font-size: 2.5em;}
 
+.rw-search {font-size: 0.8em;}
 .rw-search .search-form {float: left; width: 455px;}
-.rw-search .sf-label {font-weight: normal;color: #000000;}
+.rw-search .sf-label {font-weight: normal;color: #fff;}
 
 /* mailbox list */
 .mailbox TABLE {float:left; width: 100%;  text-align: left;}

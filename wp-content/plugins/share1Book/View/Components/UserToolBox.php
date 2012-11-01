@@ -35,6 +35,9 @@ class UserToolBox extends \Sb\View\AbstractView {
         // Temporary desactivate the currently readings books and wished books in usertoolbox
         if (!$this->getConfig()->getIsProduction()) {
 
+            $params["showCurrentlyReadingUserBooks"] = true;
+            $params["showWishedBooks"] = true;
+            
             // Add the currently reading books if requested
             if ($this->currentlyReadingBooks) {
                 $allCurrentlyReadingUserBooks = UserBookDao::getInstance()->getCurrentlyReadingsNow($user->getId());

@@ -13,6 +13,11 @@ echo $userNavigation->get();
 <?php showFlashes(); ?>
 <div id="content-wrap">
     <div id="content-center">
+        
+        <?php 
+        // Temp check  : to remove when new "a la page" is live
+        if ($config->getIsProduction()) {?>
+        
         <div class="pushed-books pushedBooks">
             <div class="pb-title">
                 <?php _e("Vous lisez actuellement", "s1b"); ?>
@@ -45,6 +50,9 @@ echo $userNavigation->get();
             }
             ?>
         </div>
+        
+        <?php } ?>
+        
         <div class="horizontal-sep-1"></div>
         <div class="pushed-books pushedBooks">
             <div class="pb-title">

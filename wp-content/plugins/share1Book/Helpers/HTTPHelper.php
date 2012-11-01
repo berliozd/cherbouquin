@@ -103,6 +103,7 @@ class HTTPHelper {
         $text = preg_replace("/[éèêë]/u", "e", $text);
         $text = preg_replace("/[óòôõºö]/u", "o", $text);
         $text = preg_replace("/[úùûü]/u", "u", $text);
+        $text = preg_replace("/[ñ]/u", "n", $text);
         $text = str_replace("ç", "c", $text);
         $text = preg_replace("/[':;.()]/u", "", $text);
         $text = preg_replace("/[\W]/u", "-", $text);
