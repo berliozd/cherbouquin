@@ -25,12 +25,12 @@
                     <li>
                         <div class="ut-currentreadingbook">
                             <div class="utcb-image">
-                                <?php echo \Sb\Helpers\BookHelper::getMediumImageTag($userBook->getBook(), $defImage); ?>
+                                <a border="0" href="<?php echo \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink());?>"><?php echo \Sb\Helpers\BookHelper::getMediumImageTag($userBook->getBook(), $defImage); ?></a>
                             </div>
                             <div class="utcb-text">
-                                <div><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getBook()->getTitle(), 30);?></div>
+                                <div><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getBook()->getTitle(), 40);?></div>
                                 <div><?php echo sprintf(__("Auteur(s) : %s", "s1b"), $userBook->getBook()->getOrderableContributors());?></div>
-                                <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">voir ce livre</a>","s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
+                                <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">Voir ce livre</a>","s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
                             </div>
                         </div>
                     </li>
@@ -55,12 +55,12 @@
                     ?>
                     <div class="utwb">
                         <div class="utwb-image">
-                            <?php echo \Sb\Helpers\BookHelper::getSmallImageTag($userBook->getBook(), $defImage); ?>
+                            <a border="0" href="<?php echo \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink());?>"><?php echo \Sb\Helpers\BookHelper::getSmallImageTag($userBook->getBook(), $defImage); ?></a>
                         </div>
                         <div class="utwb-text">
-                            <div><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getBook()->getTitle(), 30);?></div>
+                            <div><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getBook()->getTitle(), 40);?></div>
                             <div><?php echo sprintf(__("Auteur(s) : %s", "s1b"), $userBook->getBook()->getOrderableContributors());?></div>
-                            <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">voir ce livre</a>","s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
+                            <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">Voir ce livre</a>","s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
                         </div>
                     </div>
                     <?php } ?>
