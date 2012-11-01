@@ -1,10 +1,11 @@
 <?php
 
+namespace Sb\Helpers;
+
+
 use \Sb\Db\Model\Book;
 use \Sb\Mail\Service\MailSvcImpl;
 use \Sb\Entity\Constants;
-
-namespace Sb\Helpers;
 
 /**
  * Description of BookHelper
