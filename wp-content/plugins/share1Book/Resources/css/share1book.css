@@ -164,7 +164,6 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 #header .connected .search-field INPUT {width:600px;}
 #header .connected .sf-label {margin-right: 53px;}
 
-
 /* footer */
 #footer-bottom UL {list-style: none;  margin: 0;}
 #footer-bottom LI {float:left; margin-right: 10px;}
@@ -504,8 +503,13 @@ TABLE TH.llh-title {padding-left: 80px;}
 .pd-title {font-size: 2.5em;}
 
 .rw-search {font-size: 0.8em;}
-.rw-search .search-form {float: left; width: 455px;}
-.rw-search .sf-label {font-weight: normal;color: #fff;}
+.rw-search .search-form {float: left; width: 100%;}
+.rw-search .sf-label {font-weight: normal;color: #fff; font-size: 1em;}
+.rw-search .rw-image {float: left;}
+.rw-search .rw-field {float: right; width: 200px;}
+.rw-search .connected .search-field {background: url("../images/sprite.png?v1") no-repeat scroll -310px 0px transparent;width: 195px;} 
+.rw-search .connected .search-field INPUT {width:145px;}
+.rw-search .connected .sf-label {}
 
 /* mailbox list */
 .mailbox TABLE {float:left; width: 100%;  text-align: left;}

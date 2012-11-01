@@ -10,7 +10,10 @@ namespace Sb\View\Components;
  */
 class SearchForm extends \Sb\View\AbstractView {
 
-    function __construct() {
+    private $showSearchTermDef = true;
+    
+    function __construct($showSearchTermDef = true) {
+        $this->showSearchTermDef = $showSearchTermDef;
         parent::__construct();
     }
 
@@ -27,7 +30,9 @@ class SearchForm extends \Sb\View\AbstractView {
         $tpl->setVariables(array("formAction" => $formAction,
             "searchTerm" => $searchTerm,
             "searchTermDef" => $searchTermDef,
-            "isConnected" => $isConnected));
+            "isConnected" => $isConnected,
+            "showSearchTermDef" => $this->showSearchTermDef));
+        
         return $tpl->output();
     }
 

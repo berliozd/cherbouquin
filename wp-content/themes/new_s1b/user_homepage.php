@@ -50,10 +50,9 @@ echo $userNavigation->get();
             }
             ?>
         </div>
-        
-        <?php } ?>
-        
         <div class="horizontal-sep-1"></div>
+        <?php } ?>        
+        
         <div class="pushed-books pushedBooks">
             <div class="pb-title">
                 <?php _e("Coups de coeur de vos amis", "s1b"); ?>

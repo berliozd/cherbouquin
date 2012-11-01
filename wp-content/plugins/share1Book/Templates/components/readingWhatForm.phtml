@@ -1,11 +1,12 @@
 <div class="rw-search">
     <div class="rw-image">
         <img class="image-thumb-small image-frame" img src="<?php echo $coverImage ?>"/>
-        <?php _e("Que lisez-vous actuellement ?", "s1b"); ?>        
+              
     </div>
     <div class="rw-field">
+        <?php _e("Que lisez-vous actuellement ?", "s1b"); ?>  
         <?php
-        $searchFormView = new \Sb\View\Components\SearchForm;
+        $searchFormView = new \Sb\View\Components\SearchForm(false);
         echo $searchFormView->get();
         ?>
     </div>
