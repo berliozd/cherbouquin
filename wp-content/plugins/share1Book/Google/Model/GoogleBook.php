@@ -46,11 +46,12 @@ class GoogleBook {
         $volumes = $service->volumes;
 
         $optParams['maxResults'] = 1;
+        $optParams['country'] = 'FR';
         $optParams['fields'] = 'kind,totalItems,items(volumeInfo(title,authors,imageLinks,description,publisher,publishedDate,industryIdentifiers))';
         $q = ($this->isbn10 ? $this->isbn10 : ($this->isbn13 ? $this->isbn13 : ($this->asin ? $this->asin : "")));
         \Sb\Trace\Trace::addItem("requetage de google avec $q");
         $this->results = $volumes->listVolumes($q, $optParams);
-
+        
         if (($this->results) && (count($this->results) > 0)) {
             if (array_key_exists('items', $this->results)) {
                 if (count($this->results['items']) > 0) {

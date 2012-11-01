@@ -77,7 +77,7 @@ class BookHelper {
             } else {
                 \Sb\Trace\Trace::addItem('Le livre n\'a pas été trouvé sur Google.');
             }
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             \Sb\Trace\Trace::addItem(sprintf("Une erreur s'est produite lors de l'appel à l'api google books : %s", $exc->getMessage()));
         }
     }
