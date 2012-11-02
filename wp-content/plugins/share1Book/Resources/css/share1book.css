@@ -616,3 +616,18 @@ TD.mb-col-state{color:#f56903;}
 .tm-name {font-size: 2em;font-weight: bold;}
 .tm-resume {float: left;}
 .tm-image {float: left;  margin-right: 20px;}
+
+/* user events */
+.user-events { float: left; width: 100%;}
+.user-event { float: left; width: 100%;}
+.ue-friendimage {float: left;}
+.ue-description {float: left; margin-left: 10px; width: 560px;}
+.ue-resume {float: left; margin-bottom: 3px; width: 100%;}
+.ue-book {float: left; width: 100%;}
+.ue-bookimage {float: left;}
+.ue-bookdescription {float: left; margin-left:10px;}
+.ue-booktitle {font-weight: bold; width: 490px;}
+.ue-booklink {}
+.ue-date {}
+.ue-rating-label {float:left;}
+.user-events .rating {margin-left: 5px; margin-top: -5px;}

@@ -69,6 +69,23 @@ echo $userNavigation->get();
             ?>
         </div>
         <div class="horizontal-sep-1"></div>
+        
+        <?php 
+        $userEvents = \Sb\Db\Dao\UserEventDao::getInstance()->getListUserFriendsUserEvents($context->getConnectedUser()->getId()); 
+        if ($userEvents && count($userEvents > 0)) { 
+        ?>
+        <div class="pushed-books pushedBooks">
+            <div class="pb-title">
+                <?php _e("Activités de vos amis", "s1b"); ?>
+            </div>
+            <?php            
+            $userEventsView = new \Sb\View\UserEvents($userEvents);
+            echo $userEventsView->get();
+            ?>
+        </div>
+        <div class="horizontal-sep-1"></div>
+        <?php  } ?>
+        
         <div class="pushed-books pushedBooks">
             <div class="pb-title">
                 <?php _e("Top 10 des membres", "s1b"); ?>

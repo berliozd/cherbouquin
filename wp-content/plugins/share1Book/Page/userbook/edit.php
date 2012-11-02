@@ -1,8 +1,9 @@
 <?php
 
 use \Sb\Helpers\HTTPHelper;
+use \Sb\Trace\Trace;
 
-\Sb\Trace\Trace::addItem(\Sb\Entity\LibraryPages::USERBOOK_EDIT);
+Trace::addItem(\Sb\Entity\LibraryPages::USERBOOK_EDIT);
 
 global $s1b;
 $context = $s1b->getContext();
@@ -34,6 +35,9 @@ if (!$s1b->getIsSubmit()) {
     // getting userbook in DB
     $userBook = \Sb\Db\Dao\UserBookDao::getInstance()->get($userBookForm->getId());
 
+    // Getting the events related to the userbook changes
+    $userEvents = \Sb\Db\Service\UserEventSvc::getInstance()->prepareUserBookEvents($userBook, $userBookForm);
+
     // On vérifit la correspondance du user
     $s1b->compareWithConnectedUserId($userBook->getUser()->getId());
 
@@ -43,6 +47,7 @@ if (!$s1b->getIsSubmit()) {
     $userBook->setIsOwned($userBookForm->getIsOwned());
     $userBook->setIsWished($userBookForm->getIsWished());
     $userBook->setRating($userBookForm->getRating());
+
     $readingState = \Sb\Db\Dao\ReadingStateDao::getInstance()->get($userBookForm->getReadingStateId());
     if ($userBookForm->getReadingDate())
         $userBook->setReadingDate($userBookForm->getReadingDate());
@@ -61,6 +66,10 @@ if (!$s1b->getIsSubmit()) {
     // Mise à jour du UserBook
     $userBookDao = \Sb\Db\Dao\UserBookDao::getInstance();
     if ($userBookDao->update($userBook)) {
+
+        // persisting the userevent related to the userbook chnages
+        \Sb\Db\Service\UserEventSvc::getInstance()->persistAll($userEvents);
+
         \Sb\Flash\Flash::addItem(sprintf(__('Le livre "%s" a été mis à jour.', "s1b"), urldecode($userBook->getBook()->getTitle())));
         $referer = Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, "referer", null);
         if ($referer)

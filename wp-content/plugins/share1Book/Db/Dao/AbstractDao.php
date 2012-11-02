@@ -105,6 +105,10 @@ abstract class AbstractDao {
         return true;
     }
 
-}
+    public function add(\Sb\Db\Model\Model $entity) {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+        return true;
+    }
 
-?>
+}

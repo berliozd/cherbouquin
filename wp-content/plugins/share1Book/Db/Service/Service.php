@@ -34,6 +34,10 @@ class Service {
         return "SVC_" . $this->serviceName . "_KEY_" . $key;
     }
 
+    /**
+     * 
+     * @return \Sb\Db\Dao\AbstractDao
+     */
     public function getDao() {
         return $this->dao;
     }
