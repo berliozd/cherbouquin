@@ -93,7 +93,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_WISHEDSTATE_CHANGE);
                 $userEvents[] = $userEvent;
             }
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             Trace::addItem("Une erreur s'est produite lors de la préparation des événements liés au userbook");
         }
         return $userEvents;
@@ -106,7 +106,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                     $this->getDao()->add($userEvent);
                 }
             }
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             Trace::addItem("Une erreur s'est produite lors de l'enregistrment des uservents");
         }
     }

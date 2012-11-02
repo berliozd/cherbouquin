@@ -15,5 +15,5 @@ class EventTypes {
     const USERBOOK_WISHEDSTATE_CHANGE = 7;
     const USER_ADD_FRIEND = 8;
     const USER_LEND_USERBOOK = 9;
-    const USER_BORROW_USERBOOK = 9;
+    const USER_BORROW_USERBOOK = 10;
 }

@@ -6,6 +6,7 @@
         <div class="ue-resume">
             <?php echo $resume;?>
         </div>
+        <?php if ($userBookRelated) {?>
         <div class="ue-book">
             <div class="ue-bookimage">                
                 <img class="image-thumb-small image-frame" src="<?php echo $bookImageUrl;?>">
@@ -19,6 +20,7 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
         <?php if ($additionalContent) {?>
         <div class="ue-additional">
             <?php echo $additionalContent;?>

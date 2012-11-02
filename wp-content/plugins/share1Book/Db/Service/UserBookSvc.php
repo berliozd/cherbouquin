@@ -164,7 +164,7 @@ class UserBookSvc extends \Sb\Db\Service\Service {
                         $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_ADD);
                         $userEvent->setUser($user);
                         \Sb\Db\Dao\UserEventDao::getInstance()->add($userEvent);
-                    } catch (Exception $exc) {
+                    } catch (\Exception $exc) {
                         Trace::addItem("Une erreur s'est produite lors de l'ajour de l'événement suite à l'ajout d'un livre " . $exc->getMessage());
                     }
                 }

@@ -2,6 +2,9 @@
 
 use \Sb\Flash\Flash;
 use \Sb\Trace\Trace;
+use \Sb\Db\Model\UserEvent;
+use \Sb\Db\Dao\UserEventDao;
+use \Sb\Entity\EventTypes;
 
 /**
  * Context :
@@ -82,6 +85,15 @@ if ($idUserBook) {
                         $lendingId = \Sb\Db\Dao\LendingDao::getInstance()->Add($lending);
                         // if ok : prepare flash message
                         if ($lendingId) {
+                            try {
+                                $userEvent = new UserEvent;
+                                $userEvent->setNew_value($lending->getId());
+                                $userEvent->setType_id(EventTypes::USER_BORROW_USERBOOK);
+                                $userEvent->setUser($context->getConnectedUser());
+                                UserEventDao::getInstance()->add($userEvent);
+                            } catch (Exception $exc) {
+                                Trace::addItem("erreur lors de l'ajout de l'évènement suite au prêt : " . $exc->getMessages());
+                            }
                             Flash::addItem(sprintf(__("Le livre %s a été emprunté à %s et ajouté à votre bibliothèque.", "sharebook"), $userBook->getBook()->getTitle(), $userBook->getUser()->getFirstName() . " " . $userBook->getUser()->getLastName()));
                         }
                     }
