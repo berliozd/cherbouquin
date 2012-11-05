@@ -1,10 +1,10 @@
 <?php
 
-$rand = rand(0, 19);
+$rand = rand(0, 22);
 $ad1 = new \Sb\Templates\Template(("ads/fnac01_ActuApple"));
 $ad2 = new \Sb\Templates\Template(("ads/fnac02_ActuJeuxJouets"));
 $ad3 = new \Sb\Templates\Template(("ads/fnac03_ActuLivresEbooks"));
-$ad4 = new \Sb\Templates\Template(("ads/fnacMarketPlace"));
+$ad4 = new \Sb\Templates\Template(("ads/fnac04_MarketPlace"));
 $ad5 = new \Sb\Templates\Template(("ads/fnac05_ImacIpadMacBook"));
 $ad6 = new \Sb\Templates\Template(("ads/fnac06_Kobo"));
 $ad7 = new \Sb\Templates\Template(("ads/fnac07_LivresEbooksBD"));
@@ -21,5 +21,30 @@ $ad17 = new \Sb\Templates\Template(("ads/groupon07_RelaxezVous"));
 $ad18 = new \Sb\Templates\Template(("ads/groupon08_Rome"));
 $ad19 = new \Sb\Templates\Template(("ads/groupon09_Ski"));
 $ad20 = new \Sb\Templates\Template(("ads/groupon10_Spa"));
-$ads = array($ad1->output(), $ad2->output(), $ad3->output(), $ad4->output(), $ad5->output(), $ad6->output(), $ad7->output(), $ad8->output(), $ad9->output(), $ad10->output(), $ad11->output(), $ad12->output(), $ad13->output(), $ad14->output(), $ad15->output(), $ad16->output(), $ad17->output(), $ad18->output(), $ad19->output(), $ad20->output());
+$ad21 = new \Sb\Templates\Template(("ads/lafourchette01"));
+$ad22 = new \Sb\Templates\Template(("ads/numericable01"));
+$ad23 = new \Sb\Templates\Template(("ads/amazon01"));
+$ads = array($ad1->output(), 
+    $ad2->output(), 
+    $ad3->output(), 
+    $ad4->output(), 
+    $ad5->output(), 
+    $ad6->output(), 
+    $ad7->output(), 
+    $ad8->output(), 
+    $ad9->output(), 
+    $ad10->output(), 
+    $ad11->output(), 
+    $ad12->output(), 
+    $ad13->output(), 
+    $ad14->output(), 
+    $ad15->output(), 
+    $ad16->output(), 
+    $ad17->output(), 
+    $ad18->output(), 
+    $ad19->output(), 
+    $ad20->output(),
+    $ad21->output(),
+    $ad22->output(),
+    $ad23->output());
 echo $ads[$rand];
