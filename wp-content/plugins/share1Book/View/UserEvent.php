@@ -109,7 +109,8 @@ class UserEvent extends \Sb\View\AbstractView {
                     $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> est ami avec moi.", $friendProfileLink, $friendName);
                 else {
                     $friendNewFriend = UserDao::getInstance()->get($newFriendId);
-                    $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> est ami avec %s.", $friendProfileLink, $friendName, $friendNewFriend->getUserName());
+                    $friendNewFriendProfileLink = HTTPHelper::Link(Urls::FRIEND_PROFILE, array("fid" => $friendNewFriend->getId()));                    
+                    $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> est ami avec <a class=\"link\" href=\"%s\">%s</a>.", $friendProfileLink, $friendName, $friendNewFriendProfileLink, $friendNewFriend->getUserName());
                 }
                 break;
             case EventTypes::USER_BORROW_USERBOOK:
@@ -117,8 +118,7 @@ class UserEvent extends \Sb\View\AbstractView {
                 $lending = LendingDao::getInstance()->get($lendingId);
                 $userBookBorrowed = $lending->getUserBook();
                 $userBook = $userBookBorrowed;
-                $friendFriendProfileLink = HTTPHelper::Link(Urls::FRIEND_PROFILE, array("fid" => $userBookBorrowed->getUser()->getId()));                
-                $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a emprunté le livre à <a href=\"%s\">%s</a>.", $friendProfileLink, $friendName, $friendFriendProfileLink, $userBookBorrowed->getUser()->getUserName());
+                $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a emprunté le livre à %s.", $friendProfileLink, $friendName, $userBookBorrowed->getUser()->getUserName());
                 if ($userBookBorrowed->getUser()->getId() == $this->getContext()->getConnectedUser()->getId())
                     $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> m'a emprunté le livre.", $friendProfileLink, $friendName);
                 $userBookRelated = true;
