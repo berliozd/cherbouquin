@@ -8,6 +8,7 @@ namespace Sb\Db\Model;
 class Contributor implements \Sb\Db\Model\Model {
 
     public function __construct() {
+        
     }
 
     /**
@@ -18,6 +19,12 @@ class Contributor implements \Sb\Db\Model\Model {
 
     /** @Column(type="string", length=200) */
     protected $full_name;
+
+    /** @Column(type="string", length=100) */
+    protected $first_name;
+
+    /** @Column(type="string", length=100) */
+    protected $last_name;
 
     /** @Column(type="datetime") */
     protected $creation_date;
@@ -53,6 +60,22 @@ class Contributor implements \Sb\Db\Model\Model {
 
     public function setFullName($fullName) {
         $this->full_name = trim($fullName);
+    }
+
+    public function getFirst_name() {
+        return $this->first_name;
+    }
+
+    public function setFirst_name($first_name) {
+        $this->first_name = $first_name;
+    }
+
+    public function getLast_name() {
+        return $this->last_name;
+    }
+
+    public function setLast_name($last_name) {
+        $this->last_name = $last_name;
     }
 
     public function getCreationDate() {
@@ -92,6 +115,12 @@ class Contributor implements \Sb\Db\Model\Model {
 
     public function IsValid() {
         return true;
+    }
+
+    public function getName() {
+        if (($this->getFirst_name() != "") && ($this->getLast_name() != ""))
+            return $this->getFirst_name() . " " . $this->getLast_name();
+        return $this->getFullName();
     }
 
 }

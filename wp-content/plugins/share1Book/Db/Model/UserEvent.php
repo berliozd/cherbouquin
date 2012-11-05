@@ -24,10 +24,10 @@ class UserEvent implements \Sb\Db\Model\Model {
     /** @Column(type="integer") */
     protected $item_id;
     
-    /** @Column(type="string") */
+    /** @Column(type="string", length=5000) */
     protected $old_value;
     
-    /** @Column(type="string", length=500) */
+    /** @Column(type="string", length=5000) */
     protected $new_value;
         
     /** @Column(type="datetime") */

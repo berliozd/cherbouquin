@@ -1,6 +1,6 @@
 <div class="user-event">
     <div class="ue-friendimage">        
-        <img class="image-frame image-thumb-square-small" src="<?php echo $userFriendImg;?>" />
+        <a href="<?php echo $friendProfileLink;?>"><img border="0" class="image-frame image-thumb-square-small" src="<?php echo $userFriendImg;?>" /></a>
     </div>
     <div class="ue-description">
         <div class="ue-resume">
@@ -9,12 +9,13 @@
         <?php if ($userBookRelated) {?>
         <div class="ue-book">
             <div class="ue-bookimage">                
-                <img class="image-thumb-small image-frame" src="<?php echo $bookImageUrl;?>">
+                <a class="link" href="<?php echo $bookLink;?>"><img border="0" class="image-thumb-small image-frame" src="<?php echo $bookImageUrl;?>"></a>                
             </div>
             <div class="ue-bookdescription">
                 <div class="ue-booktitle">
                     <?php echo $bookTitle;?>
                 </div>
+                <?php echo sprintf(__("de %s","s1b"), $bookAuthor);?>
                 <div class="ue-booklink">
                     <a class="link" href="<?php echo $bookLink;?>"><?php _e("Voir ce livre","s1b");?></a>
                 </div>

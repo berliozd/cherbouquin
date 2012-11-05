@@ -53,7 +53,7 @@ class UserBook implements \Sb\Db\Model\Model {
     /** @Column(type="boolean") */
     protected $is_blow_of_heart = false;
 
-    /** @Column(type="string", length=500) */
+    /** @Column(type="string", length=5000) */
     protected $review;
 
     /** @Column(type="boolean") */

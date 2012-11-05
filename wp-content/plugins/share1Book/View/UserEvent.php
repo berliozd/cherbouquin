@@ -85,10 +85,10 @@ class UserEvent extends \Sb\View\AbstractView {
                         $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a marqué non lu.", $friendProfileLink, $friendName);
                         break;
                     case ReadingStates::READING:
-                        $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a marqué en cours de lecture.", $friendProfileLink, $friendName);
+                        $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> lit actuellement.", $friendProfileLink, $friendName);
                         break;
                     case ReadingStates::READ:
-                        $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a marqué lu.", $friendProfileLink, $friendName);
+                        $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a lu.", $friendProfileLink, $friendName);
                         break;
                 }
                 $userBookRelated = true;
@@ -117,7 +117,8 @@ class UserEvent extends \Sb\View\AbstractView {
                 $lending = LendingDao::getInstance()->get($lendingId);
                 $userBookBorrowed = $lending->getUserBook();
                 $userBook = $userBookBorrowed;
-                $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a emprunté le livre à %s.", $friendProfileLink, $friendName, $userBookBorrowed->getUser()->getUserName());
+                $friendFriendProfileLink = HTTPHelper::Link(Urls::FRIEND_PROFILE, array("fid" => $userBookBorrowed->getUser()->getId()));                
+                $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a emprunté le livre à <a href=\"%s\">%s</a>.", $friendProfileLink, $friendName, $friendFriendProfileLink, $userBookBorrowed->getUser()->getUserName());
                 if ($userBookBorrowed->getUser()->getId() == $this->getContext()->getConnectedUser()->getId())
                     $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> m'a emprunté le livre.", $friendProfileLink, $friendName);
                 $userBookRelated = true;
@@ -136,12 +137,13 @@ class UserEvent extends \Sb\View\AbstractView {
                 break;
         }
 
-        $creationDate = $this->userEvent->getCreation_date()->format(__("d/m/Y", "s1b"));
+        $creationDate = $this->userEvent->getCreation_date()->format(__("d/m/Y à H:m", "s1b"));
 
         if ($userBookRelated) {
             $bookImageUrl = $userBook->getBook()->getSmallImageUrl();
             $bookLink = HTTPHelper::Link($userBook->getBook()->getLink());
             $bookTitle = $userBook->getBook()->getTitle();
+            $bookAuthor = $userBook->getBook()->getOrderableContributors();
         }
 
         // Set variables
@@ -150,7 +152,9 @@ class UserEvent extends \Sb\View\AbstractView {
             "resume" => $resume,
             "bookImageUrl" => $bookImageUrl,
             "friendImageTag" => $friendImageTag,
+            "friendProfileLink" => $friendProfileLink,
             "bookTitle" => $bookTitle,
+            "bookAuthor" => $bookAuthor,
             "creationDate" => $creationDate,
             "bookLink" => $bookLink,
             "additionalContent" => $additionalContent,
