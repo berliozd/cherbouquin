@@ -152,6 +152,7 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .inner-padding {padding: 5px;}
 .inner-padding-10 {padding: 10px;}
 .inner-padding-12 {padding: 12px; float: left;}
+.inner-side-padding-20 {padding: 0 20px; float: left;}
 .little-grey-bar {background-color: #F2F2F2;float: left;font-size: 0.9em;font-weight: bold; padding: 2px 0px;text-align: right;text-transform: uppercase;width: 100%; margin: 10px 0;}
 
 /* search form */
@@ -265,7 +266,7 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 
 
 /* pushed books */
-.pushed-books { float: left;}
+.pushed-books { float: left; width: 100%;}
 .pb-title {color:#239CD3;font-size: 2em; margin-bottom: 10px; font-weight: normal;}
 .pb-title .pb-highlight {font-weight: bold;}
 .pb-item { float: left; margin-bottom: 10px; width: 100%; font-size: 1.1em;}
@@ -284,6 +285,9 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .pbi-publication .publisher {font-weight: bold;}
 .pbi-authors {font-weight: bold;}
 .pb-nobooks {font-size: 1.5em;}
+.pb-shelf {background: url("../images/shelf.png") no-repeat scroll 0 bottom transparent; float: left; padding-bottom: 23px; width: 100%;}
+.pb-bookOnShelf {float: left; margin-right: 13px;}
+.pb-bookOnShelf .image-frame {box-shadow: none;}
 
 /* book-search */
 .bs-button {float: right;}

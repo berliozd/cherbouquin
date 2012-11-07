@@ -32,29 +32,21 @@ class UserToolBox extends \Sb\View\AbstractView {
             "nbFriends" => $nbFriends,
             "defImage" => $this->getContext()->getDefaultImage());
 
+        $params["showCurrentlyReadingUserBooks"] = $this->currentlyReadingBooks;
+        $params["showWishedBooks"] = $this->wishedBooks;
 
-        $params["showCurrentlyReadingUserBooks"] = false;
-        $params["showWishedBooks"] = false;
+        // Add the currently reading books if requested
+        if ($this->currentlyReadingBooks) {
+            $allCurrentlyReadingUserBooks = UserBookDao::getInstance()->getCurrentlyReadingsNow($user->getId());
+            // Getting only first 5 items
+            $currentlyReadingUserBooks = array_slice($allCurrentlyReadingUserBooks, 0, 5);
+            $params["currentlyReadingUserBooks"] = $currentlyReadingUserBooks;
+        }
 
-        // Temporary desactivate the currently readings books and wished books in usertoolbox
-        if (!$this->getConfig()->getIsProduction()) {
-
-            $params["showCurrentlyReadingUserBooks"] = $this->currentlyReadingBooks;
-            $params["showWishedBooks"] = $this->wishedBooks;
-
-            // Add the currently reading books if requested
-            if ($this->currentlyReadingBooks) {
-                $allCurrentlyReadingUserBooks = UserBookDao::getInstance()->getCurrentlyReadingsNow($user->getId());
-                // Getting only first 5 items
-                $currentlyReadingUserBooks = array_slice($allCurrentlyReadingUserBooks, 0, 5);
-                $params["currentlyReadingUserBooks"] = $currentlyReadingUserBooks;
-            }
-
-            // Add the wished books if requested
-            if ($this->wishedBooks) {
-                $wishedBooks = UserBookDao::getInstance()->getListWishedBooks($this->getContext()->getConnectedUser()->getId(), -1, true);
-                $params["wishedBooks"] = $wishedBooks;
-            }
+        // Add the wished books if requested
+        if ($this->wishedBooks) {
+            $wishedBooks = UserBookDao::getInstance()->getListWishedBooks($this->getContext()->getConnectedUser()->getId(), -1, true);
+            $params["wishedBooks"] = $wishedBooks;
         }
 
         $tpl->setVariables($params);
