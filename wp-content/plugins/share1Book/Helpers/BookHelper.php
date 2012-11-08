@@ -33,11 +33,11 @@ class BookHelper {
     }
 
     public static function getSmallImageTag(Book $book, $defaultImg) {
-        return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title='" . $book->getTitle() . "'/>", self::getImageSrc($book->getSmallImageUrl(), $defaultImg));
+        return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title=\"" . $book->getTitle() . "\"/>", self::getImageSrc($book->getSmallImageUrl(), $defaultImg));
     }
 
     public static function getMediumImageTag(Book $book, $defaultImg) {
-        return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title='" . $book->getTitle() . "'/>", self::getImageSrc($book->getImageUrl(), $defaultImg));
+        return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title=\"" . $book->getTitle() . "\"/>", self::getImageSrc($book->getImageUrl(), $defaultImg));
     }
 
     public static function getLargeImageTag(Book $book, $defaultImg) {
@@ -45,7 +45,7 @@ class BookHelper {
         if ($src == "") {
             $src = self::getImageSrc($book->getImageUrl(), $defaultImg);
         }
-        return sprintf("<img src='%s' border='0' class='bookPreview' title='" . $book->getTitle() . "'/>", $src);
+        return sprintf("<img src='%s' border='0' class='bookPreview' title=\"" . $book->getTitle() . "\"/>", $src);
     }
 
     public static function completeInfos(Book &$book) {

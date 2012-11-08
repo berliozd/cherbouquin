@@ -161,8 +161,8 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->andWhere("ub.is_blow_of_heart = 1")
                 ->andWhere("f.accepted = 1")
                 ->setMaxResults(5)
-                ->orderBy("b.nb_blow_of_hearts", "DESC")
-                ->addOrderBy("ub.last_modification_date", "DESC")
+                ->orderBy("ub.last_modification_date", "DESC")
+                ->addOrderBy("b.nb_blow_of_hearts", "DESC")
                 ->setParameter("user_id", $userId);
 
         $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
