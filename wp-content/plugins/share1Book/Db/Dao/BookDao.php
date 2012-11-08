@@ -108,7 +108,6 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b, p")->from("\Sb\Db\Model\Book ", "b")
                 ->distinct()
-                //->join("b.contributors", "c")
                 ->join("b.publisher", "p")
                 ->join("b.userbooks", "ub")
                 ->orderBy("b.average_rating", "DESC")
@@ -130,14 +129,12 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         $cacheId = $this->getCacheId(__FUNCTION__, array(""));
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b, c, p")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
                 ->distinct()
-                ->join("b.contributors", "c")
-                ->join("b.publisher", "p")
                 ->join("b.userbooks", "ub")
                 ->where("ub.is_blow_of_heart = 1")
                 ->setMaxResults(10)
-                ->orderBy("ub.creation_date", "DESC");
+                ->orderBy("ub.last_modification_date", "DESC");
 
         $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false);
 
@@ -154,10 +151,8 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         $cacheId = $this->getCacheId(__FUNCTION__, array(""));
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b, c, p")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
                 ->distinct()
-                ->join("b.contributors", "c")
-                ->join("b.publisher", "p")
                 ->join("b.userbooks", "ub")
                 ->join("ub.user", "u")
                 ->join("u.friendships_as_target", "f")
@@ -165,8 +160,9 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->where("me.id = :user_id")
                 ->andWhere("ub.is_blow_of_heart = 1")
                 ->andWhere("f.accepted = 1")
-                ->setMaxResults(10)
+                ->setMaxResults(5)
                 ->orderBy("b.nb_blow_of_hearts", "DESC")
+                ->addOrderBy("ub.last_modification_date", "DESC")
                 ->setParameter("user_id", $userId);
 
         $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
@@ -180,8 +176,6 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
-                //->join("b.contributors", "c")
-                //->join("b.publisher", "p")
                 ->join("b.userbooks", "ub")
                 ->setMaxResults(5)
                 ->orderBy("ub.creation_date", "DESC")

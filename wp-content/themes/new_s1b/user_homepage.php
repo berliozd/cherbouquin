@@ -2,6 +2,12 @@
 require_once 'includes/init.php';
 get_header();
 
+use \Sb\Helpers\BookHelper;
+use \Sb\Helpers\HTTPHelper;
+use \Sb\Db\Dao\BookDao;
+use \Sb\Db\Dao\UserEventDao;
+use \Sb\View\UserEvents;
+
 /**
  * Template Name: user_homepage
  */
@@ -13,61 +19,68 @@ echo $userNavigation->get();
 <?php showFlashes(); ?>
 <div id="content-wrap">
     <div id="content-center">
+        
+        <?php 
+        function getBookId(\Sb\Db\Model\Book $book) {
+            return $book->getId();
+        }
+        function notInArray(\Sb\Db\Model\Book $book) {
+            global $blowOfHeartFriendsBooksId;
+            return !in_array($book->getId(), $blowOfHeartFriendsBooksId);
+        }
+        // Getting friends boh
+        $blowOfHeartFriendsBooks = BookDao::getInstance()->getListBOHFriends($context->getConnectedUser()->getId()); 
+        if (!$blowOfHeartFriendsBooks || count($blowOfHeartFriendsBooks) < 5) {
+            $blowOfHeartFriendsBooksId = array_map("getBookId", $blowOfHeartFriendsBooks);
+            // Getting all users boh
+            $blowOfHeartBooks = BookDao::getInstance()->getListBOH();
+            $blowOfHeartBooks = array_filter($blowOfHeartBooks, "notInArray");
+            // Merging 2 arrays
+            if ($blowOfHeartFriendsBooks && $blowOfHeartBooks)                
+                $blowOfHeartBooks = array_merge($blowOfHeartFriendsBooks, $blowOfHeartBooks);
+            $blowOfHeartBooks = array_slice($blowOfHeartBooks, 0, 5);
+        } else
+            $blowOfHeartBooks = $blowOfHeartFriendsBooks;
+        ?>
+        <?php if ($blowOfHeartBooks && count($blowOfHeartBooks) > 0) { ?>
         <div class="pushed-books pushedBooks">
             <div class="pb-title">
-                <?php _e("Vous lisez actuellement", "s1b"); ?>
+                <?php ($blowOfHeartFriendsBooks ? _e("Coups de coeur de vos amis", "s1b") : _e("Coups de coeur", "s1b")); ?>
             </div>
-            <?php
-            $currentlyReadingBook = \Sb\Db\Dao\UserBookDao::getInstance()->getReadingNow($context->getConnectedUser()->getId());
-            if ($currentlyReadingBook) {
-                $currentlyReadingBookView = new \Sb\View\CurrentlyReadingBook($config->getUserLibraryPageName(), true, $currentlyReadingBook);
-                echo $currentlyReadingBookView->get();
-            } else {
-                $readingWhatform = new \Sb\View\Components\ReadingWhatForm();
-                echo $readingWhatform->get();
-            }
+            <div class="pb-shelf">
+                <div class="inner-side-padding-30">
+                <?php foreach ($blowOfHeartBooks as $blowOfHeartBook) { ?>
+                    <div class="pb-bookOnShelf">
+                        <a href="<?php echo HTTPHelper::Link($blowOfHeartBook->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($blowOfHeartBook, $context->getDefaultImage());?></a>
+                    </div>
+                <?php }?>
+                </div>
+            </div>
+        </div>
+        <div class="horizontal-sep-1"></div>
+        <?php } ?>
+        <?php 
+        $userEvents = UserEventDao::getInstance()->getListUserFriendsUserEvents($context->getConnectedUser()->getId()); 
+        if ($userEvents && count($userEvents > 0)) { 
+        ?>
+        <div class="pushed-books pushedBooks">
+            <div class="pb-title">
+                <?php _e("Activités de vos amis", "s1b"); ?>
+            </div>
+            <?php            
+            $userEventsView = new UserEvents($userEvents);
+            echo $userEventsView->get();
             ?>
         </div>
         <div class="horizontal-sep-1"></div>
-        <div class="pushed-books pushedBooks">
-            <div class="pb-title">
-                <?php _e("Vos livres souhaités", "s1b"); ?>
-            </div>
-            <?php
-            $allWishedBooks = \Sb\Db\Dao\UserBookDao::getInstance()->getListWishedBooks($context->getConnectedUser()->getId(), -1, true);
-            $wishedBooks = array_slice($allWishedBooks, 0, 10);
-            if (count($wishedBooks) == 0) {
-                $noWishdBooksWidget = new \Sb\View\Components\NoBooksWidget(__("Vous ne souhaitez aucun livre.", "s1b"));
-                echo $noWishdBooksWidget->get();
-            } else {
-                $wishedBooksView = new \Sb\View\PushedUserBooks($wishedBooks, $config->getUserLibraryPageName(), 3, false, false);
-                echo $wishedBooksView->get();
-            }
-            ?>
-        </div>
-        <div class="horizontal-sep-1"></div>
-        <div class="pushed-books pushedBooks">
-            <div class="pb-title">
-                <?php _e("Coups de coeur de vos amis", "s1b"); ?>
-            </div>
-            <?php
-            $blowOfHeartFriendsBooks = \Sb\Db\Dao\BookDao::getInstance()->getListBOHFriends($context->getConnectedUser()->getId());
-            if (count($blowOfHeartFriendsBooks) == 0) {
-                $noBohForFriends = new \Sb\View\Components\NoBooksWidget(__("Vos amis n'ont pas encore ajouté de coups de coeur", "s1b"));
-                echo $noBohForFriends->get();
-            } else {
-                $view = new \Sb\View\PushedBooks($blowOfHeartFriendsBooks, 3, true);
-                echo $view->get();
-            }
-            ?>
-        </div>
-        <div class="horizontal-sep-1"></div>
+        <?php  } ?>
+        
         <div class="pushed-books pushedBooks">
             <div class="pb-title">
                 <?php _e("Top 10 des membres", "s1b"); ?>
             </div>
             <?php
-            $topsBooks = \Sb\Db\Dao\BookDao::getInstance()->getListTops();
+            $topsBooks = BookDao::getInstance()->getListTops();
             if (count($topsBooks) == 0) {
                 $noTopBooks = new \Sb\View\Components\NoBooksWidget(__("Aucun livre n'a encore été noté par les membres", "s1b"));
                 echo $noTopBooks->get();
@@ -81,16 +94,10 @@ echo $userNavigation->get();
     <div id="content-right">
         <div class="right-frame">
             <?php
-            $userToolBox = new \Sb\View\Components\UserToolBox(true);
+            $userToolBox = new \Sb\View\Components\UserToolBox(true, true);
             echo $userToolBox->get();
             ?>
-        </div>
-        <div class="right-frame">
-            <?php
-            $facebookFrame = new \Sb\View\Components\FacebookFrame();
-            echo $facebookFrame->get();
-            ?>
-        </div>
+        </div>       
         <div class="right-frame">
             <?php
             $ad = new \Sb\View\Components\Ad("user_homepage", "6697829998");

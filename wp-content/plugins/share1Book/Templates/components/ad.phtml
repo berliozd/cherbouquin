@@ -1,23 +1,50 @@
 <?php
-$rand = rand(0, 99);
-?>
 
-<?php
-if ($rand < 50) {
-?>
-<!-- GROUPON -->
-<!-- DEBUT du code HTML zanox-affiliate -->
-<!-- (Le code HTML zanox-affiliate ne peut pas �tre modifié pour préserver une fonctionnalité parfaite !)-->
-<a href="http://ad.zanox.com/ppc/?23191598C1894963627T"><img src="http://ad.zanox.com/ppv/?23191598C1894963627" align="bottom" width="300" height="250" border="0" hspace="1" alt="1 - Groupon 300x250.gif"></a>
-<!-- FIN du code HTML zanox-affiliate -->
-<?php
-} else {
-?>
-<!-- FNAC -->
-<!-- DEBUT du code HTML zanox-affiliate -->
-<!-- (Le code HTML zanox-affiliate ne peut pas être modifié pour préserver une fonctionnalité parfaite !)-->
-<a href="http://ad.zanox.com/ppc/?23200493C1463085181T"><img src="http://ad.zanox.com/ppv/?23200493C1463085181" align="bottom" width="300" height="250" border="0" hspace="1" alt="1.15 Actualité-Garanties-300x250"></a>
-<!-- FIN du code HTML zanox-affiliate -->
-<?php
-}
-?>
+$rand = rand(0, 22);
+$ad1 = new \Sb\Templates\Template(("ads/fnac01_ActuApple"));
+$ad2 = new \Sb\Templates\Template(("ads/fnac02_ActuJeuxJouets"));
+$ad3 = new \Sb\Templates\Template(("ads/fnac03_ActuLivresEbooks"));
+$ad4 = new \Sb\Templates\Template(("ads/fnac04_MarketPlace"));
+$ad5 = new \Sb\Templates\Template(("ads/fnac05_ImacIpadMacBook"));
+$ad6 = new \Sb\Templates\Template(("ads/fnac06_Kobo"));
+$ad7 = new \Sb\Templates\Template(("ads/fnac07_LivresEbooksBD"));
+$ad8 = new \Sb\Templates\Template(("ads/fnac08_LivresEbooksEbooks"));
+$ad9 = new \Sb\Templates\Template(("ads/fnac09_OffresAdherentsWeekend"));
+$ad10 = new \Sb\Templates\Template(("ads/fnac10_VenteFlash"));
+$ad11 = new \Sb\Templates\Template(("ads/groupon01_Groupon"));
+$ad12 = new \Sb\Templates\Template(("ads/groupon02_Chocolat"));
+$ad13 = new \Sb\Templates\Template(("ads/groupon03_DealDuJour"));
+$ad14 = new \Sb\Templates\Template(("ads/groupon04_Saisonnieres"));
+$ad15 = new \Sb\Templates\Template(("ads/groupon05_DealBlanc"));
+$ad16 = new \Sb\Templates\Template(("ads/groupon06_LDN"));
+$ad17 = new \Sb\Templates\Template(("ads/groupon07_RelaxezVous"));
+$ad18 = new \Sb\Templates\Template(("ads/groupon08_Rome"));
+$ad19 = new \Sb\Templates\Template(("ads/groupon09_Ski"));
+$ad20 = new \Sb\Templates\Template(("ads/groupon10_Spa"));
+$ad21 = new \Sb\Templates\Template(("ads/lafourchette01"));
+$ad22 = new \Sb\Templates\Template(("ads/numericable01"));
+$ad23 = new \Sb\Templates\Template(("ads/amazon01"));
+$ads = array($ad1->output(), 
+    $ad2->output(), 
+    $ad3->output(), 
+    $ad4->output(), 
+    $ad5->output(), 
+    $ad6->output(), 
+    $ad7->output(), 
+    $ad8->output(), 
+    $ad9->output(), 
+    $ad10->output(), 
+    $ad11->output(), 
+    $ad12->output(), 
+    $ad13->output(), 
+    $ad14->output(), 
+    $ad15->output(), 
+    $ad16->output(), 
+    $ad17->output(), 
+    $ad18->output(), 
+    $ad19->output(), 
+    $ad20->output(),
+    $ad21->output(),
+    $ad22->output(),
+    $ad23->output());
+echo $ads[$rand];

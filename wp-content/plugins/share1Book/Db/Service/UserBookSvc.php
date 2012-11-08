@@ -2,6 +2,8 @@
 
 namespace Sb\Db\Service;
 
+use \Sb\Trace\Trace;
+
 /**
  * Description of UserBookSvc
  *
@@ -140,15 +142,30 @@ class UserBookSvc extends \Sb\Db\Service\Service {
 
                 $bookLink = \Sb\Helpers\HTTPHelper::Link($book->getLink());
                 // Persisting userbook in DB
+                $addOk = false;
                 if ($existingUserBook) {
                     if (\Sb\Db\Dao\UserBookDao::getInstance()->update($userBook)) {
                         $editUserBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
                         $returnMsg = sprintf(__("Vous aviez déjà le livre \"%s\" dans votre bibliothèque mais l'aviez supprimé. Il a été rajouté.<br/><a class=\"link\" href=\"%s\">Remplir votre fiche de lecture</a> ou <a class=\"link\" href=\"%s\">Voir ce livre</a>", "s1b"), $book->getTitle(), $editUserBookLink, $bookLink);
+                        $addOk = true;
                     }
                 } else {
                     if (\Sb\Db\Dao\UserBookDao::getInstance()->add($userBook)) {
                         $editUserBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
                         $returnMsg = sprintf(__("Le livre \"%s\" a été ajouté à votre bibliothèque.<br/><a class=\"link\" href=\"%s\">Remplir votre fiche de lecture</a> ou <a class=\"link\" href=\"%s\">Voir ce livre</a>", "s1b"), $book->getTitle(), $editUserBookLink, $bookLink);
+                        $addOk = true;
+                    }
+                }
+
+                if ($addOk) {
+                    try {
+                        $userEvent = new \Sb\Db\Model\UserEvent;
+                        $userEvent->setItem_id($userBook->getId());
+                        $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_ADD);
+                        $userEvent->setUser($user);
+                        \Sb\Db\Dao\UserEventDao::getInstance()->add($userEvent);
+                    } catch (\Exception $exc) {
+                        Trace::addItem("Une erreur s'est produite lors de l'ajour de l'événement suite à l'ajout d'un livre " . $exc->getMessage());
                     }
                 }
             }

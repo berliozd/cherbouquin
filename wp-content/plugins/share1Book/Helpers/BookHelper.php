@@ -1,8 +1,11 @@
 <?php
 
-use Sb\Config\Model;
-
 namespace Sb\Helpers;
+
+
+use \Sb\Db\Model\Book;
+use \Sb\Mail\Service\MailSvcImpl;
+use \Sb\Entity\Constants;
 
 /**
  * Description of BookHelper
@@ -29,15 +32,15 @@ class BookHelper {
         return $src;
     }
 
-    public static function getSmallImageTag(\Sb\Db\Model\Book $book, $defaultImg) {
+    public static function getSmallImageTag(Book $book, $defaultImg) {
         return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title='" . $book->getTitle() . "'/>", self::getImageSrc($book->getSmallImageUrl(), $defaultImg));
     }
 
-    public static function getMediumImageTag(\Sb\Db\Model\Book $book, $defaultImg) {
+    public static function getMediumImageTag(Book $book, $defaultImg) {
         return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title='" . $book->getTitle() . "'/>", self::getImageSrc($book->getImageUrl(), $defaultImg));
     }
 
-    public static function getLargeImageTag(\Sb\Db\Model\Book $book, $defaultImg) {
+    public static function getLargeImageTag(Book $book, $defaultImg) {
         $src = $book->getLargeImageUrl();
         if ($src == "") {
             $src = self::getImageSrc($book->getImageUrl(), $defaultImg);
@@ -45,7 +48,7 @@ class BookHelper {
         return sprintf("<img src='%s' border='0' class='bookPreview' title='" . $book->getTitle() . "'/>", $src);
     }
 
-    public static function completeInfos(\Sb\Db\Model\Book &$book) {
+    public static function completeInfos(Book &$book) {
 
         try {
 
@@ -55,7 +58,7 @@ class BookHelper {
 
             if ($googleBook->getVolumeInfo()) {
                 \Sb\Trace\Trace::addItem('Le livre a été trouvé sur Google.');
-                $bookFromGoogle = new \Sb\Db\Model\Book();
+                $bookFromGoogle = new Book();
                 \Sb\Db\Mapping\BookMapper::mapFromGoogleBookVolumeInfo($bookFromGoogle, $googleBook->getVolumeInfo());
 
                 if ((!$book->getDescription()) && $bookFromGoogle->getDescription()) {
@@ -77,8 +80,10 @@ class BookHelper {
             } else {
                 \Sb\Trace\Trace::addItem('Le livre n\'a pas été trouvé sur Google.');
             }
-        } catch (Exception $exc) {
-            \Sb\Trace\Trace::addItem(sprintf("Une erreur s'est produite lors de l'appel à l'api google books : %s", $exc->getMessage()));
+        } catch (\Exception $exc) {
+            $message = sprintf("Une erreur s'est produite lors de l'appel à l'api google books : %s", $exc->getMessage());
+            MailSvcImpl::getInstance()->send(Constants::WEBMASTER_EMAIL, "Erreur interne", $message);
+            \Sb\Trace\Trace::addItem($message);
         }
     }
 

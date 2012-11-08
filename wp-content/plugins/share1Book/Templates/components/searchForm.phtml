@@ -11,7 +11,7 @@
         </div>
         <div class="sf-field search-field">
             <div class="sff-input search-field-input">
-                <input class="searchTerm bookSearchTermField" type="text" name="searchTerm" value="<?php echo $searchTerm;?>" />
+                <input class="searchTerm bookSearchTermField" type="text" name="searchTerm" value="<?php echo ($showSearchTermDef ? $searchTerm : "");?>" />
                 <input type="hidden" class="bookSearchTermDef" value="<?php echo $searchTermDef;?>" />
             </div>
             <button class="sff-button search-button">&nbsp;</button>

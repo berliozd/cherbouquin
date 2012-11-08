@@ -180,7 +180,7 @@ function showBorrowingForm(\Sb\Db\Model\Book $book, \Sb\Context\Model\Context $c
     $bookView = new \Sb\View\Book($book, false, false, true, false);
     $tpl->set("book", $bookView->get());
 
-    $tpl->setVariables(array("friendUserBooks" => $userBooks));
+    $tpl->setVariables(array("friendUserBooks" => $userBooksBorrowable));
 
     echo $tpl->output();
 }

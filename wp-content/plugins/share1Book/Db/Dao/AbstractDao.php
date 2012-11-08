@@ -99,12 +99,26 @@ abstract class AbstractDao {
         return true;
     }
 
+    /**
+     * 
+     * @param \Sb\Db\Model\Model $entity
+     * @return boolean true if update occured successfuly
+     */
     public function update(\Sb\Db\Model\Model $entity) {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
         return true;
     }
 
-}
+    /**
+     * 
+     * @param \Sb\Db\Model\Model $entity
+     * @return boolean true if adding occured successfuly
+     */
+    public function add(\Sb\Db\Model\Model $entity) {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+        return true;
+    }
 
-?>
+}

@@ -104,6 +104,9 @@ class User implements \Sb\Db\Model\Model {
 
     /** @OneToMany(targetEntity="UserBook", mappedBy="user")  */
     protected $userbooks;
+    
+    /** @OneToMany(targetEntity="UserEvent", mappedBy="user")  */
+    protected $userevents;
 
     /** @OneToMany(targetEntity="FriendShip", mappedBy="user_source") */
     protected $friendships_as_source;
@@ -334,7 +337,15 @@ class User implements \Sb\Db\Model\Model {
     public function setUserBooks($userBooks) {
         $this->userbooks = $userBooks;
     }
+    
+    public function getUserevents() {
+        return $this->userevents;
+    }
 
+    public function setUserevents($userevents) {
+        $this->userevents = $userevents;
+    }
+    
     public function getMessages_sent() {
         return $this->messages_sent;
     }

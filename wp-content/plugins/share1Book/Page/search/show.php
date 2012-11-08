@@ -15,6 +15,7 @@ $bookSearch = new \Sb\Lists\BookSearch(false, null, $pageId, $config->getSearchN
 
 if (!$bookSearch->getHasResults()) {
     \Sb\Flash\Flash::addItem(__("Vos critères de recherche ne nous ont pas permis de trouver de livre.", "s1b"));
+    HTTPHelper::redirectToHome();
 } else {
     $list = $bookSearch->getList();
     $view = new \Sb\View\BookSearch($list->getShownResults(), $list->getPagerLinks(), $list->getFirstItemIdx(), $list->getLastItemIdx(), $list->getNbItemsTot());

@@ -88,31 +88,31 @@ function attachRegistrationFormEvents() {
 
 /* Book search field clearing on focus */
 function attachBookSearchEvents() {
-    attachInputClearingAndRestore("bookSearchTermDef", "bookSearchTermField");    
+    attachInputClearingAndRestore("bookSearchTermDef", "#nav-main .bookSearchTermField");    
 }
 
 /* Friend search field clearing on focus */
 function attachFriendSearchEvents() {
-    attachInputClearingAndRestore("friendSearchDef", "friendSearchField");    
+    attachInputClearingAndRestore("friendSearchDef", ".friendSearchField");    
 }
 
 /* Login field clearing on focus */
 function attachLoginEvents() {
-    attachInputClearingAndRestore("loginDef", "loginField");    
+    attachInputClearingAndRestore("loginDef", ".loginField");    
     $(".loginPwd").focus(function() {        
         $(this).val("");        
     });
 }
 
-function attachInputClearingAndRestore(defClass, fieldClass) {
+function attachInputClearingAndRestore(defClass, selector) {
     var bookSearchTermDef = $("." + defClass).val();
-    $("." + fieldClass).focus(function() {
+    $(selector).focus(function() {
         if ($(this).val() == bookSearchTermDef) {
             $(this).val("");
         }
     });
 
-    $("." + fieldClass).blur(function(){
+    $(selector).blur(function(){
         if ($(this).val() == "") {
             $(this).val(bookSearchTermDef);
         }

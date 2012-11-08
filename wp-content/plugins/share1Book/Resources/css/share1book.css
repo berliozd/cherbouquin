@@ -93,7 +93,7 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
 .picto-lendable-small {background: url("../images/sprite.png") no-repeat scroll 2px -780px transparent;}
 .boh {background: url("../images/sprite.png") no-repeat scroll 0 -393px transparent; float: left; height: 20px;width: 20px;}
 .noDisplay {display: none;}
-.image-frame {border: 1px solid #B2B2B2; box-shadow: 0 2px 14px #555555; padding: 4px;}
+.image-frame {border: 1px solid #B2B2B2; box-shadow: 0 2px 14px #555555; padding: 4px; background-color: #FFFFFF;}
 .image-thumb {height: 160px; width: 95px;}
 .image-thumb-small {height: 75px; width: 50px;}
 .image-thumb-medium {height: 100px; width: 70px;}
@@ -152,6 +152,7 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .inner-padding {padding: 5px;}
 .inner-padding-10 {padding: 10px;}
 .inner-padding-12 {padding: 12px; float: left;}
+.inner-side-padding-30 {padding: 0 30px;float: left;}
 .little-grey-bar {background-color: #F2F2F2;float: left;font-size: 0.9em;font-weight: bold; padding: 2px 0px;text-align: right;text-transform: uppercase;width: 100%; margin: 10px 0;}
 
 /* search form */
@@ -163,7 +164,6 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 #header .connected .search-field {background: url("../images/sprite.png") no-repeat scroll 0 -40px transparent;width: 658px;} 
 #header .connected .search-field INPUT {width:600px;}
 #header .connected .sf-label {margin-right: 53px;}
-
 
 /* footer */
 #footer-bottom UL {list-style: none;  margin: 0;}
@@ -178,7 +178,8 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .ft-item-content { float:left; color: #FFFFFF;}
 .ft-item-title { float:left; color: #239cd3; font-size: 1.6em; margin-bottom: 5px; width: 100%; font-weight: normal;  margin-top: 0;}
 .ft-facebook {background: url("../images/sprite.png") no-repeat scroll 0px -1230px transparent;display: block;height: 45px;width: 45px;}
-.ft-twitter {background: url("../images/sprite.png") no-repeat scroll -55px -1230px transparent;display: block;height: 45px;width: 41px;}
+.ft-twitter {background: url("../images/sprite.png") no-repeat scroll -53px -1230px transparent;display: block;height: 45px;width: 45px;}
+.ft-pinterest {background: url("../images/sprite.png") no-repeat scroll -105px -1230px transparent;display: block;height: 45px;width: 45px;}
 
 
 /* login form */
@@ -255,11 +256,17 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .carousel-currentreadings {list-style: none; padding: 5px; margin-top:0;}
 .ut-currentreadingbook {float:left; width: 98%; font-size: 0.9em;}
 .utcb-image {float:left; width:45%;}
-.utcb-text {float:right; width:55%;} 
+.utcb-text {float:right; width:55%; font-size: 0.8em;} 
+.ut-wished {float:left;}
+.ut-wished .ut-title { background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1362px transparent; color: #FFFFFF; line-height: 35px; padding-left: 30px;}
+.utwb {float: left; width:100%; margin-bottom:5px;}
+.utwb-image {float:left; width:30%;}
+.utwb-text {float:right; width:70%; font-size: 0.8em;} 
+.utwb-link {float:right; font-size: 0.8em;}
 
 
 /* pushed books */
-.pushed-books { float: left;}
+.pushed-books { float: left; width: 100%;}
 .pb-title {color:#239CD3;font-size: 2em; margin-bottom: 10px; font-weight: normal;}
 .pb-title .pb-highlight {font-weight: bold;}
 .pb-item { float: left; margin-bottom: 10px; width: 100%; font-size: 1.1em;}
@@ -278,6 +285,9 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .pbi-publication .publisher {font-weight: bold;}
 .pbi-authors {font-weight: bold;}
 .pb-nobooks {font-size: 1.5em;}
+.pb-shelf {background: url("../images/shelf.png") no-repeat scroll 5px bottom transparent; float: left; padding-bottom: 23px; width: 100%;}
+.pb-bookOnShelf {float: left; margin-right: 20px;}
+.pb-bookOnShelf .image-frame {border: medium none; box-shadow: none; padding: 0;}
 
 /* book-search */
 .bs-button {float: right;}
@@ -496,8 +506,14 @@ TABLE TH.llh-title {padding-left: 80px;}
 .pd-description {font-size: 1.5em;}
 .pd-title {font-size: 2.5em;}
 
-.rw-search .search-form {float: left; width: 455px;}
-.rw-search .sf-label {font-weight: normal;color: #000000;}
+.rw-search {font-size: 0.8em;}
+.rw-search .search-form {float: left; width: 100%;}
+.rw-search .sf-label {font-weight: normal;color: #fff; font-size: 1em;}
+.rw-search .rw-image {float: left;}
+.rw-search .rw-field {float: right; width: 200px;}
+.rw-search .connected .search-field {background: url("../images/sprite.png?v1") no-repeat scroll -310px 0px transparent;width: 195px;} 
+.rw-search .connected .search-field INPUT {width:145px;}
+.rw-search .connected .sf-label {}
 
 /* mailbox list */
 .mailbox TABLE {float:left; width: 100%;  text-align: left;}
@@ -604,3 +620,18 @@ TD.mb-col-state{color:#f56903;}
 .tm-name {font-size: 2em;font-weight: bold;}
 .tm-resume {float: left;}
 .tm-image {float: left;  margin-right: 20px;}
+
+/* user events */
+.user-events { float: left; width: 100%;}
+.user-event { float: left; width: 100%;}
+.ue-friendimage {float: left;}
+.ue-description {float: left; margin-left: 10px; width: 540px;}
+.ue-resume {float: left; margin-bottom: 3px; width: 100%;}
+.ue-book {float: left; width: 100%;}
+.ue-bookimage {float: left;}
+.ue-bookdescription {float: left; margin-left:10px;}
+.ue-booktitle {font-weight: bold; width: 470px;}
+.ue-booklink {}
+.ue-date {}
+.ue-rating-label {float:left;}
+.user-events .rating {margin-left: 5px; margin-top: -5px;}

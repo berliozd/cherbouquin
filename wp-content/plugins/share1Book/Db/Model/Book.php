@@ -405,7 +405,7 @@ class Book implements \Sb\Db\Model\Model {
         
     public function IsValid() {
 
-// If none of the 3 ids are set, book is invalid
+        // If none of the 3 ids are set, book is invalid
         if ((!$this->getISBN10()) && (!$this->getISBN13()) && (!$this->getASIN())) {
             return false;
         }
@@ -434,14 +434,13 @@ class Book implements \Sb\Db\Model\Model {
     }
 
     public function getOrderableContributor(\Sb\Db\Model\Contributor $contributor) {
-        return $contributor->getFullName();
+        return $contributor->getName();
     }
 
     public function getLink() {
         $encodedTitle = \Sb\Helpers\HTTPHelper::encodeTextForURL($this->getTitle());
         $encodedAuthors = \Sb\Helpers\HTTPHelper::encodeTextForURL($this->getOrderableContributors());
         return sprintf("livre/%s/%s/%s/", $encodedTitle, $encodedAuthors, $this->getId());
-        //return sprintf("livre/%s/%s/%s/", $encodedTitle, $encodedAuthors, $this->getId());    
     }
 
     private function isNotDeleted(\Sb\Db\Model\UserBook $userBook) {

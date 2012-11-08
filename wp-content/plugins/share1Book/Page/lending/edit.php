@@ -1,6 +1,11 @@
 <?php
 
-\Sb\Trace\Trace::addItem(\Sb\Entity\LibraryPages::LENDING_EDIT);
+use \Sb\Trace\Trace;
+use \Sb\Db\Model\UserEvent;
+use \Sb\Db\Dao\UserEventDao;
+use \Sb\Entity\EventTypes;
+
+Trace::addItem(\Sb\Entity\LibraryPages::LENDING_EDIT);
 
 global $s1b;
 $context = $s1b->getContext();
@@ -58,8 +63,17 @@ if (!$s1b->getIsSubmit()) {
         $lending->setState(\Sb\Lending\Model\LendingState::ACTIV);
 
         if (\Sb\Db\Dao\LendingDao::getInstance()->add($lending)) {
-            \Sb\Trace\Trace::addItem("Lending créé avec succès.");
+            Trace::addItem("Lending créé avec succès.");
             \Sb\Flash\Flash::addItem(__("Les informations de prêt ont bien été mises à jour.", "s1b"));
+            try {
+                $userEvent = new UserEvent;
+                $userEvent->setNew_value($lending->getId());
+                $userEvent->setType_id(EventTypes::USER_LEND_USERBOOK);
+                $userEvent->setUser($context->getConnectedUser());
+                UserEventDao::getInstance()->add($userEvent);
+            } catch (Exception $exc) {
+                Trace::addItem("erreur lors de l'ajout de l'évènement suite au prêt : " . $exc->getMessages());
+            }
         }
     } else {
         // editing a lending -> ending it
@@ -100,7 +114,7 @@ if (!$s1b->getIsSubmit()) {
                         $mailSvc->send($lending->getUserbook()->getUser()->getEmail(), __("Prêt en attente de retour de validation", "s1b"), emailReturnValidationRequiredBody($lending->getUserbook()->getBook()->getTitle(), $lending->getBorrower_userbook()->getUser()->getUserName()));
                     }
 
-                    \Sb\Trace\Trace::addItem("Mise à jour (FIN) du lending correctement.");
+                    Trace::addItem("Mise à jour (FIN) du lending correctement.");
                     if ($userIsBorrower && !$isBorrowedToGuest)
                         \Sb\Flash\Flash::addItem(__("Les informations de prêt ont bien été mises à jour mais le retour doit être validé par le prêteur.", "share1book"));
                     else

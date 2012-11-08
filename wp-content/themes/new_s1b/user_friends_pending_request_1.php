@@ -1,5 +1,12 @@
 <?php
 
+use \Sb\Db\Dao\FriendShipDao;
+use Sb\Db\Dao\UserEventDao;
+use \Sb\Db\Model\UserEvent;
+use \Sb\Entity\EventTypes;
+use \Sb\Trace\Trace;
+use \Sb\Helpers\ArrayHelper;
+
 $user = $context->getConnectedUser();
 
 if (!$_POST) {
@@ -16,19 +23,30 @@ if (!$_POST) {
     }
 } else {
 
-    $friendShipId = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'friendShipId', null);
-    $Title = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'Title', null);
-    $Message = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'Message', null);
-    $Refused = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'Refused', null);
+    $friendShipId = ArrayHelper::getSafeFromArray($_POST, 'friendShipId', null);
+    $Title = ArrayHelper::getSafeFromArray($_POST, 'Title', null);
+    $Message = ArrayHelper::getSafeFromArray($_POST, 'Message', null);
+    $Refused = ArrayHelper::getSafeFromArray($_POST, 'Refused', null);
     if ($friendShipId) {
         if ($Refused == 0) {
 
             // update the requested friendship
-            $friendShip = \Sb\Db\Dao\FriendShipDao::getInstance()->get($friendShipId);
+            $friendShip = FriendShipDao::getInstance()->get($friendShipId);
             if ($friendShip) {
                 $friendShip->setAccepted(true);
                 $friendShip->setValidated(true);
-                \Sb\Db\Dao\FriendShipDao::getInstance()->update($friendShip);
+                if (FriendShipDao::getInstance()->update($friendShip)) {
+                    // Add the userEvent
+                    try {
+                        $userEvent = new UserEvent;
+                        $userEvent->setNew_value($user->getId());
+                        $userEvent->setType_id(EventTypes::USER_ADD_FRIEND);
+                        $userEvent->setUser($friendShip->getUser_source());
+                        UserEventDao::getInstance()->add($userEvent);
+                    } catch (\Exception $exc) {
+                        Trace::addItem("Erreur lors de l'ajout de l'événement : " . $exc->getMEssage());
+                    }
+                }
             }
             // create a friendship on the other side
             $inverseFriendShip = new \Sb\Db\Model\FriendShip;
@@ -37,12 +55,21 @@ if (!$_POST) {
             $inverseFriendShip->setCreationDate(new \DateTime());
             $inverseFriendShip->setUser_source($user);
             $inverseFriendShip->setUser_target($friendShip->getUser_source());
-            \Sb\Db\Dao\FriendShipDao::getInstance()->add($inverseFriendShip);
-
+            if (FriendShipDao::getInstance()->add($inverseFriendShip)) {
+                // Add the userEvent
+                try {
+                    $userEvent = new UserEvent;
+                    $userEvent->setNew_value($friendShip->getUser_source()->getId());
+                    $userEvent->setType_id(EventTypes::USER_ADD_FRIEND);
+                    $userEvent->setUser($user);
+                    UserEventDao::getInstance()->add($userEvent);
+                } catch (\Exception $exc) {
+                    Trace::addItem("Erreur lors de l'ajout de l'événement : " . $exc->getMEssage());
+                }
+            }
 
             // send email to the requesting user
-            $mailSvc->send($friendShip->getUser_source()->getEmail(), __("Demande d'ami", "s1b"),
-                    \Sb\Helpers\MailHelper::friendShipAcceptationEmailBody($user->getFirstName() . " " . $user->getLastName()));
+            $mailSvc->send($friendShip->getUser_source()->getEmail(), __("Demande d'ami", "s1b"), \Sb\Helpers\MailHelper::friendShipAcceptationEmailBody($user->getFirstName() . " " . $user->getLastName()));
 
 
             // add a message in requesting user internal mailbox
@@ -60,16 +87,15 @@ if (!$_POST) {
         } elseif ($Refused == 1) {
 
             // update the requested friendship
-            $friendShip = \Sb\Db\Dao\FriendShipDao::getInstance()->get($friendShipId);
+            $friendShip = FriendShipDao::getInstance()->get($friendShipId);
             if ($friendShip) {
                 $friendShip->setAccepted(false);
                 $friendShip->setValidated(true);
-                \Sb\Db\Dao\FriendShipDao::getInstance()->update($friendShip);
+                FriendShipDao::getInstance()->update($friendShip);
             }
 
             // send email to the requesting user
-            $mailSvc->send($friendShip->getUser_source()->getEmail(), __("Votre demande d'ami a été refusée", "s1b"),
-                    \Sb\Helpers\MailHelper::friendShipDenyEmailBody($user->getFirstName() . " " . $user->getLastName()));
+            $mailSvc->send($friendShip->getUser_source()->getEmail(), __("Votre demande d'ami a été refusée", "s1b"), \Sb\Helpers\MailHelper::friendShipDenyEmailBody($user->getFirstName() . " " . $user->getLastName()));
 
             // add a message in requesting user internal mailbox
             $message = new \Sb\Db\Model\Message;

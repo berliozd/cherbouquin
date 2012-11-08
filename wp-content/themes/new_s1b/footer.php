@@ -67,6 +67,7 @@ global $context;
                                     <h1 class="ft-item-title"><?php echo sprintf(__("<strong>%s</strong> sur les réseaux","s1b"), \Sb\Entity\Constants::SITENAME);?></h1>
                                     <div class="ft-item-content"><a target="_blank" href="http://www.facebook.com/CherBouquin" class="ft-facebook"></a></div>
                                     <div class="ft-item-content"><a target="_blank" href="https://twitter.com/#!/cherbouquin" class="ft-twitter"></a></div>
+                                    <div class="ft-item-content"><a target="_blank" href="http://pinterest.com/cherbouquin" class="ft-pinterest"></a></div>
                                 </div>
                             </div>
                         </div>

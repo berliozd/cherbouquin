@@ -1,4 +1,6 @@
 <?php
+use \Sb\Flash\Flash;
+use \Sb\Helpers\HTTPHelper;
 
 // Démarrage du plugin Share1Book
 global $s1b;
@@ -25,7 +27,9 @@ if (!$noAuthentification) {
     // Test si l'utilisateur est connecté ou non
     $isConnected = $s1b->getIsConnected();
     if (!$isConnected) {
-        \Sb\Flash\Flash::addItem(__("Vous devez être connecté pour accéder à cette page.", "s1b"));
-        \Sb\Helpers\HTTPHelper::redirectToHome();
+        // Store the url to redireect after login
+        $_SESSION[\Sb\Entity\SessionKeys::RETURN_URL_AFTER_LOGIN] = $_SERVER["REQUEST_URI"];
+        Flash::addItem(__("Vous devez être connecté pour accéder à cette page.", "s1b"));
+        HTTPHelper::redirectToHome();
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 use Doctrine\Common\ClassLoader,
     Doctrine\ORM\Configuration,
     Doctrine\ORM\EntityManager,
@@ -178,6 +177,7 @@ if (!class_exists('share1Book')) {
                 $needAuthentification = (!in_array($requested_page, $this->pagesWithoutAuthentification));
 
                 if ($needAuthentification && !$this->getIsConnected()) {
+                    $_SESSION[\Sb\Entity\SessionKeys::RETURN_URL_AFTER_LOGIN] = $_SERVER["REQUEST_URI"];
                     Throw new \Sb\Exception\UserException($this->msgNotConnectedUser);
                 } else {
                     // Récupération du flux de la page

@@ -2,6 +2,13 @@
 
 namespace Sb\Authentification\Service;
 
+use \Sb\Helpers\HTTPHelper;
+use \Sb\Helpers\ArrayHelper;
+use \Sb\Trace\Trace;
+use \Sb\Entity\Urls;
+use Sb\Entity\SessionKeys;
+use \Sb\Db\Model\User;
+
 class AuthentificationSvc {
 
     private static $instance;
@@ -17,24 +24,30 @@ class AuthentificationSvc {
     }
 
     protected function __construct() {
-
+        
     }
 
-    public function loginSucces(\Sb\Db\Model\User $activeUser) {
+    public function loginSucces(User $activeUser) {
         // Initialisation des infos de connexion dans la session
         $this->initAuthenticatedUser($activeUser);
         // Redirection vers la page d'accueil
-        \Sb\Trace\Trace::addItem("Connexion réussie , redirecting to : " . \Sb\Entity\Urls::USER_HOME);
-        \Sb\Helpers\HTTPHelper::redirect(\Sb\Entity\Urls::USER_HOME);
+        Trace::addItem("Connexion réussie , redirecting to : " . Urls::USER_HOME);
+        HTTPHelper::redirect(Urls::USER_HOME);
     }
 
-    public function initAuthenticatedUser(\Sb\Db\Model\User $activeUser) {
+    public function initAuthenticatedUser(User $activeUser) {
         $_SESSION['Auth'] = array(
             'Email' => $activeUser->getEmail(),
             'Password' => $activeUser->getPassword(),
             'Id' => $activeUser->getId());
         if ($activeUser->getFacebookId())
             $_SESSION['Auth']['FacebookId'] = $activeUser->getFacebookId();
+
+        $returnUrl = ArrayHelper::getSafeFromArray($_SESSION, SessionKeys::RETURN_URL_AFTER_LOGIN, null);
+        if ($returnUrl) {
+            unset($_SESSION[SessionKeys::RETURN_URL_AFTER_LOGIN]);
+            HTTPHelper::redirectToUrl($returnUrl);
+        }
     }
 
 }
