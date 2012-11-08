@@ -39,7 +39,8 @@ echo $userNavigation->get();
             if ($blowOfHeartFriendsBooks && $blowOfHeartBooks)                
                 $blowOfHeartBooks = array_merge($blowOfHeartFriendsBooks, $blowOfHeartBooks);
             $blowOfHeartBooks = array_slice($blowOfHeartBooks, 0, 5);
-        }
+        } else
+            $blowOfHeartBooks = $blowOfHeartFriendsBooks;
         ?>
         <?php if ($blowOfHeartBooks && count($blowOfHeartBooks) > 0) { ?>
         <div class="pushed-books pushedBooks">

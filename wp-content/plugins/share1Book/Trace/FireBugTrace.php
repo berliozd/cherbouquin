@@ -45,7 +45,7 @@ class FireBugTrace {
         return self::$channel;
     }
 
-    public static function Trace($message, $level = \Zend_log::INFO) {
+    public static function Trace($message, $level = null) {
 
         $writer = self::getWriter();
         $logger = self::getLogger();
@@ -58,9 +58,11 @@ class FireBugTrace {
 
         // Start output buffering
         ob_start();
-
-        // Now you can make calls to the logger
-
+        
+        if (!$level)
+            $level = \Zend_log::INFO;
+        
+        // Now you can make calls to the logger        
         $logger->log($message, $level);
 
         // Flush log data to browser
