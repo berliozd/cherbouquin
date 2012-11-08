@@ -48,7 +48,7 @@ echo $userNavigation->get();
                 <?php ($blowOfHeartFriendsBooks ? _e("Coups de coeur de vos amis", "s1b") : _e("Coups de coeur", "s1b")); ?>
             </div>
             <div class="pb-shelf">
-                <div class="inner-side-padding-20">
+                <div class="inner-side-padding-30">
                 <?php foreach ($blowOfHeartBooks as $blowOfHeartBook) { ?>
                     <div class="pb-bookOnShelf">
                         <a href="<?php echo HTTPHelper::Link($blowOfHeartBook->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($blowOfHeartBook, $context->getDefaultImage());?></a>
