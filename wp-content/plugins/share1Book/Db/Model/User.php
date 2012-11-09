@@ -514,7 +514,7 @@ class User implements \Sb\Db\Model\Model {
     }
 
     public function getFriendlyName() {
-        return ucfirst(\Sb\Helpers\StringHelper::tronque($this->getFirstName(), 20)) . " " . strtoupper(mb_substr($this->getLastName(), 0, 1)) . ".";
+        return ucfirst(\Sb\Helpers\StringHelper::tronque(strtolower($this->getFirstName()), 20)) . " " . strtoupper(mb_substr($this->getLastName(), 0, 1)) . ".";
     }
 
 }
