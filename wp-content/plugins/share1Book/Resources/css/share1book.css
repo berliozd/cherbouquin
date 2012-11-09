@@ -286,7 +286,7 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .pbi-authors {font-weight: bold;}
 .pb-nobooks {font-size: 1.5em;}
 .pb-shelf {background: url("../images/shelf.png") no-repeat scroll 5px bottom transparent; float: left; padding-bottom: 23px; width: 100%;}
-.pb-bookOnShelf {float: left; margin-right: 19px;}
+.pb-bookOnShelf {float: left; margin-right: 1.5em;}
 .pb-bookOnShelf .image-frame {box-shadow: none; padding: 0;}
 
 /* book-search */
@@ -629,7 +629,7 @@ TD.mb-col-state{color:#f56903;}
 .ue-resume {float: left; margin-bottom: 3px; width: 100%;}
 .ue-book {float: left; width: 100%;}
 .ue-bookimage {float: left;}
-.ue-bookdescription {float: left; margin-left:10px;}
+.ue-bookdescription {float: left; margin-left: 0.7em;}
 .ue-booktitle {font-weight: bold; width: 470px;}
 .ue-booklink {}
 .ue-date {}
