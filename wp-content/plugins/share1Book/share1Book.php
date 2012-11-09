@@ -4,7 +4,9 @@ use Doctrine\Common\ClassLoader,
     Doctrine\ORM\EntityManager,
     Doctrine\Common\Cache\ApcCache,
     Doctrine\ORM\Tools\Setup,
-    Doctrine\DBAL\Event\Listeners\MysqlSessionInit;
+    Doctrine\DBAL\Event\Listeners\MysqlSessionInit,
+    \Sb\Helpers\EntityHelper;
+
 
 /*
   Plugin Name: share1Book
@@ -942,23 +944,23 @@ if (!class_exists('share1Book')) {
                     \Sb\Trace\Trace::addItem("Un listOptions trouvé en session pour " . $listKey);
                     if ($listOptions->getSorting()) {
                         if ($listOptions->getSorting()->getField() == $sortCriteria) {
-                            $sortDirection = ($listOptions->getSorting()->getDirection() == \Sb\Helpers\BooksHelper::ASC ? \Sb\Helpers\BooksHelper::DESC : \Sb\Helpers\BooksHelper::ASC);
+                            $sortDirection = ($listOptions->getSorting()->getDirection() == EntityHelper::ASC ? EntityHelper::DESC : EntityHelper::ASC);
                         } else {
-                            $sortDirection = \Sb\Helpers\BooksHelper::ASC;
+                            $sortDirection = EntityHelper::ASC;
                         }
                         $listOptions->getSorting()->setField($sortCriteria);
                         $listOptions->getSorting()->setDirection($sortDirection);
                     } else {
                         $sorting = new \Sb\Lists\Sorting();
                         $sorting->setField($sortCriteria);
-                        $sorting->setDirection(\Sb\Helpers\BooksHelper::ASC);
+                        $sorting->setDirection(EntityHelper::ASC);
                         $listOptions->setSorting($sorting);
                     }
                 } else { // Aucun objet Sb\Lists\Options n'a été récupéré pour cette liste : on en créé un avec le numéro de page
                     \Sb\Trace\Trace::addItem("Pas de listOptions trouvé en session pour " . $listKey);
                     $sorting = new \Sb\Lists\Sorting();
                     $sorting->setField($sortCriteria);
-                    $sorting->setDirection(\Sb\Helpers\BooksHelper::ASC);
+                    $sorting->setDirection(EntityHelper::ASC);
                     $listOptions = new \Sb\Lists\Options();
                     $listOptions->setSorting($sorting);
                 }

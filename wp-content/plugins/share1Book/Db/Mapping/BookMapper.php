@@ -132,6 +132,8 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
 
     public static function mapFromAmazonResult(\Sb\Db\Model\Book &$book, \Zend_Service_Amazon_Item $amazonResult) {
 
+        \Sb\Trace\FireBugTrace::Trace($amazonResult);
+        
         if (isset($amazonResult->Author)) {
             $contributors = new \Doctrine\Common\Collections\ArrayCollection();
             if (is_array($amazonResult->Author)) {
@@ -151,9 +153,9 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
         if (isset($amazonResult->EditorialReviews)) {
             if (count($amazonResult->EditorialReviews) > 0) {
                 //$book->setDescription($amazonResult->EditorialReviews[0]->Content);
-                // Replace all HTML in description by ' ' to prevent bad formattinh HTML
+                // Replace all HTML in description by ' ' to prevent bad formatting HTML
                 $book->setDescription(preg_replace ('/<[^>]*>/', ' ', $amazonResult->EditorialReviews[0]->Content));
-            }
+            }            
         }
 
         if (isset($amazonResult->ISBN)) {

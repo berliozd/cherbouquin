@@ -104,7 +104,7 @@ class User implements \Sb\Db\Model\Model {
 
     /** @OneToMany(targetEntity="UserBook", mappedBy="user")  */
     protected $userbooks;
-    
+
     /** @OneToMany(targetEntity="UserEvent", mappedBy="user")  */
     protected $userevents;
 
@@ -113,7 +113,7 @@ class User implements \Sb\Db\Model\Model {
 
     /** @OneToMany(targetEntity="FriendShip", mappedBy="user_target") */
     protected $friendships_as_target;
-    
+
     /** @OneToMany(targetEntity="Invitation", mappedBy="sender") */
     protected $invitations;
 
@@ -328,16 +328,16 @@ class User implements \Sb\Db\Model\Model {
     public function getUserBooks() {
         return $this->userbooks;
     }
-    
+
     public function getNotDeletedUserBooks() {
         $tmp = array_filter($this->userbooks->toArray(), array(&$this, "isNotDeleted"));
         return array_values($tmp);
     }
-    
+
     public function setUserBooks($userBooks) {
         $this->userbooks = $userBooks;
     }
-    
+
     public function getUserevents() {
         return $this->userevents;
     }
@@ -345,7 +345,7 @@ class User implements \Sb\Db\Model\Model {
     public function setUserevents($userevents) {
         $this->userevents = $userevents;
     }
-    
+
     public function getMessages_sent() {
         return $this->messages_sent;
     }
@@ -385,7 +385,7 @@ class User implements \Sb\Db\Model\Model {
     public function setInvitations($invitations) {
         $this->invitations = $invitations;
     }
-        
+
     public function IsValid() {
         return true;
     }
@@ -455,7 +455,6 @@ class User implements \Sb\Db\Model\Model {
         return $friendShips;
     }
 
-
     public function getUnReadReceivedMessages() {
         $messages = $this->getMessages_received();
         $messages = $messages->toArray();
@@ -505,13 +504,17 @@ class User implements \Sb\Db\Model\Model {
         }
         return false;
     }
-    
+
     private function isNotDeleted(\Sb\Db\Model\UserBook $userBook) {
         return !$userBook->getIs_deleted();
     }
-    
+
     private function isTargetUserInFriendShipNotDeleted(\Sb\Db\Model\FriendShip $friendShip) {
         return !$friendShip->getUser_target()->getDeleted();
+    }
+
+    public function getFriendlyName() {
+        return ucfirst(\Sb\Helpers\StringHelper::tronque($this->getFirstName(), 20)) . " " . strtoupper(mb_substr($this->getLastName(), 0, 1)) . ".";
     }
 
 }

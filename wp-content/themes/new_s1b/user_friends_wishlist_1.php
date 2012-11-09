@@ -1,9 +1,14 @@
 <?php
 
+use \Sb\Helpers\EntityHelper;
+
 $user = $context->getConnectedUser();
 
-// get friend list for friend selection form
+// Get friend list for friend selection form
 $friends = $user->getAcceptedFriends();
+// Order the friends list by firstname asc 
+usort($friends, "compareFirstName");
+
 
 if ($_POST) {
     $friendId = $_POST['friendId'];
@@ -14,14 +19,12 @@ if ($_POST) {
     }
 }
 
-function isAccepted(\Sb\Db\Model\FriendShip $friendShip) {
-    if ($friendShip->getAccepted()) {
-        return true;
-    }
-}
-
 function isWished(\Sb\Db\Model\UserBook $userBook) {
     if ($userBook->getIsWished()) {
         return true;
     }
+}
+
+function compareFirstName(\Sb\Db\Model\User $user1, \Sb\Db\Model\User $user2) {
+    return EntityHelper::compareBy($user1, $user2, EntityHelper::ASC, "getFirstName");
 }

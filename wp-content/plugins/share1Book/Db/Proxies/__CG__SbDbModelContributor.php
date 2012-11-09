@@ -69,6 +69,30 @@ class Contributor extends \Sb\Db\Model\Contributor implements \Doctrine\ORM\Prox
         return parent::setFullName($fullName);
     }
 
+    public function getFirst_name()
+    {
+        $this->__load();
+        return parent::getFirst_name();
+    }
+
+    public function setFirst_name($first_name)
+    {
+        $this->__load();
+        return parent::setFirst_name($first_name);
+    }
+
+    public function getLast_name()
+    {
+        $this->__load();
+        return parent::getLast_name();
+    }
+
+    public function setLast_name($last_name)
+    {
+        $this->__load();
+        return parent::setLast_name($last_name);
+    }
+
     public function getCreationDate()
     {
         $this->__load();
@@ -123,10 +147,16 @@ class Contributor extends \Sb\Db\Model\Contributor implements \Doctrine\ORM\Prox
         return parent::IsValid();
     }
 
+    public function getName()
+    {
+        $this->__load();
+        return parent::getName();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'full_name', 'creation_date', 'last_modification_date', 'type_id', 'books');
+        return array('__isInitialized__', 'id', 'full_name', 'first_name', 'last_name', 'creation_date', 'last_modification_date', 'type_id', 'books');
     }
 
     public function __clone()

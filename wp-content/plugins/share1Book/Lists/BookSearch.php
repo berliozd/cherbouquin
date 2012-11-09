@@ -117,7 +117,7 @@ class BookSearch {
         $amazonService = new \Zend_Service_Amazon($amazonApiKey, $amazonSite, $amazonSecretKey);
         $amazonResults = null; // tableau d'amazon item recu directement
         $booksFromAmazon = null; // tableau d'objet Book reçu depuis amazon
-        $responsesGroups = 'Small,ItemAttributes,Images,EditorialReview,Reviews,BrowseNodes';
+        $responsesGroups = 'Small,ItemAttributes,Images,EditorialReview,Reviews,BrowseNodes,OfferSummary';
         //$version = '2005-10-05';
         $nbPageRequested = $amazonNumberOfPageRequested;
 

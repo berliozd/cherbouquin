@@ -27,7 +27,7 @@ echo $userNavigation->get();
                             <select class="input-item selectinput fls-select" onchange="friendSelectionForm.submit()" name="friendId">
                                 <option value=""><?php _e("Aucun","s1b"); ?></option>
                             <?php foreach ($friends as $friend) { ?>
-                                <option <?php echo (($selectedFriend && ($friend->getId() == $selectedFriend->getId())) ? "selected" : "");?> value="<?php echo $friend->getId();?>"><?php echo $friend->getUserName();?></option>
+                                <option <?php echo (($selectedFriend && ($friend->getId() == $selectedFriend->getId())) ? "selected" : "");?> value="<?php echo $friend->getId();?>"><?php echo $friend->getFriendlyName();?></option>
                             <?php }?>
                             </select>
                         </form>

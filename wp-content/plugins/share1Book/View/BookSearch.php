@@ -61,6 +61,7 @@ class BookSearch extends \Sb\View\AbstractView {
 
             $desc = \Sb\Helpers\StringHelper::tronque($bk->getDescription(), 350);
             $descEsc = urlencode($bk->getDescription());  // encodé
+            \Sb\Trace\FireBugTrace::Trace("Desc : " . $descEsc);
 
             $smallImg = $bk->getSmallImageUrl();
             $img = $bk->getImageUrl();

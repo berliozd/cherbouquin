@@ -519,6 +519,12 @@ class User extends \Sb\Db\Model\User implements \Doctrine\ORM\Proxy\Proxy
         return parent::addMessagesSent($message);
     }
 
+    public function getFriendlyName()
+    {
+        $this->__load();
+        return parent::getFriendlyName();
+    }
+
 
     public function __sleep()
     {

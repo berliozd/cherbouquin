@@ -2,6 +2,7 @@
 
 namespace Sb\Helpers;
 
+use \Sb\Helpers\EntityHelper;
 /**
  * @author Didier
  */
@@ -14,8 +15,8 @@ class BooksHelper {
     const PICTO_BORROWED_ONCE = "PICTO_WAS_BORROWED";
     const PICTO_LENDING = "PICTO_LENDING";
     const PICTO_RETURN_TO_VALIDATE = "PICTO_RETURN_TO_VALIDATE";
-    const DESC = "DESC";
-    const ASC = "ASC";
+//    const DESC = "DESC";
+//    const ASC = "ASC";
     const SORTING_FIELD_TITLE = "title";
     const SORTING_FIELD_AUTHOR = "author";
     const SORTING_FIELD_RATING = "rating";
@@ -33,11 +34,11 @@ class BooksHelper {
         switch ($sortingField) {
             case self::SORTING_FIELD_RATING:
                 switch ($sortingDirection) {
-                    case self::ASC:
+                    case EntityHelper::ASC:
                         \Sb\Trace\Trace::addItem($className . "::compareByRatingAsc");
                         usort($books, $className . "::compareByRatingAsc");
                         break;
-                    case self::DESC:
+                    case EntityHelper::DESC:
                         \Sb\Trace\Trace::addItem($className . "::compareByRatingDesc");
                         usort($books, $className . "::compareByRatingDesc");
                         break;
@@ -45,11 +46,11 @@ class BooksHelper {
                 break;
             case self::SORTING_FIELD_TITLE:
                 switch ($sortingDirection) {
-                    case self::ASC:
+                    case EntityHelper::ASC:
                         \Sb\Trace\Trace::addItem($className . "::compareByTitleAsc");
                         usort($books, $className . "::compareByTitleAsc");
                         break;
-                    case self::DESC:
+                    case EntityHelper::DESC:
                         \Sb\Trace\Trace::addItem($className . "::compareByTitleDesc");
                         usort($books, $className . "::compareByTitleDesc");
                         break;
@@ -57,11 +58,11 @@ class BooksHelper {
                 break;
             case self::SORTING_FIELD_AUTHOR:
                 switch ($sortingDirection) {
-                    case self::ASC:
+                    case EntityHelper::ASC:
                         \Sb\Trace\Trace::addItem($className . "::compareByAuthorAsc");
                         usort($books, $className . "::compareByAuthorAsc");
                         break;
-                    case self::DESC:
+                    case EntityHelper::DESC:
                         \Sb\Trace\Trace::addItem($className . "::compareByAuthorDesc");
                         usort($books, $className . "::compareByAuthorDesc");
                         break;
@@ -69,11 +70,11 @@ class BooksHelper {
                 break;
             case self::SORTING_FIELD_STATE:
                 switch ($sortingDirection) {
-                    case self::ASC:
+                    case EntityHelper::ASC:
                         \Sb\Trace\Trace::addItem($className . "::compareByStateAsc");
                         usort($books, $className . "::compareByStateAsc");
                         break;
-                    case self::DESC:
+                    case EntityHelper::DESC:
                         \Sb\Trace\Trace::addItem($className . "::compareByStateDesc");
                         usort($books, $className . "::compareByStateDesc");
                         break;
@@ -82,49 +83,49 @@ class BooksHelper {
         }
     }
 
-    public static function compareBy(\Sb\Db\Model\Model $book1, \Sb\Db\Model\Model $book2, $direction, $sortingFunction) {
-        $val1 = strtoupper(call_user_func(array(&$book1, $sortingFunction)));
-        $val2 = strtoupper(call_user_func(array(&$book2, $sortingFunction)));
-        if ($val1 == $val2) {
-            return 0;
-        }
-        if ($direction == self::ASC) {
-            return ($val1 < $val2) ? -1 : 1;
-        } else {
-            return ($val1 > $val2) ? -1 : 1;
-        }
-    }
+//    public static function compareBy(\Sb\Db\Model\Model $book1, \Sb\Db\Model\Model $book2, $direction, $sortingFunction) {
+//        $val1 = strtoupper(call_user_func(array(&$book1, $sortingFunction)));
+//        $val2 = strtoupper(call_user_func(array(&$book2, $sortingFunction)));
+//        if ($val1 == $val2) {
+//            return 0;
+//        }
+//        if ($direction == EntityHelper::ASC) {
+//            return ($val1 < $val2) ? -1 : 1;
+//        } else {
+//            return ($val1 > $val2) ? -1 : 1;
+//        }
+//    }
 
     public static function compareByTitleAsc(\Sb\Db\Model\UserBook $book1, \Sb\Db\Model\UserBook $book2) {
-        return self::compareBy($book1->getBook(), $book2->getBook(), self::ASC, "getTitle");
+        return EntityHelper::compareBy($book1->getBook(), $book2->getBook(), EntityHelper::ASC, "getTitle");
     }
 
     public static function compareByTitleDesc(\Sb\Db\Model\UserBook $book1, \Sb\Db\Model\UserBook $book2) {
-        return self::compareBy($book1->getBook(), $book2->getBook(), self::DESC, "getTitle");
+        return EntityHelper::compareBy($book1->getBook(), $book2->getBook(), EntityHelper::DESC, "getTitle");
     }
 
     public static function compareByAuthorAsc(\Sb\Db\Model\UserBook $userBook1, \Sb\Db\Model\UserBook $userBook2) {
-        return self::compareBy($userBook1->getBook(), $userBook2->getBook(), self::ASC, "getOrderableContributors");
+        return EntityHelper::compareBy($userBook1->getBook(), $userBook2->getBook(), EntityHelper::ASC, "getOrderableContributors");
     }
 
     public static function compareByAuthorDesc(\Sb\Db\Model\UserBook $userBook1, \Sb\Db\Model\UserBook $userBook2) {
-        return self::compareBy($userBook1->getBook(), $userBook2->getBook(), self::DESC, "getOrderableContributors");
+        return EntityHelper::compareBy($userBook1->getBook(), $userBook2->getBook(), EntityHelper::DESC, "getOrderableContributors");
     }
 
     public static function compareByRatingDesc(\Sb\Db\Model\UserBook $book1, \Sb\Db\Model\UserBook $book2) {
-        return self::compareBy($book1, $book2, self::DESC, "getRating");
+        return EntityHelper::compareBy($book1, $book2, EntityHelper::DESC, "getRating");
     }
 
     public static function compareByRatingAsc(\Sb\Db\Model\UserBook $book1, \Sb\Db\Model\UserBook $book2) {
-        return self::compareBy($book1, $book2, self::ASC, "getRating");
+        return EntityHelper::compareBy($book1, $book2, EntityHelper::ASC, "getRating");
     }
 
     public static function compareByStateDesc(\Sb\Db\Model\UserBook $book1, \Sb\Db\Model\UserBook $book2) {
-        return self::compareBy($book1->getReadingState(), $book2->getReadingState(), self::DESC, "getId");
+        return EntityHelper::compareBy($book1->getReadingState(), $book2->getReadingState(), EntityHelper::DESC, "getId");
     }
 
     public static function compareByStateAsc(\Sb\Db\Model\UserBook $book1, \Sb\Db\Model\UserBook $book2) {
-        return self::compareBy($book1->getReadingState(), $book2->getReadingState(), self::ASC, "getId");
+        return EntityHelper::compareBy($book1->getReadingState(), $book2->getReadingState(), EntityHelper::ASC, "getId");
     }
 
     public static function getStatusPicto($pictoType) {
@@ -153,12 +154,6 @@ class BooksHelper {
             default:
                 break;
         }
-//
-//        <div class="picto-small picto-owned-small"></div>
-//        <div class="picto-small picto-lent-small"></div>
-//        <div class="picto-small picto-borrowed-small"></div>
-//        <div class="picto-small picto-returntovalidate-small"></div>
-//        <div class="picto-small picto-lendable-small"></div>
         return sprintf("<div class=\"picto-small %s\"></div>", $cssClass);
     }
 
