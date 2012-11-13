@@ -56,8 +56,11 @@ class UserEventSvc extends \Sb\Db\Service\Service {
             if ($oldUserBook->getHyperlink() != $newUserBook->getHyperLink()) {
                 $userEvent = new \Sb\Db\Model\UserEvent;
                 $userEvent->setItem_id($oldUserBook->getId());
-                $userEvent->setUser($oldUserBook->getUser());
-                $userEvent->setNew_value($newUserBook->getHyperLink());
+                $userEvent->setUser($oldUserBook->getUser());                
+                // Removing http:// or https:// from url
+                $newHyperlink = str_replace("http://", "", $newUserBook->getHyperLink());
+                $newHyperlink = str_replace("https://", "", $newHyperlink);                
+                $userEvent->setNew_value($newHyperlink);
                 $userEvent->setOld_value($oldUserBook->getHyperlink());
                 $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_HYPERLINK_CHANGE);
                 $userEvents[] = $userEvent;
