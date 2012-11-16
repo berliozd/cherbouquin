@@ -7,12 +7,7 @@ require_once 'user_profile_delete_1.php';
  * Template Name: user_profile_delete
  */
 ?>
-<?php
-$userNavigation = new \Sb\View\Components\UserNavigation;
-echo $userNavigation->get();
-?>
-<?php showFlashes(); ?>
-<div id="content-wrap" class="user-profile-bkg">
+<div class="user-profile-bkg">
     <div id="content-center">
         <div class="profile-delete ">            
             <?php
@@ -44,4 +39,5 @@ echo $userNavigation->get();
         echo $userToolBox->get();
         ?>
     </div>
+</div>
 <?php get_footer(); ?>

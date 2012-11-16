@@ -9,12 +9,7 @@ $userSettings = $user->getSetting();
  * Template Name: user_profile
  */
 ?>
-<?php
-$userNavigation = new \Sb\View\Components\UserNavigation;
-echo $userNavigation->get();
-?>
-<?php showFlashes(); ?>
-<div id="content-wrap" class="user-profile-bkg">
+<div class="other-profile-bkg">
     <div id="content-center">
         <?php
         $profileView =new \Sb\View\UserProfile($user, $userSettings, true, true, false);
@@ -27,4 +22,5 @@ echo $userNavigation->get();
         echo $userToolBox->get();
         ?>
     </div>
+</div>
 <?php get_footer(); ?>

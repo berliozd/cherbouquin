@@ -1,7 +1,5 @@
 <?php
 
-use Sb\Config\Model;
-
 namespace Sb\View;
 
 /**
@@ -25,15 +23,14 @@ abstract class AbstractView {
     }
 
     protected function getContext() {
-        global $s1b;
-        return $s1b->getContext();
+        global $globalContext;
+        return $globalContext;
     }
 
     function __construct() {
-        $context = \Sb\Context\Model\Context::getInstance();
-        $this->defImg = $context->getDefaultImage();
-        $this->baseDir = $context->getBaseDirectory();
-        $this->baseUrl = $context->getBaseUrl();
+        $this->defImg = \Sb\Helpers\BookHelper::getDefaultImage();
+        $this->baseDir = SHARE1BOOK_PLUGIN_PATH;
+        $this->baseUrl = SHARE1BOOK_PLUGIN_URL;
     }
 
     public function get() {

@@ -9,12 +9,7 @@ require_once 'user_friends_search_1.php';
  * Functions
  * *********************************************************************************** */
 ?>
-<?php
-$userNavigation = new \Sb\View\Components\UserNavigation;
-echo $userNavigation->get();
-?>
-<?php showFlashes(); ?>
-<div id="content-wrap" class="add-friend-bkg">
+<div class="add-friend-bkg">
     <div id="content-center">
         <div class="add-friend-header">
             <div class="adh-title"><?php _e("Ajouter un ami","s1b");?></div>
@@ -147,4 +142,5 @@ echo $userNavigation->get();
         ?>
         </div>
     </div>
+</div>    
 <?php get_footer(); ?>

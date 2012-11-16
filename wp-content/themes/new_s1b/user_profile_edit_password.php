@@ -6,12 +6,7 @@ require_once 'user_profile_edit_password_1.php';
  * Template Name: user_profile_edit_password
  */
 ?>
-<?php
-$userNavigation = new \Sb\View\Components\UserNavigation;
-echo $userNavigation->get();
-?>
-<?php showFlashes(); ?>
-<div id="content-wrap" class="user-profile-bkg">
+<div class="user-profile-bkg">
     <div id="content-center">
          <?php
         $profileView =new \Sb\View\UserProfile($user, $userSettings, false, false, false);
@@ -40,9 +35,9 @@ echo $userNavigation->get();
                 </table>
                 <div class="buttons-bar">  
                     <div class="inner-padding">
-                        <button class="float-right button bt-black-m margin-right margin-left"><?php _e("Valider","s1b");?></button>
+                        <button class="float-right button bt-blue-m margin-right margin-left"><?php _e("Valider","s1b");?></button>
                         <?php if (!$_POST) {?>
-                        <a class="button bt-blue-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
+                        <a class="button bt-black-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
                         <?php } ?>
                     </div>
                 </div>
@@ -55,4 +50,5 @@ echo $userNavigation->get();
         echo $userToolBox->get();
         ?>
     </div>
+</div>
 <?php get_footer(); ?>

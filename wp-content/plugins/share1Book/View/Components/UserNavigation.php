@@ -14,13 +14,13 @@ class UserNavigation extends \Sb\View\AbstractView {
         $tpl = new \Sb\Templates\Template("components/userNavigation");
         if ($user && $user->getSetting()) {
             if ($user->getSetting()->getDisplayProfile() == \Sb\Entity\UserDataVisibility::FRIENDS) {
-                $userStatus = __("Mes amis", "s1b");
+                $userStatus = "Mes amis";
                 $statusCssClass = "profile-picto-small-myfriends";
             } elseif ($user->getSetting()->getDisplayProfile() == "s1b_members") {
-                $userStatus = __("Public", "s1b");
+                $userStatus = "Public";
                 $statusCssClass = "profile-picto-small-public";
             } elseif ($user->getSetting()->getDisplayProfile() == \Sb\Entity\UserDataVisibility::NO_ONE) {
-                $userStatus = __("Privé", "s1b");
+                $userStatus = "Privé";
                 $statusCssClass = "profile-picto-small-private";
             }
         }

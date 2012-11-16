@@ -9,7 +9,7 @@ use \Sb\Helpers\ArrayHelper;
  *
  * @author Didier
  */
-class WordPressConfig implements Config {
+class WordPressConfig {
 
     private $tracesEnabled = false;
     private $logsEnabled = false;

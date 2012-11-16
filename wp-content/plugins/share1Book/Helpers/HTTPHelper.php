@@ -69,15 +69,13 @@ class HTTPHelper {
     public static function Link($pageKey = "", $params = array(), $secure = false, $addHost = true) {
         $base = "";
         if (array_key_exists("SCRIPT_NAME", $_SERVER)) {
-            //\Sb\Trace\Trace::addItem("SCRIPT_NAME:  " . $_SERVER['SCRIPT_NAME']);
-            $base = str_replace("index.php", "", $_SERVER['SCRIPT_NAME']);
+            // For Zend pages
+            $base = str_replace("public/index.php", "", $_SERVER['SCRIPT_NAME']);
+            // For Wordpress pages
+            $base = str_replace("index.php", "", $base); 
             $base = str_replace("wp-admin/admin-ajax.php", "", $base);
         }
 
-        // -- /share1book/index.php
-        // -- /share1book/wp-admin/admin-ajax.php
-        // -- /index.php
-        // -- /wp-admin/admin-ajax.php
         if (count($params) > 0) {
             $dest = $base . $pageKey . '/?' . http_build_query($params);
         } else {

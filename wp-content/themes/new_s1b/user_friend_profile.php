@@ -7,13 +7,9 @@ require_once 'user_friend_profile_1.php';
  * Template Name: user_friend_profile
  */
 ?>
-<?php
-$userNavigation = new \Sb\View\Components\UserNavigation;
-echo $userNavigation->get();
-?>
-<?php showFlashes(); ?>
-<div id="content-wrap" class="other-user-profile-bkg">
-    <div id="content-center">        
+
+<div class="other-user-profile-bkg">
+    <div id="content-center" >
         <div class="friend-profile">
             <?php
             $profileView =new \Sb\View\UserProfile($friend, $friendSetting, false, false, true);
@@ -70,4 +66,5 @@ echo $userNavigation->get();
         ?>
         </div>
     </div>
+</div>
 <?php get_footer(); ?>

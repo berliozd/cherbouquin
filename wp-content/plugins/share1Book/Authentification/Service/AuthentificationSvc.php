@@ -43,6 +43,7 @@ class AuthentificationSvc {
         if ($activeUser->getFacebookId())
             $_SESSION['Auth']['FacebookId'] = $activeUser->getFacebookId();
 
+        // If a return url is in session unset it and redirect to it
         $returnUrl = ArrayHelper::getSafeFromArray($_SESSION, SessionKeys::RETURN_URL_AFTER_LOGIN, null);
         if ($returnUrl) {
             unset($_SESSION[SessionKeys::RETURN_URL_AFTER_LOGIN]);
@@ -50,4 +51,19 @@ class AuthentificationSvc {
         }
     }
 
+    public function getConnectedUserId() {
+        if ($_SESSION 
+                && (array_key_exists("Auth", $_SESSION)) 
+                && (array_key_exists("Id", $_SESSION["Auth"])))
+            return $_SESSION["Auth"]["Id"];
+        else
+            return null;
+    }
+
+    public function getIsConnected() {
+        if ($_SESSION && (array_key_exists("Auth", $_SESSION)) && (array_key_exists("Id", $_SESSION["Auth"])))
+            return true;
+        else
+            return false;
+    }
 }

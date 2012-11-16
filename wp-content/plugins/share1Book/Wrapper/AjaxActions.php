@@ -87,7 +87,7 @@ class AjaxActions {
             echo $response;
         } catch (\Sb\Exception\UserException $excUser) {
             echo sprintf(__("Error : %s"), $excUser->getMessage());
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             echo $exc->getMessage();
         }
         // IMPORTANT: toujours terminer le script!

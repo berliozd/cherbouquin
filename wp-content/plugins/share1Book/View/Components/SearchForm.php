@@ -21,7 +21,7 @@ class SearchForm extends \Sb\View\AbstractView {
         $tpl = new \Sb\Templates\Template("components/searchForm");
 
         $formAction = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BOOK_SEARCH, array("page" => \Sb\Entity\LibraryPages::SEARCH_SUBMIT));
-        $searchTermDef = __("Titre, auteur, ISBN", "s1b");
+        $searchTermDef = "Titre, auteur, ISBN";
         $searchTerm = \Sb\Helpers\ArrayHelper::getSafeFromArray($_REQUEST, "searchTerm", $searchTermDef);
         $isConnected = false;
         if ($this->getContext()->getConnectedUser())

@@ -461,8 +461,8 @@ TABLE TH.llh-title {padding-left: 80px;}
 .fl-choosefriend{font-size:1.7em;}
 
 /* user profile */
-.user-profile-bkg {background: url("../images/user-profile-bkg.png") repeat-x scroll 0 0 transparent;}
-.other-user-profile-bkg {background: url("../images/other-user-profile-bkg.png") repeat-x scroll 0 0 transparent;}
+.user-profile-bkg {background: url("../images/user-profile-bkg.png") repeat-x scroll 0 0 transparent; border-radius: 10px 10px 10px 10px; float: left;}
+.other-user-profile-bkg {background: url("../images/other-user-profile-bkg.png") repeat-x scroll 0 0 transparent; border-radius: 10px 10px 10px 10px; float: left;}
 .profile {float:left; width: 100%; margin-bottom: 30px;}
 .p-left { float: left;}
 .p-center { float: left; margin-left: 30px; width: 42%;}
@@ -564,7 +564,7 @@ TD.mb-col-state{color:#f56903;}
 .friend-profile .p-line-small {font-size: 1.2em;line-height: 17px;}
 .friend-profile .pl-birthdate { margin-bottom: 3px;}
 .friend-profile .p-center { margin-bottom: 20px;}
-.add-friend-bkg {background: url("../images/add-friend-bkg.png") repeat-x scroll 0 0 transparent;}
+.add-friend-bkg {background: url("../images/add-friend-bkg.png") repeat-x scroll 0 0 transparent; border-radius: 10px 10px 10px 10px; float: left;}
 .add-friend-header {background: url("../images/sprite.png") repeat-x scroll 0 -1120px transparent; height: 51px; margin-bottom: 10px; padding-left: 76px;}
 .adh-title {color:#239CD3; font-size: 2em;}
 

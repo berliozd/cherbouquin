@@ -189,12 +189,6 @@ if (!class_exists('share1Book')) {
                     ob_end_clean();
                 }
 
-                // Récupération des messages flashs
-                $this->flashes = null;
-                if (\Sb\Flash\Flash::hasItems()) {
-                    $this->flashes = \Sb\Flash\Flash::getItems();
-                }
-
                 // Récupération des traces
                 if ($this->config->getTracesEnabled()) {
                     $this->traces = null;
@@ -218,9 +212,9 @@ if (!class_exists('share1Book')) {
                     }
 
                     $this->setActiveTab($tplHeader); // Assigne le css class adéquat en fonction de la page
-                    $moduleOutput = $this->getMasterLoaded($pageContent, $this->outputStuff($this->traces, "traces"), $this->outputStuff($this->flashes, "flashes"), $tplHeader->output());
+                    $moduleOutput = $this->getMasterLoaded($pageContent, $this->outputStuff($this->traces, "traces"), $tplHeader->output());
                 } else {
-                    $moduleOutput = $this->getMasterLoaded($pageContent, $this->outputStuff($this->traces, "traces"), $this->outputStuff($this->flashes, "flashes"), null);
+                    $moduleOutput = $this->getMasterLoaded($pageContent, $this->outputStuff($this->traces, "traces"), null);
                 }
 
                 return $moduleOutput;
@@ -327,19 +321,6 @@ if (!class_exists('share1Book')) {
                 $facebookJs = 'http://connect.facebook.net/en_US/all.js#xfbml=1&appId=' . $this->config->getFacebookApiId();
             $facebookInviteText = __("Rejoignez vos amis, suivez les livres que vous leurs prêtez et partagez avec eux vos dernières lectures et envies", "s1b");
 
-            // script interne pour ajax
-            wp_enqueue_script('share1book-Ajax', plugin_dir_url(__FILE__) . 'Resources/js/ajax.js?v=1');
-            // declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php) and also al the nonce (unique ids) for the ajax calls
-            wp_localize_script('share1book-Ajax', 'share1BookAjax', array(
-                'url' => admin_url('admin-ajax.php'),
-                'searchBookNavigationNonce' => wp_create_nonce('searchBookNavigationNonce'),
-                'navigationNonce' => wp_create_nonce('navigationNonce'),
-                'sortingNonce' => wp_create_nonce('sortingNonce'),
-                'searchingNonce' => wp_create_nonce('searchingNonce'),
-                'addUserBookNonce' => wp_create_nonce('addUserBookNonce'),
-                'facebookJs' => $facebookJs,
-                'facebookInviteText' => $facebookInviteText
-            ));
         }
 
         private function registerAjaxActions() {
@@ -379,7 +360,7 @@ if (!class_exists('share1Book')) {
             }
         }
 
-        public function getMasterLoaded($content, $traces = "", $flashes = "", $header = "") {
+        public function getMasterLoaded($content, $traces = "", $header = "") {
             // récupère l'output du module
             if ($header) {
                 $tplMaster = new \Sb\Templates\Template("master");
@@ -389,7 +370,6 @@ if (!class_exists('share1Book')) {
                 $tplMaster = new \Sb\Templates\Template("master-noheader");
 
             $tplMaster->set("traces", $traces);
-            $tplMaster->set("flashes", $flashes);
 
             // Adding this javascript variable maually as it's not working when using wordpress functions. It's necessary for all ajax calls
             $script = sprintf("<script>var library = {\"isFriendLibrary\":\"%s\"};</script>", $this->isFriendLibrary ? "1" : "0");
@@ -566,16 +546,14 @@ if (!class_exists('share1Book')) {
         }
 
         public function checkNonce($nonceKey) {
-            if ($_REQUEST) {
-                if (array_key_exists("nonce", $_REQUEST)) {
-                    $nonce = $_REQUEST['nonce'];
-                }
-            }
-            \Sb\Trace\Trace::addItem($nonce);
-            \Sb\Trace\Trace::addItem($nonceKey);
-            // vérification du nonce : correspond t'il bien à un nonce généré plus tôt?
-            if (!wp_verify_nonce($nonce, $nonceKey))
-                throw new \Sb\Exception\UserException(__("Invalid ajax call"));
+//            if ($_REQUEST) {
+//                if (array_key_exists("nonce", $_REQUEST)) {
+//                    $nonce = $_REQUEST['nonce'];
+//                }
+//            }
+//            // vérification du nonce : correspond t'il bien à un nonce généré plus tôt?
+//            if (!wp_verify_nonce($nonce, $nonceKey))
+//                throw new \Sb\Exception\UserException(__("Invalid ajax call"));            
         }
 
         /**
@@ -710,7 +688,10 @@ if (!class_exists('share1Book')) {
 
         private function initVariables() {
 
-            $this->config = \Sb\Config\Model\WordPressConfig::getInstance();
+            $this->config =  new \Sb\Config\Model\Config();
+            // Set config in global variable for Zend pages
+            global $globalConfig;
+            $globalConfig = $this->config;
 
             // TODO : remove and use context instead
             $this->baseDir = plugin_dir_path(__FILE__);
@@ -719,63 +700,30 @@ if (!class_exists('share1Book')) {
             $this->msgInternalError = __("Une erreur interne s'est produite.");
             $this->msgNotConnectedUser = __("Vous n'êtes pas connecté.");
 
-            $this->setUserId();
-
-            // Set context params except isShowingFriendLibrary and user
-            $context = new \Sb\Context\Model\Context();
-            $context->setBaseDirectory($this->baseDir);
-            $context->setBaseUrl($this->baseUrl);
-            $context->setDefaultImage($this->defImg);
-            \Sb\Context\Model\Context::setInstance($context);
-            $this->context = $context;
-
-            // Set context param user
-            if ($this->userId) {
-                $user = \Sb\Db\Dao\UserDao::getInstance()->get($this->userId);
-                $context->setConnectedUser($user);
-                \Sb\Context\Model\Context::setInstance($context);
-                $this->context = $context;
-            }
-
+            $connecteUserId = \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getConnectedUserId();
+            if ($connecteUserId)
+                $this->userId = $connecteUserId;            
+            
             if ($this->isFriendLibrary) {
                 $this->setFriendUserId();
             }
             $this->setLibraryUserId();
             $this->setLibraryPageName();
 
-            // Set context param isShowingFriendLibrary
-            $context = \Sb\Context\Model\Context::getInstance();
-            $context->setIsShowingFriendLibrary($this->isShowingFriendLibrary());
-            $context->setLibraryUserId($this->libraryUserId);
-            \Sb\Context\Model\Context::setInstance($context);
-            $this->context = $context;
+            // Set context
+            $context = \Sb\Context\Model\Context::createContext($this->userId, $this->isShowingFriendLibrary(), $this->libraryUserId);
+            $this->context = $context;       
+            // Set context in global variable for Zend pages
+            global $globalContext;
+            $globalContext = $context;
 
             // mailSvc needs config object just created to create itself
             $this->mailSvc = \Sb\Mail\Service\MailSvcImpl::getInstance();
         }
 
-        /**
-         * Récupération du user connecté
-         */
-        private function setUserId() {
-            if (array_key_exists("Auth", $_SESSION)) {
-                if (array_key_exists("Id", $_SESSION["Auth"])) {
-                    $this->userId = $_SESSION["Auth"]["Id"];
-                    // TODO : remove!!!!!!!!!!!!!!!!!!
-//                    $this->userId = 4;
-                    return;
-                }
-            }
-        }
 
         public function getIsConnected() {
-            if ($_SESSION) {
-                if (array_key_exists("Auth", $_SESSION)) {
-                    if (array_key_exists("Id", $_SESSION["Auth"])) {
-                        return true;
-                    }
-                }
-            }
+            return \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getIsConnected();
         }
 
         /**

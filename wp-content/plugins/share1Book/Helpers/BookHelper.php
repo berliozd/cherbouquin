@@ -47,6 +47,10 @@ class BookHelper {
         }
         return sprintf("<img src='%s' border='0' class='bookPreview' title=\"" . $book->getTitle() . "\"/>", $src);
     }
+    
+    public static function getDefaultImage() {
+        return SHARE1BOOK_PLUGIN_URL . 'Resources/images/nocover.png';
+    }
 
     public static function completeInfos(Book &$book) {
 

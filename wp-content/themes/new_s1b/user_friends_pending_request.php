@@ -6,12 +6,7 @@ require_once 'user_friends_pending_request_1.php';
  * Template Name: user_friends_pending_request
  */
 ?>
-<?php
-$userNavigation = new \Sb\View\Components\UserNavigation;
-echo $userNavigation->get();
-?>
-<?php showFlashes(); ?>
-<div id="content-wrap" class="add-friend-bkg">
+<div class="add-friend-bkg">
     <div id="content-center">
         <div class="pending-request-header">
             <div class="adh-title"><?php _e("Demande(s) d'ami","s1b");?></div>
@@ -104,4 +99,5 @@ echo $userNavigation->get();
         ?>
         </div>
     </div>
+</div>
 <?php get_footer(); ?>

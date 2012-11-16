@@ -13,11 +13,11 @@ function cssSelected($page) {
             <div class="nur-image"><img src="<?php echo $user->getGravatar(); ?>" /></div>
             <div class="nur-status">
                 <div class="nurs-status <?php echo $statusCssClass; ?>">
-                    <div class="nurss-title"><?php _e("Statut", "s1b"); ?></div>
+                    <div class="nurss-title">Statut</div>
                     <div class="nurss-value"><?php echo $userStatus; ?></div>
                 </div>
                 <div>
-                    <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS); ?>"><?php _e("Mes paramètres", "s1b"); ?></a>
+                    <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS); ?>">Mes paramètres</a>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@ function cssSelected($page) {
                 <li><a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_PROFILE); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE); ?>">Mon profil</a></li>
             </ul>
             <div class="nul-button">
-                <a class="button bt-black-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGOUT); ?>"><?php _e("Se déconnecter", "s1b"); ?></a>
+                <a class="button bt-black-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGOUT); ?>">Se déconnecter</a>
             </div>            
         </div>
     </div>

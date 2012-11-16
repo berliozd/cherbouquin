@@ -17,26 +17,8 @@
  *
  * @package WordPress
  */
-// ** Réglages MySQL - Votre hébergeur doit vous fournir ces informations. ** //
-/** Nom de la base de données de WordPress. */
-define('DB_NAME', 'share1book');
 
-/** Utilisateur de la base de données MySQL. */
-define('DB_USER', 'share1book');
-
-/** Mot de passe de la base de données MySQL. */
-define('DB_PASSWORD', 'share1book');
-
-/** Adresse de l'hébergement MySQL. */
-define('DB_HOST', 'localhost');
-
-/** Jeu de caractères à utiliser par la base de données lors de la création des tables. */
-define('DB_CHARSET', 'utf8');
-
-/** Type de collation de la base de données.
- * N'y touchez que si vous savez ce que vous faites.
- */
-define('DB_COLLATE', '');
+require_once(ABSPATH . 'application/configs/share1Book-config.php');
 
 /* * #@+
  * Clefs uniques d'authentification et salage.

@@ -13,35 +13,11 @@ class Template {
 
     protected $file;
     protected $values = array();
-    private $cache;
-    private $cacheKey;
-    private $cacheEnabled = true;
     private $variables;
-
-    /**
-     *
-     * @return Config
-     */
-    private function getConfig() {
-        global $s1b;
-        return $s1b->getConfig();
-    }
-
-    /**
-     *
-     * @return \Sb\Context\Model\Context
-     */
-    private function getContext() {
-        global $s1b;
-        return $s1b->getContext();
-    }
 
     public function __construct($file) {
         $file .= ".phtml";
-        $this->cacheKey = str_replace(".", "_", str_replace("/", "_", $file));
-        $this->file = $this->getContext()->getBaseDirectory() . "Templates/" . $file;
-        $this->cache = \Sb\Cache\ZendFileCache::getInstance();
-        $this->cacheEnabled = $this->getConfig()->getCacheTemplatingEnabled();
+        $this->file = SHARE1BOOK_PLUGIN_PATH . "Templates/" . $file;
     }
 
     public function set($key, $value) {
@@ -59,29 +35,10 @@ class Template {
 
     public function output() {
 
-        if ($this->cacheEnabled) {
-            // tentative de récupération du template en cache
-            $output = $this->cache->load($this->cacheKey);
-
-            // le template n'est pas disponible en cache
-            if (!$output) {
-                //\Sb\Trace\Trace::addItem($this->file . " NOTIN en cache");
-                if (!file_exists($this->file)) {
-                    return "Error loading template file ($this->file).<br />";
-                }
-
-                $output = $this->_getOuput();
-                $this->cache->save($output, $this->cacheKey);
-            } else {
-                //\Sb\Trace\Trace::addItem($this->file . " IN cache");
-            }
-        } else {
-            if (!file_exists($this->file)) {
-                return "Error loading template file ($this->file).<br />";
-            }
-            $output = $this->_getOuput();
+        if (!file_exists($this->file)) {
+            return "Error loading template file ($this->file).<br />";
         }
-
+        $output = $this->_getOuput();
 
         foreach ($this->values as $key => $value) {
             $tagToReplace = "[@$key]";

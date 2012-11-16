@@ -96,4 +96,23 @@ class Flash {
         self::$items = &$_SESSION[self::FLASHES_KEY];
     }
 
+    public static function showFlashes() {
+
+        $flashes = null;
+        // Récupération des messages flashes éventuels
+        if (\Sb\Flash\Flash::hasItems()) {
+            $flashes = \Sb\Flash\Flash::getItems();
+            \Sb\Trace\Trace::addItem("Récupération des messages flashes");
+        }
+
+        $ret = "";
+        if ($flashes) {
+            $ret .= "<div id=\"flashes-wrap\"><div id=\"flashes-background\"></div><div id='flashes'><div id='flashes-close-button'></div><ul>";
+            foreach ($flashes as $flash) {
+                $ret .= "<li>" . $flash . "</li>";
+            }
+            $ret .= "</ul></div></div>";
+        }
+        echo $ret;
+    }
 }

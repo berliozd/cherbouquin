@@ -4,12 +4,15 @@
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
+
 RewriteBase /cherbouquin/
+RewriteRule ^ztest$ public/index.php [L]
 RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)$ /bibliotheque\-detail/\?page=book\%2Fview&bid=$3
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /cherbouquin/index.php [L]
+
 
 #bibliotheque-detail/?page=book\view&bid=10
 

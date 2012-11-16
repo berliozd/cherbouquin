@@ -46,32 +46,30 @@ if ($_POST) {
     }
 }
 ?>
-<?php showFlashes(); ?>
-<div id="content-wrap">
-    <div id="content-wide">
-        <div class="inner-padding-10">
-            <div class="lost-password">
-                <form method="post" action="">
-                    <div class="lp-title">               
-                        <?php _e("Mot de passe oublié?", "s1b");?>
+<div id="content-wide">
+    <div class="inner-padding-10">
+        <div class="lost-password">
+            <form method="post" action="">
+                <div class="lp-title">               
+                    <?php _e("Mot de passe oublié?", "s1b");?>
+                </div>
+                <div class="lp-subtitle">                
+                    <?php _e("Indiquez l’e-mail que vous avez utilisé pour vous inscrire et nous vous enverrons un nouveau mot de passe à cette adresse","s1b")?>
+                </div>
+                <div class="lp-line">
+                    <div class="lp-label"><?php _e("Entrez votre email","s1b"); ?></div>
+                    <div class="lp-field"><input name="lostpassword-email" class="textinput input-item" type ="text"/></div>
+                </div>                
+                <div class="buttons-bar">
+                    <div class="inner-padding">
+                        <button class="float-right button bt-black-m margin-right margin-left"><?php _e("envoyer", "s1b"); ?></button>
+                        <?php if (!$_POST) {?>
+                        <a class="button bt-blue-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
+                        <?php } ?>
                     </div>
-                    <div class="lp-subtitle">                
-                        <?php _e("Indiquez l’e-mail que vous avez utilisé pour vous inscrire et nous vous enverrons un nouveau mot de passe à cette adresse","s1b")?>
-                    </div>
-                    <div class="lp-line">
-                        <div class="lp-label"><?php _e("Entrez votre email","s1b"); ?></div>
-                        <div class="lp-field"><input name="lostpassword-email" class="textinput input-item" type ="text"/></div>
-                    </div>                
-                    <div class="buttons-bar">
-                        <div class="inner-padding">
-                            <button class="float-right button bt-black-m margin-right margin-left"><?php _e("envoyer", "s1b"); ?></button>
-                            <?php if (!$_POST) {?>
-                            <a class="button bt-blue-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
-                            <?php } ?>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 <?php get_footer(); ?>

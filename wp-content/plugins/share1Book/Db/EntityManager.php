@@ -21,31 +21,21 @@ class EntityManager extends \Doctrine\ORM\EntityManager {
 
     public static function getInstance() {
         if (!self::$instance)
-            self::$instance = self::getEntityManager(self::getContext());
+            self::$instance = self::getEntityManager();
         return self::$instance;
     }
 
     /**
      *
-     * @return \Sb\Context\Model\Context
-     */
-    private static function getContext() {
-        global $s1b;
-        return $s1b->getContext();
-    }
-
-    /**
-     *
-     * @param \Sb\Context\Model\Context $context
      * @return \Doctrine\ORM\EntityManager
      */
-    private static function getEntityManager(\Sb\Context\Model\Context $context) {
+    private static function getEntityManager() {
 
         $cache = new \Doctrine\Common\Cache\ApcCache;
         //$cache = new \Doctrine\Common\Cache\ArrayCache();
 
         $config = new \Doctrine\ORM\Configuration;
-        $driverImpl = $config->newDefaultAnnotationDriver(array($context->getBaseDirectory() . "/Db/Model"));
+        $driverImpl = $config->newDefaultAnnotationDriver(array(SHARE1BOOK_PLUGIN_PATH . "/Db/Model"));
         $config->setMetadataDriverImpl($driverImpl);
 
         // settings caches
@@ -54,7 +44,7 @@ class EntityManager extends \Doctrine\ORM\EntityManager {
         $config->setResultCacheImpl($cache);
 
 
-        $config->setProxyDir($context->getBaseDirectory() . "/Db/Proxies");
+        $config->setProxyDir(SHARE1BOOK_PLUGIN_PATH . "/Db/Proxies");
         $config->setProxyNamespace('Proxies');
 
         //$config->setAutoGenerateProxyClasses(true);
