@@ -57,9 +57,7 @@ global $page;
         ?>
         <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $context->getBaseUrl() . "Resources/css/share1book.css?v=14"; ?>"  />
         <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $context->getBaseUrl() . "Resources/css/overcast/jquery-ui-1.8.18.custom.css"; ?>"  />
-
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $context->getBaseUrl() . "Resources/images/favicons/favicon.ico"; ?>" />
-
         <script type="text/javascript" src="<?php echo $context->getBaseUrl() . "Resources/js/jquery-ui-1.8.18.custom.min.js"; ?>"></script>
         <script type="text/javascript" src="<?php echo $context->getBaseUrl() . "Resources/js/jquery.ui.datepicker-fr.js"; ?>"></script>
         <script type="text/javascript" src="<?php echo $context->getBaseUrl() . "Resources/js/addBook.js?v=4"; ?>"></script>
