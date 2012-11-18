@@ -3,8 +3,6 @@ $noAuthentification = true;
 require_once 'includes/init.php';
 get_header();
 require_once 'user_login_1.php';
-\Sb\Trace\Trace::addItem("test");
-
 /**
  * Template Name: user_login
  */
@@ -66,8 +64,6 @@ require_once 'user_login_1.php';
 <div id="content-center">
     <div class="pushed-books pushedBooks">
         <h1 class="pb-title">
-            <?php echo WPLANG .  " <br/>" ?>
-            <?php _e("A propos", "s1b"); ?>
             <?php _e("<span class=\"pb-highlight\">Coups de coeur</span> des lecteurs", "s1b"); ?>
         </h1>
         <div class="pb-content">
