@@ -60,6 +60,7 @@
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/bookList.js" ></script>
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/pushedBooks.js" ></script>                    
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/facebook.js" ></script>
+        <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/simple.carousel.js" ></script>
         
         <?php if ($globalConfig->getIsProduction()) { ?>
         <script type="text/javascript">
