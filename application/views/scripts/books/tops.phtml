@@ -1,0 +1,50 @@
+<?php
+
+use \Sb\View\PushedBook;
+
+global $globalContext;
+?>
+
+<div id="content-center">
+    <div class="book-list">
+        <h1 class="book-list-title"><?php _e("Tops des livres");?></h1>
+        <div class="navigation top">
+            <div class="inner-padding">
+                <div class="nav-links">
+                    <?php echo $this->navigation; ?>    
+                </div>
+                <div class="nav-position"><?php echo sprintf(__("Livre(s) %s à %s sur %s", "s1b"), $this->firstItemIdx, $this->lastItemIdx, $this->nbItemsTot); ?></div>
+            </div>
+        </div>
+        <?php
+        foreach ($this->books as $book) {
+            $pushedBook = new PushedBook($book, false);
+            echo $pushedBook->get();
+        }
+        ?>
+        <div class="navigation">
+            <div class="inner-padding">
+                <div class="nav-links">
+                    <?php echo $this->navigation; ?>    
+                </div>
+                <div class="nav-position"><?php echo sprintf(__("Livre(s) %s à %s sur %s", "s1b"), $this->firstItemIdx, $this->lastItemIdx, $this->nbItemsTot); ?></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content-right">
+    <?php if ($globalContext->getConnectedUser()) { ?>
+        <div class="right-frame">
+            <?php
+            $userToolBox = new \Sb\View\Components\UserToolBox;
+            echo $userToolBox->get();
+            ?>
+        </div>
+    <?php } ?>
+    <div class="right-frame">
+        <?php
+        $ad = new \Sb\View\Components\Ad("user_homepage", "6697829998");
+        echo $ad->get();
+        ?>
+    </div>  
+</div>

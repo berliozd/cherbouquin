@@ -36,7 +36,7 @@
         </title>
         <?php        
         $facebookJs = 'http://connect.facebook.net/fr_FR/all.js#xfbml=1&appId=' . $globalConfig->getFacebookApiId();
-        $facebookInviteText = "Rejoignez vos amis, suivez les livres que vous leurs prêtez et partagez avec eux vos dernières lectures et envies";
+        $facebookInviteText = __("Rejoignez vos amis, suivez les livres que vous leurs prêtez et partagez avec eux vos dernières lectures et envies", "s1b");
         $ajaxUrl = str_replace("index.php", "", str_replace("public/index.php", "", $_SERVER['SCRIPT_NAME'])) . "wp-admin/admin-ajax.php";
         ?>
         <script type='text/javascript'>
@@ -76,7 +76,7 @@
         <?php } ?>        
     </head>
     <body>        
-        <div id="loading"><div id="loadingMsg">Chargement en cours...</div></div>
+        <div id="loading"><div id="loadingMsg"><?php _e("Chargement en cours...", "s1b");?></div></div>
         <!-- Debut div page -->
         <div id="page">
             <!-- Debut div header -->

@@ -66,11 +66,13 @@ require_once 'user_login_1.php';
 <div id="content-center">
     <div class="pushed-books pushedBooks">
         <h1 class="pb-title">
+            <?php echo WPLANG .  " <br/>" ?>
+            <?php _e("A propos", "s1b"); ?>
             <?php _e("<span class=\"pb-highlight\">Coups de coeur</span> des lecteurs", "s1b"); ?>
         </h1>
         <div class="pb-content">
             <?php
-            $bohBooks = \Sb\Db\Dao\BookDao::getInstance()->getListBOH();
+            $bohBooks = \Sb\Db\Dao\BookDao::getInstance()->getListBOH(10);
             if (count($bohBooks) == 0) {
                 $noBohBooks = new \Sb\View\Components\NoBooksWidget(__("Aucun livre n'a encore été noté par les membres", "s1b"));
                 echo $noBohBooks->get();

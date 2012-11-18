@@ -30,7 +30,7 @@
                             <div class="utcb-text">
                                 <div><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getBook()->getTitle(), 40);?></div>
                                 <div><?php echo sprintf(__("Auteur(s) : %s", "s1b"), $userBook->getBook()->getOrderableContributors());?></div>
-                                <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">Voir ce livre</a>","s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
+                                <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">Voir ce livre</a>", "s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
                             </div>
                         </div>
                     </li>
@@ -61,28 +61,28 @@
                         <div class="utwb-text">
                             <div><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getBook()->getTitle(), 40);?></div>
                             <div><?php echo sprintf(__("Auteur(s) : %s", "s1b"), $userBook->getBook()->getOrderableContributors());?></div>
-                            <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">Voir ce livre</a>","s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
+                            <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">Voir ce livre</a>", "s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
                         </div>
                     </div>
                     <?php } ?>
                     <?php if (count($wishedBooks) > 3) { ?>
                     <div class="utwb-link">
-                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::WISHED_BOOKS_KEY, "reset" => 1));?>" class="link"><?php _e("Voir plus de livres", "s1b");?></a>
+                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::WISHED_BOOKS_KEY, "reset" => 1));?>" class="link"><?php echo("Voir plus de livres");?></a>
                     </div>
                     <?php } ?>
                 <?php } else { ?>
-                <?php _e("Vous n'avez pas de livre souhaités.","s1b");?>
+                <?php _e("Vous n'avez pas de livre souhaités.", "s1b");?>
                 <?php }?>
             </div>          
         </div>
     </div>
     <?php }?>
     <div class="ut-friends">
-        <div class="ut-title"><?php _e("Mes amis", "s1b") ?></div>
+        <div class="ut-title"><?php _e("Mes amis", "s1b"); ?></div>
         <div class="ut-content">
             <div class="utc-part">
                 <?php
-                echo sprintf(__("<a class=\"ut-highlight\" href=\"%s\">%s ami(s)</a> sur %s"), \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS), $nbFriends, \Sb\Entity\Constants::SITENAME);
+                echo sprintf(__("<a class=\"ut-highlight\" href=\"%s\">%s ami(s)</a> sur %s", "s1b"), \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS), $nbFriends, \Sb\Entity\Constants::SITENAME);
                 ?>
             </div>
             <div class="utc-sep"></div>
@@ -109,7 +109,7 @@
                 <div class="utc-find-friend">
                     <div class="utc-friends-on-facebook">
                         <a href="#" onclick="facebookNewInvite(); return false;">
-                            <?php _e("Facebook", "s1b"); ?>
+                            <?php echo("Facebook"); ?>
                         </a>
                     </div>
                     <div class="utc-friends-invite">
@@ -127,9 +127,9 @@
             <div class="utc-part">
                 <?php
                 if ($nbMessagesToRead > 0) {
-                    echo sprintf(__("<a class=\"ut-highlight\" href=\"%s\">%s message(s)</a> non lu"), \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\urls::USER_MAILBOX), $nbMessagesToRead);
+                    echo sprintf(__("<a class=\"ut-highlight\" href=\"%s\">%s message(s)</a> non lu", "s1b"), \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\urls::USER_MAILBOX), $nbMessagesToRead);
                 } else {
-                    echo __("Vous n'avez pas de messages non lu", "s1b");
+                    _e("Vous n'avez pas de messages non lu", "s1b");
                 }
                 ?>
             </div>
@@ -137,9 +137,9 @@
             <div class="utc-part">
                 <?php
                 if ($nbPendingRequests > 0) {
-                    echo sprintf(__("<a class=\"ut-highlight\" href=\"%s\">%s demande(s) d'ami</a> à valider"), \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\urls::USER_FRIENDS_PENDING_REQUEST), $nbPendingRequests);
+                    echo sprintf(__("<a class=\"ut-highlight\" href=\"%s\">%s demande(s) d'ami</a> à valider", "s1b"), \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\urls::USER_FRIENDS_PENDING_REQUEST), $nbPendingRequests);
                 } else {
-                    echo __("Vous n'avez pas de demande(s) d'amis à valider", "s1b");
+                    _e("Vous n'avez pas de demande(s) d'amis à valider", "s1b");
                 }
                 ?>
             </div>

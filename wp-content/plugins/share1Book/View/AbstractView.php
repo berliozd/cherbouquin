@@ -18,8 +18,8 @@ abstract class AbstractView {
      * @return Config
      */
     protected function getConfig() {
-        global $s1b;
-        return $s1b->getConfig();
+        global $globalConfig;
+        return $globalConfig;
     }
 
     protected function getContext() {

@@ -58,5 +58,10 @@ class Urls {
     // Friend
     const FRIEND_PROFILE = 'amis/profil';
     const FRIEND_LIBRARY = 'bibliotheque-damis';
+    
+    // SEO Content pages
+    const LAST_ADDED_BOOKS = 'livres/derniers-livres-ajoutes';
+    const BLOW_OF_HEARTS_BOOKS = 'livres/coups-de-coeur';
+    const TOPS_BOOKS = 'livres/tops-des-livres';
 
 }

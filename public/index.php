@@ -28,11 +28,10 @@ $application = new Zend_Application(
 // ==========================================================
 // =========== DEBUT cherbouquin specicific code ============
 // ==========================================================
-
-if (APPLICATION_ENV == 'development'){
-    $front = Zend_Controller_Front::getInstance();
-    $front->setBaseUrl('cherbouquin');
-}
+//if (APPLICATION_ENV == 'development'){
+$front = Zend_Controller_Front::getInstance();
+$front->setBaseUrl('/cherbouquin');
+//}
 
 require_once(APPLICATION_PATH . '/configs/share1Book-config.php');
 
@@ -54,8 +53,35 @@ $connecteUserId = \Sb\Authentification\Service\AuthentificationSvc::getInstance(
 $globalContext = \Sb\Context\Model\Context::createContext($connecteUserId, false, null);
 
 // Set Config
-$globalConfig =  new \Sb\Config\Model\Config();
+$globalConfig = new \Sb\Config\Model\Config();
 
+
+// Set WPLANG constant identically as in wordpress code
+$isWPLangDefined = defined('WPLANG');
+if (!$isWPLangDefined) {
+    if (isset($_GET['lang'])) {
+        $_SESSION['WPLANG'] = $_GET['lang'];
+        define('WPLANG', $_SESSION['WPLANG']);
+    } else {
+        if (isset($_SESSION['WPLANG'])) {
+            define('WPLANG', $_SESSION['WPLANG']);
+            $_GET['lang'] = $_SESSION['WPLANG'];
+        } else {
+            define('WPLANG', 'fr_FR');
+        }
+    }
+}
+
+// Declare localization functions used in all pages and codes
+function __($stringId, $domain = "") {
+    return \Sb\Helpers\LocalizationHelper::getZendTranslate()->_($stringId);
+}
+
+function _e($stringId, $domain = "") {
+    echo \Sb\Helpers\LocalizationHelper::getZendTranslate()->_($stringId);
+}
+
+// Declare general autoloading function for all Sb classes
 function loadClass($name) {
     $isProxy = false;
     if (strpos($name, "Proxies\\__CG__\\") !== false)

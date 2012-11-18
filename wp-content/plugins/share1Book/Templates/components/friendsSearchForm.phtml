@@ -3,9 +3,9 @@
         <div class="utfs-field search-field">
             <div class="utf-input search-field-input">
                 <?php 
-                $value = $_GET['q'];
+                $value = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, 'q', '');
                 if ($value == "")
-                    $value = __("Nom, prénom, email...","");
+                    $value = __("Nom, prénom, email...", "s1b");
                 ?>
                 <input class="friendSearchField" type="text" style="width: 200px" name="q" value="<?php echo $value; ?>"/>
                 <input type="hidden" class="friendSearchDef" value="<?php echo $value; ?>"/>

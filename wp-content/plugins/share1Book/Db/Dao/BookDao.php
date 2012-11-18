@@ -101,9 +101,9 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
      * return a Collection of books
      * @return type
      */
-    public function getListTops() {
+    public function getListTops($nbMaxResults) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array(""));
+        $cacheId = $this->getCacheId(__FUNCTION__, array($nbMaxResults));
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b, p")->from("\Sb\Db\Model\Book ", "b")
@@ -112,7 +112,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->join("b.userbooks", "ub")
                 ->orderBy("b.average_rating", "DESC")
                 ->addOrderBy("ub.creation_date", "DESC")
-                ->setMaxResults(10);
+                ->setMaxResults($nbMaxResults);
 
         // we don't clean cache
         $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false); // false
@@ -124,16 +124,16 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
      * return a Collection of books
      * @return type
      */
-    public function getListBOH() {
+    public function getListBOH($nbMaxResults) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array(""));
+        $cacheId = $this->getCacheId(__FUNCTION__, array($nbMaxResults));
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
                 ->distinct()
                 ->join("b.userbooks", "ub")
                 ->where("ub.is_blow_of_heart = 1")
-                ->setMaxResults(10)
+                ->setMaxResults($nbMaxResults)
                 ->orderBy("ub.last_modification_date", "DESC");
 
         $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false);
@@ -170,14 +170,14 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         return $result;
     }
 
-    public function getLastlyAddedBooks() {
+    public function getLastlyAddedBooks($nbMaxResults) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array(""));
+        $cacheId = $this->getCacheId(__FUNCTION__, array($nbMaxResults));
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
                 ->join("b.userbooks", "ub")
-                ->setMaxResults(5)
+                ->setMaxResults($nbMaxResults)
                 ->orderBy("ub.creation_date", "DESC")
                 ->distinct(true);
 

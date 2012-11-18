@@ -34,10 +34,11 @@ class PushedBook extends \Sb\View\AbstractView {
         $bookTitle = $this->book->getTitle();
         $bookDescription = \Sb\Helpers\StringHelper::tronque($this->book->getDescription(), 250);
         $bookPublication = $this->book->getPublicationInfo();
+        
+        $bookAuthors = "";
         if ($this->book->getContributors())
-            $bookAuthors = sprintf(__("Auteur(s) : %s", "s1b"), $this->book->getOrderableContributors());
-        else
-            $bookAuthors = "";
+            $bookAuthors = sprintf("Auteur(s) : %s", $this->book->getOrderableContributors());
+            
         $nbRatings = $this->book->getNbRatedUserBooks();
         $nbBlowOfHearts = $this->book->getNbOfBlowOfHearts();
 

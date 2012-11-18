@@ -88,10 +88,10 @@ class Book implements \Sb\Db\Model\Model {
 
     /** @Column(type="float") */
     protected $average_rating;
-    
+
     /** @Column(type="integer") */
     protected $nb_of_pages;
-    
+
     /** @Column(type="string", length=5) */
     protected $language;
 
@@ -276,7 +276,7 @@ class Book implements \Sb\Db\Model\Model {
         }
         $publicationInfo = "";
         if ($this->getPublishingDate() && $pub) { // publisher et date de publication renseignées
-//$publicationInfo = "Publié le $pubDtStr par $pub";
+            //$publicationInfo = "Publié le $pubDtStr par $pub";
             $publicationInfo = sprintf(__("Publié le %s <span class=\"publisher\">par %s</span>", "s1b"), $pubDtStr, $pub);
         } elseif ($this->getPublishingDate()) { // date de publication renseignée
             $publicationInfo = sprintf(__("Publié le %s", "s1b"), $pubDtStr);
@@ -330,7 +330,7 @@ class Book implements \Sb\Db\Model\Model {
 
     public function updateAggregateFields($ratingDiff, $ratingAdded, $ratingRemoved, $blowOfHeartsAdded, $blowOfHeartsRemoved) {
 
-//var_dump("ratingDiff : " . $ratingDiff . " - ratingAdded : " . $ratingAdded . " - blowOfHeartsAdded : " . $blowOfHeartsAdded . " - blowOfHeartsRemoved : " . $blowOfHeartsRemoved);
+    //var_dump("ratingDiff : " . $ratingDiff . " - ratingAdded : " . $ratingAdded . " - blowOfHeartsAdded : " . $blowOfHeartsAdded . " - blowOfHeartsRemoved : " . $blowOfHeartsRemoved);
 
         $this->rating_sum += $ratingDiff;
 
@@ -402,7 +402,6 @@ class Book implements \Sb\Db\Model\Model {
         $this->language = $language;
     }
 
-        
     public function IsValid() {
 
         // If none of the 3 ids are set, book is invalid

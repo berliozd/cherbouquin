@@ -5,7 +5,7 @@
     <div class="pbi-content">
         <div class="pbi-flags">
             <?php if ($averageRating) {?>
-                <div class="pbif-rating-label"><?php echo sprintf(__("Note moyenne : <span class=\"pbi-avgrating\">%s</span> (%s note(s))","s1b"), $averageRating, $nbRatings);?></div>
+                <div class="pbif-rating-label"><?php echo sprintf("Note moyenne : <span class=\"pbi-avgrating\">%s</span> (%s note(s))", $averageRating, $nbRatings);?></div>
                 <div class="rating <?php echo $ratingCss;?>"></div>
             <?php }?>
             <?php if ($isBlowOfHeart) {?>
@@ -25,6 +25,6 @@
         <div class="pbi-authors">
             <?php echo $bookAuthors; ?>
         </div>
-        <a class="book-link" href="<?php echo $viewBookLink; ?>"><?php _e("Découvrir ce livre","s1b");?> </a>
+        <a class="book-link" href="<?php echo $viewBookLink; ?>"><?php echo "Découvrir ce livre";?> </a>
     </div>
 </div>

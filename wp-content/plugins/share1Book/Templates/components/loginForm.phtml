@@ -1,18 +1,18 @@
 <div class="login-form">
     <form name="Connexion_S1B" action="<?php echo \Sb\Helpers\HTTPHelper::Link(""); ?>" method="POST">
         <input type="hidden" name="connexion_type" value="S1B" />
-        <div class="lf-label">Connexion</div>
+        <div class="lf-label"><?php _e("Connexion", "s1b");?></div>
         <div class="lf-fields">
-            <input class="input loginField" type="text" name="email" value="Email"/>
-            <input class="input loginPwd" type="password" name="password" value="Mot de passe" />
+            <input class="input loginField" type="text" name="email" value="<?php _e("Email", "s1b");?>"/>
+            <input class="input loginPwd" type="password" name="password" value="<?php _e("Mot de passe", "s1b");?>" />
             <input class="loginDef" type="hidden" value="Email"/>
         </div>
         <div class="lf-button">
-            <button class="lfb-submit bt-blue-m button">S'identifier</button>
-            <a class="lfb-lostpassword" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOST_PASSWORD); ?>" >Mot de passe perdu</a>
+            <button class="lfb-submit bt-blue-m button"><?php _e("S'identifier", "s1b");?></button>
+            <a class="lfb-lostpassword" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOST_PASSWORD); ?>" ><?php _e("Mot de passe perdu", "s1b");?></a>
         </div>
         <div class="lf-fbconnect">
-            <a class="button bt-facebook-s" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGIN_FACEBOOK); ?>">connect</a>
+            <a class="button bt-facebook-s" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGIN_FACEBOOK); ?>"><?php _e("connect", "s1b");?></a>
         </div>
     </form>
 </div>

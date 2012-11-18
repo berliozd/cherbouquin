@@ -2,9 +2,7 @@
 
 namespace Sb\Helpers;
 
-use Sb\Entity\Urls;
-use Sb\Entity\LibraryPages;
-use Sb\Entity\LibraryListKeys;
+use \Sb\Entity\Urls;
 
 /**
  * @author Didier
@@ -118,7 +116,7 @@ class HTTPHelper {
         // When referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting 
         // values to be reset when return to the page
         $referer = $_SERVER["HTTP_REFERER"];
-        $libraryUrl = \Sb\Helpers\HTTPHelper::Link(Urls::USER_LIBRARY);
+        $libraryUrl = self::Link(Urls::USER_LIBRARY);
         if (strpos($referer, $libraryUrl) !== false) {
             $referer = str_replace("reset=1", "", $referer);
         }

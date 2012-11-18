@@ -21,8 +21,8 @@ class Trace {
      * @return Config
      */
     private static function getConfig() {
-        global $s1b;
-        return $s1b->getConfig();
+        global $globalConfig;
+        return $globalConfig;
     }
 
     /**
@@ -30,8 +30,8 @@ class Trace {
      * @return \Sb\Context\Model\Context
      */
     private static function getContext() {
-        global $s1b;
-        return $s1b->getContext();
+        global $globalContext;
+        return $globalContext;
     }
 
     private function __construct() {
