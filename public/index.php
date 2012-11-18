@@ -28,10 +28,10 @@ $application = new Zend_Application(
 // ==========================================================
 // =========== DEBUT cherbouquin specicific code ============
 // ==========================================================
-//if (APPLICATION_ENV == 'development'){
-$front = Zend_Controller_Front::getInstance();
-$front->setBaseUrl('/cherbouquin');
-//}
+if (APPLICATION_ENV == 'development') {
+    $front = Zend_Controller_Front::getInstance();
+    $front->setBaseUrl('/cherbouquin');
+}
 
 require_once(APPLICATION_PATH . '/configs/share1Book-config.php');
 
