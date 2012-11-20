@@ -80,7 +80,7 @@ class UserBook implements \Sb\Db\Model\Model {
 
     /** @Column(type="boolean") */
     protected $lent_once = false;
-    
+
     /** @Column(type="string", length=250) */
     protected $hyperlink;
 
@@ -104,6 +104,12 @@ class UserBook implements \Sb\Db\Model\Model {
      * @JoinColumn(name="id", referencedColumnName="borrower_userbook_id")
      * */
     protected $borrowings;
+
+    /**
+     * @OneToMany(targetEntity="UserBookGift", mappedBy="userbook")
+     * @JoinColumn(name="id", referencedColumnName="userbook_id")
+     * */
+    protected $giftsRelated;
 
     public function getId() {
         return $this->id;
@@ -284,7 +290,7 @@ class UserBook implements \Sb\Db\Model\Model {
         $hyperlink = str_replace("https://", "", $hyperlink);
         $this->hyperlink = $hyperlink;
     }
-        
+
     public function getTags() {
         return $this->tags;
     }
@@ -307,6 +313,14 @@ class UserBook implements \Sb\Db\Model\Model {
 
     public function setBorrowings($borrowings) {
         $this->borrowings = $borrowings;
+    }
+
+    public function getGiftsRelated() {
+        return $this->giftsRelated;
+    }
+
+    public function setGiftsRelated($giftsRelated) {
+        $this->giftsRelated = $giftsRelated;
     }
 
     public function IsValid() {
@@ -376,39 +390,19 @@ class UserBook implements \Sb\Db\Model\Model {
             }
         }
     }
+    
+    /**
+     *
+     * @return \Sb\Db\Model\UserBookGift
+     */
+    public function getActiveGiftRelated() {
+        if ($this->giftsRelated) {
+            foreach ($this->giftsRelated as $gitRelated) {
+                if ($gitRelated->getIs_active()) {
+                    return $gitRelated;
+                }
+            }
+        }
+    }
 
-    // TODO : delete everything below when properly cleaned code
-//    protected $userId;
-//
-//    public function getUserId() {
-//        return $this->userId;
-//    }
-//
-//    public function setUserId($userId) {
-//        $this->userId = $userId;
-//    }
-//
-//    protected $bookId;
-//
-//    public function getBookId() {
-//        return $this->bookId;
-//    }
-//
-//    public function setBookId($bookId) {
-//        $this->bookId = $bookId;
-//    }
-//
-//    protected $readingStateId;
-//
-//    public function getReadingStateId() {
-//        return $this->readingStateId;
-//    }
-//
-//    public function setReadingStateId($readingStateId) {
-//        $this->readingStateId = $readingStateId;
-//    }
-//
-//    public function __toString() {
-//        return "userbook";
-//    }
 }

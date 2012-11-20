@@ -285,6 +285,18 @@ class UserBook extends \Sb\Db\Model\UserBook implements \Doctrine\ORM\Proxy\Prox
         return parent::setBorrowings($borrowings);
     }
 
+    public function getGiftsRelated()
+    {
+        $this->__load();
+        return parent::getGiftsRelated();
+    }
+
+    public function setGiftsRelated($giftsRelated)
+    {
+        $this->__load();
+        return parent::setGiftsRelated($giftsRelated);
+    }
+
     public function IsValid()
     {
         $this->__load();
@@ -354,7 +366,7 @@ class UserBook extends \Sb\Db\Model\UserBook implements \Doctrine\ORM\Proxy\Prox
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'rating', 'is_blow_of_heart', 'review', 'is_wished', 'is_owned', 'is_deleted', 'creation_date', 'last_modification_date', 'reading_date', 'borrowed_once', 'lent_once', 'hyperlink', 'user', 'book', 'reading_state', 'tags', 'lendings', 'borrowings');
+        return array('__isInitialized__', 'id', 'rating', 'is_blow_of_heart', 'review', 'is_wished', 'is_owned', 'is_deleted', 'creation_date', 'last_modification_date', 'reading_date', 'borrowed_once', 'lent_once', 'hyperlink', 'user', 'book', 'reading_state', 'tags', 'lendings', 'borrowings', 'giftsRelated');
     }
 
     public function __clone()

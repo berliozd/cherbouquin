@@ -1,6 +1,7 @@
 <?php
 
 use \Sb\Helpers\EntityHelper;
+use \Sb\Helpers\ArrayHelper;
 
 $user = $context->getConnectedUser();
 
@@ -10,13 +11,11 @@ $friends = $user->getAcceptedFriends();
 usort($friends, "compareFirstName");
 
 
-if ($_POST) {
-    $friendId = $_POST['friendId'];
-    if ($friendId) {
-        $selectedFriend = \Sb\Db\Dao\UserDao::getInstance()->get($friendId);
-        $friendWishedBooks = $selectedFriend->getNotDeletedUserBooks();
-        $friendWishedBooks = array_filter($friendWishedBooks, "isWished");
-    }
+$selectedFrienId = ArrayHelper::getSafeFromArray($_GET, "friendId", null);
+if ($selectedFrienId) {
+    $selectedFriend = \Sb\Db\Dao\UserDao::getInstance()->get($selectedFrienId);
+    $friendWishedBooks = $selectedFriend->getNotDeletedUserBooks();
+    $friendWishedBooks = array_filter($friendWishedBooks, "isWished");
 }
 
 function isWished(\Sb\Db\Model\UserBook $userBook) {

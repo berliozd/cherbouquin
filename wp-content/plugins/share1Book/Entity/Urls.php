@@ -64,4 +64,6 @@ class Urls {
     const BLOW_OF_HEARTS_BOOKS = 'livres/coups-de-coeur';
     const TOPS_BOOKS = 'livres/tops-des-livres';
 
+    // Wished User Book
+    const WISHED_USERBOOK_SET_AS_OFFERED = "wished-user-book/set-as-offered";
 }

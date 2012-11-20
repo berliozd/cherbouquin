@@ -44,6 +44,7 @@ body {margin:0; background: url("../images/background.png") repeat scroll 0 0 tr
 /* buttons */
 /* buttons global definitions */
 .button {border: medium none;color: #FFFFFF; cursor: pointer; text-align: center; text-transform: uppercase; height: 18px; font-size: 11px; font-weight: bold; display:block; padding: 5px 0; line-height: 20px;} 
+.no-link {cursor: auto;}
 A.button, A.button:hover, A.button:visited {text-decoration:none; color: #FFFFFF; }
 INPUT.button, BUTTON.button {height:28px; padding:0; font-size: 10px;}
 /* buttons specific definitions */
@@ -51,6 +52,7 @@ INPUT.button, BUTTON.button {height:28px; padding:0; font-size: 10px;}
 .bt-black-s {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -653px transparent; width: 72px;}
 .bt-black-m {background: url("../images/sprite-buttons.png") no-repeat scroll 0 0px transparent; width: 102px;}
 .bt-black-l {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -546px transparent; width: 120px;}
+
 .bt-blue-xs {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -75px transparent; width: 60px;}
 .bt-blue-s  {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -110px transparent; width: 65px;}
 .bt-blue-m  {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -145px transparent; width: 88px;}
@@ -58,6 +60,9 @@ INPUT.button, BUTTON.button {height:28px; padding:0; font-size: 10px;}
 .bt-blue-addfriend {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -616px transparent; padding-left: 28px; width: 99px;}
 .bt-blue-xl {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -211px transparent; width: 127px;}
 .bt-blue-xxl {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -694px transparent;font-size: 16px;height: 29px;padding-top: 18px;width: 175px;}
+
+.bt-red-m  {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -763px transparent; width: 88px;}
+
 .bt-facebook-s {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -243px transparent; width: 78px;}
 .bt-facebook-m { background: url("../images/sprite-buttons.png") no-repeat scroll 0 -580px transparent; padding-left: 10px; width: 68px;}
 .bt-carroussel {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -286px transparent;font-size: 1.5em;height: 26px;padding: 9px 0;width: 139px;}
@@ -289,6 +294,9 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .pb-shelf {background: url("../images/shelf.png") no-repeat scroll 5px bottom transparent; float: left; padding-bottom: 23px; width: 100%;}
 .pb-bookOnShelf {float: left; margin-right: 1.5em;}
 .pb-bookOnShelf .image-frame {box-shadow: none; padding: 0;}
+.pbi-giftoption {margin-top:20px;}
+.pbi-giftoption-addoption {float: left;}
+.pbi-giftoption-buy {float: right;}
 
 /* book-search */
 .bs-button {float: right;}

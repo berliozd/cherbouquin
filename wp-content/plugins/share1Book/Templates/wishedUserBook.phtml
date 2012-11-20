@@ -1,0 +1,32 @@
+<div class="pb-item pushedBook">
+    <div class="pbi-image">
+        <a title="<?php echo $bookTitle; ?> - <?php echo $bookAuthors; ?>" href="<?php echo $viewBookLink; ?>"><?php echo $image; ?></a>
+    </div>
+    <div class="pbi-content">
+        <h2 class="pbi-title">
+            <?php echo $bookTitle; ?>
+        </h2>
+        <div class="pbi-description">
+            <?php echo $bookDescription; ?>
+        </div>
+        <div class="pbi-publication">
+            <?php echo $bookPublication; ?>
+        </div>
+        <div class="pbi-authors">
+            <?php echo $bookAuthors; ?>
+        </div>
+        <a class="book-link" href="<?php echo $viewBookLink; ?>"><?php echo "Découvrir ce livre"; ?> </a>
+        <div class="pbi-giftoption">
+            <div class="pbi-giftoption-addoption">
+                <?php if (!$isOffered) { ?>
+                    <a href="<?php echo $setAsOfferedLink;?>" class="button bt-blue-m"><?php _e("option", "s1b"); ?></a>
+                <?php } else { ?>
+                    <div class="button bt-red-m no-link"><?php _e("déjà acheté", "s1b"); ?></div>
+                <?php } ?>            
+            </div>
+            <div class="pbi-giftoption-buy">
+                <a href="<?php echo $buyOnAmazonLink; ?>"><img border="0" alt="<?php _e("Acheter sur Amazon", "s1b"); ?>" src="<?php echo $amazonButton ?>"></a>
+            </div>
+        </div>
+    </div>
+</div>
