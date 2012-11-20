@@ -47,7 +47,7 @@
         };
         </script>        
         
-        <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book.css"  />
+        <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book.css?v=16"  />
         <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/overcast/jquery-ui-1.8.18.custom.css"  />
         
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/favicons/favicon.ico" />
