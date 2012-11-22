@@ -20,12 +20,19 @@
             <div class="pbi-giftoption-addoption">
                 <?php if (!$isOffered) { ?>
                     <a href="<?php echo $setAsOfferedLink;?>" class="button bt-blue-m"><?php _e("option", "s1b"); ?></a>
-                <?php } else { ?>
+                <?php } else { ?>                    
                     <div class="button bt-red-m no-link"><?php _e("déjà acheté", "s1b"); ?></div>
+                    <?php if ($giftOptionFromMe) {?>
+                        <?php _e("Cette option d'achat a été posée par moi.", "s1b");?>
+                        <?php echo sprintf(__("Je souhaite l'<a class=\"link\" href=\"%s\">annuler</a>.", "s1b"), $deactivateGiftOptionLink);?>
+                    <?php } ?>
                 <?php } ?>            
             </div>
             <div class="pbi-giftoption-buy">
-                <a target="_blank" href="<?php echo $buyOnAmazonLink; ?>"><img border="0" alt="<?php _e("Acheter sur Amazon", "s1b"); ?>" src="<?php echo $amazonButton ?>"></a>
+                <a class="button bt-amazon float-left margin-right" target="_blank" href="<?php echo $buyOnAmazonLink; ?>" title="<?php _e("Acheter sur Amazon", "s1b");?>"></a>
+                <?php if ($buyOnFnacLink) { ?>
+                <a class="button bt-fnac float-left" target="_blank" href="<?php echo $buyOnFnacLink; ?>" title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>
+                <?php } ?>
             </div>
         </div>
     </div>

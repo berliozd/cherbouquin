@@ -65,5 +65,8 @@ class Urls {
     const TOPS_BOOKS = 'livres/tops-des-livres';
 
     // Wished User Book
-    const WISHED_USERBOOK_SET_AS_OFFERED = "wished-user-book/set-as-offered";
+    const WISHED_USERBOOK_SET_AS_OFFERED = "wished-userbook/set-as-offered";
+    
+    // Userbook Gift
+    const USERBOOK_GIFT_DISABLE = "userbook-gift/disable";
 }
