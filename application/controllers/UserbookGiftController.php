@@ -4,17 +4,21 @@ use Sb\Helpers\HTTPHelper;
 use Sb\Db\Dao\UserBookGiftDao;
 use Sb\Flash\Flash;
 
-class UserbookGiftController extends Zend_Controller_Action {
+class UserbookGiftController extends Zend_Controller_Action
+{
 
-    public function init() {
+    public function init()
+    {
         /* Initialize action controller here */
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         // action body
     }
 
-    public function disableAction() {
+    public function disableAction()
+    {
         $dest = (HTTPHelper::getReferer() ? HTTPHelper::getReferer() : HTTPHelper::Link());
         $id = $this->_getParam('ubgid', -1);
         if ($id > 0) {
@@ -39,6 +43,4 @@ class UserbookGiftController extends Zend_Controller_Action {
         $this->_redirect($dest);
         exit();
     }
-
 }
-

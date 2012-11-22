@@ -15,15 +15,6 @@ class MailSvcImpl implements \Sb\Mail\Service\MailSvc {
 
     /**
      *
-     * @return Config
-     */
-    private function getConfig() {
-        global $s1b;
-        return $s1b->getConfig();
-    }
-
-    /**
-     *
      * @return \Sb\Mail\Service\MailSvcImpl
      */
     public static function getInstance() {
@@ -37,8 +28,6 @@ class MailSvcImpl implements \Sb\Mail\Service\MailSvc {
     }
 
     private function __construct($replyTo = null, $from = null) {
-        $config = $this->getConfig();
-
         if ($replyTo)
             $this->replyto = $replyTo;
         else

@@ -69,4 +69,7 @@ class Urls {
     
     // Userbook Gift
     const USERBOOK_GIFT_DISABLE = "userbook-gift/disable";
+    
+    // Userbook Gifts
+    const USERBOOK_GIFTS_SEND_BY_EMAIL= "userbook-gifts/send-by-email";
 }

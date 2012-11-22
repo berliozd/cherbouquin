@@ -18,6 +18,8 @@ class StringHelper {
     }
     
     public static function isValidEmail($email) {
-        return eregi("^[A-Z0-9._%-]+@[A-Z0-9._%-]+\.[A-Z]{2,4}$", $email);
+        //$regex = "^[A-Z0-9._%-]+@[A-Z0-9._%-]+\.[A-Z]{2,4}$";
+        $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
+        return preg_match($regex, $email);
     }
 }

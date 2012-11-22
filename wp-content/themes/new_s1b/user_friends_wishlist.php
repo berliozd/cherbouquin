@@ -3,6 +3,9 @@ require_once 'includes/init.php';
 get_header();
 require_once 'user_friends_wishlist_1.php';
 
+use Sb\Helpers\HTTPHelper;
+use Sb\Entity\Urls;
+
 /**
  * Template Name: user_friends_wishlist
  */
@@ -47,16 +50,17 @@ require_once 'user_friends_wishlist_1.php';
                 }
                 ?>
             </div>
-<!--            <div class="mailbox-new-message">
-                <form action="" method="post">
-                    <div class="mnm-title"><?php //_e("Envoyer la liste par email", "s1b"); ?></div>
+            <div class="mailbox-new-message">
+                <form action="<?php echo HTTPHelper::Link(Urls::USERBOOK_GIFTS_SEND_BY_EMAIL) ?>" method="post">
+                    <input type="hidden" name="uid" value="<?php echo $selectedFriend->getId();?>"/>
+                    <div class="mnm-title"><?php _e("Envoyer la liste par email", "s1b"); ?></div>
                     <div class="mnm-line">
-                        <div class="mnm-line-title"><?php //_e("Emails (séparés par une virgule) *", "s1b"); ?></div>
-                        <input type="text" class="input-item mnm-emails" name="Emails" maxlength="250" value=""/>
-                        <button class="button bt-blue-m float-right margin-left"><?php //_e("Envoyer", "s1b"); ?></button>
+                        <div class="mnm-line-title"><?php _e("Emails (séparés par une virgule) *", "s1b"); ?></div>
+                        <input type="text" class="input-item mnm-emails" name="emails" maxlength="250" value="<?php echo $_GET["emails"];?>"/>
+                        <button class="button bt-blue-m float-right margin-left"><?php _e("Envoyer", "s1b"); ?></button>
                     </div>                    
                 </form>
-            </div>-->
+            </div>
         <?php } elseif (!$selectedFriend) { ?>
             <div class="fl-choosefriend"><?php _e("Merci de sélectionner un ami dans la liste.", "s1b"); ?> </div>
         <?php } elseif (!$friendWishedBooks) { ?>
