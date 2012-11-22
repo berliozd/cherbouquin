@@ -18,7 +18,7 @@ global $globalContext;
         </div>
         <?php
         foreach ($this->books as $book) {
-            $pushedBook = new PushedBook($book, false);
+            $pushedBook = new PushedBook($book, true);
             echo $pushedBook->get();
         }
         ?>
