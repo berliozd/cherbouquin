@@ -48,7 +48,6 @@ class UserbookGiftsController extends Zend_Controller_Action {
                 }
 
                 // Building the mail content
-                $wishedUserbooks = array_filter($wishedUserbooks, array(&$this, "hasNotActiveGift"));
                 $emailContent = \Sb\Helpers\MailHelper::wishedUserBooksEmailBody($user, $wishedUserbooks);
                 
                 // Sending mail
@@ -62,10 +61,6 @@ class UserbookGiftsController extends Zend_Controller_Action {
         Flash::addItem(__("Une erreur s'est produite lors de l'envoi de la liste par email", "s1b"));
         $this->_redirect($origin);
         exit();
-    }
-
-    private function hasNotActiveGift(\Sb\Db\Model\UserBook $userbook) {
-        return $userbook->getActiveGiftRelated() == null;
     }
 
     function isWished(\Sb\Db\Model\UserBook $userBook) {
