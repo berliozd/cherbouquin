@@ -36,6 +36,20 @@ use Sb\Entity\Urls;
 <div id="content-center">
     <div class="friends-wished-books">
         <?php if ($selectedFriend && $friendWishedBooks) { ?>
+            <div class="fwb-title"><?php _e("Offrez un livre à vos amis", "s1b"); ?></div>
+            <div class="fwb-description"><?php _e("Choisissez le livre que vous souhiatez offrir à un ami, dans sa liste d'envie, puis marquez le livre afin d'éviter que d'autres personnes n'offrent le même.", "s1b"); ?></div>
+            <div class="fwb-mail">
+                <div class="fwb-mail-description"><?php _e("Vous pouvez également partager cette liste ou l'envoyer par email.", "s1b");?></div>
+                <form action="<?php echo HTTPHelper::Link(Urls::USERBOOK_GIFTS_SEND_BY_EMAIL) ?>" method="post">
+                    <input type="hidden" name="uid" value="<?php echo $selectedFriend->getId();?>"/>                    
+                    <div class="fwb-line">
+                        <div class="fwb-line-title"><?php _e("Emails (séparés par une virgule) *", "s1b"); ?></div>
+                        <input type="text" class="input-item mnm-emails" name="emails" maxlength="250" value="<?php echo $_GET["emails"];?>"/>
+                        <button class="button bt-blue-m float-right margin-left"><?php _e("Envoyer", "s1b"); ?></button>
+                    </div>                    
+                </form>
+            </div>
+            <div class="horizontal-sep-1"></div>
             <div class="friend-title"><?php echo sprintf(__("Livres souhaités par %s", "s1b"), $selectedFriend->getFriendlyName()); ?></div>
             <div class="friend-books">
                 <?php
@@ -49,18 +63,7 @@ use Sb\Entity\Urls;
                     }
                 }
                 ?>
-            </div>
-            <div class="mailbox-new-message">
-                <form action="<?php echo HTTPHelper::Link(Urls::USERBOOK_GIFTS_SEND_BY_EMAIL) ?>" method="post">
-                    <input type="hidden" name="uid" value="<?php echo $selectedFriend->getId();?>"/>
-                    <div class="mnm-title"><?php _e("Envoyer la liste par email", "s1b"); ?></div>
-                    <div class="mnm-line">
-                        <div class="mnm-line-title"><?php _e("Emails (séparés par une virgule) *", "s1b"); ?></div>
-                        <input type="text" class="input-item mnm-emails" name="emails" maxlength="250" value="<?php echo $_GET["emails"];?>"/>
-                        <button class="button bt-blue-m float-right margin-left"><?php _e("Envoyer", "s1b"); ?></button>
-                    </div>                    
-                </form>
-            </div>
+            </div>            
         <?php } elseif (!$selectedFriend) { ?>
             <div class="fl-choosefriend"><?php _e("Merci de sélectionner un ami dans la liste.", "s1b"); ?> </div>
         <?php } elseif (!$friendWishedBooks) { ?>

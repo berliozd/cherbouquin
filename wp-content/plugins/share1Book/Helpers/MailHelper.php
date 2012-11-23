@@ -115,8 +115,7 @@ class MailHelper {
         $body .= "</ul>";
         
         $body .= sprintf(__("<br/><br/>Cette liste vous a été envoyée depuis le site <a href=\"%s\">%s</a>","s1b") , HTTPHelper::Link(""), Constants::SITENAME);
-        $body .= self::getProfileEditSettingLine();
-        
+
         return $body;
     }
 

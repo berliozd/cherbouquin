@@ -299,8 +299,8 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .pb-bookOnShelf {float: left; margin-right: 1.5em;}
 .pb-bookOnShelf .image-frame {box-shadow: none; padding: 0;}
 .pbi-giftoption {margin-top:20px;}
-.pbi-giftoption-addoption {float: left;}
-.pbi-giftoption-buy {border-left: 1px solid #b1b2b3; float: right; padding-left: 10px;}
+.pbi-giftoption-addoption {float: left; width: 300px;}
+.pbi-giftoption-buy {border-left: 1px solid #b1b2b3; float: left; padding-left: 10px;}
 .pbi-giftoption-notbought {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1401px transparent; font-weight:bold; display: block; height: 22px; line-height: 22px; margin-bottom: 3px; padding-left: 23px;}
 .pbi-giftoption-bought {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1433px transparent; font-weight:bold; display: block; height: 22px; line-height: 22px; margin-bottom: 3px; padding-left: 23px;}
 
@@ -475,6 +475,19 @@ TABLE TH.llh-title {padding-left: 80px;}
 .fls-form {float: left; }
 .fl-friendnobooks {font-size:1.7em;}
 .fl-choosefriend{font-size:1.7em;}
+
+/* friend wished books */
+.friends-wished-books {}
+.fwb-title {font-size: 1.9em;}
+.fwb-description {font-size: 1.2em;
+    margin-top: 5px;}
+.fwb-line {}
+.fwb-line-title { font-weight: bold;}
+.fwb-mail { margin-top: 10px;}
+.fwb-mail-description {font-size: 1.2em;
+    margin-bottom: 5px;}
+
+
 
 /* user profile */
 .user-profile-bkg {background: url("../images/user-profile-bkg.png") repeat-x scroll 0 0 transparent; border-radius: 10px 10px 10px 10px; float: left;}
