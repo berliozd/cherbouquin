@@ -1,32 +1,29 @@
-<div class="pb-item pushedBook">
-    <div class="pbi-image">
+<div class="wb-item">
+    <div class="wbi-image">
         <a title="<?php echo $bookTitle; ?> - <?php echo $bookAuthors; ?>" href="<?php echo $viewBookLink; ?>"><?php echo $image; ?></a>
     </div>
-    <div class="pbi-content">
-        <h2 class="pbi-title">
+    <div class="wbi-content">
+        <div class="wbi-title">
             <?php echo $bookTitle; ?>
-        </h2>
-        <div class="pbi-description">
+        </div>
+        <div class="wbi-description">
             <?php echo $bookDescription; ?>
         </div>
-        <div class="pbi-publication">
-            <?php echo $bookPublication; ?>
-        </div>
-        <div class="pbi-authors">
+        <div class="wbi-authors">
             <?php echo $bookAuthors; ?>
         </div>
         <a class="book-link" href="<?php echo $viewBookLink; ?>"><?php echo "Découvrir ce livre"; ?> </a>
-        <div class="pbi-giftoption">
-            <div class="pbi-giftoption-addoption">
+        <div class="wbi-giftoption">
+            <div class="wbi-giftoption-addoption">
                 <?php if (!$isOffered) { ?>
-                    <span class="pbi-giftoption-notbought"><?php _e("Ce livre n'a pas encore été offert.","s1b");?></span>
+                    <span class="wbi-giftoption-notbought"><?php _e("Ce livre n'a pas encore été offert.","s1b");?></span>
                     <a href="<?php echo $setAsOfferedLink;?>" class="button bt-blue-xxxl"><?php _e("Marquez-le comme acheté", "s1b"); ?></a>
                 <?php } else { ?>
                     <?php 
                     global $context;
                     $giftOptionFromMe = ($offerer->getId() == $context->getConnectedUser()->getId());
                     ?>
-                    <span class="pbi-giftoption-bought">
+                    <span class="wbi-giftoption-bought">
                         <?php 
                         if ($giftOptionFromMe)
                             _e("Ce livre a déjà été acheté par moi.", "s1b");
@@ -39,7 +36,7 @@
                     ?>
                 <?php } ?>            
             </div>
-            <div class="pbi-giftoption-buy">
+            <div class="wbi-giftoption-buy">
                 <a class="button bt-amazon float-left margin-right" target="_blank" href="<?php echo $buyOnAmazonLink; ?>" title="<?php _e("Acheter sur Amazon", "s1b");?>"></a>
                 <?php if ($buyOnFnacLink) { ?>
                 <a class="button bt-fnac float-left" target="_blank" href="<?php echo $buyOnFnacLink; ?>" title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>

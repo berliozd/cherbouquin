@@ -29,9 +29,8 @@ class WishedUserBook extends AbstractView {
 
         // Prepare variables        
         $viewBookLink = HTTPHelper::Link($this->book->getLink());
-        $img = BookHelper::getMediumImageTag($this->book, $this->defImg);
+        $img = BookHelper::getSmallImageTag($this->book, $this->defImg);
         $bookTitle = $this->book->getTitle();
-        $bookPublication = $this->book->getPublicationInfo();
         $bookAuthors = "";
         if ($this->book->getContributors())
             $bookAuthors = sprintf("Auteur(s) : %s", $this->book->getOrderableContributors());
@@ -49,7 +48,6 @@ class WishedUserBook extends AbstractView {
         // Set variables
         $tplBook->setVariables(array(
             "bookTitle" => $bookTitle,
-            "bookPublication" => $bookPublication,
             "bookAuthors" => $bookAuthors,
             "viewBookLink" => $viewBookLink,
             "image" => $img,

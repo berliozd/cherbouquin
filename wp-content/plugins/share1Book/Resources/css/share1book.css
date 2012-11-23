@@ -298,11 +298,18 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .pb-shelf {background: url("../images/shelf.png") no-repeat scroll 5px bottom transparent; float: left; padding-bottom: 23px; width: 100%;}
 .pb-bookOnShelf {float: left; margin-right: 1.5em;}
 .pb-bookOnShelf .image-frame {box-shadow: none; padding: 0;}
-.pbi-giftoption {margin-top:20px;}
-.pbi-giftoption-addoption {float: left; width: 300px;}
-.pbi-giftoption-buy {border-left: 1px solid #b1b2b3; float: left; padding-left: 10px;}
-.pbi-giftoption-notbought {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1401px transparent; font-weight:bold; display: block; height: 22px; line-height: 22px; margin-bottom: 3px; padding-left: 23px;}
-.pbi-giftoption-bought {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1433px transparent; font-weight:bold; display: block; height: 22px; line-height: 22px; margin-bottom: 3px; padding-left: 23px;}
+
+/* Wished books */
+.wb-item { float: left; margin-bottom: 10px; width: 100%; font-size: 1.1em;}
+.wbi-image {float: left;width: 80px;}
+.wbi-content {float:left; width: 510px;}
+.wbi-title {font-weight: bold;}
+.wbi-content-title {font-size:1.7em;}
+.wbi-giftoption {margin-top:20px;}
+.wbi-giftoption-addoption {float: left; width: 300px;}
+.wbi-giftoption-buy {border-left: 1px solid #b1b2b3; float: left; padding-left: 10px;}
+.wbi-giftoption-notbought {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1401px transparent; font-weight:bold; display: block; height: 22px; line-height: 22px; margin-bottom: 3px; padding-left: 23px;}
+.wbi-giftoption-bought {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1433px transparent; font-weight:bold; display: block; height: 22px; line-height: 22px; margin-bottom: 3px; padding-left: 23px;}
 
 
 /* book-search */

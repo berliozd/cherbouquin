@@ -109,7 +109,7 @@ class MailHelper {
                     . "<a href=\"" . HTTPHelper::Link($userbook->getBook()->getLink()) . "\">" . $userbook->getBook()->getTitle() . "</a>"
                     . "&nbsp;"
                     . sprintf(__("de %s","s1b"), $userbook->getBook()->getOrderableContributors())
-                    . ($hasActiveGift ? "&nbsp;-&nbsp;" . __("ATTENTION ce livre a été déjà été acheté par un autre ami.", "s1b") : "")
+                    . ($hasActiveGift ? "&nbsp;-&nbsp;" . __("ATTENTION ce livre a déjà été acheté par quelqu'un.", "s1b") : "")
                     . "</li>";
         }
         $body .= "</ul>";
