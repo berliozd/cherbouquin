@@ -37,7 +37,7 @@ use Sb\Entity\Urls;
     <div class="friends-wished-books">
         <?php if ($selectedFriend && $friendWishedBooks) { ?>
             <div class="fwb-title"><?php _e("Offrez un livre à vos amis", "s1b"); ?></div>
-            <div class="fwb-description"><?php _e("Choisissez le livre que vous souhiatez offrir à un ami, dans sa liste d'envie, puis marquez le livre afin d'éviter que d'autres personnes n'offrent le même.", "s1b"); ?></div>
+            <div class="fwb-description"><?php _e("Choisissez le livre que vous souhaitez offrir à un ami dans sa liste d'envie, puis marquez le livre afin d'éviter que d'autres personnes n'offrent le même.", "s1b"); ?></div>
             <div class="fwb-mail">
                 <div class="fwb-mail-description"><?php _e("Vous pouvez également partager cette liste ou l'envoyer par email.", "s1b");?></div>
                 <form action="<?php echo HTTPHelper::Link(Urls::USERBOOK_GIFTS_SEND_BY_EMAIL) ?>" method="post">
