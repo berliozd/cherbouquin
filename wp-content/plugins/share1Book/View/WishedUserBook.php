@@ -36,15 +36,15 @@ class WishedUserBook extends AbstractView {
         if ($this->book->getContributors())
             $bookAuthors = sprintf("Auteur(s) : %s", $this->book->getOrderableContributors());
         $isOffered = ($this->userbook->getActiveGiftRelated() != null);
-        if ($isOffered)
-            $giftOptionFromMe = ($this->userbook->getActiveGiftRelated()->getOfferer()->getId() == $this->getContext()->getConnectedUser()->getId());
+        if ($isOffered) {
+            $deactivateGiftOptionLink = HTTPHelper::Link(Urls::USERBOOK_GIFT_DISABLE, array("ubgid" => $this->userbook->getActiveGiftRelated()->getId()));
+            $offerer = $this->userbook->getActiveGiftRelated()->getOfferer();
+        }
         $buyOnAmazonLink = $this->book->getAmazonUrl();
         $buyOnFnacLink = null;
         if ($this->book->getISBN13())
             $buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $this->book->getISBN13() . "]]";
         $setAsOfferedLink = HTTPHelper::Link(Urls::WISHED_USERBOOK_SET_AS_OFFERED, array("ubid" => $this->userbook->getId()));
-        if ($giftOptionFromMe)
-            $deactivateGiftOptionLink = HTTPHelper::Link(Urls::USERBOOK_GIFT_DISABLE, array("ubgid" => $this->userbook->getActiveGiftRelated()->getId()));;
 
         // Set variables
         $tplBook->setVariables(array(
@@ -56,7 +56,7 @@ class WishedUserBook extends AbstractView {
             "isOffered" => $isOffered,
             "buyOnAmazonLink" => $buyOnAmazonLink,
             "buyOnFnacLink" => $buyOnFnacLink,
-            "giftOptionFromMe" =>$giftOptionFromMe, 
+            "offerer" => $offerer,
             "setAsOfferedLink" => $setAsOfferedLink,
             "deactivateGiftOptionLink" => $deactivateGiftOptionLink));
 

@@ -48,33 +48,34 @@ body {margin:0; background: url("../images/background.png") repeat scroll 0 0 tr
 A.button, A.button:hover, A.button:visited {text-decoration:none; color: #FFFFFF; }
 INPUT.button, BUTTON.button {height:28px; padding:0; font-size: 10px;}
 /* buttons specific definitions */
-.bt-black-xs {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -34px transparent; width: 63px;}
-.bt-black-s {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -653px transparent; width: 72px;}
-.bt-black-m {background: url("../images/sprite-buttons.png") no-repeat scroll 0 0px transparent; width: 102px;}
-.bt-black-l {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -546px transparent; width: 120px;}
+.bt-black-xs {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -34px transparent; width: 63px;}
+.bt-black-s {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -653px transparent; width: 72px;}
+.bt-black-m {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 0px transparent; width: 102px;}
+.bt-black-l {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -546px transparent; width: 120px;}
 
-.bt-blue-xs {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -75px transparent; width: 60px;}
-.bt-blue-s  {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -110px transparent; width: 65px;}
-.bt-blue-m  {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -145px transparent; width: 88px;}
-.bt-blue-l  {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -178px transparent; width: 121px;}
-.bt-blue-addfriend {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -616px transparent; padding-left: 28px; width: 99px;}
-.bt-blue-xl {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -211px transparent; width: 127px;}
-.bt-blue-xxl {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -694px transparent;font-size: 16px;height: 29px;padding-top: 18px;width: 175px;}
+.bt-blue-xs {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -75px transparent; width: 60px;}
+.bt-blue-s  {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -110px transparent; width: 65px;}
+.bt-blue-m  {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -145px transparent; width: 88px;}
+.bt-blue-l  {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -178px transparent; width: 121px;}
+.bt-blue-addfriend {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -616px transparent; padding-left: 28px; width: 99px;}
+.bt-blue-xl {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -211px transparent; width: 127px;}
+.bt-blue-xxl {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -694px transparent;font-size: 16px;height: 29px;padding-top: 18px;width: 175px;}
+.bt-blue-xxxl {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -859px transparent; height: 18px; padding: 2px 0; width: 165px;}
 
-.bt-red-m  {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -763px transparent; width: 88px;}
+.bt-red-m  {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -763px transparent; width: 88px;}
 
-.bt-facebook-s {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -243px transparent; width: 78px;}
-.bt-facebook-m { background: url("../images/sprite-buttons.png") no-repeat scroll 0 -580px transparent; padding-left: 10px; width: 68px;}
-.bt-carroussel {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -286px transparent;font-size: 1.5em;height: 26px;padding: 9px 0;width: 139px;}
-.bt-delete  {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -391px transparent; height: 30px; padding: 0;width: 30px;}
-.bv-share {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -444px transparent;float: right;height: 39px; padding: 43px 6px 11px 5px; width: 84px;  line-height: 12px;}
-.search-button{background: url("../images/sprite-buttons.png") no-repeat scroll 5px -343px transparent; border: medium none; cursor: pointer; float: right; height: 31px; padding: 3px; width: 36px;}
+.bt-facebook-s {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -243px transparent; width: 78px;}
+.bt-facebook-m { background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -580px transparent; padding-left: 10px; width: 68px;}
+.bt-carroussel {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -286px transparent;font-size: 1.5em;height: 26px;padding: 9px 0;width: 139px;}
+.bt-delete  {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -391px transparent; height: 30px; padding: 0;width: 30px;}
+.bv-share {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -444px transparent;float: right;height: 39px; padding: 43px 6px 11px 5px; width: 84px;  line-height: 12px;}
+.search-button{background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 5px -343px transparent; border: medium none; cursor: pointer; float: right; height: 31px; padding: 3px; width: 36px;}
 .link-button {background-color: transparent; color: #239CD3; float: right; font-size: 1em !important; margin: 0 auto; text-decoration: underline; text-transform: none;}
 
-.bt-amazon {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -809px transparent; height: 32px; width: 105px;}
-.bt-fnac {background: url("../images/sprite-buttons.png") no-repeat scroll 0 -865px transparent; height: 30px; width: 40px;}
+.bt-amazon {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -762px transparent; height: 27px; width: 92px;}
+.bt-fnac {background: url("../images/sprite-buttons.png?v=2") no-repeat scroll 0 -810px transparent; height: 30px; width: 92px;}
 
-.search-field {background: url("../images/sprite.png") no-repeat scroll 0 0 transparent;float: left;height: 32px;width: 266px;}
+.search-field {background: url("../images/sprite.png?v=2") no-repeat scroll 0 0 transparent;float: left;height: 32px;width: 266px;}
 .search-field-input {float: left; margin: 7px;}
 .search-field INPUT { background: none repeat scroll 0 0 transparent;border: medium none; width: 200px; font-size: 1em; text-overflow: ellipsis;}
 
@@ -83,23 +84,23 @@ INPUT.button, BUTTON.button {height:28px; padding:0; font-size: 10px;}
 .seeMore A, .seeMore A:visited, .seeMore A:hover {color: #000000;text-decoration: none;}
 .stars {float:left;margin:0;width:80px; height:20px;}
 DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
-.blowofheart {background: url("../images/sprite.png") no-repeat scroll 2px -392px transparent;float: left;width: 22px; height: 18px; padding-top: 5px;}
-.no-rating {background: url("../images/sprite.png") no-repeat scroll 0 -569px transparent;}
-.rating-0 {background: url("../images/sprite.png") no-repeat scroll 0 -427px transparent;}
-.rating-1 {background: url("../images/sprite.png") no-repeat scroll 0 -449px transparent;}
-.rating-2 {background: url("../images/sprite.png") no-repeat scroll 0 -472px transparent}
-.rating-3 {background: url("../images/sprite.png") no-repeat scroll 0 -495px transparent}
-.rating-4 {background: url("../images/sprite.png") no-repeat scroll 0 -521px transparent}
-.rating-5 {background: url("../images/sprite.png") no-repeat scroll 0 -546px transparent}
+.blowofheart {background: url("../images/sprite.png?v=2") no-repeat scroll 2px -392px transparent;float: left;width: 22px; height: 18px; padding-top: 5px;}
+.no-rating {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -569px transparent;}
+.rating-0 {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -427px transparent;}
+.rating-1 {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -449px transparent;}
+.rating-2 {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -472px transparent}
+.rating-3 {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -495px transparent}
+.rating-4 {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -521px transparent}
+.rating-5 {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -546px transparent}
 .star-sep , .star-0-label {font-size: 1.2em;}
 .picto-small {float: left; width:116px; height:26px}
-.picto-wished-small {background: url("../images/sprite.png") no-repeat scroll 2px -821px transparent;}
-.picto-owned-small {background: url("../images/sprite.png") no-repeat scroll 2px -602px transparent; width:75px; }
-.picto-lent-small {background: url("../images/sprite.png") no-repeat scroll 2px -642px transparent;}
-.picto-borrowed-small {background: url("../images/sprite.png") no-repeat scroll 2px -687px transparent;}
-.picto-returntovalidate-small {background: url("../images/sprite.png") no-repeat scroll 2px -735px transparent; height:39px;}
-.picto-lendable-small {background: url("../images/sprite.png") no-repeat scroll 2px -780px transparent;}
-.boh {background: url("../images/sprite.png") no-repeat scroll 0 -393px transparent; float: left; height: 20px;width: 20px;}
+.picto-wished-small {background: url("../images/sprite.png?v=2") no-repeat scroll 2px -821px transparent;}
+.picto-owned-small {background: url("../images/sprite.png?v=2") no-repeat scroll 2px -602px transparent; width:75px; }
+.picto-lent-small {background: url("../images/sprite.png?v=2") no-repeat scroll 2px -642px transparent;}
+.picto-borrowed-small {background: url("../images/sprite.png?v=2") no-repeat scroll 2px -687px transparent;}
+.picto-returntovalidate-small {background: url("../images/sprite.png?v=2") no-repeat scroll 2px -735px transparent; height:39px;}
+.picto-lendable-small {background: url("../images/sprite.png?v=2") no-repeat scroll 2px -780px transparent;}
+.boh {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -393px transparent; float: left; height: 20px;width: 20px;}
 .noDisplay {display: none;}
 .image-frame {border: 1px solid #B2B2B2; box-shadow: 0 2px 14px #555555; padding: 4px; background-color: #FFFFFF;}
 .image-thumb {height: 160px; width: 95px;}
@@ -120,7 +121,7 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
 #flashes-background {  background-color: #000;height: 100%;left: 0;opacity: 0.5;position: fixed;top: 0;width: 100%;z-index: 100;}
 #flashes {margin-left: -220px; margin-top: -180px; position: fixed; top: 50%; width: 440px;z-index: 102; left: 50%; background: none repeat scroll 0 0 #FFFFFF; border-radius: 10px 10px 10px 10px;}
 #flashes UL { color: #239CD3;list-style: none outside none; margin: 0; padding: 15px;}
-#flashes-close-button {background: url("../images/sprite.png?v=1") no-repeat scroll 0 -1328px transparent; float: right; height: 33px; width: 32px; cursor: pointer;}
+#flashes-close-button {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1328px transparent; float: right; height: 33px; width: 32px; cursor: pointer;}
 #flashes LI {color: #239cd3; font-size:2em;}
 
 /* global button bar */
@@ -150,9 +151,9 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
 .ff-title {background-color: #09458B;color: #6988B4;font-size: 1.6em;font-weight: bold;text-align: center;}
 
 /* profile visibility picto */
-.profile-picto-small-myfriends {background: url("../images/sprite.png") repeat-x scroll 0 -1014px transparent;}
-.profile-picto-small-public {background: url("../images/sprite.png") repeat-x scroll 0 -1048px transparent;}
-.profile-picto-small-private {background: url("../images/sprite.png") repeat-x scroll 0 -1082px transparent;}
+.profile-picto-small-myfriends {background: url("../images/sprite.png?v=2") repeat-x scroll 0 -1014px transparent;}
+.profile-picto-small-public {background: url("../images/sprite.png?v=2") repeat-x scroll 0 -1048px transparent;}
+.profile-picto-small-private {background: url("../images/sprite.png?v=2") repeat-x scroll 0 -1082px transparent;}
 
 SELECT {height: 28px;}
 A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bold;}
@@ -169,7 +170,7 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .sf-label {color: #FFFFFF;float: left;font-size: 1.3em;font-weight: bold;line-height: 36px; margin-right: 2px;}
 /* in connected header */
 #header .search-form.connected {width: 980px;}
-#header .connected .search-field {background: url("../images/sprite.png") no-repeat scroll 0 -40px transparent;width: 658px;} 
+#header .connected .search-field {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -40px transparent;width: 658px;} 
 #header .connected .search-field INPUT {width:600px;}
 #header .connected .sf-label {margin-right: 53px;}
 
@@ -185,9 +186,9 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .ft-item.last {background:none;}
 .ft-item-content { float:left; color: #FFFFFF;}
 .ft-item-title { float:left; color: #239cd3; font-size: 1.6em; margin-bottom: 5px; width: 100%; font-weight: normal;  margin-top: 0;}
-.ft-facebook {background: url("../images/sprite.png") no-repeat scroll 0px -1230px transparent;display: block;height: 45px;width: 45px;}
-.ft-twitter {background: url("../images/sprite.png") no-repeat scroll -53px -1230px transparent;display: block;height: 45px;width: 45px;}
-.ft-pinterest {background: url("../images/sprite.png") no-repeat scroll -105px -1230px transparent;display: block;height: 45px;width: 45px;}
+.ft-facebook {background: url("../images/sprite.png?v=2") no-repeat scroll 0px -1230px transparent;display: block;height: 45px;width: 45px;}
+.ft-twitter {background: url("../images/sprite.png?v=2") no-repeat scroll -53px -1230px transparent;display: block;height: 45px;width: 45px;}
+.ft-pinterest {background: url("../images/sprite.png?v=2") no-repeat scroll -105px -1230px transparent;display: block;height: 45px;width: 45px;}
 .ft-item .link, .ft-item .link:hover, .ft-item .link:visited {font-weight: normal;}
 
 
@@ -245,8 +246,8 @@ UL.carousel-pagination {background: none repeat scroll 0 0 transparent;left: 210
 .user-toolbox {float: left; background-color: #239CD3;border-radius: 10px 10px 10px 10px;padding: 10px; color:#FFF;}
 .ut-friends {float: left;}
 .ut-mailbox {float: left;}
-.ut-friends .ut-title {background: url("../images/sprite.png") no-repeat scroll 0 -205px transparent;}
-.ut-mailbox .ut-title {background: url("../images/sprite.png") no-repeat scroll 0 -238px transparent;}
+.ut-friends .ut-title {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -205px transparent;}
+.ut-mailbox .ut-title {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -238px transparent;}
 .ut-title {font-size: 1.6em;font-weight: bold;line-height: 24px;padding-left: 29px; margin-top: 5px;}
 .ut-content { float: left; background: url("../images/triangle.png") no-repeat scroll 22px 0 #363A3D; border-radius: 5px 5px 5px 5px; margin-top: 5px; padding: 20px 5px 10px;}
 .ut-highlight, .ut-highlight:hover, .ut-highlight:visited {color:#239CD3; text-decoration: none;}
@@ -254,9 +255,9 @@ UL.carousel-pagination {background: none repeat scroll 0 0 transparent;left: 210
 .utc-part-title {padding-left: 10px;  font-size: 1.1em;}
 .utc-sep{ float:left; width: 100%; background: url("../images/user-toolbox-sep.png") no-repeat scroll 0 0 transparent; height: 16px; margin: 10px 0 5px;}
 .utc-find-friend A , .utc-find-friend A:hover ,.utc-find-friend A:visited {color:#fff; text-decoration: none; font-size: 0.8em; }
-.utc-friends-of-friends {background: url("../images/sprite.png") no-repeat scroll 0 -313px transparent; color: #FFFFFF; line-height: 41px; padding-left: 45px;}
-.utc-friends-on-facebook {background: url("../images/sprite.png") no-repeat scroll 8px -358px transparent; color: #FFFFFF; line-height: 28px; padding-left: 45px;}
-.utc-friends-invite {background: url("../images/sprite.png?v=1") no-repeat scroll 0 -1278px transparent;color: #FFFFFF;line-height: 40px;padding-left: 45px;}
+.utc-friends-of-friends {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -313px transparent; color: #FFFFFF; line-height: 41px; padding-left: 45px;}
+.utc-friends-on-facebook {background: url("../images/sprite.png?v=2") no-repeat scroll 8px -358px transparent; color: #FFFFFF; line-height: 28px; padding-left: 45px;}
+.utc-friends-invite {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1278px transparent;color: #FFFFFF;line-height: 40px;padding-left: 45px;}
 .utc-bottom-link {float: right; font-size: 0.8em;}
 A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#239CD3;}
 .user-toolbox UL.carousel-pagination { left: 100px; margin-bottom: 30px; margin-top: -40px; position: relative; top: 0; width: 130px;}
@@ -299,7 +300,10 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .pb-bookOnShelf .image-frame {box-shadow: none; padding: 0;}
 .pbi-giftoption {margin-top:20px;}
 .pbi-giftoption-addoption {float: left;}
-.pbi-giftoption-buy {float: right;}
+.pbi-giftoption-buy {border-left: 1px solid #b1b2b3; float: right; padding-left: 10px;}
+.pbi-giftoption-notbought {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1401px transparent; font-weight:bold; display: block; height: 22px; line-height: 22px; margin-bottom: 3px; padding-left: 23px;}
+.pbi-giftoption-bought {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -1433px transparent; font-weight:bold; display: block; height: 22px; line-height: 22px; margin-bottom: 3px; padding-left: 23px;}
+
 
 /* book-search */
 .bs-button {float: right;}
@@ -326,7 +330,7 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .ub-flags {float: left;}
 .ub-label {color: #239CD3;font-weight: bold; float:left; padding-top: 2px;}
 .ubfs-label, .ubt-label{float:left; }
-.ub-boh-label {background: url("../images/sprite.png") no-repeat scroll 88px -392px transparent; height: 21px;width: 115px;}
+.ub-boh-label {background: url("../images/sprite.png?v=2") no-repeat scroll 88px -392px transparent; height: 21px;width: 115px;}
 .ubf-state {float:left; margin-top: 10px;}
 .ubfr-value {float:left; cursor: pointer;}
 .ubf-state {float:left; width: 100%;}
@@ -402,7 +406,7 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .lh-wished {background: url("../images/picto-library-wished-big.png") no-repeat scroll -2px 0 transparent;}
 .active A .lh-wrapper.lh-wished, .active A:hover .lh-wrapper.lh-wished, .active A:visited .lh-wrapper.lh-wished { color:#3e932e;}
 
-.lh-friendlibrarytitle {background: url("../images/sprite.png") no-repeat scroll 0 -77px transparent;color: #FFFFFF;font-size: 2.4em;margin-left: 10px;padding-left: 47px;padding-top: 5px;}
+.lh-friendlibrarytitle {background: url("../images/sprite.png?v=2") no-repeat scroll 0 -77px transparent;color: #FFFFFF;font-size: 2.4em;margin-left: 10px;padding-left: 47px;padding-top: 5px;}
 
 /* library-list */
 .lln-search {float:left;}
@@ -422,13 +426,13 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .llh-title, .llh-author, .llh-rating, .llh-state {text-align:left;}
 TABLE TH.llh-title {padding-left: 80px;}
 .library-list .pbi-content {width: 315px;}
-.sortLine .sort.ASC {background: url("../images/sprite.png") no-repeat scroll 55px -122px transparent;}
-.sortLine .llh-title.sort.ASC {background: url("../images/sprite.png") no-repeat scroll 118px -122px transparent;}
-.sortLine .sort.DESC {background: url("../images/sprite.png") no-repeat scroll 55px -153px transparent;}
-.sortLine .llh-title.sort.DESC {background: url("../images/sprite.png") no-repeat scroll 118px -153px transparent;}
+.sortLine .sort.ASC {background: url("../images/sprite.png?v=2") no-repeat scroll 55px -122px transparent;}
+.sortLine .llh-title.sort.ASC {background: url("../images/sprite.png?v=2") no-repeat scroll 118px -122px transparent;}
+.sortLine .sort.DESC {background: url("../images/sprite.png?v=2") no-repeat scroll 55px -153px transparent;}
+.sortLine .llh-title.sort.DESC {background: url("../images/sprite.png?v=2") no-repeat scroll 118px -153px transparent;}
 
-.mb-col-date.ASC {background: url("../images/sprite.png") no-repeat scroll 55px -122px transparent;}
-.mb-col-date.DESC {background: url("../images/sprite.png") no-repeat scroll 55px -153px transparent;}
+.mb-col-date.ASC {background: url("../images/sprite.png?v=2") no-repeat scroll 55px -122px transparent;}
+.mb-col-date.DESC {background: url("../images/sprite.png?v=2") no-repeat scroll 55px -153px transparent;}
 
 .ll-nobooks {padding:15px; float:left; font-size: 2em;}
 .lln-filter {float:left; margin-top: 2px;}
@@ -490,9 +494,9 @@ TABLE TH.llh-title {padding-left: 80px;}
 .ps-current-value {float: left; margin-left: 5px;}
 .ps-description {font-size: 1.5em}
 .ps-picto {color: #239CD3;height: 50px; padding-left: 50px; width: 233px;}
-.ps-picto-myfriends {background: url("../images/sprite.png") repeat-x scroll 0 -854px transparent;}
-.ps-picto-public {background: url("../images/sprite.png") repeat-x scroll 0 -906px transparent;}
-.ps-picto-private {background: url("../images/sprite.png") repeat-x scroll 0 -906px transparent;}
+.ps-picto-myfriends {background: url("../images/sprite.png?v=2") repeat-x scroll 0 -854px transparent;}
+.ps-picto-public {background: url("../images/sprite.png?v=2") repeat-x scroll 0 -906px transparent;}
+.ps-picto-private {background: url("../images/sprite.png?v=2") repeat-x scroll 0 -906px transparent;}
 .psl-title {font-size: 1.2em;font-weight: bold;}
 .psl {list-style: none outside none;margin: 0;padding: 0;}
 .psl-item {float: left; padding-left: 35px;}
@@ -510,7 +514,7 @@ TABLE TH.llh-title {padding-left: 80px;}
 .pef-line {font-size: 1.4em;margin-bottom: 10px;}
 .pef-gravatar-choice {}
 .pef-gravatar {float: left;margin: 2px;width: 32%;}
-.p-friend-title { background: url("../images/sprite.png") no-repeat scroll 0 -84px transparent; font-size: 1.8em; height: 33px; margin-bottom: 18px; padding-left: 50px;padding-left: 50px;  color: #FFFFFF;}
+.p-friend-title { background: url("../images/sprite.png?v=2") no-repeat scroll 0 -84px transparent; font-size: 1.8em; height: 33px; margin-bottom: 18px; padding-left: 50px;padding-left: 50px;  color: #FFFFFF;}
 .p-right-item {text-align: right;}
 .p-nbbooks {font-size: 2em;}
 
@@ -523,7 +527,7 @@ TABLE TH.llh-title {padding-left: 80px;}
 .rw-search .sf-label {font-weight: normal;color: #fff; font-size: 1em;}
 .rw-search .rw-image {float: left;}
 .rw-search .rw-field {float: right; width: 200px;}
-.rw-search .connected .search-field {background: url("../images/sprite.png?v1") no-repeat scroll -310px 0px transparent;width: 195px;} 
+.rw-search .connected .search-field {background: url("../images/sprite.png?v=2?v2") no-repeat scroll -310px 0px transparent;width: 195px;} 
 .rw-search .connected .search-field INPUT {width:145px;}
 .rw-search .connected .sf-label {}
 
@@ -577,14 +581,14 @@ TD.mb-col-state{color:#f56903;}
 .friend-profile .pl-birthdate { margin-bottom: 3px;}
 .friend-profile .p-center { margin-bottom: 20px;}
 .add-friend-bkg {background: url("../images/add-friend-bkg.png") repeat-x scroll 0 0 transparent; border-radius: 10px 10px 10px 10px; float: left;}
-.add-friend-header {background: url("../images/sprite.png") repeat-x scroll 0 -1120px transparent; height: 51px; margin-bottom: 10px; padding-left: 76px;}
+.add-friend-header {background: url("../images/sprite.png?v=2") repeat-x scroll 0 -1120px transparent; height: 51px; margin-bottom: 10px; padding-left: 76px;}
 .adh-title {color:#239CD3; font-size: 2em;}
 
 /* recommand */
 .recommand .mnm-body {height: 200px;}
 
 /* pending request */
-.pending-request-header {background: url("../images/sprite.png") repeat-x scroll 0 -1172px transparent; height: 51px; margin-bottom: 10px; padding-left: 76px;}
+.pending-request-header {background: url("../images/sprite.png?v=2") repeat-x scroll 0 -1172px transparent; height: 51px; margin-bottom: 10px; padding-left: 76px;}
 
 /* friends search */
 .friends-search {font-size: 1.5em;}

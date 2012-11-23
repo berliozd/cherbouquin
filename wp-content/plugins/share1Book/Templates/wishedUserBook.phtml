@@ -19,13 +19,24 @@
         <div class="pbi-giftoption">
             <div class="pbi-giftoption-addoption">
                 <?php if (!$isOffered) { ?>
-                    <a href="<?php echo $setAsOfferedLink;?>" class="button bt-blue-m"><?php _e("option", "s1b"); ?></a>
-                <?php } else { ?>                    
-                    <div class="button bt-red-m no-link"><?php _e("déjà acheté", "s1b"); ?></div>
-                    <?php if ($giftOptionFromMe) {?>
-                        <?php _e("Cette option d'achat a été posée par moi.", "s1b");?>
-                        <?php echo sprintf(__("Je souhaite l'<a class=\"link\" href=\"%s\">annuler</a>.", "s1b"), $deactivateGiftOptionLink);?>
-                    <?php } ?>
+                    <span class="pbi-giftoption-notbought"><?php _e("Ce livre n'a pas encore été offert.","s1b");?></span>
+                    <a href="<?php echo $setAsOfferedLink;?>" class="button bt-blue-xxxl"><?php _e("Marquez-le comme acheté", "s1b"); ?></a>
+                <?php } else { ?>
+                    <?php 
+                    global $context;
+                    $giftOptionFromMe = ($offerer->getId() == $context->getConnectedUser()->getId());
+                    ?>
+                    <span class="pbi-giftoption-bought">
+                        <?php 
+                        if ($giftOptionFromMe)
+                            _e("Ce livre a déjà été acheté par moi.", "s1b");
+                        else 
+                            _e("Ce livre a déjà été acheté.", "s1b");
+                        ?>
+                    </span>
+                    <?php if ($giftOptionFromMe)
+                        echo sprintf(__("Je souhaite l'<a class=\"link\" href=\"%s\">annuler</a>.", "s1b"), $deactivateGiftOptionLink);
+                    ?>
                 <?php } ?>            
             </div>
             <div class="pbi-giftoption-buy">
