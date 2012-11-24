@@ -396,7 +396,7 @@ if (!class_exists('share1Book')) {
         public function prepare() {
 
             $this->initAutoLoad();
-
+            
             // initialisation des options
             $this->initVariables();
         }
@@ -703,7 +703,6 @@ if (!class_exists('share1Book')) {
             $connecteUserId = \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getConnectedUserId();
             if ($connecteUserId)
                 $this->userId = $connecteUserId;            
-            
             if ($this->isFriendLibrary) {
                 $this->setFriendUserId();
             }
@@ -737,7 +736,6 @@ if (!class_exists('share1Book')) {
                 $temporayFriendUSerId = $_GET['fid'];
             } else { // Get fid from SESSION
                 if (array_key_exists("fid", $_SESSION)) {
-                    \Sb\Trace\Trace::addItem("fid in SESSION : " . $_SESSION['fid']);
                     $temporayFriendUSerId = $_SESSION['fid'];
                 }
             }
@@ -750,15 +748,12 @@ if (!class_exists('share1Book')) {
                     // if ok, fid is stored in SESSION and in private variables
                     $_SESSION['fid'] = $temporayFriendUSerId;
                     $this->friendUserId = $temporayFriendUSerId;
-                    \Sb\Trace\Trace::addItem("Affichage de la bibliothèque de l'ami dont le user id est : " . $temporayFriendUSerId);
                 } else {
                     throw new \Sb\Exception\UserException(__("Cette bibliothèque n'est pas accessible.", "s1b"));
-                    \Sb\Trace\Trace::addItem("unsetting fid");
                     unset($_SESSION['fid']);
                 }
             } else {
                 throw new \Sb\Exception\UserException(__("No friend id received."));
-                \Sb\Trace\Trace::addItem("unsetting fid");
                 unset($_SESSION['fid']);
             }
         }

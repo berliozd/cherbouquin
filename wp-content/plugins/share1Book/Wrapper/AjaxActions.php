@@ -59,7 +59,7 @@ class AjaxActions {
     }
 
     private function doAjax($nonceKey, $functionToCall, $needAuthentification, $prmArray) {
-
+        
         try {
 
             $isFriendLibrary = $_POST['isfriendlibrary'];
@@ -69,10 +69,10 @@ class AjaxActions {
 
             // prépare le module (auto register des classes, démarrage de la session, initialisation des variables, récupération du user connecté
             $this->s1b->prepare();
-
+            
             // vérification du nonce : correspond t'il bien à un nonce généré plus tôt?
             $this->s1b->checkNonce($nonceKey);
-
+            
             if ($needAuthentification && !$this->s1b->getIsConnected()) {
                 Throw new \Sb\Exception\UserException($this->s1b->getMsgNotConnectedUser());
             } else {
