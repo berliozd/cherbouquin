@@ -184,6 +184,8 @@ class Zend_Service_Amazon_Item {
             $this->SalesRank = (int) $result->item(0)->data;
         }
 
+        
+        // DIDIER
         $result = $xpath->query('./az:ItemAttributes/az:Languages/az:Language', $dom);
         if ($result->length >= 1) {
             foreach ($result as $language) {
@@ -198,6 +200,7 @@ class Zend_Service_Amazon_Item {
                 }
             }
         }
+        // DIDIER
 
 
         $result = $xpath->query('./az:CustomerReviews/az:Review', $dom);
