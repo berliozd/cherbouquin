@@ -184,6 +184,22 @@ class Zend_Service_Amazon_Item {
             $this->SalesRank = (int) $result->item(0)->data;
         }
 
+        $result = $xpath->query('./az:ItemAttributes/az:Languages/az:Language', $dom);
+        if ($result->length >= 1) {
+            foreach ($result as $language) {
+                $types = $xpath->query('./az:Type', $language);
+                if ($types->length >= 1) {
+                    if ($types->item(0)->nodeValue == 'Published') {
+                        $names = $xpath->query('./az:Name', $language);
+                        if ($names->length >= 1) {
+                            $this->Language = $names->item(0)->nodeValue;
+                        }
+                    }
+                }
+            }
+        }
+
+
         $result = $xpath->query('./az:CustomerReviews/az:Review', $dom);
         if ($result->length >= 1) {
             /**

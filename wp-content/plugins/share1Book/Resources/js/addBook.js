@@ -104,14 +104,23 @@ function getUserBookDataString(sender) {
     publishingDate = getValue(sender, "book_PublishingDate");
     amazonUrl = getValue(sender, "book_AmazonUrl");
     nbOfPages = getValue(sender, "book_NbOfPages");
+    language = getValue(sender, "book_Language");
     return "action=addUserBook&nonce=" + share1BookAjax.addUserBookNonce 
-    + "&book_Id=" + id + "&book_ISBN10=" + isbn10 + "&book_ISBN13=" + isbn13 
-    + "&book_ASIN=" + asin + "&book_Title=" + title
-    + "&book_Description=" + description + "&book_ImageUrl=" + imageUrl 
-    + "&book_SmallImageUrl=" + smallImageUrl + "&book_LargeImageUrl=" + largeImageUrl 
-    + "&book_Author=" + author + "&book_Publisher=" + publisher
-    + "&book_PublishingDate=" + publishingDate + "&book_AmazonUrl=" + amazonUrl 
-    + "&book_NbOfPages=" + nbOfPages;
+    + "&book_Id=" + id 
+    + "&book_ISBN10=" + isbn10 
+    + "&book_ISBN13=" + isbn13 
+    + "&book_ASIN=" + asin 
+    + "&book_Title=" + title
+    + "&book_Description=" + description
+    + "&book_ImageUrl=" + imageUrl 
+    + "&book_SmallImageUrl=" + smallImageUrl 
+    + "&book_LargeImageUrl=" + largeImageUrl 
+    + "&book_Author=" + author 
+    + "&book_Publisher=" + publisher
+    + "&book_PublishingDate=" + publishingDate
+    + "&book_AmazonUrl=" + amazonUrl 
+    + "&book_NbOfPages=" + nbOfPages
+    + "&book_Language=" + language;
 };
     
 function getValue(sender, classe){

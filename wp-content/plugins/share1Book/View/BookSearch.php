@@ -39,6 +39,8 @@ class BookSearch extends \Sb\View\AbstractView {
             $bk = new \Sb\Db\Model\Book();
             $bk = $book;
 
+            $language = $bk->getLanguage();
+            
             $imgSrc = "";
             if ($bk->getImageUrl()) {
                 $imgSrc = $bk->getImageUrl();
@@ -61,7 +63,6 @@ class BookSearch extends \Sb\View\AbstractView {
 
             $desc = \Sb\Helpers\StringHelper::tronque($bk->getDescription(), 350);
             $descEsc = urlencode($bk->getDescription());  // encodé
-            \Sb\Trace\FireBugTrace::Trace("Desc : " . $descEsc);
 
             $smallImg = $bk->getSmallImageUrl();
             $img = $bk->getImageUrl();
@@ -115,6 +116,7 @@ class BookSearch extends \Sb\View\AbstractView {
             $resultTpl->set('pubDtStr', $pubDtStr);
             $resultTpl->set('amazonUrl', $amazonUrl);
             $resultTpl->set('nbOfPages', $nbOfPages);
+            $resultTpl->set('language', $language);
 
             $resultTpl->setVariables(array('addSep' => $addSep,
                 'viewBookLink' => $viewBookLink));
