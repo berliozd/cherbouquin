@@ -50,7 +50,10 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
                 $book->setContributors($contributors);
             }
         }
-                
+
+        if (array_key_exists($prefix . 'Language', $properties)) {
+            $book->setLanguage($properties[$prefix . 'Language']);
+        }
         if (array_key_exists($prefix . 'Description', $properties)) {
             $book->setDescription(urldecode($properties[$prefix . 'Description']));
         }
@@ -71,14 +74,14 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
         }
         if (array_key_exists($prefix . 'ImageUrl', $properties)) {
             $book->setImageUrl($properties[$prefix . 'ImageUrl']);
-        }        
+        }
         if (array_key_exists($prefix . 'LargeImageUrl', $properties)) {
             $book->setLargeImageUrl($properties[$prefix . 'LargeImageUrl']);
         }
         if (array_key_exists($prefix . 'SmallImageUrl', $properties)) {
             $book->setSmallImageUrl($properties[$prefix . 'SmallImageUrl']);
         }
-        
+
         if (array_key_exists($prefix . 'Publisher', $properties)) {
             $publisherVal = urldecode($properties[$prefix . 'Publisher']);
             $publisher = \Sb\Db\Dao\PublisherDao::getInstance()->getByName($publisherVal);
@@ -91,7 +94,7 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
 
             $book->setPublisher($publisher);
         }
-        
+
         if (array_key_exists($prefix . 'Title', $properties)) {
             $book->setTitle(urldecode($properties[$prefix . 'Title']));
         }
@@ -107,7 +110,7 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
         if (array_key_exists($prefix . 'AmazonUrl', $properties)) {
             $book->setAmazonUrl(urldecode($properties[$prefix . 'AmazonUrl']));
         }
-        
+
         if (array_key_exists($prefix . 'NbOfPages', $properties)) {
             $book->setNb_of_pages($properties[$prefix . 'NbOfPages']);
         }
@@ -132,7 +135,8 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
 
     public static function mapFromAmazonResult(\Sb\Db\Model\Book &$book, \Zend_Service_Amazon_Item $amazonResult) {
 
-        \Sb\Trace\FireBugTrace::Trace($amazonResult);
+        if (isset($amazonResult->Language))
+            $book->setLanguage($amazonResult->Language);
         
         if (isset($amazonResult->Author)) {
             $contributors = new \Doctrine\Common\Collections\ArrayCollection();
@@ -154,8 +158,8 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
             if (count($amazonResult->EditorialReviews) > 0) {
                 //$book->setDescription($amazonResult->EditorialReviews[0]->Content);
                 // Replace all HTML in description by ' ' to prevent bad formatting HTML
-                $book->setDescription(preg_replace ('/<[^>]*>/', ' ', $amazonResult->EditorialReviews[0]->Content));
-            }            
+                $book->setDescription(preg_replace('/<[^>]*>/', ' ', $amazonResult->EditorialReviews[0]->Content));
+            }
         }
 
         if (isset($amazonResult->ISBN)) {
@@ -186,6 +190,8 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
             }
         }
 
+        \Sb\Trace\FireBugTrace::Trace($amazonResult->ItemAttributes);
+
         //Publisher
         if (isset($amazonResult->PublicationDate)) {
             $book->setPublishingDate(\Sb\Helpers\DateHelper::createDate($amazonResult->PublicationDate));
@@ -204,7 +210,7 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
         if (isset($amazonResult->DetailPageURL)) {
             $book->setAmazonUrl($amazonResult->DetailPageURL);
         }
-        
+
         if (isset($amazonResult->NumberOfPages)) {
             $book->setNb_of_pages($amazonResult->NumberOfPages);
         }
@@ -240,7 +246,6 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
         }
         $properties['amazon_url'] = $book->getAmazonUrl();
     }
-
 
 }
 
