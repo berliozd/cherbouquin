@@ -52,7 +52,7 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
         }
 
         if (array_key_exists($prefix . 'Language', $properties)) {
-            $book->setLanguage($properties[$prefix . 'Language']);
+            $book->setLanguage(urldecode($properties[$prefix . 'Language']));
         }
         if (array_key_exists($prefix . 'Description', $properties)) {
             $book->setDescription(urldecode($properties[$prefix . 'Description']));
@@ -137,7 +137,7 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
 
         if (isset($amazonResult->Language))
             $book->setLanguage($amazonResult->Language);
-        
+
         if (isset($amazonResult->Author)) {
             $contributors = new \Doctrine\Common\Collections\ArrayCollection();
             if (is_array($amazonResult->Author)) {

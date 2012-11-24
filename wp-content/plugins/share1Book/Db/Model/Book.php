@@ -92,7 +92,7 @@ class Book implements \Sb\Db\Model\Model {
     /** @Column(type="integer") */
     protected $nb_of_pages;
 
-    /** @Column(type="string", length=5) */
+    /** @Column(type="string", length=20) */
     protected $language;
 
 //~ Getters & setters

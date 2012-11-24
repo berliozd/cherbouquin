@@ -39,7 +39,7 @@ class BookSearch extends \Sb\View\AbstractView {
             $bk = new \Sb\Db\Model\Book();
             $bk = $book;
 
-            $language = $bk->getLanguage();
+            $language = urlencode($bk->getLanguage());
             
             $imgSrc = "";
             if ($bk->getImageUrl()) {
