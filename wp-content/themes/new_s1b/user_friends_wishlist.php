@@ -65,7 +65,11 @@ use Sb\Entity\Urls;
                 ?>
             </div>            
         <?php } elseif (!$selectedFriend) { ?>
-            <div class="fl-choosefriend"><?php _e("Merci de sélectionner un ami dans la liste.", "s1b"); ?> </div>
+            <div class="fwb-title"><?php _e("Merci de sélectionner un ami dans la liste.", "s1b"); ?> </div>
+            <img class="fwb-autopromo-banner" src="<?php echo $context->getBaseUrl() . "/Resources/images/wishlist-autopromo-banner.png"?>" />
+            <div class="fwb-subtitle"><?php _e("Offrez et faites vous offrir des cadeaux qui plaisent vraiment en utilisant la liste d'envies.", "s1b"); ?> </div>
+            <div class="fwb-description"><?php _e("Accédez à la liste d'envies d'un ami en le sélectionnant dans le liste déroulante placée ci-dessus. Pour que vos amis puissent suivre vos envies marquez les livres que vous souhaitez dans votre fiche de lecture au moment de l'ajout dans votre bibliothèque.", "s1b"); ?></div>
+            <div class="fwb-description"><strong><?php _e("Sous la partie commentaire, cochez la case \"vous souhaitez ce livre\"", "s1b"); ?></strong></div>
         <?php } elseif (!$friendWishedBooks) { ?>
             <div class="fl-friendnobooks"><?php _e("Cet ami n'a aucun livre souhaité.", "s1b"); ?> </div>
         <?php } ?>

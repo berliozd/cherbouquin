@@ -485,14 +485,14 @@ TABLE TH.llh-title {padding-left: 80px;}
 
 /* friend wished books */
 .friends-wished-books {}
-.fwb-title {font-size: 1.9em;}
-.fwb-description {font-size: 1.2em;
-    margin-top: 5px;}
+.fwb-title {font-size: 1.9em; margin-bottom: 15px;}
+.fwb-subtitle {font-size: 1.5em; font-weight: bold;}
+.fwb-description {font-size: 1.2em; }
 .fwb-line {}
 .fwb-line-title { font-weight: bold;}
 .fwb-mail { margin-top: 10px;}
-.fwb-mail-description {font-size: 1.2em;
-    margin-bottom: 5px;}
+.fwb-mail-description {font-size: 1.2em; margin-bottom: 5px;}
+.fwb-autopromo-banner {margin-bottom: 15px;}
 
 
 
