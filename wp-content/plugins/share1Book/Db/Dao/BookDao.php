@@ -216,13 +216,34 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             JOIN ub.user u 
             WHERE u.id IN (%s)
             AND ub.is_deleted != 1 
-            AND ub.rating >=4 
-            ORDER BY ub.last_modification_date DESC", $userIdsAsStr);
+            AND (ub.rating >=4 OR ub.is_wished = 1)
+            ORDER BY b.average_rating DESC", $userIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
-                
+        
         $result = $this->getResults($query, $cacheId, false);
 
         return $result;
     }
 
+//    public function getListLikedByUsers($userIds) {
+//        
+//        $userIdsAsStr = implode(", ", $userIds);
+//        
+//        $cacheId = $this->getCacheId(__FUNCTION__, array($userIdsAsStr));
+//        
+//        $dql = sprintf("SELECT b FROM \Sb\Db\Model\Book b 
+//            JOIN b.userbooks ub 
+//            JOIN ub.user u 
+//            WHERE u.id IN (%s)
+//            AND ub.is_deleted != 1 
+//            AND ub.rating >=4 
+//            ORDER BY b.average_rating DESC", $userIdsAsStr);
+//        
+//        $query = $this->entityManager->createQuery($dql);
+//        $query->setMaxResults(5);
+//                
+//        $result = $this->getResults($query, $cacheId, false);
+//
+//        return $result;
+//    }
 }

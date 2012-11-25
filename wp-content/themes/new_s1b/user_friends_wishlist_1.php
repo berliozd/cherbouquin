@@ -25,8 +25,10 @@ if ($selectedFrienId) {
     $friendBooks = $selectedFriend->getNotDeletedUserBooks();
     $friendWishedBooks = array_filter($friendBooks, "isWished");
 
+    $booksHeCouldLikes = BookSvc::getInstance()->getBooksUserCouldLike($selectedFrienId);
+    
     try {
-        $booksHeCouldLikes = BookSvc::getInstance()->getBooksUserCouldLike($selectedFrienId);
+        
     } catch (\Exception $exc) {
         Trace::addItem("une erreur s'est produite lors de la récupération des livres qui pourrait plaire : " . $exc->getMessage());
     }

@@ -60,11 +60,14 @@ class BookSvc extends Service {
                     // Getting the books liked by these users
                     $booksLikedByUsers = BookDao::getInstance()->getListLikedByUsers($userIds);
                     if (count($booksLikedByUsers) > 0) {
+                        
                         // Get the user and his userbooks
                         $user = UserDao::getInstance()->get($userId);
                         $userUserbooks = $user->getNotDeletedUserBooks();
                         $this->userUserbooksBookIds = array_map(array(&$this, 'getBookId'), $userUserbooks);
-                        $result = array_filter($booksLikedByUsers, array(&$this, "hasNot"));
+                        $booksLikedByUsers = array_filter($booksLikedByUsers, array(&$this, "hasNot"));
+                        $booksLikedByUsers = array_slice($booksLikedByUsers, 0, 5);
+                        $result = $booksLikedByUsers;
                     } else {
                         $result = null;
                     }
