@@ -10,6 +10,7 @@ namespace Sb\Db\Service;
 class UserSvc extends \Sb\Db\Service\Service {
 
     private static $instance;
+    private $userUserbooksIds;
 
     /**
      *
@@ -64,15 +65,6 @@ class UserSvc extends \Sb\Db\Service\Service {
 
         return $user;
     }
-
-//    function addCompleteOne(\Sb\Db\Model\User $user) {
-//
-//        $user->setToken(sha1(uniqid(rand())));
-//        $user->setDeleted(false);
-//
-//        \Sb\Db\Dao\UserDao::getInstance()->add($user);
-//
-//        return $user;
-//    }
+   
 
 }

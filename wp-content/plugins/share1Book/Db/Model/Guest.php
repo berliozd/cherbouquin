@@ -23,15 +23,13 @@ class Guest implements \Sb\Db\Model\Model {
 
     /** @Column(type="datetime") */
     protected $creation_date;
-
-    //, cascade={"persist"}
     
-    /** @OneToMany(targetEntity="Invitation", mappedBy="guest")
+    /** @OneToMany(targetEntity="Invitation", mappedBy="guest", fetch="EXTRA_LAZY")
       @JoinColumn(name="id", referencedColumnName="guest_id") */
     protected $invitations;
 
     /**
-     * @OneToMany(targetEntity="Lending", mappedBy="guest")
+     * @OneToMany(targetEntity="Lending", mappedBy="guest", fetch="EXTRA_LAZY")
      * @JoinColumn(name="id", referencedColumnName="guest_id")
      * */
     protected $lendings;

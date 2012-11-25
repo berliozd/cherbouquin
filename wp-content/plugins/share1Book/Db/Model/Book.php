@@ -60,7 +60,7 @@ class Book implements \Sb\Db\Model\Model {
     protected $amazon_url;
 
     /**
-     * @ManyToMany(targetEntity="Contributor")
+     * @ManyToMany(targetEntity="Contributor", fetch="EXTRA_LAZY")
      * @JoinTable(name="s1b_bookcontributors",
      *      joinColumns={@JoinColumn(name="book_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="contributor_id", referencedColumnName="id")}
@@ -74,7 +74,7 @@ class Book implements \Sb\Db\Model\Model {
      */
     protected $publisher;
 
-    /** @OneToMany(targetEntity="UserBook", mappedBy="book") */
+    /** @OneToMany(targetEntity="UserBook", mappedBy="book", fetch="EXTRA_LAZY") */
     protected $userbooks = null;
 
     /** @Column(type="integer") */

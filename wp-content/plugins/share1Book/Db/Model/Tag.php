@@ -27,7 +27,7 @@ class Tag implements \Sb\Db\Model\Model {
     protected $creation_date;
 
      /**
-     * @ManyToMany(targetEntity="UserBook")
+     * @ManyToMany(targetEntity="UserBook", fetch="EXTRA_LAZY")
      * @JoinTable(name="s1b_userbooktags",
      *      joinColumns={@JoinColumn(name="tag_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="userbook_id", referencedColumnName="id")}

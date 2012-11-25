@@ -117,4 +117,22 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
         return $result;
     }
 
+    public function getListWhoLikesBooks($bookIds) {
+
+        $bookIdsAsStr = implode(",", $bookIds);
+
+        $cacheId = $this->getCacheId(__FUNCTION__, array($bookIdsAsStr));
+
+        $dql = sprintf("SELECT u FROM \Sb\Db\Model\User u 
+            JOIN u.userbooks ub 
+            JOIN ub.book b 
+            WHERE b.id IN (%s)
+            AND ub.is_deleted != 1 
+            AND (ub.rating >=4 OR ub.is_wished = 1)
+            ORDER BY ub.last_modification_date DESC", $bookIdsAsStr);
+        $query = $this->entityManager->createQuery($dql);
+
+        $result = $this->getResults($query, $cacheId, false);
+        return $result;
+    }
 }

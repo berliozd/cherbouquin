@@ -1,16 +1,14 @@
 <?php
 
-use Doctrine\Common\Collections\ArrayCollection;
-
-
 namespace Sb\Db\Model;
 
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /** @Entity @Table(name="s1b_publishers") */
 class Publisher implements \Sb\Db\Model\Model {
 
     public function __construct() {
-        $this->books = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
     /**
@@ -29,7 +27,7 @@ class Publisher implements \Sb\Db\Model\Model {
     protected $last_modification_date;
 
     /**
-     * @OneToMany(targetEntity="Book", mappedBy="publisher")
+     * @OneToMany(targetEntity="Book", mappedBy="publisher", fetch="EXTRA_LAZY")
      * @JoinColumn(name="id", referencedColumnName="publisher_id")
      */
     protected $books;

@@ -16,13 +16,13 @@ class FriendShip implements \Sb\Db\Model\Model {
     protected $id;
 
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="friendships_as_source")
+     * @ManyToOne(targetEntity="User", inversedBy="friendships_as_source", fetch="EXTRA_LAZY")
      * @JoinColumn(name="source_user_id", referencedColumnName="id")
      */
     protected $user_source;
 
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="friendships_as_target")
+     * @ManyToOne(targetEntity="User", inversedBy="friendships_as_target", fetch="EXTRA_LAZY")
      * @JoinColumn(name="target_user_id", referencedColumnName="id")
      */
     protected $user_target;

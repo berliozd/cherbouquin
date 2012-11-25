@@ -1,8 +1,8 @@
 <?php
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 namespace Sb\Db\Model;
+
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /** @Entity @Table(name="s1b_userbooks") */
 class UserBook implements \Sb\Db\Model\Model {
@@ -14,9 +14,9 @@ class UserBook implements \Sb\Db\Model\Model {
     private $blowOfHeartRemoved; // used when updating the userbook to pass the onfo to the book to update the aggregate fields
 
     function __construct() {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lendings = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->borrowings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->lendings = new ArrayCollection();
+        $this->borrowings = new ArrayCollection();
 
         // assigning not read state
         $notReadReadingState = \Sb\Db\Dao\ReadingStateDao::getInstance()->get(\Sb\Db\Dao\UserBookDao::NOTREAD_STATE_ID);

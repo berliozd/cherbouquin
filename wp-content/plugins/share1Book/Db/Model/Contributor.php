@@ -36,7 +36,7 @@ class Contributor implements \Sb\Db\Model\Model {
     protected $type_id;
 
     /**
-     * @ManyToMany(targetEntity="Book")
+     * @ManyToMany(targetEntity="Book", fetch="EXTRA_LAZY")
      * @JoinTable(name="s1b_bookcontributors",
      *      joinColumns={@JoinColumn(name="contributor_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="book_id", referencedColumnName="id")}

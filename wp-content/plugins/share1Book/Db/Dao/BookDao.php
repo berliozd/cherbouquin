@@ -185,5 +185,44 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         return $result;
     }
+    
+    public function getListLikedByUser($userId) {
+
+        $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
+
+        $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
+        $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
+                ->join("b.userbooks", "ub")
+                ->join("ub.user", "u")
+                ->where("u.id = :user_id")
+                ->andWhere("(ub.rating >= 4 OR ub.is_wished = 1)")
+                ->andWhere("ub.is_deleted != 1")
+                ->orderBy("ub.last_modification_date", "DESC")
+                ->setParameter("user_id", $userId);
+        
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false);
+
+        return $result;
+    }
+    
+    public function getListLikedByUsers($userIds) {
+        
+        $userIdsAsStr = implode(", ", $userIds);
+        
+        $cacheId = $this->getCacheId(__FUNCTION__, array($userIdsAsStr));
+        
+        $dql = sprintf("SELECT b FROM \Sb\Db\Model\Book b 
+            JOIN b.userbooks ub 
+            JOIN ub.user u 
+            WHERE u.id IN (%s)
+            AND ub.is_deleted != 1 
+            AND ub.rating >=4 
+            ORDER BY ub.last_modification_date DESC", $userIdsAsStr);
+        $query = $this->entityManager->createQuery($dql);
+                
+        $result = $this->getResults($query, $cacheId, false);
+
+        return $result;
+    }
 
 }

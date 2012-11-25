@@ -1,9 +1,6 @@
 <?php
-use Doctrine\Common\ClassLoader,
-    Doctrine\ORM\Configuration,
+use Doctrine\ORM\Configuration,
     Doctrine\ORM\EntityManager,
-    Doctrine\Common\Cache\ApcCache,
-    Doctrine\ORM\Tools\Setup,
     Doctrine\DBAL\Event\Listeners\MysqlSessionInit,
     \Sb\Helpers\EntityHelper;
 
@@ -122,9 +119,6 @@ if (!class_exists('share1Book')) {
             load_plugin_textdomain('share1book', true, $plugin_dir . "/Languages");
 
             // register differents hooks and actions
-            add_action('wp_enqueue_scripts', array(&$this, "registerStylesAndScripts"));
-            add_filter('comments_template', array(&$this, 'onCommentTemplate'));
-            add_action('admin_menu', array(&$this, 'onAdminMenu'));
             add_action('plugins_loaded', array(&$this, 'onPluginsLoaded'));
             $this->registerAjaxActions();
 
@@ -242,40 +236,6 @@ if (!class_exists('share1Book')) {
         }
 
         /**
-         * fonction appelée sur le hook plugin_action_links
-         * Place in Settings Option List
-         * @staticvar type $this_plugin
-         * @param type $links
-         * @param type $file
-         * @return type
-         */
-        public function onPluginActionLinks($links, $file) {
-            //Static so we don't call plugin_basename on every plugin row.
-            static $this_plugin;
-            if (!$this_plugin)
-                $this_plugin = plugin_basename(__FILE__);
-
-            if ($file == $this_plugin) {
-                $settings_link = '<a href="options-general.php?page=' . basename(__FILE__) . '">' . __('Settings', "s1b") . '</a>';
-                array_unshift($links, $settings_link); // before other links
-            }
-            return $links;
-        }
-
-        /**
-         *  prep options page insertion
-         */
-        public function onAdminMenu() {
-            if (function_exists('add_submenu_page')) {
-
-                //add_options_page(page title, menu title, capability, menu slug, callback function);
-                add_options_page('share1Book', 'Share1Book', 'edit_plugins', basename(__FILE__), array(&$this, 'configPage'));
-
-                add_filter('plugin_action_links', array(&$this, 'onPluginActionLinks'), 'edit_plugins', 2);
-            }
-        }
-
-        /**
           Démarre la session (session_start)
           doit être fait le plus tôt possible (avant l'execution des templates)
           et démarre l'output buffer pour permettre notamment les redirections dans les pages
@@ -308,19 +268,6 @@ if (!class_exists('share1Book')) {
             }
             require(dirname(__FILE__) . str_replace("\\", "/", $name) . ".php");
             return;
-        }
-
-        public function configPage() {
-            include('admin-page.php');
-        }
-
-        public function registerStylesAndScripts() {
-
-            $facebookJs = 'http://connect.facebook.net/fr_FR/all.js#xfbml=1&appId=' . $this->config->getFacebookApiId();
-            if ($_SESSION['WPLANG'] == 'en_US')
-                $facebookJs = 'http://connect.facebook.net/en_US/all.js#xfbml=1&appId=' . $this->config->getFacebookApiId();
-            $facebookInviteText = __("Rejoignez vos amis, suivez les livres que vous leurs prêtez et partagez avec eux vos dernières lectures et envies", "s1b");
-
         }
 
         private function registerAjaxActions() {
@@ -399,161 +346,6 @@ if (!class_exists('share1Book')) {
             
             // initialisation des options
             $this->initVariables();
-        }
-
-        public function testDoctrine() {
-
-            $applicationMode = "development";
-            if ($applicationMode == "development") {
-                $cache = new \Doctrine\Common\Cache\ArrayCache;
-            } else {
-                $cache = new \Doctrine\Common\Cache\ApcCache;
-            }
-
-            $config = new Configuration;
-            $config->setMetadataCacheImpl($cache);
-            $driverImpl = $config->newDefaultAnnotationDriver(array(dirname(__FILE__) . "/Db/Model"));
-            $config->setMetadataDriverImpl($driverImpl);
-            $config->setQueryCacheImpl($cache);
-            $config->setProxyDir(dirname(__FILE__) . "/Db/Proxies");
-            $config->setProxyNamespace('Proxies');
-
-            if ($applicationMode == "development") {
-                $config->setAutoGenerateProxyClasses(true);
-            } else {
-                $config->setAutoGenerateProxyClasses(false);
-            }
-
-            $logger = new Doctrine\DBAL\Logging\EchoSQLLogger();
-            $config->setSQLLogger($logger);
-            // Database connection information
-            $connectionOptions = array(
-                'driver' => 'pdo_mysql',
-                'user' => DB_USER,
-                'password' => DB_PASSWORD,
-                'host' => DB_HOST,
-                'dbname' => DB_NAME
-            );
-
-
-            // Create EntityManager
-            $em = EntityManager::create($connectionOptions, $config);
-            $em->getEventManager()->addEventSubscriber(new MysqlSessionInit('utf8', 'utf8_general_ci'));
-
-            $userbook = $em->find("\Sb\Db\Model\UserBook", 6);
-            $readingState = $em->find("\Sb\Db\Model\ReadingState", 2);
-            $userbook->setReadingState($readingState);
-            $em->persist($userbook);
-            $em->flush();
-
-
-//            $query = $em->createQuery("SELECT r FROM \Sb\Db\Model\ReadingState r WHERE r.code = ?1");
-//            $query->setParameters(array(1 => 'READ'));
-            //var_dump($query->getResult());
-//            $userbook = $em->find("\Sb\Db\Model\UserBook", 12);
-//            $userbook->setRating(0);
-//            $book = $userbook->getBook();
-//            Doctrine\Common\Util\Debug::dump($book);
-//            var_dump(count($book->getUserBooks()));
-//            var_dump($book->getRatingSum());
-//            $book->deleteUserBook($userbook);
-//            var_dump(count($book->getUserBooks()));
-//            var_dump($book->getRatingSum());
-            // Test d'affichage d'un userbook, des ces infos directes, des ces tags, des userbooks du tags et des books des userbook du tag, des auteurs
-//            $userbook = $em->find("\Sb\Db\Model\UserBook", 17);
-//            echo "Rating - ".$userbook->getRating(). '<br/>';
-//            echo "User - ".$userbook->getUser()->getLastName(). '<br/>';
-//            foreach ($userbook->getTags() as $tag) {
-//                echo $tag->getId() . " - ".$tag->getLabel(). '<br/>';
-//                echo 'userbook du tag '. $tag->getLabel(). ' : <br/>';
-//                foreach ($tag->getUserBooks() as $userBook) {
-//                    echo '1 userbook pour le book '. $userBook->getBook()->getTitle(). '<br/>';
-//                    echo 'publisher :  '. $userBook->getBook()->getPublisher()->getName() . '<br/>';
-//                    foreach ($userBook->getBook()->getContributors() as $contrib) {
-//                        echo "auteur : " . $contrib->getFullName() . "<br/>";
-//                    }
-//                }
-//            }
-//            $publisher = new \Sb\Db\Model\Publisher;
-//            $publisher = $em->find("\Sb\Db\Model\Publisher", 6);
-//            echo $publisher->getName() . "<br/>";
-//            foreach ($publisher->getBooks() as $book) {
-//                echo $book->getTitle() . "<br/>";
-//            }
-//            $user = new \Sb\Db\Model\User;
-//            $user = $em->find("\Sb\Db\Model\User", 5);
-//
-//            $book = new \Sb\Db\Model\Book;
-//            $book = $em->find("\Sb\Db\Model\Book", 4);
-//
-//            $readingState = new \Sb\Db\Model\ReadingState;
-//            $readingState = $em->find("\Sb\Db\Model\ReadingState", 2);
-//
-//            $tag1 = new \Sb\Db\Model\Tag;
-//            $tag1 = $em->find("\Sb\Db\Model\Tag", 2);
-//            $tag2 = new \Sb\Db\Model\Tag;
-//            $tag2 = $em->find("\Sb\Db\Model\Tag", 3);
-//            $tags = array($tag1, $tag2);
-//
-//            $userbook = new \Sb\Db\Model\UserBook;
-//            $userbook->setRating(2);
-//            $userbook->setIsBlowOfHeart(true);
-//            $userbook->setUser($user);
-//            $userbook->setReadingState($readingState);
-//            $userbook->setBook($book);
-//            $userbook->setTags($tags);
-//
-//            $em->persist($userbook);
-//            $em->persist($user);
-//            $em->persist($readingState);
-//            $em->flush();
-//
-//            echo "Title : " . $book->getTitle() . "<br/>";
-//            echo "AverageRating : " . $book->getAverageRating() . "<br/>";
-//            $book = new \Sb\Db\Model\Book;
-//            $book = $em->find("\Sb\Db\Model\Book", 5);
-//            echo "nb userbooks: " . count($book->getUserBooks()) . "<br/>";
-//
-//            $userbook  = new \Sb\Db\Model\UserBook;
-//            $userbook = $em->find("\Sb\Db\Model\UserBook", 7);
-//            $em->remove($userbook);
-//            $em->flush();
-//
-//            echo "nb userbooks: " . count($book->getUserBooks()) . "<br/>";
-//            $userbook = new \Sb\Db\Model\UserBook;
-//            $userbook = $em->find("\Sb\Db\Model\UserBook", 31);
-//            $userbook->setRating(2);
-//            $em->persist($userbook);
-//            $em->flush();
-//            $message = new \Sb\Db\Model\Message;
-//            $message = $em->find("\Sb\Db\Model\Message", 10);
-//            echo $message->getMessage();
-//            $user = new \Sb\Db\Model\User;
-//            $user = $em->find("\Sb\Db\Model\User", 3);
-//            var_dump(count($user->getFriendships_as_friend()));
-//            foreach ($user->getFriendships_as_user() as $friendShip) {
-//                var_dump("moi : " . $friendShip->getUser()->getLastName() . " mon ami : " . $friendShip->getFriend()->getLastName() . " - validé : " . ($friendShip->getValidated() ? "oui" : "non") . " acepted  : " . ($friendShip->getAccepted() ? "oui" : "non"));
-//            }
-//            $recipient = new \Sb\Db\Model\User;
-//            $recipient = $em->find("\Sb\Db\Model\User", 2);
-//            $message = new \Sb\Db\Model\Message;
-//            $message->setMessage("test de message avec doctrine -- corps");
-//            $message->setTitle("test de message avec doctrine");
-//            $message->setSender($sender);
-//            $message->setRecipient($recipient);
-//            $em->persist($message);
-//            $em->flush();
-        }
-
-        public function checkNonce($nonceKey) {
-//            if ($_REQUEST) {
-//                if (array_key_exists("nonce", $_REQUEST)) {
-//                    $nonce = $_REQUEST['nonce'];
-//                }
-//            }
-//            // vérification du nonce : correspond t'il bien à un nonce généré plus tôt?
-//            if (!wp_verify_nonce($nonce, $nonceKey))
-//                throw new \Sb\Exception\UserException(__("Invalid ajax call"));            
         }
 
         /**
@@ -956,47 +748,3 @@ if (!class_exists('share1Book')) {
 }
 
 $s1b = new share1Book();
-
-function getShare1BookFunction($functionName, $prmArray = null, $needAuthentification = true) {
-    global $s1b;
-    try {
-        $s1b->prepare();
-        $functionWrapper = new \Sb\Wrapper\Functions($s1b);
-        $out = $s1b->functionOutput(array(&$functionWrapper, $functionName), $prmArray, $needAuthentification);
-        return $out;
-    } catch (\Sb\Exception\UserException $exUser) {
-        return sprintf(__("Error : %s"), $exUser->getMessage());
-    } catch (Exception $exc) {
-        return $exc->getMessage();
-    }
-}
-
-function share1book_tops() {
-    return getShare1BookFunction("getTopsList", null, false);
-}
-
-function share1book_topsFriends() {
-    return getShare1BookFunction("getTopsFriendsList");
-}
-
-function share1book_blowOfHearts() {
-    return getShare1BookFunction("getBlowOfHeartsList", null, false);
-}
-
-function share1book_blowOfHeartsFriends() {
-    return getShare1BookFunction("getBlowOfHeartsFriendsList");
-}
-
-function share1book_userCurrentlyReading($userId) {
-    return getShare1BookFunction("getUserCurrentlyReading", array($userId));
-}
-
-function share1book_userBlowsOfHeart($userId) {
-    return getShare1BookFunction("getUserBlowsOfHeart", array($userId));
-}
-
-function share1book_userLastlyReadOrCurrentlyReading($userId) {
-    return getShare1BookFunction("getUserLastlyReadOrCurrentlyReading", array($userId));
-}
-
-?>

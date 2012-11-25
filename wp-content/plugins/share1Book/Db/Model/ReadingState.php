@@ -1,9 +1,8 @@
 <?php
 
-use Doctrine\Common\Collections\ArrayCollection;
-
-
 namespace Sb\Db\Model;
+
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /** @Entity @Table(name="s1b_readingstates") */
 class ReadingState implements \Sb\Db\Model\Model {
@@ -12,7 +11,7 @@ class ReadingState implements \Sb\Db\Model\Model {
         $now = new \DateTime();
         $this->creation_date = $now;
         $this->last_modification_date = $now;
-        $this->userbooks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userbooks = new ArrayCollection();
     }
 
     /**
@@ -34,7 +33,7 @@ class ReadingState implements \Sb\Db\Model\Model {
     protected $last_modification_date;
 
     /**
-     * @OneToMany(targetEntity="UserBook", mappedBy="reading_state")
+     * @OneToMany(targetEntity="UserBook", mappedBy="reading_state", fetch="EXTRA_LAZY")
      * @JoinColumn(name="id", referencedColumnName="reading_state_id")
      */
     protected $userbooks;

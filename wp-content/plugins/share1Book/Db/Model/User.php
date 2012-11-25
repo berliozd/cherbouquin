@@ -1,18 +1,18 @@
 <?php
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 namespace Sb\Db\Model;
+
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /** @Entity @Table(name="s1b_users") */
 class User implements \Sb\Db\Model\Model {
 
     function __construct() {
-        $this->userbooks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->messages_received = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->messages_sent = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->friendships_as_user = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->friendships_as_friend = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userbooks = new ArrayCollection();
+        $this->messages_received = new ArrayCollection();
+        $this->messages_sent = new ArrayCollection();
+        $this->friendships_as_user = new ArrayCollection();
+        $this->friendships_as_friend = new ArrayCollection();
     }
 
     /**
@@ -96,25 +96,25 @@ class User implements \Sb\Db\Model\Model {
     /** @Column(type="datetime") */
     protected $last_login;
 
-    /** @OneToMany(targetEntity="Message", mappedBy="sender") */
+    /** @OneToMany(targetEntity="Message", mappedBy="sender", fetch="EXTRA_LAZY") */
     protected $messages_sent;
 
-    /** @OneToMany(targetEntity="Message", mappedBy="recipient") */
+    /** @OneToMany(targetEntity="Message", mappedBy="recipient", fetch="EXTRA_LAZY") */
     protected $messages_received;
 
-    /** @OneToMany(targetEntity="UserBook", mappedBy="user")  */
+    /** @OneToMany(targetEntity="UserBook", mappedBy="user", fetch="EXTRA_LAZY")  */
     protected $userbooks;
 
-    /** @OneToMany(targetEntity="UserEvent", mappedBy="user")  */
+    /** @OneToMany(targetEntity="UserEvent", mappedBy="user", fetch="EXTRA_LAZY")  */
     protected $userevents;
 
-    /** @OneToMany(targetEntity="FriendShip", mappedBy="user_source") */
+    /** @OneToMany(targetEntity="FriendShip", mappedBy="user_source", fetch="EXTRA_LAZY") */
     protected $friendships_as_source;
 
-    /** @OneToMany(targetEntity="FriendShip", mappedBy="user_target") */
+    /** @OneToMany(targetEntity="FriendShip", mappedBy="user_target", fetch="EXTRA_LAZY") */
     protected $friendships_as_target;
 
-    /** @OneToMany(targetEntity="Invitation", mappedBy="sender") */
+    /** @OneToMany(targetEntity="Invitation", mappedBy="sender", fetch="EXTRA_LAZY") */
     protected $invitations;
 
     public function getId() {
