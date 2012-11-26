@@ -2,6 +2,9 @@
 
 namespace Sb\View;
 
+use Sb\Db\Service\BookSvc;
+use Sb\View\BookShelf;
+
 class Book extends \Sb\View\AbstractView {
 
     private $book;
@@ -98,6 +101,14 @@ class Book extends \Sb\View\AbstractView {
         $reviewsView = new \Sb\View\BookReviews($userBooks, $this->book->getId());
         $reviews = $reviewsView->get();
 
+        // books users also liked
+        $booksUsersAlsoLikedShelf = "";
+        $booksUsersAlsoLiked = BookSvc::getInstance()->getBooksCouldBeLiked($id);
+        if (count($booksUsersAlsoLiked) > 0) {
+            $booksUsersAlsoLikedShelfView = new BookShelf($booksUsersAlsoLiked, __("Les membres qui ont lu ce livre ont aussi aimé", "s1b"));
+            $booksUsersAlsoLikedShelf = $booksUsersAlsoLikedShelfView->get();
+        }
+
         $tpl->setVariables(array("isConnected" => $isConnected,
             "isInLibrary" => $isInLibrary,
             "rating" => $rating,
@@ -137,7 +148,8 @@ class Book extends \Sb\View\AbstractView {
             "pubEsc" => $pubEsc,
             "pubDtStr" => $pubDtStr,
             "amazonUrl" => $amazonUrl,
-            "isInForm" => $this->isInForm
+            "isInForm" => $this->isInForm,
+            "booksUsersAlsoLikedShelf" => $booksUsersAlsoLikedShelf
         ));
 
         return $tpl->output();

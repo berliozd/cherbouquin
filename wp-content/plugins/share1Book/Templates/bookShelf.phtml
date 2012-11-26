@@ -1,0 +1,18 @@
+<?php 
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\BookHelper;
+?>
+<div class="pushed-books pushedBooks">
+    <div class="pb-title">
+        <?php echo $title; ?>
+    </div>
+    <div class="pb-shelf">
+        <div class="inner-side-padding-30">
+            <?php foreach ($books as $book) { ?>
+                <div class="pb-bookOnShelf">
+                    <a href="<?php echo HTTPHelper::Link($book->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($book, $defaultImage); ?></a>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>

@@ -277,6 +277,7 @@ A.utc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 
 /* pushed books */
 .pushed-books { float: left; width: 100%;}
+.book-view .pushed-books {margin: 25px 0;}
 .pb-title {color:#239CD3;font-size: 2em; margin-bottom: 10px; font-weight: normal;}
 .pb-title .pb-highlight {font-weight: bold;}
 .pb-item { float: left; margin-bottom: 10px; width: 100%; font-size: 1.1em;}

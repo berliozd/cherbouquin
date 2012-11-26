@@ -8,7 +8,6 @@ use \Sb\Db\Model\Book;
 use \Sb\Db\Model\UserBook;
 use \Sb\Db\Model\Model;
 
-
 /**
  * Description of BookSvc
  *
@@ -19,6 +18,7 @@ class BookSvc extends Service {
     private static $instance;
     private $userUserbooksBookIds;
     private $userUserbooksBookTitles;
+    private $currentViewedBook;
 
     /**
      *
@@ -61,7 +61,7 @@ class BookSvc extends Service {
                     // Getting the books liked by these users
                     $booksLikedByUsers = BookDao::getInstance()->getListLikedByUsers($userIds);
                     if (count($booksLikedByUsers) > 0) {
-                        
+
                         // Get the user and his userbooks
                         $user = UserDao::getInstance()->get($userId);
                         $userUserbooks = $user->getNotDeletedUserBooks();
@@ -86,6 +86,45 @@ class BookSvc extends Service {
         return $this->getData($key);
     }
 
+    public function getBooksCouldBeLiked($bookId) {
+
+        $key = __FUNCTION__ . "_" . $bookId;
+
+        $resultInCache = $this->getData($key);
+
+        if ($resultInCache === false) {
+            // Get the users who liked that book
+            $usersWhoLiked = UserDao::getInstance()->getListWhoLikesBooks(array($bookId));
+            if (count($usersWhoLiked) > 0) {
+                // Get the ids
+                $usersWhoLikedIds = array_map(array(&$this, "getId"), $usersWhoLiked);
+
+                // Get the books these user liked
+                $booksLikedByUsers = BookDao::getInstance()->getListLikedByUsers($usersWhoLikedIds);
+                if (count($booksLikedByUsers) > 0) {
+                    // Setting the current viewed book
+                    $this->currentViewedBook = BookDao::getInstance()->get($bookId);
+
+                    // Removing the current viewed book
+                    $booksLikedByUsers = array_filter($booksLikedByUsers, array(&$this, "isNotCurrentViewedBook"));
+                    $booksLikedByUsers = array_slice($booksLikedByUsers, 0, 5);
+                    $result = $booksLikedByUsers;
+                } else {
+                    $result = null;
+                }
+            } else {
+                $result = null;
+            }
+            $this->setData($key, $result);        
+        }
+
+        return $this->getData($key);
+    }
+
+    private function isNotCurrentViewedBook(Book $book) {
+        return ($book->getId() != $this->currentViewedBook->getId()) && ($book->getTitle() != $this->currentViewedBook->getTitle());
+    }
+
     /**
      * Return true if there is no book with same id in user userbooks and no book with same title in user userbooks
      * @param \Sb\Db\Model\UserBook $book
@@ -102,7 +141,9 @@ class BookSvc extends Service {
     private function getBookId(UserBook $userbook) {
         return $userbook->getBook()->getId();
     }
+
     private function getBookTitle(UserBook $userbook) {
         return $userbook->getBook()->getTitle();
     }
+
 }
