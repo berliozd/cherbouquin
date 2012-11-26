@@ -40,12 +40,15 @@ use Sb\Helpers\BookHelper;
             <?php if ($friendWishedBooks) { ?>
                 <div class="fwb-title"><?php _e("Offrez un livre à vos amis", "s1b"); ?></div>
                 <div class="fwb-description"><?php _e("Choisissez le livre que vous souhaitez offrir à un ami dans sa liste d'envie, puis marquez le livre afin d'éviter que d'autres personnes n'offrent le même.", "s1b"); ?></div>
-                <div class="fwb-mail">
-                    <div class="fwb-mail-description"><?php _e("Vous pouvez également partager cette liste ou l'envoyer par email.", "s1b");?></div>
+                <div class="fwb-mail">                    
                     <form action="<?php echo HTTPHelper::Link(Urls::USERBOOK_GIFTS_SEND_BY_EMAIL) ?>" method="post">
                         <input type="hidden" name="uid" value="<?php echo $selectedFriend->getId();?>"/>                    
                         <div class="fwb-line">
-                            <div class="fwb-line-title"><?php _e("Emails (séparés par une virgule) *", "s1b"); ?></div>
+                            <div class="fwb-mail-description">
+                                <?php _e("Partagez cette liste en l'envoyant à une ou plusieurs personnes", "s1b");?>
+                                &nbsp;-&nbsp;
+                                <span class="fwb-line-title"><?php _e("Emails séparés par une virgule *", "s1b"); ?></span>
+                            </div>
                             <input type="text" class="input-item mnm-emails" name="emails" maxlength="250" value="<?php echo $_GET["emails"];?>"/>
                             <button class="button bt-blue-m float-right margin-left"><?php _e("Envoyer", "s1b"); ?></button>
                         </div>                    
@@ -88,9 +91,8 @@ use Sb\Helpers\BookHelper;
             <?php } ?>
             
         <?php } elseif (!$selectedFriend) { ?>
-            <div class="fwb-title"><?php _e("Merci de sélectionner un ami dans la liste.", "s1b"); ?> </div>
-            <img class="fwb-autopromo-banner" src="<?php echo $context->getBaseUrl() . "/Resources/images/wishlist-autopromo-banner.png"?>" />
             <div class="fwb-subtitle"><?php _e("Offrez et faites vous offrir des cadeaux qui plaisent vraiment en utilisant la liste d'envies.", "s1b"); ?> </div>
+            <img class="fwb-autopromo-banner" src="<?php echo $context->getBaseUrl() . "/Resources/images/wishlist-autopromo-banner.png"?>" />            
             <div class="fwb-description"><?php _e("Accédez à la liste d'envies d'un ami en le sélectionnant dans le liste déroulante placée ci-dessus. Pour que vos amis puissent suivre vos envies marquez les livres que vous souhaitez dans votre fiche de lecture au moment de l'ajout dans votre bibliothèque.", "s1b"); ?></div>
             <div class="fwb-description"><strong><?php _e("Sous la partie commentaire, cochez la case \"vous souhaitez ce livre\"", "s1b"); ?></strong></div>
         <?php } ?>

@@ -486,7 +486,7 @@ TABLE TH.llh-title {padding-left: 80px;}
 /* friend wished books */
 .friends-wished-books {}
 .fwb-title {font-size: 1.9em; margin-bottom: 15px;}
-.fwb-subtitle {font-size: 1.5em; font-weight: bold;}
+.fwb-subtitle {font-size: 1.5em; font-weight: bold; margin-bottom: 15px;}
 .fwb-description {font-size: 1.2em; }
 .fwb-line {}
 .fwb-line-title { font-weight: bold;}
