@@ -18,6 +18,7 @@ class BookSvc extends Service {
 
     private static $instance;
     private $userUserbooksBookIds;
+    private $userUserbooksBookTitles;
 
     /**
      *
@@ -65,6 +66,8 @@ class BookSvc extends Service {
                         $user = UserDao::getInstance()->get($userId);
                         $userUserbooks = $user->getNotDeletedUserBooks();
                         $this->userUserbooksBookIds = array_map(array(&$this, 'getBookId'), $userUserbooks);
+                        $this->userUserbooksBookTitles = array_map(array(&$this, 'getBookTitle'), $userUserbooks);
+                        // Remove the book the user already have
                         $booksLikedByUsers = array_filter($booksLikedByUsers, array(&$this, "hasNot"));
                         $booksLikedByUsers = array_slice($booksLikedByUsers, 0, 5);
                         $result = $booksLikedByUsers;
@@ -83,8 +86,13 @@ class BookSvc extends Service {
         return $this->getData($key);
     }
 
+    /**
+     * Return true if there is no book with same id in user userbooks and no book with same title in user userbooks
+     * @param \Sb\Db\Model\UserBook $book
+     * @return type
+     */
     private function hasNot(Book $book) {
-        return !in_array($book->getId(), $this->userUserbooksBookIds, true);
+        return !in_array($book->getId(), $this->userUserbooksBookIds, true) && !in_array($book->getTitle(), $this->userUserbooksBookTitles, true);
     }
 
     private function getId(Model $model) {
@@ -93,5 +101,8 @@ class BookSvc extends Service {
 
     private function getBookId(UserBook $userbook) {
         return $userbook->getBook()->getId();
+    }
+    private function getBookTitle(UserBook $userbook) {
+        return $userbook->getBook()->getTitle();
     }
 }

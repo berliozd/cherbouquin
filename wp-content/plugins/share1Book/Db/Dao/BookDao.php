@@ -211,9 +211,10 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         
         $cacheId = $this->getCacheId(__FUNCTION__, array($userIdsAsStr));
         
-        $dql = sprintf("SELECT b FROM \Sb\Db\Model\Book b 
+        $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
             JOIN b.userbooks ub 
             JOIN ub.user u 
+            JOIN b.contributors c 
             WHERE u.id IN (%s)
             AND ub.is_deleted != 1 
             AND (ub.rating >=4 OR ub.is_wished = 1)
