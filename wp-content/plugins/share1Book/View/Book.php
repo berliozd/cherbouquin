@@ -104,7 +104,7 @@ class Book extends \Sb\View\AbstractView {
         $reviews = $reviewsView->get();
 
         if ($this->addRecommendations) {
-            // books users also liked
+            // Books users also liked
             $booksUsersAlsoLikedShelf = "";
             $booksUsersAlsoLiked = BookSvc::getInstance()->getBooksAlsoLiked($id);
             if (count($booksUsersAlsoLiked) > 0) {
@@ -112,13 +112,22 @@ class Book extends \Sb\View\AbstractView {
                 $booksUsersAlsoLikedShelf = $booksUsersAlsoLikedShelfView->get();
             }
 
-            // Book with same tags
+            // Books with same tags
             $booksWithSameTagsShelf = "";
             $booksWithSameTags = BookSvc::getInstance()->getBooksWithSameTags($id);
             if (count($booksWithSameTags) > 0) {
                 $booksWithSameTagsShelfView = new BookShelf($booksWithSameTags, __("Les livres dans la même catégorie", "s1b"));
                 $booksWithSameTagsShelf = $booksWithSameTagsShelfView->get();
             }
+            
+            // Books with same contributors
+            $booksWithSameContributorsShelf = "";
+            $booksWithSameContributors = BookSvc::getInstance()->getBooksWithSameContributors($id);
+            if (count($booksWithSameContributors) > 0) {
+                $booksWithSameContributorsShelfView = new BookShelf($booksWithSameContributors, __("Les livres du même auteur", "s1b"));
+                $booksWithSameContributorsShelf = $booksWithSameContributorsShelfView->get();
+            }
+            
         }
 
         $tpl->setVariables(array("isConnected" => $isConnected,
@@ -162,7 +171,8 @@ class Book extends \Sb\View\AbstractView {
             "amazonUrl" => $amazonUrl,
             "isInForm" => $this->isInForm,
             "booksUsersAlsoLikedShelf" => $booksUsersAlsoLikedShelf,
-            "booksWithSameTagsShelf" => $booksWithSameTagsShelf
+            "booksWithSameTagsShelf" => $booksWithSameTagsShelf,
+            "booksWithSameContributorsShelf" => $booksWithSameContributorsShelf
         ));
 
         return $tpl->output();

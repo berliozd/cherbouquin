@@ -174,6 +174,44 @@ class BookSvc extends Service {
         return $this->getData($key);
     }
 
+    public function getBooksWithSameContributors($bookId) {
+        // Set cache duration to 1 day
+        $cacheDuration = 86400;
+
+        $key = __FUNCTION__ . "_" . $bookId;
+
+        $resultInCache = $this->getData($key);
+
+        if ($resultInCache === false) {
+
+            // Get the book
+            $book = BookDao::getInstance()->get($bookId);
+
+            // Get the book contributors
+            $contributors = $book->getContributors();
+            if (count($contributors) > 0) {
+                $contributorsIds = array_map(array(&$this, "getId"), $contributors->toArray());
+                $booksWithSameContributors = BookDao::getInstance()->getListWithSameContributors($contributorsIds, $cacheDuration);
+
+                if (count($booksWithSameContributors) > 0) {
+                    // Setting the current viewed book
+                    $this->currentViewedBook = $book;
+                    // Removing the current viewed book
+                    $booksWithSameContributors = array_filter($booksWithSameContributors, array(&$this, "isNotCurrentViewedBook"));
+                    if (count($booksWithSameContributors) > 0)
+                        $result = array_slice($booksWithSameContributors, 0, 5);
+                } else {
+                    $result = null;
+                }
+            } else {
+                $result = null;
+            }
+
+            $this->setData($key, $result);
+        }
+        return $this->getData($key);
+    }
+
     private function isNotCurrentViewedBook(Book $book) {
         return ($book->getId() != $this->currentViewedBook->getId()) && ($book->getTitle() != $this->currentViewedBook->getTitle());
     }

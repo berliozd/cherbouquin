@@ -235,7 +235,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     public function getListWithTags($tagIds, $cacheDuration = null) {
-        
+
         $tagIdsAsStr = implode(",", $tagIds);
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($tagIds));
@@ -243,8 +243,31 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
             JOIN b.contributors c
             JOIN b.userbooks ub 
-            JOIN ub.tags t 
-            WHERE t.id IN (%s)", $tagIdsAsStr);
+            JOIN ub.tags t             
+            WHERE t.id IN (%s)
+            ORDER BY ub.last_modification_date DESC", $tagIdsAsStr);
+        $query = $this->entityManager->createQuery($dql);
+
+        // Set cache duration
+        if ($cacheDuration)
+            $this->setCacheDuration($cacheDuration);
+
+        $result = $this->getResults($query, $cacheId, false);
+
+        return $result;
+    }
+
+    public function getListWithSameContributors($contributorIds, $cacheDuration = null) {
+
+        $contributorIdsAsStr = implode(",", $contributorIds);
+        
+        $cacheId = $this->getCacheId(__FUNCTION__, array($contributorIds));
+
+        $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
+            JOIN b.contributors c
+            JOIN b.userbooks ub             
+            WHERE c.id IN (%s)
+            ORDER BY ub.last_modification_date DESC", $contributorIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
 
         // Set cache duration
