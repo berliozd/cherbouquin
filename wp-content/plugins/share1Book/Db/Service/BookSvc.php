@@ -4,6 +4,7 @@ namespace Sb\Db\Service;
 
 use \Sb\Db\Dao\BookDao;
 use \Sb\Db\Dao\UserDao;
+use \Sb\Db\Dao\TagDao;
 use \Sb\Db\Model\Book;
 use \Sb\Db\Model\UserBook;
 use \Sb\Db\Model\Model;
@@ -35,11 +36,14 @@ class BookSvc extends Service {
     }
 
     /**
-     * Get the books a user could like
+     * Get the books a user could like, the list is cached for 1 day
      * @param int $userId
      * @return array of Book
      */
     public function getBooksUserCouldLike($userId) {
+
+        // Set cache duration to 1 day
+        $cacheDuration = 86400;
 
         $key = __FUNCTION__ . "_" . $userId;
 
@@ -47,19 +51,19 @@ class BookSvc extends Service {
 
         if ($resultInCache === false) {
             // Getting the books liked by the user
-            $booksLikedByUser = BookDao::getInstance()->getListLikedByUser($userId);
+            $booksLikedByUser = BookDao::getInstance()->getListLikedByUser($userId, $cacheDuration);
             if (count($booksLikedByUser) > 0) {
                 // Getting the books ids
                 $bookIds = array_map(array(&$this, 'getId'), $booksLikedByUser);
 
                 // Getting the users who also likes theses books
-                $usersWhoLikeBooks = UserDao::getInstance()->getListWhoLikesBooks($bookIds);
+                $usersWhoLikeBooks = UserDao::getInstance()->getListWhoLikesBooks($bookIds, $cacheDuration);
                 if (count($usersWhoLikeBooks) > 0) {
                     // Getting the ids
                     $userIds = array_map(array(&$this, 'getId'), $usersWhoLikeBooks);
 
                     // Getting the books liked by these users
-                    $booksLikedByUsers = BookDao::getInstance()->getListLikedByUsers($userIds);
+                    $booksLikedByUsers = BookDao::getInstance()->getListLikedByUsers($userIds, $cacheDuration);
                     if (count($booksLikedByUsers) > 0) {
 
                         // Get the user and his userbooks
@@ -86,7 +90,15 @@ class BookSvc extends Service {
         return $this->getData($key);
     }
 
-    public function getBooksCouldBeLiked($bookId) {
+    /**
+     * Get a list of books that also liked by the people who like the book passed, the list is cached for 1 day
+     * @param type $bookId
+     * @return a array of Book
+     */
+    public function getBooksAlsoLiked($bookId) {
+
+        // Set cache duration to 1 day
+        $cacheDuration = 86400;
 
         $key = __FUNCTION__ . "_" . $bookId;
 
@@ -94,13 +106,13 @@ class BookSvc extends Service {
 
         if ($resultInCache === false) {
             // Get the users who liked that book
-            $usersWhoLiked = UserDao::getInstance()->getListWhoLikesBooks(array($bookId));
+            $usersWhoLiked = UserDao::getInstance()->getListWhoLikesBooks(array($bookId), $cacheDuration);
             if (count($usersWhoLiked) > 0) {
                 // Get the ids
                 $usersWhoLikedIds = array_map(array(&$this, "getId"), $usersWhoLiked);
 
                 // Get the books these user liked
-                $booksLikedByUsers = BookDao::getInstance()->getListLikedByUsers($usersWhoLikedIds);
+                $booksLikedByUsers = BookDao::getInstance()->getListLikedByUsers($usersWhoLikedIds, $cacheDuration);
                 if (count($booksLikedByUsers) > 0) {
                     // Setting the current viewed book
                     $this->currentViewedBook = BookDao::getInstance()->get($bookId);
@@ -115,7 +127,48 @@ class BookSvc extends Service {
             } else {
                 $result = null;
             }
-            $this->setData($key, $result);        
+            $this->setData($key, $result);
+        }
+
+        return $this->getData($key);
+    }
+
+    /**
+     * Get the books with the same tag as the book passed, the list is cached for 1 day
+     * @param type $bookId
+     * @return a array of Book
+     */
+    public function getBooksWithSameTags($bookId) {
+
+        // Set cache duration to 1 day
+        $cacheDuration = 86400;
+
+        $key = __FUNCTION__ . "_" . $bookId;
+
+        $resultInCache = $this->getData($key);
+
+        if ($resultInCache === false) {
+
+            $result = null;
+
+            // Get the tags for the current book
+            $tags = TagDao::getInstance()->getTagsForBook($bookId, $cacheDuration);
+            if (count($tags) > 0) {
+                $tagsId = array_map(array(&$this, "getId"), $tags);
+
+                // Get the book with these tags
+                $booksWithTags = BookDao::getInstance()->getListWithTags($tagsId, $cacheDuration);
+                if (count($booksWithTags) > 0) {
+                    // Setting the current viewed book
+                    $this->currentViewedBook = BookDao::getInstance()->get($bookId);
+                    // Removing the current viewed book
+                    $booksWithTags = array_filter($booksWithTags, array(&$this, "isNotCurrentViewedBook"));
+                    if (count($booksWithTags) > 0)
+                        $result = array_slice($booksWithTags, 0, 5);
+                }
+            }
+
+            $this->setData($key, $result);
         }
 
         return $this->getData($key);

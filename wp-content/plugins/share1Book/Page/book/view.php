@@ -1,10 +1,8 @@
 <?php
 
-use \Sb\Db\Service\BookSvc;
 use \Sb\Db\Dao\BookDao;
 use \Sb\View\Book;
 use \Sb\View\Components\ButtonsBar;
-use \Sb\View\BookShelf;
 
 global $s1b;
 $context = $s1b->getContext();
@@ -16,8 +14,8 @@ if (array_key_exists("bid", $_GET)) {
         $id = str_replace("/", "", $id);
         $book = BookDao::getInstance()->get($id);
         if ($book) {
-
-            $bookView = new Book($book, true, true, true, false);
+            
+            $bookView = new Book($book, true, true, true, false, true);
             $buttonsBar = new ButtonsBar(false);
             
             echo $bookView->get(). $buttonsBar->get();

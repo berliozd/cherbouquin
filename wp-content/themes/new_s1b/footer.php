@@ -100,6 +100,9 @@ use \Sb\Entity\Urls;
                                         <li>
                                             <a class="link" href="<?php echo HTTPHelper::Link(Urls::HOW_TO);?>"><?php _e("Comment ça marche?", "s1b");?></a>
                                         </li>
+                                        <li>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::HELP_US);?>"><?php _e("Nous aider", "s1b");?></a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

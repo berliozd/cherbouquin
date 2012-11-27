@@ -12,14 +12,16 @@ class Book extends \Sb\View\AbstractView {
     private $addReviews;
     private $addHiddenFields;
     private $isInForm;
+    private $addRecommendations;
 
-    function __construct(\Sb\Db\Model\Book $book, $addButtons, $addReviews, $addHiddenFields, $isInForm = true) {
+    function __construct(\Sb\Db\Model\Book $book, $addButtons, $addReviews, $addHiddenFields, $isInForm = true, $addRecommendations = false) {
         parent::__construct();
         $this->book = $book;
         $this->addButtons = $addButtons;
         $this->addReviews = $addReviews;
         $this->addHiddenFields = $addHiddenFields;
         $this->isInForm = $isInForm;
+        $this->addRecommendations = $addRecommendations;
     }
 
     public function get() {
@@ -101,12 +103,22 @@ class Book extends \Sb\View\AbstractView {
         $reviewsView = new \Sb\View\BookReviews($userBooks, $this->book->getId());
         $reviews = $reviewsView->get();
 
-        // books users also liked
-        $booksUsersAlsoLikedShelf = "";
-        $booksUsersAlsoLiked = BookSvc::getInstance()->getBooksCouldBeLiked($id);
-        if (count($booksUsersAlsoLiked) > 0) {
-            $booksUsersAlsoLikedShelfView = new BookShelf($booksUsersAlsoLiked, __("Les membres qui ont lu ce livre ont aussi aimé", "s1b"));
-            $booksUsersAlsoLikedShelf = $booksUsersAlsoLikedShelfView->get();
+        if ($this->addRecommendations) {
+            // books users also liked
+            $booksUsersAlsoLikedShelf = "";
+            $booksUsersAlsoLiked = BookSvc::getInstance()->getBooksAlsoLiked($id);
+            if (count($booksUsersAlsoLiked) > 0) {
+                $booksUsersAlsoLikedShelfView = new BookShelf($booksUsersAlsoLiked, __("Les membres qui ont lu ce livre ont aussi aimé", "s1b"));
+                $booksUsersAlsoLikedShelf = $booksUsersAlsoLikedShelfView->get();
+            }
+
+            // Book with same tags
+            $booksWithSameTagsShelf = "";
+            $booksWithSameTags = BookSvc::getInstance()->getBooksWithSameTags($id);
+            if (count($booksWithSameTags) > 0) {
+                $booksWithSameTagsShelfView = new BookShelf($booksWithSameTags, __("Les livres dans la même catégorie", "s1b"));
+                $booksWithSameTagsShelf = $booksWithSameTagsShelfView->get();
+            }
         }
 
         $tpl->setVariables(array("isConnected" => $isConnected,
@@ -149,7 +161,8 @@ class Book extends \Sb\View\AbstractView {
             "pubDtStr" => $pubDtStr,
             "amazonUrl" => $amazonUrl,
             "isInForm" => $this->isInForm,
-            "booksUsersAlsoLikedShelf" => $booksUsersAlsoLikedShelf
+            "booksUsersAlsoLikedShelf" => $booksUsersAlsoLikedShelf,
+            "booksWithSameTagsShelf" => $booksWithSameTagsShelf
         ));
 
         return $tpl->output();

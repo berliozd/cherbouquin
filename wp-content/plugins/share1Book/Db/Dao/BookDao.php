@@ -185,8 +185,8 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         return $result;
     }
-    
-    public function getListLikedByUser($userId) {
+
+    public function getListLikedByUser($userId, $cacheDuration = null) {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
@@ -199,18 +199,22 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->andWhere("ub.is_deleted != 1")
                 ->orderBy("ub.last_modification_date", "DESC")
                 ->setParameter("user_id", $userId);
-        
+
+        // Set cache duration
+        if ($cacheDuration)
+            $this->setCacheDuration($cacheDuration);
+
         $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false);
 
         return $result;
     }
-    
-    public function getListLikedByUsers($userIds) {
-        
+
+    public function getListLikedByUsers($userIds, $cacheDuration = null) {
+
         $userIdsAsStr = implode(", ", $userIds);
-        
+
         $cacheId = $this->getCacheId(__FUNCTION__, array($userIdsAsStr));
-        
+
         $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
             JOIN b.userbooks ub 
             JOIN ub.user u 
@@ -220,31 +224,36 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             AND (ub.rating >=4 OR ub.is_wished = 1)
             ORDER BY b.average_rating DESC", $userIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
-        
+
+        // Set cache duration
+        if ($cacheDuration)
+            $this->setCacheDuration($cacheDuration);
+
         $result = $this->getResults($query, $cacheId, false);
 
         return $result;
     }
 
-//    public function getListLikedByUsers($userIds) {
-//        
-//        $userIdsAsStr = implode(", ", $userIds);
-//        
-//        $cacheId = $this->getCacheId(__FUNCTION__, array($userIdsAsStr));
-//        
-//        $dql = sprintf("SELECT b FROM \Sb\Db\Model\Book b 
-//            JOIN b.userbooks ub 
-//            JOIN ub.user u 
-//            WHERE u.id IN (%s)
-//            AND ub.is_deleted != 1 
-//            AND ub.rating >=4 
-//            ORDER BY b.average_rating DESC", $userIdsAsStr);
-//        
-//        $query = $this->entityManager->createQuery($dql);
-//        $query->setMaxResults(5);
-//                
-//        $result = $this->getResults($query, $cacheId, false);
-//
-//        return $result;
-//    }
+    public function getListWithTags($tagIds, $cacheDuration = null) {
+        
+        $tagIdsAsStr = implode(",", $tagIds);
+
+        $cacheId = $this->getCacheId(__FUNCTION__, array($tagIds));
+
+        $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
+            JOIN b.contributors c
+            JOIN b.userbooks ub 
+            JOIN ub.tags t 
+            WHERE t.id IN (%s)", $tagIdsAsStr);
+        $query = $this->entityManager->createQuery($dql);
+
+        // Set cache duration
+        if ($cacheDuration)
+            $this->setCacheDuration($cacheDuration);
+
+        $result = $this->getResults($query, $cacheId, false);
+
+        return $result;
+    }
+
 }

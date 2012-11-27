@@ -15,15 +15,16 @@ abstract class AbstractDao {
      */
     protected $entityManager = null;
     protected $entityName;
+    private $cacheDuration = 3600; // Cache duration in seconds
 
     /**
      *
      * @return Sb\Model\
      */
-    private function getConfig() {
-        global $s1b;
-        return $s1b->getConfig();
-    }
+//    private function getConfig() {
+//        global $s1b;
+//        return $s1b->getConfig();
+//    }
 
     protected function __construct($entityName) {
         $this->entityName = $entityName;
@@ -57,8 +58,7 @@ abstract class AbstractDao {
         if ($cleanCache)
             $this->getEntityManager()->getConfiguration()->getResultCacheImpl()->delete($cacheId);
 
-        // Caching result for 3600s (1 hour)
-        $query->useResultCache(true, 3600, $cacheId);
+        $query->useResultCache(true, $this->getCacheDuration(), $cacheId);
 
         return $query->getResult();
     }
@@ -67,8 +67,7 @@ abstract class AbstractDao {
         if ($cleanCache)
             $this->getEntityManager()->getConfiguration()->getResultCacheImpl()->delete($cacheId);
 
-        // Caching result for 3600s (1 hour)
-        $query->useResultCache(true, 3600, $cacheId);
+        $query->useResultCache(true, $this->getCacheDuration(), $cacheId);
 
         return $query->getOneOrNullResult();
     }
@@ -85,7 +84,15 @@ abstract class AbstractDao {
     public function getEntityManager() {
         return $this->entityManager;
     }
+    
+    public function getCacheDuration() {
+        return $this->cacheDuration;
+    }
 
+    public function setCacheDuration($cacheDuration) {
+        $this->cacheDuration = $cacheDuration;
+    }
+    
     public function bulkRemove($entities) {
         foreach ($entities as $entity) {
             $this->getEntityManager()->remove($entity);

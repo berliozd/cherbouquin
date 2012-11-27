@@ -117,7 +117,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
         return $result;
     }
 
-    public function getListWhoLikesBooks($bookIds) {
+    public function getListWhoLikesBooks($bookIds, $cacheDuration = null) {
 
         $bookIdsAsStr = implode(",", $bookIds);
 
@@ -130,12 +130,18 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
             AND ub.is_deleted != 1 
             AND (ub.rating >=4 OR ub.is_wished = 1)
             ORDER BY ub.last_modification_date DESC", $bookIdsAsStr);
-        
+
         \Sb\Trace\FireBugTrace::Trace($dql);
-        
+
         $query = $this->entityManager->createQuery($dql);
 
+        // Set cache duration
+        if ($cacheDuration)
+            $this->setCacheDuration($cacheDuration);
+
         $result = $this->getResults($query, $cacheId, false);
+
         return $result;
     }
+
 }

@@ -19,6 +19,7 @@ class Urls {
     const ABOUT = "a-propos"; // user_about
     const TEAM = "lequipe"; // user_the_team
     const HOW_TO = "comment-ca-marche"; // user_the_team
+    const HELP_US = "nous-aider"; // aidez nous
     
     // account connection-registration-activation
     const LOGIN = 'membre/connexion'; // user_login
