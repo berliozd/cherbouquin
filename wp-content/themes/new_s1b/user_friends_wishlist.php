@@ -1,7 +1,10 @@
 <?php
 require_once 'includes/init.php';
-get_header();
+
 require_once 'user_friends_wishlist_1.php';
+
+// Always put get_header() after otherwise Flash messages won't work properly (mainly when page is POSTed on it self)
+get_header();
 
 use Sb\Helpers\HTTPHelper;
 use Sb\Entity\Urls;
@@ -24,8 +27,10 @@ use Sb\Helpers\BookHelper;
                     <form action="" name="friendSelectionForm" method="get">                            
                         <select class="input-item selectinput fls-select" onchange="friendSelectionForm.submit()" name="friendId">
                             <option value=""><?php _e("Aucun", "s1b"); ?></option>
-                            <?php foreach ($friends as $friend) { ?>
-                                <option <?php echo (($selectedFriend && ($friend->getId() == $selectedFriend->getId())) ? "selected" : ""); ?> value="<?php echo $friend->getId(); ?>"><?php echo $friend->getFriendlyName(); ?></option>
+                            <?php if ($friends && count($friends) > 0) { ?>
+                                <?php foreach ($friends as $friend) { ?>
+                                    <option <?php echo (($selectedFriend && ($friend->getId() == $selectedFriend->getId())) ? "selected" : ""); ?> value="<?php echo $friend->getId(); ?>"><?php echo $friend->getFriendlyName(); ?></option>
+                                <?php } ?>
                             <?php } ?>
                         </select>
                     </form>

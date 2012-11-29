@@ -15,8 +15,8 @@ $user = $context->getConnectedUser();
 // Get friend list for friend selection form
 $friends = $user->getAcceptedFriends();
 // Order the friends list by firstname asc 
-usort($friends, "compareFirstName");
-
+if ($friends && count($friends) > 0)
+    usort($friends, "compareFirstName");    
 
 $selectedFrienId = ArrayHelper::getSafeFromArray($_GET, "friendId", null);
 if ($selectedFrienId) {
