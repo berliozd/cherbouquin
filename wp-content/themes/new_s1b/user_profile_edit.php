@@ -1,8 +1,9 @@
 <?php
 require_once 'includes/init.php';
-get_header();
+
 require_once 'user_profile_edit_1.php';
 
+get_header();
 /**
  * Template Name: user_profile_edit
  */

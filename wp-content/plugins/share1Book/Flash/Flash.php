@@ -98,15 +98,18 @@ class Flash {
 
     public static function showFlashes() {
 
+        \Sb\Trace\Trace::addItem("dans showFlashes");
+        
         $flashes = null;
-        // Récupération des messages flashes éventuels
+        // RÃ©cupÃ©ration des messages flashes Ã©ventuels
         if (\Sb\Flash\Flash::hasItems()) {
             $flashes = \Sb\Flash\Flash::getItems();
-            \Sb\Trace\Trace::addItem("Récupération des messages flashes");
+            \Sb\Trace\Trace::addItem("RÃ©cupÃ©ration des messages flashes");
         }
 
         $ret = "";
         if ($flashes) {
+            \Sb\Trace\Trace::addItem("affichage des messages flashes");
             $ret .= "<div id=\"flashes-wrap\"><div id=\"flashes-background\"></div><div id='flashes'><div id='flashes-close-button'></div><ul>";
             foreach ($flashes as $flash) {
                 $ret .= "<li>" . $flash . "</li>";

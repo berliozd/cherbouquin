@@ -1,7 +1,9 @@
 <?php
 require_once 'includes/init.php';
-get_header();
+
 require_once 'user_message_send_1.php';
+
+get_header();
 
 /**
  * Template Name: user_message_send

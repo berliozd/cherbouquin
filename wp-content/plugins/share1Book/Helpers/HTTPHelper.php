@@ -34,7 +34,7 @@ class HTTPHelper {
         }
     }
 
-    public static function redirectToUrl($url) {
+    public static function redirectToUrl($url) {        
         wp_redirect($url);
         die();
     }

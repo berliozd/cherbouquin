@@ -12,6 +12,7 @@ use \Sb\Mail\Service\MailSvcImpl;
 use \Sb\Db\Model\Invitation;
 use \Sb\Db\Model\Guest;
 use \Sb\Entity\Constants;
+use \Sb\Trace\Trace;
 
 $user = $context->getConnectedUser();
 $continue = true;
@@ -24,6 +25,7 @@ if ($_POST) {
         Flash::addItem(__("Vous devez renseigner tous les champs obligatoires.", "s1b"));
         $continue = false;
     }
+
 
     if ($continue) {
 
@@ -41,8 +43,10 @@ if ($_POST) {
                 $addEmail = true;
                 $emailToInvite = strtolower(trim($emailToInvite));
                 if ($emailToInvite != "") {
+
                     // Testing if the email is valid
                     if (!StringHelper::isValidEmail($emailToInvite)) {
+                    
                         Flash::addItem(sprintf(__("%s n'est pas un email valide.", "s1b"), $emailToInvite));
                         // We will stop invitation sending
                         $continue = false;
@@ -54,10 +58,12 @@ if ($_POST) {
                         $userInDb = UserDao::getInstance()->getByEmail($emailToInvite);
 
                         if ($userInDb && !$userInDb->getDeleted()) {
-                            if ($continue) {
-                                $friendRequestUrl = HTTPHelper::Link(Urls::USER_FRIENDS_REQUEST, array("fid" => $userInDb->getId()));
-                                Flash::addItem(sprintf(__("Un utilisateur existe déjà avec l'email : %s. <a class=\"link\" href=\"%s\">Envoyer lui une demande d'ami</a>", "s1b"), $emailToInvite, $friendRequestUrl));
-                            }
+
+                            $friendRequestUrl = HTTPHelper::Link(Urls::USER_FRIENDS_REQUEST, array("fid" => $userInDb->getId()));
+                            Flash::addItem(sprintf(__("Un utilisateur existe déjà avec l'email : %s. <a class=\"link\" href=\"%s\">Envoyer lui une demande d'ami</a>", "s1b"), $emailToInvite, $friendRequestUrl));
+
+                            // We will stop invitation sending
+                            $continue = false;                            
                             // Current email not added to the array of emails to be processed
                             $addEmail = false;
                         } else {
@@ -66,6 +72,7 @@ if ($_POST) {
                             $invitations = InvitationDao::getInstance()->getListForSenderAndGuestEmail($user, $emailToInvite);
                             if ($invitations && count($invitations) > 0) {
                                 Flash::addItem(sprintf(__("Vous avez déjà envoyé une invitation à cet email : %s.", "s1b"), $emailToInvite));
+                                
                                 // We will stop invitation sending
                                 $continue = false;
                                 // Current email not added to the array of emails to be processed
