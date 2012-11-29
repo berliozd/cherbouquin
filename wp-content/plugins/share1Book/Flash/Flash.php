@@ -65,7 +65,6 @@ class Flash {
     }
 
     public static function addItem($message) {
-        \Sb\Trace\Trace::addItem("ajout d'1 flash");
         if (!strlen(trim($message))) {
             throw new \Exception('Cannot insert empty flash message.');
         }
@@ -78,7 +77,6 @@ class Flash {
      * @return array flash messages
      */
     public static function getItems() {
-        \Sb\Trace\Trace::addItem("flash getitems");
         self::initItems();
         $copy = self::$items;
         self::$items = array();
@@ -97,9 +95,7 @@ class Flash {
     }
 
     public static function showFlashes() {
-
-        \Sb\Trace\Trace::addItem("dans showFlashes");
-        
+       
         $flashes = null;
         // Récupération des messages flashes éventuels
         if (\Sb\Flash\Flash::hasItems()) {
@@ -109,7 +105,6 @@ class Flash {
 
         $ret = "";
         if ($flashes) {
-            \Sb\Trace\Trace::addItem("affichage des messages flashes");
             $ret .= "<div id=\"flashes-wrap\"><div id=\"flashes-background\"></div><div id='flashes'><div id='flashes-close-button'></div><ul>";
             foreach ($flashes as $flash) {
                 $ret .= "<li>" . $flash . "</li>";

@@ -1,8 +1,6 @@
 <?php
 $noAuthentification = true;
 require_once 'includes/init.php';
-get_header();
-
 /*
  * Template Name: user_lost_password
  */
@@ -45,6 +43,9 @@ if ($_POST) {
         \Sb\Flash\Flash::addItem(__("Vous devez renseigner un email.","s1b"));
     }
 }
+
+get_header();
+
 ?>
 <div id="content-wide">
     <div class="inner-padding-10">
