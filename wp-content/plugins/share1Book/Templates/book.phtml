@@ -18,7 +18,10 @@
         <div class="pb-item pushedBook">
             <div class="pbi-image">
                 <?php echo $image; ?>
-                <a href="<?php echo $buyOnAmazonLink; ?>" class="bv-buyonamazon" target="_blank"><img border="0" src="<?php echo $buyOnAmazonBtn;?>" alt="<?php _e("Acheter sur Amazon", "s1b"); ?>" /></a>
+                <a class="button bt-amazon float-left margin-left margin-top-l" target="_blank" href="<?php echo $buyOnAmazonLink; ?>" title="<?php _e("Acheter sur Amazon", "s1b");?>"></a>
+                <?php if ($buyOnFnacLink) { ?>
+                <a class="button bt-fnac float-left margin-left margin-top-m" target="_blank" href="<?php echo $buyOnFnacLink; ?>" title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>
+                <?php } ?>
             </div>            
             <div class="pbi-content">
                 <div class="pbi-flags">

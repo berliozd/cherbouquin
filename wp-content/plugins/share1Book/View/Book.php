@@ -72,7 +72,11 @@ class Book extends \Sb\View\AbstractView {
         }
 
         $buyOnAmazonLink = $this->book->getAmazonUrl();
-        $buyOnAmazonBtn = $this->getContext()->getBaseUrl() . "Resources/images/amazonBtn.png";
+        $buyOnFnacLink = null;
+        if ($this->book->getISBN13())
+            $buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $this->book->getISBN13() . "]]";
+        
+        //$buyOnAmazonBtn = $this->getContext()->getBaseUrl() . "Resources/images/amazonBtn.png";
         $image = \Sb\Helpers\BookHelper::getMediumImageTag($this->book, $this->defImg);
         $bookTitle = $this->book->getTitle();
         $bookDescription = $this->book->getDescription();
@@ -145,7 +149,7 @@ class Book extends \Sb\View\AbstractView {
             "facebookShareLink" => $facebookShareLink,
             "requestBorrowLink" => $requestBorrowLink,
             "buyOnAmazonLink" => $buyOnAmazonLink,
-            "buyOnAmazonBtn" => $buyOnAmazonBtn,
+            "buyOnFnacLink" => $buyOnFnacLink,
             "image" => $image,
             "bookTitle" => $bookTitle,
             "bookDescription" => $bookDescription,
