@@ -105,6 +105,9 @@ class BookSvc extends Service {
         $resultInCache = $this->getData($key);
 
         if ($resultInCache === false) {
+
+            $result = null;
+
             // Get the users who liked that book
             $usersWhoLiked = UserDao::getInstance()->getListWhoLikesBooks(array($bookId), $cacheDuration);
             if (count($usersWhoLiked) > 0) {
@@ -118,19 +121,14 @@ class BookSvc extends Service {
                     $this->currentViewedBook = BookDao::getInstance()->get($bookId);
 
                     // Removing the current viewed book
-                    $booksLikedByUsers = array_filter($booksLikedByUsers, array(&$this, "isNotCurrentViewedBook"));
-                    $booksLikedByUsers = array_slice($booksLikedByUsers, 0, 5);
-                    $result = $booksLikedByUsers;
-                } else {
-                    $result = null;
+                    $result = array_filter($booksLikedByUsers, array(&$this, "isNotCurrentViewedBook"));
                 }
-            } else {
-                $result = null;
             }
+
             $this->setData($key, $result);
         }
 
-        return $this->getData($key);
+        return $this->getRandomNumber($this->getData($key), 5);
     }
 
     /**
@@ -162,16 +160,14 @@ class BookSvc extends Service {
                     // Setting the current viewed book
                     $this->currentViewedBook = BookDao::getInstance()->get($bookId);
                     // Removing the current viewed book
-                    $booksWithTags = array_filter($booksWithTags, array(&$this, "isNotCurrentViewedBook"));
-                    if (count($booksWithTags) > 0)
-                        $result = array_slice($booksWithTags, 0, 5);
+                    $result = array_filter($booksWithTags, array(&$this, "isNotCurrentViewedBook"));
                 }
             }
 
             $this->setData($key, $result);
         }
 
-        return $this->getData($key);
+        return $this->getRandomNumber($this->getData($key), 5);
     }
 
     public function getBooksWithSameContributors($bookId) {
@@ -183,6 +179,8 @@ class BookSvc extends Service {
         $resultInCache = $this->getData($key);
 
         if ($resultInCache === false) {
+
+            $result = null;
 
             // Get the book
             $book = BookDao::getInstance()->get($bookId);
@@ -197,19 +195,14 @@ class BookSvc extends Service {
                     // Setting the current viewed book
                     $this->currentViewedBook = $book;
                     // Removing the current viewed book
-                    $booksWithSameContributors = array_filter($booksWithSameContributors, array(&$this, "isNotCurrentViewedBook"));
-                    if (count($booksWithSameContributors) > 0)
-                        $result = array_slice($booksWithSameContributors, 0, 5);
-                } else {
-                    $result = null;
+                    $result = array_filter($booksWithSameContributors, array(&$this, "isNotCurrentViewedBook"));
                 }
-            } else {
-                $result = null;
             }
 
             $this->setData($key, $result);
         }
-        return $this->getData($key);
+
+        return $this->getRandomNumber($this->getData($key), 5);
     }
 
     private function isNotCurrentViewedBook(Book $book) {
@@ -235,6 +228,14 @@ class BookSvc extends Service {
 
     private function getBookTitle(UserBook $userbook) {
         return $userbook->getBook()->getTitle();
+    }
+
+    private function getRandomNumber($books, $number) {
+        if ($books && count($books) > 0) {
+            if (shuffle($books))
+                return array_slice($books, 0, $number);
+        }
+        return null;
     }
 
 }

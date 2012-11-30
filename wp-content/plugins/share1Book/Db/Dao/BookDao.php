@@ -224,6 +224,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             AND (ub.rating >=4 OR ub.is_wished = 1)
             ORDER BY b.average_rating DESC", $userIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
+        $query->setMaxResults(20);
 
         // Set cache duration
         if ($cacheDuration)
@@ -247,6 +248,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             WHERE t.id IN (%s)
             ORDER BY ub.last_modification_date DESC", $tagIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
+        $query->setMaxResults(20);
 
         // Set cache duration
         if ($cacheDuration)
@@ -269,6 +271,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             WHERE c.id IN (%s)
             ORDER BY ub.last_modification_date DESC", $contributorIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
+        $query->setMaxResults(20);
 
         // Set cache duration
         if ($cacheDuration)
