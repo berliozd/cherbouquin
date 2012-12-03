@@ -80,22 +80,13 @@ use \Sb\Entity\Urls;
                                 <div class="fb-right float-right">
                                     <ul>
                                         <li>
-                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::ABOUT);?>"><?php _e("A propos", "s1b");?></a>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::ABOUT);?>"><?php _e("A propos", "s1b");?></a><br/>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::TEAM);?>"><?php _e("L'équipe", "s1b");?></a><br/>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::CONTACT);?>"><?php _e("Contact", "s1b");?></a>
                                         </li>                                    
                                         <li>
-                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::TEAM);?>"><?php _e("L'équipe", "s1b");?></a>
-                                        </li>
-                                        <li>
-                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::CONTACT);?>"><?php _e("Contact", "s1b");?></a>
-                                        </li>
-<!--                                        <li>
-                                            <a class="link" href=""><?php //_e("Presse","s1b");?></a>
-                                        </li>
-                                        <li>
-                                            <a class="link" href=""><?php //_e("Publicité","s1b");?></a>
-                                        </li>-->
-                                        <li>
-                                            <a class="link" target="_blank" href="<?php echo HTTPHelper::Link("CGU/CGU-26-09-2012.pdf");?>"><?php _e("Conditions générales d'utilisations", "s1b");?></a>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::PRESS);?>"><?php _e("Presse", "s1b");?></a><br/>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::NEWSLETTERS);?>"><?php _e("Newsletters", "s1b");?></a>
                                         </li>
                                         <li>
                                             <a class="link" href="<?php echo HTTPHelper::Link(Urls::HOW_TO);?>"><?php _e("Comment ça marche?", "s1b");?></a>
@@ -103,6 +94,9 @@ use \Sb\Entity\Urls;
                                         <li>
                                             <a class="link" href="<?php echo HTTPHelper::Link(Urls::HELP_US);?>"><?php _e("Nous aider", "s1b");?></a>
                                         </li>
+                                        <li>
+                                            <a class="link" target="_blank" href="<?php echo HTTPHelper::Link("CGU/CGU-26-09-2012.pdf");?>"><?php _e("Conditions générales d'utilisations", "s1b");?></a>
+                                        </li>                                        
                                     </ul>
                                 </div>
                             </div>

@@ -73,7 +73,7 @@ abstract class AbstractDao {
     }
 
     public function getCacheId($func, $args) {
-        $result = get_called_class() . "_" . $func . "_" . implode($args, "-");
+        $result = get_called_class() . "_" . $func . "_" . implode("-", $args);
         return $result;
     }
 

@@ -23,6 +23,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
         <meta name="verification" content="90976ef46595e2d7ff7ce4419ff6dc05" />
+        <meta name="msvalidate.01" content="E62B545AC4DE99DA99D381175475444F" />
         <title>
             <?php
             $bookId = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, "bid", null);
@@ -47,7 +48,7 @@
         };
         </script>        
         
-        <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book.css?v=22"  />
+        <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book.css?v=23"  />
         <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/overcast/jquery-ui-1.8.18.custom.css"  />
         
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/favicons/favicon.ico" />

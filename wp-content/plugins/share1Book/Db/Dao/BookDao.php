@@ -211,9 +211,9 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getListLikedByUsers($userIds, $cacheDuration = null) {
 
+        $cacheId = $this->getCacheId(__FUNCTION__, array($userIds));
+        
         $userIdsAsStr = implode(", ", $userIds);
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array($userIdsAsStr));
 
         $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
             JOIN b.userbooks ub 

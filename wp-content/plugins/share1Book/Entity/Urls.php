@@ -20,6 +20,8 @@ class Urls {
     const TEAM = "lequipe"; // user_the_team
     const HOW_TO = "comment-ca-marche"; // user_the_team
     const HELP_US = "nous-aider"; // aidez nous
+    const PRESS = "presse"; // presse
+    const NEWSLETTERS = "bulletin"; // newsletters
     
     // account connection-registration-activation
     const LOGIN = 'membre/connexion'; // user_login
