@@ -38,7 +38,7 @@ if ($filteringOrSearching) {
     $books = \Sb\Db\Service\UserBookSvc::getInstance()->getUserBooks($key, $context->getLibraryUserId(), true);
 } else { // Pas de POST : requetage de SQL
     // Dont use cache on first call
-    $books = \Sb\Db\Service\UserBookSvc::getInstance()->getUserBooks($key, $context->getLibraryUserId());
+    $books = \Sb\Db\Service\UserBookSvc::getInstance()->getUserBooks($key, $context->getLibraryUserId(), false);
 
     //var_dump($books);
     if ($books) {
