@@ -136,7 +136,7 @@ class AjaxActions {
     }
 
     private function getBooks($key) {
-        $books = \Sb\Db\Service\UserBookSvc::getInstance()->getUserBooks($key, $this->getContext()->getLibraryUserId(), false);
+        $books = \Sb\Db\Service\UserBookSvc::getInstance()->getUserBooks($key, $this->getContext()->getLibraryUserId(), true);
         if ($books) {
             return $this->getBooksHTML($key, $books);
         }

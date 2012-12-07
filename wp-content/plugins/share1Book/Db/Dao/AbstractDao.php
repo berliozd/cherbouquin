@@ -54,20 +54,16 @@ abstract class AbstractDao {
         }
     }
 
-    public function getResults(\Doctrine\ORM\Query $query, $cacheId, $cleanCache) {
-        if ($cleanCache)
-            $this->getEntityManager()->getConfiguration()->getResultCacheImpl()->delete($cacheId);
+    public function getResults(\Doctrine\ORM\Query $query, $cacheId, $useCache = false) {
 
-        $query->useResultCache(true, $this->getCacheDuration(), $cacheId);
+        $query->useResultCache($useCache, $this->getCacheDuration(), $cacheId);
 
         return $query->getResult();
     }
 
-    public function getOneResult(\Doctrine\ORM\Query $query, $cacheId, $cleanCache) {
-        if ($cleanCache)
-            $this->getEntityManager()->getConfiguration()->getResultCacheImpl()->delete($cacheId);
+    public function getOneResult(\Doctrine\ORM\Query $query, $cacheId, $useCache = false) {
 
-        $query->useResultCache(true, $this->getCacheDuration(), $cacheId);
+        $query->useResultCache($useCache, $this->getCacheDuration(), $cacheId);
 
         return $query->getOneOrNullResult();
     }

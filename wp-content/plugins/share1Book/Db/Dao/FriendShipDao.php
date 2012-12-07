@@ -43,7 +43,7 @@ class FriendShipDao extends \Sb\Db\Dao\AbstractDao {
                 ->groupBy("ffs.user_target")
                 ->setParameter("user_id", $userId);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
         return $result;
     }
 

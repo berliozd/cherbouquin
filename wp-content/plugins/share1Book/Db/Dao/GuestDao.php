@@ -54,7 +54,7 @@ class GuestDao extends \Sb\Db\Dao\AbstractDao {
         $query->setParameters(array(
             'email' => $email)
         );
-        return $this->getResults($query, $cacheId, true);
+        return $this->getResults($query, $cacheId);
     }
 
     public function update(\Sb\Db\Model\Guest $guest) {

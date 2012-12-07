@@ -34,11 +34,11 @@ if ($filteringOrSearching) {
     // repositionnement sur la premiere page
     $s1b->setListOptionsForNavigation($fullKey, 1);
 
-    // No need to clean cache, we work on the data in cache
-    $books = \Sb\Db\Service\UserBookSvc::getInstance()->getUserBooks($key, $context->getLibraryUserId(), false);
-} else { // Pas de POST : requetage de SQL
-    // Clean data cache when calling page first time
+    // We work on the data in cache
     $books = \Sb\Db\Service\UserBookSvc::getInstance()->getUserBooks($key, $context->getLibraryUserId(), true);
+} else { // Pas de POST : requetage de SQL
+    // Dont use cache on first call
+    $books = \Sb\Db\Service\UserBookSvc::getInstance()->getUserBooks($key, $context->getLibraryUserId());
 
     //var_dump($books);
     if ($books) {

@@ -33,26 +33,26 @@ class UserBookSvc extends \Sb\Db\Service\Service {
         parent::__construct(\Sb\Db\Dao\UserBookDao::getInstance(), "UserBook");
     }
 
-    public function getUserBooks($key, $id, $cleanCache) {
+    public function getUserBooks($key, $id, $useCache) {
         $userBookDao = \Sb\Db\Dao\UserBookDao::getInstance();
         switch ($key) {
             case self::ALL_BOOKS_KEY:
-                $userBooks = $userBookDao->getListAllBooks($id, $cleanCache);
+                $userBooks = $userBookDao->getListAllBooks($id, $useCache);
                 break;
             case self::BORROWED_BOOKS_KEY:
-                $userBooks = $userBookDao->getListBorrowedBooks($id, $cleanCache);
+                $userBooks = $userBookDao->getListBorrowedBooks($id, $useCache);
                 break;
             case self::LENDED_BOOKS_KEY:
-                $userBooks = $userBookDao->getListLendedBooks($id, $cleanCache);
+                $userBooks = $userBookDao->getListLendedBooks($id, $useCache);
                 break;
             case self::MY_BOOKS_KEY:
-                $userBooks = $userBookDao->getListMyBooks($id, $cleanCache);
+                $userBooks = $userBookDao->getListMyBooks($id, $useCache);
                 break;
             case self::WISHED_BOOKS_KEY:
-                $userBooks = $userBookDao->getListWishedBooks($id, -1, $cleanCache);
+                $userBooks = $userBookDao->getListWishedBooks($id, -1, $useCache);
                 break;
             default:
-                $userBooks = $userBookDao->getListMyBooks($id, $cleanCache);
+                $userBooks = $userBookDao->getListMyBooks($id, $useCache);
                 break;
         }
         return $userBooks;

@@ -45,7 +45,7 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
         if ($cacheDuration)
             $this->setCacheDuration($cacheDuration);
 
-        $result = $this->getResults($query, $cacheId, false);
+        $result = $this->getResults($query, $cacheId, true);
 
         return $result;
     }

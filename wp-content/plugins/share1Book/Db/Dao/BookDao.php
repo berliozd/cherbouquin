@@ -68,7 +68,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->setParameter("keyword", "%" . $keyword . "%")
                 ->setParameter("reference", $reference);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
         return $result;
     }
 
@@ -94,7 +94,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->setParameter("isbn13", $isbn13)
                 ->setParameter("asin", $asin);
 
-        return $this->getOneResult($queryBuilder->getQuery(), $cacheId, true);
+        return $this->getOneResult($queryBuilder->getQuery(), $cacheId);
     }
 
     /**
@@ -114,8 +114,8 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->addOrderBy("ub.creation_date", "DESC")
                 ->setMaxResults($nbMaxResults);
 
-        // we don't clean cache
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false); // false
+        // we use cache
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true); // false
 
         return $result;
     }
@@ -136,7 +136,8 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->setMaxResults($nbMaxResults)
                 ->orderBy("ub.last_modification_date", "DESC");
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false);
+        // We use cache
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
 
         return $result;
     }
@@ -165,7 +166,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->addOrderBy("b.nb_blow_of_hearts", "DESC")
                 ->setParameter("user_id", $userId);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
 
         return $result;
     }
@@ -181,7 +182,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->orderBy("ub.creation_date", "DESC")
                 ->distinct(true);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false);
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
 
         return $result;
     }
@@ -204,7 +205,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         if ($cacheDuration)
             $this->setCacheDuration($cacheDuration);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, false);
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
 
         return $result;
     }
@@ -230,7 +231,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         if ($cacheDuration)
             $this->setCacheDuration($cacheDuration);
 
-        $result = $this->getResults($query, $cacheId, false);
+        $result = $this->getResults($query, $cacheId, true);
 
         return $result;
     }
@@ -254,7 +255,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         if ($cacheDuration)
             $this->setCacheDuration($cacheDuration);
 
-        $result = $this->getResults($query, $cacheId, false);
+        $result = $this->getResults($query, $cacheId, true);
 
         return $result;
     }
@@ -277,7 +278,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         if ($cacheDuration)
             $this->setCacheDuration($cacheDuration);
 
-        $result = $this->getResults($query, $cacheId, false);
+        $result = $this->getResults($query, $cacheId, true);
 
         return $result;
     }

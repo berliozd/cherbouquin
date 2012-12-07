@@ -43,6 +43,6 @@ class UserEventDao extends \Sb\Db\Dao\AbstractDao {
 
         $query->setMaxResults(15);
 
-        return $this->getResults($query, $cacheId, true);
+        return $this->getResults($query, $cacheId);
     }
 }

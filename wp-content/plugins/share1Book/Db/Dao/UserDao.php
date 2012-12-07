@@ -113,7 +113,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
                 ->orWhere("u.first_name LIKE :keyword")
                 ->setParameter("keyword", "%" . $keyword . "%");
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
         return $result;
     }
 
@@ -131,15 +131,13 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
             AND (ub.rating >=4 OR ub.is_wished = 1)
             ORDER BY ub.last_modification_date DESC", $bookIdsAsStr);
 
-        \Sb\Trace\FireBugTrace::Trace($dql);
-
         $query = $this->entityManager->createQuery($dql);
 
         // Set cache duration
         if ($cacheDuration)
             $this->setCacheDuration($cacheDuration);
 
-        $result = $this->getResults($query, $cacheId, false);
+        $result = $this->getResults($query, $cacheId, true);
 
         return $result;
     }

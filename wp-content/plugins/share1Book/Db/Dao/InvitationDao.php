@@ -62,7 +62,7 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
         $query->setParameters(array('email' => $email,
             'sender' => $sender));
 
-        $result = $this->getResults($query, $cacheId, true);
+        $result = $this->getResults($query, $cacheId);
 
         return $result;
     }
@@ -82,7 +82,7 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
 
         $query->setParameters(array('email' => $email));
 
-        $result = $this->getResults($query, $cacheId, true);
+        $result = $this->getResults($query, $cacheId);
 
         return $result;
     }

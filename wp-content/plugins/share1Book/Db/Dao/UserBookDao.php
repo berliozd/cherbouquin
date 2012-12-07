@@ -121,12 +121,12 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
                 ->setParameter("user_id", $userId)
                 ->setParameter("book_id", $bookId);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
 
         return $result;
     }
 
-    public function getListMyBooks($userId, $cleanCache) {
+    public function getListMyBooks($userId, $useCache) {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
@@ -141,12 +141,12 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
             ORDER BY ub.id DESC");
         $query->setParameters(array('id' => $userId));
 
-        $result = $this->getResults($query, $cacheId, $cleanCache);
+        $result = $this->getResults($query, $cacheId, $useCache);
 
         return $result;
     }
 
-    public function getListAllBooks($userId, $cleanCache) {
+    public function getListAllBooks($userId, $useCache) {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
@@ -162,12 +162,12 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $query->setParameters(array('id' => $userId));
 
-        $result = $this->getResults($query, $cacheId, $cleanCache);
+        $result = $this->getResults($query, $cacheId, $useCache);
 
         return $result;
     }
 
-    public function getListWishedBooks($userId, $limit, $cleanCache) {
+    public function getListWishedBooks($userId, $limit, $useCache) {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
@@ -188,12 +188,12 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
             $queryBuilder->setMaxResults($limit);
         }
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, $cleanCache);
+        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, $useCache);
 
         return $result;
     }
 
-    public function getListBorrowedBooks($userId, $cleanCache) {
+    public function getListBorrowedBooks($userId, $useCache) {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
@@ -209,12 +209,12 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $query->setParameters(array('id' => $userId));
 
-        $result = $this->getResults($query, $cacheId, $cleanCache);
+        $result = $this->getResults($query, $cacheId, $useCache);
 
         return $result;
     }
 
-    public function getListLendedBooks($userId, $cleanCache) {
+    public function getListLendedBooks($userId, $useCache) {
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
         $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, l, c FROM \Sb\Db\Model\UserBook ub
@@ -229,7 +229,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $query->setParameters(array('id' => $userId));
 
-        $result = $this->getResults($query, $cacheId, $cleanCache);
+        $result = $this->getResults($query, $cacheId, $useCache);
 
         return $result;
     }
@@ -255,7 +255,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
             'user_id' => $userId)
         );
 
-        $result = $this->getResults($query, $cacheId, true);
+        $result = $this->getResults($query, $cacheId);
         
         return $result;
     }
@@ -277,7 +277,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $query->setMaxResults(10);
 
-        return $this->getResults($query, $cacheId, true);
+        return $this->getResults($query, $cacheId);
     }
 
     public function getListUserBOH($userId) {
@@ -297,6 +297,6 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $query->setMaxResults(10);
 
-        return $this->getResults($query, $cacheId, true);
+        return $this->getResults($query, $cacheId);
     }
 }
