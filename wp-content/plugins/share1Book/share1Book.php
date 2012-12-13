@@ -263,10 +263,9 @@ if (!class_exists('share1Book')) {
                 $prefix = "\Db\Proxies\__CG__";
                 $name = str_replace("Proxies\\__CG__\\", "", $name);
                 $name = $prefix . str_replace("\\", "", $name);
-            } else {
-                $name = str_replace("Sb", "", $name);
             }
-            require(dirname(__FILE__) . str_replace("\\", "/", $name) . ".php");
+            
+            require(str_replace("\\", "/", $name) . ".php");
             return;
         }
 
@@ -463,16 +462,16 @@ if (!class_exists('share1Book')) {
         private function initAutoLoad() {
 
             // Registering Zend autoload
-            set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . "/Library");
+            set_include_path(get_include_path() . PATH_SEPARATOR . BASE_PATH . "/Library");
 
             if (!defined('WP_ZEND_FRAMEWORK'))
                 define('WP_ZEND_FRAMEWORK', true);
-            require_once 'Library/Zend/Loader/Autoloader.php';
+            require_once '/Zend/Loader/Autoloader.php';
             $autoloader = Zend_Loader_Autoloader::getInstance();
 
             // Registering Doctrine autoload
-            require_once 'Library/Doctrine/Doctrine/ORM/Tools/Setup.php';
-            Doctrine\ORM\Tools\Setup::registerAutoloadGit(dirname(__FILE__) . "/Library/Doctrine");
+            require_once '/Doctrine/Doctrine/ORM/Tools/Setup.php';
+            Doctrine\ORM\Tools\Setup::registerAutoloadGit("/Doctrine");
 
             // Registering Share1book autoload
             spl_autoload_register(array($this, 'loadClass'));

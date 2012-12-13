@@ -2,6 +2,9 @@
 
 namespace Sb\Db\Service;
 
+use Sb\Db\Model\Book;
+use Sb\Db\Dao\TagDao;
+
 /**
  *
  * @author Didier
@@ -9,7 +12,6 @@ namespace Sb\Db\Service;
 class TagSvc extends \Sb\Db\Service\Service {
 
     const TAGS_DATA_KEY = "tags";
-
 
     private static $instance;
 
@@ -35,6 +37,36 @@ class TagSvc extends \Sb\Db\Service\Service {
             $this->setData($dataKey, $data);
         }
         return $data;
+    }
+
+    /**
+     * Get a list of tags for the list of books
+     * @param type $books : list of books
+     * @return type list of tags
+     */
+    public function getTagsForBooks($books) {
+
+        $bookIds = array_map(array(&$this, "getId"), $books);
+        
+        $dataKey = __FUNCTION__ . "_" . implode("_", $bookIds);
+        
+        $data = $this->getData($dataKey);
+        if (!$data) {
+        
+            $data = TagDao::getInstance()->getTagsForBooks($bookIds);
+            $this->setData($dataKey, $data);
+        }
+        
+        return $data;
+    }
+    
+    /**
+     * Get the book id, called in array_map
+     * @param \Sb\Db\Model\Book $book
+     * @return type
+     */
+    private function getId(Book $book) {
+        return $book->getId();
     }
 
 }

@@ -62,10 +62,11 @@
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery-ui-1.8.18.custom.min.js" ></script>
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery.ui.datepicker-fr.js" ></script>
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/addBook.js" ></script>
-        <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/bookList.js" ></script>
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/pushedBooks.js" ></script>                    
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/facebook.js" ></script>
         <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/simple.carousel.js" ></script>
+        <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/tiny_mce/tiny_mce.js"></script>
+
         
         <?php if ($globalConfig->getIsProduction()) { ?>
         <script type="text/javascript">

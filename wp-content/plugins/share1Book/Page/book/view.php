@@ -17,7 +17,6 @@ if (array_key_exists("bid", $_GET)) {
             
             $bookView = new Book($book, true, true, true, false, true);
             $buttonsBar = new ButtonsBar(false);
-            
             echo $bookView->get(). $buttonsBar->get();
 
         } else {

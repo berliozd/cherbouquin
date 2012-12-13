@@ -94,5 +94,20 @@ require_once 'user_login_1.php';
         echo $ad->get();
         ?>
     </div>
+    <div class="right-frame">
+        <div class="pinterest-frame">
+            <div class="pf-title">Cher bouquin sur Pinterest</div>
+            <div class="pf-content">
+                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+                <br/>
+                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+                <br/>
+                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+                <br/>
+                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+                <br/>
+            </div>
+        </div>
+    </div>
 </div>
 <?php get_footer(); ?>

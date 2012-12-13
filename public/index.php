@@ -10,7 +10,7 @@ defined('APPLICATION_ENV')
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-            realpath(APPLICATION_PATH . '/../wp-content/plugins/share1Book/Library'),
+            realpath(APPLICATION_PATH . '/../library'),
             get_include_path(),
         )));
 
@@ -36,12 +36,11 @@ if (APPLICATION_ENV == 'development') {
 require_once(APPLICATION_PATH . '/configs/share1Book-config.php');
 
 // Registering Doctrine autoload
-require_once SHARE1BOOK_PLUGIN_PATH . '/Library/Doctrine/Doctrine/ORM/Tools/Setup.php';
-Doctrine\ORM\Tools\Setup::registerAutoloadGit(SHARE1BOOK_PLUGIN_PATH . "/Library/Doctrine");
+require_once '/Doctrine/Doctrine/ORM/Tools/Setup.php';
+Doctrine\ORM\Tools\Setup::registerAutoloadGit("/Doctrine");
 
-// Init internal autloloader for loading all class in /wp-content/plugins/share1Book
+// Init internal autloloader for loading all Sb class 
 spl_autoload_register('loadClass');
-
 
 // Démarrage de la session si besoin
 $session_id = session_id();
@@ -90,12 +89,9 @@ function loadClass($name) {
         $prefix = "\Db\Proxies\__CG__";
         $name = str_replace("Proxies\\__CG__\\", "", $name);
         $name = $prefix . str_replace("\\", "", $name);
-    } else {
-        $name = str_replace("Sb", "", $name);
     }
-    $require = SHARE1BOOK_PLUGIN_PATH . str_replace("\\", "/", $name) . ".php";
 
-    require($require);
+    require(str_replace("\\", "/", $name) . ".php");
     return;
 }
 

@@ -1,6 +1,7 @@
 <?php
 
 use \Sb\Db\Dao\BookDao;
+use \Sb\Db\Service\TagSvc;
 
 class BooksController extends Zend_Controller_Action {
 
@@ -22,9 +23,24 @@ class BooksController extends Zend_Controller_Action {
         $this->setPageList($books);
     }
 
+    /**
+     * Action for showing a list of top books
+     */
     public function topsAction() {
+
+        var_dump($this->getViewScript());
+        
+        // Get ll books to show
         $books = BookDao::getInstance()->getListTops(25);
+        
+        // Get all tags for all books
+        $tags = TagSvc::getInstance()->getTagsForBooks($books);
+        
         $this->setPageList($books);
+//        
+//        
+//        $view = new Zend_View();
+//        $view->setBasePath($path)
     }
 
     private function setPageList($books) {

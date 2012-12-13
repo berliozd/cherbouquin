@@ -23,8 +23,8 @@ class ZendFileCache {
      * @return \Sb\Context\Model\Context
      */
     private function getContext() {
-        global $s1b;
-        return $s1b->getContext();
+        global $globalContext;
+        return $globalContext;
     }
 
     private static $instance;

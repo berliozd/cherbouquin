@@ -49,4 +49,27 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
 
         return $result;
     }
+    
+    /**
+     * Get tags for a list of books
+     * @param $bookIds : an array of Book
+     * @return a list of tags
+     */
+    public function getTagsForBooks($bookIds) {
+        
+        $bookIdsAsStr = implode(",", $bookIds);
+        
+        $cacheId = $this->getCacheId(__FUNCTION__, $bookIdsAsStr);
+
+        $dql = sprintf("SELECT t FROM \Sb\Db\Model\Tag t 
+            JOIN t.userbooks ub 
+            JOIN ub.book b 
+            WHERE b.id IN (%s)", $bookIdsAsStr);
+        
+        $query = $this->entityManager->createQuery($dql);
+
+        $result = $this->getResults($query, $cacheId, true);
+
+        return $result;
+    }
 }
