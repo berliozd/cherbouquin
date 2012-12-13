@@ -105,6 +105,7 @@ use \Sb\Entity\Urls;
                     <!-- Fin div footer-wrap -->
                 </div>
                 <!-- Fin div content-wrap -->    
+                <?php \Sb\Flash\Flash::showFlashes(); ?>
             </div>
             <!-- Fin div content -->            
         </div>

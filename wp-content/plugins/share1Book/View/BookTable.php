@@ -146,6 +146,21 @@ class BookTable extends \Sb\View\AbstractView {
                 $booksTemplates[] = $rowTpl;
 
                 $lineIdx++;
+                
+                unset($addSep);
+                unset($book);
+                unset($rowTpl);
+                unset($pictos);
+                unset($cssClass);
+                unset($img);
+                unset($status);
+                unset($rating);
+                unset($ratingCssClass);
+                unset($editLink);
+                unset($deleteLink);
+                unset($viewLink);
+                unset($borrowLink);
+                unset($userBook);
             }
         }
 

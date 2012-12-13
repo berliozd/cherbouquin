@@ -429,6 +429,7 @@ class User implements \Sb\Db\Model\Model {
         $friendShips = array_filter($friendShips, array(&$this, "isAcceptedFriendShip"));
         $friendShips = array_filter($friendShips, array(&$this, "isTargetUserInFriendShipNotDeleted"));
         // user in each friendships
+        $friends = null;
         if ($friendShips && count($friendShips) > 0)
             $friends = array_map(array(&$this, "getFriendInFriendShip"), $friendShips);
         return $friends;
@@ -442,6 +443,7 @@ class User implements \Sb\Db\Model\Model {
         $friendShips = array_filter($friendShips, array(&$this, "isAcceptedFriendShip"));
         $friendShips = array_filter($friendShips, array(&$this, "isTargetUserInFriendShipNotDeleted"));
         // user in each friendships
+        $friends = null;
         if ($friendShips && count($friendShips) > 0)
             $friends = array_map(array(&$this, "getFriendInFriendShip"), $friendShips);
         return $friends;

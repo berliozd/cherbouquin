@@ -24,6 +24,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
         <meta name="verification" content="90976ef46595e2d7ff7ce4419ff6dc05" />
         <meta name="msvalidate.01" content="E62B545AC4DE99DA99D381175475444F" />
+        <meta name="norton-safeweb-site-verification" content="jh6la0lgxqne8t-qrkb1vtxf9tqfdhqepiff6e6qkbcv6951uvuam70bh7fp2e371h08q687xlh7v1641xjypiwmqs03aaii5sh9gwbns3hptuzhdp2mk5d-hkj4jwz7" />
         <title>
             <?php
             $bookId = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, "bid", null);
@@ -33,9 +34,12 @@
 
             if ($book)
                 echo $book->getTitle() . " - " . $book->getOrderableContributors();
+            else echo "Cherbouquin - gérez et partagez votre bibliothèque avec vos amis, offrez leurs le bon livre et découvrez les coups de coeur de la communauté de lecteurs";
             ?>
-        </title>
-        <?php        
+        </title>        
+        <meta name="description" content="Créez votre bibliothèque en ligne et partagez vos livres favoris au sein de la communauté de lecteurs" />
+        <meta name="keywords" content="cher bouquin, cherbouquin, achat, acheter, art, atlas, auteur, avis, bande dessinee, bandes dessinées, bd, bibliotheque, bibliotheque en ligne, commentaires, communaute, communauté de lecteurs, contes, critiques, critiques de livres, cuisine, dictionnaire, ecrivain, editeur, emprunt, emprunter, fantasy, histoire, lecture, lire, littérature, livre, livre ancien, livre enfant, livre jeunesse, livre occasion, livre photo, livre scolaire, livres en ligne, logiciel gestion bibliotheque, manga, notes, notice, partage, philosophie, poesie, policier, prêt, prêter, recommandation livres, reseau, roman, science fiction, thriller, tourisme, vente livre, vin, voyage" />
+        <?php
         $facebookJs = 'http://connect.facebook.net/fr_FR/all.js#xfbml=1&appId=' . $globalConfig->getFacebookApiId();
         $facebookInviteText = __("Rejoignez vos amis, suivez les livres que vous leurs prêtez et partagez avec eux vos dernières lectures et envies", "s1b");
         $ajaxUrl = str_replace("index.php", "", str_replace("public/index.php", "", $_SERVER['SCRIPT_NAME'])) . "wp-admin/admin-ajax.php";
@@ -113,7 +117,6 @@
                     $userNavigation = new \Sb\View\Components\UserNavigation;
                     echo $userNavigation->get();
                 }                
-                ?>
-                <?php \Sb\Flash\Flash::showFlashes(); ?>
+                ?>                
                 <!-- Debut div content-wrap -->
                 <div id="content-wrap">

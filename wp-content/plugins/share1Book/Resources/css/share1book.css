@@ -165,6 +165,10 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
 .facebook-frame {border: 1px #09458b solid; width: 100%;}
 .ff-title {background-color: #09458B;color: #6988B4;font-size: 1.6em;font-weight: bold;text-align: center;}
 
+/* pinterest frame */
+.pinterest-frame {border: 1px #f14e07 solid; width: 100%;}
+.pf-title {background-color: #fff;color: #f14e07;font-size: 1.6em;font-weight: bold;text-align: center; border-bottom: 1px solid #f14e07;}
+
 /* profile visibility picto */
 .profile-picto-small-myfriends {background: url("../images/sprite.png?v=3") repeat-x scroll 0 -1014px transparent;}
 .profile-picto-small-public {background: url("../images/sprite.png?v=3") repeat-x scroll 0 -1048px transparent;}
