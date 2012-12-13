@@ -1,13 +1,5 @@
 <?php
 
-use Doctrine\Common\ClassLoader,
-    Doctrine\ORM\Configuration,
-    Doctrine\ORM\EntityManager,
-    Doctrine\Common\Cache\ApcCache,
-    Doctrine\ORM\Tools\Setup,
-    Doctrine\DBAL\Event\Listeners\MysqlSessionInit,
-    Sb\Config\Model;
-
 namespace Sb\Db;
 
 /**
@@ -51,7 +43,7 @@ class EntityManager extends \Doctrine\ORM\EntityManager {
         $config->setAutoGenerateProxyClasses(false);
 
         $logger = new \Doctrine\DBAL\Logging\EchoSQLLogger();
-//        $logger = new \Sb\Trace\SqlTrace;
+//        $logger = new \Sb\Trace\SqlFirebugTrace();
 //        $config->setSQLLogger($logger);
         // Database connection information
         $connectionOptions = array(
