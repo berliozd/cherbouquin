@@ -1,6 +1,6 @@
 <?php
 
-namespace Sb\Library\Facebook;
+namespace Facebook;
 
 /**
  * Copyright 2011 Facebook, Inc.

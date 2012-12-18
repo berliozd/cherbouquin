@@ -42,21 +42,21 @@ function attachShare1BookEvents(){
 /* Library sorting */
 function attachLibrarySorting() {
     $(".library-list .sortLine .sort").click(function(event){
-        doSort(event, this, ".library-list", "sorting", share1BookAjax.sortingNonce);
+        doSort(event, this, ".library-list", 'library/sort');
     });
 }
-    
+
 /* Search book result navigation */
 function attachLibraryNavigation(){
     $(".pageNav.library a").click(function(event){
-        doNav(event, this, ".library-list", 'navigation', share1BookAjax.navigationNonce);
+        doNav(event, this, ".library-list", 'library/get-page');
     });
 }
     
 /* Search book result navigation */
 function attachSearchBookNavigation(){    
     $(".pageNav.searchBook a").click(function(event){
-        doNav(event, this, "#searchBookResults", 'searchBookNagivation', share1BookAjax.searchBookNavigationNonce);
+        doNav(event, this, "#searchBookResults", 'book-search/get-page');
     });
 }
 
@@ -136,34 +136,28 @@ function attachListEvents() {
 }
 
 // Fonction appelée lors des clicks sur les liens de navigation
-function doNav(event, sender, container, action, nonce){
+function doNav(event, sender, container, action){
     var pagenumber = jQuery(sender).attr("pagenumber");
-    doAjax(event, container, action, pagenumber , nonce);
-}
-// Fonction appelée pour le tri
-function doSort(event, sender, container, action, nonce){
-    var sortCriteria = jQuery(sender).attr("sortcriteria");
-    doAjax(event, container, action, sortCriteria, nonce);
-}
-// Fonction appelée pour le search
-function doSearch(event, container, action, nonce){
-    var searchValue = jQuery("#listSearchValue").val();
-    doAjax(event, container, action, searchValue, nonce);
+    doAjax(event, container, action, pagenumber );
 }
 
-function doAjax(event, container, action, paramValue, nonce){
+// Fonction appelée pour le tri
+function doSort(event, sender, container, action){
+    var sortCriteria = jQuery(sender).attr("sortcriteria");
+    doAjax(event, container, action, sortCriteria);
+}
+
+function doAjax(event, container, action, paramValue){
     var key = $(container).attr("key");
     event.preventDefault();
     $("#loading #loadingMsg").html("Chargement en cours ...");
     $("#loading").show();
     jQuery.post(
-        share1BookAjax.url,
+        share1BookAjax.url + action + "/format/html",
         {
-            action : action,
             param : paramValue,
-            nonce : nonce,
             key : key,
-            isfriendlibrary : library.isFriendLibrary
+            friendlib : library.isFriendLibrary
         },
         function( response ) {
             $(container).html(response);
@@ -172,6 +166,4 @@ function doAjax(event, container, action, paramValue, nonce){
             attachShare1BookEvents();
         }
         );
-
 };
-

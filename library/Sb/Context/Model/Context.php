@@ -53,7 +53,6 @@ class Context {
         return $this->isShowingFriendLibrary;
     }
 
-
     public function setBaseDirectory($baseDirectory) {
         $this->baseDirectory = $baseDirectory;
     }
@@ -83,13 +82,13 @@ class Context {
     }
 
     public static function createContext($userId, $isShowFriendLibrary, $libraryUserId) {
-        
+
         // Set context params except isShowingFriendLibrary and user
         $context = new \Sb\Context\Model\Context();
         $context->setBaseDirectory(SHARE1BOOK_PLUGIN_PATH);
         $context->setBaseUrl(BASE_URL);
-        $context->setDefaultImage(\Sb\Helpers\BookHelper::getDefaultImage());       
-        
+        $context->setDefaultImage(\Sb\Helpers\BookHelper::getDefaultImage());
+
         // Set context param user
         if ($userId) {
             $user = \Sb\Db\Dao\UserDao::getInstance()->get($userId);
@@ -98,13 +97,17 @@ class Context {
 
         // Set context param isShowingFriendLibrary
         $context->setIsShowingFriendLibrary($isShowFriendLibrary);
-        $context->setLibraryUserId($libraryUserId);
-        
+
+        if ($isShowFriendLibrary)
+            $context->setLibraryUserId($libraryUserId);
+        else
+            $context->setLibraryUserId($userId);
+
+
         // Set the singleton for future use
         \Sb\Context\Model\Context::setInstance($context);
-        
+
         return $context;
-        
     }
 
 }

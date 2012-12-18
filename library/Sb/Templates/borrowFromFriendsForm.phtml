@@ -1,0 +1,60 @@
+<div class="user-book-edit">
+    <form action="" method="post" id="userBookFrm">
+        <input type="hidden" name="mode" value="SUBMIT" />
+        [@book]
+        <div class="horizontal-sep-1"></div>        
+        <?php if ($friendUserBooks) {?>    
+        <div class="friendstoborrow-list">
+            <div class="ftb-title"><?php _e("Empruntez ce livre à un ami : ", "s1b"); ?></div>
+            <div class="ftb-list">
+                <ul>
+                    <?php
+                    foreach ($friendUserBooks as $friendUserBook) {
+                        $link = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROW, "ubid" => $friendUserBook->getId()));
+                        ?>
+                        <li>
+                            <a href="<?php echo $link ?>" class="link"><?php echo $friendUserBook->getUser()->getFirstName() ?> <?php echo $friendUserBook->getUser()->getLastName() ?></a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+        <?php } else {?>
+            <div class="ftb-title">
+                <?php echo sprintf(__("Aucun de vos amis sur %s ne dispose de ce livre dans sa bibliothèque.","s1b"), \Sb\Entity\Constants::SITENAME);?>
+            </div>
+        <?php }?>        
+        <div class="horizontal-sep-1"></div>
+        <div class="quick-registration-form">
+            <div class="qrf-title">
+                <?php echo sprintf(__("Emprunter ce livre à un ami pas encore inscrit sur %s.", "s1b"), \Sb\Entity\Constants::SITENAME); ?>
+            </div>
+            <div class="qrf-baseline">
+                <?php echo sprintf(__("Vous pouvez emprunter ce livre à un ami qui le possède mais ne dispose pas de compte sur %s.", "s1b"), \Sb\Entity\Constants::SITENAME);?>
+                <br/>
+                <?php echo sprintf(__("Renseignez son email et une invitation à rejoindre %s lui sera transmise.", "s1b"), \Sb\Entity\Constants::SITENAME);?>
+            </div>
+            <div class="qrf-form">
+                <table style="width:100%">
+                    <tr>
+                        <td class="qrf-fieldlabel"><?php _e("Nom *", "s1b"); ?></td>
+                        <td><input class="input-item textinput quickRegistrationFormInput" type="text" name="guest_name" value="<?php echo $_POST["guest_name"]; ?>"/></td>
+                    </tr>
+                    <tr>
+                        <td class="qrf-fieldlabel"><?php _e("Email", "s1b"); ?></td>
+                        <td><input class="input-item textinput quickRegistrationFormInput" type="text" name="guest_email" value="<?php echo $_POST["guest_email"]; ?>" /></td>
+                    </tr>
+                </table>
+                <div class="buttons-bar">
+                    <div class="inner-padding">
+                        * Champs obligatoires
+                        <button class="bt-blue-s button float-right margin-left">Envoyer</button>
+                        <a class="bt-black-s button float-right" href="javascript:history.back()">Annuler</a>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </form>
+</div>

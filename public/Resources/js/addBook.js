@@ -105,8 +105,7 @@ function getUserBookDataString(sender) {
     amazonUrl = getValue(sender, "book_AmazonUrl");
     nbOfPages = getValue(sender, "book_NbOfPages");
     language = getValue(sender, "book_Language");
-    return "action=addUserBook&nonce=" + share1BookAjax.addUserBookNonce 
-    + "&book_Id=" + id 
+    return "book_Id=" + id 
     + "&book_ISBN10=" + isbn10 
     + "&book_ISBN13=" + isbn13 
     + "&book_ASIN=" + asin 
@@ -131,8 +130,8 @@ function addUserBook(sender) {
     $("#loading #loadingMsg").html("Ajout en cours ..."); // affiche le masque de loading "chargement en cours..."
     $("#loading").show(); // affiche le masque de loading "chargement en cours..."
     $.ajax({  
-        type: "POST",  
-        url: share1BookAjax.url,  
+        type: "POST",        
+        url: share1BookAjax.url + "userbook/add/format/html",  
         data: getUserBookDataString(sender),  
         success: function(data) {
             //$('#flashes-wrap').remove();

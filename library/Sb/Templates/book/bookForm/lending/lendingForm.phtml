@@ -1,0 +1,22 @@
+<input type="hidden" name="mode" value="SUBMIT"/>
+<input type="hidden" name="LendingType" value="[@lendingType]"/>
+<input type="hidden" name="BookId" value="[@bookId]"/>
+<input type="hidden" name="UserBookId" value="[@userBookId]"/>
+<input type="hidden" name="LendingId" value="[@lendingId]"/>
+<input type="hidden" name="ubid" value="[@ubid]"/>
+<div class="ul-detail">
+    <?php echo $friendSelection; ?>
+    <div class="ul-line">
+        <?php echo $lendingText; ?>
+    </div>
+    <?php if ($warningText != "") { ?>
+        <span class="warning">
+            <?php echo $warningText; ?>
+        </span>
+    <?php } ?>
+</div>
+<div class="ul-button">
+<?php if ($button1Text != "") { ?>
+    <button type="submit" class="button bt-black-l ul-btbutton" name="<?php echo $button1Name; ?>"><?php echo $button1Text; ?></button>
+<?php } ?>
+</div>

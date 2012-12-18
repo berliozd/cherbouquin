@@ -49,6 +49,8 @@ if (empty($session_id))
 
 // Set context
 $connecteUserId = \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getConnectedUserId();
+
+// Context is created without passing friend library info. These infos will be set in Controller later
 $globalContext = \Sb\Context\Model\Context::createContext($connecteUserId, false, null);
 
 // Set Config
@@ -82,6 +84,9 @@ function _e($stringId, $domain = "") {
 
 // Declare general autoloading function for all Sb classes
 function loadClass($name) {
+
+//    echo $name . "<br/>";
+//    
     $isProxy = false;
     if (strpos($name, "Proxies\\__CG__\\") !== false)
         $isProxy = true;
@@ -91,6 +96,9 @@ function loadClass($name) {
         $name = $prefix . str_replace("\\", "", $name);
     }
 
+   
+//    echo $name . "<br/>";
+    
     require(str_replace("\\", "/", $name) . ".php");
     return;
 }

@@ -42,7 +42,7 @@
         <?php
         $facebookJs = 'http://connect.facebook.net/fr_FR/all.js#xfbml=1&appId=' . $globalConfig->getFacebookApiId();
         $facebookInviteText = __("Rejoignez vos amis, suivez les livres que vous leurs prêtez et partagez avec eux vos dernières lectures et envies", "s1b");
-        $ajaxUrl = str_replace("index.php", "", str_replace("public/index.php", "", $_SERVER['SCRIPT_NAME'])) . "wp-admin/admin-ajax.php";
+        $ajaxUrl = str_replace("index.php", "", str_replace("public/index.php", "", $_SERVER['SCRIPT_NAME']));
         ?>
         <script type='text/javascript'>
         var share1BookAjax = {

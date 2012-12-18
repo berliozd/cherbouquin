@@ -120,7 +120,6 @@ if (!class_exists('share1Book')) {
 
             // register differents hooks and actions
             add_action('plugins_loaded', array(&$this, 'onPluginsLoaded'));
-            $this->registerAjaxActions();
 
             // necessaire pour em pécher wordpress de rajouter des <p></p> dans le contenu
             remove_filter('the_content', 'wpautop');
@@ -256,6 +255,7 @@ if (!class_exists('share1Book')) {
          * Class loader.
          */
         public function loadClass($name) {
+            //echo $name . "<br/>";
             $isProxy = false;
             if (strpos($name, "Proxies\\__CG__\\") !== false)
                 $isProxy = true;
@@ -265,31 +265,9 @@ if (!class_exists('share1Book')) {
                 $name = $prefix . str_replace("\\", "", $name);
             }
             
+            //echo $name . "<br/>";
             require(str_replace("\\", "/", $name) . ".php");
             return;
-        }
-
-        private function registerAjaxActions() {
-
-            require_once "Wrapper/AjaxActions.php";
-            $ajaxActions = new \Sb\Wrapper\AjaxActions($this);
-
-            // navigation dans la recherche
-            $this->registerAjaxAction('searchBookNagivation', array(&$ajaxActions, 'onAjaxActionSearchABookNagivation'));
-
-            // navigation dans les listes de la bibliothèque
-            $this->registerAjaxAction('navigation', array(&$ajaxActions, 'onAjaxActionBooksNavigation'));
-
-            // tri dans les listes
-            $this->registerAjaxAction('sorting', array(&$ajaxActions, 'onAjaxActionBooksSort'));
-            
-            // For adding userBook
-            $this->registerAjaxAction('addUserBook', array(&$ajaxActions, 'onAjaxAddUserBook'));
-        }
-
-        private function registerAjaxAction($actionName, $function) {
-            add_action('wp_ajax_nopriv_' . $actionName, $function);
-            add_action('wp_ajax_' . $actionName, $function);
         }
 
         //////////////////////// FIN hooks
@@ -462,7 +440,7 @@ if (!class_exists('share1Book')) {
         private function initAutoLoad() {
 
             // Registering Zend autoload
-            set_include_path(get_include_path() . PATH_SEPARATOR . BASE_PATH . "/Library");
+            set_include_path(get_include_path() . PATH_SEPARATOR . BASE_PATH . "/library");
 
             if (!defined('WP_ZEND_FRAMEWORK'))
                 define('WP_ZEND_FRAMEWORK', true);
@@ -550,7 +528,7 @@ if (!class_exists('share1Book')) {
         }
 
         private function formatPagePath($page) {
-            return dirname(__FILE__) . '/' . self::PAGE_DIR . '/' . $page . '.php';
+            return  __DIR__ . '/Page/' . $page . '.php';
         }
 
         private function setActiveTab(&$tplHeader) {

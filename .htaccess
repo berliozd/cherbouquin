@@ -13,6 +13,9 @@ RewriteRule ^wished-userbook(.)*$ public/index.php [L]
 RewriteRule ^userbook-gift(.)*$ public/index.php [L]
 RewriteRule ^userbook-gifts(.)*$ public/index.php [L]
 RewriteRule ^test(.)*$ public/index.php [L]
+RewriteRule ^library(.)*$ public/index.php [L]
+RewriteRule ^book-search(.)*$ public/index.php [L]
+RewriteRule ^userbook(.)*$ public/index.php [L]
 
 RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)$ /bibliotheque\-detail/\?page=book\%2Fview&bid=$3
 RewriteRule ^index\.php$ - [L]
