@@ -58,8 +58,6 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
     public function getTagsForBooks($bookIds) {
         
         $bookIdsAsStr = implode(",", $bookIds);
-        
-        $cacheId = $this->getCacheId(__FUNCTION__, $bookIdsAsStr);
 
         $dql = sprintf("SELECT t FROM \Sb\Db\Model\Tag t 
             JOIN t.userbooks ub 
@@ -68,7 +66,8 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
         
         $query = $this->entityManager->createQuery($dql);
 
-        $result = $this->getResults($query, $cacheId, true);
+        // We don't cache the result as this is always called throught the TagSvc service which it-self caches the result
+        $result = $this->getResults($query, null, false);
 
         return $result;
     }

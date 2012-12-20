@@ -2,6 +2,9 @@
 $noAuthentification = true;
 require_once 'includes/init.php';
 get_header();
+
+use \Sb\Db\Service\BookSvc;
+
 require_once 'user_login_1.php';
 /**
  * Template Name: user_login
@@ -68,7 +71,7 @@ require_once 'user_login_1.php';
         </h1>
         <div class="pb-content">
             <?php
-            $bohBooks = \Sb\Db\Dao\BookDao::getInstance()->getListBOH(10);
+            $bohBooks = BookSvc::getInstance()->getBOHForHomePage();
             if (count($bohBooks) == 0) {
                 $noBohBooks = new \Sb\View\Components\NoBooksWidget(__("Aucun livre n'a encore été noté par les membres", "s1b"));
                 echo $noBohBooks->get();

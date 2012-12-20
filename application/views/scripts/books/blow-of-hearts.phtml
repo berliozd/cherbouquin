@@ -11,6 +11,23 @@ global $globalContext;
         <div class="book-list-introduction">
             <?php _e("Cette sélection des coups de coeur est le résultat d'un classement effectué sur tous les livres présents chez Cherbouquin sur la base des coups de coeur que vous et les autres membres avez attribués. L'idée de ce top est que vous puissiez y trouver l'inspiration pour vos prochaines lectures.", "s1b");?>
         </div>
+        
+        <?php if ($this->tags) { ?>
+        <div class="bl-filter">
+            <div class="blf-title"><?php _e("Sélectionnez un tag pour affiner l'affichage : ", "s1b") ?></div>
+            <div class="blf-select">
+                <form action="" method="POST" name="frmTagsChoice">
+                    <select name="tid" class="input-item" onchange="frmTagsChoice.submit();">
+                        <option value=""><?php _e("Aucun", "s1b") ?></option>
+                        <?php foreach ($this->tags as $tag) { ?>
+                            <option <?php echo($this->selectedTagId == $tag->getId() ? "selected" : ""); ?> value="<?php echo $tag->getId(); ?>"><?php echo $tag->getLabel(); ?></option>
+                        <?php } ?>            
+                    </select>
+                </form>
+            </div>
+        </div>
+        <?php } ?>
+        
         <div class="navigation top">
             <div class="inner-padding">
                 <div class="nav-links">
@@ -20,9 +37,11 @@ global $globalContext;
             </div>
         </div>
         <?php
-        foreach ($this->books as $book) {
-            $pushedBook = new PushedBook($book, true);
-            echo $pushedBook->get();
+        if ($this->books && count($this->books > 0)) {
+            foreach ($this->books as $book) {
+                $pushedBook = new PushedBook($book, false);
+                echo $pushedBook->get();
+            }
         }
         ?>
         <div class="navigation">

@@ -46,18 +46,23 @@ class TagSvc extends \Sb\Db\Service\Service {
      */
     public function getTagsForBooks($books) {
 
-        $bookIds = array_map(array(&$this, "getId"), $books);
-        
-        $dataKey = __FUNCTION__ . "_" . implode("_", $bookIds);
-        
-        $data = $this->getData($dataKey);
-        if (!$data) {
-        
-            $data = TagDao::getInstance()->getTagsForBooks($bookIds);
-            $this->setData($dataKey, $data);
+        try {
+            $bookIds = array_map(array(&$this, "getId"), $books);
+
+            $dataKey = __FUNCTION__ . "_" . implode("_", $bookIds);
+
+            $data = $this->getData($dataKey);
+            if (!$data) {
+
+                $data = TagDao::getInstance()->getTagsForBooks($bookIds);
+                $this->setData($dataKey, $data);
+            }
+
+            return $data;
+        } catch (\Exception $exc) {
+            $this->logException("TagSvc", __FUNCTION__, $exc);
         }
-        
-        return $data;
+        return null;
     }
     
     /**

@@ -24,7 +24,7 @@ class EntityManager extends \Doctrine\ORM\EntityManager {
     private static function getEntityManager() {
 
         $cache = new \Doctrine\Common\Cache\ApcCache;
-        //$cache = new \Doctrine\Common\Cache\ArrayCache();
+//        $cache = new \Doctrine\Common\Cache\ArrayCache();
 
         $config = new \Doctrine\ORM\Configuration;
         $driverImpl = $config->newDefaultAnnotationDriver(array("/Sb/Db/Model"));
@@ -62,5 +62,3 @@ class EntityManager extends \Doctrine\ORM\EntityManager {
     }
 
 }
-
-?>

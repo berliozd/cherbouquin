@@ -5,6 +5,7 @@ get_header();
 use \Sb\Helpers\BookHelper;
 use \Sb\Helpers\HTTPHelper;
 use \Sb\Db\Dao\BookDao;
+use \Sb\Db\Service\BookSvc;
 use \Sb\Db\Dao\UserEventDao;
 use \Sb\View\UserEvents;
 
@@ -27,7 +28,7 @@ use \Sb\View\UserEvents;
     if (!$blowOfHeartFriendsBooks || count($blowOfHeartFriendsBooks) < 5) {
         $blowOfHeartFriendsBooksId = array_map("getBookId", $blowOfHeartFriendsBooks);
         // Getting all users boh
-        $blowOfHeartBooks = BookDao::getInstance()->getListBOH(10);
+        $blowOfHeartBooks = BookSvc::getInstance()->getBOHForUserHomePage();
         $blowOfHeartBooks = array_filter($blowOfHeartBooks, "notInArray");
         // Merging 2 arrays
         if ($blowOfHeartFriendsBooks && $blowOfHeartBooks)                
@@ -74,7 +75,7 @@ use \Sb\View\UserEvents;
             <?php _e("Top 10 des membres", "s1b"); ?>
         </div>
         <?php
-        $topsBooks = BookDao::getInstance()->getListTops(10);
+        $topsBooks = BookSvc::getInstance()->getTopsUserHomePage();
         if (count($topsBooks) == 0) {
             $noTopBooks = new \Sb\View\Components\NoBooksWidget(__("Aucun livre n'a encore été noté par les membres", "s1b"));
             echo $noTopBooks->get();

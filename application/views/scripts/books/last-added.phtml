@@ -10,6 +10,23 @@ global $globalContext;
         <div class="book-list-introduction">
             <?php _e("Cette sélection des derniers livres ajoutés par les membres sur Cherbouquin vous donnera sûrement des idées de lecture auquel vous n'aviez pas pensées.", "s1b");?>
         </div>
+        
+        <?php if ($this->tags) { ?>
+        <div class="bl-filter">
+            <div class="blf-title"><?php _e("Sélectionnez un tag pour affiner l'affichage : ", "s1b") ?></div>
+            <div class="blf-select">
+                <form action="" method="POST" name="frmTagsChoice">
+                    <select name="tid" class="input-item" onchange="frmTagsChoice.submit();">
+                        <option value=""><?php _e("Aucun", "s1b") ?></option>
+                        <?php foreach ($this->tags as $tag) { ?>
+                            <option <?php echo($this->selectedTagId == $tag->getId() ? "selected" : ""); ?> value="<?php echo $tag->getId(); ?>"><?php echo $tag->getLabel(); ?></option>
+                        <?php } ?>            
+                    </select>
+                </form>
+            </div>
+        </div>
+        <?php } ?>
+        
         <div class="navigation top">
             <div class="inner-padding">
                 <div class="nav-links">
@@ -19,9 +36,11 @@ global $globalContext;
             </div>
         </div>
         <?php
-        foreach ($this->books as $book) {
-            $pushedBook = new PushedBook($book, false);
-            echo $pushedBook->get();
+        if ($this->books && count($this->books > 0)) {
+            foreach ($this->books as $book) {
+                $pushedBook = new PushedBook($book, false);
+                echo $pushedBook->get();
+            }
         }
         ?>
         <div class="navigation">

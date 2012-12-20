@@ -60,13 +60,13 @@ class Book implements \Sb\Db\Model\Model {
     protected $amazon_url;
 
     /**
-     * @ManyToMany(targetEntity="Contributor", fetch="EXTRA_LAZY")
+     * @ManyToMany(targetEntity="Contributor", fetch="EAGER")
      * @JoinTable(name="s1b_bookcontributors",
      *      joinColumns={@JoinColumn(name="book_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="contributor_id", referencedColumnName="id")}
      *      )
-     * */
-    protected $contributors;
+     * */    
+    protected $contributors; // WARNING : Fetch mode is declared EAGER because we want to automatically get the contributors (and store the full object in cache)
 
     /**
      * @ManyToOne(targetEntity="Publisher", inversedBy="books")

@@ -6,6 +6,8 @@
  */
 use \Sb\Helpers\HTTPHelper;
 use \Sb\Entity\Urls;
+use \Sb\Db\Service\BookSvc;
+
 ?>
 
                     <!-- Début div footer-wrap -->
@@ -17,10 +19,11 @@ use \Sb\Entity\Urls;
                                     <h1 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::TOPS_BOOKS);?>"><?php _e("<strong>Top</strong> des livres", "s1b");?></a></h1>
                                     <div class="ft-item-content">                                       
                                         <?php
-                                        $topsBooks = \Sb\Db\Dao\BookDao::getInstance()->getListTops(5);
-                                        $topsBooks = array_slice($topsBooks, 0, 5);
+                                        
+                                        $topsBooks = BookSvc::getInstance()->getTopsFooter();
+                                        
                                         echo "<ul>";
-                                        foreach ($topsBooks as $topsBook) {
+                                        foreach ($topsBooks as $topsBook) {                                            
                                             echo "<li><h2><a title=\"" . $topsBook->getTitle() . " - ". $topsBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($topsBook->getLink()) . "\">" 
                                                     . \Sb\Helpers\StringHelper::tronque($topsBook->getTitle(), 40) 
                                                     . "</a></h2></li>";
@@ -35,8 +38,7 @@ use \Sb\Entity\Urls;
                                     <h1 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::BLOW_OF_HEARTS_BOOKS);?>"><strong><?php _e("Coups de coeur", "s1b");?></strong></a></h1>
                                     <div class="ft-item-content">                                        
                                         <?php
-                                        $bohs = \Sb\Db\Dao\BookDao::getInstance()->getListBOH(5);
-                                        $bohs = array_slice($bohs, 0, 5);
+                                        $bohs = BookSvc::getInstance()->getBOHForFooter();
                                         echo "<ul>";
                                         foreach ($bohs as $boh) {
                                             echo "<li><h2><a title=\"" . $boh->getTitle() . " - ". $boh->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($boh->getLink()) . "\">" 
@@ -53,7 +55,7 @@ use \Sb\Entity\Urls;
                                     <h1 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::LAST_ADDED_BOOKS);?>"><strong><?php _e("Derniers livres ajoutés", "s1b");?></strong></a></h1>
                                     <div class="ft-item-content">                                        
                                         <?php
-                                        $lastlyAddedBooks = \Sb\Db\Dao\BookDao::getInstance()->getLastlyAddedBooks(5);
+                                        $lastlyAddedBooks = BookSvc::getInstance()->getLastlyAddedForFooter();
                                         echo "<ul>";
                                         foreach ($lastlyAddedBooks as $lastlyAddedBook) {
                                             echo "<li><h2><a title=\"" . $lastlyAddedBook->getTitle() . " - ". $lastlyAddedBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($lastlyAddedBook->getLink()) . "\">" 

@@ -98,12 +98,10 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     /**
-     * return a Collection of books
+     * return a Collection of top books, the result is not cached as this function is always called by a service which caches the result on his side
      * @return type
      */
     public function getListTops($nbMaxResults) {
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array($nbMaxResults));
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b, p")->from("\Sb\Db\Model\Book ", "b")
@@ -114,30 +112,51 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->addOrderBy("ub.creation_date", "DESC")
                 ->setMaxResults($nbMaxResults);
 
+        // We don't use cache as this is called always by service which cache the result
+        $result = $this->getResults($queryBuilder->getQuery(), null, false);
+
+        return $result;
+    }
+
+    public function getListTopsForTags($tagsIds, $nbMaxResults) {
+
+        $tagsIdsAsStr = implode(",", $tagsIds);
+
+        $cacheId = $this->getCacheId(__FUNCTION__, array($nbMaxResults, $tagsIdsAsStr));
+
+        $dql = sprintf("SELECT DISTINCT b,p FROM \Sb\Db\Model\Book b 
+            JOIN b.userbooks ub
+            JOIN b.publisher p
+            JOIN ub.tags t             
+            WHERE t.id IN (%s)
+            ORDER BY b.average_rating DESC, ub.creation_date DESC", $tagsIdsAsStr);
+
+        $query = $this->entityManager->createQuery($dql);
+        $query->setMaxResults($nbMaxResults);
+
         // we use cache
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true); // false
+        $result = $this->getResults($query, $cacheId, true); // false
 
         return $result;
     }
 
     /**
-     * return a Collection of books
+     * return a Collection of boh books
      * @return type
      */
     public function getListBOH($nbMaxResults) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($nbMaxResults));
-
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b,p")->from("\Sb\Db\Model\Book ", "b")
                 ->distinct()
+                ->join("b.publisher", "p")
                 ->join("b.userbooks", "ub")
-                ->where("ub.is_blow_of_heart = 1")
-                ->setMaxResults($nbMaxResults)
-                ->orderBy("ub.last_modification_date", "DESC");
+                ->where("ub.is_blow_of_heart = 1")                
+                ->orderBy("ub.last_modification_date", "DESC")
+                ->setMaxResults($nbMaxResults);
 
-        // We use cache
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
+        // We don't use cache as this is called always by service which cache the result
+        $result = $this->getResults($queryBuilder->getQuery(), null, false);
 
         return $result;
     }
@@ -171,9 +190,12 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         return $result;
     }
 
-    public function getLastlyAddedBooks($nbMaxResults) {
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array($nbMaxResults));
+    /**
+     * Get a collection of lastly added books
+     * @param type $nbMaxResults
+     * @return type
+     */
+    public function getLastlyAdded($nbMaxResults) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
@@ -182,7 +204,8 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->orderBy("ub.creation_date", "DESC")
                 ->distinct(true);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
+        // We don't use cache as this function is always called by a service which do the caching
+        $result = $this->getResults($queryBuilder->getQuery(), null, false);
 
         return $result;
     }
@@ -213,7 +236,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListLikedByUsers($userIds, $cacheDuration = null) {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userIds));
-        
+
         $userIdsAsStr = implode(", ", $userIds);
 
         $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
@@ -263,7 +286,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListWithSameContributors($contributorIds, $cacheDuration = null) {
 
         $contributorIdsAsStr = implode(",", $contributorIds);
-        
+
         $cacheId = $this->getCacheId(__FUNCTION__, array($contributorIds));
 
         $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 

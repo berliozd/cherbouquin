@@ -68,6 +68,12 @@ abstract class AbstractDao {
         return $query->getOneOrNullResult();
     }
 
+    /**
+     * Get a cache id for APC cache item to store the result
+     * @param type $func
+     * @param type $args
+     * @return string
+     */
     public function getCacheId($func, $args) {
         $result = get_called_class() . "_" . $func . "_" . implode("-", $args);
         return $result;

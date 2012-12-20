@@ -2,8 +2,11 @@
 
 use \Sb\Db\Dao\BookDao;
 use \Sb\Db\Service\TagSvc;
+use \Sb\Db\Service\BookSvc;
 
 class BooksController extends Zend_Controller_Action {
+
+    private $selectedTagId;
 
     public function init() {
         /* Initialize action controller here */
@@ -14,27 +17,55 @@ class BooksController extends Zend_Controller_Action {
     }
 
     public function lastAddedAction() {
-        $books = BookDao::getInstance()->getLastlyAddedBooks(25);
-        $this->setPageList($books);
+
+        // Get all books
+        $books = BookSvc::getInstance()->getLastlyAddedForPage();
+
+        // Get tags for combo
+        $this->view->tags = TagSvc::getInstance()->getTagsForBooks($books);
+
+        $books = $this->filterBooks($books);        
+        $this->setPageList($books);        
+        
     }
 
     public function blowOfHeartsAction() {
-        $books = BookDao::getInstance()->getListBOH(25);
+        
+        // Get all books
+        $books = BookSvc::getInstance()->getBOHPageBOH();
+
+        // Get tags for combo
+        $this->view->tags = TagSvc::getInstance()->getTagsForBooks($books);
+
+        $books = $this->filterBooks($books);        
         $this->setPageList($books);
+        
     }
 
     /**
      * Action for showing a list of top books
      */
     public function topsAction() {
+       
+        // Get all books
+        $books = BookSvc::getInstance()->getTopsPageTops();
+        
+        // Get tags for combo
+        $this->view->tags = TagSvc::getInstance()->getTagsForBooks($books);
 
-        // Get ll books to show
-        $books = BookDao::getInstance()->getListTops(25);
-
-        // Get all tags for all books
-//        $tags = TagSvc::getInstance()->getTagsForBooks($books);
-
+        $books = $this->filterBooks($books);
         $this->setPageList($books);
+    }
+
+    private function filterBooks($books) {
+        $result = $books;
+        $tid = $this->_getParam('tid', -1);
+        if ($tid > 0) {
+            $this->view->selectedTagId = $tid;
+            $this->selectedTagId = $tid;
+            $result = array_filter($books, array(&$this, "bookHasSelectedTag"));
+        }
+        return $result;
     }
 
     private function setPageList($books) {
@@ -49,5 +80,13 @@ class BooksController extends Zend_Controller_Action {
         }
     }
 
+    private function bookHasSelectedTag(\Sb\Db\Model\Book $book) {
+        $bookTags = TagSvc::getInstance()->getTagsForBooks(array($book));
+        
+        foreach ($bookTags as $tag) {
+            if ($tag->getId() == $this->selectedTagId)
+                    return true;            
+        }
+        return false;
+    }
 }
-

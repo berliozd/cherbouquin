@@ -697,3 +697,7 @@ TD.mb-col-state{color:#f56903;}
 .book-list .navigation.top {margin-bottom: 10px;}
 .book-list-title {  color: #239CD3; margin-bottom: 20px; margin-top: 0;}
 .book-list-introduction {font-size: 1.5em; margin-bottom: 20px;}
+
+.bl-filter {margin:10px 0;}
+.blf-title {font-size:1.3em; margin-bottom: 3px;}
+.blf-select {}

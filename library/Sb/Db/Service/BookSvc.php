@@ -162,7 +162,7 @@ class BookSvc extends Service {
     }
 
     public function getBooksWithSameContributors($bookId) {
-        
+
         $key = __FUNCTION__ . "_" . $bookId;
 
         $resultInCache = $this->getData($key);
@@ -192,6 +192,136 @@ class BookSvc extends Service {
         }
 
         return $this->getRandomNumber($this->getData($key), 5);
+    }
+
+    /**
+     * Get 25 top books order by average rating and creation date for tops page linked in footer
+     * @return type
+     */
+    public function getTopsPageTops() {
+        return $this->getTops(25);
+    }
+
+    /**
+     * Get 5 top books order by average rating and creation date visible in footer
+     * @return type
+     */
+    public function getTopsFooter() {
+        return $this->getTops(5);
+    }
+
+    /**
+     * Get 10 top books order by average rating and creation date visible on user homepage
+     * @return type
+     */
+    public function getTopsUserHomePage() {
+        return $this->getTops(10);
+    }
+
+    private function getTops($nbBooks) {
+        try {
+            
+            $nbBooksMax = 25; // Number of books in the list cached. Items are alays taken from that list. 
+            //This value will have to be changed if a bigger list needs to be return.
+            
+            $dataKey = __FUNCTION__ . "_" . $nbBooksMax;
+            $result = $this->getData($dataKey);
+            if ($result === false) {
+                $result = BookDao::getInstance()->getListTops($nbBooksMax);
+                $this->setData($dataKey, $result);
+            }
+
+            return array_slice($result, 0, $nbBooks);
+            
+        } catch (\Exception $exc) {
+            $this->logException("BookSvc", __FUNCTION__, $exc);
+        }
+    }
+
+    /**
+     * Get 25 boh books order by last modification date for boh page
+     * @return type
+     */
+    public function getBOHPageBOH() {
+        return $this->getBOH(25);
+    }
+
+    /**
+     * Get 5 boh books order by last modification date for Footer
+     * @return type
+     */
+    public function getBOHForFooter() {
+        return $this->getBOH(5);
+    }
+
+    /**
+     * Get 10 boh books order by last modification date for user homepage
+     * @return type
+     */
+    public function getBOHForUserHomePage() {
+        return $this->getBOH(10);
+    }
+
+    /**
+     * Get 10 boh books order by last modification date for homepage
+     * @return type
+     */
+    public function getBOHForHomePage() {
+        return $this->getBOH(10);
+    }
+
+    private function getBOH($nbBooks) {        
+        try {
+            
+            $nbBooksMax = 25; // Number of books in the list cached. Items are alays taken from that list.
+            //This value will have to be changed if a bigger list needs to be return.
+            $dataKey = __FUNCTION__ . "_" . $nbBooksMax;
+            $result = $this->getData($dataKey);
+            if ($result === false) {
+                $result = BookDao::getInstance()->getListBOH($nbBooksMax);
+                $this->setData($dataKey, $result);
+            }
+
+            return array_slice($result, 0, $nbBooks);
+            
+        } catch (\Exception $exc) {
+            $this->logException("BookSvc", __FUNCTION__, $exc);
+        }
+    }
+
+    /**
+     * Get 25 lastly added books order by creation date for specific page
+     * @return type
+     */
+    public function getLastlyAddedForPage() {
+        return $this->getLastlyAdded(25);
+    }
+    
+    /**
+     * Get 25 lastly added books order by creation date for footer
+     * @return type
+     */
+    public function getLastlyAddedForFooter() {
+        return $this->getLastlyAdded(5);
+    }
+
+    private function getLastlyAdded($nbBooks) {
+        try {
+            
+            $nbBooksMax = 25; // Number of books in the list cached. Items are always taken from that list.
+            //This value will have to be changed if a bigger list needs to be return.
+            $dataKey = __FUNCTION__ ."_" . $nbBooksMax;
+            $result = $this->getData($dataKey);
+            if ($result === false) {
+                $result = BookDao::getInstance()->getLastlyAdded($nbBooksMax);
+                $this->setData($dataKey, $result);
+            }
+
+            return array_slice($result, 0, $nbBooks);
+            
+        } catch (\Exception $exc) {
+            $this->logException("BookSvc", __FUNCTION__, $exc);
+        }
     }
 
     private function isNotCurrentViewedBook(Book $book) {
