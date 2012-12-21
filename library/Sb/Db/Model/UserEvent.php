@@ -16,9 +16,8 @@ class UserEvent implements \Sb\Db\Model\Model {
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
-    
-    
-    /** @Column(type="integer", length=200) */
+        
+    /** @Column(type="integer") */
     protected $type_id;
     
     /** @Column(type="integer") */

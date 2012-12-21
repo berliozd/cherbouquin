@@ -267,7 +267,7 @@ class BookSvc extends Service {
      * @return type
      */
     public function getBOHForHomePage() {
-        return $this->getBOH(10);
+        return $this->getBOH(5);
     }
 
     private function getBOH($nbBooks) {        

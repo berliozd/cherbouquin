@@ -7,7 +7,7 @@ use Sb\Helpers\BookHelper;
         <?php echo $title; ?>
     </div>
     <div class="pb-shelf">
-        <div class="inner-side-padding-30">
+        <div class="inner-right-padding-45">
             <?php foreach ($books as $book) { ?>
                 <div class="pb-bookOnShelf">
                     <a href="<?php echo HTTPHelper::Link($book->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($book, $defaultImage); ?></a>

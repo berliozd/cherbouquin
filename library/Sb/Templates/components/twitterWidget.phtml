@@ -1,0 +1,43 @@
+<?php if (!empty($content)) { ?>
+    <div class="twitter-widget"  >
+        <div class="twitter-header">
+            <a target="_blank" href="http://twitter.com/<?php echo $user; ?>">
+                <img src="<?php echo $user_image; ?>" alt="@<?php echo $user; ?>" class="twitter-widget-profile"/>
+                @<?php echo $user; ?>
+            </a>
+        </div>
+        <div class="twitter-body">
+            <div class="twitter-timeline">
+                <div class="twitter-tweets">
+                    <?php
+                    foreach ($content as $tweet) {
+                        ?>
+                        <div class="twitter-tweet">
+                            <div class="twitter-tweet-wrap">
+                                <div class="twitter-tweet-text">
+                                    <?php echo Sb\Helpers\StringHelper::parseTweet($tweet->text); ?>
+                                    <div class="tweet-actions"><?php echo date("d M &#224; H:i", strtotime($tweet->created_at)); ?>
+                                        <em>
+                                            <a class="tweet-actions" href="https://twitter.com/intent/tweet?in_reply_to=267390749237211136"  title="Répondre">Répondre</a>
+                                            <a class="tweet-actions" href="https://twitter.com/intent/retweet?tweet_id=267390749237211136" title="Retweeter">Retweeter</a>
+                                            <a class="tweet-actions" href="https://twitter.com/intent/favorite?tweet_id=267646615173623808" title="Favori">Favori</a>
+                                        </em>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="twitter-footer">
+            <div>
+                <span>
+                    <a target="_blank" href="https://twitter.com/Cherbouquin">Rejoindre Cherbouquin</a>
+                </span>
+            </div>
+        </div>
+    </div>
+<?php } ?>

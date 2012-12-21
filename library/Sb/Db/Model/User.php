@@ -116,6 +116,9 @@ class User implements \Sb\Db\Model\Model {
 
     /** @OneToMany(targetEntity="Invitation", mappedBy="sender", fetch="EXTRA_LAZY") */
     protected $invitations;
+    
+    /** @OneToMany(targetEntity="GroupChronicle", mappedBy="user", fetch="EXTRA_LAZY")  */
+    protected $groupchronicles;
 
     public function getId() {
         return $this->id;
@@ -386,6 +389,15 @@ class User implements \Sb\Db\Model\Model {
         $this->invitations = $invitations;
     }
 
+    public function getGroupchronicles() {
+        return $this->groupchronicles;
+    }
+
+    public function setGroupchronicles($groupchronicles) {
+        $this->groupchronicles = $groupchronicles;
+    }
+
+        
     public function IsValid() {
         return true;
     }

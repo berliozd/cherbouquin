@@ -1,8 +1,5 @@
 <?php
 
-if ($context->getConnectedUser())
-    \Sb\Helpers\HTTPHelper::redirect(\Sb\Entity\Urls::USER_HOME);
-
 $invalidDataMsg = __("Les informations saisies ne nous permettent pas de vous authentifier.", "s1b");
 $accountNotActivated = __("Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.",
         "s1b");

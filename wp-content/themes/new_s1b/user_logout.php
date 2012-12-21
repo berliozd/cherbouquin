@@ -33,4 +33,4 @@ if ($faceBookUser) {
 
 
 // Redirecting to login page
-\Sb\Helpers\HTTPHelper::redirect(\Sb\Entity\Urls::LOGIN);
+\Sb\Helpers\HTTPHelper::redirect("");

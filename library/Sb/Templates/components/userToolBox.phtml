@@ -1,18 +1,21 @@
-<script type="text/javascript">
-    <?php if ($showCurrentlyReadingUserBooks) {?>
-        <?php if (count($currentlyReadingUserBooks)> 1) {?>
-        jQuery(document).ready(function() {
-            $("ul.carousel-currentreadings").simplecarousel({
-                width:270,
-                height:190,
-                auto: 8000,
-                fade: 200,
-                pagination: true
-            });
+<?php global $globalContext;?>
+<?php if ($showCurrentlyReadingUserBooks) {?>
+    <?php if (count($currentlyReadingUserBooks)> 1) {?>
+    <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/simple.carousel.js" ></script>
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+        $("ul.carousel-currentreadings").simplecarousel({
+            width:270,
+            height:190,
+            auto: 8000,
+            fade: 200,
+            pagination: true
         });
-        <?php } ?>
+    });
+    </script>
     <?php } ?>
-</script>
+<?php } ?>
+
 <div class="user-toolbox">
     <?php if ($showCurrentlyReadingUserBooks) {?>    
     <div class="ut-currentreading">

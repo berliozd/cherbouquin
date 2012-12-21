@@ -24,7 +24,7 @@ class Urls {
     const NEWSLETTERS = "bulletin"; // newsletters
     
     // account connection-registration-activation
-    const LOGIN = 'membre/connexion'; // user_login
+    const LOGIN = 'connexion'; // user_login
     const LOGOUT = 'membre/deconnexion'; // user_logout
     const LOGIN_FACEBOOK = 'membre/connexion-facebook'; // user_facebook_connect
     const SUBSCRIBE = 'membre/inscription'; //user_registration

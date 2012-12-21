@@ -1,0 +1,26 @@
+<div class="pc-item">
+    <div class="inner-padding-20">
+        <div class="pci-left">
+            <div class="pci-userimage">
+                <a title="<?php echo $userName; ?>" href="<?php echo $userProfileLink; ?>"><?php echo $userImage; ?></a>
+            </div>
+            <div class="pci-bookimage">
+                <a title="<?php echo $bookTitle; ?> - <?php echo $bookAuthors; ?>" href="<?php echo $bookLink; ?>"><?php echo $bookImage; ?></a>
+            </div>
+        </div>    
+        <div class="pci-right">
+            <div class="pci-head">
+                <?php _e("<strong>Un jour, un livre,</strong> la chronique", "s1b"); ?>
+            </div>
+            <div class="pci-title">
+                <?php echo $title; ?>
+            </div>
+            <div class="pci-text">
+                <?php echo $text; ?>
+            </div>
+            <div class="pci-link">
+                <a href="<?php echo $link; ?>" class="link" target="_blank"><?php echo $link; ?></a>
+            </div>
+        </div>
+    </div>
+</div>

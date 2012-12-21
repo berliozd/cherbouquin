@@ -6,6 +6,7 @@ RewriteEngine On
 RewriteBase /cherbouquin/
 
 # Rewrites for Zend controllers
+RewriteRule ^$ public/index.php [L]
 RewriteRule ^books(.)*$ public/index.php [L]
 RewriteRule ^livres(.)*$ public/index.php [L]
 RewriteRule ^error(.)*$ public/index.php [L]

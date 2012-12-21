@@ -47,16 +47,16 @@ class Book implements \Sb\Db\Model\Model {
 
     /** @Column(type="datetime") */
     protected $publishing_date;
-    protected $publishing_date_s; /* membre supplémentaire necessaire pour les opération de seriélization/deserialization notamment pour le stockage en cache */
+    protected $publishing_date_s; /* membre supplémentaire necessaire pour les opération de serialization/deserialization notamment pour le stockage en cache */
 
     /** @Column(type="datetime") */
     protected $creation_date;
 
     /** @Column(type="datetime") */
     protected $last_modification_date;
-    protected $last_modification_date_s; /* membre supplémentaire necessaire pour les opération de seriélization/deserialization notamment pour le stockage en cache */
+    protected $last_modification_date_s; /* membre supplémentaire necessaire pour les opération de serialization/deserialization notamment pour le stockage en cache */
 
-    /** @Column(type="string", length=100) */
+    /** @Column(type="string", length=300) */
     protected $amazon_url;
 
     /**
@@ -66,7 +66,7 @@ class Book implements \Sb\Db\Model\Model {
      *      inverseJoinColumns={@JoinColumn(name="contributor_id", referencedColumnName="id")}
      *      )
      * */    
-    protected $contributors; // WARNING : Fetch mode is declared EAGER because we want to automatically get the contributors (and store the full object in cache)
+    protected $contributors; // WARNING : Fetch mode is declared EAGER because we want to automatically get the contributors (and have it stored in cache with a Book)
 
     /**
      * @ManyToOne(targetEntity="Publisher", inversedBy="books")
@@ -95,6 +95,9 @@ class Book implements \Sb\Db\Model\Model {
     /** @Column(type="string", length=20) */
     protected $language;
 
+    /** @OneToMany(targetEntity="GroupChronicle", mappedBy="book", fetch="EXTRA_LAZY")  */
+    protected $groupchronicles;
+    
 //~ Getters & setters
 
     public function getId() {
@@ -243,6 +246,15 @@ class Book implements \Sb\Db\Model\Model {
         $this->publishing_date_s = $publishingDateS;
     }
 
+    public function getGroupchronicles() {
+        return $this->groupchronicles;
+    }
+
+    public function setGroupchronicles($groupchronicles) {
+        $this->groupchronicles = $groupchronicles;
+    }
+
+        
     public function getTagImg($defImg) {
         $tagImg = "";
         if ($this->getLargeImageUrl()) {
