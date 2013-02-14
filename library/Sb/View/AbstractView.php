@@ -9,9 +9,6 @@ namespace Sb\View;
 abstract class AbstractView {
 
     protected $defImg;
-    protected $baseDir;
-    protected $baseUrl;
-    protected $cacheTemplatingEnabled;
 
     /**
      *
@@ -29,8 +26,6 @@ abstract class AbstractView {
 
     function __construct() {
         $this->defImg = \Sb\Helpers\BookHelper::getDefaultImage();
-        $this->baseDir = SHARE1BOOK_PLUGIN_PATH;
-        $this->baseUrl = SHARE1BOOK_PLUGIN_URL;
     }
 
     public function get() {

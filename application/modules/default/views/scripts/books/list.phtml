@@ -1,0 +1,63 @@
+<?php
+use \Sb\View\PushedBook;
+
+global $globalContext;
+?>
+
+<div id="content-center">
+    <div class="book-list">
+        <h1 class="book-list-title"><?php echo $this->title;?></h1>
+        <div class="book-list-introduction">
+            <?php echo $this->description;?>
+        </div>
+        
+        <?php if ($this->tags) { ?>
+        <div class="bl-filter">
+            <div class="blf-title"><?php _e("Sélectionnez un tag pour affiner l'affichage : ", "s1b") ?></div>
+            <div class="blf-select">
+                <form action="<?php echo $this->action;?>" method="POST" name="frmTagsChoice">
+                    <select name="tid" class="input-item" onchange="frmTagsChoice.submit();">
+                        <option value=""><?php _e("Aucun", "s1b") ?></option>
+                        <?php foreach ($this->tags as $tag) { ?>
+                            <option <?php echo($this->selectedTagId == $tag->getId() ? "selected" : ""); ?> value="<?php echo $tag->getId(); ?>"><?php echo $tag->getLabel(); ?></option>
+                        <?php } ?>            
+                    </select>
+                </form>
+            </div>
+        </div>
+        <?php } ?>
+        
+        <div class="navigation top">
+            <div class="inner-padding">
+                <div class="nav-links">
+                    <?php echo $this->navigation; ?>    
+                </div>
+                <div class="nav-position"><?php echo sprintf(__("Livre(s) %s à %s sur %s", "s1b"), $this->firstItemIdx, $this->lastItemIdx, $this->nbItemsTot); ?></div>
+            </div>
+        </div>
+        <?php
+        if ($this->books && count($this->books > 0)) {
+            foreach ($this->books as $book) {
+                $pushedBook = new PushedBook($book, false);
+                echo $pushedBook->get();
+            }
+        }
+        ?>
+        <div class="navigation">
+            <div class="inner-padding">
+                <div class="nav-links">
+                    <?php echo $this->navigation; ?>    
+                </div>
+                <div class="nav-position"><?php echo sprintf(__("Livre(s) %s à %s sur %s", "s1b"), $this->firstItemIdx, $this->lastItemIdx, $this->nbItemsTot); ?></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content-right">    
+    <div class="right-frame">
+        <?php
+        $ad = new \Sb\View\Components\Ad("user_homepage", "6697829998");
+        echo $ad->get();
+        ?>
+    </div>  
+</div>

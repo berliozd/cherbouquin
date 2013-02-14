@@ -1,7 +1,15 @@
 <?php
+use Sb\Helpers\ArrayHelper;
+use Sb\Helpers\UserHelper;
+use Sb\Helpers\HTTPHelper;
+
 require_once 'includes/init.php';
 get_header();
 require_once 'user_friends_1.php';
+
+use Sb\View\Components\FriendsWidget;
+use Sb\View\Components\Ad;
+
 /**
  * Template Name: user_friends
  */
@@ -19,15 +27,15 @@ require_once 'user_friends_1.php';
             <div class="inner-padding">
                 <div class="fls-label"><?php _e("Rechercher un ami", "s1b"); ?></div>
                 <div class="fls-form">
-                    <?php $search_member = htmlspecialchars($get['q']); ?>
-                    <form charset="utf-8" action="" method="get" value="<?php echo $search_member?>">
+                    <?php $search_member = htmlspecialchars(ArrayHelper::getSafeFromArray($_GET, "q", ""));?>
+                    <form charset="utf-8" action="" method="get" >
                         <div class="search-field">
-                            <input class="search-field-input" type="text" name="q" id="q" />
+                            <input class="search-field-input" type="text" name="q" id="q" value="<?php echo $search_member;?>" />
                             <button class="search-button"></button>
                         </div>
                     </form>
                 </div>                
-                <a class="link" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS); ?>" ><?php _e("Réinitialiser", "s1b"); ?></a>
+                <a class="link" href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS); ?>" ><?php _e("Réinitialiser", "s1b"); ?></a>
             </div>
         </div>
     </div>        
@@ -51,7 +59,7 @@ require_once 'user_friends_1.php';
     $i = 0;
     foreach ($friends as $friend) {                    
         $friendLibraryLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_LIBRARY, array("fid" => $friend->getId()));
-        $friendProfileLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_PROFILE, array("fid" => $friend->getId()));
+        $friendProfileLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE, array("uid" => $friend->getId()));
         $friendNbBooks = 0;
         $friendNbBooks = count($friend->getNotDeletedUserBooks());
         if (($i%3 == 0) && ($i != 0)) {echo "<div class=\"horizontal-sep-1\"></div>";}
@@ -64,7 +72,7 @@ require_once 'user_friends_1.php';
                 </a>
                 <div class="fi-line">
                     <span class="fil-value fil-username">
-                        <?php echo \Sb\Helpers\StringHelper::tronque($friend->getFirstName(), 20) . " " . mb_substr($friend->getLastName(), 0, 1) . ".";?>                            
+                        <?php echo \Sb\Helpers\StringHelper::tronque(\Sb\Helpers\UserHelper::getFullName($friend), 25);?>                            
                     </span>
                 </div>
                 <div class="fi-line">
@@ -72,8 +80,11 @@ require_once 'user_friends_1.php';
                     <span class="fil-value"><?php echo (($friend->getSetting()->getDisplayEmail() != \Sb\Entity\UserDataVisibility::NO_ONE)? \Sb\Helpers\StringHelper::tronque($friend->getEmail(), 30) : __("donnée privée", "s1b"));?></span>
                 </div>
                 <div class="fi-line">
-                    <span class="fil-label"><?php _e("Sexe : ","s1b");?></span>
-                    <span class="fil-value"><?php echo (($friend->getGender() != "") ? (($friend->getGender() == "male") ? __("Masculin", "s1b") : __("Féminin", "s1b")) : "");?></span>
+                    <span class="fil-value"><?php echo UserHelper::getFullGenderAndAge($friend) ;?></span>
+                </div>
+                <div class="fi-line">
+                    <span class="fil-label"><?php _e("Identifiant : ","s1b");?></span>
+                    <span class="fil-value"><?php echo $friend->getUserName();?></span>
                 </div>
                 <div class="fi-line">
                     <span class="fil-label"><?php _e("Membre depuis : ","s1b");?></span>
@@ -125,14 +136,14 @@ require_once 'user_friends_1.php';
 </div>
 <div id="content-right">
     <div class="right-frame">
-    <?php
-        $userToolBox = new \Sb\View\Components\UserToolBox;
-        echo $userToolBox->get();
-    ?>
+        <?php
+        $friendWidget = new FriendsWidget;
+        echo $friendWidget->get();
+        ?>
     </div>
     <div class="right-frame">
     <?php
-        $ad = new \Sb\View\Components\Ad("user_friends", "2432422854");
+        $ad = new Ad("user_friends", "2432422854");
         echo $ad->get();
     ?>
     </div>

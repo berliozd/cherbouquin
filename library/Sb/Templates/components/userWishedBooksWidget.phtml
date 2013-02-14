@@ -1,0 +1,48 @@
+<?php
+use Sb\Helpers\StringHelper;
+?>
+<div class="user-box">
+    <div class="ub-wished">
+        <div class="ub-title-wrap">
+            <div class="ub-title">                
+                <?php if ($isCurrentConnectedUser) { ?>
+                    <?php _e("Vos livres souhaités", "s1b") ?>
+                <?php } else { ?>
+                    <?php echo sprintf(__("Livres souhaités de %s", "s1b"), StringHelper::tronque(ucwords($user->getFirstName()), 10)); ?>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="ub-content">
+            <div class="ubc-part">
+                <?php if (count($wishedBooks) > 0) { ?>
+                    <?php 
+                    $first3WishedBooks = array_slice($wishedBooks, 0, 3);
+                    foreach ($first3WishedBooks as $userBook) { 
+                    ?>
+                    <div class="ubwb">
+                        <div class="ubwb-image">
+                            <a border="0" href="<?php echo \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink());?>"><?php echo \Sb\Helpers\BookHelper::getSmallImageTag($userBook->getBook(), $defImage); ?></a>
+                        </div>
+                        <div class="ubwb-text">
+                            <div><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getBook()->getTitle(), 40);?></div>
+                            <div><?php echo sprintf(__("Auteur(s) : %s", "s1b"), $userBook->getBook()->getOrderableContributors());?></div>
+                            <div><?php echo sprintf(__("<a class=\"link\" href=\"%s\">Voir ce livre</a>", "s1b"), \Sb\Helpers\HTTPHelper::Link($userBook->getBook()->getLink()));?></div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if (count($wishedBooks) > 3) { ?>
+                    <div class="ubwb-link">
+                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::WISHED_BOOKS_KEY, "reset" => 1));?>" class="link"><?php _e("Voir plus de livres", "s1b");?></a>
+                    </div>
+                    <?php } ?>
+                <?php } else { ?>
+                    <?php if ($isCurrentConnectedUser) { ?>
+                        <?php _e("Vous n'avez pas de livre souhaités.", "s1b");?>
+                    <?php } else { ?>
+                        <?php echo sprintf(__("%s n'a pas de livres souhaités.", "s1b"), ucwords($user->getFirstName())); ?>
+                    <?php } ?>
+                <?php }?>
+            </div>          
+        </div>
+    </div>
+</div>

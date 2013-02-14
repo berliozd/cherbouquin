@@ -2,12 +2,13 @@
 
 namespace Sb\Authentification\Service;
 
-use \Sb\Helpers\HTTPHelper;
-use \Sb\Helpers\ArrayHelper;
-use \Sb\Trace\Trace;
-use \Sb\Entity\Urls;
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\ArrayHelper;
+use Sb\Flash\Flash;
+use Sb\Trace\Trace;
+use Sb\Entity\Urls;
 use Sb\Entity\SessionKeys;
-use \Sb\Db\Model\User;
+use Sb\Db\Model\User;
 
 class AuthentificationSvc {
 
@@ -31,7 +32,7 @@ class AuthentificationSvc {
         // Initialisation des infos de connexion dans la session
         $this->initAuthenticatedUser($activeUser);
         // Redirection vers la page d'accueil
-        Trace::addItem("Connexion réussie , redirecting to : " . Urls::USER_HOME);
+        Trace::addItem("Connection ok,redirecting to : " . Urls::USER_HOME);
         HTTPHelper::redirect(Urls::USER_HOME);
     }
 
@@ -52,18 +53,28 @@ class AuthentificationSvc {
     }
 
     public function getConnectedUserId() {
-        if ($_SESSION 
-                && (array_key_exists("Auth", $_SESSION)) 
-                && (array_key_exists("Id", $_SESSION["Auth"])))
-            return $_SESSION["Auth"]["Id"];
+        if ($this->getIsConnected())
+            return ArrayHelper::getSafeFromArray($_SESSION["Auth"], "Id", null);
         else
             return null;
     }
 
     public function getIsConnected() {
-        if ($_SESSION && (array_key_exists("Auth", $_SESSION)) && (array_key_exists("Id", $_SESSION["Auth"])))
+        if ($_SESSION && ArrayHelper::getSafeFromArray($_SESSION, "Auth", null) && ArrayHelper::getSafeFromArray($_SESSION["Auth"], "Id", null))
             return true;
         else
             return false;
     }
+
+    /**
+     * Check if a user is connected in session and otherwise set a flash message, persist request url in session and redirect to homepage
+     */
+    public function checkUserIsConnected() {
+        if (!$this->getIsConnected()) {
+            $_SESSION[\Sb\Entity\SessionKeys::RETURN_URL_AFTER_LOGIN] = $_SERVER["REQUEST_URI"];
+            Flash::addItem(__("Vous devez être connecté pour accéder à cette page.", "s1b"));
+            HTTPHelper::redirectToHome();
+        }
+    }
+
 }

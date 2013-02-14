@@ -82,7 +82,7 @@ class User implements \Sb\Db\Model\Model {
     protected $deleted = 0;
 
     /** @Column(type="string", length=255) */
-    protected $gravatar = "http://www.cherbouquin.fr/wp-content/plugins/share1Book//Resources/images/avatars/avatar02.jpg";
+    protected $gravatar = "/public/Resources/images/avatars/avatar02.jpg";
 
     /** @Column(type="string", length=255) */
     protected $picture;
@@ -102,13 +102,13 @@ class User implements \Sb\Db\Model\Model {
     /** @OneToMany(targetEntity="Message", mappedBy="recipient", fetch="EXTRA_LAZY") */
     protected $messages_received;
 
-    /** @OneToMany(targetEntity="UserBook", mappedBy="user", fetch="EXTRA_LAZY")  */
+    /** @OneToMany(targetEntity="UserBook", mappedBy="user", fetch="EAGER")  */
     protected $userbooks;
 
     /** @OneToMany(targetEntity="UserEvent", mappedBy="user", fetch="EXTRA_LAZY")  */
     protected $userevents;
 
-    /** @OneToMany(targetEntity="FriendShip", mappedBy="user_source", fetch="EXTRA_LAZY") */
+    /** @OneToMany(targetEntity="FriendShip", mappedBy="user_source", fetch="EAGER") */
     protected $friendships_as_source;
 
     /** @OneToMany(targetEntity="FriendShip", mappedBy="user_target", fetch="EXTRA_LAZY") */
@@ -434,7 +434,7 @@ class User implements \Sb\Db\Model\Model {
     }
 
     public function getFriendsForEmailing() {
-        // Get the friendship relation where the curretn user appears as source
+        // Get the friendship relation where the current user appears as source
         $friendShips = $this->getFriendships_as_source();
         $friendShips = $friendShips->toArray();
         // filter accepted friendship
@@ -448,7 +448,7 @@ class User implements \Sb\Db\Model\Model {
     }
 
     public function getAcceptedFriends() {
-        // Get the friendship relation where the curretn user appears as source
+        // Get the friendship relation where the current user appears as source
         $friendShips = $this->getFriendships_as_source();
         $friendShips = $friendShips->toArray();
         // filter accepted friendship

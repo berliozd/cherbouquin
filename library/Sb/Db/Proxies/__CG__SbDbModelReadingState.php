@@ -111,6 +111,12 @@ class ReadingState extends \Sb\Db\Model\ReadingState implements \Doctrine\ORM\Pr
         return parent::IsValid();
     }
 
+    public function __toString()
+    {
+        $this->__load();
+        return parent::__toString();
+    }
+
 
     public function __sleep()
     {

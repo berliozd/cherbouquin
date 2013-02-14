@@ -4,7 +4,9 @@
 <meta name="keywords" content="<?php echo $this->metaKeywords; ?>" />
 <?php include(APPLICATION_PATH . '/../wp-content/themes/new_s1b/header-content.php'); ?>
 <?php echo $this->headLink();?>
-<?php echo $this->headScript();?>
 <?php include(APPLICATION_PATH . '/../wp-content/themes/new_s1b/header-closing.php'); ?>
 <?php echo $this->layout()->content; ?>
-<?php include(APPLICATION_PATH . '/../wp-content/themes/new_s1b/footer.php'); ?>
+<?php include(APPLICATION_PATH . '/../wp-content/themes/new_s1b/footer-opening.php'); ?>
+<?php include(APPLICATION_PATH . '/../wp-content/themes/new_s1b/footer-content.php'); ?>
+<?php echo $this->placeholder('footer') ?>
+<?php include(APPLICATION_PATH . '/../wp-content/themes/new_s1b/footer-closing.php'); ?>

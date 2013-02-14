@@ -12,7 +12,7 @@ $nbUsers = count($allUsers);
 
 if ($friendsFriends && count($friendsFriends) > 0) {
     // preparing pagination
-    $paginatedList = new \Sb\Lists\PaginatedList($friendsFriends, 6);
+    $paginatedList = new \Sb\Lists\PaginatedList($friendsFriends, 9);
     $firstItemIdx = $paginatedList->getFirstPage();
     $lastItemIdx = $paginatedList->getLastPage();
     $nbItemsTot = $paginatedList->getTotalPages();

@@ -95,7 +95,7 @@ if (!$s1b->getIsSubmit()) {
                     $message .= sprintf(__("L'inscription est gratuite ! Rejoignez-nous... <a href=\"%s\">S'inscrire</a> ou <a href=\"%s\">Refuser l'invitation</a>"), $subscriptionLink, $refuseInvitationLink);
                     $message .= "<br/><br/>";
                     $message .= sprintf(__("<strong>L'équipe Cherbouquin</strong>", "s1b"), Constants::SITENAME);
-                    \Sb\Mail\Service\MailSvcImpl::getInstance()->send($guestEmail, sprintf(__("Invitation à rejoindre %s", "s1b"), Constants::SITENAME), $message);
+                    \Sb\Service\MailSvc::getInstance()->send($guestEmail, sprintf(__("Invitation à rejoindre %s", "s1b"), Constants::SITENAME), $message);
 
                     // Create invitation in DB
                     $invitation = new \Sb\Db\Model\Invitation;

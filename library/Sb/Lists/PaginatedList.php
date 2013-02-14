@@ -2,6 +2,8 @@
 
 namespace Sb\Lists;
 
+use Sb\Helpers\ArrayHelper;
+
 class PaginatedList {
 
     private $navigationBar;
@@ -10,28 +12,31 @@ class PaginatedList {
     private $lastPage = 0;
     private $items;
     private $itemPerPage;
+    private $paramName;
+    private $pageId;
 
-    function __construct($data, $itemPerPage) {
+    function __construct($data, $itemPerPage, $paramName = 'pagenumber', $pageId = 1) {
         $this->itemPerPage = $itemPerPage;
+        $this->paramName = $paramName;
+        $this->pageId = $pageId;
         $this->load($data);
     }
 
     private function load($data) {
-        $pageId = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, 'pagenumber', 1);
+        $pageId = ArrayHelper::getSafeFromArray($_GET, $this->paramName, $this->pageId);
         $params = array(
             'itemData' => $data,
             'perPage' => $this->itemPerPage,
             'delta' => 8,
             'append' => true,
             'clearIfVoid' => false,
-            'urlVar' => 'pagenumber',
+            'urlVar' => $this->paramName,
             'useSessions' => false,
             'closeSession' => false,
             'mode' => 'Jumping',
             'httpMethod' => 'GET'
         );
         $pager = \Sb\Lists\Pager\Pager::factory($params);
-
         $pageData = $pager->getPageData($pageId);
         $this->items = $pageData;
         $links = $pager->getLinks($pageId);
@@ -66,5 +71,3 @@ class PaginatedList {
     }
 
 }
-
-?>

@@ -3,27 +3,50 @@
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /cherbouquin/
+RewriteBase /
 
+
+# Rewrite for removing trailing slash on book page urls and prevent duplicated content in google
+RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)/$ /livre/$1/$2/$3 [L,R=301]
+# Rewrite for removing trailing slash on newsletter page urls and prevent duplicated content in google
+RewriteRule ^bulletin/$ /bulletin [L,R=301]
+
+# Rewrites for Zend modules
+RewriteRule ^default(.)*$ public/index.php [L]
+RewriteRule ^member(.)*$ public/index.php [L]
 # Rewrites for Zend controllers
-RewriteRule ^$ public/index.php [L]
-RewriteRule ^books(.)*$ public/index.php [L]
-RewriteRule ^livres(.)*$ public/index.php [L]
-RewriteRule ^error(.)*$ public/index.php [L]
-RewriteRule ^wished-userbook(.)*$ public/index.php [L]
-RewriteRule ^userbook-gift(.)*$ public/index.php [L]
-RewriteRule ^userbook-gifts(.)*$ public/index.php [L]
+RewriteRule ^$ public/index.php [L]                     # module:default / controller:index / action:index
+RewriteRule ^index/log$ public/index.php [L]            # module:default / controller:index / action:log
+RewriteRule ^books(.)*$ public/index.php [L]            # module:default / controller:books
+RewriteRule ^livres(.)*$ public/index.php [L]           # module:default / controller:books / action:index (route)
+RewriteRule ^error(.)*$ public/index.php [L]            
+RewriteRule ^wished-userbook(.)*$ public/index.php [L]  # module:default / controller:wished-userbooks
+RewriteRule ^userbook-gift(.)*$ public/index.php [L]    # module:default / controller:userbook-gift
+RewriteRule ^userbook-gifts(.)*$ public/index.php [L]   # module:default / controller:userbook-gifts
 RewriteRule ^test(.)*$ public/index.php [L]
-RewriteRule ^library(.)*$ public/index.php [L]
+RewriteRule ^library(.)*$ public/index.php [L]          # module:default / controller:library
+RewriteRule ^users(.)*$ public/index.php [L]            # module:default / controller:users
 RewriteRule ^book-search(.)*$ public/index.php [L]
 RewriteRule ^userbook(.)*$ public/index.php [L]
+RewriteRule ^membre/a-la-page(.)*$ public/index.php [L]
+RewriteRule ^book(.)*$ public/index.php [L]             # module:default / controller:book / action:index
+RewriteRule ^livre(.)*$ public/index.php [L]            # module:default / controller:book / action:index
+RewriteRule ^static(.)*$ public/index.php [L]           # module:default / controller:static / action:index
+RewriteRule ^bulletin(.)*$ public/index.php [L]         # module:default / controller:static / action:index (route)
+RewriteRule ^revues-de-presse(.)*$ public/index.php [L]  # module:default / controller:static / action:index (route)
 
-RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)$ /bibliotheque\-detail/\?page=book\%2Fview&bid=$3
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /cherbouquin/index.php [L]
-
+RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+
+FileETag MTime Size
+<ifmodule mod_expires.c>
+  <filesmatch "\.(jpg|gif|png|css|js|ico)$">
+       ExpiresActive on
+       ExpiresDefault "access plus 1 year"
+   </filesmatch>
+</ifmodule>

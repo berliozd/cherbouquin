@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace Sb\Helpers;
 
 use Sb\Db\Model\User;
@@ -99,22 +97,22 @@ class MailHelper {
     }
 
     public static function wishedUserBooksEmailBody(User $user, $userBooks) {
-        
+
         $body = sprintf(__("Bonjour, <br/><br/>Voici les livres que souhaite %s : ", "s1b"), $user->getFriendlyName());
-               
+
         $body .= "<ul>";
         foreach ($userBooks as $userbook) {
             $hasActiveGift = ($userbook->getActiveGiftRelated() != null);
             $body .= "<li>"
                     . "<a href=\"" . HTTPHelper::Link($userbook->getBook()->getLink()) . "\">" . $userbook->getBook()->getTitle() . "</a>"
                     . "&nbsp;"
-                    . sprintf(__("de %s","s1b"), $userbook->getBook()->getOrderableContributors())
+                    . sprintf(__("de %s", "s1b"), $userbook->getBook()->getOrderableContributors())
                     . ($hasActiveGift ? "&nbsp;-&nbsp;" . __("ATTENTION ce livre a déjà été acheté par quelqu'un.", "s1b") : "")
                     . "</li>";
         }
         $body .= "</ul>";
-        
-        $body .= sprintf(__("<br/><br/>Cette liste vous a été envoyée depuis le site <a href=\"%s\">%s</a>","s1b") , HTTPHelper::Link(""), Constants::SITENAME);
+
+        $body .= sprintf(__("<br/><br/>Cette liste vous a été envoyée depuis le site <a href=\"%s\">%s</a>", "s1b"), HTTPHelper::Link(""), Constants::SITENAME);
 
         return $body;
     }
@@ -124,4 +122,10 @@ class MailHelper {
                 . " " . "<a href='" . \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS) . "'>" . __("Mes paramètres", "s1b") . "</a>" . '</h5>';
     }
 
+    public static function newCommentPosted($comment, $book) {
+        $body = __("Bonjour<br/>Un commentaire a été posté sur la critique que vous avez émise sur le livre <a href=\"%s\">%s</a>.<br/><strong>Commentaire :</strong> %s<br/><br/><strong>L'équipe %s</strong>", "s1b");
+        $body .= '<br/>' . self::getProfileEditSettingLine();
+        $body = sprintf($body, HTTPHelper::Link($book->getLink()), $book->getTitle(), $comment, \Sb\Entity\Constants::SITENAME);
+        return $body;
+    }
 }

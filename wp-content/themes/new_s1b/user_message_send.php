@@ -5,6 +5,9 @@ require_once 'user_message_send_1.php';
 
 get_header();
 
+use Sb\View\Components\MailboxWidget;
+use Sb\View\Components\Ad;
+
 /**
  * Template Name: user_message_send
  */
@@ -40,17 +43,25 @@ get_header();
             <div class="buttons-bar">
                 <div class="inner-padding">   
                     <?php _e("Champs obligatoires *","");?>
-                    <button class="button bt-black-m float-right margin-left"><?php _e("Envoyer","s1b");?></button>
-                    <a class="button bt-blue-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
+                    <button class="button bt-blue-l float-right margin-left"><?php _e("Envoyer","s1b");?></button>
+                    <a class="button bt-black-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
                 </div>
             </div>
         </div>            
     </form>
 </div>
-<div id="content-right">
-    <?php
-    $userToolBox = new \Sb\View\Components\UserToolBox;
-    echo $userToolBox->get();
-    ?>
+<div id="content-right">    
+    <div class="right-frame">
+        <?php
+        $mailboxWidget = new MailboxWidget();
+        echo $mailboxWidget->get();
+        ?>
+    </div>
+    <div class="right-frame">
+        <?php
+        $ad = new Ad("","");
+        echo $ad->get();
+        ?>
+    </div>
 </div>
 <?php get_footer(); ?>

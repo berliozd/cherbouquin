@@ -1,44 +1,10 @@
 <?php
 global $globalConfig;
 global $globalContext;
-
-$facebookJs = 'http://connect.facebook.net/fr_FR/all.js#xfbml=1&appId=' . $globalConfig->getFacebookApiId();
-$facebookInviteText = __("Rejoignez vos amis, suivez les livres que vous leurs prêtez et partagez avec eux vos dernières lectures et envies", "s1b");
-$ajaxUrl = str_replace("index.php", "", str_replace("public/index.php", "", $_SERVER['SCRIPT_NAME']));
 ?>
-<script type='text/javascript'>
-var share1BookAjax = {
-    "url" : "<?php echo $ajaxUrl;?>",
-    "facebookJs" : "<?php echo $facebookJs;?>",
-    "facebookInviteText" : "<?php echo $facebookInviteText;?>"
-};
-</script>
 
 <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book.css?v=23"  />
-<link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/overcast/jquery-ui-1.8.18.custom.css"  />
-
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/ajax.js" ></script>
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery-ui-1.8.18.custom.min.js" ></script>
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery.ui.datepicker-fr.js" ></script>
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/addBook.js" ></script>
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/pushedBooks.js" ></script>                    
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/facebook.js" ></script>        
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/tiny_mce/tiny_mce.js"></script>
-
-<?php if ($globalConfig->getIsProduction()) { ?>
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-34691855-1']);
-    _gaq.push(['_trackPageview']);
-    _gaq.push(['_trackPageLoadTime']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-</script>
-<?php } ?>
+<link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/overcast/jquery-ui-1.8.18.custom.css"  />
 
 <?php
 if ($globalConfig->getIsProduction()) { ?>
@@ -47,6 +13,9 @@ if ($globalConfig->getIsProduction()) { ?>
             
 <link rel="icon" type="image/png" href="<?php echo $globalContext->getBaseUrl() . "Resources/images/favicons/favicon.ico"; ?>" />
 <link rel="shortcut icon" type="image/x-icon" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/favicons/favicon.ico" />
+
+<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/tiny_mce/tiny_mce_src.js"></script>
 
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><!--HTML4-->

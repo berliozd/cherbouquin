@@ -4,7 +4,7 @@ namespace Sb\Helpers;
 
 
 use \Sb\Db\Model\Book;
-use \Sb\Mail\Service\MailSvcImpl;
+use Sb\Service\MailSvc;
 use \Sb\Entity\Constants;
 
 /**
@@ -32,12 +32,17 @@ class BookHelper {
         return $src;
     }
 
-    public static function getSmallImageTag(Book $book, $defaultImg) {
-        return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title=\"" . $book->getTitle() . "\"/>", self::getImageSrc($book->getSmallImageUrl(), $defaultImg));
+    public static function getSmallImageTag(Book $book, $defaultImg) {        
+        return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title=\"%s\"/>", self::getImageSrc($book->getSmallImageUrl(), $defaultImg), $book->getTitle());
     }
 
     public static function getMediumImageTag(Book $book, $defaultImg) {
-        return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title=\"" . $book->getTitle() . "\"/>", self::getImageSrc($book->getImageUrl(), $defaultImg));
+        return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title=\"%s\"/>", self::getImageSrc($book->getImageUrl(), $defaultImg), $book->getTitle());
+    }
+    
+    public static function getMediumImageTagForFlipCarousel(Book $book, $defaultImg) {
+        //return sprintf("<img src='%s' href='%s' class='image-frame content' title=\"%s\"/>", self::getImageSrc($book->getImageUrl(), $defaultImg), HTTPHelper::Link($book->getLink()), $book->getTitle());
+        return sprintf("<img src='%s' href='%s' class='image-thumb'  title=\"%s\"/>", self::getImageSrc($book->getImageUrl(), $defaultImg), HTTPHelper::Link($book->getLink()), $book->getTitle());
     }
 
     public static function getLargeImageTag(Book $book, $defaultImg) {
@@ -86,7 +91,7 @@ class BookHelper {
             }
         } catch (\Exception $exc) {
             $message = sprintf("Une erreur s'est produite lors de l'appel à l'api google books : %s", $exc->getMessage());
-            MailSvcImpl::getInstance()->send(Constants::WEBMASTER_EMAIL, "Erreur interne", $message);
+            MailSvc::getInstance()->send(Constants::WEBMASTER_EMAIL, "Erreur interne", $message);
             \Sb\Trace\Trace::addItem($message);
         }
     }

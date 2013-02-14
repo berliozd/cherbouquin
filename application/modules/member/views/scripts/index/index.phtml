@@ -1,0 +1,121 @@
+<?php
+global $globalContext;
+
+use Sb\Helpers\BookHelper;
+use Sb\Helpers\HTTPHelper;
+use Sb\View\UserEvents;
+use Sb\View\Components\NoBooksWidget;
+use Sb\View\PushedBooks;
+
+?>
+<div id="user-homepage">
+    <div id="content-center">
+
+        <!-- BLOCK Friends blow of hearts START -->
+        <?php if ($this->blowOfHeartBooks && count($this->blowOfHeartBooks) > 0) { ?>
+            <div class="pushed-books margin-bottom-xl">
+                <div class="pb-title">
+                        <?php ($this->isShowingFriendsBOH? _e("<strong>Coups de coeur</strong> de vos amis", "s1b") : _e("Coups de coeur", "s1b")); ?>
+                </div>
+                <div class="pb-shelf">
+                    <div class="inner-side-padding-30">
+                        <?php foreach ($this->blowOfHeartBooks as $blowOfHeartBook) { ?>
+                            <div class="pb-bookOnShelf">
+                                <a href="<?php echo HTTPHelper::Link($blowOfHeartBook->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($blowOfHeartBook, $globalContext->getDefaultImage()); ?></a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <!-- BLOCK Friends blow of hearts END -->
+        
+        
+        <!-- BLOCK Friends activities START -->
+        <?php        
+        if ($this->userEvents && count($this->userEvents > 0)) { ?>
+            <div class="pushed-books userEvents margin-bottom-xl">
+                <div class="pb-title">
+                <?php _e("<strong>Activités de vos amis</strong>", "s1b"); ?>
+                </div>
+                <?php
+                $userEventsView = new UserEvents($this->userEvents, true);
+                echo $userEventsView->get();
+                ?>
+            </div>
+        <?php } ?>
+        <!-- BLOCK Friends activities END -->
+        
+        
+        <!-- BLOCK Friends last reviews START -->
+        <?php if ($this->lastReviews) { ?>
+            <?php echo $this->lastReviewsView->get();?>        
+        <?php } ?>
+        <!-- BLOCK Friends last reviews END -->
+        
+        
+        <!-- BLOCK members top 10 START -->
+        <div class="pushed-books pushedBooks margin-bottom-xl">
+            <div class="pb-title">
+                <?php _e("<strong>Top 10</strong> des lecteurs", "s1b"); ?>
+            </div>
+            <?php            
+            if (count($this->topsBooks) == 0) {
+                $noTopBooks = new NoBooksWidget(__("Aucun livre n'a encore été noté par les membres", "s1b"));
+                echo $noTopBooks->get();
+            } else {
+                $view = new PushedBooks($this->topsBooks, 3, false);
+                echo $view->get();
+            }
+            ?>
+        </div>
+        <!-- BLOCK members top 10 START -->
+
+    </div>
+    <div id="content-right">
+        
+        <!-- BLOCK auto promo START -->        
+        <div class="right-frame">
+            <?php echo $this->autoPromoWishList->get();?>
+        </div>
+        <!-- BLOCK auto promo END -->
+        
+        
+        <!-- BLOCK user reading START -->
+        <div class="right-frame">
+            <div class="carousel">
+                <?php echo $this->userReading->get();?>
+            </div>
+        </div>
+        <!-- BLOCK user reading END -->
+        
+        
+        <!-- BLOCK user wished books START -->
+        <div class="right-frame">
+            <?php echo $this->userWishedBooks->get(); ?>
+        </div>
+        <!-- BLOCK user wished books END -->
+        
+        
+        <!-- BLOCK ad START -->
+        <div class="right-frame">
+            <?php echo $this->ad->get();?>
+        </div>  
+        <!-- BLOCK ad END -->
+        
+        
+        <!-- BLOCK facebook START -->
+        <div class="right-frame">
+            <?php echo $this->facebookFrame->get();?>
+        </div>  
+        <!-- BLOCK facebook END -->
+        
+        
+        <!-- BLOCK twitter START  -->
+        <div class="right-frame">
+            <?php echo $this->twitter->get();?>
+        </div>  
+        <!-- BLOCK twitter END -->
+        
+    </div>
+</div>

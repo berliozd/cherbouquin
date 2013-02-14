@@ -98,7 +98,7 @@ if (!function_exists('twentyeleven_setup')):
          * If you're building a theme based on Twenty Eleven, use a find and replace
          * to change 'twentyeleven' to the name of your theme in all the template files.
          */
-        load_theme_textdomain('twentyeleven', get_template_directory() . '/languages');
+        load_theme_textdomain('twentyeleven', BASE_PATH . 'languages');
 
         $locale = get_locale();
         $locale_file = get_template_directory() . "/languages/$locale.php";
@@ -1286,7 +1286,7 @@ if (!function_exists('twentyeleven_comment')) :
     add_action('after_setup_theme', 'twentyeleven_setup');
 
     function my_theme_setup() {
-        load_theme_textdomain('s1b', get_template_directory() . '/languages');
+        load_theme_textdomain('s1b', BASE_PATH . 'languages');
     }
 
     if (!function_exists('tronque')) :

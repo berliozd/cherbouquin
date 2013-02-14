@@ -52,8 +52,6 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getListForSenderAndGuestEmail(\Sb\Db\Model\User $sender, $email) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($sender->getId(), $email));
-
         $query = $this->entityManager->createQuery("SELECT i FROM \Sb\Db\Model\Invitation i
             JOIN i.guest g            
             WHERE g.email = :email
@@ -62,7 +60,7 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
         $query->setParameters(array('email' => $email,
             'sender' => $sender));
 
-        $result = $this->getResults($query, $cacheId);
+        $result = $this->getResults($query);
 
         return $result;
     }
@@ -74,15 +72,13 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getListByGuestEmail($email) {
         
-        $cacheId = $this->getCacheId(__FUNCTION__, array($email));
-
         $query = $this->entityManager->createQuery("SELECT i FROM \Sb\Db\Model\Invitation i
             JOIN i.guest g            
             WHERE g.email = :email");
 
         $query->setParameters(array('email' => $email));
 
-        $result = $this->getResults($query, $cacheId);
+        $result = $this->getResults($query);
 
         return $result;
     }

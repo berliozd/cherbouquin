@@ -2,6 +2,12 @@
 require_once 'includes/init.php';
 get_header();
 require_once 'user_friends_form_selection_1.php';
+
+use Sb\View\Components\FriendsWidget;
+use Sb\View\Components\Ad;
+use Sb\Helpers\StringHelper;
+use Sb\Helpers\UserHelper;
+
 /**
  * Template Name: user_friends_form_selection
  */
@@ -30,7 +36,7 @@ require_once 'user_friends_form_selection_1.php';
                             <img class="image-frame image-thumb-square-medium" src="<?php echo $friend->getGravatar();?>" />
                             <div class="fs-friendname">
                                 <input type="checkbox" name="Friends[]" value="<?php echo $friend->getId(); ?>">
-                                <?php echo \Sb\Helpers\StringHelper::tronque($friend->getUserName(), 25); ?>
+                                <?php echo StringHelper::tronque(UserHelper::getFullName($friend), 25); ?>
                             </div>
                         </div>
                     </div>
@@ -43,17 +49,25 @@ require_once 'user_friends_form_selection_1.php';
             </div>
             <div class="buttons-bar">
                 <div class="inner-padding">   
-                    <button class="button bt-black-m float-right margin-left"><?php _e("Sélectionner","s1b");?></button>
-                    <a class="button bt-blue-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
+                    <button class="button bt-blue-l float-right margin-left"><?php _e("Sélectionner","s1b");?></button>
+                    <a class="button bt-black-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
                 </div>
             </div>
         </form>
     </div>
 </div>
 <div id="content-right">
+    <div class="right-frame">
+        <?php
+        $friendWidget = new FriendsWidget;
+        echo $friendWidget->get();
+        ?>
+    </div>
+    <div class="right-frame">
     <?php
-    $userToolBox = new \Sb\View\Components\UserToolBox;
-    echo $userToolBox->get();
+        $ad = new Ad("user_friends", "2432422854");
+        echo $ad->get();
     ?>
+    </div>
 </div>
 <?php get_footer(); ?>

@@ -34,12 +34,22 @@ class Book extends \Sb\View\AbstractView {
             $ratingCss = "rating-" . floor($averageRating);
         $nbRatings = $this->book->getNbRatedUserBooks();
 
+        $rating = null;
+        $isBlowOfHeart = null;
+        $readingStateLabel  = null;
+        $ratingCss = null;
+        $lendingText = null;
+        $lendingLink = null;
+        $editBookLink = null;
+        $owned = null;
+        $requestBorrowLink = null;
+        
         // testing if book is view while a user is connected
         if ($this->getContext()->getConnectedUser()) {
             $isConnected = true;
             // testing if the connected user has the book and if some additionnal informations can be shown
             $userBook = \Sb\Db\Dao\UserBookDao::getInstance()->getByBookIdAndUserId($this->getContext()->getConnectedUser()->getId(), $this->book->getId());
-
+            
             if ($userBook && !$userBook->getIs_deleted()) {
 
                 $isInLibrary = true;
@@ -53,6 +63,7 @@ class Book extends \Sb\View\AbstractView {
                 if ($rating)
                     $ratingCss = "rating-" . $rating;
 
+                $lendingLink = "";
                 if ($userBook->getIsOwned())
                     $lendingLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_EDIT, "ubid" => $userBook->getId()));
 
@@ -61,28 +72,36 @@ class Book extends \Sb\View\AbstractView {
                     $lendingText = __("Prêt", "s1b");
 
                 $editBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
-                $shareLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_RECOMMAND, array("id" => $this->book->getId()));
-                $facebookShareLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::RECOMMAND_ON_FACEBOOK, array("id" => $this->book->getId()));
+                
                 $owned = $userBook->getIsOwned();
-            } else {
+                $requestBorrowLink = "";
+            } else
                 $requestBorrowLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROWFROMFRIENDS, "bid" => $this->book->getId()));
-            }
         } else {
             $isConnected = false;
         }
 
-        $buyOnAmazonLink = $this->book->getAmazonUrl();
-        $buyOnFnacLink = null;
-        if ($this->book->getISBN13())
-            $buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $this->book->getISBN13() . "]]";
-        
-        //$buyOnAmazonBtn = $this->getContext()->getBaseUrl() . "Resources/images/amazonBtn.png";
         $image = \Sb\Helpers\BookHelper::getMediumImageTag($this->book, $this->defImg);
         $bookTitle = $this->book->getTitle();
         $bookDescription = $this->book->getDescription();
         $bookPublication = $this->book->getPublicationInfo();
         $bookAuthors = $this->book->getOrderableContributors();
 
+        $titleEsc= "";
+        $authorEsc = "";
+        $isbn10 = "";
+        $isbn13 = "";
+        $asin = "";
+        $id = "";
+        $smallImg = "";
+        $img = "";
+        $largeImg = "";
+        $pubEsc = "";
+        $pubDtStr = "";
+        $amazonUrl = "";
+        $booksUsersAlsoLikedShelf = "";
+        $booksWithSameTagsShelf = "";
+        $descEsc = "";
         if ($this->addHiddenFields) {
             $titleEsc = urlencode($this->book->getTitle()); // encodé
             $authorEsc = urlencode($this->book->getOrderableContributors());  // encodé
@@ -104,15 +123,20 @@ class Book extends \Sb\View\AbstractView {
 
         // book reviews
         $userBooks = $this->book->getNotDeletedUserBooks();
-        $reviewsView = new \Sb\View\BookReviews($userBooks, $this->book->getId());
-        $reviews = $reviewsView->get();
+        $reviewedUserBooks = array_filter($userBooks, array(&$this, "isReviewd"));
+        $reviews = "";
+        if ($reviewedUserBooks) {
+            $paginatedList = new \Sb\Lists\PaginatedList($reviewedUserBooks, 5);
+            $reviewsView = new \Sb\View\BookReviews($paginatedList, $this->book->getId());
+            $reviews = $reviewsView->get();
+        }
 
         if ($this->addRecommendations) {
             // Books users also liked
             $booksUsersAlsoLikedShelf = "";
             $booksUsersAlsoLiked = BookSvc::getInstance()->getBooksAlsoLiked($id);
             if (count($booksUsersAlsoLiked) > 0) {
-                $booksUsersAlsoLikedShelfView = new BookShelf($booksUsersAlsoLiked, __("Les membres qui ont lu ce livre ont aussi aimé", "s1b"));
+                $booksUsersAlsoLikedShelfView = new BookShelf($booksUsersAlsoLiked, __("<strong>Les membres</strong> qui ont lu ce livre <strong>ont aussi aimé</strong>", "s1b"));
                 $booksUsersAlsoLikedShelf = $booksUsersAlsoLikedShelfView->get();
             }
 
@@ -120,18 +144,9 @@ class Book extends \Sb\View\AbstractView {
             $booksWithSameTagsShelf = "";
             $booksWithSameTags = BookSvc::getInstance()->getBooksWithSameTags($id);
             if (count($booksWithSameTags) > 0) {
-                $booksWithSameTagsShelfView = new BookShelf($booksWithSameTags, __("Les livres dans la même catégorie", "s1b"));
+                $booksWithSameTagsShelfView = new BookShelf($booksWithSameTags, __("Les livres <strong>dans la même catégorie</strong>", "s1b"));
                 $booksWithSameTagsShelf = $booksWithSameTagsShelfView->get();
             }
-            
-            // Books with same contributors
-            $booksWithSameContributorsShelf = "";
-            $booksWithSameContributors = BookSvc::getInstance()->getBooksWithSameContributors($id);
-            if (count($booksWithSameContributors) > 0) {
-                $booksWithSameContributorsShelfView = new BookShelf($booksWithSameContributors, __("Les livres du même auteur", "s1b"));
-                $booksWithSameContributorsShelf = $booksWithSameContributorsShelfView->get();
-            }
-            
         }
 
         $tpl->setVariables(array("isConnected" => $isConnected,
@@ -145,11 +160,7 @@ class Book extends \Sb\View\AbstractView {
             "lendingText" => $lendingText,
             "lendingLink" => $lendingLink,
             "editBookLink" => $editBookLink,
-            "shareLink" => $shareLink,
-            "facebookShareLink" => $facebookShareLink,
             "requestBorrowLink" => $requestBorrowLink,
-            "buyOnAmazonLink" => $buyOnAmazonLink,
-            "buyOnFnacLink" => $buyOnFnacLink,
             "image" => $image,
             "bookTitle" => $bookTitle,
             "bookDescription" => $bookDescription,
@@ -175,11 +186,17 @@ class Book extends \Sb\View\AbstractView {
             "amazonUrl" => $amazonUrl,
             "isInForm" => $this->isInForm,
             "booksUsersAlsoLikedShelf" => $booksUsersAlsoLikedShelf,
-            "booksWithSameTagsShelf" => $booksWithSameTagsShelf,
-            "booksWithSameContributorsShelf" => $booksWithSameContributorsShelf
+            "booksWithSameTagsShelf" => $booksWithSameTagsShelf
         ));
 
         return $tpl->output();
     }
 
+    private function isReviewd(\Sb\Db\Model\UserBook $userBook) {
+        if ($userBook->getReview()) {
+            return true;
+        }
+    }
+
 }
+

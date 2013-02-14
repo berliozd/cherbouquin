@@ -85,7 +85,7 @@ class Context {
 
         // Set context params except isShowingFriendLibrary and user
         $context = new \Sb\Context\Model\Context();
-        $context->setBaseDirectory(SHARE1BOOK_PLUGIN_PATH);
+        $context->setBaseDirectory(BASE_PATH);
         $context->setBaseUrl(BASE_URL);
         $context->setDefaultImage(\Sb\Helpers\BookHelper::getDefaultImage());
 

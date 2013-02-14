@@ -30,7 +30,7 @@ class MessageDao extends \Sb\Db\Dao\AbstractDao {
      * @param \Sb\Db\Model\Message $message
      * @return int
      */
-    public function add(\Sb\Db\Model\Message $message) {
+    public function add(\Sb\Db\Model\Model $message) {
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();

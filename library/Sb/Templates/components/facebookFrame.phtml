@@ -1,5 +1,6 @@
 <?php
-if ($_SESSION['WPLANG'] <> 'en_US') {
+$lang = Sb\Helpers\ArrayHelper::getSafeFromArray($_SESSION, "WPLANG", "fr_FR");
+if ($lang != 'en_US') {
     $facebook_js = 'http://connect.facebook.net/fr_FR/all.js#xfbml=1';
 } else {
     $facebook_js = 'http://connect.facebook.net/en_US/all.js#xfbml=1';

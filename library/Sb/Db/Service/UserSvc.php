@@ -2,6 +2,8 @@
 
 namespace Sb\Db\Service;
 
+use Sb\Db\Model\User;
+
 /**
  * Description of UserSvc
  *
@@ -65,6 +67,12 @@ class UserSvc extends \Sb\Db\Service\Service {
 
         return $user;
     }
-   
+
+    public function areUsersFriends(User $user, User $potentialFriend) {
+        foreach ($user->getAcceptedFriends() as $userFriend) {
+            if ($userFriend->getId() == $potentialFriend->getId())
+                return true;
+        }
+    }
 
 }

@@ -14,5 +14,3 @@ class LendingState {
     const WAITING_INACTIVATION = 2;
 
 }
-
-?>

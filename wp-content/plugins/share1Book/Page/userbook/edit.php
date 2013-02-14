@@ -8,8 +8,6 @@ Trace::addItem(\Sb\Entity\LibraryPages::USERBOOK_EDIT);
 global $s1b;
 $context = $s1b->getContext();
 
-//$s1b->testDoctrine();
-//exit;
 if ($context->getIsShowingFriendLibrary()) {
     Throw new \Sb\Exception\UserException(__("Vous ne pouvez pas éditer le livre d'un ami.", "s1b"));
 }
@@ -22,7 +20,7 @@ if (!$s1b->getIsSubmit()) {
     if ($userBook) {
         // On vérifit la correspondance du user
         $s1b->compareWithConnectedUserId($userBook->getUser()->getId());
-        showBook($userBook, $context);
+        showBook($userBook);
     } else {
         \Sb\Flash\Flash::addItem(__("Le livre que vous souhaitez éditer n'existe pas.", "s1b"));
         HTTPHelper::redirectToLibrary();
@@ -31,7 +29,7 @@ if (!$s1b->getIsSubmit()) {
 
     // getting form data
     $userBookForm = new Sb\Form\UserBook($_POST);
-
+   
     // getting userbook in DB
     $userBook = \Sb\Db\Dao\UserBookDao::getInstance()->get($userBookForm->getId());
 
@@ -47,7 +45,15 @@ if (!$s1b->getIsSubmit()) {
     $userBook->setIsOwned($userBookForm->getIsOwned());
     $userBook->setIsWished($userBookForm->getIsWished());
     $userBook->setRating($userBookForm->getRating());
+    $userBook->setNb_of_pages($userBookForm->getNb_of_pages());
+    $userBook->setNb_of_pages_read($userBookForm->getNb_of_pages_read());
+    
+    Trace::addItem("Nb_of_pages form : " . $userBookForm->getNb_of_pages());
+    Trace::addItem("Nb_of_pages_read form : " . $userBookForm->getNb_of_pages_read());
 
+    Trace::addItem("Nb_of_pages_read : " . $userBook->getNb_of_pages_read());
+    Trace::addItem("Nb_of_pages : " . $userBook->getNb_of_pages());
+    
     $readingState = \Sb\Db\Dao\ReadingStateDao::getInstance()->get($userBookForm->getReadingStateId());
     if ($userBookForm->getReadingDate())
         $userBook->setReadingDate($userBookForm->getReadingDate());
@@ -64,10 +70,9 @@ if (!$s1b->getIsSubmit()) {
     }
 
     // Mise à jour du UserBook
-    $userBookDao = \Sb\Db\Dao\UserBookDao::getInstance();
-    if ($userBookDao->update($userBook)) {
+    if (\Sb\Db\Dao\UserBookDao::getInstance()->update($userBook)) {
 
-        // persisting the userevent related to the userbook chnages
+        // persisting the userevent related to the userbook changes
         \Sb\Db\Service\UserEventSvc::getInstance()->persistAll($userEvents);
 
         \Sb\Flash\Flash::addItem(sprintf(__('Le livre "%s" a été mis à jour.', "s1b"), urldecode($userBook->getBook()->getTitle())));
@@ -80,7 +85,7 @@ if (!$s1b->getIsSubmit()) {
 }
 
 //////////////////////////////////////////////////////
-function showBook(\Sb\Db\Model\UserBook $userBook, \Sb\Context\Model\Context $context) {
+function showBook(\Sb\Db\Model\UserBook $userBook) {
 
     // nous aurons besoin d'un objet Book et d'un objet UserBook pour les vues
     $book = new \Sb\Db\Model\Book();

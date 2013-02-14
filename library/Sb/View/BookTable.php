@@ -146,7 +146,7 @@ class BookTable extends \Sb\View\AbstractView {
                 $booksTemplates[] = $rowTpl;
 
                 $lineIdx++;
-                
+
                 unset($addSep);
                 unset($book);
                 unset($rowTpl);
@@ -167,7 +167,7 @@ class BookTable extends \Sb\View\AbstractView {
 
         $bookListTpl = new \Sb\Templates\Template("bookList/bookTable");
         if ($booksTemplates) {
-
+            
             // Get row header template
             $headerTpl = new \Sb\Templates\Template("bookList/bookTableHeader");
 
@@ -218,26 +218,11 @@ class BookTable extends \Sb\View\AbstractView {
             } else {
                 $bookListTpl->set("listSearchValue", $listSearchDefValue);
             }
-            $bookListTpl->set("key", $_GET["key"]);
-            $bookListTpl->set("reinitUrl", \Sb\Helpers\HTTPHelper::Link($this->currentLibraryPageName, array("key" => $_REQUEST["key"],
+            $key = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, "key", null);
+            $bookListTpl->set("key", $key);
+            $bookListTpl->set("reinitUrl", \Sb\Helpers\HTTPHelper::Link($this->currentLibraryPageName, array("key" => $key,
                         "page" => \Sb\Entity\LibraryPages::BOOK_LIST)));
 
-//            $bookListTpl->set("listAuthors", $this->getFirstLettersView($this->authorsFirstLetters, \Sb\Lists\FilteringType::AUTHOR_FIRST_LETTER));
-//            $bookListTpl->set("listTitles", $this->getFirstLettersView($this->titlesFirstLetters, \Sb\Lists\FilteringType::TITLE_FIRST_LETTER));
-//
-//            if (!$this->filteringType)
-//                $this->filteringType = \Sb\Lists\FilteringType::TITLE_FIRST_LETTER;
-//
-//            $bookListTpl->set("cssClassTitle", ($this->filteringType == \Sb\Lists\FilteringType::TITLE_FIRST_LETTER ? "" : "noDisplay"));
-//            $bookListTpl->set("cssClassAuthor", ($this->filteringType == \Sb\Lists\FilteringType::AUTHOR_FIRST_LETTER ? "" : "noDisplay"));
-//
-//            if ($this->filteringType == \Sb\Lists\FilteringType::AUTHOR_FIRST_LETTER) {
-//                $bookListTpl->set("titleChecked", "");
-//                $bookListTpl->set("authorChecked", "checked");
-//            } else {
-//                $bookListTpl->set("titleChecked", "checked");
-//                $bookListTpl->set("authorChecked", "");
-//            }
 
             $selectedAuthorLetter = null;
             $selectedTitleLetter = null;
@@ -246,42 +231,16 @@ class BookTable extends \Sb\View\AbstractView {
                 $selectedAuthorLetter = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, "filter", null);
             elseif ($filtertype == \Sb\Lists\FilteringType::TITLE_FIRST_LETTER)
                 $selectedTitleLetter = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, "filter", null);
-            
+
             $bookListTpl->setVariables(array("authorsFirstLetters" => $this->authorsFirstLetters,
                 "titlesFirstLetters" => $this->titlesFirstLetters,
                 "selectedTitleLetter" => $selectedTitleLetter,
-                "selectedAuthorLetter" => $selectedAuthorLetter));
-        } else {
+                "selectedAuthorLetter" => $selectedAuthorLetter,
+                "emptyList" => false));            
+        } else
             $bookListTpl->setVariables(array("emptyList" => true));
-        }
+        
         return $bookListTpl->output();
     }
 
-//    private function getFirstLettersView($letters, $fileringType) {
-//        if ($letters) {
-//            $tplFirstLetters = new \Sb\Templates\Template("bookList/firstLetters");
-//            $arr = array();
-//            foreach ($letters as $letter) {
-//                $tplFirstLetter = new \Sb\Templates\Template("bookList/firstLetter");
-//
-//                $link = \Sb\Helpers\HTTPHelper::Link($this->currentLibraryPageName, array("key" => $_REQUEST["key"], "page" => \Sb\Entity\LibraryPages::BOOK_LIST, "filter" => $letter, "filtertype" => $fileringType));
-//                $tplFirstLetter->set("link", $link);
-//
-//                $tplFirstLetter->set("label", $letter);
-//
-//                if (($this->filter == $letter) && ($this->filteringType == $fileringType)) {
-//                    $tplFirstLetter->set("cssClass", "active");
-//                } else {
-//                    $tplFirstLetter->set("cssClass", "");
-//                }
-//
-//                $arr[] = $tplFirstLetter;
-//            }
-//
-//            $tplFirstLetters->set("letters", \Sb\Templates\Template::merge($arr));
-//            return $tplFirstLetters->output();
-//        } else {
-//            return "";
-//        }
-//    }
 }

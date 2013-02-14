@@ -55,9 +55,11 @@ require_once 'user_recommandation_1.php';
     </div>
 </div>
 <div id="content-right">
-    <?php
-    $userToolBox = new \Sb\View\Components\UserToolBox;
-    echo $userToolBox->get();
-    ?>
+    <div class="right-frame">
+        <?php
+        $ad = new \Sb\View\Components\Ad("","");
+        echo $ad->get();
+        ?>
+    </div>
 </div>
 <?php get_footer(); ?>

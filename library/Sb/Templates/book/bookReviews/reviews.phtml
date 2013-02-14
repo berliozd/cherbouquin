@@ -1,71 +1,130 @@
-<?php if ($userBooks && (count($userBooks)>0)) { ?>
-<div class="bv-reviews">
-    <div class="navigation">
-        <div class="inner-padding">
-            <div class="nav-links">
-                <?php echo $navigation;?>    
+<?php if ($userBooks && (count($userBooks) > 0)) { ?>
+    <div class="bv-reviews" key="<?php echo $bookId; ?>">
+        <div class="navigation">
+            <div class="inner-padding">            
+                <div class="nav-resume"><?php echo sprintf(__("Dernière(s) critique(s) postée(s)", "s1b")); ?></div>
+                <?php if ($connectedUser) { ?>
+                    <div class="bvr-warnlink">
+                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BOOK_WARN_OFFENSIVE_COMMENT, array("bid" => \Sb\Entity\LibraryPages::BOOK_WARNOFFENSIVECOMMENT, "bid" => $bookId)); ?>" class="link js_warnOffensiveComment">
+                            <?php _e("Signaler un abus.", "s1b"); ?>
+                        </a>
+                    </div>
+                <?php } ?>
             </div>
-            <div class="nav-resume"><?php echo sprintf(__("Commentaire(s) %s à %s sur %s","s1b"), $firstItemIdx, $lastItemIdx, $nbItemsTot) ;?></div>
-            <?php if ($connectedUser) {?>
-            <div class="bvr-warnlink">
-                <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::BOOK_WARNOFFENSIVECOMMENT, "bid" => $bookId));?>" class="link"><?php _e("Signaler un abus.","s1b");?></a>
-            </div>
-            <?php }?>
         </div>
-     </div>
-    <div class="bvr-list">
-    <?php
-        $i = 0;
-         foreach ($userBooks as $userBook) {
-             $imageSrc = $userBook->getUser()->getGravatar();
+        <div class="bvr-list">
+            <input type="hidden" class="commentFormDefValue" value="<?php _e('Ecrire un commentaire...',"s1b");?>" />
+            <?php
+            $i = 0;
+            foreach ($userBooks as $userBook) {
+                
+                $imageSrc = $userBook->getUser()->getGravatar();
 
-             $userBookUserName = $userBook->getUser()->getUserName();
-             if ($connectedUser && ($userBook->getUser()->getId() == $connectedUser->getId()))
-                $userBookUserName = __("Moi","s1b");
-
-             $reviewPublication = sprintf(__("Publié le %s <strong>par <span class=\"highlight\">%s</span></strong>","s1b"), 
-                     $userBook->getLastModificationDate()->format(__("d/m/Y","s1b")),
-                     $userBookUserName);
-             $rating = $userBook->getRating();
-             $ratingCss = "rating-" . $rating;
-             $isBlowOfHeart = $userBook->getIsBlowOfHeart();
-             
-             $i++;
-    ?>
-    <?php if ($i != 1) {?>
-    <div class="horizontal-sep-1"></div>
-    <?php };?>
-    <div class="bvr-item">
-        <img src="<?php echo $imageSrc;?>" class="image-frame image-thumb-square-small float-left"/>
-        <div class="bvri-content">
-            <div class="bvri-plublication">
-                <?php echo $reviewPublication;?>                
-            </div>
-            <div class="bvri-rating">
-                <?php if ($rating) {?>
-                <div class="rating <?php echo $ratingCss;?>"></div>
-                <?php }?>
-                <?php if ($isBlowOfHeart) {?>
-                <div class="blowofheart <?php echo ($rating? "picto-sep" : "")?>"></div>
-                <?php }?>
-            </div>
-            <div class="bvri-review"><?php echo $userBook->getReview();?></div>
-            <?php if ($userBook->getHyperLink()) {?>
-            <div class="bvri-link">
-                <?php _e("Lien : ","s1b");?><a href="http://<?php echo $userBook->getHyperLink();?>" target="_blank" class="link" ><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getHyperLink(), 100);?></a>
-            </div>
-            <?php }?>
-        </div>
-    </div>
+                $userBookUserName = $userBook->getUser()->getUserName();
+                if ($connectedUser && ($userBook->getUser()->getId() == $connectedUser->getId()))
+                    $userBookUserName = __("Moi", "s1b");
+                
+                $userReviewLink = Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE, array("uid"=>$userBook->getUser()->getId()));
+                $userReviewDate = $userBook->getLastModificationDate()->format(__("d/m/Y H:i:s", "s1b"));
+                $reviewPublication = sprintf(__("Publié le %s <strong>par <a class=\"link\" href=\"%s\">%s</a></strong>", "s1b"), $userReviewDate, $userReviewLink,  $userBookUserName);
+                $rating = $userBook->getRating();
+                $ratingCss = "rating-" . $rating;
+                $isBlowOfHeart = $userBook->getIsBlowOfHeart();
+                $i++;
+                ?>
+                <?php if ($i != 1) { ?>
+                    <div class="horizontal-sep-1"></div>
+                <?php }; ?>
+                <div class="bvr-item">
+                    <img src="<?php echo $imageSrc; ?>" class="image-frame image-thumb-square-small float-left"/>
+                    <div class="bvri-content">
+                        <div class="bvri-plublication">
+                            <?php echo $reviewPublication; ?>                
+                        </div>
+                        <div class="bvri-rating">
+                            <?php if ($rating) { ?>
+                                <div class="rating <?php echo $ratingCss; ?>"></div>
+                            <?php } ?>
+                            <?php if ($isBlowOfHeart) { ?>
+                                <div class="blowofheart <?php echo ($rating ? "picto-sep" : "") ?>"></div>
+                            <?php } ?>
+                        </div>
+                        <div class="bvri-review"><?php echo $userBook->getReview(); ?></div>
+                        <?php if ($userBook->getHyperLink()) { ?>
+                            <div class="bvri-link">
+                            <?php _e("Lien : ", "s1b"); ?><a href="http://<?php echo trim($userBook->getHyperLink()); ?>" target="_blank" class="link" ><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getHyperLink(), 100); ?></a>
+                            </div>
+                        <?php } ?>
+                        <div class="bvr-comments">
+                            
+                        <?php 
+                        if ($userBook->getComments() && count($userBook->getComments()) > 0) {
+                            $linkText  = __("Voir les commentaires","s1b");
+                            $showList = true;
+                        } else {
+                            $linkText  = __("Poster un commentaire","s1b");
+                            $showList = false;
+                        } 
+                        $nbComments = count($userBook->getComments());
+                        ?>
+                            <div class="bvr-commentswrap" >
+                                <ul>
+                                    <?php if ($nbComments > 2) {?>
+                                    <li>
+                                        <a href="#" class="commentLinkToggle link">
+                                            <?php 
+                                            echo sprintf(__("Afficher les autres commentaires (%s)","s1b"), $nbComments - 2);
+                                            ?>
+                                        </a>
+                                    </li>
+                                    <?php } ?>
+                                    <?php
+                                    $commentIndex = 0;
+                                    foreach ($userBook->getComments() as $comment) { 
+                                        $commentIndex++;                                        
+                                        $showCommentAtLoad = (($commentIndex > $nbComments - 2) || $nbComments < 2) ? true : false;
+                                    ?>
+                                    <li class="comment-item" style="<?php echo (!$showCommentAtLoad? "display:none;" : "");?>">
+                                        <div class="bvrc-owner">
+                                            <?php echo Sb\Helpers\UserHelper::getXSmallImageTag($comment->getOwner());?>
+                                        </div>                                        
+                                        <div class="bvrc-value">
+                                            <?php 
+                                            $commentUserLink = Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE, array("uid"=>$comment->getOwner()->getId()));
+                                            echo sprintf(__("<a class=\"link\" href=\"%s\">%s</a>", "s1b"), $commentUserLink, $comment->getOwner()->getUserName()); 
+                                            ?>
+                                            <?php echo $comment->getValue();?>
+                                        </div>
+                                        <div class="bvrc-date">
+                                            <?php 
+                                            $dif = $comment->getCreation_date()->diff(new \DateTime);
+                                            echo sprintf(__("il y a %s","s1b"), Sb\Helpers\DateHelper::intervalAsString($dif, false));
+                                            ?>
+                                        </div>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                                <div class="bvr-commentsform">
+                                    <form class="addUserbookCommentForm" id="frm_<?php echo $userBook->getId(); ?>">
+                                        <input type="hidden" name="bookId" class="bookId" value="<?php echo $bookId; ?>" />
+                                        <input type="hidden" name="reviewPageId" class="reviewPageId" value="<?php echo $pageNumber; ?>" />
+                                        <input type="hidden" name="ubid" class="ubid" value="<?php echo $userBook->getId(); ?>" />
+                                        <textarea class="comment" name="comment" id="comment_<?php echo $userBook->getId(); ?>" userbookid="<?php echo $userBook->getId(); ?>"></textarea>
+                                        <input type="submit" class="link bvrc-submitlink" value="<?php _e("Poster","s1b");?>"/>
+                                    </form>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     <?php } ?>
-    </div>
-    <div class="navigation">
-        <div class="inner-padding">
-            <div class="nav-links">
-                <?php echo $navigation;?>    
+        </div>
+        <div class="navigation">
+            <div class="inner-padding">
+                <div class="nav-links">
+                    <?php echo $navigation; ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <?php } ?>
-

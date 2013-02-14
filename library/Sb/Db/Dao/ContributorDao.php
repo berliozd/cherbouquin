@@ -26,7 +26,7 @@ class ContributorDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     /**
-     * Renvoit un objet contributeur
+     * Get contributor from name
      * @param string $fullName
      * @return \Sb\Db\Model\Contributor
      */
@@ -38,6 +38,24 @@ class ContributorDao extends \Sb\Db\Dao\AbstractDao {
             'full_name' => trim($fullName))
         );
         return $query->getOneOrNullResult();
+    }
+
+    /**
+     * Get contributors for book
+     * @param type $bookId
+     * @return \Doctrine\Common\Collections\ArrayCollection of \Sb\Db\Model\Contributor
+     */
+    public function getListForBook($bookId) {
+
+        $query = $this->entityManager->createQuery("SELECT c FROM \Sb\Db\Model\Contributor c
+            JOIN c.books b
+            WHERE b.id = :book_id");
+        $query->setParameters(array(
+            'book_id' => $bookId)
+        );
+        
+        $collection = new \Doctrine\Common\Collections\ArrayCollection($query->getResult());
+        return $collection;
     }
 
 }

@@ -1,0 +1,60 @@
+<div id="content-center">
+    <?php
+    echo $this->bookView->get();
+    echo $this->buttonsBar->get();
+    ?>
+</div>
+<div id="content-right">
+    
+    <!-- Buttons START -->
+    <div class="right-frame">
+        <div class="right-col-buttons">
+            <div class="rcb-label">
+                <?php _e("Acheter sur","s1b");?>
+            </div>
+            <div class="rcb-buttons">
+                <a class="button bt-amazon float-left margin-left" target="_blank" href="<?php echo $this->buyOnAmazonLink; ?>" title="<?php _e("Acheter sur Amazon", "s1b");?>"></a>
+                <?php if ($this->buyOnFnacLink) { ?>
+                <a class="button bt-fnac float-left margin-left" target="_blank" href="<?php echo $this->buyOnFnacLink; ?>" title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>
+                <?php } ?>
+            </div>  
+        </div>
+        <div class="right-col-buttons">
+            <div class="rcb-label">
+                <?php _e("Partager sur","s1b");?>
+            </div>
+            <div class="rcb-buttons">
+                <a href="<?php echo $this->shareLink; ?>" class="bv-share margin-left float-left " title="<?php echo sprintf(__("Partager sur %s", "s1b"), \Sb\Entity\Constants::SITENAME); ?>"></a>
+                <a href="<?php echo $this->facebookShareLink; ?>" class="picto-facebook-m margin-left float-left "></a>                
+            </div>            
+        </div>
+    </div>
+    <!-- Buttons END -->
+    
+    <div class="right-frame">
+        <?php echo $this->ad->get(); ?>
+    </div>    
+    
+    <?php if (count($this->sameAuthorBooks) > 0) { ?>
+        <div class="right-frame">
+            <div class="same-author-books">
+                <?php
+                $sameAuthorBooksCoverFlip = new Sb\View\BookCoverFlip($this->sameAuthorBooks, __("Les livres <strong>du même auteur</strong>", "s1b"), "sameAuthorBooks", "sab-books small-coverflip-bkg");
+                echo $sameAuthorBooksCoverFlip->get();
+                ?>
+            </div>
+
+        </div>
+    <?php } ?>
+    
+    <?php if (count($this->lastlyReadUserbooks) > 0) {?>
+    <div class="right-frame">
+        <div class="carousel">
+            <?php 
+            $lastUsersWhoReadThatBookView = new Sb\View\LastUsersWhoReadThatBook($this->lastlyReadUserbooks);
+            echo $lastUsersWhoReadThatBookView->get(); 
+            ?>
+        </div>
+    </div>
+    <?php } ?>
+</div> 

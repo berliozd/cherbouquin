@@ -1,0 +1,24 @@
+<?php 
+use Sb\Helpers\BookHelper;
+?>
+<div class="pb-title">
+    <?php echo $title;?>
+</div>
+<?php if ($books && count($books)>0) {?>
+    <div class="coverflip coverflip-bkg <?php echo $css;?>" id="<?php echo $coverFlipId; ?>">        
+        <div class="carousel-images">
+          <?php 
+          foreach ($books as $book) {
+              echo "" .
+                "<div>" .
+                    BookHelper::getMediumImageTagForFlipCarousel($book, $defaultImage) .
+                    "<div class=\"coverflip-caption\" style=\"display:none;\">" . sprintf(__("%s <strong>de %s</strong>","s1b"), $book->getTitle(), $book->getOrderableContributors()) . "</div>" .
+                "</div>";
+          } ?>
+        </div>
+    </div>
+<?php } else { ?>
+    <div class="pb-nobooks">
+    <?php _e("Non renseigné","s1b");?>
+    </div>
+<?php } ?>

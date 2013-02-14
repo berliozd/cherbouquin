@@ -49,7 +49,7 @@ if ($_POST) {
             \Sb\Flash\Flash::addItem(__("Votre ancien mot de passe n'est pas correct", "s1b"));
         }
     }
-    \Sb\Helpers\HTTPHelper::redirect(\Sb\Entity\Urls::USER_PROFILE);
+    \Sb\Helpers\HTTPHelper::redirect(\Sb\Entity\Urls::MY_PROFILE);
 } else {
     if (!$user->getPassword())
         \Sb\Flash\Flash::addItem(__("Vous n'avez pas de mot de passe car vous vous êtes inscrit via Facebook. 

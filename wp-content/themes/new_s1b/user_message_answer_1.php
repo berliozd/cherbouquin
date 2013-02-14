@@ -35,7 +35,7 @@ if ($_POST) {
         if ($message->getSender()->getSetting()->getEmailMe() == 'Yes') {
             // send a email to warn the origianl sender of the email
             $body = \Sb\Helpers\MailHelper::newMessageArrivedBody($replySender->getUserName());
-            \Sb\Mail\Service\MailSvcImpl::getInstance()->send($message->getSender()->getEmail(), sprintf(__("Un message vous a été envoyé depuis le site %s", "s1b"), \Sb\Entity\Constants::SITENAME), $body);
+            \Sb\Service\MailSvc::getInstance()->send($message->getSender()->getEmail(), sprintf(__("Un message vous a été envoyé depuis le site %s", "s1b"), \Sb\Entity\Constants::SITENAME), $body);
         }
         \Sb\Flash\Flash::addItem(__("Message envoyé.", "s1b"));
         $redirect = true;

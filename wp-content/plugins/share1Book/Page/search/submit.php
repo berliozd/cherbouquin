@@ -22,7 +22,7 @@ if (strpos($searchTerm, "%") !== false && strlen($searchTerm) == 1) {
     HTTPHelper::redirectToReferer();
 }
 
-$bookSearch = new \Sb\Lists\BookSearch(true, $searchTerm, 1, $config->getSearchNbResultsPerPage(), $context->getBaseDirectory(),
+$bookSearch = new \Sb\Lists\BookSearch(true, $searchTerm, 1, $config->getSearchNbResultsPerPage(), 
                 $config->getSearchNbResultsToShow(), $config->getAmazonApiKey(), $config->getAmazonSecretKey(), $config->getAmazonAssociateTag(),
                 $config->getAmazonNumberOfPageRequested());
 

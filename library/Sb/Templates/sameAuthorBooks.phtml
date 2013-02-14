@@ -1,0 +1,9 @@
+<?php
+global $globalContext;
+?>
+<div class="same-author-books">
+    <?php
+    $sameAuthorBooksCoverFlip = new Sb\View\BookCoverFlip($books, __("Les livres <strong>du même auteur</strong>", "s1b"), "sameAuthorBooks", "sab-books small-coverflip-bkg");
+    echo $sameAuthorBooksCoverFlip->get();
+    ?>
+</div>

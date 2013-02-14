@@ -1,3 +1,23 @@
-<div class="user-events">
-    [@events]
-</div>
+<?php if ($events && count($events) > 0) { ?>
+
+    <div class="user-events">
+
+        <?php
+        foreach ($events as $event) {
+            $event = new Sb\View\UserEvent($event, $showOwner);
+            echo $event->get();
+        }
+        ?>
+
+    <?php if (count($events) > 3) { ?>
+            <div class="ue-bottom see-more">
+                <div class="inner-padding">            
+                    <a class="link lnkCollapseExpand" href="#"><?php _e("Voir plus de critiques d'activités", "s1b"); ?></a>
+                </div>
+            </div>
+    <?php } ?>
+
+    </div>
+
+    <?php
+}?>

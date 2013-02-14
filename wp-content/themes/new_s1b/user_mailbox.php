@@ -3,6 +3,10 @@ require_once 'includes/init.php';
 get_header();
 require_once 'user_mailbox_1.php';
 
+use Sb\View\Components\MailboxWidget;
+use Sb\View\Components\Ad;
+use Sb\Helpers\UserHelper;
+
 /**
  * Template Name: user_mailbox
  */
@@ -62,7 +66,7 @@ require_once 'user_mailbox_1.php';
             $i = 0;
             foreach ($messages as $message) {
                 $i += 1;
-                $senderProfileLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_PROFILE, array("fid" => $message->getSender()->getId()));
+                $senderProfileLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE, array("uid" => $message->getSender()->getId()));
                 $readMessageLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_READ_MESSAGE, array("mid" => $message->getId()));
                 $deleteMessageLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_DELETE_MESSAGE, array("mid" => $message->getId()));
                 ?>
@@ -92,7 +96,7 @@ require_once 'user_mailbox_1.php';
                     </td>
                     <td class="mb-col-msg border-right">
                         <div class="inner-padding">
-                            <?php echo sprintf(__("<strong>De</strong> <span class=\"highlight\">%s</span>","s1b"), $message->getSender()->getUserName());?>
+                            <?php echo sprintf(__("<strong>De</strong> <span class=\"highlight\">%s</span>","s1b"), UserHelper::getFullName($message->getSender()));?>
                             <br/>
                             <a href="<?php echo $readMessageLink?>"><?php echo \Sb\Helpers\StringHelper::tronque($message->getTitle(), 75);?></a>
                         </div>
@@ -144,12 +148,21 @@ require_once 'user_mailbox_1.php';
 
     </div>
 </div>
-<div id="content-right">
-    <?php
-    $userToolBox = new \Sb\View\Components\UserToolBox;
-    echo $userToolBox->get();
-    ?>
+<div id="content-right">    
+    <div class="right-frame">
+        <?php
+        $mailboxWidget = new MailboxWidget();
+        echo $mailboxWidget->get();
+        ?>
+    </div>
+    <div class="right-frame">
+        <?php
+        $ad = new Ad("","");
+        echo $ad->get();
+        ?>
+    </div>
 </div>
+
 <?php get_footer(); ?>
 
 

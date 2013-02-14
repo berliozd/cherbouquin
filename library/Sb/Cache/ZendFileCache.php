@@ -2,11 +2,6 @@
 
 namespace Sb\Cache;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of ZendFileCache
  *
@@ -47,7 +42,7 @@ class ZendFileCache {
         );
         // backend options
         $this->backendOptions = array(
-            'cache_dir' => $this->getContext()->getBaseDirectory() . 'var/cache', // Directory where to put the cache files
+            'cache_dir' => $this->getContext()->getBaseDirectory() . '/var/cache', // Directory where to put the cache files
         );
         $this->cacheObject = \Zend_Cache::factory('Core', 'File', $this->frontendOptions, $this->backendOptions);
     }
@@ -65,5 +60,3 @@ class ZendFileCache {
     }
 
 }
-
-?>

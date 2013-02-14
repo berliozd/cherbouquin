@@ -237,6 +237,18 @@ class Book extends \Sb\Db\Model\Book implements \Doctrine\ORM\Proxy\Proxy
         return parent::setPublishingDateS($publishingDateS);
     }
 
+    public function getGroupchronicles()
+    {
+        $this->__load();
+        return parent::getGroupchronicles();
+    }
+
+    public function setGroupchronicles($groupchronicles)
+    {
+        $this->__load();
+        return parent::setGroupchronicles($groupchronicles);
+    }
+
     public function getTagImg($defImg)
     {
         $this->__load();
@@ -426,7 +438,7 @@ class Book extends \Sb\Db\Model\Book implements \Doctrine\ORM\Proxy\Proxy
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'isbn10', 'isbn13', 'asin', 'title', 'description', 'image_url', 'small_image_url', 'large_image_url', 'image_binary', 'publishing_date', 'creation_date', 'last_modification_date', 'amazon_url', 'rating_sum', 'nb_rated_userbooks', 'nb_blow_of_hearts', 'average_rating', 'nb_of_pages', 'language', 'contributors', 'publisher', 'userbooks');
+        return array('__isInitialized__', 'id', 'isbn10', 'isbn13', 'asin', 'title', 'description', 'image_url', 'small_image_url', 'large_image_url', 'image_binary', 'publishing_date', 'creation_date', 'last_modification_date', 'amazon_url', 'rating_sum', 'nb_rated_userbooks', 'nb_blow_of_hearts', 'average_rating', 'nb_of_pages', 'language', 'contributors', 'publisher', 'userbooks', 'groupchronicles');
     }
 
     public function __clone()

@@ -129,6 +129,30 @@ class UserEvent extends \Sb\Db\Model\UserEvent implements \Doctrine\ORM\Proxy\Pr
         return parent::setCreation_date($creation_date);
     }
 
+    public function getBook()
+    {
+        $this->__load();
+        return parent::getBook();
+    }
+
+    public function setBook($book)
+    {
+        $this->__load();
+        return parent::setBook($book);
+    }
+
+    public function getFriend()
+    {
+        $this->__load();
+        return parent::getFriend();
+    }
+
+    public function setFriend($friend)
+    {
+        $this->__load();
+        return parent::setFriend($friend);
+    }
+
     public function IsValid()
     {
         $this->__load();

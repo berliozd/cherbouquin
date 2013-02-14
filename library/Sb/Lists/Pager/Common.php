@@ -834,7 +834,7 @@ class Common {
                 $onclick = str_replace('%d', $this->_linkData[$this->_urlVar], $this->_onclick);
             }
 
-            return sprintf('<a class="%s" href="%s"%s%s%s%s title="%s" %s="%s">%s</a>',
+            $link = sprintf('<a class="%s" href="%s"%s%s%s%s title="%s" %s="%s">%s</a>',
                     $linkCss,
                     htmlentities($this->_url . $href, ENT_COMPAT, 'UTF-8'),
                     empty($this->_classString) ? '' : ' ' . $this->_classString,
@@ -845,7 +845,8 @@ class Common {
                     $this->_urlVar,
                     $this->_linkData[$this->_urlVar],
                     $linkText
-            );
+            );            
+            return $link;
         } elseif ($this->_httpMethod == 'POST') {
             $href = $this->_url;
             if (!empty($_GET)) {

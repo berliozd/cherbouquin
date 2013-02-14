@@ -1,0 +1,54 @@
+<?php 
+use Sb\Helpers\HTTPHelper;
+?>
+<div class="user-box">        
+    <div class="ub-friends">
+        <div class="ub-title-wrap">
+            <div class="ub-title"><?php _e("Mes amis", "s1b"); ?></div>
+        </div>
+        <div class="ub-content">
+            <div class="ubc-part">
+                <?php echo sprintf(__("<a class=\"ub-highlight\" href=\"%s\">%s ami(s)</a> sur %s", "s1b"), HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS), $nbFriends, \Sb\Entity\Constants::SITENAME); ?>
+            </div>
+            <div class="ubc-sep"></div>
+            <div class="ubc-part">
+                <?php
+                if ($nbPendingFriendRequests > 0) {
+                    echo sprintf(__("<a class=\"ub-highlight\" href=\"%s\">%s demande(s) d'ami</a> à valider", "s1b"), HTTPHelper::Link(\Sb\Entity\urls::USER_FRIENDS_PENDING_REQUEST), $nbPendingFriendRequests);
+                } else {
+                    _e("Vous n'avez pas de demande(s) d'amis à valider", "s1b");
+                }
+                ?>
+            </div>
+            <div class="ubc-sep"></div>
+            <div class="ubc-part">
+                <span class="ubc-part-title"><?php _e("Rechercher", "s1b"); ?></span>
+                <?php
+                $searchFromView = new \Sb\View\Components\FriendsSearchForm;
+                echo $searchFromView->get();
+                ?>
+            </div>
+            <div class="ubc-sep"></div>
+            <div class="ubc-part">
+                <span class="ubc-part-title"><?php _e("Inviter un ami", "s1b"); ?></span>                
+                <div class="ubc-find-friend">
+                    <div class="ubc-find-friend-link ubc-friends-of-friends">
+                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS_FRIENDS); ?>">
+                            <?php echo sprintf(__("Amis d'amis sur %s", "s1b"), \Sb\Entity\Constants::SITENAME); ?>
+                        </a>
+                    </div>                    
+                    <div class="ubc-find-friend-link ubc-friends-invite">
+                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS_INVITE); ?>">
+                            <?php _e("Envoyer une invitation par email", "s1b"); ?>
+                        </a>
+                    </div>
+                    <div class="ubc-find-friend-link picto-facebook-s">
+                        <a href="#" onclick="facebookNewInvite(); return false;">
+                            <?php echo("Facebook"); ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

@@ -34,7 +34,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
      * @param \Sb\Db\Model\UserBook $userBook
      * @return int
      */
-    public function add(\Sb\Db\Model\UserBook $userBook) {
+    public function add(\Sb\Db\Model\Model $userBook) {
 
         $userBook->getBook()->updateAggregateFields($userBook->getRatingDiff(), $userBook->getRatingAdded(), false, $userBook->getBlowOfHeartAdded(), $userBook->getBlowOfHeartRemoved());
         $this->entityManager->persist($userBook);
@@ -48,13 +48,19 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
      * @param type $id
      * @return boolean
      */
-    public function update(\Sb\Db\Model\UserBook $userBook) {
+    public function update(\Sb\Db\Model\Model $userBook) {
         $userBook->setLastModificationDate(new \DateTime());
         if ($userBook->getNeedToUpdateBook()) {
             $userBook->getBook()->updateAggregateFields($userBook->getRatingDiff(), $userBook->getRatingAdded(), false, $userBook->getBlowOfHeartAdded(), $userBook->getBlowOfHeartRemoved());
             $userBook->getBook()->setLastModificationDate(new \DateTime());
         }
-            
+
+//        if ($userBook->getComments()) {
+//            foreach ($userBook->getComments() as $comment) {
+//                $this->entityManager->persist($comment);
+//            }
+//        }
+
         $this->entityManager->persist($userBook);
         $this->entityManager->flush();
         return true;
@@ -76,9 +82,9 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
             $blowOfHeartToRemove = true;
 
         $userBook->getBook()->updateAggregateFields($ratingDiff, false, true, false, $blowOfHeartToRemove);
-        
+
         $userBook->setIs_deleted(true);
-      
+
         $this->entityManager->persist($userBook->getBook());
         $this->entityManager->persist($userBook);
         $this->entityManager->flush();
@@ -93,10 +99,10 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getByBookIdAndUserId($userId, $bookId) {
 
-        /*$query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
-            JOIN ub.user u
-            JOIN ub.book b
-            WHERE u.id = :user_id AND b.id = :book_id AND ub.is_deleted = 0");*/
+        /* $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
+          JOIN ub.user u
+          JOIN ub.book b
+          WHERE u.id = :user_id AND b.id = :book_id AND ub.is_deleted = 0"); */
         $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
             JOIN ub.user u
             JOIN ub.book b
@@ -110,8 +116,6 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getBookInFriendsUserBook($bookId, $userId) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($bookId, $userId));
-
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("ub")->from("\Sb\Db\Model\UserBook ", "ub")
                 ->join("ub.user", "u")
@@ -124,7 +128,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
                 ->setParameter("user_id", $userId)
                 ->setParameter("book_id", $bookId);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
+        $result = $this->getResults($queryBuilder->getQuery());
 
         return $result;
     }
@@ -182,7 +186,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
                 ->leftJoin("b.publisher", "p")
                 ->leftJoin("b.contributors", "c")
                 ->orderBy("ub.id", "DESC")
-                ->where("u.id = :id")                
+                ->where("u.id = :id")
                 ->andWhere("ub.is_deleted = 0")
                 ->andWhere("ub.is_wished = 1")
                 ->setParameter("id", $userId);
@@ -218,6 +222,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     public function getListLendedBooks($userId, $useCache) {
+
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
         $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, l, c FROM \Sb\Db\Model\UserBook ub
@@ -243,10 +248,8 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
         if ($result)
             return $result[0];
     }
-    
-    public function getCurrentlyReadingsNow($userId) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
+    public function getCurrentlyReadingsNow($userId) {
 
         $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
             JOIN ub.user u
@@ -258,14 +261,12 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
             'user_id' => $userId)
         );
 
-        $result = $this->getResults($query, $cacheId);
-        
+        $result = $this->getResults($query);
+
         return $result;
     }
 
     public function getListLastlyRead($userId) {
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
         $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
             JOIN ub.user u
@@ -280,12 +281,10 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $query->setMaxResults(10);
 
-        return $this->getResults($query, $cacheId);
+        return $this->getResults($query);
     }
 
     public function getListUserBOH($userId) {
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
         $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
             JOIN ub.user u
@@ -298,8 +297,28 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
             'user_id' => $userId)
         );
 
-        $query->setMaxResults(10);
+        $query->setMaxResults(5);
 
-        return $this->getResults($query, $cacheId);
+        return $this->getResults($query);
+    }
+
+    public function getLastlyReadUserbookByBookId($bookId, $maxResult) {
+        
+        $query = $this->entityManager->createQuery("SELECT ub, u FROM \Sb\Db\Model\UserBook ub        
+            JOIN ub.book b
+            JOIN ub.user u
+            JOIN ub.reading_state r
+            WHERE 
+                b.id = :book_id AND 
+                r.id = 3
+            ORDER BY ub.last_modification_date DESC");
+
+        $query->setParameters(array(
+            'book_id' => $bookId)
+        );
+
+        $query->setMaxResults($maxResult);
+
+        return $this->getResults($query);
     }
 }

@@ -10,7 +10,7 @@ class BookSearch {
     private $hasResults = false;
     private $list;
 
-    function __construct($doSearch, $searchTerm, $pageId, $nbResultsPerPage, $baseDir, $nbResultsToShow, $amazonApiKey, $amazonSecretKey, $amazonAssociateTag, $amazonNumberOfPageRequested) {
+    function __construct($doSearch, $searchTerm, $pageId, $nbResultsPerPage, $nbResultsToShow, $amazonApiKey, $amazonSecretKey, $amazonAssociateTag, $amazonNumberOfPageRequested) {
 
         $fullCacheKey = self::SEARCH_BOOK_KEY . "_" . session_id();
         $this->loadResults($fullCacheKey, $doSearch, $searchTerm, $nbResultsToShow, $amazonApiKey, $amazonSecretKey, $amazonAssociateTag, $amazonNumberOfPageRequested);
@@ -24,7 +24,7 @@ class BookSearch {
                 $paging->setCurrentPageId($pageId);
                 $listOptions->setPaging($paging);
             }
-            $this->list = new \Sb\Lists\BookList($nbResultsPerPage, $this->allResults, $baseDir, $listOptions, false);
+            $this->list = new \Sb\Lists\BookList($nbResultsPerPage, $this->allResults, $listOptions, false);
         }
     }
 

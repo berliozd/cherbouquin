@@ -31,6 +31,7 @@
  */
 
 require __DIR__ . "/../../Sb/Db/Model/Model.php";
+require __DIR__ . "/../../Sb/Db/Model/Book.php";
 
 class ZF
 {

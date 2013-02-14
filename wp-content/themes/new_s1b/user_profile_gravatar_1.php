@@ -12,5 +12,5 @@ if ($_POST) {
     } else {
         \Sb\Flash\Flash::addItem(__("Vous devez sélectionner au moins un Gravatar", "s1b"));
     }
-    \Sb\Helpers\HTTPHelper::redirect(\Sb\Entity\Urls::USER_PROFILE);
+    \Sb\Helpers\HTTPHelper::redirect(\Sb\Entity\Urls::MY_PROFILE);
 }

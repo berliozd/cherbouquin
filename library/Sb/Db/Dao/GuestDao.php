@@ -47,14 +47,12 @@ class GuestDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getListByEmail($email) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($email));
-
         $query = $this->entityManager->createQuery("SELECT g FROM \Sb\Db\Model\Guest g
             WHERE g.email = :email");
         $query->setParameters(array(
             'email' => $email)
         );
-        return $this->getResults($query, $cacheId);
+        return $this->getResults($query);
     }
 
     public function update(\Sb\Db\Model\Guest $guest) {

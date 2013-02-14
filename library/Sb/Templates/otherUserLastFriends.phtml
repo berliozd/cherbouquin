@@ -1,0 +1,38 @@
+<?php
+use Sb\Helpers\StringHelper;
+?>
+<div class="user-box">    
+    <div class="ub-users">
+        <div class="ub-title-wrap">
+            <div class="ub-title">
+                <?php echo sprintf(__("Derniers amis de %s", "s1b"), StringHelper::tronque(ucwords($otherUser->getFirstName()), 10)); ?>
+            </div>
+        </div>
+        <div class="ub-content">
+            <div class="ubc-part">
+                <?php if (count($otherUserFriendsAddedEvents) > 0) { ?>
+                <ul class="carousel-friendlastfriends">
+                    <?php foreach ($otherUserFriendsAddedEvents as $addedFriendEvent) { ?>
+                    <li>
+                        <div class="ub-user">                            
+                            <div class="ubu-image">
+                                <a border="0" href="<?php echo \Sb\Helpers\HTTPHelper::Link(Sb\Entity\Urls::USER_PROFILE, array("uid" => $addedFriendEvent->getFriend()->getId()));?>"><?php echo \Sb\Helpers\UserHelper::getSmallImageTag($addedFriendEvent->getFriend(), $defImage); ?></a>
+                            </div>
+                            <div class="ubu-text">
+                                <div><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(Sb\Entity\Urls::USER_PROFILE, array("uid" => $addedFriendEvent->getFriend()->getId()))?>" class="link">
+                                    <?php echo \Sb\Helpers\StringHelper::tronque($addedFriendEvent->getFriend()->getUserName(), 40);?></a>
+                                </div>
+                                <div><?php echo sprintf(__("%s livre(s), %s ami(s)", "s1b"), count($addedFriendEvent->getFriend()->getNotDeletedUserBooks()), count($addedFriendEvent->getFriend()->getAcceptedFriends())); ?></div>
+                                <div><?php echo sprintf(__("Ajouté le %s", "s1b"), $addedFriendEvent->getCreation_date()->format(__("d/m/Y","s1b")));?></div>
+                            </div>                            
+                        </div>
+                    </li>
+                    <?php } ?>
+                </ul>
+                <?php } else {
+                    echo sprintf(__("%s n'a pas de nouveaux amis.","s1b"), ucwords($otherUser->getFirstName()));
+               }?>
+            </div>
+        </div>
+    </div>    
+</div>

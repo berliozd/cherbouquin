@@ -1,0 +1,4 @@
+<?php 
+$reviews = new \Sb\View\BookReviews($this->paginatedList, $this->bookId, $this->pageNumber);
+echo $reviews->get();
+?>

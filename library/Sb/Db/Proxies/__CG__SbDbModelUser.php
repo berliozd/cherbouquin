@@ -447,6 +447,18 @@ class User extends \Sb\Db\Model\User implements \Doctrine\ORM\Proxy\Proxy
         return parent::setInvitations($invitations);
     }
 
+    public function getGroupchronicles()
+    {
+        $this->__load();
+        return parent::getGroupchronicles();
+    }
+
+    public function setGroupchronicles($groupchronicles)
+    {
+        $this->__load();
+        return parent::setGroupchronicles($groupchronicles);
+    }
+
     public function IsValid()
     {
         $this->__load();
@@ -528,7 +540,7 @@ class User extends \Sb\Db\Model\User implements \Doctrine\ORM\Proxy\Proxy
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'facebook_id', 'connexion_type', 'first_name', 'last_name', 'user_name', 'email', 'password', 'gender', 'address', 'city', 'zipcode', 'country', 'birthday', 'facebook_language', 'language', 'token', 'token_facebook', 'activated', 'deleted', 'gravatar', 'picture', 'picture_big', 'created', 'last_login', 'setting', 'messages_sent', 'messages_received', 'userbooks', 'userevents', 'friendships_as_source', 'friendships_as_target', 'invitations');
+        return array('__isInitialized__', 'id', 'facebook_id', 'connexion_type', 'first_name', 'last_name', 'user_name', 'email', 'password', 'gender', 'address', 'city', 'zipcode', 'country', 'birthday', 'facebook_language', 'language', 'token', 'token_facebook', 'activated', 'deleted', 'gravatar', 'picture', 'picture_big', 'created', 'last_login', 'setting', 'messages_sent', 'messages_received', 'userbooks', 'userevents', 'friendships_as_source', 'friendships_as_target', 'invitations', 'groupchronicles');
     }
 
     public function __clone()

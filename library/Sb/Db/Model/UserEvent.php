@@ -11,28 +11,33 @@ class UserEvent implements \Sb\Db\Model\Model {
      */
     protected $id;
 
-     /**
-     * @ManyToOne(targetEntity="User", inversedBy="userevents")
+    /**
+     * @ManyToOne(targetEntity="User", inversedBy="userevents", fetch="EAGER")
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
-        
+
     /** @Column(type="integer") */
     protected $type_id;
-    
+
     /** @Column(type="integer") */
     protected $item_id;
-    
+
     /** @Column(type="string", length=5000) */
     protected $old_value;
-    
+
     /** @Column(type="string", length=5000) */
     protected $new_value;
-        
+
     /** @Column(type="datetime") */
     protected $creation_date;
     
+    protected $book;
     
+    protected $friend;
+    
+    
+
     public function getId() {
         return $this->id;
     }
@@ -87,10 +92,26 @@ class UserEvent implements \Sb\Db\Model\Model {
 
     public function setCreation_date($creation_date) {
         $this->creation_date = $creation_date;
-    }    
+    }
 
+    public function getBook() {
+        return $this->book;
+    }
+
+    public function setBook($book) {
+        $this->book = $book;
+    }
+    
+    public function getFriend() {
+        return $this->friend;
+    }
+
+    public function setFriend($friend) {
+        $this->friend = $friend;
+    }
+    
     public function IsValid() {
         return true;
-    }    
+    }
 
 }

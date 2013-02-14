@@ -15,7 +15,7 @@ class LoginForm extends \Sb\View\AbstractView {
     public function get() {
 
         $baseTpl = "components/loginForm";
-        $tpl = new \Sb\Templates\Template($baseTpl, $this->baseDir);
+        $tpl = new \Sb\Templates\Template($baseTpl);
         return $tpl->output();
     }
 }

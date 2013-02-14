@@ -28,9 +28,13 @@ class GroupChronicleDao extends \Sb\Db\Dao\AbstractDao {
     
     public function getLast() {
         
-        $query = $this->entityManager->createQuery("SELECT gc FROM \Sb\Db\Model\GroupChronicle gc ORDER BY gc.creation_date DESC");        
+        $query = $this->entityManager->createQuery("SELECT gc, u, b FROM \Sb\Db\Model\GroupChronicle gc 
+            JOIN gc.user u
+            LEFT JOIN gc.book b
+            ORDER BY gc.creation_date DESC");        
         $query->setMaxResults(1);
-        return $this->getOneResult($query, null, false);
+        
+        return $this->getOneResult($query);
         
     }
 }

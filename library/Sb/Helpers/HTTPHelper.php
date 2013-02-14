@@ -14,8 +14,8 @@ class HTTPHelper {
      * @return Config
      */
     private static function getConfig() {
-        global $s1b;
-        return $s1b->getConfig();
+        global $globalConfig;
+        return $globalConfig;
     }
 
     /**
@@ -34,8 +34,8 @@ class HTTPHelper {
         }
     }
 
-    public static function redirectToUrl($url) {        
-        wp_redirect($url);
+    public static function redirectToUrl($url) {
+        header("Location: $url", true, 302);
         die();
     }
 
@@ -70,12 +70,12 @@ class HTTPHelper {
             // For Zend pages
             $base = str_replace("public/index.php", "", $_SERVER['SCRIPT_NAME']);
             // For Wordpress pages
-            $base = str_replace("index.php", "", $base); 
+            $base = str_replace("index.php", "", $base);
             $base = str_replace("wp-admin/admin-ajax.php", "", $base);
         }
 
         if (count($params) > 0) {
-            $dest = $base . $pageKey . '/?' . http_build_query($params);
+            $dest = $base . $pageKey . '?' . http_build_query($params);
         } else {
             $dest = $base . $pageKey;
         }
@@ -87,7 +87,6 @@ class HTTPHelper {
             else
                 $dest = "http://" . $dest;
         }
-
 
         return $dest;
     }
@@ -115,12 +114,13 @@ class HTTPHelper {
     public static function getReferer() {
         // When referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting 
         // values to be reset when return to the page
-        $referer = $_SERVER["HTTP_REFERER"];
-        $libraryUrl = self::Link(Urls::USER_LIBRARY);
-        if (strpos($referer, $libraryUrl) !== false) {
-            $referer = str_replace("reset=1", "", $referer);
+        $referer = ArrayHelper::getSafeFromArray($_SERVER, "HTTP_REFERER", null);
+        if ($referer) {
+            $libraryUrl = self::Link(Urls::USER_LIBRARY);
+            if (strpos($referer, $libraryUrl) !== false) {
+                $referer = str_replace("reset=1", "", $referer);
+            }
         }
-
         return $referer;
     }
 

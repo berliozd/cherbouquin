@@ -1,0 +1,105 @@
+<?php
+use Sb\View\Components\AutoPromoWishlistWidget;
+?>
+
+<div id="other-user-profile" class="other-user-profile-bkg">
+    <div id="content-center" >
+        <div class="friend-profile">
+            
+            <?php
+            $profileView =new \Sb\View\OtherUserProfile($this->friend, $this->friendSetting, $this->isFriend);
+            echo $profileView->get();
+            ?>
+            
+            <div class="horizontal-sep-1"></div>
+            
+            <!-- blow of hearts START -->
+            <div class="pushed-books pushedBooks margin-bottom-xl">
+                <?php
+                $friendBohBooks = new \Sb\View\BookShelf($this->bohBooks, sprintf(__("Derniers coups de coeur de %s","s1b"), ucwords($this->friend->getFirstName())));
+                echo $friendBohBooks->get();
+                ?>
+            </div>
+            <!-- blow of hearts END -->
+            
+            <!-- last reading START -->
+            <div class="pushed-books pushedBooks margin-bottom-xl">
+                <div class="pb-title"><?php echo sprintf(__("Dernières lectures de %s","s1b"), ucwords($this->friend->getFirstName())); ?></div>
+                <?php if ($this->currentlyReadingOrLastlyReadBooks) {
+                    $friendLastlyReadBooks = new \Sb\View\PushedUserBooks($this->currentlyReadingOrLastlyReadBooks, 3, false);                    
+                    echo $friendLastlyReadBooks->get();
+                } else {?>
+                    <div class="pb-nobooks"><?php _e("Non renseigné","s1b");?></div>
+                <?php }?>
+            </div>
+            <!-- last reading END -->
+            
+            <!-- books he could like START -->
+            <div class="pushed-books margin-bottom-xl">
+                <?php 
+                $bookUseCouldLikeCoverFlip = new Sb\View\BookCoverFlip($this->booksHeCouldLikes, __("Idées cadeaux...ça pourrait lui plaire","s1b"), "bookUserCouldLike", "");
+                echo $bookUseCouldLikeCoverFlip->get();
+                ?>
+            </div>            
+            <!-- books he could like END -->
+            
+            <?php 
+            $friendLastReviewsView = new Sb\View\LastReviews($this->friendLastReviews, sprintf(__("Dernières critiques postées par %s", "s1b"), ucwords($this->friend->getFirstName())));
+            echo $friendLastReviewsView->get();
+            ?>
+            
+        </div>
+    </div>
+    <div id="content-right">
+        
+        <div class="right-frame">
+            <?php
+            $autoPromoWishlist = new AutoPromoWishlistWidget();
+            echo $autoPromoWishlist->get();
+            ?>
+        </div>
+        
+        <div class="right-frame">
+            <div class="carousel">
+            <?php if (count($this->allCurrentlyReadingUserBooks) > 0) {
+                $userReading = new \Sb\View\Components\UserReadingWidget($this->friend, $this->allCurrentlyReadingUserBooks, false);    
+                echo $userReading->get();
+            } ?>
+            </div>
+        </div>
+        
+        <div class="right-frame">
+            <?php
+            $userWishedBooks = new \Sb\View\Components\UserWishedBooksWidget($this->friend, false);
+            echo $userWishedBooks->get();
+            ?>
+        </div>
+        
+        <div class="right-frame">
+            <?php
+            $ad = new \Sb\View\Components\Ad("user_friend_profile", "6033296049");
+            echo $ad->get();
+            ?>
+        </div>
+        
+        <div class="right-frame">
+            <div class="carousel">
+                <?php 
+                $friendLastAddedFriend = new \Sb\View\OtherUserLastFriends($this->friend, $this->friendLastFriendsAddedEvents);
+                echo $friendLastAddedFriend->get();
+                ?>
+
+            </div>
+        </div>
+        
+        <div class="right-frame">            
+            <!-- BLOCK friend last activities START -->
+            <?php
+            $userLastEvents = new Sb\View\Components\UserLastEvents($this->friend, $this->friendLastEvents);
+            echo $userLastEvents->get();
+            ?>
+            <!-- BLOCK friend last activities START -->
+        </div>
+        
+    </div>
+</div>

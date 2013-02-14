@@ -28,16 +28,12 @@ $application = new Zend_Application(
 // ==========================================================
 // =========== DEBUT cherbouquin specicific code ============
 // ==========================================================
-if (APPLICATION_ENV == 'development') {
-    $front = Zend_Controller_Front::getInstance();
-    $front->setBaseUrl('/cherbouquin');
-}
 
 require_once(APPLICATION_PATH . '/configs/share1Book-config.php');
 
 // Registering Doctrine autoload
-require_once '/Doctrine/Doctrine/ORM/Tools/Setup.php';
-Doctrine\ORM\Tools\Setup::registerAutoloadGit("/Doctrine");
+require_once 'Doctrine/Doctrine/ORM/Tools/Setup.php';
+Doctrine\ORM\Tools\Setup::registerAutoloadGit("Doctrine");
 
 // Init internal autloloader for loading all Sb class 
 spl_autoload_register('loadClass');
@@ -85,19 +81,14 @@ function _e($stringId, $domain = "") {
 // Declare general autoloading function for all Sb classes
 function loadClass($name) {
 
-//    echo $name . "<br/>";
-    
     $isProxy = false;
     if (strpos($name, "Proxies\\__CG__\\") !== false)
         $isProxy = true;
     if ($isProxy) {
-        $prefix = "\Sb\Db\Proxies\__CG__";
+        $prefix = "Sb\Db\Proxies\__CG__";
         $name = str_replace("Proxies\\__CG__\\", "", $name);
         $name = $prefix . str_replace("\\", "", $name);
     }
-
-   
-//    echo $name . "<br/>";
     
     require(str_replace("\\", "/", $name) . ".php");
     return;
@@ -109,4 +100,3 @@ function loadClass($name) {
 
 $application->bootstrap()
         ->run();
-

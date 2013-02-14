@@ -3,6 +3,8 @@
 namespace Sb\Db\Service;
 
 use Sb\Db\Dao\GroupChronicleDao;
+use Sb\Db\Model\Book;
+use Sb\Db\Dao\ContributorDao;
 
 /**
  * Description of GroupChronicleSvc
@@ -11,8 +13,10 @@ use Sb\Db\Dao\GroupChronicleDao;
  */
 class GroupChronicleSvc extends Service {
 
+    const LAST_ONE = "LAST_ONE";
+
     private static $instance;
-    
+
     /**
      *
      * @return \Sb\Db\Service\GroupChronicleSvc
@@ -32,17 +36,33 @@ class GroupChronicleSvc extends Service {
      * @return type
      */
     public function getLast() {
-        
-        $key = __FUNCTION__;
+        try {
+            $key = self::LAST_ONE;
 
-        $result = $this->getData($key);
+            $result = $this->getData($key);
 
-        if (!$result) {
-            
-            $result = $this->getDao()->getLast();
-            $this->setData($key, $result);
+            if ($result === false) {
+                $result = $this->getDao()->getLast();
+                if ($result->getBook())
+                    $result->setBook($this->getFullBookRelatedUserEvent($result->getBook()));
+                $this->setData($key, $result);
+            }
+            return $result;
+        } catch (Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
         }
-        return $result;
-    }   
+    }
+
+    /**
+     * Get a full book with all members initialised
+     * This is necessary for storing the object in cache otherwise when getting the object from cache (and then detach from database) 
+     * these members won't be initialized
+     * @param Book $book
+     */
+    private function getFullBookRelatedUserEvent(Book $book) {
+        $contributors = ContributorDao::getInstance()->getListForBook($book->getId());
+        $book->setContributors($contributors);
+        return $book;
+    }
 
 }

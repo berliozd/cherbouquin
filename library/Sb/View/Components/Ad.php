@@ -19,7 +19,7 @@ class Ad extends \Sb\View\AbstractView {
     public function get() {
 
         $baseTpl = "components/ad";
-        $tpl = new \Sb\Templates\Template($baseTpl, $this->baseDir);
+        $tpl = new \Sb\Templates\Template($baseTpl);
         $tpl->setVariables(array("label" => $this->label, "code" => $this->code));
         // Renders the ads only on production
         if ($this->getConfig()->getIsProduction())

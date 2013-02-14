@@ -2,6 +2,13 @@
 require_once 'includes/init.php';
 get_header();
 require_once 'user_friends_pending_request_1.php';
+
+use Sb\View\Components\FriendsWidget;
+use Sb\View\Components\Ad;
+use Sb\Helpers\UserHelper;
+use Sb\Helpers\StringHelper;
+
+
 /**
  * Template Name: user_friends_pending_request
  */
@@ -29,7 +36,7 @@ require_once 'user_friends_pending_request_1.php';
             <div class="friends-list">
             <?php foreach ($pendingRequests as $pendingRequest) {
                 $userRequested = $pendingRequest->getUser_source();
-                $userProfileLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_PROFILE, array("fid" => $userRequested->getId())); ?>
+                $userProfileLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE, array("uid" => $userRequested->getId())); ?>
                 
                 <div class="friend-item">                
                     <div class="inner-padding">
@@ -43,7 +50,7 @@ require_once 'user_friends_pending_request_1.php';
                         </a>
                         <div class="fi-line margin-top-l">
                             <span class="fil-username">
-                                <?php echo \Sb\Helpers\StringHelper::tronque($userRequested->getFirstName(), 20) . " " . mb_substr($userRequested->getLastName(), 0, 1) . ".";?>
+                                <?php echo StringHelper::tronque(UserHelper::getFullName($userRequested), 30);?>
                             </span>
                         </div>                        
                         <div class="fi-line">
@@ -86,15 +93,15 @@ require_once 'user_friends_pending_request_1.php';
             <?php } ?>
     </div>
     <div id="content-right">
-       <div class="right-frame">
-        <?php
-            $userToolBox = new \Sb\View\Components\UserToolBox;
-            echo $userToolBox->get();
-        ?>
+        <div class="right-frame">
+            <?php
+            $friendWidget = new FriendsWidget;
+            echo $friendWidget->get();
+            ?>
         </div>
         <div class="right-frame">
         <?php
-            $ad = new \Sb\View\Components\Ad("user_friends_pending_request", "1961774989");
+            $ad = new Ad("user_friends", "2432422854");
             echo $ad->get();
         ?>
         </div>

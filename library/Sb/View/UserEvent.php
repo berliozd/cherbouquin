@@ -2,41 +2,49 @@
 
 namespace Sb\View;
 
-use \Sb\Db\Model\UserEvent as UserEventModel;
-use \Sb\Entity\EventTypes;
-use \Sb\Entity\ReadingStates;
-use \Sb\Helpers\HTTPHelper;
-use \Sb\Entity\Urls;
-use \Sb\Db\Dao\UserDao;
+use Sb\Db\Model\UserEvent as UserEventModel;
+use Sb\Entity\EventTypes;
+use Sb\Entity\ReadingStates;
+use Sb\Helpers\HTTPHelper;
+use Sb\Entity\Urls;
+use Sb\Db\Dao\UserDao;
 use Sb\Db\Dao\LendingDao;
+use Sb\Helpers\StringHelper;
+use Sb\Helpers\UserHelper;
 
 class UserEvent extends \Sb\View\AbstractView {
 
     private $userEvent;
-    private $addSep;
+    private $showOwner;
 
-    function __construct(UserEventModel $userEvent, $addSep) {
+    function __construct(UserEventModel $userEvent, $showOwner) {
         $this->userEvent = $userEvent;
-        $this->addSep = $addSep;
+        $this->showOwner = $showOwner;
         parent::__construct();
     }
 
     public function get() {
 
+        global $globalContext;
+        
         $tplEvent = new \Sb\Templates\Template("userEvents/userEvent");
 
-        $userFriend = $this->userEvent->getUser();
+        $friend = $this->userEvent->getUser();
 
-        $userFriendImg = $userFriend->getGravatar();
-        if ($userFriendImg == "")
-            $userFriendImg = $this->getContext()->getBaseUrl() . "/Resources/images/avatars/noavatar.png";
+        $friendImg = UserHelper::getSmallImageTag($friend);
+        if ($friendImg == "")
+            $friendImg = UserHelper::getSmallImageTag($friend);
 
-        $friendImageTag = "";
-        $friendName = $userFriend->getUserName();
-        $friendProfileLink = HTTPHelper::Link(Urls::FRIEND_PROFILE, array("fid" => $userFriend->getId()));
+        $friendName = ucwords($friend->getUserName());
+        $friendProfileLink = HTTPHelper::Link(Urls::USER_PROFILE, array("uid" => $friend->getId()));
 
         $userBookRelated = false;
+        $friendRelated = false; // used for cases of new friend event
         $additionalContent = "";
+        $friendId = null;
+        $friendFriendImg = null;
+        $friendFriendProfileLink  = null;
+        
         switch ($this->userEvent->getType_id()) {
             case EventTypes::USERBOOK_ADD:
                 $userBook = \Sb\Db\Dao\UserBookDao::getInstance()->get($this->userEvent->getItem_id());
@@ -63,7 +71,7 @@ class UserEvent extends \Sb\View\AbstractView {
                 $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a modifié son commentaire.", $friendProfileLink, $friendName);
                 if ($oldReview == "")
                     $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a ajouté un commentaire.", $friendProfileLink, $friendName);
-                $additionalContent = $this->userEvent->getNew_value();
+                $additionalContent = StringHelper::tronque(strip_tags($this->userEvent->getNew_value()), 120);
                 $userBookRelated = true;
                 break;
             case EventTypes::USERBOOK_HYPERLINK_CHANGE:
@@ -74,7 +82,7 @@ class UserEvent extends \Sb\View\AbstractView {
                     $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a ajouté un lien hypertexte.", $friendProfileLink, $friendName);
                 $hyperLink = "http://" . $this->userEvent->getNew_value();
                 $truncatedHyperLink = \Sb\Helpers\StringHelper::tronque($hyperLink, 100);
-                $additionalContent = sprintf(__("Lien : <a href=\"%s\" target=\"_blank\" class=\"link\" >%s</a>", "s1b"), $hyperLink, $truncatedHyperLink);
+                $additionalContent = sprintf(__("<a href=\"%s\" target=\"_blank\" class=\"hyperlink link\" >%s</a>", "s1b"), $hyperLink, $truncatedHyperLink);
                 $userBookRelated = true;
                 break;
             case EventTypes::USERBOOK_READINGSTATE_CHANGE:
@@ -104,14 +112,20 @@ class UserEvent extends \Sb\View\AbstractView {
                 $userBookRelated = true;
                 break;
             case EventTypes::USER_ADD_FRIEND:
+                $friendNewFriendProfileLink = null;
                 $newFriendId = $this->userEvent->getNew_value();
-                if ($newFriendId == $this->getContext()->getConnectedUser()->getId())
+                if ($newFriendId == $this->getContext()->getConnectedUser()->getId()) {
                     $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> est ami avec moi.", $friendProfileLink, $friendName);
-                else {
+                    $friendFriendImg = UserHelper::getXSmallImageTag($this->getContext()->getConnectedUser());
+                } else {
                     $friendNewFriend = UserDao::getInstance()->get($newFriendId);
-                    $friendNewFriendProfileLink = HTTPHelper::Link(Urls::FRIEND_PROFILE, array("fid" => $friendNewFriend->getId()));                    
+                    $friendNewFriendProfileLink = HTTPHelper::Link(Urls::USER_PROFILE, array("uid" => $friendNewFriend->getId()));
                     $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> est ami avec <a class=\"link\" href=\"%s\">%s</a>.", $friendProfileLink, $friendName, $friendNewFriendProfileLink, $friendNewFriend->getUserName());
+                    $friendFriendImg = UserHelper::getXSmallImageTag($friendNewFriend);
                 }
+                $friendId = $newFriendId;
+                $friendFriendProfileLink = $friendNewFriendProfileLink;
+                $friendRelated = true;
                 break;
             case EventTypes::USER_BORROW_USERBOOK:
                 $lendingId = $this->userEvent->getNew_value();
@@ -139,27 +153,44 @@ class UserEvent extends \Sb\View\AbstractView {
 
         $creationDate = $this->userEvent->getCreation_date()->format(__("d/m/Y à H:m", "s1b"));
 
+        $bookImageUrl = null;
+        $bookLink = null;
+        $bookTitle = null;
+        $bookAuthor = null;
+        $bookId = null;
         if ($userBookRelated) {
             $bookImageUrl = $userBook->getBook()->getSmallImageUrl();
             $bookLink = HTTPHelper::Link($userBook->getBook()->getLink());
             $bookTitle = $userBook->getBook()->getTitle();
             $bookAuthor = $userBook->getBook()->getOrderableContributors();
+            $bookId = $userBook->getBook()->getId();
         }
 
+        
+        $showAddButton = false;
+        if ($globalContext->getConnectedUser())  
+            $showAddButton = true;
+        
         // Set variables
-        $tplEvent->setVariables(array("userFriendImg" => $userFriendImg,
+        $tplEvent->setVariables(array("friendImg" => $friendImg,
             "friendName" => $friendName,
             "resume" => $resume,
             "bookImageUrl" => $bookImageUrl,
-            "friendImageTag" => $friendImageTag,
             "friendProfileLink" => $friendProfileLink,
+            "friendId" => $friendId,
             "bookTitle" => $bookTitle,
+            "bookId" => $bookId,
             "bookAuthor" => $bookAuthor,
             "creationDate" => $creationDate,
             "bookLink" => $bookLink,
             "additionalContent" => $additionalContent,
-            "addSep" => $this->addSep,
-            "userBookRelated" => $userBookRelated));
+            "userBookRelated" => $userBookRelated,
+            "userFriendRelated" => $friendRelated,
+            "friendFriendImg" => $friendFriendImg,
+            "friendFriendProfileLink" => $friendFriendProfileLink,
+            "showOwner" => $this->showOwner,
+            "showAddButton" => $showAddButton
+        ));
 
         return $tplEvent->output();
     }

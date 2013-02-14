@@ -11,7 +11,7 @@ if ($searchTerm) {
 
 if ($friends && count($friends) > 0) {
     // preparing pagination
-    $paginatedList = new \Sb\Lists\PaginatedList($friends, 6);
+    $paginatedList = new \Sb\Lists\PaginatedList($friends, 9);
     $firstItemIdx = $paginatedList->getFirstPage();
     $lastItemIdx = $paginatedList->getLastPage();
     $nbItemsTot = $paginatedList->getTotalPages();

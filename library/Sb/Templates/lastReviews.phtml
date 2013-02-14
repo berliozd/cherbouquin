@@ -1,0 +1,43 @@
+<?php 
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\BookHelper;
+use Sb\Helpers\StringHelper;
+?>
+
+<div class="last-reviews-posted lastReviews margin-bottom-xl">
+    
+    <div class="lrp-title-frame">
+        <div class="lrp-title"><?php echo $title; ?></div>
+    </div>
+    
+    <?php if ($lastReviews && count($lastReviews) > 0) {?>
+        <?php foreach ($lastReviews as $lastReview) {?>
+            <?php if ($lastReview->getBook()) { ?>
+            <div class="lrp lastReview">
+                <div class="lrp-image">
+                    <a href="<?php echo HTTPHelper::Link($lastReview->getBook()->getLink());?>"><?php echo BookHelper::getSmallImageTag($lastReview->getBook(), $defaultImage); ?></a>
+                </div>
+                <div class="lrp-content">
+                    <div class="lrp-content-title"><?php echo sprintf(__("<a href=\"%s\" class=\"link\">%s</a> a critiqué le %s : %s", "s1b"), HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE , array("uid" => $lastReview->getUser()->getId())) , $lastReview->getUser()->getUserName(), $lastReview->getCreation_date()->format(__("d/m/Y", "s1b")), $lastReview->getBook()->getTitle()); ?></div>
+                    <div class="lrp-review"><?php echo strip_tags(StringHelper::tronque($lastReview->getNew_value(), 100)); ?></div>
+                    <div class="lrp-link"><?php echo sprintf(__("<a href=\"%s\" class=\"link\">Lire la suite</a>","s1b"), HTTPHelper::Link($lastReview->getBook()->getLink())) ; ?></div>
+                </div>
+            </div>
+            <?php } ?>
+        <?php } ?>
+    
+        <?php if (count($lastReviews) > 3) {?>
+        <div class="lrp-bottom see-more">
+            <div class="inner-padding">            
+                <a class="link lnkCollapseExpand" href="#"><?php _e("Voir plus de critiques", "s1b");?></a>
+            </div>
+        </div>
+        <?php } ?>
+    
+    <?php } else { ?>
+    
+        <div class="pb-nobooks"><?php _e("Non renseigné","s1b");?></div>    
+        
+    <?php } ?>
+    
+</div>

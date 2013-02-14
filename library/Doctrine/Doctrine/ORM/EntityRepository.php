@@ -122,6 +122,7 @@ class EntityRepository implements ObjectRepository
      */
     public function find($id, $lockMode = LockMode::NONE, $lockVersion = null)
     {
+        
         if ( ! is_array($id)) {
             $id = array($this->_class->identifier[0] => $id);
         }
@@ -173,6 +174,7 @@ class EntityRepository implements ObjectRepository
 
                 return $persister->load($sortedId, null, null, array(), $lockMode);
         }
+        
     }
 
     /**

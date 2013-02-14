@@ -2,6 +2,8 @@
 
 namespace Sb\View;
 
+use Sb\Helpers\ArrayHelper;
+
 /**
  * Description of UserBook
  *
@@ -70,10 +72,27 @@ class UserBook extends \Sb\View\AbstractView {
         }
         $tpl->set("ratingCssClass", $ratingCssClass);
         $tpl->set("rating", $rating);
-        if ($this->userBook->getReadingState())
-            $tpl->set("noDisplay", ($this->userBook->getReadingState()->getId() != $readState->getId() ? "noDisplay" : ""));
-        else
-            $tpl->set("noDisplay", "noDisplay");
+
+        if ($this->userBook->getReadingState()) {
+            $tpl->set("displayReadingDateBlock", ($this->userBook->getReadingState()->getId() != \Sb\Entity\ReadingStates::READ ? "noDisplay" : ""));
+            $displayNbPagesRead = ($this->userBook->getReadingState()->getId() != \Sb\Entity\ReadingStates::READING ? "noDisplay" : "");
+        } else {
+            $tpl->set("displayReadingDateBlock", "noDisplay");
+            $displayNbPagesRead = "noDisplay";
+        }
+
+
+        // Getting book total nb of pages
+        $nb_of_pages = $this->userBook->getBook()->getNb_of_pages();
+        if ($this->userBook->getNb_of_pages())
+            $nb_of_pages = $this->userBook->getNb_of_pages();
+
+        // Gettign nb of pages read
+        $nb_of_pages_read = $this->userBook->getNb_of_pages_read();
+
+
+
+
         $tpl->set("isBlowOfHeartChecked", ($this->userBook->getIsBlowOfHeart() ? "checked" : ""));
 
         if ($this->addMode) {
@@ -99,13 +118,12 @@ class UserBook extends \Sb\View\AbstractView {
             if ($borrowing->getUserBook())
                 $lenderName = $borrowing->getUserBook()->getUser()->getFirstName() . " " . $borrowing->getUserBook()->getUser()->getLastName();
             elseif ($borrowing->getGuest())
-                $lenderName = sprintf(__("%s (invité)","s1b"), $borrowing->getGuest()->getName());
+                $lenderName = sprintf(__("%s (invité)", "s1b"), $borrowing->getGuest()->getName());
         }
 
         $showLending = true;
         if ($this->addMode || (!$this->userBook->getIsOwned() && !$oneActiveBorrowing))
             $showLending = false;
-
 
         $tpl->set("editLendingText", __("Prêtez ce livre", "s1b"));
 
@@ -134,8 +152,6 @@ class UserBook extends \Sb\View\AbstractView {
         if ($readState) {
             $script = sprintf("<script>var share1bookAddABookJs = {readstate : \"%s\"}</script>", $readState->getId());
         }
-        $script .= sprintf("<script src=\"%s\"></script>", $this->baseUrl . "Resources/js/addBook.js");
-
         // Get all the tags
 
         $labelCol = $this->getTagLabelCol();
@@ -147,13 +163,15 @@ class UserBook extends \Sb\View\AbstractView {
             $tagsExt = array_map(array($this, "isChecked"), $tags);
         }
 
-
         $tpl->setVariables(array("addMode" => $this->addMode,
             "showLending" => $showLending,
             "tags" => $tags,
-            "tagsExt" => $tagsExt));
+            "tagsExt" => $tagsExt,
+            "nb_of_pages" => $nb_of_pages,
+            "nb_of_pages_read" => $nb_of_pages_read,
+            "displayNbPagesRead" => $displayNbPagesRead));
 
-        return $script . $tpl->output();
+        return $tpl->output();
     }
 
     private function isChecked($tag) {
@@ -172,8 +190,8 @@ class UserBook extends \Sb\View\AbstractView {
         }
     }
 
-    private function getTagLabelCol() {
-        switch ($_SESSION['WPLANG']) {
+    private function getTagLabelCol() {        
+        switch (ArrayHelper::getSafeFromArray($_SESSION, "WPLANG", "fr_FR")) {
             case "fr_FR":
                 return "label";
                 break;

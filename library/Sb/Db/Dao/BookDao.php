@@ -29,7 +29,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
      *
      * @param \Sb\Db\Model\Book $book
      */
-    public function add(\Sb\Db\Model\Book $book) {
+    public function add(\Sb\Db\Model\Model $book) {
 
         if ($book->getContributors()) {
             foreach ($book->getContributors() as $contributor) {
@@ -54,8 +54,6 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         $reference = $keyword;
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($keyword));
-
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b, allcontributors, p")->from("\Sb\Db\Model\Book ", "b")
                 ->leftJoin("b.contributors", "c")->where("c.full_name LIKE :keyword")
@@ -68,7 +66,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->setParameter("keyword", "%" . $keyword . "%")
                 ->setParameter("reference", $reference);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
+        $result = $this->getResults($queryBuilder->getQuery());
         return $result;
     }
 
@@ -81,8 +79,6 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getOneByCodes($isbn10, $isbn13, $asin) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($isbn10, $isbn13, $asin));
-
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b, c, p")->from("\Sb\Db\Model\Book ", "b")
                 ->leftJoin("b.contributors", "c")->where("c.full_name LIKE :keyword")
@@ -94,7 +90,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->setParameter("isbn13", $isbn13)
                 ->setParameter("asin", $asin);
 
-        return $this->getOneResult($queryBuilder->getQuery(), $cacheId);
+        return $this->getOneResult($queryBuilder->getQuery());
     }
 
     /**
@@ -160,6 +156,27 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         return $result;
     }
+    
+     /**
+     * return a Collection of last rated books
+     * @return type
+     */
+    public function getListLastRated($nbMaxResults) {
+
+        $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
+        $queryBuilder->select("b,p")->from("\Sb\Db\Model\Book ", "b")
+                ->distinct()
+                ->join("b.publisher", "p")
+                ->join("b.userbooks", "ub")
+                ->where("ub.rating >= 0")
+                ->orderBy("ub.last_modification_date", "DESC")
+                ->setMaxResults($nbMaxResults);
+
+        // We don't use cache as this is called always by service which cache the result
+        $result = $this->getResults($queryBuilder->getQuery(), null, false);
+
+        return $result;
+    }
 
     /**
      *
@@ -167,8 +184,6 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
      * return a Collection of books
      */
     public function getListBOHFriends($userId) {
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array(""));
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
@@ -185,7 +200,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->addOrderBy("b.nb_blow_of_hearts", "DESC")
                 ->setParameter("user_id", $userId);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
+        $result = $this->getResults($queryBuilder->getQuery());
 
         return $result;
     }
@@ -210,9 +225,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         return $result;
     }
 
-    public function getListLikedByUser($userId, $cacheDuration = null) {
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
+    public function getListLikedByUser($userId) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
@@ -224,18 +237,13 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->orderBy("ub.last_modification_date", "DESC")
                 ->setParameter("user_id", $userId);
 
-        // Set cache duration
-        if ($cacheDuration)
-            $this->setCacheDuration($cacheDuration);
-
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId, true);
+        // We don't cache this result as the function is only called by the book svc which dies the caching
+        $result = $this->getResults($queryBuilder->getQuery(), null);
 
         return $result;
     }
 
-    public function getListLikedByUsers($userIds, $cacheDuration = null) {
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array($userIds));
+    public function getListLikedByUsers($userIds) {
 
         $userIdsAsStr = implode(", ", $userIds);
 
@@ -248,13 +256,9 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             AND (ub.rating >=4 OR ub.is_wished = 1)
             ORDER BY b.average_rating DESC", $userIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
-        $query->setMaxResults(20);
+        $query->setMaxResults(30);
 
-        // Set cache duration
-        if ($cacheDuration)
-            $this->setCacheDuration($cacheDuration);
-
-        $result = $this->getResults($query, $cacheId, true);
+        $result = $this->getResults($query, null);
 
         return $result;
     }
@@ -263,7 +267,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         $tagIdsAsStr = implode(",", $tagIds);
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($tagIds));
+        $cacheId = $this->getCacheId(__FUNCTION__, array($tagIdsAsStr));
 
         $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
             JOIN b.contributors c
@@ -272,7 +276,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             WHERE t.id IN (%s)
             ORDER BY ub.last_modification_date DESC", $tagIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
-        $query->setMaxResults(20);
+        $query->setMaxResults(30);
 
         // Set cache duration
         if ($cacheDuration)
@@ -287,7 +291,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         $contributorIdsAsStr = implode(",", $contributorIds);
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($contributorIds));
+        $cacheId = $this->getCacheId(__FUNCTION__, array($contributorIdsAsStr));
 
         $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
             JOIN b.contributors c
@@ -295,7 +299,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             WHERE c.id IN (%s)
             ORDER BY ub.last_modification_date DESC", $contributorIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
-        $query->setMaxResults(20);
+        $query->setMaxResults(30);
 
         // Set cache duration
         if ($cacheDuration)

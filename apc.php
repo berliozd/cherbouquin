@@ -22,6 +22,8 @@
 
  */
 
+date_default_timezone_set('Europe/Paris');
+
 $VERSION='$Id: apc.php 307048 2011-01-03 23:53:17Z kalle $';
 
 ////////// READ OPTIONAL CONFIGURATION FILE ////////////

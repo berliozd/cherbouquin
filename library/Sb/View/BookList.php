@@ -30,10 +30,8 @@ class BookList extends \Sb\View\AbstractView {
         $booksTpl->set("listCssClass", $this->cssClass);
         $booksTpl->set("key", $this->key);
 
-        $script = sprintf("<script src=\"%s\"></script>", $this->baseUrl . "Resources/js/bookList.js");
-
         // affichage du template
-        return $script . $booksTpl->output();
+        return $booksTpl->output();
     }
 
 }

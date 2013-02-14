@@ -34,7 +34,7 @@ if ($_POST) {
             \Sb\Db\Dao\UserDao::getInstance()->update($user);
             // send email with new password
             $body = \Sb\Helpers\MailHelper::newPasswordBody($new_pass);
-            \Sb\Mail\Service\MailSvcImpl::getInstance()->send($user->getEmail(), __("Votre nouveau mot de passe", "s1b") . " " . \Sb\Entity\Constants::SITENAME, $body);
+            \Sb\Service\MailSvc::getInstance()->send($user->getEmail(), __("Votre nouveau mot de passe", "s1b") . " " . \Sb\Entity\Constants::SITENAME, $body);
             \Sb\Flash\Flash::addItem(__("Votre mot de passe a été mis à jour et un email vous a été envoyé.","s1b"));   
         } else {
             \Sb\Flash\Flash::addItem(__("Nous n'avons pas trouvé de compte correspondant à l'email saisi.","s1b"));   

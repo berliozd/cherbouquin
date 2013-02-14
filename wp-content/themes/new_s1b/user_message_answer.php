@@ -3,6 +3,9 @@ require_once 'includes/init.php';
 get_header();
 require_once 'user_message_answer_1.php';
 
+use Sb\View\Components\MailboxWidget;
+use Sb\View\Components\Ad;
+
 /**
  * Template Name: user_message_answer
  */
@@ -41,10 +44,18 @@ require_once 'user_message_answer_1.php';
         </form>            
     </div>
 </div>
-<div id="content-right">
-    <?php
-    $userToolBox = new \Sb\View\Components\UserToolBox;
-    echo $userToolBox->get();
-    ?>
+<div id="content-right">    
+    <div class="right-frame">
+        <?php
+        $mailboxWidget = new MailboxWidget();
+        echo $mailboxWidget->get();
+        ?>
+    </div>
+    <div class="right-frame">
+        <?php
+        $ad = new Ad("","");
+        echo $ad->get();
+        ?>
+    </div>
 </div>
 <?php get_footer(); ?>

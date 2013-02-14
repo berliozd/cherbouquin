@@ -1,8 +1,3 @@
-<script type="text/javascript">
-tinyMCE.init({
-        mode : "textareas"
-});
-</script>
 <div class="book-data">
     <?php if ($addHiddenFields) { ?>
     <input type="hidden" name="book_Id" class="book_Id" value="<?php echo $id; ?>" />
@@ -23,10 +18,6 @@ tinyMCE.init({
         <div class="pb-item pushedBook">
             <div class="pbi-image">
                 <?php echo $image; ?>
-                <a class="button bt-amazon float-left margin-left margin-top-l" target="_blank" href="<?php echo $buyOnAmazonLink; ?>" title="<?php _e("Acheter sur Amazon", "s1b");?>"></a>
-                <?php if ($buyOnFnacLink) { ?>
-                <a class="button bt-fnac float-left margin-left margin-top-m" target="_blank" href="<?php echo $buyOnFnacLink; ?>" title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>
-                <?php } ?>
             </div>            
             <div class="pbi-content">
                 <div class="pbi-flags">
@@ -61,11 +52,12 @@ tinyMCE.init({
                     <?php echo sprintf("de %s", $bookAuthors); ?>
                 </div>
                 <div class="pbi-description">
-                    <?php echo $bookDescription; ?>
+                    <?php echo $bookDescription; ?>                    
                 </div>
                 <div class="pbi-publication">
                     <?php echo $bookPublication; ?>
-                </div>            
+                </div>
+                <a href="#" class="link js_warnBadDescription"><?php _e("Signaler une description erronée.","s1b");?></a>
                 <?php if ($addButtons) { ?>
                     <div class="bv-buttons">
                         <?php if ($isConnected) { ?>
@@ -74,24 +66,22 @@ tinyMCE.init({
                                     <?php if ($lendingLink) { ?>
                                         <a href="<?php echo $lendingLink; ?>" class="button bv-lend bt-black-m"><?php echo $lendingText; ?></a>
                                     <?php } ?>
-                                    <a href="<?php echo $editBookLink; ?>" class="button bv-edit bt-blue-m"><?php _e("Modifier", "s1b"); ?></a>
-                                    <a href="<?php echo $facebookShareLink; ?>" class="button bt-facebook-m bv-sharefacebook"><?php _e("Partager", "s1b"); ?></a>
-                                    <a href="<?php echo $shareLink; ?>" class="button bv-share"><?php echo sprintf(__("Partager sur <strong>%s</strong>", "s1b"), \Sb\Entity\Constants::SITENAME); ?></a>
+                                    <a href="<?php echo $editBookLink; ?>" class="button bv-edit bt-blue-m"><?php _e("Modifier", "s1b"); ?></a>                                    
                                 </div>                        
                             <?php } else { ?>                        
                                 <a href="<?php echo $requestBorrowLink; ?>" class="button bv-requestborrow bt-black-m"><?php _e("Emprunter", "s1b"); ?></a>
                                 <button class="addUserBookBtn button bv-edit bs-button bt-blue-m"><?php _e("Ajouter", 's1b'); ?></button>
                             <?php } ?>
-                        <?php } ?>                        
+                        <?php } ?>        
                     </div>
-                <?php } ?>
-            </div>
+                <?php } ?>                
+            </div>            
         </div>
-        <?php echo $booksUsersAlsoLikedShelf;?>
-        <?php if ($addReviews) {
-            echo $reviews;
-        } ?>
+        
+        <?php echo $booksUsersAlsoLikedShelf;?>        
         <?php echo $booksWithSameTagsShelf;?>
-        <?php echo $booksWithSameContributorsShelf;?>        
+        <?php if ($addReviews) {?>        
+            <?php echo $reviews;
+        } ?>
     </div>
 </div>

@@ -1,18 +1,21 @@
 <?php
 
+use Sb\Helpers\ArrayHelper;
+
+
 $user = $context->getConnectedUser();
 $userSettings = $user->getSetting();
 
-$FirstName_modif = trim($_POST['FirstName_modif']);
-$LastName_modif = trim($_POST['LastName_modif']);
-$UserName_modif = trim($_POST['UserName_modif']);
-$Gender_modif = trim($_POST['Gender_modif']);
-$BirthDay_modif = trim($_POST['BirthDay_pre_modif']);
-$Address_modif = trim($_POST['Address_modif']);
-$City_modif = trim($_POST['City_modif']);
-$ZipCode_modif = trim($_POST['ZipCode_modif']);
-$Country_modif = trim($_POST['Country_modif']);
-$Language_modif = trim($_POST['Language_modif']);
+$FirstName_modif = trim(ArrayHelper::getSafeFromArray($_POST, "FirstName_modif", null));
+$LastName_modif = trim(ArrayHelper::getSafeFromArray($_POST, "LastName_modif", null));
+$UserName_modif = trim(ArrayHelper::getSafeFromArray($_POST, "UserName_modif", null));
+$Gender_modif = trim(ArrayHelper::getSafeFromArray($_POST, "Gender_modif", null));
+$BirthDay_modif = trim(ArrayHelper::getSafeFromArray($_POST, "BirthDay_pre_modif", null));
+$Address_modif = trim(ArrayHelper::getSafeFromArray($_POST, "Address_modif", null));
+$City_modif = trim(ArrayHelper::getSafeFromArray($_POST, "City_modif", null));
+$ZipCode_modif = trim(ArrayHelper::getSafeFromArray($_POST, "ZipCode_modif", null));
+$Country_modif = trim(ArrayHelper::getSafeFromArray($_POST, "Country_modif", null));
+$Language_modif = trim(ArrayHelper::getSafeFromArray($_POST, "Language_modif", null));
 
 // on vérifie que tous les champs soient complétés
 if (!empty($_POST) && strlen($LastName_modif) > 3 && strlen($FirstName_modif) > 1 && strlen($UserName_modif) > 1) {

@@ -1,0 +1,34 @@
+<div class="user-box">
+    <div class="js_communityLastEvents ub-lastevents">
+        <div class="ub-title-wrap">
+            <div class="ub-title">                
+                <?php _e("Dernières activités", "s1b"); ?>
+            </div>
+        </div>
+        <div class="ub-content">
+            <?php if (count($events) > 0) { ?>
+            <div class="ubc-part">
+                
+                    <?php
+                    foreach ($events as $event) {
+                        $event = new Sb\View\UserEvent($event, false);
+                        echo $event->get();
+                    }
+                    ?>
+                
+            </div>
+            <?php if (count($events) > 3) {?>
+            <div class="see-more">
+                <div class="inner-padding">
+                    <a class="link lnkCollapseExpand" href="#"></a>
+                </div>
+            </div>
+            <?php } ?>
+            <?php } else { ?>
+            <div class="ubc-part">
+                <?php _e("Il n'y a pas d'activité.", "s1b"); ?>                
+            </div>
+            <?php }?>
+        </div>
+    </div>
+</div>

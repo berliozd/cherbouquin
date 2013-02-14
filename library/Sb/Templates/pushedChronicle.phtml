@@ -2,15 +2,22 @@
     <div class="inner-padding-20">
         <div class="pci-left">
             <div class="pci-userimage">
-                <a title="<?php echo $userName; ?>" href="<?php echo $userProfileLink; ?>"><?php echo $userImage; ?></a>
+                <a title="<?php echo $userName; ?>" href="<?php echo $userProfileLink; ?>">
+                    <?php echo $userImage; ?>
+                </a>
             </div>
+            <?php if ($chronicleHasBook) { ?>
             <div class="pci-bookimage">
                 <a title="<?php echo $bookTitle; ?> - <?php echo $bookAuthors; ?>" href="<?php echo $bookLink; ?>"><?php echo $bookImage; ?></a>
             </div>
+            <?php } ?>
         </div>    
         <div class="pci-right">
             <div class="pci-head">
-                <?php _e("<strong>Un jour, un livre,</strong> la chronique", "s1b"); ?>
+                <?php _e("<strong>Un jour, un livre,</strong> la chronique", "s1b"); ?>                
+            </div>
+            <div class="pci-username">
+                <?php echo sprintf(__("par <a class=\"link\" href=\"%s\">%s</a>","s1b"), $userProfileLink, $userName);?>
             </div>
             <div class="pci-title">
                 <?php echo $title; ?>
@@ -18,9 +25,16 @@
             <div class="pci-text">
                 <?php echo $text; ?>
             </div>
-            <div class="pci-link">
-                <a href="<?php echo $link; ?>" class="link" target="_blank"><?php echo $link; ?></a>
+            <?php if ($link) { ?>
+            <div class="pci-link">                
+                <a href="<?php echo $link; ?>" class="link <?php echo $linkCss; ?>" target="_blank"><?php echo $linkText; ?></a>
             </div>
+            <?php } ?>
+            <?php if ($source) { ?>
+            <div class="pci-source">
+                <?php echo sprintf(__("via %s","s1b"), $source); ?>
+            </div>
+            <?php } ?>
         </div>
     </div>
 </div>

@@ -11,7 +11,8 @@ use Sb\Db\Dao\TagDao;
  */
 class TagSvc extends \Sb\Db\Service\Service {
 
-    const TAGS_DATA_KEY = "tags";
+    const ALL_TAGS = "ALL_TAGS";
+    const TAGS_BOOK = "TAGS_BOOK";
 
     private static $instance;
 
@@ -30,9 +31,9 @@ class TagSvc extends \Sb\Db\Service\Service {
     }
 
     public function getAllTags($ordeColumn) {
-        $dataKey = self::TAGS_DATA_KEY;
+        $dataKey = self::ALL_TAGS;
         $data = $this->getData($dataKey);
-        if (!$data) {
+        if ($data === false) {
             $data = $this->getDao()->getAll(array(), array($ordeColumn => "ASC"));
             $this->setData($dataKey, $data);
         }
@@ -49,22 +50,23 @@ class TagSvc extends \Sb\Db\Service\Service {
         try {
             $bookIds = array_map(array(&$this, "getId"), $books);
 
-            $dataKey = __FUNCTION__ . "_" . implode("_", $bookIds);
+            $dataKey = self::TAGS_BOOK . "_bids_" . implode("_", $bookIds);
 
             $data = $this->getData($dataKey);
-            if (!$data) {
 
+            // If no data are cached
+            if ($data === false) {
                 $data = TagDao::getInstance()->getTagsForBooks($bookIds);
                 $this->setData($dataKey, $data);
             }
 
             return $data;
         } catch (\Exception $exc) {
-            $this->logException("TagSvc", __FUNCTION__, $exc);
+            $this->logException(get_class(), __FUNCTION__, $exc);
         }
         return null;
     }
-    
+
     /**
      * Get the book id, called in array_map
      * @param \Sb\Db\Model\Book $book

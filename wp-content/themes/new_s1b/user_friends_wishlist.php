@@ -6,10 +6,15 @@ require_once 'user_friends_wishlist_1.php';
 // Always put get_header() after otherwise Flash messages won't work properly (mainly when page is POSTed on it self)
 get_header();
 
-use Sb\Helpers\HTTPHelper;
 use Sb\Entity\Urls;
-use Sb\Helpers\BookHelper;
+use Sb\View\Components\FriendsWidget;
+use Sb\View\Components\Ad;
 
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\BookHelper;
+use Sb\Helpers\ArrayHelper;
+use Sb\Helpers\StringHelper;
+use Sb\Helpers\UserHelper;
 /**
  * Template Name: user_friends_wishlist
  */
@@ -29,7 +34,9 @@ use Sb\Helpers\BookHelper;
                             <option value=""><?php _e("Aucun", "s1b"); ?></option>
                             <?php if ($friends && count($friends) > 0) { ?>
                                 <?php foreach ($friends as $friend) { ?>
-                                    <option <?php echo (($selectedFriend && ($friend->getId() == $selectedFriend->getId())) ? "selected" : ""); ?> value="<?php echo $friend->getId(); ?>"><?php echo $friend->getFriendlyName(); ?></option>
+                                    <option <?php echo (($selectedFriend && ($friend->getId() == $selectedFriend->getId())) ? "selected" : ""); ?> value="<?php echo $friend->getId(); ?>">
+                                        <?php echo StringHelper::tronque(UserHelper::getFullName($friend), 30);?>
+                                    </option>
                                 <?php } ?>
                             <?php } ?>
                         </select>
@@ -54,13 +61,13 @@ use Sb\Helpers\BookHelper;
                                 &nbsp;-&nbsp;
                                 <span class="fwb-line-title"><?php _e("Emails séparés par une virgule *", "s1b"); ?></span>
                             </div>
-                            <input type="text" class="input-item mnm-emails" name="emails" maxlength="250" value="<?php echo $_GET["emails"];?>"/>
+                            <input type="text" class="input-item mnm-emails" name="emails" maxlength="250" value="<?php echo ArrayHelper::getSafeFromArray($_GET, "emails", "");?>"/>
                             <button class="button bt-blue-m float-right margin-left"><?php _e("Envoyer", "s1b"); ?></button>
                         </div>                    
                     </form>
                 </div>
                 <div class="horizontal-sep-1"></div>
-                <div class="friend-title"><?php echo sprintf(__("Livres souhaités par %s", "s1b"), $selectedFriend->getFriendlyName()); ?></div>
+                <div class="friend-title"><?php echo sprintf(__("Livres souhaités par %s", "s1b"), StringHelper::tronque(UserHelper::getFullName($selectedFriend), 30)); ?></div>
                 <div class="friend-books">
                     <?php
                     foreach ($friendWishedBooks as $friendUserBook) {
@@ -106,13 +113,13 @@ use Sb\Helpers\BookHelper;
 <div id="content-right">
     <div class="right-frame">
         <?php
-        $userToolBox = new \Sb\View\Components\UserToolBox;
-        echo $userToolBox->get();
+        $friendWidget = new FriendsWidget;
+        echo $friendWidget->get();
         ?>
     </div>
     <div class="right-frame">
         <?php
-        $ad = new \Sb\View\Components\Ad("user_friends", "2432422854");
+        $ad = new Ad("user_friends", "2432422854");
         echo $ad->get();
         ?>
     </div>

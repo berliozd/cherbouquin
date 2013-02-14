@@ -1,7 +1,5 @@
 <?php
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 namespace Sb\Db\Model;
 
 /** @Entity @Table(name="s1b_books") */
@@ -60,12 +58,12 @@ class Book implements \Sb\Db\Model\Model {
     protected $amazon_url;
 
     /**
-     * @ManyToMany(targetEntity="Contributor", fetch="EAGER")
+     * @ManyToMany(targetEntity="Contributor")
      * @JoinTable(name="s1b_bookcontributors",
      *      joinColumns={@JoinColumn(name="book_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="contributor_id", referencedColumnName="id")}
      *      )
-     * */    
+     * */
     protected $contributors; // WARNING : Fetch mode is declared EAGER because we want to automatically get the contributors (and have it stored in cache with a Book)
 
     /**
@@ -97,7 +95,7 @@ class Book implements \Sb\Db\Model\Model {
 
     /** @OneToMany(targetEntity="GroupChronicle", mappedBy="book", fetch="EXTRA_LAZY")  */
     protected $groupchronicles;
-    
+
 //~ Getters & setters
 
     public function getId() {
@@ -254,7 +252,6 @@ class Book implements \Sb\Db\Model\Model {
         $this->groupchronicles = $groupchronicles;
     }
 
-        
     public function getTagImg($defImg) {
         $tagImg = "";
         if ($this->getLargeImageUrl()) {
@@ -342,7 +339,7 @@ class Book implements \Sb\Db\Model\Model {
 
     public function updateAggregateFields($ratingDiff, $ratingAdded, $ratingRemoved, $blowOfHeartsAdded, $blowOfHeartsRemoved) {
 
-    //var_dump("ratingDiff : " . $ratingDiff . " - ratingAdded : " . $ratingAdded . " - blowOfHeartsAdded : " . $blowOfHeartsAdded . " - blowOfHeartsRemoved : " . $blowOfHeartsRemoved);
+        //var_dump("ratingDiff : " . $ratingDiff . " - ratingAdded : " . $ratingAdded . " - blowOfHeartsAdded : " . $blowOfHeartsAdded . " - blowOfHeartsRemoved : " . $blowOfHeartsRemoved);
 
         $this->rating_sum += $ratingDiff;
 
@@ -441,7 +438,11 @@ class Book implements \Sb\Db\Model\Model {
     }
 
     public function getOrderableContributors() {
-        return implode(array_map(array(&$this, "getOrderableContributor"), $this->getContributors()->toArray()), ", ");
+        if ($this->getContributors() != null && count($this->getContributors()) > 0)
+            $result = implode(array_map(array(&$this, "getOrderableContributor"), $this->getContributors()->toArray()), ", ");
+        else
+            $result = "";
+        return $result;
     }
 
     public function getOrderableContributor(\Sb\Db\Model\Contributor $contributor) {
@@ -451,7 +452,7 @@ class Book implements \Sb\Db\Model\Model {
     public function getLink() {
         $encodedTitle = \Sb\Helpers\HTTPHelper::encodeTextForURL($this->getTitle());
         $encodedAuthors = \Sb\Helpers\HTTPHelper::encodeTextForURL($this->getOrderableContributors());
-        return sprintf("livre/%s/%s/%s/", $encodedTitle, $encodedAuthors, $this->getId());
+        return sprintf("livre/%s/%s/%s", $encodedTitle, $encodedAuthors, $this->getId());
     }
 
     private function isNotDeleted(\Sb\Db\Model\UserBook $userBook) {

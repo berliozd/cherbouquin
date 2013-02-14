@@ -25,18 +25,14 @@ class BookSearch extends \Sb\View\AbstractView {
     }
 
     public function get() {
-        \Sb\Trace\Trace::addItem("Dans \Sb\View\BookSearch render");
         $lineIdx = 0;
         foreach (array_values($this->shownResults) as $book) {
             $lineIdx++;
 
+            $addSep = true;
             if ($lineIdx == 1)
                 $addSep = false;
-            else
-                $addSep = true;
 
-
-            $bk = new \Sb\Db\Model\Book();
             $bk = $book;
 
             $language = urlencode($bk->getLanguage());
@@ -75,9 +71,8 @@ class BookSearch extends \Sb\View\AbstractView {
             }
 
             $pubDtStr = "";
-            if ($book->getPublishingDate()) {
+            if ($book->getPublishingDate())
                 $pubDtStr = $book->getPublishingDate()->format("Y-m-d H:i:s");
-            }
 
             $amazonUrl = $book->getAmazonUrl();
 
@@ -86,25 +81,19 @@ class BookSearch extends \Sb\View\AbstractView {
             $cssClass = (($lineIdx % 2) ? "lineA" : "lineB");
 
             $viewBookLink = null;
-            if ($bk->getId()) {
-//                $viewBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL,
-//                                array("page" => \Sb\Entity\LibraryPages::BOOK_VIEW, "bid" => $bk->getId()));
+            if ($bk->getId())
                 $viewBookLink = \Sb\Helpers\HTTPHelper::Link($bk->getLink());
-            }
 
             $resultTpl = new \Sb\Templates\Template('searchBook/resultRow');
             $resultTpl->set('cssClass', $cssClass);
-            $resultTpl->set('tagImg', $tagImg);
             $resultTpl->set('title', $title);
             $resultTpl->set('publisher', $pubInfo);
             $resultTpl->set('author', $author);
-            $resultTpl->set('categories', $categories);
             $resultTpl->set('id', $id);
             $resultTpl->set('isbn10', $isbn10);
             $resultTpl->set('isbn13', $isbn13);
             $resultTpl->set('asin', $asin);
             $resultTpl->set('titleEsc', $titleEsc);
-            $resultTpl->set('subtitleEsc', $subtitleEsc);
             $resultTpl->set('descEsc', $descEsc);
             $resultTpl->set('desc', $desc);
             $resultTpl->set('smallImg', $smallImg);
@@ -135,7 +124,4 @@ class BookSearch extends \Sb\View\AbstractView {
 
         return $resultsTpl->output();
     }
-
 }
-
-?>

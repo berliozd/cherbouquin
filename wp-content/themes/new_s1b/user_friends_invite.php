@@ -1,6 +1,11 @@
 <?php
 require_once 'includes/init.php';
 require_once 'user_friends_invite_1.php';
+
+use Sb\View\Components\FriendsWidget;
+use Sb\View\Components\Ad;
+use Sb\Helpers\ArrayHelper;
+
 get_header();
 /**
  * Template Name: user_friends_invite
@@ -12,7 +17,7 @@ get_header();
             <div class="mnm-title"><?php _e("Envoyer une invitation", "s1b"); ?></div>
             <div class="mnm-line">
                 <div class="mnm-line-title"><?php _e("Emails (séparés par une virgule) *", "s1b"); ?></div>
-                <input type="text" class="input-item mnm-emails" name="Emails" maxlength="250" value="<?php echo $_POST["Emails"];?>"/>
+                <input type="text" class="input-item mnm-emails" name="Emails" maxlength="250" value="<?php echo ArrayHelper::getSafeFromArray($_POST, "Emails", "");?>"/>
             </div>
             <div class="mnm-line">
                 <div class="mnm-line-title"><?php _e("Message *", "s1b"); ?></div>                    
@@ -30,9 +35,17 @@ get_header();
     </form>
 </div>
 <div id="content-right">
+    <div class="right-frame">
+        <?php
+        $friendWidget = new FriendsWidget;
+        echo $friendWidget->get();
+        ?>
+    </div>
+    <div class="right-frame">
     <?php
-    $userToolBox = new \Sb\View\Components\UserToolBox;
-    echo $userToolBox->get();
+        $ad = new Ad("user_friends", "2432422854");
+        echo $ad->get();
     ?>
+    </div>
 </div>
 <?php get_footer(); ?>

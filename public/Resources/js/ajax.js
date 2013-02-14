@@ -1,72 +1,43 @@
+
+
+/* ======================================================================= */
+/* ====================== global ajax loading ============================ */
+/* ======================================================================= */
+
+
+var toInit = new Array();
 $(function () {
-    attachShare1BookEvents();
+    ajaxInit();
 });
 
-function attachShare1BookEvents(){
-
-    /* Hide the flahes messages when clicking anywhere */
-    attachFlashHiding();
-
-    /* Search book result navigation */
-    attachSearchBookNavigation();
-
-    /* Library navigation */
-    attachLibraryNavigation();
-
-    /* Library sorting */
-    attachLibrarySorting();
-
-    /* Filtering by title or author */
-    attachListEvents();
-    
-    /* Book search field clearing on focus */
-    attachBookSearchEvents();
-    
-    /* Friend search field clearing on focus */
-    attachFriendSearchEvents();
-    
-    /* Login field clearing on focus */
-    attachLoginEvents();
-    
-    /* Registration form events */
-    attachRegistrationFormEvents();
-    
-    /* Profile edit date picker */
-    initProfileDatePicker();
-    
-    /* Add a userbook on click */
-    attachAddUserBook();        
-       
+function ajaxInit(){
+    for(i=0; i <= toInit.length; i++ ) {
+        eval(toInit[i]);
+    }
 }
 
-/* Library sorting */
-function attachLibrarySorting() {
-    $(".library-list .sortLine .sort").click(function(event){
-        doSort(event, this, ".library-list", 'library/sort');
-    });
-}
 
-/* Search book result navigation */
-function attachLibraryNavigation(){
-    $(".pageNav.library a").click(function(event){
-        doNav(event, this, ".library-list", 'library/get-page');
-    });
-}
-    
-/* Search book result navigation */
-function attachSearchBookNavigation(){    
-    $(".pageNav.searchBook a").click(function(event){
-        doNav(event, this, "#searchBookResults", 'book-search/get-page');
-    });
-}
+/* ======================================================================= */
+/* ====================== attaching functions ============================ */
+/* ======================================================================= */
+
+
+toInit.push("attachFlashHiding()");
+toInit.push("initProfileDatePicker()");
+toInit.push("attachRegistrationFormEvents()");
+toInit.push("attachFriendSearchEvents()");
+toInit.push("attachLoginEvents()");
+toInit.push("attachAddUserBook()");
+
 
 /* Hide the flahes messages when clicking anywhere*/
 function attachFlashHiding() {
-    
     $("#flashes-wrap").click(function() {
         $("#flashes-wrap").remove();
     });
 }
+
+
 
 /* Profile edit date picker */
 function initProfileDatePicker() {
@@ -79,6 +50,7 @@ function initProfileDatePicker() {
     });
 }
 
+
 /* Registration form events */
 function attachRegistrationFormEvents() {
     $(".registrationPwd").focus(function() {        
@@ -86,68 +58,49 @@ function attachRegistrationFormEvents() {
     });
 }
 
-/* Book search field clearing on focus */
-function attachBookSearchEvents() {
-    attachInputClearingAndRestore("bookSearchTermDef", "#nav-main .bookSearchTermField");    
-}
 
 /* Friend search field clearing on focus */
 function attachFriendSearchEvents() {
-    attachInputClearingAndRestore("friendSearchDef", ".friendSearchField");    
+    _attachInputClearingAndRestore("friendSearchDef", ".friendSearchField");    
 }
+
 
 /* Login field clearing on focus */
 function attachLoginEvents() {
-    attachInputClearingAndRestore("loginDef", ".loginField");    
+    _attachInputClearingAndRestore("loginDef", ".loginField");    
     $(".loginPwd").focus(function() {        
         $(this).val("");        
     });
 }
 
-function attachInputClearingAndRestore(defClass, selector) {
-    var bookSearchTermDef = $("." + defClass).val();
-    $(selector).focus(function() {
-        if ($(this).val() == bookSearchTermDef) {
-            $(this).val("");
-        }
-    });
 
-    $(selector).blur(function(){
-        if ($(this).val() == "") {
-            $(this).val(bookSearchTermDef);
-        }
-    });
+/* Add a userbook on click */
+function attachAddUserBook() {
+    $(".addUserBookBtn").click(function(p_event) {
+        p_event.preventDefault();        
+        _addUserBook(this);
+    }); 
 }
 
-/* Filtering by title or author */
-function attachListEvents() {
-    $("#authorsFirstLetterSelect").change(function(){
-        val = $(this).val(); 
-        $("#listFilterFormFilter").val(val);
-        $("#listFilterFormFilterType").val("author");
-        $("#listFilterForm").submit();
-    });
-    $("#titlesFirstLetterSelect").change(function(){
-        val = $(this).val(); 
-        $("#listFilterFormFilter").val(val);
-        $("#listFilterFormFilterType").val("title");
-        $("#listFilterForm").submit();
-    });
-}
+
+/* ======================================================================= */
+/* ====================== private function =============================== */
+/* ======================================================================= */
+
 
 // Fonction appelée lors des clicks sur les liens de navigation
-function doNav(event, sender, container, action){
+function _doNav(event, sender, container, action){
     var pagenumber = jQuery(sender).attr("pagenumber");
-    doAjax(event, container, action, pagenumber );
+    _doAjax(event, container, action, pagenumber );
 }
 
 // Fonction appelée pour le tri
-function doSort(event, sender, container, action){
+function _doSort(event, sender, container, action){
     var sortCriteria = jQuery(sender).attr("sortcriteria");
-    doAjax(event, container, action, sortCriteria);
+    _doAjax(event, container, action, sortCriteria);
 }
 
-function doAjax(event, container, action, paramValue){
+function _doAjax(event, container, action, paramValue){
     var key = $(container).attr("key");
     event.preventDefault();
     $("#loading #loadingMsg").html("Chargement en cours ...");
@@ -163,7 +116,154 @@ function doAjax(event, container, action, paramValue){
             $(container).html(response);
             $("#loading").hide();
             // Attache à nouveau le handler au click des liens de navigation dans le code HTML renvoyé
-            attachShare1BookEvents();
+            ajaxInit();
         }
         );
 };
+
+function _getUserBookDataString(sender) {
+    id = _getValue(sender, "book_Id");
+    isbn10 = _getValue(sender, "book_ISBN10");
+    isbn13 = _getValue(sender, "book_ISBN13");
+    asin = _getValue(sender, "book_ASIN");
+    title = _getValue(sender, "book_Title");
+    description = _getValue(sender, "book_Description");
+    imageUrl = _getValue(sender, "book_ImageUrl");
+    smallImageUrl = _getValue(sender, "book_SmallImageUrl");
+    largeImageUrl = _getValue(sender, "book_LargeImageUrl");
+    author = _getValue(sender, "book_Author");
+    publisher = _getValue(sender, "book_Publisher");
+    publishingDate = _getValue(sender, "book_PublishingDate");
+    amazonUrl = _getValue(sender, "book_AmazonUrl");
+    nbOfPages = _getValue(sender, "book_NbOfPages");
+    language = _getValue(sender, "book_Language");
+    return "book_Id=" + id 
+    + "&book_ISBN10=" + isbn10 
+    + "&book_ISBN13=" + isbn13 
+    + "&book_ASIN=" + asin 
+    + "&book_Title=" + title
+    + "&book_Description=" + description
+    + "&book_ImageUrl=" + imageUrl 
+    + "&book_SmallImageUrl=" + smallImageUrl 
+    + "&book_LargeImageUrl=" + largeImageUrl 
+    + "&book_Author=" + author 
+    + "&book_Publisher=" + publisher
+    + "&book_PublishingDate=" + publishingDate
+    + "&book_AmazonUrl=" + amazonUrl 
+    + "&book_NbOfPages=" + nbOfPages
+    + "&book_Language=" + language;
+};
+    
+function _getValue(sender, classe){
+    return escape($("." + classe, $(sender).parents(".book-data")).val());
+}
+                
+function _addUserBook(sender) {
+    $("#loading #loadingMsg").html("Ajout en cours ..."); // affiche le masque de loading "chargement en cours..."
+    $("#loading").show(); // affiche le masque de loading "chargement en cours..."
+    $.ajax({  
+        type: "POST",        
+        url: share1BookAjax.url + "userbook/add/format/html",  
+        data: _getUserBookDataString(sender),  
+        success: function(data) {
+            //$('#flashes-wrap').remove();
+            $("#loading").hide(); 
+            _addFlashMessage(data);
+        }  
+    });    
+}
+
+function _attachInputClearingAndRestore(defClass, selector) {
+    var bookSearchTermDef = $("." + defClass).val();
+    $(selector).focus(function() {
+        if ($(this).val() == bookSearchTermDef) {
+            $(this).val("");
+        }
+    });
+
+    $(selector).blur(function(){
+        if ($(this).val() == "") {
+            $(this).val(bookSearchTermDef);
+        }
+    });
+}
+
+function _addFlashMessage(message) {
+    $("#loading").hide(); 
+    $('#page').append("<div id=\"flashes-wrap\"><div id=\"flashes-background\"></div><div id='flashes'><div id='flashes-close-button'></div><ul><li>" + message + "</li></ul></div></div>");
+    $("#flashes-wrap").click(function() {
+        $("#flashes-wrap").remove();
+    });
+}
+
+
+
+// Expand / Collapse ======================================
+function _attachExpandCollapseBehavior(containerClass, itemClass, labelLess, labelMore) {
+    // Récupération des items dont l'index est supérieur à 3
+    var nbBooksShownByDefault = 3;
+    var idx = nbBooksShownByDefault-1;
+    var rows = jQuery("." + itemClass + ":gt(" + idx + ")", jQuery("." + containerClass));
+    var link = jQuery(".lnkCollapseExpand", jQuery(rows).parents("." + containerClass));
+    
+    
+    // Récupération des cellules visibles dans ces TR
+    var visibleCells = jQuery("DIV:visible", rows);
+    // si il y en a, on doit les cacher
+    if (visibleCells.length > 0){
+        _updateList(rows, link, false, labelLess, labelMore);
+    }else {// sinon on doit les afficher
+        _updateList(rows, link, true, labelLess, labelMore);
+    }
+
+    $("." + containerClass + " .lnkCollapseExpand").click(function(p_event){
+        p_event.preventDefault();
+        // Récupération des TR dont l'index est supérieur à 3 dans la liste parente
+        var rows = jQuery("." + itemClass + ":gt(" + idx + ")", jQuery(this).parents("." + containerClass));
+        var visibleCells = jQuery("DIV:visible", rows);
+        if (visibleCells.length > 0){
+            _updateList(rows, this, false, labelLess, labelMore);
+        }else {
+            _updateList(rows, this, true, labelLess, labelMore);
+        }
+
+    });
+}
+
+function _updateList(rows, link, show, labelLess, labelMore){
+    if (show){
+        jQuery(rows).show();
+        jQuery(link).text(labelLess);
+    }else{
+        jQuery(rows).hide();
+        jQuery(link).text(labelMore);
+    }
+}
+
+function initCarousel(className, width, height) {
+    $("ul." + className).simplecarousel({
+        width:width,
+        height:height,
+        auto: 8000,
+        fade: 200,
+        pagination: true
+    });
+}
+
+function initCoverFlip(cssId, separation) {
+    $("#" + cssId).waterwheelCarousel({
+        startingWaveSeparation: 0,
+        centerOffset: 30,
+        startingItemSeparation: separation,
+        itemSeparationFactor: .7,
+        opacityDecreaseFactor: 1,
+        autoPlay: 1500,
+        movedToCenter: function(newCenterItem) { 
+            $(".coverflip-caption", $("#" + cssId)).hide();
+            $(".coverflip-caption", newCenterItem.parent()).show();
+        },
+        clickedCenter: function(clickedItem) {
+            document.location.href = clickedItem.attr('href');
+        }
+    });
+}

@@ -4,6 +4,7 @@ use Doctrine\ORM\Configuration,
     Doctrine\DBAL\Event\Listeners\MysqlSessionInit,
     \Sb\Helpers\EntityHelper;
 
+date_default_timezone_set('Europe/Paris');
 
 /*
   Plugin Name: share1Book
@@ -116,7 +117,7 @@ if (!class_exists('share1Book')) {
 
             // Load languages files
             $plugin_dir = basename(dirname(__FILE__));
-            load_plugin_textdomain('share1book', true, $plugin_dir . "/Languages");
+            load_plugin_textdomain('share1book', true, BASE_PATH . "Languages");
 
             // register differents hooks and actions
             add_action('plugins_loaded', array(&$this, 'onPluginsLoaded'));
@@ -260,7 +261,7 @@ if (!class_exists('share1Book')) {
             if (strpos($name, "Proxies\\__CG__\\") !== false)
                 $isProxy = true;
             if ($isProxy) {
-                $prefix = "\Sb\Db\Proxies\__CG__";
+                $prefix = "Sb\Db\Proxies\__CG__";
                 $name = str_replace("Proxies\\__CG__\\", "", $name);
                 $name = $prefix . str_replace("\\", "", $name);
             }
@@ -359,8 +360,8 @@ if (!class_exists('share1Book')) {
             }
         }
 
-        private function createBookList($key, $fullKey, $books, $listOptions) {
-            return new \Sb\Lists\BookList($this->config->getListNbBooksPerPage(), $books, $this->baseDir, $listOptions);
+        private function createBookList($books, $listOptions) {
+            return new \Sb\Lists\BookList($this->config->getListNbBooksPerPage(), $books, $listOptions);
         }
 
         public function formateListKey($key) {
@@ -394,7 +395,7 @@ if (!class_exists('share1Book')) {
             }
 
             // Prepare list
-            $list = $this->createBookList($key, $fullKey, $books, $listOpts);
+            $list = $this->createBookList($books, $listOpts);
 
             $authorsFirstLetters = $this->getListMetaData($fullKey, Sb\Lists\MetaDataType::AUTHORS_FIRST_LETTERS);
             $titlesFirstLetters = $this->getListMetaData($fullKey, Sb\Lists\MetaDataType::TITLES_FIRST_LETTERS);
@@ -441,15 +442,15 @@ if (!class_exists('share1Book')) {
 
             // Registering Zend autoload
             set_include_path(get_include_path() . PATH_SEPARATOR . BASE_PATH . "/library");
-
+            
             if (!defined('WP_ZEND_FRAMEWORK'))
                 define('WP_ZEND_FRAMEWORK', true);
-            require_once '/Zend/Loader/Autoloader.php';
+            require_once 'Zend/Loader/Autoloader.php';
             $autoloader = Zend_Loader_Autoloader::getInstance();
 
             // Registering Doctrine autoload
-            require_once '/Doctrine/Doctrine/ORM/Tools/Setup.php';
-            Doctrine\ORM\Tools\Setup::registerAutoloadGit("/Doctrine");
+            require_once 'Doctrine/Doctrine/ORM/Tools/Setup.php';
+            Doctrine\ORM\Tools\Setup::registerAutoloadGit("Doctrine");
 
             // Registering Share1book autoload
             spl_autoload_register(array($this, 'loadClass'));
@@ -486,7 +487,7 @@ if (!class_exists('share1Book')) {
             $globalContext = $context;
 
             // mailSvc needs config object just created to create itself
-            $this->mailSvc = \Sb\Mail\Service\MailSvcImpl::getInstance();
+            $this->mailSvc = \Sb\Service\MailSvc::getInstance();
         }
 
 

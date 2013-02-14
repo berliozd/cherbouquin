@@ -1,7 +1,5 @@
 <?php
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 namespace Sb\Db\Model;
 
 /** @Entity @Table(name="s1b_contributors") */
@@ -122,5 +120,4 @@ class Contributor implements \Sb\Db\Model\Model {
             return $this->getFirst_name() . " " . $this->getLast_name();
         return $this->getFullName();
     }
-
 }

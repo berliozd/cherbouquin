@@ -8,11 +8,10 @@ use \Sb\Helpers\ArrayHelper;
 use \Sb\Db\Dao\InvitationDao;
 use \Sb\Helpers\HTTPHelper;
 use \Sb\Entity\Urls;
-use \Sb\Mail\Service\MailSvcImpl;
+use Sb\Service\MailSvc;
 use \Sb\Db\Model\Invitation;
 use \Sb\Db\Model\Guest;
 use \Sb\Entity\Constants;
-use \Sb\Trace\Trace;
 
 $user = $context->getConnectedUser();
 $continue = true;
@@ -115,7 +114,7 @@ if ($_POST) {
                             $message .= sprintf(__("<a href=\"%s\">S'inscrire</a> ou <a href=\"%s\">Refuser</a>", "s1b"), HTTPHelper::Link(Urls::SUBSCRIBE), HTTPHelper::Link(Urls::REFUSE_INVITATION, array("Token" => $token, "Email" => $emailToInvite)));
                             $message .= "<br/><br/>";
                             $message .= "<strong>" . sprintf(__("L'équipe %s", "s1b"), Constants::SITENAME) . "<strong/>";
-                            MailSvcImpl::getNewInstance($user->getEmail(), $user->getEmail())->send($emailToInvite, sprintf(__("Invitation à rejoindre %s", "s1b"), Constants::SITENAME), $message);
+                            MailSvc::getNewInstance($user->getEmail(), $user->getEmail())->send($emailToInvite, sprintf(__("Invitation à rejoindre %s", "s1b"), Constants::SITENAME), $message);
 
                             // Create invitation
                             $invitation = new Invitation();

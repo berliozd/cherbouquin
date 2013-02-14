@@ -2,9 +2,14 @@
 
 namespace Sb\Db\Service;
 
-use \Sb\Db\Model\UserBook;
-use \Sb\Form\UserBook as UserBookForm;
-use \Sb\Trace\Trace;
+use Sb\Db\Model\UserBook;
+use \Sb\Db\Model\UserEvent;
+use Sb\Form\UserBook as UserBookForm;
+use Sb\Trace\Trace;
+use Sb\Db\Dao\UserEventDao;
+use Sb\Db\Dao\UserBookDao;
+use Sb\Db\Dao\UserDao;
+use Sb\Entity\EventTypes;
 
 /**
  *
@@ -13,6 +18,10 @@ use \Sb\Trace\Trace;
 class UserEventSvc extends \Sb\Db\Service\Service {
 
     private static $instance;
+
+    const USER_LAST_EVENT_OF_TYPE = "USER_LAST_EVENT_OF_TYPE";
+    const LAST_EVENT_OF_TYPE = "LAST_EVENT_OF_TYPE";
+    const FRIENDS_LAST_EVENT_OF_TYPE = "FRIENDS_LAST_EVENT_OF_TYPE";
 
     /**
      *
@@ -56,10 +65,10 @@ class UserEventSvc extends \Sb\Db\Service\Service {
             if ($oldUserBook->getHyperlink() != $newUserBook->getHyperLink()) {
                 $userEvent = new \Sb\Db\Model\UserEvent;
                 $userEvent->setItem_id($oldUserBook->getId());
-                $userEvent->setUser($oldUserBook->getUser());                
+                $userEvent->setUser($oldUserBook->getUser());
                 // Removing http:// or https:// from url
                 $newHyperlink = str_replace("http://", "", $newUserBook->getHyperLink());
-                $newHyperlink = str_replace("https://", "", $newHyperlink);                
+                $newHyperlink = str_replace("https://", "", $newHyperlink);
                 $userEvent->setNew_value($newHyperlink);
                 $userEvent->setOld_value($oldUserBook->getHyperlink());
                 $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_HYPERLINK_CHANGE);
@@ -110,8 +119,107 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 }
             }
         } catch (\Exception $exc) {
-            Trace::addItem("Une erreur s'est produite lors de l'enregistrment des uservents");
+            Trace::addItem("Une erreur s'est produite lors de l'enregistrement des uservents");
         }
+    }
+
+    public function getLastEventsOfType($typeId = null, $maxResult = 10) {
+        try {
+            $dataKey = self::LAST_EVENT_OF_TYPE  . "_tid_" . $typeId . "_m_" . $maxResult;
+            $result = $this->getData($dataKey);
+            if ($result === false) {
+                $result = UserEventDao::getInstance()->getListLastEventsOfType($typeId, $maxResult);
+                // Looping all events and set the book item for each
+                foreach ($result as $event) {
+                    // Make the event richer with book and contributors
+                    $event = $this->getFullBookRelatedUserEvent($event);
+                }
+                $this->setData($dataKey, $result);
+            }
+            return $result;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
+    public function getFriendsLastEventsOfType($userId, $typeId) {
+        try {
+            $dataKey = self::FRIENDS_LAST_EVENT_OF_TYPE . "_uid_" . $userId . "_tid_" . $typeId;
+            $result = $this->getData($dataKey);
+            if ($result === false) {
+                $result = UserEventDao::getInstance()->getListUserFriendsUserEventsOfType($userId, $typeId);
+                // Looping all events and set the book item for each
+                foreach ($result as $event) {
+                    // Make the event richer with book and contributors
+                    $event = $this->getFullBookRelatedUserEvent($event);
+                }
+                $this->setData($dataKey, $result);
+            }
+            return $result;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
+    /**
+     * Get last events of a certain type for a user
+     * @param type $userId
+     * @param type $typeId
+     * @return type
+     */
+    public function getUserLastEventsOfType($userId, $typeId = null, $maxResult = 10) {
+        try {
+            $dataKey = self::USER_LAST_EVENT_OF_TYPE . "_uid_" . $userId . "_tid_" . $typeId . "_m_" . $maxResult;
+            $result = $this->getData($dataKey);
+            if ($result === false) {
+                $result = UserEventDao::getInstance()->getListUserUserEventsOfType($userId, $typeId, $maxResult);
+                // Looping all events and set nested members depending on event type
+                foreach ($result as $event) {
+                    switch ($event->getType_id()) {
+                        case EventTypes::USERBOOK_REVIEW_CHANGE:                            
+                            $event = $this->getFullBookRelatedUserEvent($event);
+                            break;
+                        case EventTypes::USER_ADD_FRIEND:
+                            $friend = UserDao::getInstance()->get($event->getNew_value());
+                            /*
+                             * IMPORTANT !!!
+                             * Do not remove line below : accessing a property (here username) is done to properly initialize the proxy object
+                             */                            
+                            $friend->setUserName($friend->getUserName());
+                            /**
+                             * End IMPORTANT
+                             */
+                            if ($friend)
+                                $event->setFriend($friend);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                $this->setData($dataKey, $result);
+            }
+            return $result;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
+    /**
+     * Get a full UserEvent object related to a book with all members initialised
+     * This is necessary for storing the object in cache otherwise when getting the object from cahc (and detach from database) 
+     * these members won't be initialized
+     * @param \Sb\Db\Model\UserEvent $event
+     */
+    private function getFullBookRelatedUserEvent(UserEvent $event) {
+        $userbook = UserBookDao::getInstance()->get($event->getItem_id());
+        if ($userbook) {            
+            $book = $userbook->getBook();
+            $contributors =  \Sb\Db\Dao\ContributorDao::getInstance()->getListForBook($book->getId());
+            $book->setContributors($contributors);
+            $event->setBook($book);
+        }        
+        return $event;
     }
 
 }

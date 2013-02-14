@@ -30,7 +30,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
      * @param type $user
      * @return type
      */
-    public function add(\Sb\Db\Model\User $user) {
+    public function add(\Sb\Db\Model\Model $user) {
         $this->entityManager->persist($user);
         if ($user->getSetting())
             $this->entityManager->persist($user->getSetting());
@@ -44,8 +44,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
      * @param type $id
      * @return boolean
      */
-    public function update(\Sb\Db\Model\User $user) {
-
+    public function update(\Sb\Db\Model\Model $user) {
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
@@ -103,8 +102,6 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getListByKeyword($keyword) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($keyword));
-
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("u")->from("\Sb\Db\Model\User", "u")
                 ->Where("u.email LIKE :keyword")
@@ -113,15 +110,13 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
                 ->orWhere("u.first_name LIKE :keyword")
                 ->setParameter("keyword", "%" . $keyword . "%");
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
+        $result = $this->getResults($queryBuilder->getQuery());
         return $result;
     }
 
-    public function getListWhoLikesBooks($bookIds, $cacheDuration = null) {
+    public function getListWhoLikesBooks($bookIds) {
 
         $bookIdsAsStr = implode(",", $bookIds);
-
-        $cacheId = $this->getCacheId(__FUNCTION__, array($bookIdsAsStr));
 
         $dql = sprintf("SELECT u FROM \Sb\Db\Model\User u 
             JOIN u.userbooks ub 
@@ -133,11 +128,8 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
 
         $query = $this->entityManager->createQuery($dql);
 
-        // Set cache duration
-        if ($cacheDuration)
-            $this->setCacheDuration($cacheDuration);
-
-        $result = $this->getResults($query, $cacheId, true);
+        // We don't use cahe as this function is always called by book svc which does the caching
+        $result = $this->getResults($query, null);
 
         return $result;
     }

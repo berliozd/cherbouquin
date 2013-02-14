@@ -81,5 +81,9 @@ class ReadingState implements \Sb\Db\Model\Model {
     public function IsValid() {
         return true;
     }
+    
+    public function __toString() {
+        return $this->getCode() . "-" . $this->getLabel();
+    }
 
 }

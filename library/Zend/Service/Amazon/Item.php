@@ -16,25 +16,25 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Item.php 23584 2010-12-28 19:51:49Z matthew $
+ * @version    $Id: Item.php 24780 2012-05-08 19:34:59Z adamlundrigan $
  */
+
 
 /**
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Amazon
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_Amazon_Item {
-
+class Zend_Service_Amazon_Item
+{
     /**
      * @var string
      */
     public $ASIN;
-    public $BrowseNodes;
 
     /**
      * @var string
@@ -105,18 +105,21 @@ class Zend_Service_Amazon_Item {
      * @var Zend_Service_Amazon_ListmaniaLists[]
      */
     public $ListmaniaLists = array();
+
     protected $_dom;
+
 
     /**
      * Parse the given <Item> element
      *
      * @param  null|DOMElement $dom
      * @return void
-     * @throws Zend_Service_Amazon_Exception
+     * @throws    Zend_Service_Amazon_Exception
      *
      * @group ZF-9547
      */
-    public function __construct($dom) {
+    public function __construct($dom)
+    {
         if (null === $dom) {
             require_once 'Zend/Service/Amazon/Exception.php';
             throw new Zend_Service_Amazon_Exception('Item element is empty');
@@ -126,21 +129,8 @@ class Zend_Service_Amazon_Item {
             throw new Zend_Service_Amazon_Exception('Item is not a valid DOM element');
         }
         $xpath = new DOMXPath($dom->ownerDocument);
-
-        Zend_Didier_Utils::RegisterNameSpace($xpath);
-        //$xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2005-10-05');
-        //$xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2011-08-01'); // DIDIER FIX ZEND AMAZON
-
+        $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2011-08-01');
         $this->ASIN = $xpath->query('./az:ASIN/text()', $dom)->item(0)->data;
-        //echo "<br/>" . $this->ASIN . "<br/><br/>";
-
-        if ($xpath->query('./az:BrowseNodes/az:BrowseNode/az:Name', $dom)->length >= 1) {
-            foreach ($xpath->query('./az:BrowseNodes/az:BrowseNode/az:Name', $dom) as $browseNodeItem) {
-                //echo "[" . $browseNodeItem->nodeValue . "]<br/><br/><br/>";
-                $this->BrowseNodes[] = $browseNodeItem->nodeValue;
-            }
-        }
-        //var_dump($this->BrowseNodes);
 
         $result = $xpath->query('./az:DetailPageURL/text()', $dom);
         if ($result->length == 1) {
@@ -183,8 +173,6 @@ class Zend_Service_Amazon_Item {
         if ($result->length == 1) {
             $this->SalesRank = (int) $result->item(0)->data;
         }
-
-        
         // DIDIER
         $result = $xpath->query('./az:ItemAttributes/az:Languages/az:Language', $dom);
         if ($result->length >= 1) {
@@ -201,7 +189,6 @@ class Zend_Service_Amazon_Item {
             }
         }
         // DIDIER
-
 
         $result = $xpath->query('./az:CustomerReviews/az:Review', $dom);
         if ($result->length >= 1) {
@@ -288,13 +275,14 @@ class Zend_Service_Amazon_Item {
         $this->_dom = $dom;
     }
 
+
     /**
      * Returns the item's original XML
      *
      * @return string
      */
-    public function asXml() {
+    public function asXml()
+    {
         return $this->_dom->ownerDocument->saveXML($this->_dom);
     }
-
 }

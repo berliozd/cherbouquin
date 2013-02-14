@@ -1,0 +1,36 @@
+<?php
+use Sb\Helpers\StringHelper;
+?>
+<div class="user-box">    
+    <div class="ub-users">
+        <div class="ub-title-wrap">
+            <div class="ub-title">
+                <?php _e("Derniers lecteurs", "s1b"); ?>
+            </div>
+        </div>
+        <div class="ub-content">
+            <div class="ubc-part">
+                <?php if (count($userbooks) > 0) { ?>
+                <ul class="carousel-lastUsersWhoReadThatBook">
+                    <?php foreach ($userbooks as $userbook) { ?>
+                    <li>
+                        <div class="ub-user">                            
+                            <div class="ubu-image">
+                                <a border="0" href="<?php echo \Sb\Helpers\HTTPHelper::Link(Sb\Entity\Urls::USER_PROFILE, array("uid" => $userbook->getUser()->getId()));?>"><?php echo \Sb\Helpers\UserHelper::getSmallImageTag($userbook->getUser(), $defImage); ?></a>
+                            </div>
+                            <div class="ubu-text">
+                                <div><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(Sb\Entity\Urls::USER_PROFILE, array("uid" => $userbook->getUser()->getId()))?>" class="link"><?php echo StringHelper::tronque($userbook->getUser()->getUserName(), 40);?></a></div>
+                                <div><?php echo sprintf(__("%s livre(s), %s ami(s)", "s1b"), count($userbook->getUser()->getNotDeletedUserBooks()), count($userbook->getUser()->getAcceptedFriends()));?></div>
+                                <div><?php echo sprintf(__("Lu le %s", "s1b"), ($userbook->getReadingDate() ? $userbook->getReadingDate()->format(__("d/m/Y","s1b")) : $userbook->getLastModificationDate()->format(__("d/m/Y","s1b"))));?></div>
+                            </div>                            
+                        </div>
+                    </li>
+                    <?php } ?>
+                </ul>
+                <?php } else {
+                    _e("Ce livre n'a été lu par aucun membre.","s1b");
+               }?>
+            </div>
+        </div>
+    </div>    
+</div>

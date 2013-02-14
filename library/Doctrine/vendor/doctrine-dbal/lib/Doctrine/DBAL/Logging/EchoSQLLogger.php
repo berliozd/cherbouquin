@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  $Id$
  *
@@ -33,29 +34,32 @@ namespace Doctrine\DBAL\Logging;
  * @author  Jonathan Wage <jonwage@gmail.com>
  * @author  Roman Borschel <roman@code-factory.org>
  */
-class EchoSQLLogger implements SQLLogger
-{
+class EchoSQLLogger implements SQLLogger {
+
     /**
      * {@inheritdoc}
      */
-    public function startQuery($sql, array $params = null, array $types = null)
-    {
-    	echo $sql . PHP_EOL;
+    public function startQuery($sql, array $params = null, array $types = null) {
+        global $nbSQLRequest;
+        $nbSQLRequest++;
+        echo $sql . PHP_EOL;
 
         if ($params) {
             var_dump($params);
-    	}
+        }
 
         if ($types) {
             var_dump($types);
         }
+        echo "<br/>";
     }
 
     /**
      * {@inheritdoc}
      */
-    public function stopQuery()
-    {
-
+    public function stopQuery() {
+        global $nbSQLRequest;
+        \Sb\Trace\FireBugTrace::Trace("NB SQL REQUEST : " . $nbSQLRequest);
     }
+
 }

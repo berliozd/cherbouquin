@@ -17,22 +17,13 @@ abstract class AbstractDao {
     protected $entityName;
     private $cacheDuration = 3600; // Cache duration in seconds
 
-    /**
-     *
-     * @return Sb\Model\
-     */
-//    private function getConfig() {
-//        global $s1b;
-//        return $s1b->getConfig();
-//    }
-
     protected function __construct($entityName) {
         $this->entityName = $entityName;
         $this->initEntityManager();
     }
 
     private function initEntityManager() {
-        // get EntityManager singleton
+        // get EntityManager singleton        
         $this->entityManager = \Sb\Db\EntityManager::getInstance();
     }
 
@@ -42,8 +33,10 @@ abstract class AbstractDao {
      * @return \Sb\Db\Model\Model
      */
     public function get($id) {
-        $user = $this->entityManager->find($this->entityName, $id);
-        return $user;
+        $result = $this->entityManager->find($this->entityName, $id);
+//        $q = $this->entityManager->createQuery("select o from " . $this->entityName . " o where o.id = " . $id);
+//        $result = $q->getOneOrNullResult();
+        return $result;
     }
 
     public function getAll($criteria = null, $orderby = null, $limit = null) {
@@ -54,14 +47,13 @@ abstract class AbstractDao {
         }
     }
 
-    public function getResults(\Doctrine\ORM\Query $query, $cacheId, $useCache = false) {
-
+    public function getResults(\Doctrine\ORM\Query $query, $cacheId = null, $useCache = false) {
         $query->useResultCache($useCache, $this->getCacheDuration(), $cacheId);
 
         return $query->getResult();
     }
 
-    public function getOneResult(\Doctrine\ORM\Query $query, $cacheId, $useCache = false) {
+    public function getOneResult(\Doctrine\ORM\Query $query, $cacheId = null, $useCache = false) {
 
         $query->useResultCache($useCache, $this->getCacheDuration(), $cacheId);
 
@@ -69,13 +61,13 @@ abstract class AbstractDao {
     }
 
     /**
-     * Get a cache id for APC cache item to store the result
+     * Get a cache id for cache item to store the result
      * @param type $func
      * @param type $args
      * @return string
      */
     public function getCacheId($func, $args) {
-        $result = get_called_class() . "_" . $func . "_" . implode("-", $args);
+        $result = get_called_class() . "_" . $func . "_" . implode("-", array_values($args));
         return $result;
     }
 
@@ -86,7 +78,7 @@ abstract class AbstractDao {
     public function getEntityManager() {
         return $this->entityManager;
     }
-    
+
     public function getCacheDuration() {
         return $this->cacheDuration;
     }
@@ -94,7 +86,7 @@ abstract class AbstractDao {
     public function setCacheDuration($cacheDuration) {
         $this->cacheDuration = $cacheDuration;
     }
-    
+
     public function bulkRemove($entities) {
         foreach ($entities as $entity) {
             $this->getEntityManager()->remove($entity);

@@ -14,6 +14,8 @@ class UserBook {
     private $readingDate;
     private $tags;
     private $hyperLink;
+    private $nb_of_pages;
+    private $nb_of_pages_read;
 
     function __construct($post) {
 
@@ -59,6 +61,9 @@ class UserBook {
         if (array_key_exists('HyperLink', $post)) {
             $this->hyperLink = $post['HyperLink'];
         }
+        
+        $this->nb_of_pages = \Sb\Helpers\ArrayHelper::getSafeFromArray($post, "nb_of_pages", null);
+        $this->nb_of_pages_read = \Sb\Helpers\ArrayHelper::getSafeFromArray($post, "nb_of_pages_read", null);
     }
 
     public function getId() {
@@ -100,5 +105,20 @@ class UserBook {
     public function getHyperLink() {
         return $this->hyperLink;
     }
+    
+    public function getNb_of_pages() {
+        return $this->nb_of_pages;
+    }
 
+    public function setNb_of_pages($nb_of_pages) {
+        $this->nb_of_pages = $nb_of_pages;
+    }
+
+    public function getNb_of_pages_read() {
+        return $this->nb_of_pages_read;
+    }
+
+    public function setNb_of_pages_read($nb_of_pages_read) {
+        $this->nb_of_pages_read = $nb_of_pages_read;
+    }
 }

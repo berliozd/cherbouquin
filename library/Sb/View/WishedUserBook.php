@@ -39,6 +39,7 @@ class WishedUserBook extends AbstractView {
             $deactivateGiftOptionLink = HTTPHelper::Link(Urls::USERBOOK_GIFT_DISABLE, array("ubgid" => $this->userbook->getActiveGiftRelated()->getId()));
             $offerer = $this->userbook->getActiveGiftRelated()->getOfferer();
         }
+        $bookDescription = $this->book->getDescription();
         $buyOnAmazonLink = $this->book->getAmazonUrl();
         $buyOnFnacLink = null;
         if ($this->book->getISBN13())

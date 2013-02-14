@@ -1,3 +1,7 @@
+<?php
+use \Sb\Helpers\ArrayHelper;
+?>
+
 <div class="user-book-edit">
     <form action="" method="post" id="userBookFrm">
         <input type="hidden" name="mode" value="SUBMIT" />
@@ -40,11 +44,11 @@
                 <table style="width:100%">
                     <tr>
                         <td class="qrf-fieldlabel"><?php _e("Nom *", "s1b"); ?></td>
-                        <td><input class="input-item textinput quickRegistrationFormInput" type="text" name="guest_name" value="<?php echo $_POST["guest_name"]; ?>"/></td>
+                        <td><input class="input-item textinput quickRegistrationFormInput" type="text" name="guest_name" value="<?php echo ArrayHelper::getSafeFromArray($_POST, "guest_name", ""); ?>"/></td>
                     </tr>
                     <tr>
                         <td class="qrf-fieldlabel"><?php _e("Email", "s1b"); ?></td>
-                        <td><input class="input-item textinput quickRegistrationFormInput" type="text" name="guest_email" value="<?php echo $_POST["guest_email"]; ?>" /></td>
+                        <td><input class="input-item textinput quickRegistrationFormInput" type="text" name="guest_email" value="<?php echo ArrayHelper::getSafeFromArray($_POST, "guest_email", ""); ?>" /></td>
                     </tr>
                 </table>
                 <div class="buttons-bar">

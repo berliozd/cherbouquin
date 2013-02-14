@@ -11,6 +11,9 @@ class UserNavigation extends \Sb\View\AbstractView {
     public function get() {
         $user = $this->getContext()->getConnectedUSer();
 
+        $nbMessagesToRead = count($user->getUnReadReceivedMessages());
+        $nbPendingFriendRequests = count($user->getPendingFriendShips());
+
         $tpl = new \Sb\Templates\Template("components/userNavigation");
         if ($user && $user->getSetting()) {
             if ($user->getSetting()->getDisplayProfile() == \Sb\Entity\UserDataVisibility::FRIENDS) {
@@ -24,7 +27,12 @@ class UserNavigation extends \Sb\View\AbstractView {
                 $statusCssClass = "profile-picto-small-private";
             }
         }
-        $tpl->setVariables(array("user" => $user, "userStatus" => $userStatus, "statusCssClass" => $statusCssClass));
+        $tpl->setVariables(array("user" => $user,
+            "userStatus" => $userStatus,
+            "statusCssClass" => $statusCssClass,
+            "nbMessagesToRead" => $nbMessagesToRead,
+            "nbPendingFriendRequests" => $nbPendingFriendRequests));
         return $tpl->output();
     }
+
 }

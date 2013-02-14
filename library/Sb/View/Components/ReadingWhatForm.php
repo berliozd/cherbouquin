@@ -15,7 +15,7 @@ class ReadingWhatForm extends \Sb\View\AbstractView {
     public function get() {
 
         $baseTpl = "components/readingWhatForm";
-        $tpl = new \Sb\Templates\Template($baseTpl, $this->baseDir);
+        $tpl = new \Sb\Templates\Template($baseTpl);
         $tpl->setVariables(array("coverImage" => $this->getContext()->getBaseUrl() . "Resources/images/nocover.png"));
         return $tpl->output();
     }

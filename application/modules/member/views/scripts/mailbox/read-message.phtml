@@ -1,0 +1,49 @@
+<?php 
+use Sb\View\Components\MailboxWidget;
+use Sb\View\Components\Ad;
+use Sb\Helpers\UserHelper;
+?>
+<div id="content-center">
+    <div class="mailbox-message">
+        <div class="mm-header">
+            <div class="inner-padding">
+                <div class="mmh-from">
+                    <span class="mmh-label"><?php _e("De", "s1b"); ?></span>
+                    <?php echo UserHelper::getFullName($this->message->getSender()); ?>
+                </div>
+                <div class="mmh-date">              
+                    <span class="mmh-label"><?php _e("Date : ","s1b");?></span>
+                    <?php echo $this->message->getDate()->format('d/m/Y'); ?>
+                </div>
+                <div class="mmh-subject">
+                    <span class="mmh-label"><?php _e("Sujet : ","s1b");?></span>
+                    <?php echo $this->message->getTitle(); ?>
+                </div>
+            </div>
+        </div>
+        <div class="mm-body">
+            <div class="mmb-title"><?php _e("Message","s1b");?></div>
+            <?php echo $this->message->getMessage(); ?>
+        </div>
+        <div class="buttons-bar">
+            <div class="inner-padding">
+                <a class="button float-right bt-delete" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_DELETE_MESSAGE,array("mid" => $this->message->getId())); ?>"></a>
+                <a class="button float-right margin-right bt-blue-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_REPLY_MESSAGE, array("mid" => $this->message->getId())); ?>"><?php _e("répondre", "s1b"); ?></a>                
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content-right">
+    <div class="right-frame">
+        <?php
+        $mailboxWidget = new MailboxWidget();
+        echo $mailboxWidget->get();
+        ?>
+    </div>
+    <div class="right-frame">
+        <?php
+        $ad = new Ad("","");
+        echo $ad->get();
+        ?>
+    </div>
+</div>

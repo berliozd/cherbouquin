@@ -31,7 +31,7 @@ class ReadingStateSvc extends \Sb\Db\Service\Service {
     public function getReadSate() {
         $dataKey = self::READ_STATE_DATA_KEY;
         $data = $this->getData($dataKey);
-        if (!$data) {
+        if ($data === false) {
             $data = $this->getDao()->getByCode("READ");
             $this->setData($dataKey, $data);
         }
@@ -41,7 +41,7 @@ class ReadingStateSvc extends \Sb\Db\Service\Service {
     public function getReadingStates() {
         $dataKey = self::READING_STATES_DATA_KEY;
         $data = $this->getData($dataKey);
-        if (!$data) {
+        if ($data === false) {
             $data = $this->getDao()->getAll();
             $this->setData($dataKey, $data);
         }

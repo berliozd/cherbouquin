@@ -1,0 +1,123 @@
+<?php
+use Sb\Helpers\UserHelper;
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\StringHelper;
+use Sb\Helpers\ArrayHelper;
+use Sb\Entity\UserDataVisibility;
+use Sb\Db\Dao\CountryDao;
+
+$emailVisibility = $userSettings->getDisplayEmail();
+$birthDateVisibility = $userSettings->getDisplayBirthDay();
+?>
+<div class="profile">    
+    <div class="p-friend-title">
+    <?php echo sprintf(__("A la page de <strong>%s</strong>","s1b"), StringHelper::tronque(ucwords(strtolower(UserHelper::getFullName($user))), 30));?>
+    </div>    
+    <div class="p-left">
+        <img class="image-frame image-thumb-square" src="<?php echo $user->getGravatar();?>">        
+    </div>
+    <div class="p-center">
+        <div class="p-gender">
+            <span class="pl-value">
+                <?php echo UserHelper::getFullGenderAndAge($user); ?>
+            </span>
+        </div>
+        
+        <div class="p-line">
+            <span class="pl-label"><?php _e("Identifiant : ", "s1b"); ?></span>
+            <span class="pl-value">
+                <?php echo $user->getUserName(); ?>
+            </span>
+        </div>
+        
+        <div class="p-line">
+            <span class="pl-label"><?php _e("Langue : ", "s1b"); ?></span>
+            <span class="pl-value">
+                <?php 
+                    if ($user->getLanguage() == "")
+                        _e("non renseigné", "s1b");
+                    else
+                        echo $user->getLanguage();
+                ?>
+            </span>
+        </div>
+        
+        <?php if ($birthDateVisibility != UserDataVisibility::NO_ONE) {?>
+        <div class="p-line">
+            <div class="float-left">
+                <span class="pl-label"><?php _e("Date de naissance : ","s1b");?></span>
+                <span class="pl-value">
+                     <?php
+                        if (!$user->getBirthDay()) {
+                            _e("non renseigné", "s1b");
+                        } else {
+                           echo $user->getBirthDay()->format("d/m/Y");
+                        }
+                     ?>
+                </span>
+            </div>                        
+        </div>
+        <?php }?>
+        
+        <div class="p-line">
+            <span class="pl-label"><?php _e("Membre depuis : ", "s1b"); ?></span>
+            <span class="pl-value"><?php echo $user->getCreated()->format("d/m/Y"); ?></span>
+        </div>
+        
+        <div class="p-line pl-coordinatetitle">
+            <?php _e("Coordonnées","s1b");?>
+        </div>
+        <?php if ($emailVisibility != UserDataVisibility::NO_ONE) {?>
+        <div class="p-line pl-coordinate">
+            <span class="pl-value">
+                <?php echo StringHelper::tronque($user->getEmail(), 25);?>
+            </span>
+        </div>
+        <?php }?>
+        <div class="p-line pl-coordinate">
+            <span class="pl-value">
+                <?php echo $user->getAddress(); ?>
+            </span>
+        </div>
+        <div class="p-line pl-coordinate">
+            <span class="pl-value">
+                <?php echo $user->getZipCode(); ?>
+                &nbsp;<?php echo $user->getCity(); ?>
+            </span>
+        </div>        
+        <div class="p-line pl-coordinate">
+            <span class="pl-value">
+                <?php 
+                    if ($user->getCountry()) {
+                        $country  = CountryDao::getInstance()->getCountryByCode($user->getCountry());
+                        echo (ArrayHelper::getSafeFromArray($_SESSION, "WPLANG", "fr-FR")? $country->getLabel_french() : $country->getLabel_english());
+                    }                    
+                ?>
+            </span>
+        </div>
+        
+    </div>
+    
+    <div class="p-right">        
+        <div class="p-right-item">
+            <?php echo sprintf(__("<span class=\"p-nbbooks\"><strong>%s</strong> Livre(s)</span>"), count($user->getNotDeletedUserBooks())) ;?>
+        </div>
+        <div class="p-right-item margin-bottom-l">
+            <a href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_LIBRARY, array("fid" => $user->getId()));?>" class="link">
+                <?php _e("Voir sa bibliothèque", "s1b");?>
+            </a>
+        </div>  
+        <?php if (!$isFriend) {?>
+        <div class="p-right-item margin-bottom-l">
+            <a href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS_REQUEST, array("fid" => $user->getId()));?>" class="link pl-add-as-friend">
+                <?php _e("Ajouter en ami", "s1b");?>
+            </a>
+        </div>
+        <?php }?>
+        <div class="p-right-item">
+            <a href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_SEND_MESSAGE, array("selection" => "1", "Friends" => $user->getId()));?>" class="button bt-blue-xl">
+                <?php _e("Envoyer un message","s1b");?>
+            </a>
+        </div>
+    </div>
+</div>

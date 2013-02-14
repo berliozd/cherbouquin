@@ -62,7 +62,7 @@ class Trace {
 
                 // vérification de l'existence du fichier et création si non existant
                 $now = new \DateTime();
-                $logFilePath = self::getContext()->getBaseDirectory() . sprintf("var/log/%s-log.txt", $now->format("Ymd"));
+                $logFilePath = self::getContext()->getBaseDirectory() . sprintf("/var/log/%s-log.txt", $now->format("Ymd"));
                 if (!file_exists($logFilePath)) {
                     $file = fopen($logFilePath, "w");
                     fclose($file);

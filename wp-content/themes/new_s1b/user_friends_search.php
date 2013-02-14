@@ -2,6 +2,11 @@
 require_once 'includes/init.php';
 get_header();
 require_once 'user_friends_search_1.php';
+
+use Sb\View\Components\FriendsWidget;
+use Sb\View\Components\Ad;
+use Sb\Helpers\UserHelper;
+
 /**
  * Template Name: user_friends_search
  */
@@ -58,7 +63,7 @@ require_once 'user_friends_search_1.php';
         <?php
         $i = 0;
         foreach($foundUsers as $foundUser) {
-            $foundUserLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_PROFILE, array("fid" => $foundUser->getId()));
+            $foundUserLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE, array("uid" => $foundUser->getId()));
             $foundUserLRequestLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS_REQUEST, array("fid" => $foundUser->getId()));
             if (($i%3 == 0) && ($i != 0)) {echo "<div class=\"horizontal-sep-1\"></div>";}
             $i += 1;
@@ -75,36 +80,19 @@ require_once 'user_friends_search_1.php';
                     </a>
                     <div class="fi-line margin-top-l">
                         <span class="fil-username">
-                            <?php echo \Sb\Helpers\StringHelper::tronque($foundUser->getFirstName(), 20) . " " . mb_substr($foundUser->getLastName(), 0, 1) . ".";?>
+                            <?php echo $foundUser->getFriendlyName(); ?>
                         </span>
-                    </div>                    
-                    <div class="fi-line">
-                        <span class="fil-label"><?php echo __("Pays : ", "s1b") ;?></span>
-                        <?php if ($foundUser->getCountry() != '') { 
-                            $country = \Sb\Db\Dao\CountryDao::getInstance()->getCountryByCode($foundUser->getCountry());
-                            echo ($_SESSION['WPLANG']=='fr-FR'? $country->getLabel_french() : $country->getLabel_english());
-                        } ;?>
-                    </div> 
-                    <div class="fi-line">
-                        <span class="fil-label"><?php echo __("Langue : ", "s1b") ;?></span>
-                        <?php if ($foundUser->getLanguage() != '') { echo $foundUser->getLanguage(); } ;?>
-                    </div> 
-                    <div class="fi-line">
-                        <span class="fil-label"><?php echo __("Sexe : ", "s1b") ;?></span>
-                        <?php
-                        if ($foundUser->getGender() != "") {
-                            if ($foundUser->getGender() == "male") {
-                                echo __("masculin", "s1b");
-                            } else {
-                                echo __("féminin", "s1b");
-                            }
-                        }
-                        ?>
                     </div>
                     <div class="fi-line">
-                        <span class="fil-label"><?php _e("Membre depuis le", "s1b") ;?></span>
-                        <?php echo $foundUser->getCreated()->format('d/m/Y'); ?>
-                    </div>                    
+                        <span class="fil-value"><?php echo UserHelper::getFullGenderAndAge($foundUser) ;?></span>
+                    </div>
+                    <div class="fi-line">
+                        <span class="fil-label"><?php _e("Identifiant : ","s1b");?></span>
+                        <span class="fil-value"><?php echo $foundUser->getUserName();?></span>
+                    </div>
+                    <div class="fi-line">
+                        <?php echo UserHelper::getFullCityAndCountry($foundUser);?>
+                    </div>                   
                     <div class="fi-line">
                         <a class="button bt-blue-addfriend margin-top-l" href="<?php echo $foundUserLRequestLink; ?>" ><?php _e("Ajouter en ami","s1b");?></a>    
                     </div>                    
@@ -130,14 +118,14 @@ require_once 'user_friends_search_1.php';
     </div>
     <div id="content-right">
         <div class="right-frame">
-        <?php
-            $userToolBox = new \Sb\View\Components\UserToolBox;
-            echo $userToolBox->get();
-        ?>
+            <?php
+            $friendWidget = new FriendsWidget;
+            echo $friendWidget->get();
+            ?>
         </div>
         <div class="right-frame">
         <?php
-            $ad = new \Sb\View\Components\Ad("user_friends_search", "0462240993");
+            $ad = new Ad("user_friends", "2432422854");
             echo $ad->get();
         ?>
         </div>

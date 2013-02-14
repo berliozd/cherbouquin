@@ -35,13 +35,15 @@ class LendingForm extends \Sb\View\AbstractView {
     public function get() {
 
         $baseTpl = "book/bookForm/lending/lendingForm";
-        $tpl = new \Sb\Templates\Template($baseTpl, $this->baseDir);
+        $tpl = new \Sb\Templates\Template($baseTpl);
         $tpl->set("bookId", $this->book->getId());
         $tpl->set("ubid", $this->userBook->getId());
 
         // Préparation de la zone de formulaire
         // ------------------------------------
 
+        $lendingText = "";
+        $warningText = "";
         if ($this->activeLending) {
 
             $this->setTemplateFormFields($tpl, $this->activeLending->getId(), "CURRENT", "");

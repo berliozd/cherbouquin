@@ -29,8 +29,6 @@ class FriendShipDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getFriendsFriendShips($userId) {
 
-        $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
-
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
 
         $queryBuilder->select("ffs")->from("\Sb\Db\Model\FriendShip", "ffs")
@@ -43,7 +41,7 @@ class FriendShipDao extends \Sb\Db\Dao\AbstractDao {
                 ->groupBy("ffs.user_target")
                 ->setParameter("user_id", $userId);
 
-        $result = $this->getResults($queryBuilder->getQuery(), $cacheId);
+        $result = $this->getResults($queryBuilder->getQuery());
         return $result;
     }
 

@@ -110,7 +110,7 @@ if (!$s1b->getIsSubmit()) {
                 if (\Sb\Db\Dao\LendingDao::getInstance()->update($lending)) {
                     // Send email to owner to remind him that he needs to validate the lending end
                     if ($userIsBorrower && !$isBorrowedToGuest) {
-                        $mailSvc = \Sb\Mail\Service\MailSvcImpl::getInstance();
+                        $mailSvc = \Sb\Service\MailSvc::getInstance();
                         $mailSvc->send($lending->getUserbook()->getUser()->getEmail(), __("Prêt en attente de retour de validation", "s1b"), emailReturnValidationRequiredBody($lending->getUserbook()->getBook()->getTitle(), $lending->getBorrower_userbook()->getUser()->getUserName()));
                     }
 

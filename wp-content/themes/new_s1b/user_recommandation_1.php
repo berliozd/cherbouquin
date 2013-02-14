@@ -36,10 +36,12 @@ function userAcceptEmail(\Sb\Db\Model\User $user) {
     }
 }
 
+$friendList = null;
+
 if ($_POST) {
     $friendSelections = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'selection', null);
     $sendingMessage = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'go', null);
-    // coming from friend selection page
+    // coming from friend selection page    
     if ($friendSelections) {
         $friendSelectionsIds = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'Friends', null);
         $friendList = array();
@@ -71,7 +73,7 @@ if ($_POST) {
                         $userSetting = $recipient->getSetting();
                         if ($userSetting->getEmailMe() == 'Yes') {
                             $body = \Sb\Helpers\MailHelper::newMessageArrivedBody($user->getUserName());
-                            \Sb\Mail\Service\MailSvcImpl::getInstance()->send($recipient->getEmail(),
+                            \Sb\Service\MailSvc::getInstance()->send($recipient->getEmail(),
                                     sprintf(__("%s vous recommande %s ", "s1b"), $user->getUserName(), $book->getTitle()), $body);
                         }
                     }

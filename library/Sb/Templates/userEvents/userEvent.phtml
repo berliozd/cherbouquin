@@ -1,39 +1,56 @@
-<div class="user-event">
-    <div class="inner-padding-10">
-        <div class="ue-friendimage">        
-            <a href="<?php echo $friendProfileLink;?>"><img border="0" class="image-frame image-thumb-square-small" src="<?php echo $userFriendImg;?>" /></a>
+<div class="user-event userEvent">
+
+    <?php if ($showOwner) { ?>
+        <div class="ue-friendimage">
+            <a href="<?php echo $friendProfileLink; ?>">
+                <?php echo $friendImg ?> 
+            </a>
         </div>
-        <div class="ue-description">
-            <div class="ue-resume">
-                <?php echo $resume;?>
+    <?php } ?>
+
+    <div class="ue-itemimage">
+        <?php if ($userBookRelated) { ?>
+            <div class="ue-bookimage">                
+                <a class="link" href="<?php echo $bookLink; ?>"><img border="0" class="image-thumb-small image-frame" src="<?php echo $bookImageUrl; ?>"></a>                
             </div>
-            <?php if ($userBookRelated) {?>
-            <div class="ue-book">
-                <div class="ue-bookimage">                
-                    <a class="link" href="<?php echo $bookLink;?>"><img border="0" class="image-thumb-small image-frame" src="<?php echo $bookImageUrl;?>"></a>                
-                </div>
-                <div class="ue-bookdescription">
-                    <div class="ue-booktitle">
-                        <?php echo $bookTitle;?>
-                    </div>
-                    <?php echo sprintf(__("de %s","s1b"), $bookAuthor);?>
-                    <div class="ue-booklink">
-                        <a class="link" href="<?php echo $bookLink;?>"><?php _e("Voir ce livre","s1b");?></a>
-                    </div>
-                </div>
+        <?php } else if ($userFriendRelated) { ?>
+            <a href="<?php echo $friendFriendProfileLink; ?>"><?php echo $friendFriendImg; ?></a>    
+        <?php } ?>
+    </div>
+
+    <div class="ue-description">                 
+        <div class="ue-resume"><?php echo $resume; ?></div>
+        <?php if ($userBookRelated) { ?>
+            <div class="ue-bookdescription">      
+                <div class="ue-booktitle">
+                    <?php echo sprintf(__("%s de %s", "s1b"), $bookTitle, $bookAuthor); ?>
+                </div>                                    
             </div>
-            <?php } ?>
-            <?php if ($additionalContent) {?>
+        <?php } ?>
+        <?php if ($additionalContent) { ?>
             <div class="ue-additional">
-                <?php echo $additionalContent;?>
+                <div class="inner-padding">
+                    <?php echo $additionalContent; ?>
+                </div>
             </div>
-            <?php } ?>
-            <div class="ue-date">
-                <?php echo $creationDate;?>
-            </div>
+        <?php } ?>
+        <div class="ue-date">
+            <?php echo $creationDate; ?>
         </div>
+        <?php if ($userBookRelated) { ?>
+            <div class="ue-buttons">
+                <div class="ue-viewbooklink">
+                    <a class="link" href="<?php echo $bookLink; ?>"><?php _e("Voir ce livre", "s1b"); ?></a>
+                </div>
+                <?php if ($showAddButton) {?>
+                <div class="ue-addbooklink">
+                    <div class="book-data">
+                        <input type="hidden" name="book_Id" class="book_Id" value="<?php echo $bookId; ?>" />
+                        <button class="addUserBookBtn button bt-blue-m"><?php _e("Ajouter", 's1b'); ?></button>
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+        <?php } ?>        
     </div>
 </div>
-<?php if ($addSep) {?>
-<div class="horizontal-sep-1"></div>
-<?php }?>

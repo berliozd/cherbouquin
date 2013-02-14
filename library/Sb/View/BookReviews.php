@@ -9,50 +9,29 @@ namespace Sb\View;
  */
 class BookReviews extends \Sb\View\AbstractView {
 
-    private $userBooks;
+    private $paginatedList;
     private $bookId;
 
-    function __construct($userBooks = null, $bookId) {
+    function __construct($paginatedList, $bookId, $pageNumber = 1) {
         parent::__construct();
-        $this->userBooks = $userBooks;
+        $this->paginatedList = $paginatedList;
         $this->bookId = $bookId;
+        $this->pageNumber = $pageNumber;
     }
 
     public function get() {
 
-        if ($this->userBooks) {
-            $baseTpl = "book/bookReviews/reviews";
-            $tplReviews = new \Sb\Templates\Template($baseTpl);
-            $reviewedUserBooks = array_filter($this->userBooks, array(&$this, "isReviewd"));
-
-
-            if ($reviewedUserBooks && count($reviewedUserBooks) > 0) {
-                // preparing pagination for 5 reviews per page
-                $paginatedList = new \Sb\Lists\PaginatedList($reviewedUserBooks, 5);
-                $firstItemIdx = $paginatedList->getFirstPage();
-                $lastItemIdx = $paginatedList->getLastPage();
-                $nbItemsTot = $paginatedList->getTotalPages();
-                $navigation = $paginatedList->getNavigationBar();
-                $reviewedUserBooks = $paginatedList->getItems();
-            }
-
-            $connectedUser = $this->getContext()->getConnectedUser();
-            $tplReviews->setVariables(array("bookId" => $this->bookId,
-                "userBooks" => $reviewedUserBooks,
-                "connectedUser" => $connectedUser,
-                "navigation" => $navigation,
-                "firstItemIdx" => $firstItemIdx,
-                "lastItemIdx" => $lastItemIdx,
-                "nbItemsTot" => $nbItemsTot));
-            return $tplReviews->output();
-        }
-        return "";
+        $baseTpl = "book/bookReviews/reviews";
+        $tplReviews = new \Sb\Templates\Template($baseTpl);
+        $connectedUser = $this->getContext()->getConnectedUser();
+        $tplReviews->setVariables(array("bookId" => $this->bookId,
+            "userBooks" => $this->paginatedList->getItems(),
+            "connectedUser" => $connectedUser,
+            "navigation" => $this->paginatedList->getNavigationBar(),
+            "firstItemIdx" => $this->paginatedList->getFirstPage(),
+            "lastItemIdx" => $this->paginatedList->getLastPage(),
+            "nbItemsTot" => $this->paginatedList->getTotalPages(),
+            "pageNumber" => $this->pageNumber));
+        return $tplReviews->output();
     }
-
-    private function isReviewd(\Sb\Db\Model\UserBook $userBook) {
-        if ($userBook->getReview()) {
-            return true;
-        }
-    }
-
 }

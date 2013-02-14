@@ -190,8 +190,6 @@ class BookMapper implements \Sb\Db\Mapping\Mapper {
             }
         }
 
-        \Sb\Trace\FireBugTrace::Trace($amazonResult->ItemAttributes);
-
         //Publisher
         if (isset($amazonResult->PublicationDate)) {
             $book->setPublishingDate(\Sb\Helpers\DateHelper::createDate($amazonResult->PublicationDate));

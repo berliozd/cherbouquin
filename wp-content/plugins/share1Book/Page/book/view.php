@@ -5,7 +5,8 @@ use \Sb\View\Book;
 use \Sb\View\Components\ButtonsBar;
 
 global $s1b;
-$context = $s1b->getContext();
+
+$redirect = false;
 
 $id = null;
 if (array_key_exists("bid", $_GET)) {

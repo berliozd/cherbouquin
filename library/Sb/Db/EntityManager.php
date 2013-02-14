@@ -17,6 +17,10 @@ class EntityManager extends \Doctrine\ORM\EntityManager {
         return self::$instance;
     }
 
+    public static function clearInstance() {
+        self::$instance = null;
+    }
+    
     /**
      *
      * @return \Doctrine\ORM\EntityManager
@@ -24,8 +28,9 @@ class EntityManager extends \Doctrine\ORM\EntityManager {
     private static function getEntityManager() {
 
         $cache = new \Doctrine\Common\Cache\ApcCache;
-//        $cache = new \Doctrine\Common\Cache\ArrayCache();
-
+        //$cache = new \Doctrine\Common\Cache\ArrayCache();
+        $cache->setNamespace(APC_CACHE_NAMESPACE);
+        
         $config = new \Doctrine\ORM\Configuration;
         $driverImpl = $config->newDefaultAnnotationDriver(array("/Sb/Db/Model"));
         $config->setMetadataDriverImpl($driverImpl);
@@ -36,14 +41,12 @@ class EntityManager extends \Doctrine\ORM\EntityManager {
         $config->setResultCacheImpl($cache);
 
 
-        $config->setProxyDir("/Sb/Db/Proxies");
+        $config->setProxyDir("Sb/Db/Proxies");
         $config->setProxyNamespace('Proxies');
 
         //$config->setAutoGenerateProxyClasses(true);
         $config->setAutoGenerateProxyClasses(false);
-
-        $logger = new \Doctrine\DBAL\Logging\EchoSQLLogger();
-//        $logger = new \Sb\Trace\SqlFirebugTrace();
+//        $logger = new \Doctrine\DBAL\Logging\EchoSQLLogger();
 //        $config->setSQLLogger($logger);
         // Database connection information
         $connectionOptions = array(

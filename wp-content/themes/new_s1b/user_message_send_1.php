@@ -13,6 +13,7 @@ $friendSelectionsFromPost = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 's
 $friendSelectionsFromGet = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, 'selection', null);
 $sendingMessage = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'go', null);
 
+$friendList= null;
 if ($friendSelectionsFromGet || $friendSelectionsFromPost || $sendingMessage) {
     // coming from friend selection page
     if ($friendSelectionsFromPost || $friendSelectionsFromGet) {
@@ -54,7 +55,7 @@ if ($friendSelectionsFromGet || $friendSelectionsFromPost || $sendingMessage) {
                         $userSetting = $recipient->getSetting();
                         if ($userSetting->getEmailMe() == 'Yes') {
                             $body = \Sb\Helpers\MailHelper::newMessageArrivedBody($user->getUserName());
-                            \Sb\Mail\Service\MailSvcImpl::getInstance()->send($recipient->getEmail(), sprintf(__("Un message vous a été envoyé depuis le site %s", "s1b"), \Sb\Entity\Constants::SITENAME), $body);
+                            \Sb\Service\MailSvc::getInstance()->send($recipient->getEmail(), sprintf(__("Un message vous a été envoyé depuis le site %s", "s1b"), \Sb\Entity\Constants::SITENAME), $body);
                         }
                     }
                 }

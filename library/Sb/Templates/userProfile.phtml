@@ -1,44 +1,49 @@
 <?php
+use Sb\Helpers\ArrayHelper;
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\StringHelper;
+use Sb\Entity\UserDataVisibility;
+
 $emailVisibility = $userSettings->getDisplayEmail();
 $birthDateVisibility = $userSettings->getDisplayBirthDay();
 ?>
 <div class="profile">
     <?php if ($isOtherUser) {?>
     <div class="p-friend-title">
-    <?php echo sprintf(__("A la page de <strong>%s</strong>","s1b"), \Sb\Helpers\StringHelper::tronque($user->getFirstName(), 30));?>
+    <?php echo sprintf(__("A la page de <strong>%s</strong>","s1b"), StringHelper::tronque($user->getFirstName(), 30));?>
     </div>
     <?php }?>
     <div class="p-left">
         <img class="image-frame image-thumb-square" src="<?php echo $user->getGravatar();?>">
         <?php if ($addLinks) {?>
         <div class="margin-top margin-top-l margin-bottom-s">
-            <a class="button bt-blue-xl" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_EDIT); ?>"><?php _e("Modifier mon profil","s1b");?></a>
-            <a class="link" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_EDIT_PASSWORD); ?>"><?php _e("Modifier mon mot de passe","s1b"); ?></a>
+            <a class="button bt-blue-xl" href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_EDIT); ?>"><?php _e("Modifier mon profil","s1b");?></a>
+            <a class="link" href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_EDIT_PASSWORD); ?>"><?php _e("Modifier mon mot de passe","s1b"); ?></a>
         </div>
         <div class="horizontal-sep-3"></div>
-        <div><a class="link" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_GRAVATAR); ?>"><?php _e("Modifier ma photo","s1b"); ?></a></div>
+        <div><a class="link" href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_GRAVATAR); ?>"><?php _e("Modifier ma photo","s1b"); ?></a></div>
         <?php }?>
     </div>
     <div class="p-center">
         <?php if (!$isOtherUser) {?>
         <div class="p-name">
-            <?php echo \Sb\Helpers\StringHelper::tronque($user->getFirstName(), 10);?>&nbsp;<?php echo \Sb\Helpers\StringHelper::tronque($user->getLastName(), 10);?>
+            <?php echo StringHelper::tronque($user->getFirstName(), 10);?>&nbsp;<?php echo StringHelper::tronque($user->getLastName(), 10);?>
         </div>
         <?php }?>
-        <?php if (!$isOtherUser || ($emailVisibility != \Sb\Entity\UserDataVisibility::NO_ONE)) {?>
+        <?php if (!$isOtherUser || ($emailVisibility != UserDataVisibility::NO_ONE)) {?>
         <div class="p-line">
             <div class="float-left">
                 <span class="pl-label"><?php _e("Email : ","s1b");?></span>
                 <span class="pl-value">
-                    <?php echo \Sb\Helpers\StringHelper::tronque($user->getEmail(), 20);?>
+                    <?php echo StringHelper::tronque($user->getEmail(), 20);?>
                 </span>
             </div>
             <?php if (!$isOtherUser) {?>            
             <?php
             $emailVisibilityCss = "profile-picto-small-private";
-            if ($emailVisibility == \Sb\Entity\UserDataVisibility::FRIENDS) 
+            if ($emailVisibility == UserDataVisibility::FRIENDS) 
                 $emailVisibilityCss = "profile-picto-small-myfriends";
-            elseif ($emailVisibility == \Sb\Entity\UserDataVisibility::MEMBERS_ONLY)
+            elseif ($emailVisibility == UserDataVisibility::MEMBERS_ONLY)
                 $emailVisibilityCss = "profile-picto-small-public";                
             ?>
             <div class="<?php echo $emailVisibilityCss;?> pl-picto" ></div>
@@ -49,7 +54,7 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
             <span class="pl-label"><?php _e("Sexe : ","s1b");?></span>
             <span class="pl-value"><?php echo ( (!$user->getGender())? __("non renseigné", "s1b") : (($user->getGender() == "male") ? __("Masculin", "s1b") : __("Féminin", "s1b"))) ; ?></span>
         </div>
-        <?php if (!$isOtherUser || ($birthDateVisibility != \Sb\Entity\UserDataVisibility::NO_ONE)) {?>
+        <?php if (!$isOtherUser || ($birthDateVisibility != UserDataVisibility::NO_ONE)) {?>
         <div class="p-line pl-birthdate">
             <div class="float-left">
                 <span class="pl-label"><?php _e("Date de naissance : ","s1b");?></span>
@@ -66,9 +71,9 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
             <?php if (!$isOtherUser) {?>
             <?php
             $birthDateVisibilityCss = "profile-picto-small-private";
-            if ($birthDateVisibility == \Sb\Entity\UserDataVisibility::FRIENDS) 
+            if ($birthDateVisibility == UserDataVisibility::FRIENDS) 
                 $birthDateVisibilityCss = "profile-picto-small-myfriends";
-            elseif ($birthDateVisibility == \Sb\Entity\UserDataVisibility::MEMBERS_ONLY)
+            elseif ($birthDateVisibility == UserDataVisibility::MEMBERS_ONLY)
                 $birthDateVisibilityCss = "profile-picto-small-public";
             ?>
             <div class="<?php echo $birthDateVisibilityCss;?> pl-picto" ></div>
@@ -120,7 +125,7 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
                         _e("non renseigné", "s1b");
                     else {
                         $country  = \Sb\Db\Dao\CountryDao::getInstance()->getCountryByCode($user->getCountry());
-                        echo ($_SESSION['WPLANG']=='fr-FR'? $country->getLabel_french() : $country->getLabel_english());
+                        echo (ArrayHelper::getSafeFromArray($_SESSION, "WPLANG", "fr-FR")? $country->getLabel_french() : $country->getLabel_english());
                     }
                 ?>
             </span>
@@ -143,12 +148,12 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
             <?php echo sprintf(__("<span class=\"p-nbbooks\"><strong>%s</strong> Livre(s)</span>"), count($user->getNotDeletedUserBooks())) ;?>
         </div>
         <div class="p-right-item margin-bottom-l">
-            <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_LIBRARY, array("fid" => $user->getId()));?>" class="link">
+            <a href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_LIBRARY, array("fid" => $user->getId()));?>" class="link">
                 <?php _e("Voir sa bibliothèque", "s1b");?>
             </a>
         </div>
         <div class="p-right-item">
-            <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_SEND_MESSAGE, array("selection" => "1", "Friends" => $user->getId()));?>" class="button bt-blue-xl">
+            <a href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_SEND_MESSAGE, array("selection" => "1", "Friends" => $user->getId()));?>" class="button bt-blue-xl">
                 <?php _e("Envoyer un message","s1b");?>
             </a>
         </div>
@@ -161,11 +166,11 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
             <div class="ps-current-label"><?php echo sprintf(__("Votre statut sur <span class=\"highlight\">%s</span>", "s1b"), \Sb\Entity\Constants::SITENAME);?></div>
             <div class="ps-current-value">                        
             <?php
-            if ($userSettings->getDisplayProfile() == \Sb\Entity\UserDataVisibility::NO_ONE) {
+            if ($userSettings->getDisplayProfile() == UserDataVisibility::NO_ONE) {
             ?>
             <div class="ps-picto ps-picto-private"><?php _e("Privé","s1b");?></div>
             <?php
-            } elseif ($userSettings->getDisplayProfile() == \Sb\Entity\UserDataVisibility::FRIENDS) {
+            } elseif ($userSettings->getDisplayProfile() == UserDataVisibility::FRIENDS) {
             ?>
             <div class="ps-picto ps-picto-myfriends"><?php _e("Mes amis","s1b");?></div>
             <?php
@@ -199,7 +204,7 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
             </ul>
         </div>
         <div class="little-grey-bar">
-            <a class="link" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS); ?>"><?php _e("Modifier mes paramètres","s1b");?></a>
+            <a class="link" href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS); ?>"><?php _e("Modifier mes paramètres","s1b");?></a>
         </div>
     </div>
     <?php }?>

@@ -54,7 +54,7 @@ if ($_POST) {
         $subject = sprintf(__("Formulaire de contact : %s %s", "s1b"), $name, $firstName);
         $body = sprintf(__("Nom : %s <br/>Prénom: %s <br/>Email : %s <br/>Message: %s <br/>", "s1b"), $name, $firstName, $email, $message);
         
-        $mailSvc = \Sb\Mail\Service\MailSvcImpl::getNewInstance(null, \Sb\Entity\Constants::CONTACT_EMAIL);        
+        $mailSvc = \Sb\Service\MailSvc::getNewInstance(null, \Sb\Entity\Constants::CONTACT_EMAIL);        
         $mailSvc->send(\Sb\Entity\Constants::CONTACT_EMAIL . ", berliozd@gmail.com, rebiffe_olivier@yahoo.fr", $subject, $body);
 
         if ($sendCopy) {

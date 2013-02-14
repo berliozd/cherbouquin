@@ -17,7 +17,7 @@ class NoBooksWidget extends \Sb\View\AbstractView {
 
     public function get() {
         $baseTpl = "components/noBooksWidget";
-        $tpl = new \Sb\Templates\Template($baseTpl, $this->baseDir);
+        $tpl = new \Sb\Templates\Template($baseTpl);
         $tpl->setVariables(array("label" => $this->label, "coverImage" => $this->getContext()->getBaseUrl() . "Resources/images/nocover.png"));
         return $tpl->output();
     }

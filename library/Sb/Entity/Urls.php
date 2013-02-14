@@ -22,9 +22,10 @@ class Urls {
     const HELP_US = "nous-aider"; // aidez nous
     const PRESS = "presse"; // presse
     const NEWSLETTERS = "bulletin"; // newsletters
+    const PRESS_REVIEW = "revues-de-presse"; // revues de presse
     
     // account connection-registration-activation
-    const LOGIN = 'connexion'; // user_login
+    const LOGIN = 'index/log'; // Zend : default / index / log
     const LOGOUT = 'membre/deconnexion'; // user_logout
     const LOGIN_FACEBOOK = 'membre/connexion-facebook'; // user_facebook_connect
     const SUBSCRIBE = 'membre/inscription'; //user_registration
@@ -33,9 +34,9 @@ class Urls {
     // User
     const USER_LIBRARY = "bibliotheque"; // library_fullwidth    
     const USER_LIBRARY_DETAIL = "bibliotheque-detail"; // page
-    const USER_HOME = "membre/a-la-page"; // user_homepage
+    const USER_HOME = "membre/a-la-page"; // Zend : member / index / index
     // User profile
-    const USER_PROFILE = 'profil-membre'; // user_profile
+    const MY_PROFILE = 'profil-membre'; // user_profile
     const USER_PROFILE_EDIT = 'profil-membre/informations'; // user_profile_edit
     const USER_PROFILE_GRAVATAR = 'profil-membre/gravatar'; // user_profile_gravatar
     const USER_PROFILE_SETTINGS = 'profil-membre/parametrage'; // user_profile_settings
@@ -44,7 +45,7 @@ class Urls {
     // User mailbox
     const USER_MAILBOX = 'messagerie'; // user_mailbox
     const USER_MAILBOX_DELETE_MESSAGE = 'messagerie/supprimer'; // user_message_delete
-    const USER_MAILBOX_READ_MESSAGE = 'messagerie/lire'; // user_message_read
+    const USER_MAILBOX_READ_MESSAGE = 'member/mailbox/read-message'; // Zend : member / mailbox / read
     const USER_MAILBOX_REPLY_MESSAGE = 'messagerie/repondre'; // user_message_read
     const USER_MAILBOX_SEND_MESSAGE = 'messagerie/envoyer'; // user_message_send
     const USER_MAILBOX_RECOMMAND = "messagerie/recommander"; // user_message_recommandation
@@ -58,8 +59,10 @@ class Urls {
     const USER_FRIENDS_PENDING_REQUEST = 'amis/requete'; // user_friends_pending_request
     const USER_FRIENDS_FIND = 'amis/ajouter'; // user_friends_search
 
-    // Friend
-    const FRIEND_PROFILE = 'amis/profil';
+    // Users
+    const USER_PROFILE = 'users/profile';
+    
+    // Friend    
     const FRIEND_LIBRARY = 'bibliotheque-damis';
     
     // SEO Content pages
@@ -75,4 +78,6 @@ class Urls {
     
     // Userbook Gifts
     const USERBOOK_GIFTS_SEND_BY_EMAIL= "userbook-gifts/send-by-email";
+    
+    const BOOK_WARN_OFFENSIVE_COMMENT = "book/warn-offensive-comment";
 }

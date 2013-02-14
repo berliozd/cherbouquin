@@ -351,6 +351,42 @@ class UserBook extends \Sb\Db\Model\UserBook implements \Doctrine\ORM\Proxy\Prox
         return parent::getBlowOfHeartRemoved();
     }
 
+    public function getComments()
+    {
+        $this->__load();
+        return parent::getComments();
+    }
+
+    public function setComments($comments)
+    {
+        $this->__load();
+        return parent::setComments($comments);
+    }
+
+    public function getNb_of_pages()
+    {
+        $this->__load();
+        return parent::getNb_of_pages();
+    }
+
+    public function setNb_of_pages($nb_of_pages)
+    {
+        $this->__load();
+        return parent::setNb_of_pages($nb_of_pages);
+    }
+
+    public function getNb_of_pages_read()
+    {
+        $this->__load();
+        return parent::getNb_of_pages_read();
+    }
+
+    public function setNb_of_pages_read($nb_of_pages_read)
+    {
+        $this->__load();
+        return parent::setNb_of_pages_read($nb_of_pages_read);
+    }
+
     public function getActiveLending()
     {
         $this->__load();
@@ -372,7 +408,7 @@ class UserBook extends \Sb\Db\Model\UserBook implements \Doctrine\ORM\Proxy\Prox
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'rating', 'is_blow_of_heart', 'review', 'is_wished', 'is_owned', 'is_deleted', 'creation_date', 'last_modification_date', 'reading_date', 'borrowed_once', 'lent_once', 'hyperlink', 'user', 'book', 'reading_state', 'tags', 'lendings', 'borrowings', 'giftsRelated');
+        return array('__isInitialized__', 'id', 'rating', 'is_blow_of_heart', 'review', 'is_wished', 'is_owned', 'is_deleted', 'creation_date', 'last_modification_date', 'reading_date', 'borrowed_once', 'lent_once', 'hyperlink', 'nb_of_pages', 'nb_of_pages_read', 'user', 'book', 'reading_state', 'tags', 'lendings', 'borrowings', 'giftsRelated', 'comments');
     }
 
     public function __clone()

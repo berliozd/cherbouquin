@@ -17,16 +17,15 @@ class BookList {
     private $lastItemIdx = 0;
     private $listOptions;
 
-    function __construct($nbResultsPerPage, $allResults, $baseDir, \Sb\Lists\Options $listOptions = null) {
-        $this->initVariables($nbResultsPerPage, $allResults, $baseDir, $listOptions);
+    function __construct($nbResultsPerPage, $allResults, \Sb\Lists\Options $listOptions = null) {
+        $this->initVariables($nbResultsPerPage, $allResults, $listOptions);
         $this->prepare();
     }
 
-    public function initVariables($nbResultsPerPage, $allResults, $baseDir, \Sb\Lists\Options $listOptions = null) {
+    public function initVariables($nbResultsPerPage, $allResults, \Sb\Lists\Options $listOptions = null) {
         $this->nbResultsPerPage = $nbResultsPerPage;
         $this->allResults = $allResults;
         $this->listOptions = $listOptions;
-        $this->baseDir = $baseDir;
     }
 
     public function prepare() {
@@ -54,7 +53,6 @@ class BookList {
                     $backedUpBooks = $this->allResults;
                     
                     $tmpRes = \Sb\Helpers\BooksHelper::search($this->allResults, $this->listOptions->getSearch()->getValue());
-                    \Sb\Trace\FireBugTrace::Trace(count($tmpRes));
                     if (!$tmpRes) {
                         \Sb\Flash\Flash::addItem(__("Aucun livre ne correspond à votre recherche.", "s1b"));
                         $this->allResults = $backedUpBooks;
@@ -129,5 +127,3 @@ class BookList {
     }
 
 }
-
-?>

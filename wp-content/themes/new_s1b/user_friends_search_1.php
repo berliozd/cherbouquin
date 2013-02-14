@@ -22,7 +22,7 @@ if ($_GET) {
 
         if ($foundUsers && count($foundUsers) > 0) {
             // preparing pagination
-            $paginatedList = new \Sb\Lists\PaginatedList($foundUsers, 6);
+            $paginatedList = new \Sb\Lists\PaginatedList($foundUsers, 9);
             $firstItemIdx = $paginatedList->getFirstPage();
             $lastItemIdx = $paginatedList->getLastPage();
             $nbItemsTot = $paginatedList->getTotalPages();

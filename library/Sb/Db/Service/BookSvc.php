@@ -16,6 +16,15 @@ use \Sb\Db\Model\Model;
  */
 class BookSvc extends Service {
 
+    const BOOKS_USER_COULD_LIKE = "BOOKS_USER_COULD_LIKE";
+    const BOOKS_ALSO_LIKED = "BOOKS_ALSO_LIKED";
+    const BOOKS_SAME_TAGS = "BOOKS_SAME_TAGS";
+    const BOOKS_SAME_CONTRIBUTORS = "BOOKS_SAME_CONTRIBUTORS";
+    const TOPS = "TOPS";
+    const BOH = "BOH";
+    const LASTY_ADDED = "LASTY_ADDED";
+    const LASTY_RATED = "LASTY_RATED";
+
     private static $instance;
     private $userUserbooksBookIds;
     private $userUserbooksBookTitles;
@@ -42,7 +51,7 @@ class BookSvc extends Service {
      */
     public function getBooksUserCouldLike($userId) {
 
-        $key = __FUNCTION__ . "_" . $userId;
+        $key = self::BOOKS_USER_COULD_LIKE . "_uid_" . $userId;
 
         $resultInCache = $this->getData($key);
 
@@ -94,7 +103,7 @@ class BookSvc extends Service {
      */
     public function getBooksAlsoLiked($bookId) {
 
-        $key = __FUNCTION__ . "_" . $bookId;
+        $key = self::BOOKS_ALSO_LIKED . "_bid_" . $bookId;
 
         $resultInCache = $this->getData($key);
 
@@ -114,8 +123,13 @@ class BookSvc extends Service {
                     // Setting the current viewed book
                     $this->currentViewedBook = BookDao::getInstance()->get($bookId);
 
+                    $result = $booksLikedByUsers;
+
                     // Removing the current viewed book
-                    $result = array_filter($booksLikedByUsers, array(&$this, "isNotCurrentViewedBook"));
+                    $result = array_filter($result, array(&$this, "isNotCurrentViewedBook"));
+
+                    // Removing the books with same authors
+                    $result = array_filter($result, array(&$this, "hasNotSameContributors"));
                 }
             }
 
@@ -132,7 +146,7 @@ class BookSvc extends Service {
      */
     public function getBooksWithSameTags($bookId) {
 
-        $key = __FUNCTION__ . "_" . $bookId;
+        $key = self::BOOKS_SAME_TAGS . "_bid_" . $bookId;
 
         $resultInCache = $this->getData($key);
 
@@ -150,8 +164,14 @@ class BookSvc extends Service {
                 if (count($booksWithTags) > 0) {
                     // Setting the current viewed book
                     $this->currentViewedBook = BookDao::getInstance()->get($bookId);
+                    
+                    $result = $booksWithTags;
+                    
                     // Removing the current viewed book
-                    $result = array_filter($booksWithTags, array(&$this, "isNotCurrentViewedBook"));
+                    $result = array_filter($result, array(&$this, "isNotCurrentViewedBook"));
+                    
+                    // Removing the books with same authors
+                    $result = array_filter($result, array(&$this, "hasNotSameContributors"));
                 }
             }
 
@@ -163,7 +183,7 @@ class BookSvc extends Service {
 
     public function getBooksWithSameContributors($bookId) {
 
-        $key = __FUNCTION__ . "_" . $bookId;
+        $key = self::BOOKS_SAME_CONTRIBUTORS . "_bid_" . $bookId;
 
         $resultInCache = $this->getData($key);
 
@@ -181,8 +201,10 @@ class BookSvc extends Service {
                 $booksWithSameContributors = BookDao::getInstance()->getListWithSameContributors($contributorsIds);
 
                 if (count($booksWithSameContributors) > 0) {
+                    
                     // Setting the current viewed book
                     $this->currentViewedBook = $book;
+                    
                     // Removing the current viewed book
                     $result = array_filter($booksWithSameContributors, array(&$this, "isNotCurrentViewedBook"));
                 }
@@ -191,7 +213,7 @@ class BookSvc extends Service {
             $this->setData($key, $result);
         }
 
-        return $this->getRandomNumber($this->getData($key), 5);
+        return $this->getData($key);
     }
 
     /**
@@ -199,7 +221,7 @@ class BookSvc extends Service {
      * @return type
      */
     public function getTopsPageTops() {
-        return $this->getTops(25);
+        return $this->getTops(100);
     }
 
     /**
@@ -220,19 +242,22 @@ class BookSvc extends Service {
 
     private function getTops($nbBooks) {
         try {
-            
-            $nbBooksMax = 25; // Number of books in the list cached. Items are alays taken from that list. 
+
+            $nbBooksMax = 100; // Number of books in the list cached. Items are alays taken from that list. 
             //This value will have to be changed if a bigger list needs to be return.
-            
-            $dataKey = __FUNCTION__ . "_" . $nbBooksMax;
+
+            $dataKey = self::TOPS . "_m_" . $nbBooksMax;
             $result = $this->getData($dataKey);
             if ($result === false) {
                 $result = BookDao::getInstance()->getListTops($nbBooksMax);
+
+                // Make the result richer by adding the contributors
+                $result = $this->getRicherBookResult($result);
+
                 $this->setData($dataKey, $result);
             }
 
             return array_slice($result, 0, $nbBooks);
-            
         } catch (\Exception $exc) {
             $this->logException("BookSvc", __FUNCTION__, $exc);
         }
@@ -243,7 +268,7 @@ class BookSvc extends Service {
      * @return type
      */
     public function getBOHPageBOH() {
-        return $this->getBOH(25);
+        return $this->getBOH(100);
     }
 
     /**
@@ -270,20 +295,23 @@ class BookSvc extends Service {
         return $this->getBOH(5);
     }
 
-    private function getBOH($nbBooks) {        
+    private function getBOH($nbBooks) {
         try {
-            
-            $nbBooksMax = 25; // Number of books in the list cached. Items are alays taken from that list.
+
+            $nbBooksMax = 100; // Number of books in the list cached. Items are alays taken from that list.
             //This value will have to be changed if a bigger list needs to be return.
-            $dataKey = __FUNCTION__ . "_" . $nbBooksMax;
+            $dataKey = self::BOH . "_m_" . $nbBooksMax;
             $result = $this->getData($dataKey);
             if ($result === false) {
                 $result = BookDao::getInstance()->getListBOH($nbBooksMax);
+
+                // Make the result richer by adding the contributors
+                $result = $this->getRicherBookResult($result);
+
                 $this->setData($dataKey, $result);
             }
 
             return array_slice($result, 0, $nbBooks);
-            
         } catch (\Exception $exc) {
             $this->logException("BookSvc", __FUNCTION__, $exc);
         }
@@ -294,9 +322,9 @@ class BookSvc extends Service {
      * @return type
      */
     public function getLastlyAddedForPage() {
-        return $this->getLastlyAdded(25);
+        return $this->getLastlyAdded(100);
     }
-    
+
     /**
      * Get 25 lastly added books order by creation date for footer
      * @return type
@@ -307,25 +335,65 @@ class BookSvc extends Service {
 
     private function getLastlyAdded($nbBooks) {
         try {
-            
-            $nbBooksMax = 25; // Number of books in the list cached. Items are always taken from that list.
+
+            $nbBooksMax = 100; // Number of books in the list cached. Items are always taken from that list.
             //This value will have to be changed if a bigger list needs to be return.
-            $dataKey = __FUNCTION__ ."_" . $nbBooksMax;
+            $dataKey = self::LASTY_ADDED . "_m_" . $nbBooksMax;
             $result = $this->getData($dataKey);
             if ($result === false) {
                 $result = BookDao::getInstance()->getLastlyAdded($nbBooksMax);
+
+                // Make the result richer by adding the contributors
+                $result = $this->getRicherBookResult($result);
+
                 $this->setData($dataKey, $result);
             }
 
             return array_slice($result, 0, $nbBooks);
-            
         } catch (\Exception $exc) {
             $this->logException("BookSvc", __FUNCTION__, $exc);
         }
     }
 
+    public function getLastRatedBookForHomePage() {
+        return $this->getLastRated(9);
+    }
+
+    private function getLastRated($nbBooks) {
+        try {
+
+            $nbBooksMax = 25; // Number of books in the list cached. Items are alays taken from that list. 
+            //This value will have to be changed if a bigger list needs to be return.
+
+            $dataKey = self::LASTY_RATED . "_m_" . $nbBooksMax;
+            $result = $this->getData($dataKey);
+            if ($result === false) {
+                $result = BookDao::getInstance()->getListLastRated($nbBooksMax);
+
+                // Make the result richer by adding the contributors
+                $result = $this->getRicherBookResult($result);
+
+                $this->setData($dataKey, $result);
+            }
+
+            return array_slice($result, 0, $nbBooks);
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+    
     private function isNotCurrentViewedBook(Book $book) {
         return ($book->getId() != $this->currentViewedBook->getId()) && ($book->getTitle() != $this->currentViewedBook->getTitle());
+    }
+
+    private function hasNotSameContributors(\Sb\Db\Model\Book $book) {
+        $hasNotSameContributors = false;
+        foreach ($book->getContributors() as $contributor) {
+            $currentlyViewedBookContributorsIds = array_map(array(&$this, "getId"), $this->currentViewedBook->getContributors()->toArray());
+            if (!in_array($contributor->getId(), $currentlyViewedBookContributorsIds))
+                $hasNotSameContributors = true;
+        }
+        return $hasNotSameContributors;
     }
 
     /**
@@ -355,6 +423,31 @@ class BookSvc extends Service {
                 return array_slice($books, 0, $number);
         }
         return null;
+    }
+
+    /**
+     * Get e book with contributors
+     * @param \Sb\Db\Model\Book $book
+     * @return \Sb\Db\Model\Book
+     */
+    private function getFullBook(\Sb\Db\Model\Book $book) {
+        $contributors = \Sb\Db\Dao\ContributorDao::getInstance()->getListForBook($book->getId());
+        $book->setContributors($contributors);
+        return $book;
+    }
+
+    /**
+     * Make a book result more richer by adding the contributors to each book
+     * @param type $books
+     * @return array of Book
+     */
+    private function getRicherBookResult($books) {
+        $result = array();
+        foreach ($books as $book) {
+            $book = $this->getFullBook($book);
+            $result[] = $book;
+        }
+        return $result;
     }
 
 }

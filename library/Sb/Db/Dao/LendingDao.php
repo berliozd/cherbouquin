@@ -30,7 +30,7 @@ class LendingDao extends \Sb\Db\Dao\AbstractDao {
      * @param \Sb\Db\Model\Lending $lending
      * @return boolean
      */
-    public function add(\Sb\Db\Model\Lending $lending) {
+    public function add(\Sb\Db\Model\Model $lending) {
 
         if ($lending->getUserbook())
             $this->entityManager->persist($lending->getUserbook());
@@ -48,7 +48,7 @@ class LendingDao extends \Sb\Db\Dao\AbstractDao {
      * @param \Sb\Db\Model\Lending $lending
      * @return boolean
      */
-    public function update(\Sb\Db\Model\Lending $lending) {
+    public function update(\Sb\Db\Model\Model $lending) {
 
         $this->entityManager->persist($lending);
         $this->entityManager->flush();

@@ -2,17 +2,21 @@
 use Sb\Helpers\HTTPHelper;
 use Sb\Helpers\BookHelper;
 ?>
-<div class="pushed-books pushedBooks">
-    <div class="pb-title">
-        <?php echo $title; ?>
-    </div>
-    <div class="pb-shelf">
-        <div class="inner-right-padding-45">
-            <?php foreach ($books as $book) { ?>
-                <div class="pb-bookOnShelf">
-                    <a href="<?php echo HTTPHelper::Link($book->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($book, $defaultImage); ?></a>
-                </div>
-            <?php } ?>
-        </div>
+<div class="pb-title">
+    <?php echo $title; ?>
+</div>
+<?php if ($books && count($books)>0) {?>
+<div class="pb-shelf">
+    <div class="pb-inner-shelf">
+        <?php foreach ($books as $book) { ?>
+            <div class="pb-bookOnShelf">
+                <a href="<?php echo HTTPHelper::Link($book->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($book, $defaultImage); ?></a>
+            </div>
+        <?php } ?>
     </div>
 </div>
+<?php } else { ?>
+    <div class="pb-nobooks">
+    <?php _e("Non renseigné","s1b");?>
+    </div>
+<?php } ?>

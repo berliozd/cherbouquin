@@ -6,6 +6,7 @@ namespace Sb\Db\Model;
 class GroupChronicle implements \Sb\Db\Model\Model {
 
     function __construct() {
+        
     }
 
     /**
@@ -13,46 +14,48 @@ class GroupChronicle implements \Sb\Db\Model\Model {
      * @GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @group_id @Column(type="integer")
      */
     protected $group_id;
-    
+
     /**
      * @ManyToOne(targetEntity="User", inversedBy="groupchronicles")
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
-    
+
     /**
      * @ManyToOne(targetEntity="Book", inversedBy="groupchronicles", fetch="EAGER")
      * @JoinColumn(name="book_id", referencedColumnName="id")
      */
     protected $book; // fetch="EAGER" because we need to get the book and his members automatically to store it into cache and have it available from restored from cache
-    
+
     /** @Column(type="string", length=200) */
     protected $title;
-    
-    /** @Column(type="string", length=1000) */
+
+    /** @Column(type="string", length=5000) */
     protected $text;
 
     /** @Column(type="integer") */
     protected $type_id;
-    
+
     /** @Column(type="integer") */
     protected $link_type;
-    
+
     /** @Column(type="string", length=255) */
     protected $link;
-    
+
     /** @Column(type="datetime") */
     protected $creation_date;
 
     /** @Column(type="boolean") */
     protected $is_published = false;
-    
-    
+
+    /** @Column(type="string", length=100) */
+    protected $source;
+
     public function getId() {
         return $this->id;
     }
@@ -140,8 +143,17 @@ class GroupChronicle implements \Sb\Db\Model\Model {
     public function setIs_published($is_published) {
         $this->is_published = $is_published;
     }
-        
+
+    public function getSource() {
+        return $this->source;
+    }
+
+    public function setSource($source) {
+        $this->source = $source;
+    }
+
     public function IsValid() {
         return true;
     }
+
 }

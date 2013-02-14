@@ -19,6 +19,7 @@ if ($friends && count($friends) > 0)
     usort($friends, "compareFirstName");    
 
 $selectedFrienId = ArrayHelper::getSafeFromArray($_GET, "friendId", null);
+$selectedFriend = null;
 if ($selectedFrienId) {
     $selectedFriend = UserDao::getInstance()->get($selectedFrienId);
 

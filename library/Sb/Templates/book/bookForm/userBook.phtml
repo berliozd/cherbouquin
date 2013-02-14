@@ -5,6 +5,13 @@
 
 <div class="user-book">
     <div class="ub-comment">
+        <script type="text/javascript">
+            tinyMCE.init({
+                mode: "textareas",
+                theme_advanced_buttons1 : "link,unlink",
+                language : "fr"
+            });
+        </script>
         <div class="ubc-label"><?php _e("Votre commentaire : ", "s1b"); ?></div>
         <div class="ubc-value"><textarea id="review" class="input-item textinput" type="text" name="Review">[@review]</textarea></div>
     </div>
@@ -28,57 +35,67 @@
                         </ul>
                     </div>
                     <span class="star-sep">/</span>
-                    <span class="star star-0-label" rating="0"><?php _e('0 étoile', 's1b');?></span>
+                    <span class="star star-0-label" rating="0"><?php _e('0 étoile', 's1b'); ?></span>
                 </div>
             </div>
             <div class="picto-sep ub-field">            
                 <input type="checkbox" name="IsBlowOfHeart" value="1" [@isBlowOfHeartChecked]/>    
-                <div class="ub-boh-label ub-label">
-                    <?php _e("Coup de coeur", "s1b");?>
+                       <div class="ub-boh-label ub-label">
+                           <?php _e("Coup de coeur", "s1b"); ?>
                 </div>
             </div>
         </div>        
         <div class="ub-field">                
             <div class="ub-label"><?php _e("Vous possédez ce livre : ", "s1b") ?></div><input type="checkbox" name="IsOwned" value="1" [@isOwned]/>
-            <div class="ub-label"><?php _e("Vous souhaitez ce livre : ", "s1b") ?></div><input type="checkbox" name="IsWished" value="1" [@isWished]/>
+                                                                                              <div class="ub-label"><?php _e("Vous souhaitez ce livre : ", "s1b") ?></div><input type="checkbox" name="IsWished" value="1" [@isWished]/>
         </div>
         <div class="horizontal-sep-1"></div>
         <div class="ub-field">
-            <div class="ub-label"><?php _e("Etat de lecture : ", "s1b");?></div>
+            <div class="ub-label"><?php _e("Etat de lecture : ", "s1b"); ?></div>
             <div class="ub-reading-state">
                 <select name="ReadingStateId" id="selReadingState" class="input-item reading-state">
                     [@readingStateOptions]
                 </select>
-                <div class="[@noDisplay] reading-date-block readingDateBlock">
-                    <div class="float-left">&nbsp;<?php _e("le","s1b");?>&nbsp;</div>
+                <div class="[@displayReadingDateBlock] reading-date-block readingDateBlock">
+                    <div class="float-left">&nbsp;<?php _e("le", "s1b"); ?>&nbsp;</div>
                     <input type="text" id="readingDateDatepicker" class="input-item textinput" name="ReadingDate" value="[@readingDate]"/>
                 </div>
-            </div>
+                <div class="<?php echo $displayNbPagesRead?> nb-of-pages-read-block nbOfPagesReadBlock">
+                    <div class="ub-label"><?php _e("Etat d'avancement : ", "s1b") ?></div>
+                    <div class="ub-field">
+                        <?php _e("page","s1b");?>
+                        <input id="nbOfPagesRead" type="text" name="nb_of_pages_read" value="<?php echo $nb_of_pages_read; ?>" class="input-item xs-textinput" /> 
+                        /
+                        <input id="nbOfPages" type="text" name="nb_of_pages" value="<?php echo $nb_of_pages; ?>" class="input-item xs-textinput" />
+                        <?php _e("page(s)","s1b");?>
+                    </div>
+                </div>
+            </div>            
         </div>
-        <?php if ($showLending) {?>
-        <div class="horizontal-sep-1"></div>
-        <div class="ub-field ub-lending"><div class="float-left">[@lendingLabel]</div><a class="link float-left margin-left" href="[@editLendingLink]">[@editLendingText]</a></div>
-        <?php }?>
+        <?php if ($showLending) { ?>
+            <div class="horizontal-sep-1"></div>
+            <div class="ub-field ub-lending"><div class="float-left">[@lendingLabel]</div><a class="link float-left margin-left" href="[@editLendingLink]">[@editLendingText]</a></div>
+        <?php } ?>
     </div>    
     <div class="horizontal-sep-1"></div>
     <div class="ub-tags">
         <div class="ubt-label ub-label"><?php _e("Les tags : ", "s1b"); ?></div>
         <div class="ubt-value">
-            <?php if ($addMode) {?>
-            <?php foreach ($tags as $tag) {?>
-            <div class="ubt-tag">
-                <div class="ubtt-value"><input type="checkbox" class="ubt-check" name="tag[<?php echo $tag->getId();?>]" value="<?php echo $tag->getId();?>" /></div>
-                <div class="ubtt-label"><?php echo $tag->getLabel();?></div>
-            </div>
-            <?php }?>
-            <?php } else {?>
-            <?php foreach ($tagsExt as $tagExt) {?>
-            <div class="ubt-tag">
-                <div class="ubtt-value"><input type="checkbox" class="ubt-check" name="tag[<?php echo $tagExt->getTag()->getId();?>]" <?php echo ($tagExt->getSelected() ? "checked" : "") ;?> /></div>
-                <div class="ubtt-label"><?php echo $tagExt->getTag()->getLabel();?></div>
-            </div>
-            <?php }?>
-            <?php }?>
+            <?php if ($addMode) { ?>
+                <?php foreach ($tags as $tag) { ?>
+                    <div class="ubt-tag">
+                        <div class="ubtt-value"><input type="checkbox" class="ubt-check" name="tag[<?php echo $tag->getId(); ?>]" value="<?php echo $tag->getId(); ?>" /></div>
+                        <div class="ubtt-label"><?php echo $tag->getLabel(); ?></div>
+                    </div>
+                <?php } ?>
+            <?php } else { ?>
+                <?php foreach ($tagsExt as $tagExt) { ?>
+                    <div class="ubt-tag">
+                        <div class="ubtt-value"><input type="checkbox" class="ubt-check" name="tag[<?php echo $tagExt->getTag()->getId(); ?>]" <?php echo ($tagExt->getSelected() ? "checked" : ""); ?> /></div>
+                        <div class="ubtt-label"><?php echo $tagExt->getTag()->getLabel(); ?></div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 </div>

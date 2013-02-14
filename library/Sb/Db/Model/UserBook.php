@@ -7,7 +7,7 @@ use \Doctrine\Common\Collections\ArrayCollection;
 /** @Entity @Table(name="s1b_userbooks") */
 class UserBook implements \Sb\Db\Model\Model {
 
-    private $needToUpdateBook = false; // flag to tell us if the associated book need to be updated
+    private $needToUpdateBook = false; // Flag to tell if the associated book need to be updated
     private $ratingDiff; // used when updating the userbook to pass the onfo to the book to update the aggregate fields
     private $ratingAdded; // used when updating the userbook to pass the onfo to the book to update the aggregate fields
     private $blowOfHeartAdded; // used when updating the userbook to pass the onfo to the book to update the aggregate fields
@@ -110,6 +110,18 @@ class UserBook implements \Sb\Db\Model\Model {
      * @JoinColumn(name="id", referencedColumnName="userbook_id")
      * */
     protected $giftsRelated;
+
+    /**
+     * @OneToMany(targetEntity="UserbookComment", mappedBy="userbook")
+     * @JoinColumn(name="id", referencedColumnName="userbook_id")
+     * */
+    protected $comments;
+
+    /** @Column(type="integer") */
+    protected $nb_of_pages;
+
+    /** @Column(type="integer") */
+    protected $nb_of_pages_read;
 
     public function getId() {
         return $this->id;
@@ -361,6 +373,30 @@ class UserBook implements \Sb\Db\Model\Model {
 
     public function getBlowOfHeartRemoved() {
         return $this->blowOfHeartRemoved;
+    }
+
+    public function getComments() {
+        return $this->comments;
+    }
+
+    public function setComments($comments) {
+        $this->comments = $comments;
+    }
+
+    public function getNb_of_pages() {
+        return $this->nb_of_pages;
+    }
+
+    public function setNb_of_pages($nb_of_pages) {
+        $this->nb_of_pages = $nb_of_pages;
+    }
+
+    public function getNb_of_pages_read() {
+        return $this->nb_of_pages_read;
+    }
+
+    public function setNb_of_pages_read($nb_of_pages_read) {
+        $this->nb_of_pages_read = $nb_of_pages_read;
     }
 
     /**
