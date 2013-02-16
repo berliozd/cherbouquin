@@ -5,7 +5,6 @@ namespace Sb\Db\Service;
 use Sb\Trace\Trace;
 use Sb\Db\Dao\UserBookDao;
 use Sb\Db\Dao\BookDao;
-use Sb\Db\Dao\UserDao;
 
 /**
  * Description of UserBookSvc
@@ -193,6 +192,14 @@ class UserBookSvc extends \Sb\Db\Service\Service {
             $result = $this->getData($dataKey);
             if ($result === false) {
                 $result = UserBookDao::getInstance()->getLastlyReadUserbookByBookId($bookId, $maxResult);
+
+                // Loop all the userbooks and set the user's userbooks as they are not fetched automatically
+                foreach ($result as $userbook) {
+                    $user = $userbook->getUser();                    
+                    $userbooks = new \Doctrine\Common\Collections\ArrayCollection(UserBookDao::getInstance()->getListAllBooks($user->getId(), true));
+                    $user->setUserBooks($userbooks);
+                    $userbook->setUser($user);
+                }
 
                 $this->setData($dataKey, $result);
             }
