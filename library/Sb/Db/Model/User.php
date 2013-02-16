@@ -102,7 +102,7 @@ class User implements \Sb\Db\Model\Model {
     /** @OneToMany(targetEntity="Message", mappedBy="recipient", fetch="EXTRA_LAZY") */
     protected $messages_received;
 
-    /** @OneToMany(targetEntity="UserBook", mappedBy="user", fetch="EAGER")  */
+    /** @OneToMany(targetEntity="UserBook", mappedBy="user", fetch="EXTRA_LAZY")  */
     protected $userbooks;
 
     /** @OneToMany(targetEntity="UserEvent", mappedBy="user", fetch="EXTRA_LAZY")  */

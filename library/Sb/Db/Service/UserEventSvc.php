@@ -183,9 +183,13 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                             $friend = UserDao::getInstance()->get($event->getNew_value());
                             /*
                              * IMPORTANT !!!
-                             * Do not remove line below : accessing a property (here username) is done to properly initialize the proxy object
                              */
+                            // Do not remove line below : accessing a property (here username) is done to properly initialize the proxy object
                             $friend->setUserName($friend->getUserName());
+                            // Do not remove line below : set user userbooks list
+                            $userbooks = new \Doctrine\Common\Collections\ArrayCollection(UserBookDao::getInstance()->getListAllBooks($friend->getId(), true));
+                            $friend->setUserBooks($userbooks);
+
                             /**
                              * End IMPORTANT
                              */
