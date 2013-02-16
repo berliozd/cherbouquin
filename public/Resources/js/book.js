@@ -61,7 +61,7 @@ function attachUserBookFormSubmit(){
             alert("Caractères invalides dans les champs de saisie de nombre de pages");
             return false;
         }
-        if (nbOfPages < nbOfPagesRead) {
+        if (eval(nbOfPages) < eval(nbOfPagesRead)) {
             alert("Le nombre de pages lues ne peut être supérieur au nombre de pages du livre.");
             return false;
         }
@@ -219,7 +219,7 @@ function _getUserbookCommentDataString(sender) {
     + "&reviewPageId=" + reviewPageId
     + "&ubid=" + ubid 
     + "&comment=" + comment;
-};
+}
 
 function _getUserbookCommentVal(sender, classe){
     return $("." + classe, $(sender)).val();

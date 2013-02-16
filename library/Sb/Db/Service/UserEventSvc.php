@@ -125,7 +125,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
 
     public function getLastEventsOfType($typeId = null, $maxResult = 10) {
         try {
-            $dataKey = self::LAST_EVENT_OF_TYPE  . "_tid_" . $typeId . "_m_" . $maxResult;
+            $dataKey = self::LAST_EVENT_OF_TYPE . "_tid_" . $typeId . "_m_" . $maxResult;
             $result = $this->getData($dataKey);
             if ($result === false) {
                 $result = UserEventDao::getInstance()->getListLastEventsOfType($typeId, $maxResult);
@@ -176,7 +176,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 // Looping all events and set nested members depending on event type
                 foreach ($result as $event) {
                     switch ($event->getType_id()) {
-                        case EventTypes::USERBOOK_REVIEW_CHANGE:                            
+                        case EventTypes::USERBOOK_REVIEW_CHANGE:
                             $event = $this->getFullBookRelatedUserEvent($event);
                             break;
                         case EventTypes::USER_ADD_FRIEND:
@@ -184,7 +184,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                             /*
                              * IMPORTANT !!!
                              * Do not remove line below : accessing a property (here username) is done to properly initialize the proxy object
-                             */                            
+                             */
                             $friend->setUserName($friend->getUserName());
                             /**
                              * End IMPORTANT
@@ -212,14 +212,18 @@ class UserEventSvc extends \Sb\Db\Service\Service {
      * @param \Sb\Db\Model\UserEvent $event
      */
     private function getFullBookRelatedUserEvent(UserEvent $event) {
-        $userbook = UserBookDao::getInstance()->get($event->getItem_id());
-        if ($userbook) {            
-            $book = $userbook->getBook();
-            $contributors =  \Sb\Db\Dao\ContributorDao::getInstance()->getListForBook($book->getId());
-            $book->setContributors($contributors);
-            $event->setBook($book);
-        }        
-        return $event;
+        // If item_id is not null, we get the userbook item from db
+        if ($event->getItem_id()) {
+            $userbook = UserBookDao::getInstance()->get($event->getItem_id());
+            if ($userbook) {
+                $book = $userbook->getBook();
+                $contributors = \Sb\Db\Dao\ContributorDao::getInstance()->getListForBook($book->getId());
+                $book->setContributors($contributors);
+                $event->setBook($book);
+            }
+            return $event;
+        }else
+            return $event;
     }
 
 }

@@ -30,6 +30,7 @@ class Book extends \Sb\View\AbstractView {
         $isInLibrary = false;
 
         $averageRating = $this->book->getAverageRating();
+        $ratingCss = null;
         if ($averageRating)
             $ratingCss = "rating-" . floor($averageRating);
         $nbRatings = $this->book->getNbRatedUserBooks();
@@ -37,7 +38,7 @@ class Book extends \Sb\View\AbstractView {
         $rating = null;
         $isBlowOfHeart = null;
         $readingStateLabel  = null;
-        $ratingCss = null;
+        
         $lendingText = null;
         $lendingLink = null;
         $editBookLink = null;

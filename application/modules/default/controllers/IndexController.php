@@ -81,13 +81,13 @@ class Default_IndexController extends Zend_Controller_Action {
         $this->view->lastReviews = $lastReviewsView->get();
         
         // Get community last events
-        $communityLastEvents = UserEventSvc::getInstance()->getLastEventsOfType(null, 15);
-        $communityLastEventsView = new CommunityLastEvents($communityLastEvents);
-        $this->view->communityLastEvents = $communityLastEventsView->get();
-        $this->view->placeholder('footer')->append("<script>\n
-            toInit.push(\"attachCommunityEventsExpandCollapse()\");\n
-            function attachCommunityEventsExpandCollapse() {_attachExpandCollapseBehavior(\"js_communityLastEvents\", \"userEvent\", \"Voir moins d'activités\", \"Voir plus d'activités\");}\n
-        </script>\n");
+//        $communityLastEvents = UserEventSvc::getInstance()->getLastEventsOfType(null, 15);
+//        $communityLastEventsView = new CommunityLastEvents($communityLastEvents);
+//        $this->view->communityLastEvents = $communityLastEventsView->get();
+//        $this->view->placeholder('footer')->append("<script>\n
+//            toInit.push(\"attachCommunityEventsExpandCollapse()\");\n
+//            function attachCommunityEventsExpandCollapse() {_attachExpandCollapseBehavior(\"js_communityLastEvents\", \"userEvent\", \"Voir moins d'activités\", \"Voir plus d'activités\");}\n
+//        </script>\n");
     }
 
     public function logAction() {

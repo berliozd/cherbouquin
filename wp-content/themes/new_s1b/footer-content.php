@@ -18,7 +18,7 @@ $ajaxUrl = str_replace("index.php", "", str_replace("public/index.php", "", $_SE
 <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/jquery.ui.datepicker-fr.js" ></script>
 
 <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/ajax.js" ></script>
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/book.js" ></script>
+<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/book.js?v=1" ></script>
 <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/library.js" ></script>                    
 <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/pushedBooks.js" ></script>
 <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/searchResult.js" ></script>

@@ -116,8 +116,7 @@ if (!class_exists('share1Book')) {
         function __construct() {
 
             // Load languages files
-            $plugin_dir = basename(dirname(__FILE__));
-            load_plugin_textdomain('share1book', true, BASE_PATH . "Languages");
+            load_plugin_textdomain('s1b', true, BASE_PATH . "languages");
 
             // register differents hooks and actions
             add_action('plugins_loaded', array(&$this, 'onPluginsLoaded'));

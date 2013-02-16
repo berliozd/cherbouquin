@@ -64,7 +64,7 @@ class UserEventDao extends \Sb\Db\Dao\AbstractDao {
             ORDER BY ue.creation_date DESC";
         
         $query = $this->entityManager->createQuery($sql);
-        
+       
         // Set type id value
         if ($typeId != null)
             $query->setParameter('type_id', $typeId);
