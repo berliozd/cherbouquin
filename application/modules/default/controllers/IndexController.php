@@ -36,6 +36,10 @@ class Default_IndexController extends Zend_Controller_Action {
 
         global $globalContext;
         
+        $this->view->tagTitle = "Cherbouquin - gérez et partagez votre bibliothèque avec vos amis, offrez leurs le bon livre et découvrez les coups de coeur de la communauté de lecteurs";
+        $this->view->metaDescription = "Créez votre bibliothèque en ligne et partagez vos livres favoris au sein de la communauté de lecteurs";
+        $this->view->metaKeywords = "cher bouquin, cherbouquin, achat, acheter, art, atlas, auteur, avis, bande dessinee, bandes dessinées, bd, bibliotheque, bibliotheque en ligne, commentaires, communaute, communauté de lecteurs, contes, critiques, critiques de livres, cuisine, dictionnaire, ecrivain, editeur, emprunt, emprunter, fantasy, histoire, lecture, lire, littérature, livre, livre ancien, livre enfant, livre jeunesse, livre occasion, livre photo, livre scolaire, livres en ligne, logiciel gestion bibliotheque, manga, notes, notice, partage, philosophie, poesie, policier, prêt, prêter, recommandation livres, reseau, roman, science fiction, thriller, tourisme, vente livre, vin, voyage";
+        
         $bohBooks = BookSvc::getInstance()->getBOHForHomePage();
         if (count($bohBooks) == 0) {
             $noBohBooks = new NoBooksWidget(__("Aucun livre n'a encore été noté par les membres", "s1b"));
