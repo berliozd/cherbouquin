@@ -26,7 +26,7 @@ class UserEvent extends \Sb\View\AbstractView {
     public function get() {
 
         global $globalContext;
-        
+
         $tplEvent = new \Sb\Templates\Template("userEvents/userEvent");
 
         $friend = $this->userEvent->getUser();
@@ -35,7 +35,7 @@ class UserEvent extends \Sb\View\AbstractView {
         if ($friendImg == "")
             $friendImg = UserHelper::getSmallImageTag($friend);
 
-        $friendName = ucwords($friend->getUserName());
+        $friendName = $friend->getUserName();
         $friendProfileLink = HTTPHelper::Link(Urls::USER_PROFILE, array("uid" => $friend->getId()));
 
         $userBookRelated = false;
@@ -43,8 +43,8 @@ class UserEvent extends \Sb\View\AbstractView {
         $additionalContent = "";
         $friendId = null;
         $friendFriendImg = null;
-        $friendFriendProfileLink  = null;
-        
+        $friendFriendProfileLink = null;
+
         switch ($this->userEvent->getType_id()) {
             case EventTypes::USERBOOK_ADD:
                 $userBook = \Sb\Db\Dao\UserBookDao::getInstance()->get($this->userEvent->getItem_id());
@@ -114,7 +114,7 @@ class UserEvent extends \Sb\View\AbstractView {
             case EventTypes::USER_ADD_FRIEND:
                 $friendNewFriendProfileLink = null;
                 $newFriendId = $this->userEvent->getNew_value();
-                if ($newFriendId == $this->getContext()->getConnectedUser()->getId()) {
+                if ($this->getContext()->getConnectedUser() && $newFriendId == $this->getContext()->getConnectedUser()->getId()) {
                     $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> est ami avec moi.", $friendProfileLink, $friendName);
                     $friendFriendImg = UserHelper::getXSmallImageTag($this->getContext()->getConnectedUser());
                 } else {
@@ -133,8 +133,10 @@ class UserEvent extends \Sb\View\AbstractView {
                 $userBookBorrowed = $lending->getUserBook();
                 $userBook = $userBookBorrowed;
                 $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a emprunté le livre à %s.", $friendProfileLink, $friendName, $userBookBorrowed->getUser()->getUserName());
-                if ($userBookBorrowed->getUser()->getId() == $this->getContext()->getConnectedUser()->getId())
-                    $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> m'a emprunté le livre.", $friendProfileLink, $friendName);
+                if ($this->getContext()->getConnectedUser()) {
+                    if ($userBookBorrowed->getUser()->getId() == $this->getContext()->getConnectedUser()->getId())
+                        $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> m'a emprunté le livre.", $friendProfileLink, $friendName);
+                }
                 $userBookRelated = true;
                 break;
             case EventTypes::USER_LEND_USERBOOK:
@@ -143,8 +145,10 @@ class UserEvent extends \Sb\View\AbstractView {
                 $userBookLended = $lending->getBorrower_UserBook();
                 $userBook = $userBookLended;
                 $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> a prêté le livre à %s.", $friendProfileLink, $friendName, $userBookLended->getUser()->getUserName());
-                if ($userBookLended->getUser()->getId() == $this->getContext()->getConnectedUser()->getId())
-                    $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> m'a prêté le livre.", $friendProfileLink, $friendName);
+                if ($this->getContext()->getConnectedUser()) {
+                    if ($userBookLended->getUser()->getId() == $this->getContext()->getConnectedUser()->getId())
+                        $resume = sprintf("<a href=\"%s\" class=\"link\">%s</a> m'a prêté le livre.", $friendProfileLink, $friendName);
+                }
                 $userBookRelated = true;
                 break;
             default:
@@ -166,11 +170,11 @@ class UserEvent extends \Sb\View\AbstractView {
             $bookId = $userBook->getBook()->getId();
         }
 
-        
+
         $showAddButton = false;
-        if ($globalContext->getConnectedUser())  
+        if ($globalContext->getConnectedUser())
             $showAddButton = true;
-        
+
         // Set variables
         $tplEvent->setVariables(array("friendImg" => $friendImg,
             "friendName" => $friendName,
