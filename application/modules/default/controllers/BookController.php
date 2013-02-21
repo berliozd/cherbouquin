@@ -68,7 +68,7 @@ class Default_BookController extends Zend_Controller_Action {
                 $this->view->ad = $ad;
 
                 $this->view->tagTitle = $book->getTitle() . " - " . $book->getOrderableContributors();
-                $this->view->metaDescription = htmlentities(strip_tags($book->getDescription()));
+                $this->view->metaDescription = htmlspecialchars($book->getDescription());
 
                 // Get last read userbooks for the book
                 $this->view->lastlyReadUserbooks = Sb\Db\Service\UserBookSvc::getInstance()->getLastlyReadUserbookByBookId($bookId, 5);
