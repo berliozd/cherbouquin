@@ -33,7 +33,9 @@ RewriteRule ^book(.)*$ public/index.php [L]             # module:default / contr
 RewriteRule ^livre(.)*$ public/index.php [L]            # module:default / controller:book / action:index
 RewriteRule ^static(.)*$ public/index.php [L]           # module:default / controller:static / action:index
 RewriteRule ^bulletin(.)*$ public/index.php [L]         # module:default / controller:static / action:index (route)
-RewriteRule ^revues-de-presse(.)*$ public/index.php [L]  # module:default / controller:static / action:index (route)
+RewriteRule ^revues-de-presse(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
+RewriteRule ^pas-a-pas(.)*$ public/index.php [L]        # module:default / controller:static / action:index (route)
+
 
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
