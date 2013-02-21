@@ -17,9 +17,12 @@ $ZipCode_modif = trim(ArrayHelper::getSafeFromArray($_POST, "ZipCode_modif", nul
 $Country_modif = trim(ArrayHelper::getSafeFromArray($_POST, "Country_modif", null));
 $Language_modif = trim(ArrayHelper::getSafeFromArray($_POST, "Language_modif", null));
 
+$lang = Sb\Helpers\ArrayHelper::getSafeFromArray($_SESSION, "WPLANG", "fr_FR");
+
 // on vérifie que tous les champs soient complétés
 if (!empty($_POST) && strlen($LastName_modif) > 3 && strlen($FirstName_modif) > 1 && strlen($UserName_modif) > 1) {
 
+    $userNameExist = false;
     if ($UserName_modif != $user->getUserName()) {
         $existingUserWithUserName = \Sb\Db\Dao\UserDao::getInstance()->getByUserName($UserName_modif);
         if ($existingUserWithUserName) {
@@ -28,7 +31,7 @@ if (!empty($_POST) && strlen($LastName_modif) > 3 && strlen($FirstName_modif) > 
             $userNameExist = true;
         }
     }
-    if (!($userNameExist)) {
+    if (!$userNameExist) {
         $user->setFirstName($FirstName_modif);
         $user->setLastName($LastName_modif);
         $user->setUserName($UserName_modif);

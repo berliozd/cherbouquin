@@ -81,8 +81,11 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
         </div>
         <div class="p-line pl-coordinate">
             <span class="pl-value">
-                <?php echo $user->getZipCode(); ?>
-                &nbsp;<?php echo $user->getCity(); ?>
+                <?php 
+                // TODO : temporary code until zipcode column type is changed to varchar (currently bigint)
+                if ($user->getZipCode() > 0) { echo $user->getZipCode(); ?>&nbsp;<?php }
+                ?>
+                <?php echo $user->getCity(); ?>
             </span>
         </div>        
         <div class="p-line pl-coordinate">

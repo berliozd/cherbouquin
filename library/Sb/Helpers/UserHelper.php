@@ -35,15 +35,20 @@ class UserHelper {
     }
 
     public static function getFullGenderAndAge(User $user) {
-        if ($user->getGender() && $user->getBirthDay()) {
+        
+        $age = 0;
+        if ($user->getBirthDay())
             $age = $user->getBirthDay()->diff(new \DateTime())->y;
+        
+        if ($user->getGender() && $age > 0) {            
             return sprintf(__("%s %s ans", "s1b"), ($user->getGender() == "male") ? __("Homme", "s1b") : __("Femme", "s1b"), $age);
         } else if ($user->getGender()) {
             return ($user->getGender() == "male") ? __("Homme", "s1b") : __("Femme", "s1b");
-        } else if ($user->getBirthDay()) {
+        } else if ($age > 0) {
             $age = $user->getBirthDay()->diff(new \DateTime())->y;
             return sprintf(__("%s ans", "s1b"), $age);
         }
+        
         return "";
     }
 

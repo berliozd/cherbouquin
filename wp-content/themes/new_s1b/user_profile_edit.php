@@ -7,36 +7,6 @@ get_header();
 /**
  * Template Name: user_profile_edit
  */
-function profilVisibilityPicto($userSettings){    
-    if ($userSettings->getDisplayProfile() == \Sb\Entity\UserDataVisibility::FRIENDS) {
-        echo '<img src="';
-        bloginfo('stylesheet_directory') ;
-        echo "/s1b_images/Cadenas_ouvert.jpg" . '" />';
-        echo __("mes amis", "s1b");
-    } else {
-        echo '<img src="';
-        bloginfo('stylesheet_directory');
-        echo "/s1b_images/Cadenas_ouvert.jpg" . '" />';
-        echo __("public", "s1b");
-    }
-}
-function profilDisplayEmailPicto($userSettings) {
-    if ($userSettings->getDisplayBirthDay() == \Sb\Entity\UserDataVisibility::NO_ONE) {
-        echo '<img src="';
-        bloginfo('stylesheet_directory');
-        echo "/s1b_images/cadenas.jpg". '"/>';
-    } else if ($userSettings->getDisplayBirthDay() == \Sb\Entity\UserDataVisibility::FRIENDS) {
-        echo '<img src="';
-        bloginfo('stylesheet_directory');
-        echo "/s1b_images/cadenas_ouvert.jpg". '"/>';
-        echo __("mes amis", "s1b");
-    } else {
-        echo '<img src="';
-        bloginfo('stylesheet_directory');
-        echo "/s1b_images/cadenas_ouvert.jpg". '"/>';
-        echo __("public", "s1b");    
-    }
-}
 ?>
 
 <div class="user-profile-bkg">
@@ -63,7 +33,6 @@ function profilDisplayEmailPicto($userSettings) {
                         </td>
                         <td>
                             <input type="text" class="input-item textinput" name="FirstName_modif" id="FirstName_modif" value="<?php echo $user->getFirstName(); ?>" />
-                            <?php //profilVisibilityPicto($userSettings);?>
                         </td>
                     </tr>
                     <tr>
@@ -86,7 +55,6 @@ function profilDisplayEmailPicto($userSettings) {
                                 echo $user->getBirthDay()->format('d/m/Y');
                             }
                             ?>" />
-                            <?php //profilDisplayEmailPicto($userSettings);?>
                         </td>
                     </tr>
                     <tr>
@@ -95,7 +63,6 @@ function profilDisplayEmailPicto($userSettings) {
                         </td>
                         <td>
                             <input type="text" class="input-item textinput" name="Address_modif" id="Address_modif" value="<?php echo $user->getAddress(); ?>" />
-                            <?php //profilVisibilityPicto($userSettings);?>
                         </td>
                     </tr>
                     <tr>
@@ -104,7 +71,6 @@ function profilDisplayEmailPicto($userSettings) {
                         </td>
                         <td>
                             <input type="text" class="input-item textinput" name="City_modif" id="City_modif" value="<?php echo $user->getCity(); ?>" />
-                            <?php //profilVisibilityPicto($userSettings);?>
                         </td>
                     </tr>
                     <tr>
@@ -113,7 +79,6 @@ function profilDisplayEmailPicto($userSettings) {
                         </td>
                         <td>
                             <input type="text" class="input-item textinput" name="ZipCode_modif" id="ZipCode_modif" value="<?php echo ($user->getZipCode() == "0" ? "" : $user->getZipCode()); ?>" />
-                            <?php //profilVisibilityPicto($userSettings);?>
                         </td>
                     </tr>
                     <tr>
@@ -121,7 +86,7 @@ function profilDisplayEmailPicto($userSettings) {
                             <?php _e("Pays", "s1b"); ?>
                         </td>
                         <td>
-                            <?php
+                            <?php                            
                             $countries = \Sb\Db\Dao\CountryDao::getInstance()->getAll();
                             if ($user->getCountry())                                
                                 $selectedCountry = \Sb\Db\Dao\CountryDao::getInstance()->getCountryByCode($user->getCountry());
@@ -129,7 +94,7 @@ function profilDisplayEmailPicto($userSettings) {
                             <select class="input-item selectinput" name="Country_modif">
                                 <option></option>
                                 <?php foreach ($countries as $country) { ?>
-                                <option <?php echo (($selectedCountry && ($selectedCountry->getIso3166() == $country->getIso3166())) ? "selected" : "");?> value="<?php echo $country->getIso3166(); ?>"><?php echo ($_SESSION['WPLANG'] <> "en_US" ? $country->getLabel_french(): $country->getLabel_english()); ?></option>
+                                <option <?php echo (($selectedCountry && ($selectedCountry->getIso3166() == $country->getIso3166())) ? "selected" : "");?> value="<?php echo $country->getIso3166(); ?>"><?php echo ($lang != "en_US" ? $country->getLabel_french(): $country->getLabel_english()); ?></option>
                                 <?php } ?>
                             </select>
                         </td>
@@ -143,7 +108,7 @@ function profilDisplayEmailPicto($userSettings) {
                             $userLang = $user->getLanguage();
                             if ($userLang == "") {
                                 $userLang = __("anglais", "s1b");
-                                if ($_SESSION['WPLANG'] <> "en_US") 
+                                if ($lang != "en_US") 
                                     $userLang = __("français", "s1b");                                                                    
                             }
                             ?>
@@ -151,7 +116,6 @@ function profilDisplayEmailPicto($userSettings) {
                                 <option value="<?php _e("français", "s1b"); ?>" <?php echo (($userLang == __("français", "s1b")) ? "selected" : ""); ?>><?php _e("français", "s1b"); ?></option>
                                 <option value="<?php _e("anglais", "s1b"); ?>" <?php echo (($userLang == __("anglais", "s1b")) ? "selected" : ""); ?>><?php _e("anglais", "s1b"); ?></option>
                             </select>
-                           <?php // if ($_SESSION['WPLANG'] <> "en_US") { ?>                                
                             
                         </td>
                     </tr>

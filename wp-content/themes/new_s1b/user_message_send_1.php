@@ -26,6 +26,7 @@ if ($friendSelectionsFromGet || $friendSelectionsFromPost || $sendingMessage) {
         }
         if ($friendSelectionsIds) {
             $friendList = array();
+            $friendIdList = "";
             foreach ($friendSelectionsIds as $friendSelection) {
                 $friend = \Sb\Db\Dao\UserDao::getInstance()->get($friendSelection);
                 $friendList[] = $friend;
