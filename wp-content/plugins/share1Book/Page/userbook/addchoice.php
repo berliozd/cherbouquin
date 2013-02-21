@@ -1,27 +1,29 @@
 <?php
 
-use \Sb\Entity\Constants;
-use \Sb\Entity\LibraryPages;
-use \Sb\Entity\Urls;
-use \Sb\Db\Dao\BookDao;
-use \Sb\Db\Dao\UserBookDao;
-use \Sb\Db\Mapping\BookMapper;
-use \Sb\Flash\Flash;
-use \Sb\Db\Model\UserBook;
-use \Sb\Db\Model\Book;
-use \Sb\View\Book as BookView;
-use \Sb\Form\Book as BookForm;
-use \Sb\Helpers\HTTPHelper;
-use \Sb\Templates\Template;
-use \Sb\View\Components\ButtonsBar;
-use \Sb\Cache\ZendFileCache;
+use Sb\Entity\Constants;
+use Sb\Entity\LibraryPages;
+use Sb\Entity\Urls;
+use Sb\Db\Dao\BookDao;
+use Sb\Db\Dao\UserBookDao;
+use Sb\Db\Mapping\BookMapper;
+use Sb\Flash\Flash;
+use Sb\Db\Model\UserBook;
+use Sb\Db\Model\Book;
+use Sb\View\Book as BookView;
+use Sb\Form\Book as BookForm;
+use Sb\Helpers\HTTPHelper;
+use Sb\Templates\Template;
+use Sb\View\Components\ButtonsBar;
+use Sb\Cache\ZendFileCache;
+
+Sb\Trace\Trace::addItem(LibraryPages::USERBOOK_ADDCHOICE);
 
 global $s1b;
 $context = $s1b->getContext();
 $config = $s1b->getConfig();
 
 if ($context->getIsShowingFriendLibrary()) {
-    Throw new \Sb\Exception\UserException(__("Vous ne pouvez pas ajouter un livre à la bibliothèque d'un ami.", "s1b"));
+    Throw new Sb\Exception\UserException(__("Vous ne pouvez pas ajouter un livre à la bibliothèque d'un ami.", "s1b"));
 }
 
 if (!$s1b->getIsSubmit()) {

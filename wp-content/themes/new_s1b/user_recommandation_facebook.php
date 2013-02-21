@@ -12,7 +12,7 @@ require_once 'user_recommandation_facebook_1.php';
         <div class="recommand-error">
             <?php echo __("Vous ne possédez pas ce livre", "s1b"); ?>
             <br/>
-            <a href="<?php echo $bookLink;?>"><?php echo sprintf(__("Ajouter %s à votre bibliothèque", $book->getTitle()));?></a>
+            <a href="<?php echo $bookLink;?>"><?php echo sprintf(__("Ajouter %s à votre bibliothèque", "s1b"), $book->getTitle());?></a>
         </div>
         <?php } else { ?>
         <form action="" method="post" >

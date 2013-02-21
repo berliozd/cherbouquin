@@ -1,8 +1,5 @@
 <?php
 
-use \Sb\Entity\Urls;
-use Sb\Entity\LibraryListKeys;
-use Sb\Entity\LibraryPages;
 use \Sb\Helpers\HTTPHelper;
 
 \Sb\Trace\Trace::addItem(\Sb\Entity\LibraryPages::USERBOOK_DELETE);

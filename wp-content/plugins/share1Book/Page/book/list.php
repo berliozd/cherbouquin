@@ -3,6 +3,7 @@
 global $s1b;
 $context = $s1b->getContext();
 
+Sb\Trace\Trace::addItem(Sb\Entity\LibraryPages::BOOK_LIST);
 
 // Get the list key (allBooks, wishedBooks, etc...)
 $key = share1Book::ALL_BOOKS_KEY;

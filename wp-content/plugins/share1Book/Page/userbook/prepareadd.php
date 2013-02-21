@@ -11,6 +11,8 @@
 use \Sb\Helpers\HTTPHelper;
 use \Sb\Entity\Constants;
 
+Sb\Trace\Trace::addItem(Sb\Entity\LibraryPages::USERBOOK_PREPAREADD);
+
 global $s1b;
 $context = $s1b->getContext();
 

@@ -6,6 +6,8 @@ use \Sb\View\Components\ButtonsBar;
 
 global $s1b;
 
+Sb\Trace\Trace::addItem(Sb\Entity\LibraryPages::BOOK_VIEW);
+
 $redirect = false;
 
 $id = null;

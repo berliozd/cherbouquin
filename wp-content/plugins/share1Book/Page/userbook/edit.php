@@ -48,12 +48,6 @@ if (!$s1b->getIsSubmit()) {
     $userBook->setNb_of_pages($userBookForm->getNb_of_pages());
     $userBook->setNb_of_pages_read($userBookForm->getNb_of_pages_read());
     
-    Trace::addItem("Nb_of_pages form : " . $userBookForm->getNb_of_pages());
-    Trace::addItem("Nb_of_pages_read form : " . $userBookForm->getNb_of_pages_read());
-
-    Trace::addItem("Nb_of_pages_read : " . $userBook->getNb_of_pages_read());
-    Trace::addItem("Nb_of_pages : " . $userBook->getNb_of_pages());
-    
     $readingState = \Sb\Db\Dao\ReadingStateDao::getInstance()->get($userBookForm->getReadingStateId());
     if ($userBookForm->getReadingDate())
         $userBook->setReadingDate($userBookForm->getReadingDate());

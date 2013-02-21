@@ -15,6 +15,8 @@ class UserNavigation extends \Sb\View\AbstractView {
         $nbPendingFriendRequests = count($user->getPendingFriendShips());
 
         $tpl = new \Sb\Templates\Template("components/userNavigation");
+        $statusCssClass = "";
+        $userStatus = "";
         if ($user && $user->getSetting()) {
             if ($user->getSetting()->getDisplayProfile() == \Sb\Entity\UserDataVisibility::FRIENDS) {
                 $userStatus = "Mes amis";

@@ -1,7 +1,5 @@
 <?php
 
-use Sb\Config\Model;
-
 \Sb\Trace\Trace::addItem(\Sb\Entity\LibraryPages::USERBOOK_IMPORT);
 
 global $s1b;
