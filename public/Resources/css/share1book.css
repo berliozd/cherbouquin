@@ -191,7 +191,7 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
  
 .little-grey-bar {background-color: #F2F2F2;float: left;font-size: 0.9em;font-weight: bold; padding: 2px 0px;text-align: right;text-transform: uppercase;width: 100%; margin: 10px 0;}
 
-.hyperlink { background: url("../images/sprite.png?v=5") repeat scroll 0 -1525px transparent;padding-bottom: 10px; padding-left: 23px;}
+.hyperlink { background: url("../images/sprite.png?v=5") repeat scroll 0 -1525px transparent;padding-bottom: 10px; padding-left: 23px; word-wrap: break-word;}
 
 /* search form */
 .search-form {float:left;width:375px;}
