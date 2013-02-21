@@ -165,7 +165,7 @@ class UserBook implements \Sb\Db\Model\Model {
         if ((!$this->rating) || ($this->rating != $rating)) {
             
             // no rating before => adding one now
-            if ((!$this->rating || $this->rating != 0) && $rating)
+            if (!isset($this->rating) && isset($rating))
                 $this->ratingAdded = true;
             
             if ($this->rating)

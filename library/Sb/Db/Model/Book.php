@@ -339,7 +339,7 @@ class Book implements \Sb\Db\Model\Model {
 
     public function updateAggregateFields($ratingDiff, $ratingAdded, $ratingRemoved, $blowOfHeartsAdded, $blowOfHeartsRemoved) {
 
-        //var_dump("ratingDiff : " . $ratingDiff . " - ratingAdded : " . $ratingAdded . " - blowOfHeartsAdded : " . $blowOfHeartsAdded . " - blowOfHeartsRemoved : " . $blowOfHeartsRemoved);
+        //\Sb\Trace\Trace::addItem("ratingDiff : " . $ratingDiff . " - ratingAdded : " . $ratingAdded . " - blowOfHeartsAdded : " . $blowOfHeartsAdded . " - blowOfHeartsRemoved : " . $blowOfHeartsRemoved);
 
         $this->rating_sum += $ratingDiff;
 
