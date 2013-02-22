@@ -162,7 +162,7 @@ class UserBook implements \Sb\Db\Model\Model {
 
     public function setRating($rating) {
         
-        if ((!$this->rating) || ($this->rating != $rating)) {
+        if ((!isset($this->rating)) || (!$this->rating) || ($this->rating != $rating)) {
             
             // no rating before => adding one now
             if (!isset($this->rating) && isset($rating))
