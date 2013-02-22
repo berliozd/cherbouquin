@@ -12,12 +12,13 @@ class Default_TestController extends Zend_Controller_Action {
 
     public function indexAction() {
 
-        $user20 = UserDao::getInstance()->get(20);
-        \Sb\Trace\Trace::addItem($user20->getUserName());
-        Doctrine\Common\Util\Debug::dump($user20);
-
-        $user3 = UserDao::getInstance()->get(3);
-        Doctrine\Common\Util\Debug::dump($user3);
+//        $user20 = UserDao::getInstance()->get(20);
+//        \Sb\Trace\Trace::addItem($user20->getUserName());
+//        Doctrine\Common\Util\Debug::dump($user20);
+//
+//        $user3 = UserDao::getInstance()->get(3);
+//        Doctrine\Common\Util\Debug::dump($user3);
+        
     }
 
     public function getId(Sb\Db\Model\Model $model) {
