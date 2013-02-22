@@ -5,20 +5,13 @@ global $globalContext;
     <div id="content-top">
         <?php if (!$globalContext->getConnectedUser()) { ?>
         <div class="carousel carousel-wrap">
-            <ul class="carousel-items">
-                <li>
-                    <div class="accroche accroche-1">
-                        <div class="ci-content">
-                            <div class="ci-text"><span class="ci-maintext">Trouvez&nbsp;</span><br/>le livre qui fera plaisir à votre ami dans sa liste d'envies</div>
-                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>">S'inscrire</a></div>
-                        </div>
-                    </div>
-                </li>
+            <ul class="carousel-items">                
                 <li>
                     <div class="accroche accroche-2">
                         <div class="ci-content">
                             <div class="ci-text"><span class="ci-maintext">Découvrez&nbsp;</span><br/>Les derniers coups de coeur de vos amis</div>
                             <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>">S'inscrire</a></div>
+                            <div class="ci-subtext">C'est GRATUIT!</div>
                         </div>
                     </div>
 
@@ -28,6 +21,16 @@ global $globalContext;
                         <div class="ci-content">
                             <div class="ci-text"><span class="ci-maintext">Gérez&nbsp;</span><br/>votre bibliothèque avec la fonction de prêt et emprunt et conservez une trace de vos livres préférés</div>
                             <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>">S'inscrire</a></div>
+                            <div class="ci-subtext">C'est GRATUIT!</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="accroche accroche-1">
+                        <div class="ci-content">
+                            <div class="ci-text"><span class="ci-maintext">Trouvez&nbsp;</span><br/>le livre qui fera plaisir à votre ami dans sa liste d'envies</div>
+                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>">S'inscrire</a></div>
+                            <div class="ci-subtext">C'est GRATUIT!</div>
                         </div>
                     </div>
                 </li>

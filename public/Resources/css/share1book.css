@@ -78,7 +78,7 @@ INPUT.button, BUTTON.button {height:28px; padding:0; font-size: 10px;}
 .picto-facebook-s {background: url("../images/sprite.png?v=5") no-repeat scroll 0 -353px transparent; }
 .picto-facebook-m {background: url("../images/sprite.png?v=5") no-repeat scroll 0px -1230px transparent; height: 45px;width: 45px; display: block;}
 
-.bt-carroussel {background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 0 -286px transparent;font-size: 1.5em;height: 26px;padding: 9px 0;width: 139px;}
+.bt-carroussel {background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 0 -286px transparent;font-size: 1.1em;height: 26px;padding: 9px 0;width: 139px;}
 .bt-delete  {background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 0 -391px transparent; height: 30px; padding: 0;width: 30px;}
 .bv-share {  background: url("../images/sprite.png?v=2") no-repeat scroll 0 -2138px transparent; height: 45px;width: 45px;}
 .search-button{background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 5px -343px transparent; border: medium none; cursor: pointer; float: right; height: 31px; padding: 3px; width: 36px;}
@@ -262,15 +262,13 @@ UL.carousel-pagination {background: none repeat scroll 0 0 transparent;left: 240
 .accroche-1 {background:url("../images/slider/accroche-1.png") no-repeat scroll 0 0 transparent;}
 .accroche-2 {background:url("../images/slider/accroche-2.png") no-repeat scroll 0 0 transparent;}
 .accroche-3 {background:url("../images/slider/accroche-3.png") no-repeat scroll 0 0 transparent;}
-.accroche-4 {background:url("../images/slider/accroche-4.png") no-repeat scroll 0 0 transparent;}
-.ci-content { margin-left: 35px;padding-top:50px;}
-.ci-text {color: #FFF;display: block;font-size: 1.4em;text-align: center;width: 276px;height: 160px;}
+.ci-content { margin-left: 35px;padding-top:50px; color: #FFF; font-size: 1.4em;text-align: center; width: 276px;}
+.ci-text {display: block;height: 145px}
+.ci-subtext {font-size:0.9em;}
 .ci-maintext {font-size: 4em;}
 .ci-button {padding: 9px 0;width: 139px; margin-left: 65px;}
 .accroche-2 .ci-content {padding-top: 80px;}
-.accroche-2 .ci-text {height: 130px;}
-.accroche-4 .ci-content {padding-top: 30px;}
-.accroche-4 .ci-text {height: 180px;}
+.accroche-2 .ci-text {height: 115px;}
 
 /* User box (box in right col) */
 .user-box {float: left; border: 1px solid #239CD3; }
