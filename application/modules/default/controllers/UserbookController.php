@@ -24,9 +24,13 @@ class Default_UserbookController extends Zend_Controller_Action {
     }
 
     public function addAction() {
-        $config = $this->getConfig();
-        $return = \Sb\Db\Service\UserBookSvc::getInstance()->addFromPost($this->getContext()->getConnectedUser(), $config);
-        $this->view->message = $return;
+
+        if ($this->getContext()->getConnectedUser()) {
+            $config = $this->getConfig();
+            $return = \Sb\Db\Service\UserBookSvc::getInstance()->addFromPost($this->getContext()->getConnectedUser(), $config);
+            $this->view->message = $return;
+        } else
+            $this->view->message = __("Vous devez être connecté pour ajouter un livre.","s1b");
     }
 
 }
