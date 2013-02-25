@@ -35,11 +35,11 @@ class Default_IndexController extends Zend_Controller_Action {
     public function indexAction() {
 
         global $globalContext;
-        
-        $this->view->tagTitle = "Cherbouquin - gérez et partagez votre bibliothèque avec vos amis, offrez leurs le bon livre et découvrez les coups de coeur de la communauté de lecteurs";
-        $this->view->metaDescription = "Créez votre bibliothèque en ligne et partagez vos livres favoris au sein de la communauté de lecteurs";
-        $this->view->metaKeywords = "cher bouquin, cherbouquin, achat, acheter, art, atlas, auteur, avis, bande dessinee, bandes dessinées, bd, bibliotheque, bibliotheque en ligne, commentaires, communaute, communauté de lecteurs, contes, critiques, critiques de livres, cuisine, dictionnaire, ecrivain, editeur, emprunt, emprunter, fantasy, histoire, lecture, lire, littérature, livre, livre ancien, livre enfant, livre jeunesse, livre occasion, livre photo, livre scolaire, livres en ligne, logiciel gestion bibliotheque, manga, notes, notice, partage, philosophie, poesie, policier, prêt, prêter, recommandation livres, reseau, roman, science fiction, thriller, tourisme, vente livre, vin, voyage";
-        
+
+        $this->view->tagTitle = sprintf(__("%s : livre et littérature - tops | coups de cœur | critiques", "s1b"), \Sb\Entity\Constants::SITENAME);
+        $this->view->metaDescription = __("Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon","s1b");
+        $this->view->metaKeywords = "BD|bibliotheque|commentaires|communaute|lecteurs|critiques|livres|emprunt|littérature|livre|notice|partage|policier|polar|prêt|recommandation|roman|thriller";
+
         $bohBooks = BookSvc::getInstance()->getBOHForHomePage();
         if (count($bohBooks) == 0) {
             $noBohBooks = new NoBooksWidget(__("Aucun livre n'a encore été noté par les membres", "s1b"));
@@ -75,15 +75,15 @@ class Default_IndexController extends Zend_Controller_Action {
         // Getting last rated books cover flip
         $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
         $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('lastRatedBooks', 90)});</script>\n");
-        $lastRatedBooks = BookSvc::getInstance()->getLastRatedBookForHomePage();        
+        $lastRatedBooks = BookSvc::getInstance()->getLastRatedBookForHomePage();
         $lastRatedCoverFlip = new BookCoverFlip($lastRatedBooks, __("<strong>Les derniers livres notés</strong>", "s1b"), "lastRatedBooks", "");
         $this->view->lastRatedCoverFlip = $lastRatedCoverFlip->get();
-        
+
         // Get last reviews
         $lastReviews = UserEventSvc::getInstance()->getLastEventsOfType(EventTypes::USERBOOK_REVIEW_CHANGE);
         $lastReviewsView = new LastReviews($lastReviews, __("Dernières critiques postées", "s1b"));
         $this->view->lastReviews = $lastReviewsView->get();
-        
+
         // Get community last events
         $communityLastEvents = UserEventSvc::getInstance()->getLastEventsOfType(null, 15);
         $communityLastEventsView = new CommunityLastEvents($communityLastEvents);

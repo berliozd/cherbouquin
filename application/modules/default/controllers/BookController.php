@@ -2,6 +2,7 @@
 
 use Sb\Db\Dao\BookDao;
 use Sb\Db\Service\BookSvc;
+use Sb\Db\Service\TagSvc;
 use Sb\View\Book;
 use Sb\View\Components\ButtonsBar;
 use Sb\View\Components\Ad;
@@ -27,62 +28,84 @@ class Default_BookController extends Zend_Controller_Action {
      */
     public function indexAction() {
 
-        global $globalContext;
+        try {
 
-        $noBook = false;
-        $bookId = $this->_getParam('bid');
+            //$referer = $this->getRequest()->getHeader('referer');
+            global $globalContext;
 
-        // Get books with same contributors
-        if ($bookId) {
-            // Get book
-            $book = BookDao::getInstance()->get($bookId);
+            $noBook = false;
+            $bookId = $this->_getParam('bid');
 
-            if ($book) {
+            // Get books with same contributors
+            if ($bookId) {
+                // Get book
+                $book = BookDao::getInstance()->get($bookId);
 
-                // Get book view
-                $bookView = new Book($book, true, true, true, false, true);
-                $this->view->bookView = $bookView;
+                if ($book) {
 
-                // Get book buttonbar
-                $buttonsBar = new ButtonsBar(false);
-                $this->view->buttonsBar = $buttonsBar;
+                    // Get book view
+                    $bookView = new Book($book, true, true, true, false, true);
+                    $this->view->bookView = $bookView;
 
-                // Books with same contributors
-                $this->view->sameAuthorBooks = BookSvc::getInstance()->getBooksWithSameContributors($bookId);
+                    // Get book buttonbar
+                    $buttonsBar = new ButtonsBar(false);
+                    $this->view->buttonsBar = $buttonsBar;
 
-                $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
-                $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
+                    // Get Books with same contributors
+                    $this->view->sameAuthorBooks = BookSvc::getInstance()->getBooksWithSameContributors($bookId);
+                    $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+                    $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
 
-                // Get amazon and fnac buy link
-                $this->view->buyOnAmazonLink = $book->getAmazonUrl();
-                $this->view->buyOnFnacLink = null;
-                if ($book->getISBN13())
-                    $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $book->getISBN13() . "]]";
+                    // Get amazon and fnac buy link
+                    $this->view->buyOnAmazonLink = $book->getAmazonUrl();
+                    $this->view->buyOnFnacLink = null;
+                    if ($book->getISBN13())
+                        $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $book->getISBN13() . "]]";
 
-                // Get share links
-                $this->view->shareLink = HTTPHelper::Link(Urls::USER_MAILBOX_RECOMMAND, array("id" => $book->getId()));
-                $this->view->facebookShareLink = HTTPHelper::Link(Urls::RECOMMAND_ON_FACEBOOK, array("id" => $book->getId()));
+                    // Get share links
+                    $this->view->shareLink = HTTPHelper::Link(Urls::USER_MAILBOX_RECOMMAND, array("id" => $book->getId()));
+                    $this->view->facebookShareLink = HTTPHelper::Link(Urls::RECOMMAND_ON_FACEBOOK, array("id" => $book->getId()));
 
-                // Get ad
-                $ad = new Ad("bibliotheque", "1223994660");
-                $this->view->ad = $ad;
+                    // Get ad
+                    $ad = new Ad("bibliotheque", "1223994660");
+                    $this->view->ad = $ad;
 
-                $this->view->tagTitle = $book->getTitle() . " - " . $book->getOrderableContributors();
-                $this->view->metaDescription = htmlspecialchars($book->getDescription());
+                    // Set title tag, meta description and keywords
+                    $publisherName = "";
+                    if ($book->getPublisher())
+                        $publisherName = $book->getPublisher()->getName();
+                    $this->view->tagTitle = htmlspecialchars(sprintf(__("%s : %s | %s", "s1b"), Constants::SITENAME, $book->getTitle(), $publisherName));
+                    $this->view->metaDescription = htmlspecialchars(sprintf(__("%s | %s | %s", "s1b"), $book->getTitle(), $book->getOrderableContributors(), $publisherName));
+                    // Get 2 first tags for keywords
+                    $bookTags = TagSvc::getInstance()->getTagsForBooks(array($book));
+                    $tags = "";
+                    if ($bookTags && count($bookTags) > 0) {
+                        $firstTags = array_slice($bookTags, 0, 5);
+                        $firstTagNames = array_map(array(&$this, "getTagName"), $firstTags);
+                        $tags = implode(" | ", $firstTagNames);
+                    }
+                    if ($tags != "")
+                        $this->view->metaKeywords = htmlspecialchars(sprintf(__("%s | %s", "s1b"), $book->getTitle(), $tags));
+                    else
+                        $this->view->metaKeywords = htmlspecialchars($book->getTitle());
 
-                // Get last read userbooks for the book
-                $this->view->lastlyReadUserbooks = Sb\Db\Service\UserBookSvc::getInstance()->getLastlyReadUserbookByBookId($bookId, 5);
-                if (count($this->view->lastlyReadUserbooks) > 1) {
-                    $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>\n");
-                    $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-lastUsersWhoReadThatBook', 298, 85)});</script>\n");
-                }
-            } else
+                    // Get last read userbooks for the book
+                    $this->view->lastlyReadUserbooks = Sb\Db\Service\UserBookSvc::getInstance()->getLastlyReadUserbookByBookId($bookId, 5);
+                    if (count($this->view->lastlyReadUserbooks) > 1) {
+                        $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>\n");
+                        $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-lastUsersWhoReadThatBook', 298, 85)});</script>\n");
+                    }
+                } else
+                    $noBook = true;
+            }else
                 $noBook = true;
-        }else
-            $noBook = true;
 
-        if ($noBook)
+            if ($noBook)
+                $this->_forward("error", "error", "default");
+        } catch (\Exception $exc) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $exc->getTraceAsString()));
             $this->_forward("error", "error", "default");
+        }
     }
 
     /**
@@ -126,7 +149,7 @@ class Default_BookController extends Zend_Controller_Action {
         } else
             $this->view->message = __("Vous devez être connecté pour effectuer cette action.", "s1b");
     }
-    
+
     public function warnBadDescriptionAction() {
 
         global $globalContext;
@@ -154,6 +177,10 @@ class Default_BookController extends Zend_Controller_Action {
         if ($userBook->getReview()) {
             return true;
         }
+    }
+
+    private function getTagName(Sb\Db\Model\Tag $tag) {
+        return $tag->getLabel();
     }
 
 }
