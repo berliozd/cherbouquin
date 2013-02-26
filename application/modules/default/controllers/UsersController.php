@@ -46,7 +46,6 @@ class Default_UsersController extends Zend_Controller_Action {
                         $this->view->friendSetting = $friend->getSetting();
 
                         $this->view->isFriend = UserSvc::getInstance()->areUsersFriends($globalContext->getConnectedUser(), $friend);
-                        $this->view->isFriend = true;
 
                         // getting currently reading or lastly read books
                         $currentlyReading = UserBookDao::getInstance()->getReadingNow($friend->getId());

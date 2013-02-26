@@ -69,10 +69,15 @@ class UserSvc extends \Sb\Db\Service\Service {
     }
 
     public function areUsersFriends(User $user, User $potentialFriend) {
-        foreach ($user->getAcceptedFriends() as $userFriend) {
-            if ($userFriend->getId() == $potentialFriend->getId())
-                return true;
+
+        if ($user->getAcceptedFriends() && count($user->getAcceptedFriends()) > 0) {
+            foreach ($user->getAcceptedFriends() as $userFriend) {
+                if ($userFriend->getId() == $potentialFriend->getId())
+                    return true;
+            }
         }
+
+        return false;
     }
 
 }
