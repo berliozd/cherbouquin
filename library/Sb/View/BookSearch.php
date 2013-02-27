@@ -44,7 +44,7 @@ class BookSearch extends \Sb\View\AbstractView {
                 $imgSrc = $this->defImg;
             }
 
-            // Utilisation de urlencode à la plade htmlspecialchars car ce dernier pose des pbs qd la valeur est ensuite passée en post
+            // Utilisation de urlencode à la place htmlspecialchars car ce dernier pose des pbs qd la valeur est ensuite passée en post
 
             $title = $bk->getTitle();
             $titleEsc = urlencode($bk->getTitle()); // encodé
@@ -64,8 +64,9 @@ class BookSearch extends \Sb\View\AbstractView {
             $img = $bk->getImageUrl();
             $largeImg = $bk->getLargeImageUrl();
 
+            $pubEsc = "";
+            $pubInfo = "";
             if ($bk->getPublisher()) {
-                $pub = $bk->getPublisher()->getName();
                 $pubEsc = urlencode($bk->getPublisher()->getName());  // encodé
                 $pubInfo = $bk->getPublicationInfo();
             }
