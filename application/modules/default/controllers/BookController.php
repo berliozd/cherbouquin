@@ -2,7 +2,6 @@
 
 use Sb\Db\Dao\BookDao;
 use Sb\Db\Service\BookSvc;
-use Sb\Db\Service\TagSvc;
 use Sb\View\Book;
 use Sb\View\Components\ButtonsBar;
 use Sb\View\Components\Ad;
@@ -10,6 +9,7 @@ use Sb\Helpers\HTTPHelper;
 use Sb\Entity\Urls;
 use Sb\Service\MailSvc;
 use Sb\Entity\Constants;
+use Sb\Service\HeaderInformationSvc;
 
 class Default_BookController extends Zend_Controller_Action {
 
@@ -70,24 +70,11 @@ class Default_BookController extends Zend_Controller_Action {
                     $ad = new Ad("bibliotheque", "1223994660");
                     $this->view->ad = $ad;
 
-                    // Set title tag, meta description and keywords
-                    $publisherName = "";
-                    if ($book->getPublisher())
-                        $publisherName = $book->getPublisher()->getName();
-                    $this->view->tagTitle = htmlspecialchars(sprintf(__("%s : %s | %s", "s1b"), Constants::SITENAME, $book->getTitle(), $publisherName));
-                    $this->view->metaDescription = htmlspecialchars(sprintf(__("%s | %s | %s", "s1b"), $book->getTitle(), $book->getOrderableContributors(), $publisherName));
-                    // Get 2 first tags for keywords
-                    $bookTags = TagSvc::getInstance()->getTagsForBooks(array($book));
-                    $tags = "";
-                    if ($bookTags && count($bookTags) > 0) {
-                        $firstTags = array_slice($bookTags, 0, 5);
-                        $firstTagNames = array_map(array(&$this, "getTagName"), $firstTags);
-                        $tags = implode(" | ", $firstTagNames);
-                    }
-                    if ($tags != "")
-                        $this->view->metaKeywords = htmlspecialchars(sprintf(__("%s | %s", "s1b"), $book->getTitle(), $tags));
-                    else
-                        $this->view->metaKeywords = htmlspecialchars($book->getTitle());
+                    // Get Header Information
+                    $headerInformation = HeaderInformationSvc::getInstance()->get($book);                    
+                    $this->view->tagTitle = $headerInformation->getTitle();
+                    $this->view->metaDescription = $headerInformation->getDescription();
+                    $this->view->metaKeywords = $headerInformation->getKeywords();
 
                     // Get last read userbooks for the book
                     $this->view->lastlyReadUserbooks = Sb\Db\Service\UserBookSvc::getInstance()->getLastlyReadUserbookByBookId($bookId, 5);
@@ -179,9 +166,7 @@ class Default_BookController extends Zend_Controller_Action {
         }
     }
 
-    private function getTagName(Sb\Db\Model\Tag $tag) {
-        return $tag->getLabel();
-    }
+
 
 }
 
