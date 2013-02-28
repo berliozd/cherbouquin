@@ -137,6 +137,28 @@ class HeaderInformationSvc extends Service {
         }
     }
 
+    public function getForStaticPage($routeName) {
+
+        try {
+            $result = new HeaderInformation;
+
+            switch ($routeName) {
+                case "about":
+                    $result->setTitle(sprintf(__("%s : à propos du projet","s1b"), Constants::SITENAME));
+                    $result->setDescription("Découvrez l'équipe qui travaille derrière un ordinateur, mais pas que, pour développer la communauté");
+                    $result->setKeywords("équipe|collaborateur");
+                    break;
+
+                default:
+                    break;
+            }
+
+            return $result;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
     private function getTagName(Tag $tag) {
         return $tag->getLabel();
     }

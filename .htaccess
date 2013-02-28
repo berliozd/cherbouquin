@@ -6,10 +6,10 @@ RewriteEngine On
 RewriteBase /
 
 
-# Rewrite for removing trailing slash on book page urls and prevent duplicated content in google
+# Rewrite for removing trailing slash and prevent duplicated content in google
 RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)/$ /livre/$1/$2/$3 [L,R=301]
-# Rewrite for removing trailing slash on newsletter page urls and prevent duplicated content in google
 RewriteRule ^bulletin/$ /bulletin [L,R=301]
+RewriteRule ^a-propos/$ /a-propos [L,R=301]
 
 # Rewrites for Zend modules
 RewriteRule ^default(.)*$ public/index.php [L]
@@ -35,6 +35,7 @@ RewriteRule ^static(.)*$ public/index.php [L]           # module:default / contr
 RewriteRule ^bulletin(.)*$ public/index.php [L]         # module:default / controller:static / action:index (route)
 RewriteRule ^revues-de-presse(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
 RewriteRule ^pas-a-pas(.)*$ public/index.php [L]        # module:default / controller:static / action:index (route)
+RewriteRule ^a-propos(.)*$ public/index.php [L]         # module:default / controller:static / action:index (route)
 
 
 RewriteRule ^index\.php$ - [L]
