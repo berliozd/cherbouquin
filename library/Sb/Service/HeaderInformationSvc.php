@@ -48,14 +48,14 @@ class HeaderInformationSvc extends Service {
                 $publisherName = $book->getPublisher()->getName();
 
             // For tag title, maximum length recommended is 60
-            $title = StringHelper::tronque(sprintf(__("%s : %s de %s par %s", "s1b"), Constants::SITENAME, $book->getTitle(), $book->getOrderableContributors(), $publisherName), 67);            
+            $title = StringHelper::tronque(sprintf(__("%s : %s de %s par %s", "s1b"), Constants::SITENAME, $book->getTitle(), $book->getOrderableContributors(), $publisherName), 67);
             $result->setTitle($title);
 
             // Set description
             // For meta description, maximum length recommended is 160
-            $description = StringHelper::tronque($book->getDescription(), 157);            
+            $description = StringHelper::tronque($book->getDescription(), 157);
             // Remove double quotes
-            $result->setDescription(str_replace("\"", "" , $description));
+            $result->setDescription(str_replace("\"", "", $description));
 
             // Set keywords
             // Get 2 first tags for keywords
@@ -68,11 +68,68 @@ class HeaderInformationSvc extends Service {
             }
             $keywords = sprintf(__("%s | %s | %s", "s1b"), $book->getTitle(), $book->getOrderableContributors(), $publisherName);
             if ($tags != "")
-                $keywords = sprintf(__("%s | %s | %s | %s", "s1b"), $book->getTitle(), $book->getOrderableContributors(), $publisherName, $tags);                
-            
+                $keywords = sprintf(__("%s | %s | %s | %s", "s1b"), $book->getTitle(), $book->getOrderableContributors(), $publisherName, $tags);
+
             // Remove double quotes
-            $keywords = str_replace("\"", "", $keywords);                
+            $keywords = str_replace("\"", "", $keywords);
             $result->setKeywords($keywords);
+
+            return $result;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
+    public function getForLastAddedPage($pageNumber, $tagLabel = null) {
+
+        try {
+            $result = new HeaderInformation;
+
+            $title = $this->addPageAndTag(sprintf(__("%s : derniers livres ajoutés par les membres", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
+            $description = __("Derniers livres ajoutés par les lecteurs et membres de la communauté|voir derniers livres ajoutés par tag ou catégorie", "s1b");
+            $keyWords = __("derniers ajouts|derniers livres", "s1b");
+
+            $result->setTitle($title);
+            $result->setDescription($description);
+            $result->setKeywords($keyWords);
+
+            return $result;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
+    public function getForBohPage($pageNumber, $tagLabel = null) {
+
+        try {
+            $result = new HeaderInformation;
+
+            $title = $this->addPageAndTag(sprintf(__("%s : coups de cœur des lecteurs | livres", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
+            $description = __("Coups de cœur des lecteurs et membres de la communauté|voir coups de cœur par tag ou catégorie", "s1b");
+            $keyWords = __("coups de cœur|coups de cœur lecteurs|coups de cœur membres", "s1b");
+
+            $result->setTitle($title);
+            $result->setDescription($description);
+            $result->setKeywords($keyWords);
+
+            return $result;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
+    public function getForTopsPage($pageNumber, $tagLabel = null) {
+
+        try {
+            $result = new HeaderInformation;
+
+            $title = $this->addPageAndTag(sprintf(__("%s : top des lecteurs | livres", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
+            $description = __("Top des lecteurs et membres de la communauté|voir tops par tag ou catégorie", "s1b");
+            $keyWords = __("top|top lecteurs|top membres", "s1b");
+
+            $result->setTitle($title);
+            $result->setDescription($description);
+            $result->setKeywords($keyWords);
 
             return $result;
         } catch (\Exception $exc) {
@@ -82,6 +139,14 @@ class HeaderInformationSvc extends Service {
 
     private function getTagName(Tag $tag) {
         return $tag->getLabel();
+    }
+
+    private function addPageAndTag($title, $pageNumber, $tagLabel = null) {
+        if ($pageNumber > 1)
+            $title .= sprintf(__(" - page %s", "s1b"), $pageNumber);
+        if ($tagLabel)
+            $title .= sprintf(__(" - catégorie %s", "s1b"), $tagLabel);
+        return $title;
     }
 
 }

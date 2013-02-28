@@ -1,7 +1,8 @@
 <?php
 
-use \Sb\Db\Service\TagSvc;
-use \Sb\Db\Service\BookSvc;
+use Sb\Db\Service\TagSvc;
+use Sb\Db\Service\BookSvc;
+use Sb\Service\HeaderInformationSvc;
 
 class Default_BooksController extends Zend_Controller_Action {
 
@@ -15,6 +16,9 @@ class Default_BooksController extends Zend_Controller_Action {
         // action body
     }
 
+    /**
+     * Action for showing a list of last added books
+     */
     public function lastAddedAction() {
 
         // Get all books
@@ -23,25 +27,34 @@ class Default_BooksController extends Zend_Controller_Action {
         // Get tags for combo
         $this->view->tags = TagSvc::getInstance()->getTagsForBooks($books);
 
-        $books = $this->filterBooks($books);
+        // Get tag id
+        $tid = $this->_getParam('tid', -1);
+        $tagLabel = null;
+        if ($tid > 0) {
+            $books = $this->filterBooks($books, $tid);
+            $tagLabel = $this->getTagLabel($tid);
+        }
         $this->setPageList($books);
 
         $description = __("Cette sélection des derniers livres ajoutés par les membres sur Cherbouquin vous donnera sûrement des idées de lecture auquel vous n'aviez pas pensées.", "s1b");
         $title = __("Derniers livres ajoutés", "s1b");
-
-        $this->view->tagTitle = sprintf(__("%s - %s", "s1b"), Sb\Entity\Constants::SITENAME, $title);
         $this->view->title = $title;
-
-        $this->view->metaDescription = $description;
         $this->view->description = $description;
 
-        $this->view->metaKeywords = "cher bouquin, cherbouquin, achat, acheter, art, atlas, auteur, avis, bande dessinee, bandes dessinées, bd, bibliotheque, bibliotheque en ligne, commentaires, communaute, communauté de lecteurs, contes, critiques, critiques de livres, cuisine, dictionnaire, ecrivain, editeur, emprunt, emprunter, fantasy, histoire, lecture, lire, littérature, livre, livre ancien, livre enfant, livre jeunesse, livre occasion, livre photo, livre scolaire, livres en ligne, logiciel gestion bibliotheque, manga, notes, notice, partage, philosophie, poesie, policier, prêt, prêter, recommandation livres, reseau, roman, science fiction, thriller, tourisme, vente livre, vin, voyage, derniers ajouts, ajout récent";
+        // Get Header information (title, meta desc, keywords)
+        $headerInformation = HeaderInformationSvc::getInstance()->getForLastAddedPage($this->getPageNumber(), $tagLabel);
+        $this->view->metaDescription = $headerInformation->getDescription();
+        $this->view->tagTitle = $headerInformation->getTitle();
+        $this->view->metaKeywords = $headerInformation->getKeywords();
 
         $this->view->action = $this->view->url(array(), 'lastAddedBooks');
-        
+
         $this->render("list");
     }
 
+    /**
+     * Action for showing a list of blow of heart books
+     */
     public function blowOfHeartsAction() {
 
         // Get all books
@@ -50,22 +63,28 @@ class Default_BooksController extends Zend_Controller_Action {
         // Get tags for combo
         $this->view->tags = TagSvc::getInstance()->getTagsForBooks($books);
 
-        $books = $this->filterBooks($books);
+        // Get tag id
+        $tid = $this->_getParam('tid', -1);
+        $tagLabel = null;
+        if ($tid > 0) {
+            $books = $this->filterBooks($books, $tid);
+            $tagLabel = $this->getTagLabel($tid);
+        }
         $this->setPageList($books);
 
         $description = __("Cette sélection des coups de coeur est le résultat d'un classement effectué sur tous les livres présents chez Cherbouquin sur la base des coups de coeur que vous et les autres membres avez attribués. L'idée de ce top est que vous puissiez y trouver l'inspiration pour vos prochaines lectures.", "s1b");
         $title = __("Coups de coeurs", "s1b");
-
-        $this->view->tagTitle = sprintf(__("%s - %s", "s1b"), Sb\Entity\Constants::SITENAME, $title);
         $this->view->title = $title;
-
-        $this->view->metaDescription = $description;
         $this->view->description = $description;
 
-        $this->view->metaKeywords = "cher bouquin, cherbouquin, achat, acheter, art, atlas, auteur, avis, bande dessinee, bandes dessinées, bd, bibliotheque, bibliotheque en ligne, commentaires, communaute, communauté de lecteurs, contes, critiques, critiques de livres, cuisine, dictionnaire, ecrivain, editeur, emprunt, emprunter, fantasy, histoire, lecture, lire, littérature, livre, livre ancien, livre enfant, livre jeunesse, livre occasion, livre photo, livre scolaire, livres en ligne, logiciel gestion bibliotheque, manga, notes, notice, partage, philosophie, poesie, policier, prêt, prêter, recommandation livres, reseau, roman, science fiction, thriller, tourisme, vente livre, vin, voyage, coup de coeur, favoris";
+        // Get Header information (title, meta desc, keywords)
+        $headerInformation = HeaderInformationSvc::getInstance()->getForBohPage($this->getPageNumber(), $tagLabel);
+        $this->view->metaDescription = $headerInformation->getDescription();
+        $this->view->tagTitle = $headerInformation->getTitle();
+        $this->view->metaKeywords = $headerInformation->getKeywords();
 
         $this->view->action = $this->view->url(array(), 'blowOfHeartsBooks');
-        
+
         $this->render("list");
     }
 
@@ -80,33 +99,36 @@ class Default_BooksController extends Zend_Controller_Action {
         // Get tags for combo
         $this->view->tags = TagSvc::getInstance()->getTagsForBooks($books);
 
-        $books = $this->filterBooks($books);
+        // Get tag id
+        $tid = $this->_getParam('tid', -1);
+        $tagLabel = null;
+        if ($tid > 0) {
+            $books = $this->filterBooks($books, $tid);
+            $tagLabel = $this->getTagLabel($tid);
+        }
+
         $this->setPageList($books);
 
         $description = __("Cette sélection des meilleurs livres est le résultat d'un classement effectué sur tous les livres présents chez Cherbouquin sur la base de la note que vous et les autres membres avez attribuée. L'idée de ce top est que vous puissiez y trouver l'inspiration pour vos prochaines lectures.", "s1b");
         $title = __("Tops des livres", "s1b");
-
-        $this->view->tagTitle = sprintf(__("%s - %s", "s1b"), Sb\Entity\Constants::SITENAME, $title);
         $this->view->title = $title;
-
-        $this->view->metaDescription = $description;
         $this->view->description = $description;
 
-        $this->view->metaKeywords = "cher bouquin, cherbouquin, achat, acheter, art, atlas, auteur, avis, bande dessinee, bandes dessinées, bd, bibliotheque, bibliotheque en ligne, commentaires, communaute, communauté de lecteurs, contes, critiques, critiques de livres, cuisine, dictionnaire, ecrivain, editeur, emprunt, emprunter, fantasy, histoire, lecture, lire, littérature, livre, livre ancien, livre enfant, livre jeunesse, livre occasion, livre photo, livre scolaire, livres en ligne, logiciel gestion bibliotheque, manga, notes, notice, partage, philosophie, poesie, policier, prêt, prêter, recommandation livres, reseau, roman, science fiction, thriller, tourisme, vente livre, vin, voyage, top des livres, meileurs classements";
+        // Get Header information (title, meta desc, keywords)
+        $headerInformation = HeaderInformationSvc::getInstance()->getForTopsPage($this->getPageNumber(), $tagLabel);
+        $this->view->metaDescription = $headerInformation->getDescription();
+        $this->view->tagTitle = $headerInformation->getTitle();
+        $this->view->metaKeywords = $headerInformation->getKeywords();
 
         $this->view->action = $this->view->url(array(), 'topsBooks');
 
         $this->render("list");
     }
 
-    private function filterBooks($books) {
-        $result = $books;
-        $tid = $this->_getParam('tid', -1);
-        if ($tid > 0) {
-            $this->view->selectedTagId = $tid;
-            $this->selectedTagId = $tid;
-            $result = array_filter($books, array(&$this, "bookHasSelectedTag"));
-        }
+    private function filterBooks($books, $tid) {
+        $this->view->selectedTagId = $tid;
+        $this->selectedTagId = $tid;
+        $result = array_filter($books, array(&$this, "bookHasSelectedTag"));
         return $result;
     }
 
@@ -130,6 +152,19 @@ class Default_BooksController extends Zend_Controller_Action {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Get current page number
+     * @return int get current page number
+     */
+    private function getPageNumber() {
+        return $this->_getParam("pagenumber", 1);
+    }
+
+    private function getTagLabel($tagId) {
+        $tag = Sb\Db\Dao\TagDao::getInstance()->get($tagId);
+        return $tag->getLabel();
     }
 
 }
