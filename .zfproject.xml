@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<projectProfile type="default" version="1.11.11">
+  <projectDirectory>
+    <projectProfileFile filesystemName=".zfproject.xml"/>
+    <applicationDirectory classNamePrefix="Application_">
+      <apisDirectory enabled="false"/>
+      <configsDirectory>
+        <applicationConfigFile type="ini"/>
+      </configsDirectory>
+      <formsDirectory enabled="false"/>
+      <layoutsDirectory>
+        <layoutScriptsDirectory>
+          <layoutScriptFile layoutName="layout"/>
+        </layoutScriptsDirectory>
+      </layoutsDirectory>
+      <modelsDirectory/>
+      <modulesDirectory>
+        <moduleDirectory moduleName="member">
+          <apisDirectory enabled="false"/>
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="Mailbox">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="readMessage"/>
+            </controllerFile>
+            <controllerFile controllerName="Comments">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="addUserbookComment"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory enabled="false"/>
+          <layoutsDirectory enabled="false">
+            <layoutScriptsDirectory enabled="false"/>
+          </layoutsDirectory>
+          <modelsDirectory/>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Mailbox">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="log"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Comments">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Comments">
+                <viewScriptFile forActionName="addUserbookComment"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="default">
+          <apisDirectory enabled="false"/>
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="log"/>
+            </controllerFile>
+            <controllerFile controllerName="Error"/>
+            <controllerFile controllerName="Books">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="lastAdded"/>
+              <actionMethod actionName="blowOfHearts"/>
+              <actionMethod actionName="tops"/>
+            </controllerFile>
+            <controllerFile controllerName="FriendWishedBooks">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="setAsAlreadyOffereds"/>
+            </controllerFile>
+            <controllerFile controllerName="WishedUserBookController">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="WishedUserBook">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="setAsOffered"/>
+            </controllerFile>
+            <controllerFile controllerName="UserbookGift">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="deactivate"/>
+              <actionMethod actionName="disable"/>
+              <actionMethod actionName="sendActiveGiftsByEmail"/>
+            </controllerFile>
+            <controllerFile controllerName="UserbookGifts">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="sendActiveGiftsByEmail"/>
+            </controllerFile>
+            <controllerFile controllerName="Test">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="ajax"/>
+              <actionMethod actionName="ajax2"/>
+            </controllerFile>
+            <controllerFile controllerName="Userbooks">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="getLibraryPage"/>
+            </controllerFile>
+            <controllerFile controllerName="Library">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="getPage"/>
+              <actionMethod actionName="sort"/>
+            </controllerFile>
+            <controllerFile controllerName="BookSearch">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="getPage"/>
+            </controllerFile>
+            <controllerFile controllerName="Userbook">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="add"/>
+            </controllerFile>
+            <controllerFile controllerName="Book">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="getReviewsPage"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory enabled="false"/>
+          <layoutsDirectory enabled="false">
+            <layoutScriptsDirectory enabled="false"/>
+          </layoutsDirectory>
+          <modelsDirectory/>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="log"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Error">
+                <viewScriptFile forActionName="error"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Books">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="lastAdded"/>
+                <viewScriptFile forActionName="blowOfHearts"/>
+                <viewScriptFile forActionName="tops"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="WishedUserBookController">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="WishedUserBook">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="setAsOffered"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="UserbookGift">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="disable"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="UserbookGifts">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="sendByEmail"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="ajax"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Userbooks">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="getLibraryPage"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Library">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="getPage"/>
+                <viewScriptFile forActionName="sort"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="BookSearch">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="getPage"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Userbook">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Book">
+                <viewScriptFile forActionName="index"/>
+                <viewScriptFile forActionName="getReviewsPage"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory enabled="false"/>
+          </viewsDirectory>
+        </moduleDirectory>
+      </modulesDirectory>
+      <viewsDirectory/>
+      <bootstrapFile filesystemName="Bootstrap.php"/>
+    </applicationDirectory>
+    <dataDirectory enabled="false">
+      <cacheDirectory enabled="false"/>
+      <searchIndexesDirectory enabled="false"/>
+      <localesDirectory enabled="false"/>
+      <logsDirectory enabled="false"/>
+      <sessionsDirectory enabled="false"/>
+      <uploadsDirectory enabled="false"/>
+    </dataDirectory>
+    <docsDirectory>
+      <file filesystemName="README.txt"/>
+    </docsDirectory>
+    <libraryDirectory>
+      <zfStandardLibraryDirectory enabled="false"/>
+    </libraryDirectory>
+    <publicDirectory>
+      <publicStylesheetsDirectory enabled="false"/>
+      <publicScriptsDirectory enabled="false"/>
+      <publicImagesDirectory enabled="false"/>
+      <publicIndexFile filesystemName="index.php"/>
+      <htaccessFile filesystemName=".htaccess"/>
+    </publicDirectory>
+    <projectProvidersDirectory enabled="false"/>
+    <temporaryDirectory enabled="false"/>
+    <testsDirectory>
+      <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
+      <testPHPUnitBootstrapFile filesystemName="bootstrap.php"/>
+      <testApplicationDirectory>
+        <testApplicationControllerDirectory>
+          <testApplicationControllerFile forControllerName="Index"/>
+        </testApplicationControllerDirectory>
+      </testApplicationDirectory>
+      <testLibraryDirectory/>
+    </testsDirectory>
+  </projectDirectory>
+</projectProfile>
