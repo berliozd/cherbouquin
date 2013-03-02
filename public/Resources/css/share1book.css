@@ -210,7 +210,7 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 
 .ft-item A {text-decoration: none; color:#fff;}
 .ft-item UL {list-style: none; margin:0; padding:0;} 
-.ft-item UL H2{font-size: inherit;font-weight: inherit;margin: 0;padding: 0;} 
+.ft-item UL H3{font-size: inherit;font-weight: inherit;margin: 0;padding: 0;} 
 .ft-item {width: 25%; float:left; background: url("../images/footer-vertical-sep.png") no-repeat scroll right 23px transparent; min-height: 166px; }
 .ft-item.last {background:none;}
 .ft-item-content { float:left; color: #FFF;}

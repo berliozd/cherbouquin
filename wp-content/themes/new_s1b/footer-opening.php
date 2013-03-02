@@ -10,7 +10,7 @@ use \Sb\Db\Service\BookSvc;
                                     
                             <div class="ft-item">
                                 <div class="inner-padding-12">
-                                    <h1 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::TOPS_BOOKS);?>"><?php _e("<strong>Top</strong> des livres", "s1b");?></a></h1>
+                                    <h2 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::TOPS_BOOKS);?>"><?php _e("<strong>Top</strong> des livres", "s1b");?></a></h2>
                                     <div class="ft-item-content">                                       
                                         <?php
                                         
@@ -18,9 +18,9 @@ use \Sb\Db\Service\BookSvc;
                                         
                                         echo "<ul>";
                                         foreach ($topsBooks as $topsBook) {                                            
-                                            echo "<li><h2><a title=\"" . $topsBook->getTitle() . " - ". $topsBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($topsBook->getLink()) . "\">" 
+                                            echo "<li><h3><a title=\"" . $topsBook->getTitle() . " - ". $topsBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($topsBook->getLink()) . "\">" 
                                                     . \Sb\Helpers\StringHelper::tronque($topsBook->getTitle(), 40) 
-                                                    . "</a></h2></li>";
+                                                    . "</a></h3></li>";
                                         }
                                         echo "</ul>";
                                         ?>
@@ -29,15 +29,15 @@ use \Sb\Db\Service\BookSvc;
                             </div>
                             <div class="ft-item">
                                 <div class="inner-padding-12">
-                                    <h1 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::BLOW_OF_HEARTS_BOOKS);?>"><strong><?php _e("Coups de coeur", "s1b");?></strong></a></h1>
+                                    <h2 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::BLOW_OF_HEARTS_BOOKS);?>"><strong><?php _e("Coups de coeur", "s1b");?></strong></a></h2>
                                     <div class="ft-item-content">                                        
                                         <?php
                                         $bohs = BookSvc::getInstance()->getBOHForFooter();
                                         echo "<ul>";
                                         foreach ($bohs as $boh) {
-                                            echo "<li><h2><a title=\"" . $boh->getTitle() . " - ". $boh->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($boh->getLink()) . "\">" 
+                                            echo "<li><h3><a title=\"" . $boh->getTitle() . " - ". $boh->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($boh->getLink()) . "\">" 
                                                     . \Sb\Helpers\StringHelper::tronque($boh->getTitle(), 40) 
-                                                    . "</a></h2></li>";
+                                                    . "</a></h3></li>";
                                         }
                                         echo "</ul>";
                                         ?>
@@ -46,15 +46,15 @@ use \Sb\Db\Service\BookSvc;
                             </div>
                             <div class="ft-item">
                                 <div class="inner-padding-12">
-                                    <h1 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::LAST_ADDED_BOOKS);?>"><strong><?php _e("Derniers livres ajoutés", "s1b");?></strong></a></h1>
+                                    <h2 class="ft-item-title"><a class="link" href="<?php echo HTTPHelper::Link(Urls::LAST_ADDED_BOOKS);?>"><strong><?php _e("Derniers livres ajoutés", "s1b");?></strong></a></h2>
                                     <div class="ft-item-content">                                        
                                         <?php
                                         $lastlyAddedBooks = BookSvc::getInstance()->getLastlyAddedForFooter();
                                         echo "<ul>";
                                         foreach ($lastlyAddedBooks as $lastlyAddedBook) {
-                                            echo "<li><h2><a title=\"" . $lastlyAddedBook->getTitle() . " - ". $lastlyAddedBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($lastlyAddedBook->getLink()) . "\">" 
+                                            echo "<li><h3><a title=\"" . $lastlyAddedBook->getTitle() . " - ". $lastlyAddedBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($lastlyAddedBook->getLink()) . "\">" 
                                                     . \Sb\Helpers\StringHelper::tronque($lastlyAddedBook->getTitle(), 40) 
-                                                    . "</a></h2></li>";
+                                                    . "</a></h3></li>";
                                         }
                                         echo "</ul>";
                                         ?>
@@ -63,7 +63,7 @@ use \Sb\Db\Service\BookSvc;
                             </div>
                             <div class="ft-item last">
                                 <div class="inner-padding-12">
-                                    <h1 class="ft-item-title"><?php echo sprintf(__("<strong>%s</strong> sur les réseaux", "s1b"), \Sb\Entity\Constants::SITENAME);?></h1>
+                                    <h2 class="ft-item-title"><?php echo sprintf(__("<strong>%s</strong> sur les réseaux", "s1b"), \Sb\Entity\Constants::SITENAME);?></h2>
                                     <div class="ft-item-content"><a target="_blank" href="http://www.facebook.com/CherBouquin" class="picto-facebook-m"></a></div>
                                     <div class="ft-item-content"><a target="_blank" href="https://twitter.com/#!/cherbouquin" class="ft-twitter"></a></div>
                                     <div class="ft-item-content"><a target="_blank" href="http://pinterest.com/cherbouquin" class="ft-pinterest"></a></div>
