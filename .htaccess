@@ -10,6 +10,10 @@ RewriteBase /
 RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)/$ /livre/$1/$2/$3 [L,R=301]
 RewriteRule ^bulletin/$ /bulletin [L,R=301]
 RewriteRule ^a-propos/$ /a-propos [L,R=301]
+RewriteRule ^presse/$ /presse [L,R=301]
+RewriteRule ^lequipe/$ /lequipe [L,R=301]
+RewriteRule ^comment-ca-marche/$ /comment-ca-marche [L,R=301]
+RewriteRule ^nous-aider/$ /nous-aider [L,R=301]
 
 # Rewrites for Zend modules
 RewriteRule ^default(.)*$ public/index.php [L]
@@ -36,7 +40,10 @@ RewriteRule ^bulletin(.)*$ public/index.php [L]         # module:default / contr
 RewriteRule ^revues-de-presse(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
 RewriteRule ^pas-a-pas(.)*$ public/index.php [L]        # module:default / controller:static / action:index (route)
 RewriteRule ^a-propos(.)*$ public/index.php [L]         # module:default / controller:static / action:index (route)
-
+RewriteRule ^presse(.)*$ public/index.php [L]           # module:default / controller:static / action:index (route)
+RewriteRule ^lequipe(.)*$ public/index.php [L]          # module:default / controller:static / action:index (route)
+RewriteRule ^comment-ca-marche(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
+RewriteRule ^nous-aider(.)*$ public/index.php [L]       # module:default / controller:static / action:index (route)
 
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
