@@ -44,6 +44,7 @@ RewriteRule ^presse(.)*$ public/index.php [L]           # module:default / contr
 RewriteRule ^lequipe(.)*$ public/index.php [L]          # module:default / controller:static / action:index (route)
 RewriteRule ^comment-ca-marche(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
 RewriteRule ^nous-aider(.)*$ public/index.php [L]       # module:default / controller:static / action:index (route)
+RewriteRule ^nos-partenaires(.)*$ public/index.php [L]  # module:default / controller:static / action:index (route)
 
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f

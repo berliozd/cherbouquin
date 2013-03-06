@@ -23,6 +23,7 @@ class Urls {
     const PRESS = "presse"; // presse
     const NEWSLETTERS = "bulletin"; // newsletters
     const PRESS_REVIEW = "revues-de-presse"; // revues de presse
+    const PARTNERS = "nos-partenaires"; // nos partenaires
     
     // account connection-registration-activation
     const LOGIN = 'index/log'; // Zend : default / index / log

@@ -78,6 +78,7 @@ use \Sb\Db\Service\BookSvc;
                                         <li>
                                             <a class="link" href="<?php echo HTTPHelper::Link(Urls::ABOUT);?>"><?php _e("A propos", "s1b");?></a><br/>
                                             <a class="link" href="<?php echo HTTPHelper::Link(Urls::TEAM);?>"><?php _e("L'équipe", "s1b");?></a><br/>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::PARTNERS);?>"><?php _e("Nos partenaires", "s1b");?></a><br/>
                                             <a class="link" href="<?php echo HTTPHelper::Link(Urls::CONTACT);?>"><?php _e("Contact", "s1b");?></a>
                                         </li>                                    
                                         <li>

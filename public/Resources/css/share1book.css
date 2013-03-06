@@ -32,7 +32,7 @@ body {margin:0; background: url("../images/background.png") repeat scroll 0 0 tr
 #content-center { float: left; padding: 10px 0px 10px 10px; width: 645px;}
 #content-right {float: right; padding: 10px 10px 10px 15px; width: 300px;}
 #footer-top {background-color: #363a3d; float:left;  width: 100%;}
-#footer-bottom {background-color: #FFF; border-radius: 0px 0px 10px 10px ; float: left;width: 100%; height: 55px;}
+#footer-bottom {background-color: #FFF; border-radius: 0px 0px 10px 10px ; float: left;width: 100%; height: 70px;}
 
 
 /* global */
