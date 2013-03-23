@@ -18,6 +18,7 @@ if ($globalConfig->getIsProduction()) { ?>
 <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/tiny_mce/tiny_mce_src.js"></script>
 
 <meta charset="UTF-8" />
+<meta name="language" content="fr-FR" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><!--HTML4-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><!--XHTML 1.1-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
