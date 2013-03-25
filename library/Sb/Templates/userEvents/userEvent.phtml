@@ -11,7 +11,7 @@
     <div class="ue-itemimage">
         <?php if ($userBookRelated) { ?>
             <div class="ue-bookimage">                
-                <a class="link" href="<?php echo $bookLink; ?>"><img border="0" class="image-thumb-small image-frame" src="<?php echo $bookImageUrl; ?>"></a>                
+                <a class="link" href="<?php echo $bookLink; ?>"><?php echo $bookImgTag;?></a>                
             </div>
         <?php } else if ($userFriendRelated) { ?>
             <a href="<?php echo $friendFriendProfileLink; ?>"><?php echo $friendFriendImg; ?></a>    

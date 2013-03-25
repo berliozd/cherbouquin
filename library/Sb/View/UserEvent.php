@@ -11,6 +11,7 @@ use Sb\Db\Dao\UserDao;
 use Sb\Db\Dao\LendingDao;
 use Sb\Helpers\StringHelper;
 use Sb\Helpers\UserHelper;
+use Sb\Helpers\BookHelper;
 
 class UserEvent extends \Sb\View\AbstractView {
 
@@ -164,6 +165,7 @@ class UserEvent extends \Sb\View\AbstractView {
         $bookId = null;
         if ($userBookRelated) {
             $bookImageUrl = $userBook->getBook()->getSmallImageUrl();
+            $bookImgTag = BookHelper::getSmallImageTag($userBook->getBook(), $this->getContext()->getDefaultImage());
             $bookLink = HTTPHelper::Link($userBook->getBook()->getLink());
             $bookTitle = $userBook->getBook()->getTitle();
             $bookAuthor = $userBook->getBook()->getOrderableContributors();
@@ -180,6 +182,7 @@ class UserEvent extends \Sb\View\AbstractView {
             "friendName" => $friendName,
             "resume" => $resume,
             "bookImageUrl" => $bookImageUrl,
+            "bookImgTag" => $bookImgTag,
             "friendProfileLink" => $friendProfileLink,
             "friendId" => $friendId,
             "bookTitle" => $bookTitle,

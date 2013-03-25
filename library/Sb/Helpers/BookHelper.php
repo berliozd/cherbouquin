@@ -33,16 +33,16 @@ class BookHelper {
     }
 
     public static function getSmallImageTag(Book $book, $defaultImg) {        
-        return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title=\"%s\"/>", self::getImageSrc($book->getSmallImageUrl(), $defaultImg), $book->getTitle());
+        return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title=\"%s\" alt=\"%s\"/>", self::getImageSrc($book->getSmallImageUrl(), $defaultImg), $book->getTitle(), $book->getTitle());
     }
 
     public static function getMediumImageTag(Book $book, $defaultImg) {
-        return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title=\"%s\"/>", self::getImageSrc($book->getImageUrl(), $defaultImg), $book->getTitle());
+        return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title=\"%s\" alt=\"%s\" />", self::getImageSrc($book->getImageUrl(), $defaultImg), $book->getTitle(), $book->getTitle());
     }
     
     public static function getMediumImageTagForFlipCarousel(Book $book, $defaultImg) {
         //return sprintf("<img src='%s' href='%s' class='image-frame content' title=\"%s\"/>", self::getImageSrc($book->getImageUrl(), $defaultImg), HTTPHelper::Link($book->getLink()), $book->getTitle());
-        return sprintf("<img src='%s' href='%s' class='image-thumb'  title=\"%s\"/>", self::getImageSrc($book->getImageUrl(), $defaultImg), HTTPHelper::Link($book->getLink()), $book->getTitle());
+        return sprintf("<img src='%s' href='%s' class='image-thumb'  title=\"%s\" alt=\"%s\" />", self::getImageSrc($book->getImageUrl(), $defaultImg), HTTPHelper::Link($book->getLink()), $book->getTitle(), $book->getTitle());
     }
 
     public static function getLargeImageTag(Book $book, $defaultImg) {
@@ -50,7 +50,7 @@ class BookHelper {
         if ($src == "") {
             $src = self::getImageSrc($book->getImageUrl(), $defaultImg);
         }
-        return sprintf("<img src='%s' border='0' class='bookPreview' title=\"" . $book->getTitle() . "\"/>", $src);
+        return sprintf("<img src='%s' border='0' class='bookPreview' title=\"%s\" alt=\"%s\" />", $src, $book->getTitle(), $book->getTitle());
     }
     
     public static function getDefaultImage() {
