@@ -378,6 +378,12 @@ A.ubc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .bsrh-author {float: left;width: 30%; }
 .bsrh-button {float: left;width: 15%;}
 .bsr-line {float: left;width: 100%; }
+.bsr-line .link, .bsr-line .link:hover {
+    font-size: 12px;
+    text-align: right;
+    text-decoration: underline;
+    text-transform: none;
+}
 .bsl-title {float: left;width: 55%; background: url("../images/book-search-vertical-sep.png") no-repeat scroll right top transparent; }
 .bslt-image {float: left;margin-right: 15px;}
 .bslt-desc .title {font-weight: bold;}

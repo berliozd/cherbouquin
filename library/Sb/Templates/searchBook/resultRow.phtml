@@ -29,7 +29,7 @@
                         <div class="bslt-desc">
                             <span class="title">[@title]</span><br/>
                             <span class="publication">[@publisher]</span><br/>
-                            <span class="description">[@desc]</span><br/>                        
+                            <span class="description">[@desc]</span><br/>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,13 @@
                     <div class="inner-padding">
                         <ul>
                             <li><button class="addUserBookBtn button bs-button bt-blue-m"><?php _e("Ajouter", 's1b'); ?></button></li>
-                            <li><button class="button link-button"><?php _e("Voir ce livre", 's1b'); ?></button></li>
+                            <li>
+                            <?php if ($bookInDB) { ?>
+                            <a class="link button" href="<?php echo $viewBookLink; ?>"><?php _e("Voir ce livre", 's1b'); ?></a>
+                            <?php } else { ?>
+                            <button class="button link-button"><?php _e("Voir ce livre", 's1b'); ?></button>
+                            <?php } ?>
+                            </li>
                             <li><button value="1" name="<?php echo \Sb\Entity\LibraryPages::LENDING_BORROWFROMFRIENDS ?>" class="button link-button"><?php _e("Emprunter", 's1b'); ?></button></li>
                         </ul>
                     </div>

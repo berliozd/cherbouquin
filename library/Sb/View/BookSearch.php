@@ -36,7 +36,7 @@ class BookSearch extends \Sb\View\AbstractView {
             $bk = $book;
 
             $language = urlencode($bk->getLanguage());
-            
+
             $imgSrc = "";
             if ($bk->getImageUrl()) {
                 $imgSrc = $bk->getImageUrl();
@@ -50,7 +50,7 @@ class BookSearch extends \Sb\View\AbstractView {
             $titleEsc = urlencode($bk->getTitle()); // encodé
 
             $author = $bk->getOrderableContributors();
-            $authorEsc = urlencode($bk->getOrderableContributors());  // encodé
+            $authorEsc = urlencode($bk->getOrderableContributors()); // encodé
 
             $id = $bk->getId();
             $isbn10 = $bk->getISBN10();
@@ -58,7 +58,7 @@ class BookSearch extends \Sb\View\AbstractView {
             $asin = $bk->getASIN();
 
             $desc = \Sb\Helpers\StringHelper::tronque($bk->getDescription(), 350);
-            $descEsc = urlencode($bk->getDescription());  // encodé
+            $descEsc = urlencode($bk->getDescription()); // encodé
 
             $smallImg = $bk->getSmallImageUrl();
             $img = $bk->getImageUrl();
@@ -67,7 +67,7 @@ class BookSearch extends \Sb\View\AbstractView {
             $pubEsc = "";
             $pubInfo = "";
             if ($bk->getPublisher()) {
-                $pubEsc = urlencode($bk->getPublisher()->getName());  // encodé
+                $pubEsc = urlencode($bk->getPublisher()->getName()); // encodé
                 $pubInfo = $bk->getPublicationInfo();
             }
 
@@ -78,12 +78,15 @@ class BookSearch extends \Sb\View\AbstractView {
             $amazonUrl = $book->getAmazonUrl();
 
             $nbOfPages = $book->getNb_of_pages();
-            
+
             $cssClass = (($lineIdx % 2) ? "lineA" : "lineB");
 
             $viewBookLink = null;
-            if ($bk->getId())
+            $bookInDB = false;
+            if ($bk->getId()) {
                 $viewBookLink = \Sb\Helpers\HTTPHelper::Link($bk->getLink());
+                $bookInDB = true;
+            }
 
             $resultTpl = new \Sb\Templates\Template('searchBook/resultRow');
             $resultTpl->set('cssClass', $cssClass);
@@ -109,7 +112,8 @@ class BookSearch extends \Sb\View\AbstractView {
             $resultTpl->set('language', $language);
 
             $resultTpl->setVariables(array('addSep' => $addSep,
-                'viewBookLink' => $viewBookLink));
+                'viewBookLink' => $viewBookLink,
+                'bookInDB' => $bookInDB));
             $resultTplArr[] = $resultTpl;
         }
 
