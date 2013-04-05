@@ -21,10 +21,13 @@
         <div class="bsr-line [@cssClass]">
             <div class="inner-padding">
                 <div class="bsl-title">
-<!--                    <input type="checkbox" class="bookCheckbox"/>-->
                     <div class="inner-padding">
                         <div class="bslt-image">
+                            <?php if ($bookInDB) { ?>
+                            <a href="<?php echo $viewBookLink; ?>"><img class="image-thumb image-frame" src="[@imgSrc]"></a>
+                            <?php } else { ?>
                             <input type="image" class="image-thumb image-frame" src="[@imgSrc]"/>
+                            <?php } ?>
                         </div>
                         <div class="bslt-desc">
                             <span class="title">[@title]</span><br/>
