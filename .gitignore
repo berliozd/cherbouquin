@@ -1,6 +1,4 @@
-/wp-content/plugins/share1Book/var/
-/wp-content/plugins/share1Book/Db/__Proxies/
-/nbproject/private/
-/var/
-.buildpath
-.project
+/var
+/nbproject
+/.htaccess_1
+/.project
