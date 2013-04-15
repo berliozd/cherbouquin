@@ -1,7 +1,5 @@
 <?php
 
-use Sb\Config\Model;
-
 namespace Sb\Helpers;
 
 /**

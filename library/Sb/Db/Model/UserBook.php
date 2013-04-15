@@ -129,7 +129,7 @@ class UserBook implements \Sb\Db\Model\Model {
 
     public function setId($id) {
         if ($this->id !== null && $this->id != $id) {
-            throw new Exception('Cannot change identifier to ' . $id . ', already set to ' . $this->id);
+            throw new  \Exception('Cannot change identifier to ' . $id . ', already set to ' . $this->id);
         }
         $this->id = $id;
     }

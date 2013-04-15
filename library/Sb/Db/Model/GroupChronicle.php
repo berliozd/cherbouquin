@@ -6,7 +6,7 @@ namespace Sb\Db\Model;
 class GroupChronicle implements \Sb\Db\Model\Model {
 
     function __construct() {
-        
+
     }
 
     /**
@@ -55,6 +55,24 @@ class GroupChronicle implements \Sb\Db\Model\Model {
 
     /** @Column(type="string", length=100) */
     protected $source;
+
+    /** @Column(type="string", length=250) */
+    protected $keywords;
+
+    /**
+     * @ManyToOne(targetEntity="Tag", inversedBy="groupchronicles")
+     * @JoinColumn(name="tag_id", referencedColumnName="id")
+     */
+    protected $tag;
+
+    /** @Column(type="boolean") */
+    protected $is_validated;
+
+    /** @Column(type="integer") */
+    protected $nb_views;
+
+    /** @Column(type="string", length=250) */
+    protected $image;
 
     public function getId() {
         return $this->id;
@@ -150,6 +168,76 @@ class GroupChronicle implements \Sb\Db\Model\Model {
 
     public function setSource($source) {
         $this->source = $source;
+    }
+
+    /**
+     * @return String $keywords
+     */
+    public function getKeywords() {
+        return $this->keywords;
+    }
+
+    /**
+     * @param String $keywords
+     */
+    public function setKeywords($keywords) {
+        $this->keywords = $keywords;
+    }
+
+    /**
+     * @return Tag $tag
+     */
+    public function getTag() {
+        return $this->tag;
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function setTag($tag) {
+        $this->tag = $tag;
+    }
+
+    /**
+     * @return Boolean $is_validated
+     */
+    public function getIs_validated() {
+        return $this->is_validated;
+    }
+
+    /**
+     * @param Boolean $is_validated
+     */
+    public function setIs_validated($is_validated) {
+        $this->is_validated = $is_validated;
+    }
+
+    /**
+     * @return Integer $nb_views
+     */
+    public function getNb_views() {
+        return $this->nb_views;
+    }
+
+    /**
+     * @param Integer $nb_views
+     */
+    public function setNb_views($nb_views) {
+        $this->nb_views = $nb_views;
+    }
+
+    /**
+     * @return String $image
+     */
+    public function getImage() {
+        return $this->image;
+    }
+
+    /**
+     * @param String $image
+     */
+    public function setImage($image) {
+        $this->image = $image;
     }
 
     public function IsValid() {

@@ -5,11 +5,9 @@ namespace Sb\Db\Model;
 /** @Entity @Table(name="s1b_tags") */
 class Tag implements \Sb\Db\Model\Model {
 
-
     // TODO : ramener le nombre de userbook à ce niveau => colonne nb_userbook ou bien vérifier si on peut le faire avec un count($userbooks)
     // test à faire : je veux les tags classé par ordre croissant de nombre de userbook
     // select * from tag order by nb_userbook desc ??? est-ce possible sans colonne?
-
 
     /**
      * @Id @Column(type="integer")
@@ -26,7 +24,7 @@ class Tag implements \Sb\Db\Model\Model {
     /** @Column(type="datetime") */
     protected $creation_date;
 
-     /**
+    /**
      * @ManyToMany(targetEntity="UserBook", fetch="EXTRA_LAZY")
      * @JoinTable(name="s1b_userbooktags",
      *      joinColumns={@JoinColumn(name="tag_id", referencedColumnName="id")},
@@ -34,6 +32,18 @@ class Tag implements \Sb\Db\Model\Model {
      *      )
      * */
     protected $userbooks;
+
+    /**
+     * @OneToMany(targetEntity="GroupChronicle", mappedBy="tag", fetch="EXTRA_LAZY")
+     * @JoinColumn(name="id", referencedColumnName="tag_id")
+     */
+    protected $groupchronicles;
+
+    /**
+     * @OneToMany(targetEntity="PressReview", mappedBy="tag", fetch="EXTRA_LAZY")
+     * @JoinColumn(name="id", referencedColumnName="tag_id")
+     */
+    protected $pressreviews;
 
     public function getId() {
         return $this->id;
@@ -75,7 +85,35 @@ class Tag implements \Sb\Db\Model\Model {
         $this->userbooks = $userBooks;
     }
 
-    public function IsValid() {
+    /**
+     * @return Collection of GroupChronicle $groupchronicles
+     */
+    public function getGroupchronicles() {
+        return $this->groupchronicles;
+    }
+
+    /**
+     * @param Collection of GroupChronicle $groupchronicles
+     */
+    public function setGroupchronicles($groupchronicles) {
+        $this->groupchronicles = $groupchronicles;
+    }
+    
+    /**
+	 * @return Collection of PressReview $pressreviews
+	 */
+	public function getPressreviews() {
+		return $this->pressreviews;
+	}
+
+	/**
+	 * @param Collection of PressReview $pressreviews
+	 */
+	public function setPressreviews($pressreviews) {
+		$this->pressreviews = $pressreviews;
+	}
+
+	public function IsValid() {
         return true;
     }
 

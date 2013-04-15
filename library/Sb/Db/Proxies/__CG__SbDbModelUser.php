@@ -537,10 +537,34 @@ class User extends \Sb\Db\Model\User implements \Doctrine\ORM\Proxy\Proxy
         return parent::getFriendlyName();
     }
 
+    public function getPressreviews()
+    {
+        $this->__load();
+        return parent::getPressreviews();
+    }
+
+    public function setPressreviews($pressreviews)
+    {
+        $this->__load();
+        return parent::setPressreviews($pressreviews);
+    }
+
+    public function getGroupusers()
+    {
+        $this->__load();
+        return parent::getGroupusers();
+    }
+
+    public function setGroupusers($groupusers)
+    {
+        $this->__load();
+        return parent::setGroupusers($groupusers);
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'facebook_id', 'connexion_type', 'first_name', 'last_name', 'user_name', 'email', 'password', 'gender', 'address', 'city', 'zipcode', 'country', 'birthday', 'facebook_language', 'language', 'token', 'token_facebook', 'activated', 'deleted', 'gravatar', 'picture', 'picture_big', 'created', 'last_login', 'setting', 'messages_sent', 'messages_received', 'userbooks', 'userevents', 'friendships_as_source', 'friendships_as_target', 'invitations', 'groupchronicles');
+        return array('__isInitialized__', 'id', 'facebook_id', 'connexion_type', 'first_name', 'last_name', 'user_name', 'email', 'password', 'gender', 'address', 'city', 'zipcode', 'country', 'birthday', 'facebook_language', 'language', 'token', 'token_facebook', 'activated', 'deleted', 'gravatar', 'picture', 'picture_big', 'created', 'last_login', 'setting', 'messages_sent', 'messages_received', 'userbooks', 'userevents', 'friendships_as_source', 'friendships_as_target', 'invitations', 'groupchronicles', 'pressreviews', 'groupusers');
     }
 
     public function __clone()

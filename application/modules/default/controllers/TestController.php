@@ -1,7 +1,14 @@
 <?php
 
+use Doctrine\Common\Util\Debug;
+use Sb\Db\Model\User;
+use Sb\Db\Model\GroupChronicle;
+use Sb\Db\Model\PressReview;
+use Sb\Db\Model\PressReviewsSubscriber;
 use Sb\Db\Dao\UserDao;
-
+use Sb\Db\Dao\GroupChronicleDao;
+use Sb\Db\Dao\PressReviewDao;
+use Sb\Db\Dao\PressReviewsSubscriberDao;
 class Default_TestController extends Zend_Controller_Action {
 
     public function init() {
@@ -12,13 +19,43 @@ class Default_TestController extends Zend_Controller_Action {
 
     public function indexAction() {
 
-//        $user20 = UserDao::getInstance()->get(20);
-//        \Sb\Trace\Trace::addItem($user20->getUserName());
-//        Doctrine\Common\Util\Debug::dump($user20);
-//
-//        $user3 = UserDao::getInstance()->get(3);
-//        Doctrine\Common\Util\Debug::dump($user3);
-        
+        /* @var $user User */ 
+        $user = UserDao::getInstance()->get(14);
+        $groupUsers = $user->getGroupusers();
+        foreach ($groupUsers as $groupUser) {
+            /* @var $groupUser GroupUser */
+        	echo "groupuser group name <br/>";
+            Debug::dump($groupUser->getGroup()->getName());
+            foreach ($groupUser->getGroup()->getGroupusers() as $groupuserofgroupuser) {
+            	echo "groupuser group groupuser user id <br/>";
+                /* @var $groupuserofgroupuser GroupUser */            	
+                Debug::dump($groupuserofgroupuser->getUser()->getId());
+            }
+            echo "groupuser group groupusers list <br/>";
+            Debug::dump($groupUser->getGroup()->getGroupusers());
+        }
+
+        /* @var $chronicle GroupChronicle */
+        $chronicle = GroupChronicleDao::getInstance()->get(1);
+        echo "chronicle tag label <br/>";
+        Debug::dump($chronicle->getTag()->getLabel());
+        echo "chronicle book <br/>";
+        Debug::dump($chronicle->getBook());
+
+        /* @var $pss PressReviewsSubscriber */
+        $pss = PressReviewsSubscriberDao::getInstance()->get(1);
+        echo "pressreview subscriber email <br/>";
+        Debug::dump($pss->getEmail());
+
+        /* @var $pressreview PressReview */
+        $pressreview = PressReviewDao::getInstance()->get(1);
+        echo "pressreview book title <br/>";
+        Debug::dump($pressreview->getBook()->getTitle());
+        echo "pressreview media twitter user <br/>";
+        Debug::dump($pressreview->getMedia()->getTwitter_user());
+        echo "pressreview user email <br/>";
+        Debug::dump($pressreview->getUser()->getEmail());
+
     }
 
     public function getId(Sb\Db\Model\Model $model) {

@@ -93,19 +93,28 @@ class Book implements \Sb\Db\Model\Model {
     /** @Column(type="string", length=20) */
     protected $language;
 
-    /** @OneToMany(targetEntity="GroupChronicle", mappedBy="book", fetch="EXTRA_LAZY")  */
+    /** 
+     * @OneToMany(targetEntity="GroupChronicle", mappedBy="book", fetch="EXTRA_LAZY") 
+     * @JoinColumn(name="id", referencedColumnName="book_id")
+     */
     protected $groupchronicles;
 
-//~ Getters & setters
+    /** 
+     * @OneToMany(targetEntity="PressReview", mappedBy="book", fetch="EXTRA_LAZY") 
+     * @JoinColumn(name="id", referencedColumnName="book_id")
+     */
+    protected $pressreviews;
+
+    //~ Getters & setters
 
     public function getId() {
         return $this->id;
     }
 
     public function setId($id) {
-//        if ($this->id !== null && $this->id != $id) {
-//            throw new \Exception('Cannot change identifier to ' . $id . ', already set to ' . $this->id);
-//        }
+        //        if ($this->id !== null && $this->id != $id) {
+        //            throw new \Exception('Cannot change identifier to ' . $id . ', already set to ' . $this->id);
+        //        }
         if (is_numeric($id)) {
             $this->id = (int) $id;
         }
@@ -206,9 +215,9 @@ class Book implements \Sb\Db\Model\Model {
     }
 
     public function setPublishingDate($publishingDate) {
-// var_dump($publishingDate);
+        // var_dump($publishingDate);
         $this->publishing_date = $publishingDate;
-// stocke une version string de la date pour utilisation lors des serialization/deserialization
+        // stocke une version string de la date pour utilisation lors des serialization/deserialization
         if ($this->publishing_date)
             $this->publishing_date_s = \Sb\Helpers\DateHelper::getDateForDB($this->publishing_date);
     }
@@ -285,7 +294,7 @@ class Book implements \Sb\Db\Model\Model {
         }
         $publicationInfo = "";
         if ($this->getPublishingDate() && $pub) { // publisher et date de publication renseignées
-            //$publicationInfo = "Publié le $pubDtStr par $pub";
+        //$publicationInfo = "Publié le $pubDtStr par $pub";
             $publicationInfo = sprintf(__("Publié le %s <span class=\"publisher\">par %s</span>", "s1b"), $pubDtStr, $pub);
         } elseif ($this->getPublishingDate()) { // date de publication renseignée
             $publicationInfo = sprintf(__("Publié le %s", "s1b"), $pubDtStr);
@@ -411,7 +420,21 @@ class Book implements \Sb\Db\Model\Model {
         $this->language = $language;
     }
 
-    public function IsValid() {
+    /**
+	 * @return Collection of PressReview $pressreviews
+	 */
+	public function getPressreviews() {
+		return $this->pressreviews;
+	}
+
+	/**
+	 * @param Collection of PressReview $pressreviews
+	 */
+	public function setPressreviews($pressreviews) {
+		$this->pressreviews = $pressreviews;
+	}
+
+	public function IsValid() {
 
         // If none of the 3 ids are set, book is invalid
         if ((!$this->getISBN10()) && (!$this->getISBN13()) && (!$this->getASIN())) {

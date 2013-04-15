@@ -116,10 +116,25 @@ class User implements \Sb\Db\Model\Model {
 
     /** @OneToMany(targetEntity="Invitation", mappedBy="sender", fetch="EXTRA_LAZY") */
     protected $invitations;
-    
-    /** @OneToMany(targetEntity="GroupChronicle", mappedBy="user", fetch="EXTRA_LAZY")  */
+
+    /** 
+     * @OneToMany(targetEntity="GroupChronicle", mappedBy="user", fetch="EXTRA_LAZY")
+     * @JoinColumn(name="id", referencedColumnName="user_id")
+     */
     protected $groupchronicles;
 
+    /**
+     * @OneToMany(targetEntity="PressReview", mappedBy="user", fetch="EXTRA_LAZY")
+     * @JoinColumn(name="id", referencedColumnName="user_id") 
+     */
+    protected $pressreviews;
+
+    /**
+     * @OneToMany(targetEntity="GroupUser", mappedBy="user", fetch="EXTRA_LAZY")
+     * @JoinColumn(name="id", referencedColumnName="user_id")
+     */
+    protected $groupusers;
+    
     public function getId() {
         return $this->id;
     }
@@ -397,7 +412,6 @@ class User implements \Sb\Db\Model\Model {
         $this->groupchronicles = $groupchronicles;
     }
 
-        
     public function IsValid() {
         return true;
     }
@@ -417,12 +431,6 @@ class User implements \Sb\Db\Model\Model {
     public function addUserBook(\Sb\Db\Model\UserBook $userBook) {
         $this->userbooks[] = $userBook;
     }
-
-//    public function deleteUserBook(\Sb\Db\Model\UserBook $userBook) {
-//
-//        $key = $this->findUserBookKey($userBook);
-//        unset($this->userbooks[$key]);
-//    }
 
     public function getSetting() {
         return $this->setting;
@@ -530,5 +538,34 @@ class User implements \Sb\Db\Model\Model {
     public function getFriendlyName() {
         return ucfirst(\Sb\Helpers\StringHelper::tronque(strtolower($this->getFirstName()), 20)) . " " . strtoupper(mb_substr($this->getLastName(), 0, 1)) . ".";
     }
+    /**
+     * @return Collection of PressReview $pressreviews
+     */
+    public function getPressreviews() {
+        return $this->pressreviews;
+    }
 
+    /**
+     * @param Collection of PressReview $pressreviews
+     */
+    public function setPressreviews($pressreviews) {
+        $this->pressreviews = $pressreviews;
+    }
+    
+	/**
+	 * @return Collection of GroupUser $groupusers
+	 */
+	public function getGroupusers() {
+		return $this->groupusers;
+	}
+
+	/**
+	 * @param Collection of GroupUser $groupusers
+	 */
+	public function setGroupusers($groupusers) {
+		$this->groupusers = $groupusers;
+	}
+
+
+    
 }
