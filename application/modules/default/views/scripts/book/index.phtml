@@ -13,10 +13,8 @@
                 <?php _e("Acheter sur","s1b");?>
             </div>
             <div class="rcb-buttons">
-                <div id="amazonButton" title="<?php _e("Acheter sur Amazon", "s1b");?>" class="button bt-amazon float-left margin-left"><?php echo $this->buyOnAmazonWidgetLink; ?></div>
-                <script type="text/javascript">
-                    $("#amazonButton").click(function() {window.open($("A", $(this)).attr("href"));});
-                </script>
+            	<SCRIPT charset="utf-8" type="text/javascript" src="http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822/FR/cherbouqui-21/8005/130360ea-5296-44dc-94af-a53026e827a4"> </SCRIPT><NOSCRIPT><A HREF="http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822%2FFR%2Fcherbouqui-21%2F8005%2F130360ea-5296-44dc-94af-a53026e827a4&Operation=NoScript">Widgets Amazon.fr</A></NOSCRIPT>                
+                <a type="amzn" asin="<?php echo $this->bookAsin;?>"><div id="amazonButton" title="<?php _e("Acheter sur Amazon", "s1b");?>" class="button bt-amazon float-left margin-left"></div></a>                
                 <?php if ($this->buyOnFnacLink) { ?>
                 <a class="button bt-fnac float-left margin-left" target="_blank" href="<?php echo $this->buyOnFnacLink; ?>" title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>
                 <?php } ?>
