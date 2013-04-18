@@ -811,8 +811,9 @@ TD.mb-col-state{color:#f56903;}
 /* Last reviews posted */
 .last-reviews-posted { float: left; width: 100%;}
 .lrp { border-bottom:1px solid #F2F2F2;float: left;padding: 5px 0;width: 100%;}
-#homepage .lrp-title-frame {background: url("../images/sprite.png?v=5") repeat scroll 17px -1462px transparent;  padding-bottom: 20px;}
-#homepage .lrp-title { background-color: #F2F2F2; font-size: 1.7em; line-height: 30px; padding-left: 10px;}
+#homepage .lrp-title { color: #239CD3; font-weight: bold;}
+#homepage .lrp-image {width: 25%;}
+#homepage .lrp-content {width: 75%;}
 #other-user-profile .lrp-title, #user-homepage .lrp-title {color:#239CD3;font-size: 2em; margin-bottom: 10px;}
 .lrp-image {float:left; width:12%;}
 .lrp-content {float:right; width:88%;}
@@ -827,3 +828,6 @@ TD.mb-col-state{color:#f56903;}
 .same-author-books {}
 .same-author-books .pb-title { font-size: 1.3em; margin-bottom: 5px; padding-left: 5px; color:#239CD3;}
 .sab-books {}
+
+/* Last rated books - homepage */
+.last-rated-books .pb-title {font-size: 1.1em; font-weight: bold; margin:10px 0 5px;}

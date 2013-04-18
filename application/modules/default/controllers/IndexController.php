@@ -45,16 +45,6 @@ class Default_IndexController extends Zend_Controller_Action {
                 "s1b");
         $this->view->metaKeywords = "BD|bibliotheque|commentaires|communaute|lecteurs|critiques|livres|emprunt|littérature|livre|notice|partage|policier|polar|prêt|recommandation|roman|thriller";
 
-        $bohBooks = BookSvc::getInstance()->getBOHForHomePage();
-        if (count($bohBooks) == 0) {
-            $noBohBooks = new NoBooksWidget(__("Aucun livre n'a encore été noté par les membres", "s1b"));
-            $boh = $noBohBooks->get();
-        } else {
-            $bohBooksView = new BookShelf($bohBooks, __("<span class=\"pb-highlight\">Coups de coeur</span> des lecteurs", "s1b"));
-            $boh = $bohBooksView->get();
-        }
-        $this->view->boh = $boh;
-
         $this->view->subscribeLink = HTTPHelper::Link(Urls::SUBSCRIBE);
 
         $facebookFrame = new FacebookFrame();
@@ -82,9 +72,9 @@ class Default_IndexController extends Zend_Controller_Action {
                 ->append(
                         "<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js'
                                 . "\"></script>\n");
-        $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('lastRatedBooks', 90)});</script>\n");
+        $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('lastRatedBooks', 30)});</script>\n");
         $lastRatedBooks = BookSvc::getInstance()->getLastRatedBookForHomePage();
-        $lastRatedCoverFlip = new BookCoverFlip($lastRatedBooks, __("<strong>Les derniers livres notés</strong>", "s1b"), "lastRatedBooks", "");
+        $lastRatedCoverFlip = new BookCoverFlip($lastRatedBooks, __("Derniers livres notés", "s1b"), "lastRatedBooks", "");
         $this->view->lastRatedCoverFlip = $lastRatedCoverFlip->get();
 
         // Get last reviews
@@ -92,16 +82,6 @@ class Default_IndexController extends Zend_Controller_Action {
         $lastReviewsView = new LastReviews($lastReviews, __("Dernières critiques postées", "s1b"));
         $this->view->lastReviews = $lastReviewsView->get();
 
-        // Get community last events
-        $communityLastEvents = UserEventSvc::getInstance()->getLastEventsOfType(null, 15);
-        $communityLastEventsView = new CommunityLastEvents($communityLastEvents);
-        $this->view->communityLastEvents = $communityLastEventsView->get();
-        $this->view->placeholder('footer')
-                ->append(
-                        "<script>\n
-            toInit.push(\"attachCommunityEventsExpandCollapse()\");\n
-            function attachCommunityEventsExpandCollapse() {_attachExpandCollapseBehavior(\"js_communityLastEvents\", \"userEvent\", \"Voir moins d'activités\", \"Voir plus d'activités\");}\n
-        </script>\n");
     }
 
     public function logAction() {

@@ -287,14 +287,6 @@ class BookSvc extends Service {
         return $this->getBOH(10);
     }
 
-    /**
-     * Get 10 boh books order by last modification date for homepage
-     * @return type
-     */
-    public function getBOHForHomePage() {
-        return $this->getBOH(5);
-    }
-
     private function getBOH($nbBooks) {
         try {
 

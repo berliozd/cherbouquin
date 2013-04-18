@@ -1,17 +1,24 @@
 <?php
+use Sb\Entity\Constants;
 global $globalContext;
 ?>
 <div id="homepage">
     <div id="content-top">
         <?php if (!$globalContext->getConnectedUser()) { ?>
         <div class="carousel carousel-wrap">
-            <ul class="carousel-items">                
+            <ul class="carousel-items">
                 <li>
                     <div class="accroche accroche-2">
                         <div class="ci-content">
-                            <div class="ci-text"><?php _e("<span class=\"ci-maintext\">Découvrez&nbsp;</span><br/>Les derniers coups de coeur de vos amis","s1b")?></div>
-                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire","s1b");?></a></div>
-                            <div class="ci-subtext"><?php _e("C'est GRATUIT!","s1b");?></div>
+                            <div class="ci-text">
+                                <?php _e("<span class=\"ci-maintext\">Découvrez&nbsp;</span><br/>Les derniers coups de coeur de vos amis", "s1b") ?>
+                            </div>
+                            <div class="ci-button">
+                                <a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire", "s1b"); ?></a>
+                            </div>
+                            <div class="ci-subtext">
+                                <?php _e("C'est GRATUIT!", "s1b"); ?>
+                            </div>
                         </div>
                     </div>
 
@@ -19,18 +26,35 @@ global $globalContext;
                 <li>
                     <div class="accroche accroche-3">
                         <div class="ci-content">
-                            <div class="ci-text"><?php _e("<span class=\"ci-maintext\">Gérez&nbsp;</span><br/>votre bibliothèque avec la fonction de prêt et emprunt et conservez une trace de vos livres préférés","s1b");?></div>
-                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire","s1b");?></a></div>
-                            <div class="ci-subtext"><?php _e("C'est GRATUIT!","s1b");?></div>
+                            <div class="ci-text">
+                                <?php _e(
+            "<span class=\"ci-maintext\">Gérez&nbsp;</span><br/>votre bibliothèque avec la fonction de prêt et emprunt et conservez une trace de vos livres préférés",
+            "s1b");
+                                ?>
+                            </div>
+                            <div class="ci-button">
+                                <a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire", "s1b"); ?></a>
+                            </div>
+                            <div class="ci-subtext">
+                                <?php _e("C'est GRATUIT!", "s1b"); ?>
+                            </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="accroche accroche-1">
                         <div class="ci-content">
-                            <div class="ci-text"><?php _e("<span class=\"ci-maintext\">Trouvez&nbsp;</span><br/>le livre qui fera plaisir à votre ami dans sa liste d'envies","s1b");?></div>
-                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire","s1b");?></a></div>
-                            <div class="ci-subtext"><?php _e("C'est GRATUIT!","s1b");?></div>
+                            <div class="ci-text">
+                                <?php _e(
+            "<span class=\"ci-maintext\">Trouvez&nbsp;</span><br/>le livre qui fera plaisir à votre ami dans sa liste d'envies", "s1b");
+                                ?>
+                            </div>
+                            <div class="ci-button">
+                                <a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire", "s1b"); ?></a>
+                            </div>
+                            <div class="ci-subtext">
+                                <?php _e("C'est GRATUIT!", "s1b"); ?>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -51,17 +75,10 @@ global $globalContext;
         <div class="margin-bottom-xl">
             <?php echo $this->bookStoresChronicles; ?>
         </div>
-        <div class="pushed-books margin-bottom-xl">        
-            <?php echo $this->boh; ?>
-        </div>
-        <div class="pushed-books margin-bottom-xl">
-            <?php echo $this->lastRatedCoverFlip; ?>            
-        </div>
-        <?php echo $this->lastReviews; ?>
     </div>
     <div id="content-right">
-        <div class="right-frame">            
-            <?php echo $this->autoPromoWishlist;?>
+        <div class="right-frame">
+            <?php echo $this->autoPromoWishlist; ?>
         </div>
         <div class="right-frame">
             <?php echo $this->ad; ?>
@@ -72,8 +89,14 @@ global $globalContext;
         <div class="right-frame">
             <?php echo $this->twitter; ?>
         </div>
+        <div class="right-frame last-rated-books">
+            <div class="separator cherbouquin">
+                <span><?php echo Constants::SITENAME; ?></span>
+            </div>
+            <?php echo $this->lastRatedCoverFlip; ?>
+        </div>
         <div class="right-frame">
-            <?php echo $this->communityLastEvents; ?>
+            <?php echo $this->lastReviews; ?>
         </div>
     </div>
 </div>

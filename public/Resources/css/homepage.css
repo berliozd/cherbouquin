@@ -19,33 +19,42 @@
     margin-left: 0;
 }
 
-.pc-list-title {
+.separator {
     border-top-style: solid;
     border-top-width: 5px;
     border-color: #FFF;
 }
 
-.pc-list-title SPAN {
+.separator SPAN {
     padding: 3px;
-    font-size:1.3em;
+    font-size: 1.3em;
 }
 
-.pc-list-title.bloggers {
+.separator.bloggers {
     border-color: #794692;
 }
 
-.pc-list-title.bookstores {
+.separator.bloggers SPAN {
+    background-color: #794692;
+    color: #FFF;
+}
+
+.separator.bookstores {
     border-color: #be0574;
 }
 
-.pc-list-title.bloggers SPAN {
-    background-color: #794692;
-    color:#FFF;
+.separator.bookstores SPAN {
+    background-color: #be0574;
+    color: #FFF;
 }
 
-.pc-list-title.bookstores SPAN {
-    background-color: #be0574;
-    color:#FFF;
+.separator.cherbouquin {
+    border-color: #239CD3;
+}
+
+.separator.cherbouquin SPAN {
+    background-color: #239CD3;
+    color: #FFF;
 }
 
 .pc-image {
