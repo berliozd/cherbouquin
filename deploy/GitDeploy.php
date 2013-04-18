@@ -4,11 +4,11 @@ date_default_timezone_set('Europe/Paris');
 
 set_include_path(get_include_path() . PATH_SEPARATOR . 'E:\Dev\wamp2.0\www\cherbouquin\deploy\phpseclib');
 
-// $host = "91.121.92.16";
-// $login = "root";
-// $password = "oev9hn3h";
-// $remoteFolder = "/home/www/cherbouquin/";
-// $env = "kim";
+$host = "91.121.92.16";
+$login = "root";
+$password = "oev9hn3h";
+$remoteFolder = "/home/www/cherbouquin/";
+$env = "kim";
 
 // $host = "46.105.8.132";
 // $login = "root";
@@ -16,21 +16,20 @@ set_include_path(get_include_path() . PATH_SEPARATOR . 'E:\Dev\wamp2.0\www\cherb
 // $remoteFolder = "/var/www/html/newbeta.cherbouquin.fr/";
 // $env = "beta";
 
-$host = "46.105.8.132";
-$login = "root";
-$password = "7UqbxwEA";
-$remoteFolder = "/var/www/html/www.cherbouquin.fr/";
-$env = "prod";
+// $host = "46.105.8.132";
+// $login = "root";
+// $password = "7UqbxwEA";
+// $remoteFolder = "/var/www/html/www.cherbouquin.fr/";
+// $env = "prod";
 
 $localFolder = "E:\\Dev\\wamp2.0\\www\\cherbouquin\\";
 $localBackupFolder = "E:\\Temp\\CherBouquin\\BackupDeploy\\";
 
-$revisionHash = "123456";
-$filesString = "wp-content/themes/new_s1b/header-content.php
-library/Sb/Templates/searchBook/resultRow.phtml
-library/Sb/View/BookSearch.php
-public/Resources/css/share1book.css
-wp-content/themes/new_s1b/header-content.php";
+$revisionHash = "9513c1";
+$filesString = "application/modules/default/controllers/BookController.php
+application/modules/default/views/scripts/book/index.phtml
+library/Sb/Helpers/UserBookHelper.php
+library/Sb/Trace/Trace.php";
 
 include('Net/SFTP.php');
 
