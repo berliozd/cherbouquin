@@ -57,16 +57,16 @@ class GroupChronicle extends \Sb\Db\Model\GroupChronicle implements \Doctrine\OR
         return parent::setId($id);
     }
 
-    public function getGroup_id()
+    public function getGroup()
     {
         $this->__load();
-        return parent::getGroup_id();
+        return parent::getGroup();
     }
 
-    public function setGroup_id($group_id)
+    public function setGroup($group)
     {
         $this->__load();
-        return parent::setGroup_id($group_id);
+        return parent::setGroup($group);
     }
 
     public function getUser()
@@ -258,7 +258,7 @@ class GroupChronicle extends \Sb\Db\Model\GroupChronicle implements \Doctrine\OR
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'group_id', 'title', 'text', 'type_id', 'link_type', 'link', 'creation_date', 'is_published', 'source', 'keywords', 'is_validated', 'nb_views', 'image', 'user', 'book', 'tag');
+        return array('__isInitialized__', 'id', 'title', 'text', 'type_id', 'link_type', 'link', 'creation_date', 'is_published', 'source', 'keywords', 'is_validated', 'nb_views', 'image', 'group', 'user', 'book', 'tag');
     }
 
     public function __clone()

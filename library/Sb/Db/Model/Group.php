@@ -36,6 +36,12 @@ class Group implements Model {
     protected $groupusers;
 
     /**
+     * @OneToMany(targetEntity="GroupChronicle", mappedBy="group", fetch="EXTRA_LAZY")
+     * @JoinColumn(name="id", referencedColumnName="group_id")
+     */
+    protected $chronicles;
+
+    /**
      * @return Integer $id
      */
     public function getId() {
@@ -103,6 +109,20 @@ class Group implements Model {
      */
     public function setGroupusers($groupusers) {
         $this->groupusers = $groupusers;
+    }
+
+    /**
+     * @return Collection of GroupChronicle $chronicles
+     */
+    public function getChronicles() {
+        return $this->chronicles;
+    }
+
+    /**
+     * @param Collection of GroupChronicle $chronicles
+     */
+    public function setChronicles($chronicles) {
+        $this->chronicles = $chronicles;
     }
 
     /**

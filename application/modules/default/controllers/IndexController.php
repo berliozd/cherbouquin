@@ -21,11 +21,14 @@ use Sb\View\Components\Ad;
 use Sb\View\Components\CommunityLastEvents;
 use Sb\Flash\Flash;
 use Sb\Helpers\HTTPHelper;
+use Sb\Adaptater\GroupChronicleListAdaptater;
+use Sb\View\PushedChronicles;
 
 class Default_IndexController extends Zend_Controller_Action {
 
     public function init() {
-        /* Initialize action controller here */
+        // SEt specific layout for this controller
+        $this->_helper->layout->setLayout('index');
     }
 
     /**
@@ -37,7 +40,9 @@ class Default_IndexController extends Zend_Controller_Action {
         global $globalContext;
 
         $this->view->tagTitle = sprintf(__("%s : livre et littérature - tops | coups de cœur | critiques", "s1b"), \Sb\Entity\Constants::SITENAME);
-        $this->view->metaDescription = __("Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon","s1b");
+        $this->view->metaDescription = __(
+                "Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon",
+                "s1b");
         $this->view->metaKeywords = "BD|bibliotheque|commentaires|communaute|lecteurs|critiques|livres|emprunt|littérature|livre|notice|partage|policier|polar|prêt|recommandation|roman|thriller";
 
         $bohBooks = BookSvc::getInstance()->getBOHForHomePage();
@@ -61,19 +66,22 @@ class Default_IndexController extends Zend_Controller_Action {
         $twitter = new TwitterWidget();
         $this->view->twitter = $twitter->get();
 
-        $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>");
+        $this->view->placeholder('footer')
+                ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>");
         $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-items', 980, 340)});</script>");
 
         // Getting auto promo widget
         $autoPromoWishlist = new AutoPromoWishlistWidget();
         $this->view->autoPromoWishlist = $autoPromoWishlist->get();
 
-        // Getting chronicle
-        $chronicleView = new PushedChronicle(GroupChronicleSvc::getInstance()->getLast());
-        $this->view->chronicle = $chronicleView->get();
+        // Set chronicles (last one, last from any groups except bloggers and bookstore, last from bloggers, last from bookstores)
+        $this->setViewChronicles();
 
         // Getting last rated books cover flip
-        $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+        $this->view->placeholder('footer')
+                ->append(
+                        "<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js'
+                                . "\"></script>\n");
         $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('lastRatedBooks', 90)});</script>\n");
         $lastRatedBooks = BookSvc::getInstance()->getLastRatedBookForHomePage();
         $lastRatedCoverFlip = new BookCoverFlip($lastRatedBooks, __("<strong>Les derniers livres notés</strong>", "s1b"), "lastRatedBooks", "");
@@ -88,7 +96,9 @@ class Default_IndexController extends Zend_Controller_Action {
         $communityLastEvents = UserEventSvc::getInstance()->getLastEventsOfType(null, 15);
         $communityLastEventsView = new CommunityLastEvents($communityLastEvents);
         $this->view->communityLastEvents = $communityLastEventsView->get();
-        $this->view->placeholder('footer')->append("<script>\n
+        $this->view->placeholder('footer')
+                ->append(
+                        "<script>\n
             toInit.push(\"attachCommunityEventsExpandCollapse()\");\n
             function attachCommunityEventsExpandCollapse() {_attachExpandCollapseBehavior(\"js_communityLastEvents\", \"userEvent\", \"Voir moins d'activités\", \"Voir plus d'activités\");}\n
         </script>\n");
@@ -97,7 +107,9 @@ class Default_IndexController extends Zend_Controller_Action {
     public function logAction() {
 
         $invalidDataMsg = __("Les informations saisies ne nous permettent pas de vous authentifier.", "s1b");
-        $accountNotActivated = __("Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.", "s1b");
+        $accountNotActivated = __(
+                "Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.",
+                "s1b");
         $accountDeleted = __("Votre compte a été supprimé.", "s1b");
 
         if ($_POST) {
@@ -125,6 +137,58 @@ class Default_IndexController extends Zend_Controller_Action {
             }
         }
         $this->_redirect('');
+    }
+
+    private function setViewChronicles() {
+
+        // Getting chronicles
+        $anyGroupTypesChronicles = GroupChronicleSvc::getInstance()->getLastChroniclesOfAnyType();
+        $bloggersChronicles = GroupChronicleSvc::getInstance()->getLastBloggersChronicles();
+        $bookstoresChronicles = GroupChronicleSvc::getInstance()->getLastBookStoresOfAnyType();
+
+        // Init chronicle view model adaptater
+        $chronicleListAdaptater = new GroupChronicleListAdaptater();
+
+        // Set chronicles from any groups except bloggers and bookstores
+        if ($anyGroupTypesChronicles && count($anyGroupTypesChronicles) > 0) {
+
+            $chronicleView = new PushedChronicle($anyGroupTypesChronicles[0]);
+            $this->view->chronicle = $chronicleView->get();
+
+            $anyGroupTypesChronicles = array_slice($anyGroupTypesChronicles, 1, 3);
+            // Set chronicles view
+            $this->view->chronicles = $this
+                    ->getChronicleView($chronicleListAdaptater, $anyGroupTypesChronicles, __("Dernières <strong>chroniques</strong>", "s1b"),
+                            "last-chronicles");
+        }
+
+        // Set bloggers chronicles
+        if ($bloggersChronicles && count($bloggersChronicles) > 0) {
+            // We take 3 first chronicles only
+            $bloggersChronicles = array_slice($bloggersChronicles, 0, 3);
+            // Set bloggers chronicle view
+            $this->view->bloggersChronicles = $this
+                    ->getChronicleView($chronicleListAdaptater, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers");
+        }
+
+        // Set bookstores chronicles
+        if ($bookstoresChronicles && count($bookstoresChronicles) > 0) {
+            // We take 3 first chronicles only
+            $bookstoresChronicles = array_slice($bookstoresChronicles, 0, 3);
+            // Set bookstores view
+            $this->view->bookStoresChronicles = $this
+                    ->getChronicleView($chronicleListAdaptater, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores");
+        }
+
+    }
+
+    private function getChronicleView(GroupChronicleListAdaptater $chronicleListAdaptater, $chronicles, $title, $typeCSS) {
+        // Getting list of view model
+        $chronicleListAdaptater->setGroupChronicles($chronicles);
+        $anyGroupTypeChronicesAsViewModel = $chronicleListAdaptater->getAsPushedChronicleViewModelList();
+        // Get chronicles view 
+        $chroniclesView = new PushedChronicles($title, $anyGroupTypeChronicesAsViewModel, $typeCSS);
+        return $chroniclesView->get();
     }
 
 }

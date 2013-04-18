@@ -2,7 +2,7 @@
 global $globalConfig;
 global $globalContext;
 ?>
-<link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book.css?v=<?php echo filemtime($globalContext->getBaseDirectory() . "/public/Resources/css/share1book.css")?>"  />
+<link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book.css?v=<?php echo VERSION;?>"  />
 <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/overcast/jquery-ui-1.8.18.custom.css"  />
 
 <?php

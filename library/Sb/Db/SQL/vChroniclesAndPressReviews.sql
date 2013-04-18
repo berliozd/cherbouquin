@@ -5,6 +5,24 @@
 ALTER TABLE `s1b_groupchronicles`  ADD `keywords` VARCHAR(250) NULL,  ADD `tag_id` INT(11) NULL DEFAULT NULL,  ADD `is_validated` TINYINT NOT NULL DEFAULT '0',  ADD `nb_views` INT(10) NOT NULL DEFAULT '0',  ADD `image` VARCHAR(250) NULL;
 
 
+
+--
+-- Structure de la table `s1b_pressreviews`
+--
+
+CREATE TABLE IF NOT EXISTS `s1b_pressreviews` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `book_id` int(11) DEFAULT NULL,
+  `title` varchar(150) NOT NULL,
+  `text` varchar(2000) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `media_id` int(11) NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 --
 -- Update press reviews table
 --

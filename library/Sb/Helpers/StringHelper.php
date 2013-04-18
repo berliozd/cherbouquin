@@ -30,4 +30,17 @@ class StringHelper {
         $text = preg_replace('#https://[a-z0-9._/-]+#i', '<a  target="_blank" href="$0">$0</a>', $text); //Links
         return $text;
     }
+
+    /**
+     * Return a string cleaned from HTML and double quote
+     * @param String $string
+     * @param Boolean $removeDoubleQuote
+     * @return String
+     */
+    public static function cleanHTML($string, $removeDoubleQuote = true) {
+        $res = strip_tags($string);
+        if ($removeDoubleQuote)
+            $res = str_replace("\"", "", $res);
+        return $res;
+    }
 }

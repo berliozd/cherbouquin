@@ -105,6 +105,18 @@ class Group extends \Sb\Db\Model\Group implements \Doctrine\ORM\Proxy\Proxy
         return parent::setGroupusers($groupusers);
     }
 
+    public function getChronicles()
+    {
+        $this->__load();
+        return parent::getChronicles();
+    }
+
+    public function setChronicles($chronicles)
+    {
+        $this->__load();
+        return parent::setChronicles($chronicles);
+    }
+
     public function IsValid()
     {
         $this->__load();
@@ -114,7 +126,7 @@ class Group extends \Sb\Db\Model\Group implements \Doctrine\ORM\Proxy\Proxy
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'name', 'is_validated', 'type', 'groupusers');
+        return array('__isInitialized__', 'id', 'name', 'is_validated', 'type', 'groupusers', 'chronicles');
     }
 
     public function __clone()

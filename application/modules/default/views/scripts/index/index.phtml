@@ -9,9 +9,9 @@ global $globalContext;
                 <li>
                     <div class="accroche accroche-2">
                         <div class="ci-content">
-                            <div class="ci-text"><span class="ci-maintext">Découvrez&nbsp;</span><br/>Les derniers coups de coeur de vos amis</div>
-                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>">S'inscrire</a></div>
-                            <div class="ci-subtext">C'est GRATUIT!</div>
+                            <div class="ci-text"><?php _e("<span class=\"ci-maintext\">Découvrez&nbsp;</span><br/>Les derniers coups de coeur de vos amis","s1b")?></div>
+                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire","s1b");?></a></div>
+                            <div class="ci-subtext"><?php _e("C'est GRATUIT!","s1b");?></div>
                         </div>
                     </div>
 
@@ -19,18 +19,18 @@ global $globalContext;
                 <li>
                     <div class="accroche accroche-3">
                         <div class="ci-content">
-                            <div class="ci-text"><span class="ci-maintext">Gérez&nbsp;</span><br/>votre bibliothèque avec la fonction de prêt et emprunt et conservez une trace de vos livres préférés</div>
-                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>">S'inscrire</a></div>
-                            <div class="ci-subtext">C'est GRATUIT!</div>
+                            <div class="ci-text"><?php _e("<span class=\"ci-maintext\">Gérez&nbsp;</span><br/>votre bibliothèque avec la fonction de prêt et emprunt et conservez une trace de vos livres préférés","s1b");?></div>
+                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire","s1b");?></a></div>
+                            <div class="ci-subtext"><?php _e("C'est GRATUIT!","s1b");?></div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="accroche accroche-1">
                         <div class="ci-content">
-                            <div class="ci-text"><span class="ci-maintext">Trouvez&nbsp;</span><br/>le livre qui fera plaisir à votre ami dans sa liste d'envies</div>
-                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>">S'inscrire</a></div>
-                            <div class="ci-subtext">C'est GRATUIT!</div>
+                            <div class="ci-text"><?php _e("<span class=\"ci-maintext\">Trouvez&nbsp;</span><br/>le livre qui fera plaisir à votre ami dans sa liste d'envies","s1b");?></div>
+                            <div class="ci-button"><a class="bt-carroussel button" href="<?php echo $this->subscribeLink; ?>"><?php _e("S'inscrire","s1b");?></a></div>
+                            <div class="ci-subtext"><?php _e("C'est GRATUIT!","s1b");?></div>
                         </div>
                     </div>
                 </li>
@@ -41,6 +41,15 @@ global $globalContext;
     <div id="content-center">
         <div class="pushed-chronicle margin-bottom-xl">
             <?php echo $this->chronicle; ?>
+        </div>
+        <div class="margin-bottom-xl">
+            <?php echo $this->chronicles; ?>
+        </div>
+        <div class="margin-bottom-xl">
+            <?php echo $this->bloggersChronicles; ?>
+        </div>
+        <div class="margin-bottom-xl">
+            <?php echo $this->bookStoresChronicles; ?>
         </div>
         <div class="pushed-books margin-bottom-xl">        
             <?php echo $this->boh; ?>

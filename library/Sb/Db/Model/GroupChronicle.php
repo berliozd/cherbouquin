@@ -16,9 +16,10 @@ class GroupChronicle implements \Sb\Db\Model\Model {
     protected $id;
 
     /**
-     * @group_id @Column(type="integer")
+     * @ManyToOne(targetEntity="Group", inversedBy="groupchronicles")
+     * @JoinColumn(name="group_id", referencedColumnName="id")
      */
-    protected $group_id;
+    protected $group;
 
     /**
      * @ManyToOne(targetEntity="User", inversedBy="groupchronicles")
@@ -82,22 +83,37 @@ class GroupChronicle implements \Sb\Db\Model\Model {
         $this->id = $id;
     }
 
-    public function getGroup_id() {
-        return $this->group_id;
+    /**
+     * @return Group
+     */
+    public function getGroup() {
+        return $this->group;
     }
 
-    public function setGroup_id($group_id) {
-        $this->group_id = $group_id;
+    /**
+     * @param Group $group
+     */
+    public function setGroup($group) {
+        $this->group = $group;
     }
 
+    /**
+     * @param User
+     */
     public function getUser() {
         return $this->user;
     }
 
+    /**
+     * @return User $user
+     */
     public function setUser($user) {
         $this->user = $user;
     }
 
+    /**
+     * @return Book $book
+     */
     public function getBook() {
         return $this->book;
     }

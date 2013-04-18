@@ -9,6 +9,7 @@ use Sb\Db\Dao\UserDao;
 use Sb\Db\Dao\GroupChronicleDao;
 use Sb\Db\Dao\PressReviewDao;
 use Sb\Db\Dao\PressReviewsSubscriberDao;
+use Sb\Entity\GroupTypes;
 class Default_TestController extends Zend_Controller_Action {
 
     public function init() {
@@ -19,42 +20,48 @@ class Default_TestController extends Zend_Controller_Action {
 
     public function indexAction() {
 
-        /* @var $user User */ 
-        $user = UserDao::getInstance()->get(14);
-        $groupUsers = $user->getGroupusers();
-        foreach ($groupUsers as $groupUser) {
-            /* @var $groupUser GroupUser */
-        	echo "groupuser group name <br/>";
-            Debug::dump($groupUser->getGroup()->getName());
-            foreach ($groupUser->getGroup()->getGroupusers() as $groupuserofgroupuser) {
-            	echo "groupuser group groupuser user id <br/>";
-                /* @var $groupuserofgroupuser GroupUser */            	
-                Debug::dump($groupuserofgroupuser->getUser()->getId());
-            }
-            echo "groupuser group groupusers list <br/>";
-            Debug::dump($groupUser->getGroup()->getGroupusers());
+        $chronicles = GroupChronicleDao::getInstance()->getLast(10);
+        foreach ($chronicles as $chronicle) {
+            /* @var $chronicle GroupChronicle */
+            echo "<br/>nom du group : " . $chronicle->getGroup()->getName() . "<br/>" . "title : " . $chronicle->getTitle() . "<br/>" . "date de creation : " . $chronicle->getCreation_date()->format("d/m/y") . "<br/>";
         }
 
-        /* @var $chronicle GroupChronicle */
-        $chronicle = GroupChronicleDao::getInstance()->get(1);
-        echo "chronicle tag label <br/>";
-        Debug::dump($chronicle->getTag()->getLabel());
-        echo "chronicle book <br/>";
-        Debug::dump($chronicle->getBook());
+        //         /* @var $user User */ 
+        //         $user = UserDao::getInstance()->get(14);
+        //         $groupUsers = $user->getGroupusers();
+        //         foreach ($groupUsers as $groupUser) {
+        //             /* @var $groupUser GroupUser */
+        //         	echo "groupuser group name <br/>";
+        //             Debug::dump($groupUser->getGroup()->getName());
+        //             foreach ($groupUser->getGroup()->getGroupusers() as $groupuserofgroupuser) {
+        //             	echo "groupuser group groupuser user id <br/>";
+        //                 /* @var $groupuserofgroupuser GroupUser */            	
+        //                 Debug::dump($groupuserofgroupuser->getUser()->getId());
+        //             }
+        //             echo "groupuser group groupusers list <br/>";
+        //             Debug::dump($groupUser->getGroup()->getGroupusers());
+        //         }
 
-        /* @var $pss PressReviewsSubscriber */
-        $pss = PressReviewsSubscriberDao::getInstance()->get(1);
-        echo "pressreview subscriber email <br/>";
-        Debug::dump($pss->getEmail());
+        //         /* @var $chronicle GroupChronicle */
+        //         $chronicle = GroupChronicleDao::getInstance()->get(1);
+        //         echo "chronicle tag label <br/>";
+        //         Debug::dump($chronicle->getTag()->getLabel());
+        //         echo "chronicle book <br/>";
+        //         Debug::dump($chronicle->getBook());
 
-        /* @var $pressreview PressReview */
-        $pressreview = PressReviewDao::getInstance()->get(1);
-        echo "pressreview book title <br/>";
-        Debug::dump($pressreview->getBook()->getTitle());
-        echo "pressreview media twitter user <br/>";
-        Debug::dump($pressreview->getMedia()->getTwitter_user());
-        echo "pressreview user email <br/>";
-        Debug::dump($pressreview->getUser()->getEmail());
+        //         /* @var $pss PressReviewsSubscriber */
+        //         $pss = PressReviewsSubscriberDao::getInstance()->get(1);
+        //         echo "pressreview subscriber email <br/>";
+        //         Debug::dump($pss->getEmail());
+
+        //         /* @var $pressreview PressReview */
+        //         $pressreview = PressReviewDao::getInstance()->get(1);
+        //         echo "pressreview book title <br/>";
+        //         Debug::dump($pressreview->getBook()->getTitle());
+        //         echo "pressreview media twitter user <br/>";
+        //         Debug::dump($pressreview->getMedia()->getTwitter_user());
+        //         echo "pressreview user email <br/>";
+        //         Debug::dump($pressreview->getUser()->getEmail());
 
     }
 
