@@ -1,0 +1,68 @@
+.pushed-chronicles {
+    border-bottom: 1px solid #E6E6E6;
+    float: left;
+    padding-bottom: 10px;
+}
+
+.pushed-chronicles UL {
+    padding: 0;
+}
+
+.pushed-chronicles LI {
+    float: left;
+    list-style: none;
+    width: 202px;
+    margin-left: 10px;
+}
+
+.pushed-chronicles LI.first {
+    margin-left: 0;
+}
+
+.pc-list-title {
+    border-top-style: solid;
+    border-top-width: 5px;
+    border-color: #FFF;
+}
+
+.pc-list-title SPAN {
+    padding: 3px;
+    font-size:1.3em;
+}
+
+.pc-list-title.bloggers {
+    border-color: #794692;
+}
+
+.pc-list-title.bookstores {
+    border-color: #be0574;
+}
+
+.pc-list-title.bloggers SPAN {
+    background-color: #794692;
+    color:#FFF;
+}
+
+.pc-list-title.bookstores SPAN {
+    background-color: #be0574;
+    color:#FFF;
+}
+
+.pc-image {
+    border: 1px solid #E6E6E6;
+    width: 200px;
+    height: 200px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.pc-title {
+    color: #239CD3;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: left;;
+}
+
+.pc-description {
+    
+}

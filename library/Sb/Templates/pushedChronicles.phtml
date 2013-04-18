@@ -1,0 +1,28 @@
+<div class="pushed-chronicles">
+    <div class="pc-list-title <?php echo $typeCSS;?>">
+        <span><?php echo $title; ?></span>
+    </div>
+    <ul>
+        <?php
+        $first = true;
+        foreach ($chronicles as $chronicle) { ?>
+        <li class="<?php echo ($first ? "first" : "");?>">        	
+        	<?php if ($chronicle->getLink()) { ?>
+        		<a href="<?php echo $chronicle->getLink();?>" title="<?php echo $chronicle->getTitle(); ?>">
+        			<div class="pc-image" title="<?php echo $chronicle->getTitle(); ?>" style="background-image: url('<?php echo $chronicle->getImage(); ?>');">&nbsp;</div>
+        		</a>
+        	<?php } else { ?>
+            	<div class="pc-image" title="<?php echo $chronicle->getTitle(); ?>" style="background-image: url('<?php echo $chronicle->getImage(); ?>');">&nbsp;</div>
+            <?php } ?>
+            <div class="pc-title">
+                <?php echo $chronicle->getTitle(); ?>
+            </div>
+            <div class="pc-description">
+                <?php echo $chronicle->getDescription(); ?>
+            </div>
+		</li>
+        <?php
+        $first = false; 
+		} ?>
+    </ul>
+</div>
