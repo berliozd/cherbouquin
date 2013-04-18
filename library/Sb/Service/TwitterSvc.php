@@ -42,7 +42,7 @@ class TwitterSvc extends Service {
                 $connection = new \TwitterOAuth($consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret);
 
                 $user = "Cherbouquin"; /* Nom d'utilisateur sur Twitter */
-                $count = 5; /* Nombre de message à afficher */
+                $count = 10; /* Nombre de message à afficher */
 
                 $query = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=' . $user . '&count=' . $count; //Your Twitter API query
 

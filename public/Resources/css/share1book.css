@@ -771,7 +771,7 @@ TD.mb-col-state{color:#f56903;}
 .twitter-header a{ color:#FFF;}
 .twitter-widget-profile{ display: block; float: left; width: 31px; height: 31px; border: 0;}
 .twitter-body { padding: 0 1px;}
-.twitter-timeline { background: white;}
+.twitter-timeline { background: white; height: 285px; overflow:auto;}
 .twitter-tweet {border-bottom: 1px dotted #DDD; overflow: hidden;}
 .twitter-tweet a { color : #239CD3}
 .twitter-tweet-wrap { padding: 8px; overflow: hidden;}
