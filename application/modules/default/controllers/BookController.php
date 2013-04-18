@@ -57,7 +57,11 @@ class Default_BookController extends Zend_Controller_Action {
                     $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
 
                     // Get amazon and fnac buy link
-                    $this->view->buyOnAmazonLink = $book->getAmazonUrl();
+                    
+                    // We use the amazon widget builder link
+                    $amazonUrlWidget = "<SCRIPT charset=\"utf-8\" type=\"text/javascript\" src=\"http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822/FR/cherbouqui-21/8005/130360ea-5296-44dc-94af-a53026e827a4\"> </SCRIPT><NOSCRIPT><A HREF=\"http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822%2FFR%2Fcherbouqui-21%2F8005%2F130360ea-5296-44dc-94af-a53026e827a4&Operation=NoScript\">Widgets Amazon.fr</A></NOSCRIPT>";
+                    $this->view->buyOnAmazonWidgetLink = $amazonUrlWidget . "<a type=\"amzn\" asin=\"" . $book->getASIN() . "\"></a>";
+                    
                     $this->view->buyOnFnacLink = null;
                     if ($book->getISBN13())
                         $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $book->getISBN13() . "]]";

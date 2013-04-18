@@ -13,7 +13,10 @@
                 <?php _e("Acheter sur","s1b");?>
             </div>
             <div class="rcb-buttons">
-                <a class="button bt-amazon float-left margin-left" target="_blank" href="<?php echo $this->buyOnAmazonLink; ?>" title="<?php _e("Acheter sur Amazon", "s1b");?>"></a>
+                <div id="amazonButton" title="<?php _e("Acheter sur Amazon", "s1b");?>" class="button bt-amazon float-left margin-left"><?php echo $this->buyOnAmazonWidgetLink; ?></div>
+                <script type="text/javascript">
+                    $("#amazonButton").click(function() {window.open($("A", $(this)).attr("href"));});
+                </script>
                 <?php if ($this->buyOnFnacLink) { ?>
                 <a class="button bt-fnac float-left margin-left" target="_blank" href="<?php echo $this->buyOnFnacLink; ?>" title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>
                 <?php } ?>
