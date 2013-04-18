@@ -58,8 +58,9 @@ class Default_BookController extends Zend_Controller_Action {
 
                     // Get amazon and fnac buy link
                     
-                    // We pass ASIN code to be used by amazon url builder widget                     
-                    $this->view->bookAsin = $book->getASIN();
+                    // We use the amazon widget builder link
+                    $amazonUrlWidget = "<SCRIPT charset=\"utf-8\" type=\"text/javascript\" src=\"http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822/FR/cherbouqui-21/8005/130360ea-5296-44dc-94af-a53026e827a4\"> </SCRIPT><NOSCRIPT><A HREF=\"http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822%2FFR%2Fcherbouqui-21%2F8005%2F130360ea-5296-44dc-94af-a53026e827a4&Operation=NoScript\">Widgets Amazon.fr</A></NOSCRIPT>";
+                    $this->view->buyOnAmazonWidgetLink = $amazonUrlWidget . "<a type=\"amzn\" asin=\"" . $book->getASIN() . "\"></a>";
                     
                     $this->view->buyOnFnacLink = null;
                     if ($book->getISBN13())
