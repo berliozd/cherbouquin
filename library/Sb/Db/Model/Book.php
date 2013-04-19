@@ -474,8 +474,7 @@ class Book implements \Sb\Db\Model\Model {
 
     public function getLink() {
         $encodedTitle = \Sb\Helpers\HTTPHelper::encodeTextForURL($this->getTitle());
-        $encodedAuthors = \Sb\Helpers\HTTPHelper::encodeTextForURL($this->getOrderableContributors());
-        return sprintf("livre/%s/%s/%s", $encodedTitle, $encodedAuthors, $this->getId());
+        return sprintf("livre/%s-%s", $encodedTitle, $this->getId());
     }
 
     private function isNotDeleted(\Sb\Db\Model\UserBook $userBook) {

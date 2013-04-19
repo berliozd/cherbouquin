@@ -10,27 +10,25 @@ set_include_path(get_include_path() . PATH_SEPARATOR . 'E:\Dev\wamp2.0\www\cherb
 // $remoteFolder = "/home/www/cherbouquin/";
 // $env = "kim";
 
-// $host = "46.105.8.132";
-// $login = "root";
-// $password = "7UqbxwEA";
-// $remoteFolder = "/var/www/html/newbeta.cherbouquin.fr/";
-// $env = "beta";
-
 $host = "46.105.8.132";
 $login = "root";
 $password = "7UqbxwEA";
-$remoteFolder = "/var/www/html/www.cherbouquin.fr/";
-$env = "prod";
+$remoteFolder = "/var/www/html/newbeta.cherbouquin.fr/";
+$env = "beta";
+
+// $host = "46.105.8.132";
+// $login = "root";
+// $password = "7UqbxwEA";
+// $remoteFolder = "/var/www/html/www.cherbouquin.fr/";
+// $env = "prod";
 
 $localFolder = "E:\\Dev\\wamp2.0\\www\\cherbouquin\\";
 $localBackupFolder = "E:\\Temp\\CherBouquin\\BackupDeploy\\";
 
-$revisionHash = "123456";
-$filesString = "wp-content/themes/new_s1b/header-content.php
-library/Sb/Templates/searchBook/resultRow.phtml
-library/Sb/View/BookSearch.php
-public/Resources/css/share1book.css
-wp-content/themes/new_s1b/header-content.php";
+$revisionHash = "606853";
+$filesString = ".htaccess
+application/configs/application.ini
+library/Sb/Db/Model/Book.php";
 
 include('Net/SFTP.php');
 
