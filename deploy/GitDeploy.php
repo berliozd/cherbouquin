@@ -4,10 +4,10 @@ date_default_timezone_set('Europe/Paris');
 
 set_include_path(get_include_path() . PATH_SEPARATOR . 'E:\Dev\wamp2.0\www\cherbouquin\deploy\phpseclib');
 
-// $host = "91.121.92.16";
+// $host = "37.59.62.193";
 // $login = "root";
-// $password = "oev9hn3h";
-// $remoteFolder = "/home/www/cherbouquin/";
+// $password = "1gGvzHYN";
+// $remoteFolder = "/home/www.cherbouquin.com/";
 // $env = "kim";
 
 // $host = "46.105.8.132";
@@ -25,12 +25,11 @@ $env = "prod";
 $localFolder = "E:\\Dev\\wamp2.0\\www\\cherbouquin\\";
 $localBackupFolder = "E:\\Temp\\CherBouquin\\BackupDeploy\\";
 
-$revisionHash = "123456";
-$filesString = "wp-content/themes/new_s1b/header-content.php
-library/Sb/Templates/searchBook/resultRow.phtml
-library/Sb/View/BookSearch.php
-public/Resources/css/share1book.css
-wp-content/themes/new_s1b/header-content.php";
+$revisionHash = "606853-1cc19c";
+$filesString = "library/Sb/Helpers/HTTPHelper.php
+.htaccess
+application/configs/application.ini
+library/Sb/Db/Model/Book.php";
 
 include('Net/SFTP.php');
 
