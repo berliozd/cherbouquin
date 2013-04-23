@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class InvitationDao extends \Sb\Db\Dao\AbstractDao {
 
+    const MODEL = "\\Sb\\Db\\Model\\Invitation";
+
     private static $instance;
 
     /**
@@ -17,12 +19,12 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
      */
     public static function getInstance() {
         if (!self::$instance)
-            self::$instance = new \Sb\Db\Dao\InvitationDao ();
+            self::$instance = new \Sb\Db\Dao\InvitationDao();
         return self::$instance;
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\Invitation");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -52,13 +54,13 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getListForSenderAndGuestEmail(\Sb\Db\Model\User $sender, $email) {
 
-        $query = $this->entityManager->createQuery("SELECT i FROM \Sb\Db\Model\Invitation i
-            JOIN i.guest g            
-            WHERE g.email = :email
-            AND i.sender = :sender");
+        $query = $this->entityManager
+                ->createQuery( "SELECT i FROM " . self::MODEL . " i
+					            JOIN i.guest g            
+					            WHERE g.email = :email
+					            AND i.sender = :sender");
 
-        $query->setParameters(array('email' => $email,
-            'sender' => $sender));
+        $query->setParameters(array('email' => $email, 'sender' => $sender));
 
         $result = $this->getResults($query);
 
@@ -71,8 +73,9 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
      * @return array of \Sb\Db\Model\Invitation
      */
     public function getListByGuestEmail($email) {
-        
-        $query = $this->entityManager->createQuery("SELECT i FROM \Sb\Db\Model\Invitation i
+
+        $query = $this->entityManager
+                ->createQuery("SELECT i FROM " . self::MODEL . " i
             JOIN i.guest g            
             WHERE g.email = :email");
 
@@ -91,14 +94,13 @@ class InvitationDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getByEmailAndToken($email, $token) {
 
-        $query = $this->entityManager->createQuery("SELECT i FROM \Sb\Db\Model\Invitation i
+        $query = $this->entityManager
+                ->createQuery(
+                        "SELECT i FROM " . self::MODEL . " i
             JOIN i.guest g
             WHERE g.email = :email 
             AND i.token = :token");
-        $query->setParameters(array(
-            'email' => $email,
-            'token' => $token)
-        );
+        $query->setParameters(array('email' => $email, 'token' => $token));
         return $query->getOneOrNullResult();
     }
 

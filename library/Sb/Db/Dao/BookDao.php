@@ -10,6 +10,8 @@ namespace Sb\Db\Dao;
 class BookDao extends \Sb\Db\Dao\AbstractDao {
 
     private static $instance;
+    
+    const MODEL = "\\Sb\\Db\\Model\\Book";
 
     /**
      *
@@ -22,7 +24,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\Book");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -55,7 +57,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         $reference = $keyword;
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b, allcontributors, p")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b, allcontributors, p")->from(self::MODEL, "b")
                 ->leftJoin("b.contributors", "c")->where("c.full_name LIKE :keyword")
                 ->leftJoin("b.contributors", "allcontributors")
                 ->leftJoin("b.publisher", "p")
@@ -80,7 +82,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getOneByCodes($isbn10, $isbn13, $asin) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b, c, p")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b, c, p")->from(self::MODEL, "b")
                 ->leftJoin("b.contributors", "c")->where("c.full_name LIKE :keyword")
                 ->leftJoin("b.publisher", "p")
                 ->Where("b.isbn10 = :isbn10")
@@ -100,7 +102,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListTops($nbMaxResults) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b, p")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b, p")->from(self::MODEL, "b")
                 ->distinct()
                 ->join("b.publisher", "p")
                 ->join("b.userbooks", "ub")
@@ -120,7 +122,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($nbMaxResults, $tagsIdsAsStr));
 
-        $dql = sprintf("SELECT DISTINCT b,p FROM \Sb\Db\Model\Book b 
+        $dql = sprintf("SELECT DISTINCT b,p FROM " . self::MODEL . " b 
             JOIN b.userbooks ub
             JOIN b.publisher p
             JOIN ub.tags t             
@@ -143,7 +145,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListBOH($nbMaxResults) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b,p")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b,p")->from(self::MODEL, "b")
                 ->distinct()
                 ->join("b.publisher", "p")
                 ->join("b.userbooks", "ub")
@@ -164,7 +166,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListLastRated($nbMaxResults) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b,p")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b,p")->from(self::MODEL, "b")
                 ->distinct()
                 ->join("b.publisher", "p")
                 ->join("b.userbooks", "ub")
@@ -186,7 +188,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListBOHFriends($userId) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b")->from(self::MODEL, "b")
                 ->distinct()
                 ->join("b.userbooks", "ub")
                 ->join("ub.user", "u")
@@ -213,7 +215,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getLastlyAdded($nbMaxResults) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b")->from(self::MODEL, "b")
                 ->join("b.userbooks", "ub")
                 ->setMaxResults($nbMaxResults)
                 ->orderBy("ub.creation_date", "DESC")
@@ -228,7 +230,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListLikedByUser($userId) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("b")->from("\Sb\Db\Model\Book ", "b")
+        $queryBuilder->select("b")->from(self::MODEL, "b")
                 ->join("b.userbooks", "ub")
                 ->join("ub.user", "u")
                 ->where("u.id = :user_id")
@@ -237,7 +239,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 ->orderBy("ub.last_modification_date", "DESC")
                 ->setParameter("user_id", $userId);
 
-        // We don't cache this result as the function is only called by the book svc which dies the caching
+        // We don't cache this result as the function is only called by the book svc which does the caching
         $result = $this->getResults($queryBuilder->getQuery(), null);
 
         return $result;
@@ -247,7 +249,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         $userIdsAsStr = implode(", ", $userIds);
 
-        $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
+        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b 
             JOIN b.userbooks ub 
             JOIN ub.user u 
             JOIN b.contributors c 
@@ -269,7 +271,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($tagIdsAsStr));
 
-        $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
+        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b 
             JOIN b.contributors c
             JOIN b.userbooks ub 
             JOIN ub.tags t             
@@ -293,7 +295,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($contributorIdsAsStr));
 
-        $dql = sprintf("SELECT b,c FROM \Sb\Db\Model\Book b 
+        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b 
             JOIN b.contributors c
             JOIN b.userbooks ub             
             WHERE c.id IN (%s)

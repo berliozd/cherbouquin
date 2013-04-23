@@ -4,6 +4,8 @@ namespace Sb\Db\Dao;
 
 class FriendShipDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\FriendShip";
+	
     private static $instance;
 
     /**
@@ -17,7 +19,7 @@ class FriendShipDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\FriendShip");
+        parent::__construct(self::MODEL);
     }
 
     public function add(\Sb\Db\Model\FriendShip $friendShip) {
@@ -31,7 +33,7 @@ class FriendShipDao extends \Sb\Db\Dao\AbstractDao {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
 
-        $queryBuilder->select("ffs")->from("\Sb\Db\Model\FriendShip", "ffs")
+        $queryBuilder->select("ffs")->from(self::MODEL, "ffs")
                 ->join("ffs.user_source", "f")
                 ->join("f.friendships_as_target", "mfs")
                 ->join("mfs.user_source", "me")

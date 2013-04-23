@@ -50,7 +50,7 @@ class Template {
         $output = "";
 
         foreach ($templates as $template) {
-            $content = (get_class($template) !== "Sb\Templates\Template") ? "Error, incorrect type - expected Template." : $template->output();
+            $content = (get_class($template) !== "Sb\\Templates\\Template") ? "Error, incorrect type - expected Template." : $template->output();
             $output .= $content . $separator;
         }
 

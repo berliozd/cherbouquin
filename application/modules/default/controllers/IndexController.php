@@ -13,15 +13,12 @@ use Sb\View\Components\FacebookFrame;
 use Sb\View\LastReviews;
 use Sb\View\PushedChronicle;
 use Sb\View\BookCoverFlip;
-use Sb\View\BookShelf;
-use Sb\View\Components\NoBooksWidget;
 use Sb\View\Components\TwitterWidget;
 use Sb\View\Components\AutoPromoWishlistWidget;
 use Sb\View\Components\Ad;
-use Sb\View\Components\CommunityLastEvents;
 use Sb\Flash\Flash;
 use Sb\Helpers\HTTPHelper;
-use Sb\Adaptater\GroupChronicleListAdaptater;
+use Sb\Adapter\GroupChronicleListAdapter;
 use Sb\View\PushedChronicles;
 
 class Default_IndexController extends Zend_Controller_Action {
@@ -126,8 +123,8 @@ class Default_IndexController extends Zend_Controller_Action {
         $bloggersChronicles = GroupChronicleSvc::getInstance()->getLastBloggersChronicles();
         $bookstoresChronicles = GroupChronicleSvc::getInstance()->getLastBookStoresOfAnyType();
 
-        // Init chronicle view model adaptater
-        $chronicleListAdaptater = new GroupChronicleListAdaptater();
+        // Init chronicle view model adapter
+        $chronicleListAdapter = new GroupChronicleListAdapter();
 
         // Set chronicles from any groups except bloggers and bookstores
         if ($anyGroupTypesChronicles && count($anyGroupTypesChronicles) > 0) {
@@ -138,7 +135,7 @@ class Default_IndexController extends Zend_Controller_Action {
             $anyGroupTypesChronicles = array_slice($anyGroupTypesChronicles, 1, 3);
             // Set chronicles view
             $this->view->chronicles = $this
-                    ->getChronicleView($chronicleListAdaptater, $anyGroupTypesChronicles, __("Dernières <strong>chroniques</strong>", "s1b"),
+                    ->getChronicleView($chronicleListAdapter, $anyGroupTypesChronicles, __("Dernières <strong>chroniques</strong>", "s1b"),
                             "last-chronicles");
         }
 
@@ -148,7 +145,7 @@ class Default_IndexController extends Zend_Controller_Action {
             $bloggersChronicles = array_slice($bloggersChronicles, 0, 3);
             // Set bloggers chronicle view
             $this->view->bloggersChronicles = $this
-                    ->getChronicleView($chronicleListAdaptater, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers");
+                    ->getChronicleView($chronicleListAdapter, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers");
         }
 
         // Set bookstores chronicles
@@ -157,15 +154,15 @@ class Default_IndexController extends Zend_Controller_Action {
             $bookstoresChronicles = array_slice($bookstoresChronicles, 0, 3);
             // Set bookstores view
             $this->view->bookStoresChronicles = $this
-                    ->getChronicleView($chronicleListAdaptater, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores");
+                    ->getChronicleView($chronicleListAdapter, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores");
         }
 
     }
 
-    private function getChronicleView(GroupChronicleListAdaptater $chronicleListAdaptater, $chronicles, $title, $typeCSS) {
+    private function getChronicleView(GroupChronicleListAdapter $chronicleListAdapter, $chronicles, $title, $typeCSS) {
         // Getting list of view model
-        $chronicleListAdaptater->setGroupChronicles($chronicles);
-        $anyGroupTypeChronicesAsViewModel = $chronicleListAdaptater->getAsPushedChronicleViewModelList();
+        $chronicleListAdapter->setGroupChronicles($chronicles);
+        $anyGroupTypeChronicesAsViewModel = $chronicleListAdapter->getAsPushedChronicleViewModelList();
         // Get chronicles view 
         $chroniclesView = new PushedChronicles($title, $anyGroupTypeChronicesAsViewModel, $typeCSS);
         return $chroniclesView->get();

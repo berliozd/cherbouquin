@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class PublisherDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\Publisher";
+	
     private static $instance;
 
     /**
@@ -22,7 +24,7 @@ class PublisherDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\Publisher");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -32,7 +34,7 @@ class PublisherDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getByName($name) {
         
-        $query = $this->entityManager->createQuery("SELECT p FROM \Sb\Db\Model\Publisher p
+        $query = $this->entityManager->createQuery("SELECT p FROM " . self::MODEL . " p
             WHERE p.name = :name");
         $query->setParameters(array(
             'name' => $name)

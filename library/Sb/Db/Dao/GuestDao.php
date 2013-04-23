@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class GuestDao extends \Sb\Db\Dao\AbstractDao {
 
+    const MODEL = "\\Sb\\Db\\Model\\Guest";
+
     private static $instance;
 
     /**
@@ -17,12 +19,12 @@ class GuestDao extends \Sb\Db\Dao\AbstractDao {
      */
     public static function getInstance() {
         if (!self::$instance)
-            self::$instance = new \Sb\Db\Dao\GuestDao ();
+            self::$instance = new \Sb\Db\Dao\GuestDao();
         return self::$instance;
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\Guest");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -47,11 +49,9 @@ class GuestDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getListByEmail($email) {
 
-        $query = $this->entityManager->createQuery("SELECT g FROM \Sb\Db\Model\Guest g
+        $query = $this->entityManager->createQuery("SELECT g FROM " . self::MODEL . " g
             WHERE g.email = :email");
-        $query->setParameters(array(
-            'email' => $email)
-        );
+        $query->setParameters(array('email' => $email));
         return $this->getResults($query);
     }
 

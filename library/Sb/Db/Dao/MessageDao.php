@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class MessageDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\Message";
+	
     private static $instance;
 
     /**
@@ -22,7 +24,7 @@ class MessageDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\Message");
+        parent::__construct(self::MODEL);
     }
 
     /**

@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class UserDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\User";
+	
     private static $instance;
 
     /**
@@ -22,7 +24,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\User");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -56,7 +58,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getByEmail($email) {
 
-        $query = $this->entityManager->createQuery("SELECT u FROM \Sb\Db\Model\User u
+        $query = $this->entityManager->createQuery("SELECT u FROM " . self::MODEL . " u
             WHERE u.email = :email");
         $query->setParameters(array(
             'email' => $email)
@@ -71,7 +73,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getByUserName($userName) {
 
-        $query = $this->entityManager->createQuery("SELECT u FROM \Sb\Db\Model\User u
+        $query = $this->entityManager->createQuery("SELECT u FROM " . self::MODEL . " u
             WHERE u.user_name = :user_name");
         $query->setParameters(array(
             'user_name' => $userName)
@@ -81,7 +83,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getS1bUser($email, $password) {
 
-        $query = $this->entityManager->createQuery("SELECT u FROM \Sb\Db\Model\User u
+        $query = $this->entityManager->createQuery("SELECT u FROM " . self::MODEL . " u
             WHERE u.email = :email AND u.password = :password");
         $query->setParameters(array(
             'email' => $email,
@@ -92,7 +94,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getFacebookUser($email) {
 
-        $query = $this->entityManager->createQuery("SELECT u FROM \Sb\Db\Model\User u
+        $query = $this->entityManager->createQuery("SELECT u FROM " . self::MODEL . " u
             WHERE u.email = :email");
         $query->setParameters(array(
             'email' => $email)
@@ -103,7 +105,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
     public function getListByKeyword($keyword) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("u")->from("\Sb\Db\Model\User", "u")
+        $queryBuilder->select("u")->from(self::MODEL, "u")
                 ->Where("u.email LIKE :keyword")
                 ->orWhere("u.user_name LIKE :keyword")
                 ->orWhere("u.last_name LIKE :keyword")
@@ -118,7 +120,7 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
 
         $bookIdsAsStr = implode(",", $bookIds);
 
-        $dql = sprintf("SELECT u FROM \Sb\Db\Model\User u 
+        $dql = sprintf("SELECT u FROM " . self::MODEL . " u 
             JOIN u.userbooks ub 
             JOIN ub.book b 
             WHERE b.id IN (%s)

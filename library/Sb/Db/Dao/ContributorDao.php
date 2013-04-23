@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class ContributorDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\Contributor";
+	
     private static $instance;
 
     /**
@@ -22,7 +24,7 @@ class ContributorDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\Contributor");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -32,7 +34,7 @@ class ContributorDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getByFullName($fullName) {
 
-        $query = $this->entityManager->createQuery("SELECT c FROM \Sb\Db\Model\Contributor c
+        $query = $this->entityManager->createQuery("SELECT c FROM " . self::MODEL . " c
             WHERE c.full_name = :full_name");
         $query->setParameters(array(
             'full_name' => trim($fullName))
@@ -47,7 +49,7 @@ class ContributorDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getListForBook($bookId) {
 
-        $query = $this->entityManager->createQuery("SELECT c FROM \Sb\Db\Model\Contributor c
+        $query = $this->entityManager->createQuery("SELECT c FROM " . self::MODEL . " c
             JOIN c.books b
             WHERE b.id = :book_id");
         $query->setParameters(array(

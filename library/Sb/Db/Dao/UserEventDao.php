@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class UserEventDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\UserEvent";
+	
     private static $instance;
 
     /**
@@ -22,7 +24,7 @@ class UserEventDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\UserEvent");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -32,7 +34,7 @@ class UserEventDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getListUserFriendsUserEvents($userId) {
 
-        $query = $this->entityManager->createQuery("SELECT ue FROM \Sb\Db\Model\UserEvent ue
+        $query = $this->entityManager->createQuery("SELECT ue FROM " . self::MODEL . " ue
             JOIN ue.user f
             JOIN f.friendships_as_target fu
             JOIN fu.user_source u
@@ -56,11 +58,11 @@ class UserEventDao extends \Sb\Db\Dao\AbstractDao {
     public function getListLastEventsOfType($typeId = null, $maxResult = 0) {
         
         if ($typeId != null)
-            $sql = "SELECT ue FROM \Sb\Db\Model\UserEvent ue
+            $sql = "SELECT ue FROM " . self::MODEL . " ue
             WHERE ue.type_id = :type_id
             ORDER BY ue.creation_date DESC";
         else
-            $sql = "SELECT ue FROM \Sb\Db\Model\UserEvent ue        
+            $sql = "SELECT ue FROM " . self::MODEL . " ue        
             ORDER BY ue.creation_date DESC";
         
         $query = $this->entityManager->createQuery($sql);
@@ -84,7 +86,7 @@ class UserEventDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getListUserFriendsUserEventsOfType($userId, $typeId) {
 
-        $query = $this->entityManager->createQuery("SELECT ue FROM \Sb\Db\Model\UserEvent ue
+        $query = $this->entityManager->createQuery("SELECT ue FROM " . self::MODEL . " ue
             JOIN ue.user f
             JOIN f.friendships_as_target fu
             JOIN fu.user_source u
@@ -112,13 +114,13 @@ class UserEventDao extends \Sb\Db\Dao\AbstractDao {
     public function getListUserUserEventsOfType($userId, $typeId = null, $maxResult = 0) {
 
         if ($typeId != null)
-            $sql = "SELECT ue FROM \Sb\Db\Model\UserEvent ue
+            $sql = "SELECT ue FROM " . self::MODEL . " ue
             JOIN ue.user u
             WHERE u.id = :user_id
             AND ue.type_id = :type_id
             ORDER BY ue.creation_date DESC";
         else
-            $sql = "SELECT ue FROM \Sb\Db\Model\UserEvent ue
+            $sql = "SELECT ue FROM " . self::MODEL . " ue
             JOIN ue.user u
             WHERE u.id = :user_id            
             ORDER BY ue.creation_date DESC";
@@ -126,10 +128,6 @@ class UserEventDao extends \Sb\Db\Dao\AbstractDao {
         
         $query = $this->entityManager->createQuery($sql);
         
-//        \Sb\Trace\FireBugTrace::Trace($query->getSQL());
-//        \Sb\Trace\FireBugTrace::Trace($userId);
-//        \Sb\Trace\FireBugTrace::Trace($typeId);
-
         $query->setParameter('user_id', $userId);
 
         // Set type id value

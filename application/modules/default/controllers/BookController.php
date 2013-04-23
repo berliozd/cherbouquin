@@ -10,6 +10,7 @@ use Sb\Entity\Urls;
 use Sb\Service\MailSvc;
 use Sb\Entity\Constants;
 use Sb\Service\HeaderInformationSvc;
+use Sb\Trace\Trace;
 
 class Default_BookController extends Zend_Controller_Action {
 

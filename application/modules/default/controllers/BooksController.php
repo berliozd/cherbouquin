@@ -12,10 +12,6 @@ class Default_BooksController extends Zend_Controller_Action {
         /* Initialize action controller here */
     }
 
-    public function indexAction() {
-        // action body
-    }
-
     /**
      * Action for showing a list of last added books
      */

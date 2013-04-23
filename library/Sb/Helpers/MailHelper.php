@@ -45,7 +45,7 @@ class MailHelper {
     }
 
     public static function newPasswordBody($newPassword) {
-        $body = __("Bonjour,", "s1b") . "<br \>" . __("Vous recevez cet e-mail suite à votre demande d'un nouveau mot de passe.", "s1b")
+        $body = __("Bonjour,", "s1b") . "<br />" . __("Vous recevez cet e-mail suite à votre demande d'un nouveau mot de passe.", "s1b")
                 . "<br/>" . __("Votre nouveau mot de passe est:", "s1b")
                 . " " . $newPassword . "<br/>" . __("Rendez-vous dans votre profil section mot de passe pour le modifier.", "s1b")
                 . "<br/><br/>" . __("L'équipe", "s1b") . " " . \Sb\Entity\Constants::SITENAME;

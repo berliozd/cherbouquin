@@ -96,7 +96,7 @@ class BookSearch {
                     \Sb\Trace\Trace::addItem("Les résulats sont issus d'amazon uniquement.");
                     $this->allResults = $amazonResults;
                 }
-            } catch (Exception $exc) {
+            } catch (\Exception $exc) {
                 \Sb\Trace\Trace::addItem(sprintf("Une erreur s'est produite lors de l'appel à l'api amazon : %s", $exc->getMessage()));
             }
         }

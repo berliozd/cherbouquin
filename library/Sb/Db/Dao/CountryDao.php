@@ -4,6 +4,8 @@ namespace Sb\Db\Dao;
 
 class CountryDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\Country";
+
     private static $instance;
 
     /**
@@ -17,11 +19,11 @@ class CountryDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\Country");
+        parent::__construct(self::MODEL);
     }
 
     public function getCountryByCode($code) {
-        $query = $this->entityManager->createQuery("SELECT c FROM \Sb\Db\Model\Country c
+        $query = $this->entityManager->createQuery("SELECT c FROM " . self::MODEL . " c
             WHERE c.iso3166= :code");
         $query->setParameters(array(
             'code' => $code)

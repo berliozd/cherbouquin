@@ -12,6 +12,8 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
     const NOTREAD_STATE_ID = 1;
     const READING_STATE_ID = 2;
     const READ_STATE_ID = 3;
+    
+	const MODEL = "\\Sb\\Db\\Model\\UserBook";
 
     private static $instance;
 
@@ -26,7 +28,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\UserBook");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -103,7 +105,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
           JOIN ub.user u
           JOIN ub.book b
           WHERE u.id = :user_id AND b.id = :book_id AND ub.is_deleted = 0"); */
-        $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
+        $query = $this->entityManager->createQuery("SELECT ub FROM " . self::MODEL . " ub
             JOIN ub.user u
             JOIN ub.book b
             WHERE u.id = :user_id AND b.id = :book_id");
@@ -117,7 +119,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
     public function getBookInFriendsUserBook($bookId, $userId) {
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("ub")->from("\Sb\Db\Model\UserBook ", "ub")
+        $queryBuilder->select("ub")->from(self::MODEL, "ub")
                 ->join("ub.user", "u")
                 ->join("ub.book", "b")
                 ->join("u.friendships_as_target", "fs")
@@ -137,7 +139,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
-        $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, l, c FROM \Sb\Db\Model\UserBook ub
+        $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, l, c FROM " . self::MODEL . " ub
             JOIN ub.user u
             JOIN ub.book b
             LEFT JOIN ub.reading_state r
@@ -157,7 +159,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
-        $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, l, c FROM \Sb\Db\Model\UserBook ub
+        $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, l, c FROM " . self::MODEL . " ub
             JOIN ub.user u
             JOIN ub.book b
             LEFT JOIN ub.reading_state r
@@ -179,7 +181,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
-        $queryBuilder->select("ub, u, b, r, p, c")->from("\Sb\Db\Model\UserBook", "ub")
+        $queryBuilder->select("ub, u, b, r, p, c")->from(self::MODEL, "ub")
                 ->join("ub.user", "u")
                 ->join("ub.book", "b")
                 ->leftJoin("ub.reading_state", "r")
@@ -204,7 +206,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
-        $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, bo, c FROM \Sb\Db\Model\UserBook ub
+        $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, bo, c FROM " . self::MODEL . " ub
             JOIN ub.user u
             JOIN ub.book b
             LEFT JOIN ub.reading_state r
@@ -225,7 +227,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($userId));
 
-        $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, l, c FROM \Sb\Db\Model\UserBook ub
+        $query = $this->entityManager->createQuery("SELECT ub, u, b, r, p, l, c FROM " . self::MODEL . " ub
             JOIN ub.user u
             JOIN ub.book b
             LEFT JOIN ub.reading_state r
@@ -251,7 +253,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getCurrentlyReadingsNow($userId) {
 
-        $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
+        $query = $this->entityManager->createQuery("SELECT ub FROM " . self::MODEL . " ub
             JOIN ub.user u
             JOIN ub.book b
             JOIN ub.reading_state r
@@ -268,7 +270,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getListLastlyRead($userId) {
 
-        $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
+        $query = $this->entityManager->createQuery("SELECT ub FROM " . self::MODEL . " ub
             JOIN ub.user u
             JOIN ub.book b
             JOIN ub.reading_state r
@@ -286,7 +288,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getListUserBOH($userId) {
 
-        $query = $this->entityManager->createQuery("SELECT ub FROM \Sb\Db\Model\UserBook ub
+        $query = $this->entityManager->createQuery("SELECT ub FROM " . self::MODEL . " ub
             JOIN ub.user u
             JOIN ub.book b
             JOIN ub.reading_state r
@@ -304,7 +306,7 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
 
     public function getLastlyReadUserbookByBookId($bookId, $maxResult) {
         
-        $query = $this->entityManager->createQuery("SELECT ub, u FROM \Sb\Db\Model\UserBook ub        
+        $query = $this->entityManager->createQuery("SELECT ub, u FROM " . self::MODEL . " ub        
             JOIN ub.book b
             JOIN ub.user u
             JOIN ub.reading_state r

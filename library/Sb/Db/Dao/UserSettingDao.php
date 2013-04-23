@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class UserSettingDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\UserSetting";
+	
     private static $instance;
 
     /**
@@ -22,7 +24,7 @@ class UserSettingDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\UserSetting");
+        parent::__construct(self::MODEL);
     }
 
     public function add(\Sb\Db\Model\UserSetting $userSetting) {

@@ -1,5 +1,5 @@
 <?php
-namespace Sb\Adaptater;
+namespace Sb\Adapter;
 
 use Sb\Db\Model\GroupChronicle;
 use Sb\Model\PushedChronicleViewModel;
@@ -9,7 +9,7 @@ use Sb\Helpers\StringHelper;
  * @author Didier
  * 
  */
-class GroupChronicleListAdaptater {
+class GroupChronicleListAdapter {
 
     private $groupChronicles;
 

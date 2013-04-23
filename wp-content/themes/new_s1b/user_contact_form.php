@@ -28,7 +28,7 @@ function validateContactForm() {
     if (!$email) {
         \Sb\Flash\Flash::addItem(__("Indiquez une adresse mail valide", "s1b"));
         $ok = false;
-    } elseif (!eregi("^[A-Z0-9._%-]+@[A-Z0-9._%-]+\.[A-Z]{2,4}$", $email)) {
+    } elseif (!eregi("^[A-Z0-9._%-]+@[A-Z0-9._%-]+\\.[A-Z]{2,4}$", $email)) {
         \Sb\Flash\Flash::addItem(__("Indiquez une adresse mail valide", "s1b"));
         $ok = false;
     }

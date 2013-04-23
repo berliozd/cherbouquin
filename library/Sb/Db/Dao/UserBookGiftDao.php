@@ -9,6 +9,7 @@ namespace Sb\Db\Dao;
  */
 class UserBookGiftDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\UserBookGift";
 
     private static $instance;
 
@@ -23,6 +24,6 @@ class UserBookGiftDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\UserBookGift");
+        parent::__construct(self::MODEL);
     }
 }

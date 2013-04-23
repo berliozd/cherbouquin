@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class ReadingStateDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\ReadingState";
+	
     private static $instance;
 
     /**
@@ -22,17 +24,17 @@ class ReadingStateDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     function __construct() {
-        parent::__construct("\Sb\Db\Model\ReadingState");
+        parent::__construct(self::MODEL);
     }
 
     public function getByCode($code) {
 
-        $query = $this->entityManager->createQuery("SELECT r FROM \Sb\Db\Model\ReadingState r WHERE r.code = ?1");
+        $query = $this->entityManager->createQuery("SELECT r FROM " . self::MODEL . " r WHERE r.code = ?1");
         $query->setParameters(array(1 => $code));
 
         try {
             $result = $query->getSingleResult();
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $result = null;
         }
 

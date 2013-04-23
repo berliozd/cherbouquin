@@ -9,6 +9,8 @@ namespace Sb\Db\Dao;
  */
 class TagDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\Tag";
+	
     private static $instance;
 
     /**
@@ -22,7 +24,7 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\Sb\Db\Model\Tag");
+        parent::__construct(self::MODEL);
     }
 
     /**
@@ -35,7 +37,7 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
 
         $cacheId = $this->getCacheId(__FUNCTION__, array($bookId));
 
-        $dql = sprintf("SELECT t FROM \Sb\Db\Model\Tag t 
+        $dql = sprintf("SELECT t FROM " . self::MODEL . " t 
             JOIN t.userbooks ub 
             JOIN ub.book b 
             WHERE b.id = %s", $bookId);
@@ -59,7 +61,7 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
         
         $bookIdsAsStr = implode(",", $bookIds);
 
-        $dql = sprintf("SELECT t FROM \Sb\Db\Model\Tag t 
+        $dql = sprintf("SELECT t FROM " . self::MODEL . " t 
             JOIN t.userbooks ub 
             JOIN ub.book b 
             WHERE b.id IN (%s)", $bookIdsAsStr);

@@ -1,7 +1,6 @@
 <?php
 namespace Sb\Db\Dao;
 
-use Sb\Db\Model\GroupType;
 /** 
  * @author Didier
  * 

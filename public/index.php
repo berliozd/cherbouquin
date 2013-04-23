@@ -85,7 +85,7 @@ function loadClass($name) {
     if (strpos($name, "Proxies\\__CG__\\") !== false)
         $isProxy = true;
     if ($isProxy) {
-        $prefix = "Sb\Db\Proxies\__CG__";
+        $prefix = "Sb\\Db\\Proxies\\__CG__";
         $name = str_replace("Proxies\\__CG__\\", "", $name);
         $name = $prefix . str_replace("\\", "", $name);
     }

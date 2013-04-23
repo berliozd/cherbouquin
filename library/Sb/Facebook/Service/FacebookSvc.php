@@ -50,7 +50,7 @@ class FacebookSvc {
         if ($user_facebook) {
             try {
                 $user_profile = $this->facebook->api('/me');
-            } catch (FacebookApiException $e) {
+            } catch (\FacebookApiException $e) {
                 $user_facebook = null;
             }
         }
@@ -71,7 +71,7 @@ class FacebookSvc {
                     \Sb\Facebook\Mapping\FacebookUserMapper::map($facebookUser, $fb);
                     return $facebookUser;
                 }
-            } catch (Exception $o) {
+            } catch (\Exception $o) {
 
             }
         }
@@ -94,7 +94,7 @@ class FacebookSvc {
                 'picture' => $cover
             ));
             return true;
-        } catch (FacebookApiException $e) {
+        } catch (\FacebookApiException $e) {
             return false;
         }
         return false;

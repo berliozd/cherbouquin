@@ -3,6 +3,7 @@
 namespace Sb\Service;
 
 use Sb\Cache\ZendFileCache;
+use Sb\Trace\Trace;
 
 /**
  * Description of Service

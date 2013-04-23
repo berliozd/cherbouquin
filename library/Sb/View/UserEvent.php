@@ -163,6 +163,7 @@ class UserEvent extends \Sb\View\AbstractView {
         $bookTitle = null;
         $bookAuthor = null;
         $bookId = null;
+        $bookImgTag = null;
         if ($userBookRelated) {
             $bookImageUrl = $userBook->getBook()->getSmallImageUrl();
             $bookImgTag = BookHelper::getSmallImageTag($userBook->getBook(), $this->getContext()->getDefaultImage());
