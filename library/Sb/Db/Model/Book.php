@@ -346,6 +346,14 @@ class Book implements \Sb\Db\Model\Model {
         $this->userbooks[] = $userBook;
     }
 
+    /**
+     * Update Book aggregate fields for nb of rating, rating sum, nb of blow of hear, blow of heart sum
+     * @param int $ratingDiff
+     * @param boolean $ratingAdded
+     * @param boolean $ratingRemoved
+     * @param boolean $blowOfHeartsAdded
+     * @param boolean $blowOfHeartsRemoved
+     */
     public function updateAggregateFields($ratingDiff, $ratingAdded, $ratingRemoved, $blowOfHeartsAdded, $blowOfHeartsRemoved) {
 
         //\Sb\Trace\Trace::addItem("ratingDiff : " . $ratingDiff . " - ratingAdded : " . $ratingAdded . " - blowOfHeartsAdded : " . $blowOfHeartsAdded . " - blowOfHeartsRemoved : " . $blowOfHeartsRemoved);

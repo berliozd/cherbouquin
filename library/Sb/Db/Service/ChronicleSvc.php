@@ -17,6 +17,7 @@ class ChronicleSvc extends Service {
     const LAST_ANY_GROUPS_CHRONICLES = "LAST_CHRONICLES_OF_ANY_GROUPS";
     const LAST_BLOGGERS_CHRONICLES = "LAST_BLOGGERS_CHRONICLES";
     const LAST_BOOK_STORES_CHRONICLES = "LAST_BOOK_STORES_CHRONICLES";
+    const CHRONICLES_SAME_TYPE = "CHRONICLES_SAME_TYPE";
 
     private static $instance;
 
@@ -47,13 +48,13 @@ class ChronicleSvc extends Service {
 
     }
 
-    function getLastChronicles($nbOfItems, $type) {
+    private function getLastChronicles($nbOfItems, $groupType) {
 
         try {
 
-        	$excludeGroupTypes = null;
-        	
-            switch ($type) {
+            $excludeGroupTypes = null;
+
+            switch ($groupType) {
             case GroupTypes::BLOGGER:
                 $key = self::LAST_BLOGGERS_CHRONICLES;
                 break;
@@ -72,7 +73,7 @@ class ChronicleSvc extends Service {
             if ($results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                $results = $dao->getLastChronicles(100, $type, $excludeGroupTypes);
+                $results = $dao->getLastChronicles(100, $groupType, $excludeGroupTypes);
 
                 foreach ($results as $result) {
                     if ($result->getBook())
@@ -82,6 +83,34 @@ class ChronicleSvc extends Service {
                 $this->setData($key, $results);
             }
             return array_slice($results, $nbOfItems);
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
+    /**
+     * Get a collection of Chronicle of a certain type from cache or from db if not in cache
+     * @param int $type
+     * @return Collection chronicle:
+     */
+    public function getChroniclesOfType($type) {
+
+        try {
+
+            $numberOfChronicles = 4;
+
+            $key = self::CHRONICLES_SAME_TYPE . "_t_" . $type . "_m_" . $numberOfChronicles;
+
+            $results = $this->getData($key);
+
+            if ($results === false) {
+                /* @var $dao ChronicleDao */
+                $dao = $this->getDao();
+                $results = $dao->getChroniclesOfType($type, $numberOfChronicles);
+
+                $this->setData($key, $results);
+            }
+            return $results;
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }

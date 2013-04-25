@@ -9,8 +9,8 @@ namespace Sb\Db\Dao;
  */
 class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
 
-	const MODEL = "\\Sb\\Db\\Model\\Chronicle";
-	
+    const MODEL = "\\Sb\\Db\\Model\\Chronicle";
+
     private static $instance;
 
     /**
@@ -55,7 +55,7 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
         }
 
         $dql .= " ORDER BY gc.creation_date DESC";
-        
+
         $query = $this->entityManager->createQuery($dql);
 
         if ($maxResults)
@@ -65,5 +65,27 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
 
         return $this->getResults($query);
 
+    }
+
+    /**
+     * Get a collection of Chronicle of a certain type
+     * @param int $type
+     * @param int $maxResults
+     * @return Collection of Chronicle
+     */
+    public function getChroniclesOfType($type, $maxResults = null) {
+
+        $dql = "SELECT gc FROM " . self::MODEL . " gc";
+        $dql .= " WHERE gc.type_id = " . $type;
+        $dql .= " ORDER BY gc.creation_date DESC";
+
+        $query = $this->entityManager->createQuery($dql);
+
+        if ($maxResults)
+            $query->setMaxResults($maxResults);
+        else
+            $query->setMaxResults(1);
+
+        return $this->getResults($query);
     }
 }

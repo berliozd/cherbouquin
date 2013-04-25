@@ -2,6 +2,8 @@
 
 namespace Sb\Db\Dao;
 
+use Sb\Db\Model\UserBook;
+
 /**
  * Description of UserBookDao
  *
@@ -51,6 +53,8 @@ class UserBookDao extends \Sb\Db\Dao\AbstractDao {
      * @return boolean
      */
     public function update(\Sb\Db\Model\Model $userBook) {
+    	
+    	/* @var $userBook UserBook */    	
         $userBook->setLastModificationDate(new \DateTime());
         if ($userBook->getNeedToUpdateBook()) {
             $userBook->getBook()->updateAggregateFields($userBook->getRatingDiff(), $userBook->getRatingAdded(), false, $userBook->getBlowOfHeartAdded(), $userBook->getBlowOfHeartRemoved());

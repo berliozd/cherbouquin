@@ -10,7 +10,8 @@ use Sb\Helpers\UserHelper;
 use Sb\Helpers\BookHelper;
 use Sb\Entity\ChronicleLinkType;
 use Sb\Entity\Urls;
-use Sb\Entity\ChronicleType;
+use Sb\Helpers\ChronicleHelper;
+
 /** 
  * @author Didier
  * 
@@ -40,7 +41,7 @@ class ChronicleAdapter {
         $pushedChronicle->setTitle(StringHelper::cleanHTML($this->chronicle->getTitle()));
         $pushedChronicle->setDescription(StringHelper::cleanHTML(StringHelper::tronque($this->chronicle->getText(), 100)));
         $pushedChronicle->setLink($this->chronicle->getLink());
-        
+
         // Set internal detail page link
         if ($this->chronicle->getTitle())
             $pushedChronicle
@@ -50,9 +51,9 @@ class ChronicleAdapter {
         else
             $pushedChronicle->setDetailLink("/chronique/chronique-" . $this->chronicle->getId());
 
-        //Set Image
+        // Set Image
         if ($this->chronicle->getBook())
-            $pushedChronicle->setImage($this->chronicle->getBook()->getLargeImageUrl());
+        	$pushedChronicle->setImage($this->chronicle->getBook()->getLargeImageUrl());
         else if ($this->chronicle->getImage())
             $pushedChronicle->setImage($this->chronicle->getImage());
         else if ($this->chronicle->getTag())
@@ -69,6 +70,7 @@ class ChronicleAdapter {
      */
     public function getAsChronicleDetailViewModel($defImg) {
 
+    	/* @var $chronicle Chronicle */
         $chronicle = new ChronicleDetailViewModel();
 
         $chronicle->setUserName($this->chronicle->getUser()->getUserName());
@@ -92,11 +94,11 @@ class ChronicleAdapter {
             $chronicle->setBookLink($this->chronicle->getBook()->getLink());
             $chronicle->setChronicleHasBook(true);
         }
-        
+
         // Set link info
         $chronicle->setLink($this->chronicle->getLink());
-        $chronicle->setLinkCss("pci-link-other");        
-        $chronicle->setLinkText(__("En savoir plus", "s1b"));        
+        $chronicle->setLinkCss("pci-link-other");
+        $chronicle->setLinkText(__("En savoir plus", "s1b"));
         switch ($this->chronicle->getLink_type()) {
         case ChronicleLinkType::IMAGE:
             $chronicle->setLinkCss("pci-link-image");
@@ -121,38 +123,7 @@ class ChronicleAdapter {
         }
 
         // Set type label
-        switch ($this->chronicle->getType_id()) {
-        case ChronicleType::BOOK_CHRONICLE:
-            $chronicle->setTypeLabel(__("Chronique d'un livre", "s1b"));
-            break;
-        case ChronicleType::DISCOVERY:
-            $chronicle->setTypeLabel(__("Découverte", "s1b"));
-            break;
-        case ChronicleType::FREE:
-            $chronicle->setTypeLabel(__("Libre", "s1b"));
-            break;
-        case ChronicleType::GAME:
-            $chronicle->setTypeLabel(__("Jeux", "s1b"));
-            break;
-        case ChronicleType::JUST_FOR_FUN:
-            $chronicle->setTypeLabel(__("Juste pour le fun", "s1b"));
-            break;
-        case ChronicleType::NEWS:
-            $chronicle->setTypeLabel(__("Actualités", "s1b"));
-            break;
-        case ChronicleType::NEWSLETTER:
-            $chronicle->setTypeLabel(__("Newsletter", "s1b"));
-            break;
-        case ChronicleType::TOPS:
-            $chronicle->setTypeLabel(__("Les tops", "s1b"));
-            break;
-        case ChronicleType::WEDNESDAY_COMIC:
-            $chronicle->setTypeLabel(__("BD du mercredi", "s1b"));
-            break;
-        default:
-            $chronicle->setTypeLabel(__("Autres", "s1b"));
-            break;
-        }
+        $chronicle->setTypeLabel(ChronicleHelper::getTypeLabel($this->chronicle->getType_id()));
 
         return $chronicle;
     }
