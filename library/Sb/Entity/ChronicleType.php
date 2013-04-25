@@ -5,7 +5,7 @@ namespace Sb\Entity;
 /**
  * @author Didier
  */
-class GroupChronicleType {
+class ChronicleType {
 
     const WEDNESDAY_COMIC = 2;
     const BOOK_CHRONICLE = 3;

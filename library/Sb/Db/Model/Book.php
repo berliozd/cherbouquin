@@ -94,10 +94,10 @@ class Book implements \Sb\Db\Model\Model {
     protected $language;
 
     /** 
-     * @OneToMany(targetEntity="GroupChronicle", mappedBy="book", fetch="EXTRA_LAZY") 
+     * @OneToMany(targetEntity="Chronicle", mappedBy="book", fetch="EXTRA_LAZY") 
      * @JoinColumn(name="id", referencedColumnName="book_id")
      */
-    protected $groupchronicles;
+    protected $chronicles;
 
     /** 
      * @OneToMany(targetEntity="PressReview", mappedBy="book", fetch="EXTRA_LAZY") 
@@ -253,12 +253,12 @@ class Book implements \Sb\Db\Model\Model {
         $this->publishing_date_s = $publishingDateS;
     }
 
-    public function getGroupchronicles() {
-        return $this->groupchronicles;
+    public function getChronicles() {
+        return $this->chronicles;
     }
 
-    public function setGroupchronicles($groupchronicles) {
-        $this->groupchronicles = $groupchronicles;
+    public function setChronicles($chronicles) {
+        $this->chronicles = $chronicles;
     }
 
     public function getTagImg($defImg) {

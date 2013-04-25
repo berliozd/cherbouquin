@@ -14,24 +14,25 @@ class PushedChronicleViewModel {
 
     }
 
-    private $groupChronicleId;
+    private $chronicleId;
     private $title;
     private $link;
     private $description;
     private $image;
+    private $detailLink;
 
     /**
-     * @return int $groupChronicleId
+     * @return int $chronicleId
      */
-    public function getGroupChronicleId() {
-        return $this->groupChronicleId;
+    public function getChronicleId() {
+        return $this->chronicleId;
     }
 
     /**
-     * @param int $groupChronicleId
+     * @param int $chronicleId
      */
-    public function setGroupChronicleId($groupChronicleId) {
-        $this->groupChronicleId = $groupChronicleId;
+    public function setChronicleId($chronicleId) {
+        $this->chronicleId = $chronicleId;
     }
 
     /**
@@ -88,6 +89,19 @@ class PushedChronicleViewModel {
      */
     public function setImage($image) {
         $this->image = $image;
+    }
+    /**
+     * @return String $detailLink
+     */
+    public function getDetailLink() {
+        return $this->detailLink;
+    }
+
+    /**
+     * @param String $detailLink
+     */
+    public function setDetailLink($detailLink) {
+        $this->detailLink = $detailLink;
     }
 
 }

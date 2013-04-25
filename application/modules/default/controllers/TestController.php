@@ -2,11 +2,11 @@
 
 // use Doctrine\Common\Util\Debug;
 // use Sb\Db\Model\User;
-use Sb\Db\Model\GroupChronicle;
+use Sb\Db\Model\Chronicle;
 // use Sb\Db\Model\PressReview;
 // use Sb\Db\Model\PressReviewsSubscriber;
 // use Sb\Db\Dao\UserDao;
-use Sb\Db\Dao\GroupChronicleDao;
+use Sb\Db\Dao\ChronicleDao;
 // use Sb\Db\Dao\PressReviewDao;
 // use Sb\Db\Dao\PressReviewsSubscriberDao;
 // use Sb\Entity\GroupTypes;
@@ -20,9 +20,9 @@ class Default_TestController extends Zend_Controller_Action {
 
     public function indexAction() {
 
-        $chronicles = GroupChronicleDao::getInstance()->getLast(10);
+        $chronicles = ChronicleDao::getInstance()->getLast(10);
         foreach ($chronicles as $chronicle) {
-            /* @var $chronicle GroupChronicle */
+            /* @var $chronicle Chronicle */
             echo "<br/>nom du group : " . $chronicle->getGroup()->getName() . "<br/>" . "title : " . $chronicle->getTitle() . "<br/>" . "date de creation : " . $chronicle->getCreation_date()->format("d/m/y") . "<br/>";
         }
 
@@ -42,8 +42,8 @@ class Default_TestController extends Zend_Controller_Action {
         //             Debug::dump($groupUser->getGroup()->getGroupusers());
         //         }
 
-        //         /* @var $chronicle GroupChronicle */
-        //         $chronicle = GroupChronicleDao::getInstance()->get(1);
+        //         /* @var $chronicle Chronicle */
+        //         $chronicle = ChronicleDao::getInstance()->get(1);
         //         echo "chronicle tag label <br/>";
         //         Debug::dump($chronicle->getTag()->getLabel());
         //         echo "chronicle book <br/>";

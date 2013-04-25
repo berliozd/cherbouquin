@@ -3,30 +3,32 @@
 namespace Sb\Db\Dao;
 
 /**
- * Description of GroupChronicleDao
+ * Description of ChronicleDao
  *
  * @author Didier
  */
-class GroupChronicleDao extends \Sb\Db\Dao\AbstractDao {
+class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
 
+	const MODEL = "\\Sb\\Db\\Model\\Chronicle";
+	
     private static $instance;
 
     /**
      *
-     * @return \Sb\Db\Dao\GroupChronicleDao
+     * @return \Sb\Db\Dao\ChronicleDao
      */
     public static function getInstance() {
         if (!self::$instance)
-            self::$instance = new \Sb\Db\Dao\GroupChronicleDao;
+            self::$instance = new \Sb\Db\Dao\ChronicleDao;
         return self::$instance;
     }
 
     protected function __construct() {
-        parent::__construct("\\Sb\\Db\\Model\\GroupChronicle");
+        parent::__construct(self::MODEL);
     }
 
     /**
-     * Get list of GroupChronicle ordered by creation date descendant. The group type the chronicles are owned by can be specified. The number of item wanted can be specified. 
+     * Get list of Chronicle ordered by creation date descendant. The group type the chronicles are owned by can be specified. The number of item wanted can be specified. 
      * @param string $maxResults number of item to return
      * @param int $groupType the group type the chronicle must be owned by
      * @param string $excludedGroupTypes list of group types seperate by comma to exclude
@@ -34,7 +36,7 @@ class GroupChronicleDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getLastChronicles($maxResults = null, $groupType = null, $excludedGroupTypes = null) {
 
-        $dql = "SELECT gc, u, b FROM \\Sb\\Db\\Model\\GroupChronicle gc JOIN gc.user u LEFT JOIN gc.book b";
+        $dql = "SELECT gc, u, b FROM " . self::MODEL . " gc JOIN gc.user u LEFT JOIN gc.book b";
 
         if ($groupType || $excludedGroupTypes) {
             $dql .= " JOIN gc.group g ";

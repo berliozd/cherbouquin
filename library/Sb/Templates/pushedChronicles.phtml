@@ -6,14 +6,10 @@
         <?php
         $first = true;
         foreach ($chronicles as $chronicle) { ?>
-        <li class="<?php echo ($first ? "first" : "");?>">        	
-        	<?php if ($chronicle->getLink()) { ?>
-        		<a href="<?php echo $chronicle->getLink();?>" title="<?php echo $chronicle->getTitle(); ?>">
-        			<div class="pc-image" title="<?php echo $chronicle->getTitle(); ?>" style="background-image: url('<?php echo $chronicle->getImage(); ?>');">&nbsp;</div>
-        		</a>
-        	<?php } else { ?>
-            	<div class="pc-image" title="<?php echo $chronicle->getTitle(); ?>" style="background-image: url('<?php echo $chronicle->getImage(); ?>');">&nbsp;</div>
-            <?php } ?>
+        <li class="<?php echo ($first ? "first" : "");?>">
+        	<a href="<?php echo $chronicle->getDetailLink();?>" title="<?php echo $chronicle->getTitle(); ?>">
+        		<div class="pc-image" title="<?php echo $chronicle->getTitle(); ?>" style="background-image: url('<?php echo $chronicle->getImage(); ?>');">&nbsp;</div>
+        	</a>        	
             <div class="pc-title">
                 <?php echo $chronicle->getTitle(); ?>
             </div>

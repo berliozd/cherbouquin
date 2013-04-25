@@ -34,10 +34,10 @@ class Tag implements \Sb\Db\Model\Model {
     protected $userbooks;
 
     /**
-     * @OneToMany(targetEntity="GroupChronicle", mappedBy="tag", fetch="EXTRA_LAZY")
+     * @OneToMany(targetEntity="Chronicle", mappedBy="tag", fetch="EXTRA_LAZY")
      * @JoinColumn(name="id", referencedColumnName="tag_id")
      */
-    protected $groupchronicles;
+    protected $chronicles;
 
     /**
      * @OneToMany(targetEntity="PressReview", mappedBy="tag", fetch="EXTRA_LAZY")
@@ -86,17 +86,17 @@ class Tag implements \Sb\Db\Model\Model {
     }
 
     /**
-     * @return Collection of GroupChronicle $groupchronicles
+     * @return Collection of Chronicle $chronicles
      */
-    public function getGroupchronicles() {
-        return $this->groupchronicles;
+    public function getChronicles() {
+        return $this->chronicles;
     }
 
     /**
-     * @param Collection of GroupChronicle $groupchronicles
+     * @param Collection of Chronicle $chronicles
      */
-    public function setGroupchronicles($groupchronicles) {
-        $this->groupchronicles = $groupchronicles;
+    public function setchronicles($chronicles) {
+        $this->chronicles = $chronicles;
     }
     
     /**

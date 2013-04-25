@@ -2,17 +2,17 @@
 
 namespace Sb\Db\Service;
 
-use Sb\Db\Dao\GroupChronicleDao;
+use Sb\Db\Dao\ChronicleDao;
 use Sb\Db\Model\Book;
 use Sb\Db\Dao\ContributorDao;
 use Sb\Entity\GroupTypes;
 
 /**
- * Description of GroupChronicleSvc
+ * Description of ChronicleSvc
  *
  * @author Didier
  */
-class GroupChronicleSvc extends Service {
+class ChronicleSvc extends Service {
 
     const LAST_ANY_GROUPS_CHRONICLES = "LAST_CHRONICLES_OF_ANY_GROUPS";
     const LAST_BLOGGERS_CHRONICLES = "LAST_BLOGGERS_CHRONICLES";
@@ -22,16 +22,16 @@ class GroupChronicleSvc extends Service {
 
     /**
      * Get singleton
-     * @return \Sb\Db\Service\GroupChronicleSvc
+     * @return \Sb\Db\Service\ChronicleSvc
      */
     public static function getInstance() {
         if (!self::$instance)
-            self::$instance = new GroupChronicleSvc();
+            self::$instance = new ChronicleSvc();
         return self::$instance;
     }
 
     protected function __construct() {
-        parent::__construct(GroupChronicleDao::getInstance(), "GroupChronicle");
+        parent::__construct(ChronicleDao::getInstance(), "Chronicle");
     }
 
     public function getLastChroniclesOfAnyType() {
@@ -70,7 +70,7 @@ class GroupChronicleSvc extends Service {
             $results = $this->getData($key);
 
             if ($results === false) {
-                /* @var $dao GroupChronicleDao */
+                /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
                 $results = $dao->getLastChronicles(100, $type, $excludeGroupTypes);
 

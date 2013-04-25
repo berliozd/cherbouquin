@@ -3,7 +3,7 @@
 namespace Sb\Db\Model;
 
 /** @Entity @Table(name="s1b_groupchronicles") */
-class GroupChronicle implements \Sb\Db\Model\Model {
+class Chronicle implements \Sb\Db\Model\Model {
 
     function __construct() {
 
@@ -16,19 +16,19 @@ class GroupChronicle implements \Sb\Db\Model\Model {
     protected $id;
 
     /**
-     * @ManyToOne(targetEntity="Group", inversedBy="groupchronicles")
+     * @ManyToOne(targetEntity="Group", inversedBy="chronicles")
      * @JoinColumn(name="group_id", referencedColumnName="id")
      */
     protected $group;
 
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="groupchronicles")
+     * @ManyToOne(targetEntity="User", inversedBy="chronicles")
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
 
     /**
-     * @ManyToOne(targetEntity="Book", inversedBy="groupchronicles", fetch="EAGER")
+     * @ManyToOne(targetEntity="Book", inversedBy="chronicles", fetch="EAGER")
      * @JoinColumn(name="book_id", referencedColumnName="id")
      */
     protected $book; // fetch="EAGER" because we need to get the book and his members automatically to store it into cache and have it available from restored from cache
@@ -61,7 +61,7 @@ class GroupChronicle implements \Sb\Db\Model\Model {
     protected $keywords;
 
     /**
-     * @ManyToOne(targetEntity="Tag", inversedBy="groupchronicles")
+     * @ManyToOne(targetEntity="Tag", inversedBy="chronicles")
      * @JoinColumn(name="tag_id", referencedColumnName="id")
      */
     protected $tag;

@@ -92,10 +92,10 @@ class Default_BookController extends Zend_Controller_Action {
                 $noBook = true;
 
             if ($noBook)
-                $this->_forward("error", "error", "default");
+                $this->forward("error", "error", "default");
         } catch (\Exception $exc) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $exc->getTraceAsString()));
-            $this->_forward("error", "error", "default");
+            $this->forward("error", "error", "default");
         }
     }
 

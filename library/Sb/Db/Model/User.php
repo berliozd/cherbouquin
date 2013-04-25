@@ -118,10 +118,10 @@ class User implements \Sb\Db\Model\Model {
     protected $invitations;
 
     /** 
-     * @OneToMany(targetEntity="GroupChronicle", mappedBy="user", fetch="EXTRA_LAZY")
+     * @OneToMany(targetEntity="Chronicle", mappedBy="user", fetch="EXTRA_LAZY")
      * @JoinColumn(name="id", referencedColumnName="user_id")
      */
-    protected $groupchronicles;
+    protected $chronicles;
 
     /**
      * @OneToMany(targetEntity="PressReview", mappedBy="user", fetch="EXTRA_LAZY")
@@ -404,12 +404,12 @@ class User implements \Sb\Db\Model\Model {
         $this->invitations = $invitations;
     }
 
-    public function getGroupchronicles() {
-        return $this->groupchronicles;
+    public function getChronicles() {
+        return $this->chronicles;
     }
 
-    public function setGroupchronicles($groupchronicles) {
-        $this->groupchronicles = $groupchronicles;
+    public function setChronicles($chronicles) {
+        $this->chronicles = $chronicles;
     }
 
     public function IsValid() {

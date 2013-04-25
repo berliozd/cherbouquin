@@ -4,7 +4,7 @@ use Sb\Db\Model\User;
 use Sb\Db\Mapping\UserMapper;
 use Sb\Db\Dao\UserDao;
 use Sb\Db\Service\BookSvc;
-use Sb\Db\Service\GroupChronicleSvc;
+use Sb\Db\Service\ChronicleSvc;
 use Sb\Db\Service\UserEventSvc;
 use Sb\Authentification\Service\AuthentificationSvc;
 use Sb\Entity\EventTypes;
@@ -18,7 +18,7 @@ use Sb\View\Components\AutoPromoWishlistWidget;
 use Sb\View\Components\Ad;
 use Sb\Flash\Flash;
 use Sb\Helpers\HTTPHelper;
-use Sb\Adapter\GroupChronicleListAdapter;
+use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\PushedChronicles;
 
 class Default_IndexController extends Zend_Controller_Action {
@@ -119,12 +119,12 @@ class Default_IndexController extends Zend_Controller_Action {
     private function setViewChronicles() {
 
         // Getting chronicles
-        $anyGroupTypesChronicles = GroupChronicleSvc::getInstance()->getLastChroniclesOfAnyType();
-        $bloggersChronicles = GroupChronicleSvc::getInstance()->getLastBloggersChronicles();
-        $bookstoresChronicles = GroupChronicleSvc::getInstance()->getLastBookStoresOfAnyType();
+        $anyGroupTypesChronicles = ChronicleSvc::getInstance()->getLastChroniclesOfAnyType();
+        $bloggersChronicles = ChronicleSvc::getInstance()->getLastBloggersChronicles();
+        $bookstoresChronicles = ChronicleSvc::getInstance()->getLastBookStoresOfAnyType();
 
         // Init chronicle view model adapter
-        $chronicleListAdapter = new GroupChronicleListAdapter();
+        $chronicleListAdapter = new ChronicleListAdapter();
 
         // Set chronicles from any groups except bloggers and bookstores
         if ($anyGroupTypesChronicles && count($anyGroupTypesChronicles) > 0) {
@@ -159,9 +159,9 @@ class Default_IndexController extends Zend_Controller_Action {
 
     }
 
-    private function getChronicleView(GroupChronicleListAdapter $chronicleListAdapter, $chronicles, $title, $typeCSS) {
+    private function getChronicleView(ChronicleListAdapter $chronicleListAdapter, $chronicles, $title, $typeCSS) {
         // Getting list of view model
-        $chronicleListAdapter->setGroupChronicles($chronicles);
+        $chronicleListAdapter->setChronicles($chronicles);
         $anyGroupTypeChronicesAsViewModel = $chronicleListAdapter->getAsPushedChronicleViewModelList();
         // Get chronicles view 
         $chroniclesView = new PushedChronicles($title, $anyGroupTypeChronicesAsViewModel, $typeCSS);

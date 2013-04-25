@@ -105,16 +105,16 @@ class Tag extends \Sb\Db\Model\Tag implements \Doctrine\ORM\Proxy\Proxy
         return parent::setUserBooks($userBooks);
     }
 
-    public function getGroupchronicles()
+    public function getChronicles()
     {
         $this->__load();
-        return parent::getGroupchronicles();
+        return parent::getChronicles();
     }
 
-    public function setGroupchronicles($groupchronicles)
+    public function setchronicles($chronicles)
     {
         $this->__load();
-        return parent::setGroupchronicles($groupchronicles);
+        return parent::setchronicles($chronicles);
     }
 
     public function getPressreviews()
@@ -138,7 +138,7 @@ class Tag extends \Sb\Db\Model\Tag implements \Doctrine\ORM\Proxy\Proxy
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'label', 'label_en_us', 'creation_date', 'userbooks', 'groupchronicles', 'pressreviews');
+        return array('__isInitialized__', 'id', 'label', 'label_en_us', 'creation_date', 'userbooks', 'chronicles', 'pressreviews');
     }
 
     public function __clone()

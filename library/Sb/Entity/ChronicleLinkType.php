@@ -5,7 +5,7 @@ namespace Sb\Entity;
 /**
  * @author Didier
  */
-class GroupChronicleLinkType {
+class ChronicleLinkType {
 
     const VIDEO = 2;
     const PODCAST = 3;

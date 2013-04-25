@@ -29,7 +29,7 @@ RewriteRule ^book-search(.)*$ public/index.php [L]
 RewriteRule ^userbook(.)*$ public/index.php [L]
 RewriteRule ^membre/a-la-page(.)*$ public/index.php [L]
 RewriteRule ^livre(.)*$ public/index.php [L]            # module:default / controller:book / action:index
-RewriteRule ^chronique(.)*$ public/index.php [L]        # module:default / controller:groupchronicle / action:index
+RewriteRule ^chronique(.)*$ public/index.php [L]        # module:default / controller:chronicle / action:index
 RewriteRule ^bulletin(.)*$ public/index.php [L]         # module:default / controller:static / action:index (route)
 RewriteRule ^revues-de-presse(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
 RewriteRule ^pas-a-pas(.)*$ public/index.php [L]  		# module:default / controller:static / action:index (route)

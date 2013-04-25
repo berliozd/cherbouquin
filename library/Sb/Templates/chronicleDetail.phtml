@@ -8,11 +8,8 @@
                 </div>
             </div>
             <div class="chr-right">
-                <div class="chr-head">
-                    <?php _e("<strong>Un jour, un livre,</strong> la chronique", "s1b"); ?>
-                </div>
                 <div class="chr-username">
-                    <?php echo sprintf(__("par <a class=\"link\" href=\"%s\">%s</a>", "s1b"), $chronicle->getUserProfileLink(),$chronicle->getUserName());
+                    <?php echo sprintf(__("<a class=\"link\" href=\"%s\">%s</a> le %s | %s", "s1b"), $chronicle->getUserProfileLink(), $chronicle->getUserName(), $chronicle->getCreationDate(), $chronicle->getTypeLabel());
                     ?>
                 </div>
                 <div class="chr-title">

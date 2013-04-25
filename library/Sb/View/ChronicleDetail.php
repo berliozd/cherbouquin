@@ -10,7 +10,7 @@ use Sb\Adapter\ChronicleAdapter;
  *
  * @author Didier
  */
-class PushedChronicle extends \Sb\View\AbstractView {
+class ChronicleDetail extends \Sb\View\AbstractView {
 
     private $chronicle;
 
@@ -21,7 +21,7 @@ class PushedChronicle extends \Sb\View\AbstractView {
 
     public function get() {
 
-        $tpl = new Template("pushedChronicle");
+        $tpl = new Template("chronicleDetail");
 
         $chronicleAdpater = new ChronicleAdapter($this->chronicle);
         $tpl->setVariables(array("chronicle" => $chronicleAdpater->getAsChronicleDetailViewModel($this->defImg)));
