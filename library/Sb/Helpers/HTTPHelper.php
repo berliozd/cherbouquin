@@ -59,7 +59,7 @@ class HTTPHelper {
     public static function redirectToReferer() {
         if (array_key_exists("HTTP_REFERER", $_SERVER)) {
             self::redirectToUrl($_SERVER["HTTP_REFERER"]);
-        }else
+        } else
             self::redirect();
     }
 
@@ -123,6 +123,25 @@ class HTTPHelper {
             }
         }
         return $referer;
+    }
+
+    /**
+     * Get host base in Host. Ex cherbouquin.fr when host is www.cherbouquin.fr:8080
+     * @return string host base
+     */
+    public static function getHostBase() {
+        $host = $_SERVER['HTTP_HOST'];
+        if (strpos($host, ":") !== false) {
+            $arr = explode(":", $host);
+            $host = $arr[0];
+        }
+
+        $parts = explode(".", $host);
+        if (count($parts) == 2)
+            return $parts[0] . "." . $parts[1];
+        else
+            return $parts[1] . "." . $parts[2];
+
     }
 
 }

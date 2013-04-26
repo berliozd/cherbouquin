@@ -8,6 +8,7 @@ use Sb\View\OtherChroniclesSameType;
 use Sb\Trace\Trace;
 use Sb\View\OtherChroniclesSameAuthor;
 use Sb\View\Components\Ad;
+use Sb\Helpers\HTTPHelper;
 /**
  * ChronicleController
  * 
@@ -37,6 +38,10 @@ class Default_ChronicleController extends Zend_Controller_Action {
             // Get main chronicle
             /* @var $chronicle Chronicle */
             $chronicle = ChronicleDao::getInstance()->get($chronicleId);
+
+            // Increment chronicle nb views
+            $this->incrementChronicleNbViews($chronicle);
+
             $chronicleView = new ChronicleDetail($chronicle);
             // Add main chronicle to model
             $this->view->chronicle = $chronicleView->get();
@@ -58,7 +63,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                     $this->view->authorChroniclesView = $authorChroniclesView->get();
                 }
             }
-            
+
             // Get ad
             $ad = new Ad("", "");
             $this->view->ad = $ad->get();
@@ -94,4 +99,62 @@ class Default_ChronicleController extends Zend_Controller_Action {
         return $result;
     }
 
+    /**
+     * Test if chronicle nb of views needs to be incremented based on the presence of the chronicle id in a cookie called chroniclesSeen 
+     * @param Chronicle $chronicle
+     */
+    private function incrementChronicleNbViews(Chronicle $chronicle) {
+
+        $cookieName = "chroniclesSeen";
+        $chronicleNotSeen = false;
+
+        // Get cookie 'chroniclesSeen'
+        $chroniclesSeenCookie = $this->getRequest()->getCookie($cookieName);
+
+        // Parse cookie and tell if current chronicle has been seen already
+        if ($chroniclesSeenCookie) {
+
+            $chroniclesSeen = explode(",", $chroniclesSeenCookie);
+            if (!in_array($chronicle->getId(), $chroniclesSeen)) {
+
+                $chroniclesSeen[] = $chronicle->getId();
+                $cookieValue = implode(",", $chroniclesSeen);
+
+                // Set cookie
+                $this->setChronicleSeenCookie($cookieName, $cookieValue);
+
+                // Increment chronicle nb views
+                $this->incrementChronicleInDB($chronicle);
+
+            }
+        }
+        else {
+
+            // Set cookie
+            $this->setChronicleSeenCookie($cookieName, $chronicle->getId());
+
+            // Increment chronicle nb views
+            $this->incrementChronicleInDB($chronicle);
+
+        }
+    }
+
+    /**
+     * Set a cookie for name and value with a 24 hours life time
+     * @param String $cookieName
+     * @param String $cookieValue
+     */
+    private function setChronicleSeenCookie($cookieName, $cookieValue) {
+        $this->getResponse()->setRawHeader(new Zend_Http_Header_SetCookie($cookieName, $cookieValue, time() + 3600 * 24, '/',
+            HTTPHelper::getHostBase(), false, true));
+    }
+
+    /**
+     * Increment nb of views in database for chronicle
+     * @param Chronicle $chronicle
+     */
+    private function incrementChronicleInDB(Chronicle $chronicle) {
+        $chronicle->setNb_views($chronicle->getNb_views() + 1);
+        ChronicleDao::getInstance()->update($chronicle);
+    }
 }

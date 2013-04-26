@@ -39,9 +39,7 @@ class Default_IndexController extends Zend_Controller_Action {
         global $globalContext;
 
         $this->view->tagTitle = sprintf(__("%s : livre et littérature - tops | coups de cœur | critiques", "s1b"), \Sb\Entity\Constants::SITENAME);
-        $this->view->metaDescription = __(
-                "Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon",
-                "s1b");
+        $this->view->metaDescription = __("Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon", "s1b");
         $this->view->metaKeywords = "BD|bibliotheque|commentaires|communaute|lecteurs|critiques|livres|emprunt|littérature|livre|notice|partage|policier|polar|prêt|recommandation|roman|thriller";
 
         $this->view->subscribeLink = HTTPHelper::Link(Urls::SUBSCRIBE);
@@ -55,8 +53,7 @@ class Default_IndexController extends Zend_Controller_Action {
         $twitter = new TwitterWidget();
         $this->view->twitter = $twitter->get();
 
-        $this->view->placeholder('footer')
-                ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>");
+        $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>");
         $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-items', 980, 340)});</script>");
 
         // Getting auto promo widget
@@ -67,10 +64,7 @@ class Default_IndexController extends Zend_Controller_Action {
         $this->setViewChronicles();
 
         // Getting last rated books cover flip
-        $this->view->placeholder('footer')
-                ->append(
-                        "<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js'
-                                . "\"></script>\n");
+        $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
         $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('lastRatedBooks', 30)});</script>\n");
         $lastRatedBooks = BookSvc::getInstance()->getLastRatedBookForHomePage();
         $lastRatedCoverFlip = new BookCoverFlip($lastRatedBooks, __("Derniers livres notés", "s1b"), "lastRatedBooks", "");
@@ -86,9 +80,7 @@ class Default_IndexController extends Zend_Controller_Action {
     public function logAction() {
 
         $invalidDataMsg = __("Les informations saisies ne nous permettent pas de vous authentifier.", "s1b");
-        $accountNotActivated = __(
-                "Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.",
-                "s1b");
+        $accountNotActivated = __("Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.", "s1b");
         $accountDeleted = __("Votre compte a été supprimé.", "s1b");
 
         if ($_POST) {
@@ -101,17 +93,21 @@ class Default_IndexController extends Zend_Controller_Action {
                 if ($activeUser) {
                     if ($activeUser->getDeleted()) {
                         Flash::addItem($accountDeleted);
-                    } elseif (!$activeUser->getActivated()) {
+                    }
+                    elseif (!$activeUser->getActivated()) {
                         Flash::addItem($accountNotActivated);
-                    } else {
+                    }
+                    else {
                         $activeUser->setLastLogin(new \DateTime);
                         UserDao::getInstance()->update($activeUser);
                         AuthentificationSvc::getInstance()->loginSucces($activeUser);
                     }
-                } else {
+                }
+                else {
                     Flash::addItem($invalidDataMsg);
                 }
-            } else {
+            }
+            else {
                 Flash::addItem($invalidDataMsg);
             }
         }
@@ -136,9 +132,7 @@ class Default_IndexController extends Zend_Controller_Action {
 
             $anyGroupTypesChronicles = array_slice($anyGroupTypesChronicles, 1, 3);
             // Set chronicles view
-            $this->view->chronicles = $this
-                    ->getChronicleView($chronicleListAdapter, $anyGroupTypesChronicles, __("Dernières <strong>chroniques</strong>", "s1b"),
-                            "last-chronicles");
+            $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $anyGroupTypesChronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles");
         }
 
         // Set bloggers chronicles
@@ -146,8 +140,7 @@ class Default_IndexController extends Zend_Controller_Action {
             // We take 3 first chronicles only
             $bloggersChronicles = array_slice($bloggersChronicles, 0, 3);
             // Set bloggers chronicle view
-            $this->view->bloggersChronicles = $this
-                    ->getChronicleView($chronicleListAdapter, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers");
+            $this->view->bloggersChronicles = $this->getChronicleView($chronicleListAdapter, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers");
         }
 
         // Set bookstores chronicles
@@ -155,8 +148,7 @@ class Default_IndexController extends Zend_Controller_Action {
             // We take 3 first chronicles only
             $bookstoresChronicles = array_slice($bookstoresChronicles, 0, 3);
             // Set bookstores view
-            $this->view->bookStoresChronicles = $this
-                    ->getChronicleView($chronicleListAdapter, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores");
+            $this->view->bookStoresChronicles = $this->getChronicleView($chronicleListAdapter, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores");
         }
 
     }
