@@ -17,7 +17,8 @@ class ChronicleSvc extends Service {
     const LAST_ANY_GROUPS_CHRONICLES = "LAST_CHRONICLES_OF_ANY_GROUPS";
     const LAST_BLOGGERS_CHRONICLES = "LAST_BLOGGERS_CHRONICLES";
     const LAST_BOOK_STORES_CHRONICLES = "LAST_BOOK_STORES_CHRONICLES";
-    const CHRONICLES_SAME_TYPE = "CHRONICLES_SAME_TYPE";
+    const SAME_TYPE_CHRONICLES = "SAME_TYPE_CHRONICLES";
+    const AUTHORS_CHRONICLES = "AUTHORS_CHRONICLES";
 
     private static $instance;
 
@@ -91,7 +92,7 @@ class ChronicleSvc extends Service {
     /**
      * Get a collection of Chronicle of a certain type from cache or from db if not in cache
      * @param int $type
-     * @return Collection chronicle:
+     * @return Collection of chronicle:
      */
     public function getChroniclesOfType($type) {
 
@@ -99,7 +100,7 @@ class ChronicleSvc extends Service {
 
             $numberOfChronicles = 4;
 
-            $key = self::CHRONICLES_SAME_TYPE . "_t_" . $type . "_m_" . $numberOfChronicles;
+            $key = self::SAME_TYPE_CHRONICLES . "_t_" . $type . "_m_" . $numberOfChronicles;
 
             $results = $this->getData($key);
 
@@ -111,9 +112,38 @@ class ChronicleSvc extends Service {
                 $this->setData($key, $results);
             }
             return $results;
-        } catch (\Exception $exc) {
-            $this->logException(get_class(), __FUNCTION__, $exc);
+        } catch (\Exception $e) {
+            $this->logException(get_class(), __FUNCTION__, $e);
         }
+    }
+
+    /**
+     * Get a collection of chronicle for a certain author (user) ordered by number of views descending
+     * @param int $authorId
+     * @return Collection of chronicle
+     */
+    public function getAuthorChronicles($authorId) {
+
+        try {
+
+            $numberOfChronicles = 10;
+            $key = self::AUTHORS_CHRONICLES . "_aid_" . $authorId . "_m_" . $numberOfChronicles;
+
+            $results = $this->getData($key);
+
+            if ($results === false) {
+                /* @var $dao ChronicleDao */
+                $dao = $this->getDao();
+                $results = $dao->getChroniclesOfAuthor($authorId, $numberOfChronicles);
+
+                $this->setData($key, $results);
+            }
+            return $results;
+
+        } catch (\Exception $e) {
+            $this->logException(get_class(), __FUNCTION__, $e);
+        }
+
     }
 
     /**

@@ -833,11 +833,3 @@ TD.mb-col-state{color:#f56903;}
 
 /* Last rated books - homepage */
 .last-rated-books .pb-title {font-size: 1.1em; font-weight: bold; margin:10px 0 5px;}
-
-
-/* Other chronicles same type */
-.other-chronicles { float: left; width: 100%;}
-.oc-title { border-bottom: 2px solid #239CD3; font-size: 1.5em; font-weight: bold; margin-bottom: 10px;}
-.other-chronicles UL {margin: 0;padding: 0;}
-.other-chronicles LI {list-style: none outside none;}
-.other-chronicles LI A { color: #707070; text-decoration: none;  margin-top: 2px; padding: 14px 25px 0;}

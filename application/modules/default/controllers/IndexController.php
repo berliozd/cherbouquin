@@ -24,8 +24,10 @@ use Sb\View\PushedChronicles;
 class Default_IndexController extends Zend_Controller_Action {
 
     public function init() {
-        // SEt specific layout for this controller
-        $this->_helper->layout->setLayout('index');
+
+        // Add homepage css to head
+        $this->view->headLink()->appendStylesheet(BASE_URL . "resources/css/homepage.css?v=" . VERSION);
+
     }
 
     /**

@@ -97,8 +97,9 @@ class Chronicle implements \Sb\Db\Model\Model {
         $this->group = $group;
     }
 
+
     /**
-     * @param User
+     * @return User $user
      */
     public function getUser() {
         return $this->user;

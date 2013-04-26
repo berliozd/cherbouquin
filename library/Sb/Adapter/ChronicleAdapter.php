@@ -11,6 +11,7 @@ use Sb\Helpers\BookHelper;
 use Sb\Entity\ChronicleLinkType;
 use Sb\Entity\Urls;
 use Sb\Helpers\ChronicleHelper;
+use Doctrine\Common\Util\Debug;
 
 /** 
  * @author Didier
@@ -41,19 +42,18 @@ class ChronicleAdapter {
         $pushedChronicle->setTitle(StringHelper::cleanHTML($this->chronicle->getTitle()));
         $pushedChronicle->setDescription(StringHelper::cleanHTML(StringHelper::tronque($this->chronicle->getText(), 100)));
         $pushedChronicle->setLink($this->chronicle->getLink());
+        $pushedChronicle->setCreationDate($this->chronicle->getCreation_date());
+        $pushedChronicle->setNbViews($this->chronicle->getNb_views());
 
         // Set internal detail page link
         if ($this->chronicle->getTitle())
-            $pushedChronicle
-                    ->setDetailLink(
-                            "/chronique/" . HTTPHelper::encodeTextForURL(StringHelper::cleanHTML($this->chronicle->getTitle())) . "-"
-                                    . $this->chronicle->getId());
+            $pushedChronicle->setDetailLink("/chronique/" . HTTPHelper::encodeTextForURL(StringHelper::cleanHTML($this->chronicle->getTitle())) . "-" . $this->chronicle->getId());
         else
             $pushedChronicle->setDetailLink("/chronique/chronique-" . $this->chronicle->getId());
 
         // Set Image
         if ($this->chronicle->getBook())
-        	$pushedChronicle->setImage($this->chronicle->getBook()->getLargeImageUrl());
+            $pushedChronicle->setImage($this->chronicle->getBook()->getLargeImageUrl());
         else if ($this->chronicle->getImage())
             $pushedChronicle->setImage($this->chronicle->getImage());
         else if ($this->chronicle->getTag())
@@ -70,11 +70,13 @@ class ChronicleAdapter {
      */
     public function getAsChronicleDetailViewModel($defImg) {
 
-    	/* @var $chronicle Chronicle */
+        /* @var $chronicle Chronicle */
         $chronicle = new ChronicleDetailViewModel();
 
         $chronicle->setUserName($this->chronicle->getUser()->getUserName());
-        $chronicle->setUserProfileLink(HTTPHelper::Link(Urls::USER_PROFILE, array("uid" => $this->chronicle->getUser()->getId())));
+        $chronicle->setUserProfileLink(HTTPHelper::Link(Urls::USER_PROFILE, array(
+            "uid" => $this->chronicle->getUser()->getId()
+        )));
         $chronicle->setUserImage(UserHelper::getMediumImageTag($this->chronicle->getUser()));
         $chronicle->setTitle($this->chronicle->getTitle());
         $chronicle->setText($this->chronicle->getText());
@@ -91,7 +93,7 @@ class ChronicleAdapter {
             $chronicle->setBookImage(BookHelper::getMediumImageTag($this->chronicle->getBook(), $defImg));
             $chronicle->setBookTitle($this->chronicle->getBook()->getTitle());
             $chronicle->setBookAuthors($this->chronicle->getBook()->getOrderableContributors());
-            $chronicle->setBookLink($this->chronicle->getBook()->getLink());
+            $chronicle->setBookLink(HTTPHelper::Link($this->chronicle->getBook()->getLink()));
             $chronicle->setChronicleHasBook(true);
         }
 

@@ -1,0 +1,12 @@
+<div class="chronicles-same-author">
+    <div class="csa-title">
+        <?php echo $title ?>
+    </div>
+    <ul>
+        <?php foreach ($chronicles as $chronicle) { ?>
+        <li><a href="<?php echo $chronicle->getDetailLink(); ?>"><?php echo $chronicle->getTitle(); ?></a> <br /> <span class="csa-date"><?php echo $chronicle->getCreationDate()->format("d-m-Y"); ?></span>
+            <?php if ($chronicle->getNbViews() > 0) { ?> <span class="csa-nbviews"><?php echo sprintf(__("%s vue(s)", "s1b"), $chronicle->getNbViews()); ?></span>
+            <?php } ?></li>
+        <?php } ?>
+    </ul>
+</div>

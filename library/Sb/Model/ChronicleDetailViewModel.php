@@ -2,6 +2,11 @@
 
 namespace Sb\Model;
 
+/**
+ * Represent a chronicle object with all data for display on detail page for example 
+ * @author Didier
+ *
+ */
 class ChronicleDetailViewModel {
 
     private $userName;

@@ -88,4 +88,27 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
 
         return $this->getResults($query);
     }
+
+    /**
+     * Get collection of chronicle of a certain author (user) ordered by number of views descending
+     * @param int $authorId
+     * @param int $maxResults
+     * @return Collection of Chronicle
+     */
+    public function getChroniclesOfAuthor($authorId, $maxResults = null) {
+
+        $dql = "SELECT gc FROM " . self::MODEL . " gc";
+        $dql .= " JOIN gc.user u";
+        $dql .= " WHERE u.id = " . $authorId;
+        $dql .= " ORDER BY gc.nb_views DESC";
+
+        $query = $this->entityManager->createQuery($dql);
+       
+        if ($maxResults)
+            $query->setMaxResults($maxResults);
+        else
+            $query->setMaxResults(1);
+
+        return $this->getResults($query);
+    }
 }

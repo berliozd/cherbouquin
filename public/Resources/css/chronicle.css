@@ -1,0 +1,64 @@
+/* Other chronicles same type */
+.other-chronicles {
+    float: left;
+    width: 100%;
+}
+
+.oc-title {
+    border-bottom: 2px solid #239CD3;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.other-chronicles UL {
+    margin: 0;
+    padding: 0;
+}
+
+.other-chronicles LI {
+    list-style: none outside none;
+}
+
+.other-chronicles LI A {
+    color: #707070;
+    text-decoration: none;
+    margin-top: 2px;
+    padding: 3px 25px 0;
+    background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1525px transparent;
+}
+
+.chronicles-same-author {
+    
+}
+
+.csa-title {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
+.chronicles-same-author UL {
+    border: 5px solid #E0E0E0;
+    margin: 0;
+    padding: 0;
+}
+
+.chronicles-same-author LI {
+    border-bottom: 1px solid #E0E0E0;
+    list-style: none outside none;
+    padding: 5px;
+}
+
+.chronicles-same-author LI A {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.csa-nbviews {
+    font-size: 0.9em;
+}
+
+.csa-date {
+    color: #707070;
+}

@@ -2,6 +2,7 @@
 namespace Sb\Model;
 
 /** 
+ * Represent a chronicle with minimum data to be displayed as an item in a list (for example for same author chronicles on detail page) 
  * @author Didier
  * 
  */
@@ -20,6 +21,8 @@ class PushedChronicleViewModel {
     private $description;
     private $image;
     private $detailLink;
+    private $creationDate;
+    private $nbViews;
 
     /**
      * @return int $chronicleId
@@ -102,6 +105,32 @@ class PushedChronicleViewModel {
      */
     public function setDetailLink($detailLink) {
         $this->detailLink = $detailLink;
+    }
+    /**
+     * @return DateTime $creationDate
+     */
+    public function getCreationDate() {
+        return $this->creationDate;
+    }
+
+    /**
+     * @param DateTime $creationDate
+     */
+    public function setCreationDate($creationDate) {
+        $this->creationDate = $creationDate;
+    }
+    /**
+     * @return int $nbViews
+     */
+    public function getNbViews() {
+        return $this->nbViews;
+    }
+
+    /**
+     * @param int $nbViews
+     */
+    public function setNbViews($nbViews) {
+        $this->nbViews = $nbViews;
     }
 
 }

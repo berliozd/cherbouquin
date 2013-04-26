@@ -4,7 +4,7 @@
     </div>
     <ul>
         <?php foreach ($chronicles as $chronicle) { ?>
-	        <li><a class="chr-link-other" href="<?php echo $chronicle->getDetailLink(); ?>"><?php echo $chronicle->getTitle(); ?></a></li>
+	        <li><a href="<?php echo $chronicle->getDetailLink(); ?>"><?php echo $chronicle->getTitle(); ?></a></li>
         <?php } ?>
     </ul>
 </div>
