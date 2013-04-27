@@ -9,6 +9,7 @@ use Sb\Trace\Trace;
 use Sb\View\OtherChroniclesSameAuthor;
 use Sb\View\Components\Ad;
 use Sb\Helpers\HTTPHelper;
+
 /**
  * ChronicleController
  * 
@@ -42,18 +43,18 @@ class Default_ChronicleController extends Zend_Controller_Action {
             // Increment chronicle nb views
             $this->incrementChronicleNbViews($chronicle);
 
+            // Add main chronicle to model view
             $chronicleView = new ChronicleDetail($chronicle);
-            // Add main chronicle to model
             $this->view->chronicle = $chronicleView->get();
 
-            // Get other chronicles same type
-            $chroniclesSameType = ChronicleSvc::getInstance()->getChroniclesOfType($chronicle->getType_id());
-            $chroniclesSameType = $this->getDifferentChronicles($chronicle->getId(), $chroniclesSameType, 3);
-            $otherChoniclesSameTypeView = new OtherChroniclesSameType($chroniclesSameType);
-            // Add same type chronicles to model
-            $this->view->otherChoniclesSameType = $otherChoniclesSameTypeView->get();
+            // Get similar chronicles (with same tag or with similar keywords) and add it to model view
+            $similarChronicles = $this->getSimilarChronicles($chronicle);
+            if ($similarChronicles) {
+                $otherChoniclesSameTypeView = new OtherChroniclesSameType($similarChronicles);
+                $this->view->otherChoniclesSameType = $otherChoniclesSameTypeView->get();
+            }
 
-            // Get same author chronicles
+            // Get same author chronicles and add it to model view
             $authorChronicles = ChronicleSvc::getInstance()->getAuthorChronicles($chronicle->getUser()->getId());
             if ($authorChronicles) {
                 $authorChronicles = $this->getDifferentChronicles($chronicle->getId(), $authorChronicles, 5);
@@ -67,6 +68,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
             // Get ad
             $ad = new Ad("", "");
             $this->view->ad = $ad->get();
+
 
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
@@ -127,8 +129,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 $this->incrementChronicleInDB($chronicle);
 
             }
-        }
-        else {
+        } else {
 
             // Set cookie
             $this->setChronicleSeenCookie($cookieName, $chronicle->getId());
@@ -156,5 +157,66 @@ class Default_ChronicleController extends Zend_Controller_Action {
     private function incrementChronicleInDB(Chronicle $chronicle) {
         $chronicle->setNb_views($chronicle->getNb_views() + 1);
         ChronicleDao::getInstance()->update($chronicle);
+    }
+
+    private function isReviewd(UserBook $userBook) {
+        if ($userBook->getReview()) {
+            return true;
+        }
+    }
+
+    /**
+     * Get 3 similar chronicles for current chronicle : with same tag or same keywords
+     * @param Chronicle $chronicle the current chronicle
+     * @return Collection of chronicle
+     */
+    private function getSimilarChronicles(Chronicle $chronicle) {
+
+        $nbOfSimilarChronicles = 3;
+
+        // Get the chronicles with same tag
+        $similarChronicles = array();
+        if ($chronicle->getTag()) {
+            $chroniclesWithTag = ChronicleSvc::getInstance()->getChroniclesWithTag($chronicle->getTag()->getId(), $nbOfSimilarChronicles);
+            $chroniclesWithTag = $this->getDifferentChronicles($chronicle->getId(), $chroniclesWithTag, $nbOfSimilarChronicles);
+            $similarChronicles = $chroniclesWithTag;
+        }
+
+        // If there's not enough chronicles (or 0) with same tag and if current chronicle has some keywords :
+        // we search for schronicle with same keywords
+        if ((!$similarChronicles || count($similarChronicles) < $nbOfSimilarChronicles) && $chronicle->getKeywords()) {
+
+            $chroniclesWithKeywords = ChronicleSvc::getInstance()->getChroniclesWithKeywords(explode(",", $chronicle->getKeywords()), $nbOfSimilarChronicles);
+
+            // If no chronicles with same tag, we just add the one we just get with same keywords
+            if (!$similarChronicles) {
+
+                $similarChronicles = $chroniclesWithKeywords;
+                $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
+
+            } else {
+
+                $filteredChroniclesWithKeywords = array();
+                // Loop all chronicles found with keywords and remove the one already found with same tag
+                foreach ($chroniclesWithKeywords as $chronicleWithKeyword) {
+
+                    $add = true;
+                    foreach ($similarChronicles as $similarChronicle) {
+                        if ($similarChronicle->getId() == $chronicleWithKeyword->getId()) {
+                            $add = false;
+                            break;
+                        }
+                    }
+                    if ($add)
+                        $filteredChroniclesWithKeywords[] = $chronicleWithKeyword;
+                }
+                $filteredChroniclesWithKeywords = $this->getDifferentChronicles($chronicle->getId(), $filteredChroniclesWithKeywords, $nbOfSimilarChronicles);
+                
+                // Merge the chronicles found with tag and the one found with keywords
+                $similarChronicles = array_merge($similarChronicles, $filteredChroniclesWithKeywords);
+                $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
+            }
+        }
+        return $similarChronicles;
     }
 }

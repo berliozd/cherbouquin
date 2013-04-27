@@ -17,7 +17,8 @@ class ChronicleSvc extends Service {
     const LAST_ANY_GROUPS_CHRONICLES = "LAST_CHRONICLES_OF_ANY_GROUPS";
     const LAST_BLOGGERS_CHRONICLES = "LAST_BLOGGERS_CHRONICLES";
     const LAST_BOOK_STORES_CHRONICLES = "LAST_BOOK_STORES_CHRONICLES";
-    const SAME_TYPE_CHRONICLES = "SAME_TYPE_CHRONICLES";
+    const CHRONICLES_WITH_TAG = "CHRONICLES_WITH_TAG";
+    const CHRONICLES_WITH_KEYWORDS = "CHRONICLES_WITH_KEYWORDS";
     const AUTHORS_CHRONICLES = "AUTHORS_CHRONICLES";
 
     private static $instance;
@@ -90,24 +91,50 @@ class ChronicleSvc extends Service {
     }
 
     /**
-     * Get a collection of Chronicle of a certain type from cache or from db if not in cache
-     * @param int $type
-     * @return Collection of chronicle:
+     * Get a collection of chronicle with a tag specified
+     * @param int $tag_id the tag id to search
+     * @param int $numberOfChronicles number of maximum chronicle to get
+     * @return Collection of Chronicle
      */
-    public function getChroniclesOfType($type) {
+    public function getChroniclesWithTag($tagId, $numberOfChronicles) {
 
         try {
 
-            $numberOfChronicles = 4;
-
-            $key = self::SAME_TYPE_CHRONICLES . "_t_" . $type . "_m_" . $numberOfChronicles;
+            $key = self::CHRONICLES_WITH_TAG . "_tid_" . $tagId . "_m_" . $numberOfChronicles;
 
             $results = $this->getData($key);
 
             if ($results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                $results = $dao->getChroniclesOfType($type, $numberOfChronicles);
+                $results = $dao->getChroniclesWithTag($tagId, $numberOfChronicles);
+
+                $this->setData($key, $results);
+            }
+            return $results;
+        } catch (\Exception $e) {
+            $this->logException(get_class(), __FUNCTION__, $e);
+        }
+    }
+
+    /**
+     * Get a collection of chronicles with same keywords 
+     * @param Array of String $keywords the keywords to search chronicle having one of them
+     * @param int $numberOfChronicles number of maximum chronicle to get
+     * @return Collection of chronicle
+     */
+    public function getChroniclesWithKeywords($keywords, $numberOfChronicles) {
+
+        try {
+
+            $key = self::CHRONICLES_WITH_KEYWORDS . "_k_" . implode("_", $keywords) . "_m_" . $numberOfChronicles;
+
+             $results = $this->getData($key);
+
+            if ($results === false) {
+                /* @var $dao ChronicleDao */
+                $dao = $this->getDao();
+                $results = $dao->getChroniclesWithKeywords($keywords, $numberOfChronicles);
 
                 $this->setData($key, $results);
             }

@@ -68,15 +68,15 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     /**
-     * Get a collection of Chronicle of a certain type
-     * @param int $type
-     * @param int $maxResults
+     * Get a collection of chronicles with a specific tag
+     * @param int $tagId the tag to search
+     * @param int $maxResults number of chronicles to get
      * @return Collection of Chronicle
      */
-    public function getChroniclesOfType($type, $maxResults = null) {
+    public function getChroniclesWithTag($tagId, $maxResults = null) {
 
         $dql = "SELECT gc FROM " . self::MODEL . " gc";
-        $dql .= " WHERE gc.type_id = " . $type;
+        $dql .= " JOIN gc.tag t WHERE t.id = " . $tagId;
         $dql .= " ORDER BY gc.creation_date DESC";
 
         $query = $this->entityManager->createQuery($dql);
@@ -86,6 +86,28 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
         else
             $query->setMaxResults(1);
 
+        return $this->getResults($query);
+    }
+
+    /**
+     * Get a collection of chronicle with at least one keywords in common 
+     * @param Array of String $keywords
+     * @param int $maxResults
+     * @return Collection of chronicle with similar keywords
+     */
+    public function getChroniclesWithKeywords($keywords, $maxResults= null) {
+
+        $dql = "SELECT gc FROM " . self::MODEL . " gc";
+        $dql .= " WHERE " . $this->getLikeKeywordsQuery($keywords);
+        $dql .= " ORDER BY gc.creation_date DESC";
+        
+        $query = $this->entityManager->createQuery($dql);
+
+        if ($maxResults)
+            $query->setMaxResults($maxResults);
+        else
+            $query->setMaxResults(1);
+        
         return $this->getResults($query);
     }
 
@@ -103,12 +125,30 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
         $dql .= " ORDER BY gc.nb_views DESC";
 
         $query = $this->entityManager->createQuery($dql);
-       
+
         if ($maxResults)
             $query->setMaxResults($maxResults);
         else
             $query->setMaxResults(1);
 
         return $this->getResults($query);
+    }
+
+    /**
+     * Get the "like" query part for a list of keywords
+     * @param array of String $keywords
+     * @return string the "like" query
+     */
+    private function getLikeKeywordsQuery($keywords) {
+
+        $likeKeywords = array();
+
+        foreach ($keywords as $keyword)
+            $likeKeywords[] = " gc.keywords LIKE '%" . $keyword . "%' ";            
+
+        $result = implode(" OR ", $likeKeywords);
+
+        return $result;
+
     }
 }
