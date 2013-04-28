@@ -25,11 +25,13 @@ $env = "prod";
 $localFolder = "E:\\Dev\\wamp2.0\\www\\cherbouquin\\";
 $localBackupFolder = "E:\\Temp\\CherBouquin\\BackupDeploy\\";
 
-$revisionHash = "606853-1cc19c";
-$filesString = "library/Sb/Helpers/HTTPHelper.php
-.htaccess
-application/configs/application.ini
-library/Sb/Db/Model/Book.php";
+$revisionHash = "803671-639bc5-2a279d";
+$filesString = "library/Sb/Entity/Urls.php
+wp-content/themes/new_s1b/footer-opening.php
+public/Resources/css/share1book.css
+public/Resources/images/sprite.png
+wp-content/themes/new_s1b/footer-opening.php
+application/modules/default/views/scripts/index/index.phtml";
 
 include('Net/SFTP.php');
 
