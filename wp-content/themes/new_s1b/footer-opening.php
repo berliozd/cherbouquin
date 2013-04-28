@@ -87,7 +87,8 @@ use \Sb\Db\Service\BookSvc;
                                             <a class="link" href="<?php echo HTTPHelper::Link(Urls::PRESS_REVIEW);?>"><?php _e("Revues de presse", "s1b");?></a>
                                         </li>
                                         <li>
-                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::HOW_TO);?>"><?php _e("Comment ça marche?", "s1b");?></a>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::HOW_TO);?>"><?php _e("Comment ça marche?", "s1b");?></a><br/>
+                                            <a class="link" href="<?php echo HTTPHelper::Link(Urls::STEP_BY_STEP);?>"><?php _e("Pas à pas", "s1b");?></a>
                                         </li>
                                         <li>
                                             <a class="link" href="<?php echo HTTPHelper::Link(Urls::HELP_US);?>"><?php _e("Nous aider", "s1b");?></a>
