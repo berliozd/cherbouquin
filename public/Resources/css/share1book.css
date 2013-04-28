@@ -231,6 +231,7 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .ft-facebook {background: url("../images/sprite.png?v=5") no-repeat scroll 0px -1230px transparent;display: block;height: 45px;width: 45px;}
 .ft-twitter {background: url("../images/sprite.png?v=5") no-repeat scroll -53px -1230px transparent;display: block;height: 45px;width: 45px;}
 .ft-pinterest {background: url("../images/sprite.png?v=5") no-repeat scroll -105px -1230px transparent;display: block;height: 45px;width: 45px;}
+.ft-googleplus {background: url("../images/sprite.png?v=5") no-repeat scroll -160px -1230px transparent;display: block;height: 45px;width: 45px;}
 .ft-item .link, .ft-item .link:hover, .ft-item .link:visited {font-weight: normal;}
 
 

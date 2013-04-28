@@ -24,6 +24,7 @@ class Urls {
     const NEWSLETTERS = "bulletin"; // newsletters
     const PRESS_REVIEW = "revues-de-presse"; // revues de presse
     const PARTNERS = "nos-partenaires"; // nos partenaires
+    const STEP_BY_STEP = "pas-a-pas"; // Pas à pas
     
     // account connection-registration-activation
     const LOGIN = 'index/log'; // Zend : default / index / log
