@@ -166,6 +166,19 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
 .rcb-buttons {float:left;}
 .rcb-label {border-right: 1px solid #CCCCCC;float: left;font-size: 1.1em;font-weight: bold;height: 27px;padding-right: 5px;padding-top: 13px; width: 80px;}
 
+
+/* global separator */
+.separator {
+    border-top-style: solid;
+    border-top-width: 5px;
+    border-color: #FFF;
+}
+
+.separator SPAN {
+    padding: 3px;
+    font-size: 1.3em;
+}
+
 /* carousel general styles */
 .carousel UL {list-style: none; padding: 0px; margin:0; }
 

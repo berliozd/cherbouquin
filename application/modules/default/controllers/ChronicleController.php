@@ -9,6 +9,9 @@ use Sb\Trace\Trace;
 use Sb\View\OtherChroniclesSameAuthor;
 use Sb\View\Components\Ad;
 use Sb\Helpers\HTTPHelper;
+use Sb\Lists\PaginatedList;
+use Sb\View\BookReviews;
+use Sb\Db\Model\UserBook;
 
 /**
  * ChronicleController
@@ -65,10 +68,14 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 }
             }
 
-            // Get ad
+            // Get ad and add it to model view
             $ad = new Ad("", "");
             $this->view->ad = $ad->get();
 
+            // Get reviews and add it to model view
+            $reviewsView = $this->getReviews($chronicle);
+            if ($reviewsView)
+                $this->view->reviews = $reviewsView->get();
 
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
@@ -159,12 +166,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
         ChronicleDao::getInstance()->update($chronicle);
     }
 
-    private function isReviewd(UserBook $userBook) {
-        if ($userBook->getReview()) {
-            return true;
-        }
-    }
-
     /**
      * Get 3 similar chronicles for current chronicle : with same tag or same keywords
      * @param Chronicle $chronicle the current chronicle
@@ -211,12 +212,45 @@ class Default_ChronicleController extends Zend_Controller_Action {
                         $filteredChroniclesWithKeywords[] = $chronicleWithKeyword;
                 }
                 $filteredChroniclesWithKeywords = $this->getDifferentChronicles($chronicle->getId(), $filteredChroniclesWithKeywords, $nbOfSimilarChronicles);
-                
+
                 // Merge the chronicles found with tag and the one found with keywords
                 $similarChronicles = array_merge($similarChronicles, $filteredChroniclesWithKeywords);
                 $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
             }
         }
         return $similarChronicles;
+    }
+
+    /**
+     * Get a reviews view object representing a paginated list of reviews for the current book
+     * @param Chronicle $chronicle the current chronicle to get the book and the reviews from
+     * @return \Sb\View\BookReviews|NULL a BookReviews object or NULL 
+     */
+    private function getReviews(Chronicle $chronicle) {
+        if ($chronicle->getBook()) {
+
+            // book reviews
+            $userBooks = $chronicle->getBook()->getNotDeletedUserBooks();
+            $reviewedUserBooks = array_filter($userBooks, array(
+                &$this, "isReviewd"
+            ));
+
+            $reviews = "";
+            if ($reviewedUserBooks) {
+
+                $paginatedList = new PaginatedList($reviewedUserBooks, 5);
+                $reviewsView = new BookReviews($paginatedList, $chronicle->getBook()->getId());
+
+                return $reviewsView;
+            }
+        }
+
+        return null;
+    }
+
+    private function isReviewd(UserBook $userBook) {
+        if ($userBook->getReview()) {
+            return true;
+        }
     }
 }

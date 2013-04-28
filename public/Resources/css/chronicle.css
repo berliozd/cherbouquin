@@ -1,5 +1,5 @@
 /* Other chronicles same type */
-.other-chronicles {
+#other-chronicles {
     float: left;
     width: 100%;
 }
@@ -11,16 +11,16 @@
     margin-bottom: 10px;
 }
 
-.other-chronicles UL {
+#other-chronicles UL {
     margin: 0;
     padding: 0;
 }
 
-.other-chronicles LI {
+#other-chronicles LI {
     list-style: none outside none;
 }
 
-.other-chronicles LI A {
+#other-chronicles LI A {
     color: #707070;
     text-decoration: none;
     margin-top: 2px;
@@ -28,7 +28,7 @@
     background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1525px transparent;
 }
 
-.chronicles-same-author {
+#chronicles-same-author {
     
 }
 
@@ -37,19 +37,19 @@
     margin-bottom: 5px;
 }
 
-.chronicles-same-author UL {
+#chronicles-same-author UL {
     border: 5px solid #E0E0E0;
     margin: 0;
     padding: 0;
 }
 
-.chronicles-same-author LI {
+#chronicles-same-author LI {
     border-bottom: 1px solid #E0E0E0;
     list-style: none outside none;
     padding: 5px;
 }
 
-.chronicles-same-author LI A {
+#chronicles-same-author LI A {
     color: #000;
     text-decoration: none;
     font-weight: bold;
@@ -61,4 +61,28 @@
 
 .csa-date {
     color: #707070;
+}
+
+/* Title */
+#chronicle-detail .navigation {
+    background-color: #FFF;
+}
+
+#chronicle-detail .navigation.top {
+    border-top: 5px solid #239CD3;
+}
+
+#chronicle-detail .navigation>DIV {
+    padding: 0;
+}
+
+#chronicle-detail .nav-resume {
+    padding: 3px;
+    font-size: 1.3em;
+    background-color: #239CD3;
+    color: #FFF;
+}
+
+#chronicle-detail .bv-reviews {
+    margin-top: 10px;
 }

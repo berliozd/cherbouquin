@@ -1,6 +1,6 @@
 <?php if ($userBooks && (count($userBooks) > 0)) { ?>
     <div class="bv-reviews" key="<?php echo $bookId; ?>">
-        <div class="navigation">
+        <div class="navigation top">
             <div class="inner-padding">            
                 <div class="nav-resume"><?php echo sprintf(__("Dernière(s) critique(s) postée(s)", "s1b")); ?></div>
                 <?php if ($connectedUser) { ?>
@@ -119,7 +119,7 @@
                 </div>
     <?php } ?>
         </div>
-        <div class="navigation">
+        <div class="navigation bottom">
             <div class="inner-padding">
                 <div class="nav-links">
                     <?php echo $navigation; ?>

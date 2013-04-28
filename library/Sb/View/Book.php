@@ -126,8 +126,9 @@ class Book extends \Sb\View\AbstractView {
         $userBooks = $this->book->getNotDeletedUserBooks();
         $reviewedUserBooks = array_filter($userBooks, array(&$this, "isReviewd"));
         $reviews = "";
+        $nbOfReviewsPerPage = 5;
         if ($reviewedUserBooks) {
-            $paginatedList = new \Sb\Lists\PaginatedList($reviewedUserBooks, 5);
+            $paginatedList = new \Sb\Lists\PaginatedList($reviewedUserBooks, $nbOfReviewsPerPage);
             $reviewsView = new \Sb\View\BookReviews($paginatedList, $this->book->getId());
             $reviews = $reviewsView->get();
         }

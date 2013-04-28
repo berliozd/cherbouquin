@@ -110,8 +110,9 @@ class Default_BookController extends Zend_Controller_Action {
         $userBooks = $book->getNotDeletedUserBooks();
         $reviewedUserBooks = array_filter($userBooks, array(&$this, "isReviewed"));
 
+        $nbOfReviewsPerPage = 5;
         if ($reviewedUserBooks && count($reviewedUserBooks) > 0) {
-            $paginatedList = new \Sb\Lists\PaginatedList($reviewedUserBooks, 5, 'pagenumber', $pageId);
+            $paginatedList = new \Sb\Lists\PaginatedList($reviewedUserBooks, $nbOfReviewsPerPage, 'pagenumber', $pageId);
             $this->view->paginatedList = $paginatedList;
             $this->view->bookId = $bid;
             $this->view->pageNumber = $pageId;

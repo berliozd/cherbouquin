@@ -89,7 +89,7 @@ function attachStarRatingBehavior() {
 /* Book reviews navigation */
 function attachBookReviewsNavigation() {
     $(".bv-reviews .navigation .nav-links a").click(function(event){
-        _doNav(event, this, ".bv-reviews", 'book/get-reviews-page');
+        _doNav(event, this, ".bv-reviews", 'default/book/get-reviews-page');
     });
 }
 
