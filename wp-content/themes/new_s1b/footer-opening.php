@@ -2,6 +2,7 @@
 use \Sb\Helpers\HTTPHelper;
 use \Sb\Entity\Urls;
 use \Sb\Db\Service\BookSvc;
+use Sb\Entity\Constants;
 ?>
 
                     <!-- Début div footer-wrap -->
@@ -64,9 +65,10 @@ use \Sb\Db\Service\BookSvc;
                             <div class="ft-item last">
                                 <div class="inner-padding-12">
                                     <h2 class="ft-item-title"><?php echo sprintf(__("<strong>%s</strong> sur les réseaux", "s1b"), \Sb\Entity\Constants::SITENAME);?></h2>
-                                    <div class="ft-item-content"><a target="_blank" href="http://www.facebook.com/CherBouquin" class="picto-facebook-m"></a></div>
-                                    <div class="ft-item-content"><a target="_blank" href="https://twitter.com/#!/cherbouquin" class="ft-twitter"></a></div>
-                                    <div class="ft-item-content"><a target="_blank" href="http://pinterest.com/cherbouquin" class="ft-pinterest"></a></div>
+                                    <div class="ft-item-content"><a target="_blank" href="http://www.facebook.com/CherBouquin" class="picto-facebook-m" title="<?php echo sprintf(__("%s sur Facebook","s1b"),Constants::SITENAME);?>"></a></div>
+                                    <div class="ft-item-content"><a target="_blank" href="https://twitter.com/#!/cherbouquin" class="ft-twitter" title="<?php echo sprintf(__("%s sur Twitter","s1b"),Constants::SITENAME);?>"></a></div>
+                                    <div class="ft-item-content"><a target="_blank" href="http://pinterest.com/cherbouquin" class="ft-pinterest" title="<?php echo sprintf(__("%s sur Pinterest","s1b"),Constants::SITENAME);?>"></a></div>
+                                    <div class="ft-item-content"><a target="_blank" href="https://plus.google.com/u/0/b/106650239259479003219/106650239259479003219/posts" class="ft-googleplus" title="<?php echo sprintf(__("%s sur Google+","s1b"),Constants::SITENAME);?>"></a></div>
                                 </div>
                             </div>
                         </div>
