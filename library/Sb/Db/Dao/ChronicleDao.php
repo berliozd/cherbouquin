@@ -36,7 +36,10 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
      */
     public function getLastChronicles($maxResults = null, $groupType = null, $excludedGroupTypes = null) {
 
-        $dql = "SELECT gc, u, b FROM " . self::MODEL . " gc JOIN gc.user u LEFT JOIN gc.book b";
+        $dql = "SELECT gc, u, b, t FROM " . self::MODEL . " gc 
+        		LEFT JOIN gc.tag t 
+        		JOIN gc.user u 
+        		LEFT JOIN gc.book b";
 
         if ($groupType || $excludedGroupTypes) {
             $dql .= " JOIN gc.group g ";
