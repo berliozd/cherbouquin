@@ -436,9 +436,6 @@ A.ubc-bottom-link , A.utc-bottom-link:hover, A.utc-bottom-link:visited {color:#2
 .ubt-tag {float: left;width: 300px;}
 .ubtt-value { float: left;}
 
-/* book-detail */
-.book-detail {}
-
 /* book view*/
 .bv-buttons {float: left; margin-top: 10px; width: 100%; text-decoration:none;}
 .bv-buttons-group {float:left; width: 100%;}
@@ -574,11 +571,9 @@ TABLE TH.llh-title {padding-left: 80px;}
 .fl-choosefriend{font-size:1.7em;}
 
 /* friend wished books */
-.friends-wished-books {}
 .fwb-title {font-size: 1.9em; margin-bottom: 15px;}
 .fwb-subtitle {font-size: 1.5em; font-weight: bold; margin-bottom: 15px;}
 .fwb-description {font-size: 1.2em; }
-.fwb-line {}
 .fwb-line-title { font-weight: bold;}
 .fwb-mail { margin-top: 10px;}
 .fwb-mail-description {font-size: 1.2em; margin-bottom: 5px;}
@@ -628,7 +623,6 @@ TABLE TH.llh-title {padding-left: 80px;}
 .profile-edit-form TABLE {width:100%;}
 .pef-label {width: 190px; font-size: 1.2em;}
 .pef-line {font-size: 1.4em;margin-bottom: 10px;}
-.pef-gravatar-choice {}
 .pef-gravatar {float: left;margin: 2px;width: 32%;}
 .p-friend-title { background: url("../images/sprite.png?v=5") no-repeat scroll 0 -84px transparent; font-size: 1.8em; height: 33px; margin-bottom: 18px; padding-left: 50px;padding-left: 50px;  color: #FFF;}
 .p-right-item {text-align: right;}
@@ -645,7 +639,6 @@ TABLE TH.llh-title {padding-left: 80px;}
 .rw-search .rw-field {float: right;width: 185px;}
 .rw-search .connected .search-field {background: url("../images/sprite.png?v=5?v2") no-repeat scroll -310px 0px transparent;width: 195px;} 
 .rw-search .connected .search-field INPUT {width:145px;}
-.rw-search .connected .sf-label {}
 
 /* mailbox list */
 .mailbox TABLE {float:left; width: 100%;  text-align: left;}
@@ -675,10 +668,8 @@ TD.mb-col-state{color:#f56903;}
 .mmb-title {font-weight: bold; font-size:1.3em;}
 .mm-inputbody {height:100px; width: 100%;}
 /* mailbox new message */
-.mailbox-new-message {}
 .mnm-title {font-size: 1.9em; margin-bottom: 10px;}
 .mnm-line {margin-top: 10px;}
-.mnm-label {}
 .mnm-line-title {font-size: 1.2em;font-weight: bold; margin-bottom: 3px;}
 .mnm-body {height: 300px;width: 100%;}
 .mnm-subject{height: 20px;padding: 5px;width: 300px;}
@@ -686,12 +677,10 @@ TD.mb-col-state{color:#f56903;}
 /* friend selection */
 .friend-selection { float: left; width: 100%;}
 .fs-title {font-size:1.8em;}
-.fs-all {}
 .fs-list {float: left; width:100%}
 .fs-friendname {font-weight: bold;}
 
 /* friend profile */
-.friend-profile {}
 .friend-profile .p-line-small {font-size: 1.2em;line-height: 17px;}
 .friend-profile .pl-birthdate { margin-bottom: 3px;}
 .add-friend-bkg {background: url("../images/add-friend-bkg.png") repeat-x scroll 0 0 transparent; border-radius: 10px 10px 10px 10px; float: left;}
@@ -708,13 +697,11 @@ TD.mb-col-state{color:#f56903;}
 .friends-search {font-size: 1.5em;}
 
 /* registration */
-.registration {}
 .registration A.cgu { color:#000; font-weight: normal;}
 .registration .buttons-bar {background-color: #30a2d6; color:#fff;  margin-top: 50px;}
 .r-left {background: url("../images/registration-bkg.png") no-repeat scroll right top #239CD3;border-radius: 10px 0 0 0;float: left; width: 50%;}
 .r-right {float:left; width:50%; text-align: center;}
 .r-line { margin-top:10px;}
-.r-field {}
 .r-title {color: #FFF;font-size: 2.5em;font-weight: bold;}
 .r-subtitle {font-size: 1.2em;}
 .r-reassurance {font-size: 1.3em; color: #fff; font-weight: bold; margin:10px 0;}
@@ -745,8 +732,6 @@ TD.mb-col-state{color:#f56903;}
 
 .team-member {float: left; margin-bottom: 30px;} 
 .tm-description {float: left;font-size: 1.1em;margin-top: 5px;text-align: justify;width: 100%;}
-.tm-function {}
-.tm-librarylink {}
 .tm-name {font-size: 2em;font-weight: bold;}
 .tm-resume {float: left;}
 .tm-image {float: left;  margin-right: 20px;}
@@ -771,13 +756,11 @@ TD.mb-col-state{color:#f56903;}
 .ue-addbooklink {float:left; border-left: 1px solid #6B7074; margin-left: 5px; padding-left: 5px;}
 
 /* SEO book list */
-.book-list {}
 .book-list .navigation.top {margin-bottom: 10px;}
 .book-list-title {  color: #239CD3; margin-bottom: 20px; margin-top: 0;}
 .book-list-introduction {font-size: 1.5em; margin-bottom: 20px;}
 .bl-filter {margin:10px 0;}
 .blf-title {font-size:1.3em; margin-bottom: 3px;}
-.blf-select {}
 
 /* Twitter widget */
 .twitter-widget { position: relative; font-size: 1.2em; background-color: #363A3D !important; background-color: #363A3D; color: black !important; float:right; width: 100%;}
@@ -802,12 +785,9 @@ TD.mb-col-state{color:#f56903;}
 .chr-bottom {float:left; width: 100%;}
 .chr-left {float: left; width: 120px;}
 .chr-right {float: right; width: 485px;}
-.chr-bookimage {}
 .chr-head {font-size: 2.6em; }
-.chr-username{margin-bottom: 10px; }
 .chr-title { font-size: 1.3em; font-weight: bold; margin-bottom: 5px;}
 .chr-text { font-size: 1.3em;}
-.chr-link {}
 .chr-link A {float: left;margin-top: 2px; padding: 14px 25px 0;}
 .chr-link-other {background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1515px transparent;}
 .chr-link-video {background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1712px transparent;}
@@ -815,7 +795,6 @@ TD.mb-col-state{color:#f56903;}
 .chr-link-url {background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1515px transparent;}
 .chr-link-image {background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1812px transparent;}
 .chr-link-press {background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1956px transparent;}
-.chr-userimage {}
 .chr-source {font-style: italic; text-decoration: underline; clear:both;}
 
 .coverflip {border: 1px #e6e6e6 solid; height: 230px;}
@@ -835,15 +814,11 @@ TD.mb-col-state{color:#f56903;}
 .lrp-content {float:right; width:88%;}
 .lrp-content-title { font-size: 1.2em;font-weight: bold;}
 .lrp-content-title .link {text-decoration: none; font-weight: bold;}
-.lrp-link {}
-.lrp-review {}
 #homepage .lrp-bottom A {text-decoration: none; font-weight: bold; color:#000;}
 
 
 /* Same author books */
-.same-author-books {}
 .same-author-books .pb-title { font-size: 1.3em; margin-bottom: 5px; padding-left: 5px; color:#239CD3;}
-.sab-books {}
 
 /* Last rated books - homepage */
 .last-rated-books .pb-title {font-size: 1.1em; font-weight: bold; margin:10px 0 5px;}

@@ -23,8 +23,19 @@ class ChronicleDetail extends \Sb\View\AbstractView {
 
         $tpl = new Template("chronicleDetail");
 
+        // Get chronicle adaptater
         $chronicleAdpater = new ChronicleAdapter($this->chronicle);
-        $tpl->setVariables(array("chronicle" => $chronicleAdpater->getAsChronicleDetailViewModel($this->defImg)));
+
+        // Get Social networks bar
+        $imageUrlToPin = null;
+        $textToPin = $this->chronicle->getTitle();
+        if ($this->chronicle->getBook())
+            $imageUrlToPin = $this->chronicle->getBook()->getLargeImageUrl();
+        $socialNetworksBar = new SocialNetworksBar($imageUrlToPin, $textToPin);
+
+        $tpl->setVariables(array(
+            "chronicle" => $chronicleAdpater->getAsChronicleDetailViewModel($this->defImg), "socialNetworksBar" => $socialNetworksBar->get()
+        ));
 
         return $tpl->output();
     }

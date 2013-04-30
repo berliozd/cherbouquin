@@ -3,7 +3,7 @@
         <div class="chr-top">
             <div class="chr-left">
                 <div class="chr-userimage">
-                    <a title="<?php echo $chronicle->getUserName(); ?>" href="<?php echo $chronicle->getUserProfileLink(); ?>"> <?php echo $chronicle->getUserImage();?>
+                    <a title="<?php echo $chronicle->getUserName(); ?>" href="<?php echo $chronicle->getUserProfileLink(); ?>"> <?php echo $chronicle->getUserImage(); ?>
                     </a>
                 </div>
             </div>
@@ -12,6 +12,7 @@
                     <?php echo sprintf(__("<a class=\"link\" href=\"%s\">%s</a> le %s | %s", "s1b"), $chronicle->getUserProfileLink(), $chronicle->getUserName(), $chronicle->getCreationDate(), $chronicle->getTypeLabel());
                     ?>
                 </div>
+                <?php echo $socialNetworksBar; ?>
                 <div class="chr-title">
                     <?php echo $chronicle->getTitle(); ?>
                 </div>
@@ -26,13 +27,13 @@
                 </div>
                 <?php } ?>
             </div>
-            <div class="chr-right">                
+            <div class="chr-right">
                 <div class="chr-text">
                     <?php echo $chronicle->getText(); ?>
                 </div>
                 <?php if ($chronicle->getLink()) { ?>
                 <div class="chr-link">
-                    <a href="<?php echo $chronicle->getLink(); ?>" class="link <?php echo $chronicle->getLinkCss(); ?>" target="_blank"><?php echo $chronicle->getLinkText();?></a>
+                    <a href="<?php echo $chronicle->getLink(); ?>" class="link <?php echo $chronicle->getLinkCss(); ?>" target="_blank"><?php echo $chronicle->getLinkText(); ?></a>
                 </div>
                 <?php } ?>
                 <?php if ($chronicle->getSource()) { ?>
