@@ -189,34 +189,38 @@ class Default_ChronicleController extends Zend_Controller_Action {
 
             $chroniclesWithKeywords = ChronicleSvc::getInstance()->getChroniclesWithKeywords(explode(",", $chronicle->getKeywords()), $nbOfSimilarChronicles);
 
-            // If no chronicles with same tag, we just add the one we just get with same keywords
-            if (!$similarChronicles) {
-
-                $similarChronicles = $chroniclesWithKeywords;
-                $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
-
-            } else {
-
-                $filteredChroniclesWithKeywords = array();
-                // Loop all chronicles found with keywords and remove the one already found with same tag
-                foreach ($chroniclesWithKeywords as $chronicleWithKeyword) {
-
-                    $add = true;
-                    foreach ($similarChronicles as $similarChronicle) {
-                        if ($similarChronicle->getId() == $chronicleWithKeyword->getId()) {
-                            $add = false;
-                            break;
+            if ($chroniclesWithKeywords) {
+                // If no chronicles with same tag, we just add the one we just get with same keywords
+                if (!$similarChronicles) {
+                
+                    $similarChronicles = $chroniclesWithKeywords;
+                    $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
+                
+                } else {
+                
+                    $filteredChroniclesWithKeywords = array();
+                    // Loop all chronicles found with keywords and remove the one already found with same tag
+                    foreach ($chroniclesWithKeywords as $chronicleWithKeyword) {
+                
+                        $add = true;
+                        foreach ($similarChronicles as $similarChronicle) {
+                            if ($similarChronicle->getId() == $chronicleWithKeyword->getId()) {
+                                $add = false;
+                                break;
+                            }
                         }
+                        if ($add)
+                            $filteredChroniclesWithKeywords[] = $chronicleWithKeyword;
                     }
-                    if ($add)
-                        $filteredChroniclesWithKeywords[] = $chronicleWithKeyword;
+                    $filteredChroniclesWithKeywords = $this->getDifferentChronicles($chronicle->getId(), $filteredChroniclesWithKeywords, $nbOfSimilarChronicles);
+                
+                    // Merge the chronicles found with tag and the one found with keywords
+                    $similarChronicles = array_merge($similarChronicles, $filteredChroniclesWithKeywords);
+                    $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
                 }
-                $filteredChroniclesWithKeywords = $this->getDifferentChronicles($chronicle->getId(), $filteredChroniclesWithKeywords, $nbOfSimilarChronicles);
-
-                // Merge the chronicles found with tag and the one found with keywords
-                $similarChronicles = array_merge($similarChronicles, $filteredChroniclesWithKeywords);
-                $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
+                
             }
+                    
         }
         return $similarChronicles;
     }

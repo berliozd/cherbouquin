@@ -1,8 +1,5 @@
 <?php
-use Doctrine\ORM\Configuration,
-    Doctrine\ORM\EntityManager,
-    Doctrine\DBAL\Event\Listeners\MysqlSessionInit,
-    \Sb\Helpers\EntityHelper;
+use \Sb\Helpers\EntityHelper;
 
 date_default_timezone_set('Europe/Paris');
 

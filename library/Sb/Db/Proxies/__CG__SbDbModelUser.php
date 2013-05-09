@@ -561,10 +561,22 @@ class User extends \Sb\Db\Model\User implements \Doctrine\ORM\Proxy\Proxy
         return parent::setGroupusers($groupusers);
     }
 
+    public function getIs_partner()
+    {
+        $this->__load();
+        return parent::getIs_partner();
+    }
+
+    public function setIs_partner($is_partner)
+    {
+        $this->__load();
+        return parent::setIs_partner($is_partner);
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'facebook_id', 'connexion_type', 'first_name', 'last_name', 'user_name', 'email', 'password', 'gender', 'address', 'city', 'zipcode', 'country', 'birthday', 'facebook_language', 'language', 'token', 'token_facebook', 'activated', 'deleted', 'gravatar', 'picture', 'picture_big', 'created', 'last_login', 'setting', 'messages_sent', 'messages_received', 'userbooks', 'userevents', 'friendships_as_source', 'friendships_as_target', 'invitations', 'chronicles', 'pressreviews', 'groupusers');
+        return array('__isInitialized__', 'id', 'facebook_id', 'connexion_type', 'first_name', 'last_name', 'user_name', 'email', 'password', 'gender', 'address', 'city', 'zipcode', 'country', 'birthday', 'facebook_language', 'language', 'token', 'token_facebook', 'activated', 'deleted', 'gravatar', 'picture', 'picture_big', 'created', 'last_login', 'is_partner', 'setting', 'messages_sent', 'messages_received', 'userbooks', 'userevents', 'friendships_as_source', 'friendships_as_target', 'invitations', 'chronicles', 'pressreviews', 'groupusers');
     }
 
     public function __clone()

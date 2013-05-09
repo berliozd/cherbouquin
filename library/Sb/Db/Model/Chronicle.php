@@ -2,6 +2,8 @@
 
 namespace Sb\Db\Model;
 
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\StringHelper;
 /** @Entity @Table(name="s1b_groupchronicles") */
 class Chronicle implements \Sb\Db\Model\Model {
 
@@ -50,9 +52,6 @@ class Chronicle implements \Sb\Db\Model\Model {
 
     /** @Column(type="datetime") */
     protected $creation_date;
-
-    /** @Column(type="boolean") */
-    protected $is_published = false;
 
     /** @Column(type="string", length=100) */
     protected $source;
@@ -171,14 +170,6 @@ class Chronicle implements \Sb\Db\Model\Model {
         $this->creation_date = $creation_date;
     }
 
-    public function getIs_published() {
-        return $this->is_published;
-    }
-
-    public function setIs_published($is_published) {
-        $this->is_published = $is_published;
-    }
-
     public function getSource() {
         return $this->source;
     }
@@ -261,4 +252,15 @@ class Chronicle implements \Sb\Db\Model\Model {
         return true;
     }
 
+    /**
+     * Get detail page link for chronicle
+     * @return string the detail page link
+     */
+    public function getDetailLink() {
+        if ($this->getTitle())
+            return HTTPHelper::Link("chronique/" . HTTPHelper::encodeTextForURL(StringHelper::cleanHTML($this->getTitle())) . "-" . $this->getId());
+        else
+            return HTTPHelper::Link("chronique/chronique-" . $this->getId());
+    }
+    
 }

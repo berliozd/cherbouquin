@@ -165,18 +165,6 @@ class Chronicle extends \Sb\Db\Model\Chronicle implements \Doctrine\ORM\Proxy\Pr
         return parent::setCreation_date($creation_date);
     }
 
-    public function getIs_published()
-    {
-        $this->__load();
-        return parent::getIs_published();
-    }
-
-    public function setIs_published($is_published)
-    {
-        $this->__load();
-        return parent::setIs_published($is_published);
-    }
-
     public function getSource()
     {
         $this->__load();
@@ -255,10 +243,16 @@ class Chronicle extends \Sb\Db\Model\Chronicle implements \Doctrine\ORM\Proxy\Pr
         return parent::IsValid();
     }
 
+    public function getDetailLink()
+    {
+        $this->__load();
+        return parent::getDetailLink();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'title', 'text', 'type_id', 'link_type', 'link', 'creation_date', 'is_published', 'source', 'keywords', 'is_validated', 'nb_views', 'image', 'group', 'user', 'book', 'tag');
+        return array('__isInitialized__', 'id', 'title', 'text', 'type_id', 'link_type', 'link', 'creation_date', 'source', 'keywords', 'is_validated', 'nb_views', 'image', 'group', 'user', 'book', 'tag');
     }
 
     public function __clone()

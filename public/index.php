@@ -41,7 +41,7 @@ spl_autoload_register('loadClass');
 // Démarrage de la session si besoin
 $session_id = session_id();
 if (empty($session_id))
-    session_start();
+    Zend_Session::start();
 
 // Set context
 $connecteUserId = \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getConnectedUserId();

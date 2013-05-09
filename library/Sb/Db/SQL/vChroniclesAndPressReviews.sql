@@ -2,9 +2,9 @@
 -- Update chronicles tables
 --
 
-ALTER TABLE `s1b_groupchronicles`  ADD `keywords` VARCHAR(250) NULL,  ADD `tag_id` INT(11) NULL DEFAULT NULL,  ADD `is_validated` TINYINT NOT NULL DEFAULT '0',  ADD `nb_views` INT(10) NOT NULL DEFAULT '0',  ADD `image` VARCHAR(250) NULL;
-
-
+ALTER TABLE `s1b_groupchronicles`  ADD `keywords` VARCHAR(250) NULL,  ADD `tag_id` INT(11) NULL DEFAULT NULL, ADD `nb_views` INT(10) NULL DEFAULT '0',  ADD `image` VARCHAR(250) NULL;
+ALTER TABLE `s1b_groupchronicles` CHANGE `is_published` `is_validated` TINYINT( 4 ) NOT NULL;
+ALTER TABLE `s1b_groupchronicles` CHANGE `title` `title` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ;
 
 --
 -- Structure de la table `s1b_pressreviews`
@@ -34,7 +34,7 @@ ALTER TABLE `s1b_pressreviews`  ADD `keywords` VARCHAR(250) NULL,  ADD `tag_id` 
 -- Update users table
 --
 
-ALTER TABLE `s1b_users` ADD ` is_partner` TINYINT NULL DEFAULT '0';
+ALTER TABLE `s1b_users` ADD `is_partner` TINYINT(1) NULL DEFAULT '0';
 
 
 --

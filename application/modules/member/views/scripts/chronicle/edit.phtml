@@ -1,0 +1,49 @@
+<script>
+
+    <?php $facebookMsg = __("Vous devez vous connecter sur facebook pour poster.", "s1b");?>
+    $(document).ready(function(){
+        $('#post_on_facebook-element').append('<div id="facebook-login"><?php echo $facebookMsg;?><fb:login-button show-faces="false" width="200" max-rows="1"></fb:login-button></div>');
+    });
+
+    window.fbAsyncInit = function() {
+		
+		$(document).ready(function(){
+			FB.getLoginStatus(function(response) {
+				updateFormUI(response.status);
+			}, true);
+		});
+		
+		FB.Event.subscribe('auth.statusChange', function(response) {
+			updateFormUI(response.status);
+		});
+		
+	};
+	
+	function updateFormUI(status) {
+		if (status === 'connected') {
+			// Hide connect button
+			$("#facebook-login").hide();
+			// Show and check checkbox
+			$("#post_on_facebook").show().attr('checked', true);			
+			
+		} else {
+		    $("#facebook-login").show();
+			// Hide and uncheck checkbox
+			$("#post_on_facebook").hide().attr('checked', false);
+			
+		}
+	}
+	
+</script>
+
+<div id="chronicle-form">
+    <h1>
+    <?php if ($this->form->getChronicleId()) {?>
+        <?php echo sprintf("Vous allez éditer une chronique pour le groupe \"%s\".", $this->group->getName());?>
+    <?php } else { ?>
+        <?php echo sprintf("Vous allez créer une chronique pour le groupe \"%s\".", $this->group->getName());?>
+    <?php }?>
+    </h1>
+    <?php echo $this->form?>
+    
+</div>

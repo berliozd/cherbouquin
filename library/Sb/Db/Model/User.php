@@ -117,6 +117,9 @@ class User implements \Sb\Db\Model\Model {
     /** @OneToMany(targetEntity="Invitation", mappedBy="sender", fetch="EXTRA_LAZY") */
     protected $invitations;
 
+    /** @Column(type="boolean") */
+    protected $is_partner = false;
+    
     /** 
      * @OneToMany(targetEntity="Chronicle", mappedBy="user", fetch="EXTRA_LAZY")
      * @JoinColumn(name="id", referencedColumnName="user_id")
@@ -134,6 +137,7 @@ class User implements \Sb\Db\Model\Model {
      * @JoinColumn(name="id", referencedColumnName="user_id")
      */
     protected $groupusers;
+    
     
     public function getId() {
         return $this->id;
@@ -565,7 +569,28 @@ class User implements \Sb\Db\Model\Model {
 	public function setGroupusers($groupusers) {
 		$this->groupusers = $groupusers;
 	}
+	
+	/**
+     * @return boolean $is_partner
+     */
+    public function getIs_partner() {
 
+        return $this->is_partner;
+    }
+
+
+	/**
+     * @param boolean $is_partner
+     */
+    public function setIs_partner($is_partner) {
+
+        $this->is_partner = $is_partner;
+    }
+
+
+
+	
+	
 
     
 }

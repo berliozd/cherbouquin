@@ -1,0 +1,24 @@
+<?php use Sb\Db\Model\GroupUser; ?>
+<div class="user-box">
+    <div class="">
+        <div class="ub-title-wrap">
+            <div class="ub-title">                
+                <?php _e("Créer une chronique : ", "s1b"); ?>
+            </div>
+        </div>
+        <div class="ub-content">
+
+            <div class="ubc-part">
+                <ul>                
+                <?php
+                foreach ($groupUsers as $groupUser) {
+                    /* @var $groupUser GroupUser */
+                    echo "<li><a class=\"link\" href=\"/member/chronicle/add?gid=" . $groupUser->getGroup()->getId() . "\">" . $groupUser->getGroup()->getName() . "</a></li>";
+                }
+                ?>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

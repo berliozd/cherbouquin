@@ -146,7 +146,7 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
 .bb-btvalidate {float: right;font-size: 0.7em;}
 
 /* global field style */
-.input-item {background-color: #F0EFEF; border: 1px solid #CCC; border-radius: 5px 5px 5px 5px; box-shadow: 4px 4px 7px #CCC inset; }
+.input-item, #chronicle-form .input-text, .zend_form SELECT, .zend_form TEXTAREA {background-color: #F0EFEF; border: 1px solid #CCC; border-radius: 5px 5px 5px 5px; box-shadow: 4px 4px 7px #CCC inset; }
 .textinput {padding: 5px; width: 250px;}
 .xs-textinput {padding: 5px; width: 50px;}
 .selectinput {width: 155px;}

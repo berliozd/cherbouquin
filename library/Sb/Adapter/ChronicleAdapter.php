@@ -46,10 +46,7 @@ class ChronicleAdapter {
         $pushedChronicle->setNbViews($this->chronicle->getNb_views());
 
         // Set internal detail page link
-        if ($this->chronicle->getTitle())
-            $pushedChronicle->setDetailLink("/chronique/" . HTTPHelper::encodeTextForURL(StringHelper::cleanHTML($this->chronicle->getTitle())) . "-" . $this->chronicle->getId());
-        else
-            $pushedChronicle->setDetailLink("/chronique/chronique-" . $this->chronicle->getId());
+        $pushedChronicle->setDetailLink($this->chronicle->getDetailLink());
 
         // Set Image
         if ($this->chronicle->getBook())
@@ -57,7 +54,7 @@ class ChronicleAdapter {
         else if ($this->chronicle->getImage())
             $pushedChronicle->setImage($this->chronicle->getImage());
         else if ($this->chronicle->getTag())
-            $pushedChronicle->setImage(sprintf("/public/Resources/images/tags/large/tag_%s.jpg", $this->chronicle->getTag()->getId()));
+            $pushedChronicle->setImage(sprintf(BASE_URL . "Resources/images/tags/large/tag_%s.jpg", $this->chronicle->getTag()->getId()));
 
         return $pushedChronicle;
 
