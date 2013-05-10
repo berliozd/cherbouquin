@@ -21,7 +21,7 @@ class PressReviewsSubscriberExists extends \Zend_Validate_Abstract {
         $valid = true;
         $this->_setValue($value);
         
-        $result = PressReviewsSubscriberDao::getInstance()->getByEmail($value);
+        $result = PressReviewsSubscriberDao::getInstance()->getNonDeletedPressReviewsSubscriberByEmail($value);
         if ($result) {
             $valid = false;
             $this->_error(self::PRESS_REVIEW_SUBSCRIBER_EXISTS);

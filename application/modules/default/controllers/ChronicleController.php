@@ -1,5 +1,4 @@
 <?php
-
 use Sb\Db\Dao\ChronicleDao;
 use Sb\Db\Model\Chronicle;
 use Sb\View\ChronicleDetail;
@@ -12,21 +11,20 @@ use Sb\Helpers\HTTPHelper;
 use Sb\Lists\PaginatedList;
 use Sb\View\BookReviews;
 use Sb\Db\Model\UserBook;
+use Sb\View\Components\PressReviewsSubscriptionWidget;
 
 /**
  * ChronicleController
- * 
  * @author
- * @version 
+ * @version
  */
-
 class Default_ChronicleController extends Zend_Controller_Action {
 
     public function init() {
-
+        
         // Add chronicle css to head
-        $this->view->headLink()->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
-
+        $this->view->headLink()
+            ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
     }
 
     /**
@@ -35,30 +33,31 @@ class Default_ChronicleController extends Zend_Controller_Action {
     public function indexAction() {
 
         try {
-
+            
             // Get chronicle id from request
             $chronicleId = $this->getParam("cid");
-
+            
             // Get main chronicle
             /* @var $chronicle Chronicle */
             $chronicle = ChronicleDao::getInstance()->get($chronicleId);
-
+            
             // Increment chronicle nb views
             $this->incrementChronicleNbViews($chronicle);
-
+            
             // Add main chronicle to model view
             $chronicleView = new ChronicleDetail($chronicle);
             $this->view->chronicle = $chronicleView->get();
-
+            
             // Get similar chronicles (with same tag or with similar keywords) and add it to model view
             $similarChronicles = $this->getSimilarChronicles($chronicle);
             if ($similarChronicles) {
                 $otherChoniclesSameTypeView = new OtherChroniclesSameType($similarChronicles);
                 $this->view->otherChoniclesSameType = $otherChoniclesSameTypeView->get();
             }
-
+            
             // Get same author chronicles and add it to model view
-            $authorChronicles = ChronicleSvc::getInstance()->getAuthorChronicles($chronicle->getUser()->getId());
+            $authorChronicles = ChronicleSvc::getInstance()->getAuthorChronicles($chronicle->getUser()
+                ->getId());
             if ($authorChronicles) {
                 $authorChronicles = $this->getDifferentChronicles($chronicle->getId(), $authorChronicles, 5);
                 if ($authorChronicles) {
@@ -67,34 +66,36 @@ class Default_ChronicleController extends Zend_Controller_Action {
                     $this->view->authorChroniclesView = $authorChroniclesView->get();
                 }
             }
-
+            
             // Get ad and add it to model view
             $ad = new Ad("", "");
             $this->view->ad = $ad->get();
-
+            
             // Get reviews and add it to model view
             $reviewsView = $this->getReviews($chronicle);
             if ($reviewsView)
-                $this->view->reviews = $reviewsView->get();
-
+                $this->view->reviews = $reviewsView->get(); //
+                                                                
+            // Get press reviews subscription widget and add it to view model
+            $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
+            $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
-
     }
 
     /**
-     * Get only different chronicles than the one corresponding to the id received in $currentChronicleId parameters  
+     * Get only different chronicles than the one corresponding to the id received in $currentChronicleId parameters
      * @param int $currentChronicleId the id of the current chronicle
      * @param Collection of Chronicle $chronicles the collection of current chronicle to parse
      * @param int $maxNumber the maximum number of chronicle to return
-     * @return a Collection of Chronicle that doesn't contain the main one displayed in the page 
+     * @return a Collection of Chronicle that doesn't contain the main one displayed in the page
      */
     private function getDifferentChronicles($currentChronicleId, $chronicles, $maxNumber) {
 
         $result = array();
-
+        
         foreach ($chronicles as $chronicle) {
             /* @$chronicle Chronicle */
             if ($chronicle->getId() != $currentChronicleId) {
@@ -104,46 +105,45 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 }
             }
         }
-
+        
         return $result;
     }
 
     /**
-     * Test if chronicle nb of views needs to be incremented based on the presence of the chronicle id in a cookie called chroniclesSeen 
+     * Test if chronicle nb of views needs to be incremented based on the presence of the chronicle id in a cookie called chroniclesSeen
      * @param Chronicle $chronicle
      */
     private function incrementChronicleNbViews(Chronicle $chronicle) {
 
         $cookieName = "chroniclesSeen";
         $chronicleNotSeen = false;
-
+        
         // Get cookie 'chroniclesSeen'
-        $chroniclesSeenCookie = $this->getRequest()->getCookie($cookieName);
-
+        $chroniclesSeenCookie = $this->getRequest()
+            ->getCookie($cookieName);
+        
         // Parse cookie and tell if current chronicle has been seen already
         if ($chroniclesSeenCookie) {
-
+            
             $chroniclesSeen = explode(",", $chroniclesSeenCookie);
             if (!in_array($chronicle->getId(), $chroniclesSeen)) {
-
+                
                 $chroniclesSeen[] = $chronicle->getId();
                 $cookieValue = implode(",", $chroniclesSeen);
-
+                
                 // Set cookie
                 $this->setChronicleSeenCookie($cookieName, $cookieValue);
-
+                
                 // Increment chronicle nb views
                 $this->incrementChronicleInDB($chronicle);
-
             }
         } else {
-
+            
             // Set cookie
             $this->setChronicleSeenCookie($cookieName, $chronicle->getId());
-
+            
             // Increment chronicle nb views
             $this->incrementChronicleInDB($chronicle);
-
         }
     }
 
@@ -153,8 +153,9 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @param String $cookieValue
      */
     private function setChronicleSeenCookie($cookieName, $cookieValue) {
-        $this->getResponse()->setRawHeader(new Zend_Http_Header_SetCookie($cookieName, $cookieValue, time() + 3600 * 24, '/',
-            HTTPHelper::getHostBase(), false, true));
+
+        $this->getResponse()
+            ->setRawHeader(new Zend_Http_Header_SetCookie($cookieName, $cookieValue, time() + 3600 * 24, '/', HTTPHelper::getHostBase(), false, true));
     }
 
     /**
@@ -162,6 +163,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @param Chronicle $chronicle
      */
     private function incrementChronicleInDB(Chronicle $chronicle) {
+
         $chronicle->setNb_views($chronicle->getNb_views() + 1);
         ChronicleDao::getInstance()->update($chronicle);
     }
@@ -174,34 +176,34 @@ class Default_ChronicleController extends Zend_Controller_Action {
     private function getSimilarChronicles(Chronicle $chronicle) {
 
         $nbOfSimilarChronicles = 3;
-
+        
         // Get the chronicles with same tag
         $similarChronicles = array();
         if ($chronicle->getTag()) {
-            $chroniclesWithTag = ChronicleSvc::getInstance()->getChroniclesWithTag($chronicle->getTag()->getId(), $nbOfSimilarChronicles);
+            $chroniclesWithTag = ChronicleSvc::getInstance()->getChroniclesWithTag($chronicle->getTag()
+                ->getId(), $nbOfSimilarChronicles);
             $chroniclesWithTag = $this->getDifferentChronicles($chronicle->getId(), $chroniclesWithTag, $nbOfSimilarChronicles);
             $similarChronicles = $chroniclesWithTag;
         }
-
+        
         // If there's not enough chronicles (or 0) with same tag and if current chronicle has some keywords :
         // we search for schronicle with same keywords
         if ((!$similarChronicles || count($similarChronicles) < $nbOfSimilarChronicles) && $chronicle->getKeywords()) {
-
+            
             $chroniclesWithKeywords = ChronicleSvc::getInstance()->getChroniclesWithKeywords(explode(",", $chronicle->getKeywords()), $nbOfSimilarChronicles);
-
+            
             if ($chroniclesWithKeywords) {
                 // If no chronicles with same tag, we just add the one we just get with same keywords
                 if (!$similarChronicles) {
-                
+                    
                     $similarChronicles = $chroniclesWithKeywords;
                     $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
-                
                 } else {
-                
+                    
                     $filteredChroniclesWithKeywords = array();
                     // Loop all chronicles found with keywords and remove the one already found with same tag
                     foreach ($chroniclesWithKeywords as $chronicleWithKeyword) {
-                
+                        
                         $add = true;
                         foreach ($similarChronicles as $similarChronicle) {
                             if ($similarChronicle->getId() == $chronicleWithKeyword->getId()) {
@@ -213,14 +215,12 @@ class Default_ChronicleController extends Zend_Controller_Action {
                             $filteredChroniclesWithKeywords[] = $chronicleWithKeyword;
                     }
                     $filteredChroniclesWithKeywords = $this->getDifferentChronicles($chronicle->getId(), $filteredChroniclesWithKeywords, $nbOfSimilarChronicles);
-                
+                    
                     // Merge the chronicles found with tag and the one found with keywords
                     $similarChronicles = array_merge($similarChronicles, $filteredChroniclesWithKeywords);
                     $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
                 }
-                
             }
-                    
         }
         return $similarChronicles;
     }
@@ -228,33 +228,39 @@ class Default_ChronicleController extends Zend_Controller_Action {
     /**
      * Get a reviews view object representing a paginated list of reviews for the current book
      * @param Chronicle $chronicle the current chronicle to get the book and the reviews from
-     * @return \Sb\View\BookReviews|NULL a BookReviews object or NULL 
+     * @return \Sb\View\BookReviews NULL BookReviews object or NULL
      */
     private function getReviews(Chronicle $chronicle) {
+
         if ($chronicle->getBook()) {
-
+            
             // book reviews
-            $userBooks = $chronicle->getBook()->getNotDeletedUserBooks();
+            $userBooks = $chronicle->getBook()
+                ->getNotDeletedUserBooks();
             $reviewedUserBooks = array_filter($userBooks, array(
-                &$this, "isReviewd"
+                    &$this,
+                    "isReviewd"
             ));
-
+            
             $reviews = "";
             if ($reviewedUserBooks) {
-
+                
                 $paginatedList = new PaginatedList($reviewedUserBooks, 5);
-                $reviewsView = new BookReviews($paginatedList, $chronicle->getBook()->getId());
-
+                $reviewsView = new BookReviews($paginatedList, $chronicle->getBook()
+                    ->getId());
+                
                 return $reviewsView;
             }
         }
-
+        
         return null;
     }
 
     private function isReviewd(UserBook $userBook) {
+
         if ($userBook->getReview()) {
             return true;
         }
     }
+
 }

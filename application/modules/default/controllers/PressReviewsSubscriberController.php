@@ -28,7 +28,6 @@ class Default_PressReviewsSubscriberController extends \Zend_Controller_Action {
             
             // Check the form validity
             $form = new PressReviewsSusbcriptionForm();
-            
             if (!$form->isValid($_POST)) {
                 
                 // Walk through all errors to set the error flash messages
@@ -45,13 +44,26 @@ class Default_PressReviewsSubscriberController extends \Zend_Controller_Action {
                 }
             } else {
                 
-                // Add press reviews subscriber to database
-                $pressReviewsSubscribers = new PressReviewsSubscriber();
-                $pressReviewsSubscribers->setEmail($form->getEmail());
-                PressReviewsSubscriberDao::getInstance()->add($pressReviewsSubscribers);
-                
-                // Set success flash message
-                Flash::addItem(__("Votre abonnement a bien été pris en compte.", "s1b"));
+                // Try to get an existing PressReviewsSubscriber
+                /* @var $existingPressReviewSubscriber PressReviewsSubscriber */
+                $existingPressReviewSubscriber = PressReviewsSubscriberDao::getInstance()->getByEmail($form->getEmail());
+                if ($existingPressReviewSubscriber) {
+                    
+                    // Update press reviews subscriber (reactivation)
+                    $existingPressReviewSubscriber->setIs_deleted(false);
+                    PressReviewsSubscriberDao::getInstance()->update($existingPressReviewSubscriber);
+                    
+                    // Set success flash message
+                    Flash::addItem(__("Votre abonnement a été réactivé.", "s1b"));
+                } else {
+                    // Add press reviews subscriber to database
+                    $pressReviewsSubscribers = new PressReviewsSubscriber();
+                    $pressReviewsSubscribers->setEmail($form->getEmail());
+                    PressReviewsSubscriberDao::getInstance()->add($pressReviewsSubscribers);
+                    
+                    // Set success flash message
+                    Flash::addItem(__("Votre abonnement a bien été pris en compte.", "s1b"));
+                }
             }
             
             HTTPHelper::redirectToReferer();
