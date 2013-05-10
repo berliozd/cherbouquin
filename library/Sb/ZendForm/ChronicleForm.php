@@ -8,8 +8,7 @@ use Sb\Entity\ChronicleLinkType;
 use Sb\Db\Service\TagSvc;
 use Sb\Db\Model\Tag;
 use Sb\Db\Model\Chronicle;
-use Sb\ZendValidator\Zend_Validate_BookExists;
-use Sb\ZendFormElement\PlainTextElement;
+use Sb\ZendValidator\BookExists;
 
 /**
  *
@@ -170,7 +169,7 @@ class ChronicleForm extends \Zend_Form {
         // Book Id element
         $bookIdElement = new \Zend_Form_Element_Text("book_id");
         $bookIdElement->setLabel(__("Attacher un livre", "s1b"))
-            ->addValidator(new Zend_Validate_BookExists())
+            ->addValidator(new BookExists())
             ->addValidator("int", false, array(
                 "messages" => array(
                         \Zend_Validate_Int::NOT_INT => __("L'identifiant du livre doit être un chiffre", "s1b")

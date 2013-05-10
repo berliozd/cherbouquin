@@ -18,6 +18,7 @@ use Sb\View\Components\Ad;
 use Sb\View\Components\TwitterWidget;
 use Sb\View\Components\FacebookFrame;
 use Sb\View\Components\CreateChroniclesLinks;
+use Sb\Trace\Trace;
 
 
 class Member_IndexController extends Zend_Controller_Action {

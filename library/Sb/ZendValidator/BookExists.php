@@ -9,7 +9,7 @@ use Sb\Db\Dao\BookDao;
  * @author Didier
  *
  */
-class Zend_Validate_BookExists extends \Zend_Validate_Abstract {
+class BookExists extends \Zend_Validate_Abstract {
 
     const BOOK_NO_EXISTS = "BOOK_NO_EXISTS";
 

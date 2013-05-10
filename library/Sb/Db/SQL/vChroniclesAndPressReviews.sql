@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS `s1b_pressreviews` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 --
 -- Update press reviews table
 --
@@ -85,5 +84,6 @@ PRIMARY KEY ( `id` )
 CREATE TABLE `s1b_pressreviews_subscribers` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `email` VARCHAR( 100 ) NOT NULL ,
+`is_deleted` TINYINT( 1 ) NOT NULL DEFAULT '0',
 PRIMARY KEY ( `id` )
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;

@@ -8,7 +8,7 @@ $(function() {
 });
 
 function ajaxInit() {
-    for (i = 0; i <= toInit.length; i++) {
+    for ( var i = 0; i <= toInit.length; i++) {
         eval(toInit[i]);
     }
 }
@@ -23,6 +23,7 @@ toInit.push("attachRegistrationFormEvents()");
 toInit.push("attachFriendSearchEvents()");
 toInit.push("attachLoginEvents()");
 toInit.push("attachAddUserBook()");
+toInit.push("attachPressReviewFormClearingAndRestore()");
 
 /* Hide the flahes messages when clicking anywhere */
 function attachFlashHiding() {
@@ -70,6 +71,11 @@ function attachAddUserBook() {
     });
 }
 
+/* Add clear and restore behavior on press review subscription form */
+function attachPressReviewFormClearingAndRestore() {
+    _attachInputClearingAndRestore("pressReviewFormEmailDefaultLabel", "#press-reviews-subscription-form #email");
+}
+
 /* ======================================================================= */
 /* ====================== private function =============================== */
 /* ======================================================================= */
@@ -93,9 +99,10 @@ function _doAjax(event, container, action, paramValue) {
     $("#loading").show();
 
     /**
-     * TEMPORARY : friendlibValue is used only for displaying library
-     * This won't be usefull anymore when library will be moved to its proper Zend controller
-     * For example library.isFriendLibrary is not available for review pagination on book page or chronicle page
+     * TEMPORARY : friendlibValue is used only for displaying library This won't
+     * be usefull anymore when library will be moved to its proper Zend
+     * controller For example library.isFriendLibrary is not available for
+     * review pagination on book page or chronicle page
      */
     var friendlibValue = 0;
     if (typeof library != "undefined")
@@ -141,12 +148,10 @@ function _getValue(sender, classe) {
 }
 
 function _addUserBook(sender) {
-    $("#loading #loadingMsg").html("Ajout en cours ..."); // affiche le masque
-    // de loading
-    // "chargement en
-    // cours..."
-    $("#loading").show(); // affiche le masque de loading "chargement en
-    // cours..."
+    // affiche le masque de loading "chargement en cours..."
+    $("#loading #loadingMsg").html("Ajout en cours ...");
+    // affiche le masque de loading "chargement en cours..."
+    $("#loading").show();
     $.ajax({
         type : "POST",
         url : share1BookAjax.url + "userbook/add/format/html",

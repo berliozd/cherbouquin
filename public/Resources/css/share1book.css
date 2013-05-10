@@ -822,3 +822,14 @@ TD.mb-col-state{color:#f56903;}
 
 /* Last rated books - homepage */
 .last-rated-books .pb-title {font-size: 1.1em; font-weight: bold; margin:10px 0 5px;}
+
+/* press reviews subscription widget */
+#press-reviews-subscription-form {padding: 10px 10px 10px 90px; float:left; background: url("../images/sprite.png?v=5") no-repeat scroll 3px -2200px #1E1E1E;}
+#prsf-title {color:#239CD3; font-size:1.3em; font-weight: bold;}
+#prsf-subtitle {color:#FFF; font-size:1.2em; text-align: justify; margin-bottom: 5px;}
+#prsf-form {}
+#press-reviews-subscription-form #subscribe {color:#FFF; text-transform: uppercase;}
+#press-reviews-subscription-form DL {margin:0px;}
+.prsf-text, .prsf-button {float:left;}
+.prsf-text {margin-right:3px;}
+#press-reviews-subscription-form .input-item {width:107px; height:24px;}

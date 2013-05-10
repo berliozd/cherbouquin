@@ -69,6 +69,18 @@ class PressReviewsSubscriber extends \Sb\Db\Model\PressReviewsSubscriber impleme
         return parent::setEmail($email);
     }
 
+    public function getIs_deleted()
+    {
+        $this->__load();
+        return parent::getIs_deleted();
+    }
+
+    public function setIs_deleted($is_deleted)
+    {
+        $this->__load();
+        return parent::setIs_deleted($is_deleted);
+    }
+
     public function IsValid()
     {
         $this->__load();
@@ -78,7 +90,7 @@ class PressReviewsSubscriber extends \Sb\Db\Model\PressReviewsSubscriber impleme
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'email');
+        return array('__isInitialized__', 'id', 'email', 'is_deleted');
     }
 
     public function __clone()
