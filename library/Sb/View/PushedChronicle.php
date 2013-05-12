@@ -24,7 +24,7 @@ class PushedChronicle extends \Sb\View\AbstractView {
         $tpl = new Template("pushedChronicle");
 
         $chronicleAdpater = new ChronicleAdapter($this->chronicle);
-        $tpl->setVariables(array("chronicle" => $chronicleAdpater->getAsChronicleDetailViewModel($this->defImg)));
+        $tpl->setVariables(array("chronicle" => $chronicleAdpater->getAsChronicleViewModel()));
 
         return $tpl->output();
     }

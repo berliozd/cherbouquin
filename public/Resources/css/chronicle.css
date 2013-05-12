@@ -20,7 +20,7 @@
     list-style: none outside none;
 }
 
-#other-chronicles LI A {
+#other-chronicles LI A, .cl-other-chronicles LI A {
     color: #707070;
     text-decoration: none;
     margin-top: 2px;
@@ -85,4 +85,59 @@
 
 #chronicle-detail .bv-reviews {
     margin-top: 10px;
+}
+
+/* ----------------------- */
+/* ---- Chronicle List --- */
+/* ----------------------- */
+
+#chronicles-list {
+}
+
+#chronicles-list UL {
+    list-style: none outside none;
+    padding: 0;
+    margin:0;
+}
+
+#chronicles-list LI.cl-item {
+    border-bottom: 1px solid #DEDFDF;
+    float: left;
+    margin-bottom: 7px;
+    padding-bottom: 8px;
+    width: 100%;
+}
+
+#chronicles-list .cl-left {
+    float: left;
+    width: 20%;
+}
+
+#chronicles-list .cl-right {
+    float: left;
+    width: 80%;
+}
+
+#chronicles-list .cl-user {
+    margin-bottom: 15px;
+}
+
+#chronicles-list .cl-text {
+    word-wrap: break-word;
+    margin-bottom: 15px;
+}
+
+#chronicles-list H2 {
+    margin: 0;
+}
+#chronicles-list H2 A {
+    text-decoration: none;
+}
+
+#chronicles-list .cl-other-chronicles {
+    font-size: 1.2em;
+}
+
+.cloc-title {
+    margin-bottom:5px;
 }

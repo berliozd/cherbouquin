@@ -34,8 +34,6 @@ abstract class AbstractDao {
      */
     public function get($id) {
         $result = $this->entityManager->find($this->entityName, $id);
-//        $q = $this->entityManager->createQuery("select o from " . $this->entityName . " o where o.id = " . $id);
-//        $result = $q->getOneOrNullResult();
         return $result;
     }
 

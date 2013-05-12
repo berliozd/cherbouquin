@@ -14,7 +14,6 @@ use Sb\Db\Dao\BookDao;
 use Sb\Trace\Trace;
 use Sb\Entity\Constants;
 use Sb\Facebook\Service\FacebookSvc;
-use Sb\Helpers\StringHelper;
 use Sb\Adapter\ChronicleAdapter;
 
 /**
@@ -289,7 +288,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
             $facebookSvc = new FacebookSvc($globalConfig->getFacebookApiId(), $globalConfig->getFacebookSecret(), "", "");
             // Set facebook posts variables using a ChronicleAdapter and a PushedChronicle
             $chronicleAdapter = new ChronicleAdapter($chronicle);
-            $pushedChronicle = $chronicleAdapter->getAsPushedChronicleViewModel();
+            $pushedChronicle = $chronicleAdapter->getAsChronicleViewModelLight();
             $facebookMessage = $pushedChronicle->getTitle();
             $facebookTitle = sprintf(__("%s vient de poster une chronique sur%s", "s1b"), $globalContext->getConnectedUser()->getFirstName(), Constants::SITENAME);
             $facebookCaption = $pushedChronicle->getDescription();

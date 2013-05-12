@@ -1,0 +1,64 @@
+<?php
+use Sb\Model\ChronicleViewModel;
+use Sb\Db\Model\Chronicle; 
+use Sb\Helpers\BookHelper;
+?>
+
+<div id="chronicles-list">
+    <div id="content-center">
+        <ul>
+        <?php
+        foreach ($this->chronicleDetailViewModelList as $chronicleViewModel) {
+            /* @var $chronicleViewModel ChronicleViewModel */ ?>
+            <li class="cl-item">
+                <div class="cl-left">
+                <?php if ($chronicleViewModel->getChronicleHasBook()) { ?>
+                    <a href="<?php echo $chronicleViewModel->getDetailLink();?>"><?php echo BookHelper::getMediumImageTag($chronicleViewModel->getBook(), BookHelper::getDefaultImage()); ?></a>
+                <?php } else {
+                    echo "&nbsp;";
+                }?>
+                </div >
+                <div class="cl-right">
+                    <h2><a href="<?php echo $chronicleViewModel->getDetailLink();?>" class="link"><?php echo $chronicleViewModel->getTitle();?></a></h2>
+                    <div class="cl-user"><?php echo sprintf(__("<a href=\"%s\" class=\"link\">%s</a> le %s", "s1b"), $chronicleViewModel->getUserProfileLink(), $chronicleViewModel->getUserName(), $chronicleViewModel->getCreationDate()->format("d/m/Y H:i:s")); ?></div>
+                    <div class="cl-text">
+                        <?php echo $chronicleViewModel->getShortenText(); ?>
+                        <br/>
+                        <?php echo sprintf(__("<a href=\"%s\" class=\"link\">Lire la suite</a>", "s1b"), $chronicleViewModel->getDetailLink());?>
+                    </div>                    
+                    <?php if ($chronicleViewModel->getSimilarChronicles()) {?>
+                    <div class="cl-other-chronicles">
+                        <div class="cloc-title"><?php _e("Autres articles sur un sujet similaire","s1b");?></div>
+                        <ul>
+                            <?php 
+                            /* @var $similarChronicle ChronicleViewModel */
+                            foreach ($chronicleViewModel->getSimilarChronicles() as $similarChronicle) {?>
+                                <li><?php echo sprintf(__("<a href=\"%s\">%s</a>","s1b"), $similarChronicle->getDetailLink(), $similarChronicle->getTitle());?></li>
+                            <?php }?>
+                        </ul>
+                    </div>
+                    <?php }?>
+                </div>                
+            </li>
+        <?php } ?>
+        </ul>
+        <div class="navigation">
+            <div class="nav-links">
+                <?php echo $this->navigationBar; ?>
+            </div>
+        </div>
+    </div>
+    <div id="content-right">
+
+        <div class="right-frame">
+            <?php echo $this->ad; ?>
+        </div>
+        <div class="right-frame">
+            <?php echo $this->pressReviewsSubscriptionWidget; ?>
+        </div>
+        <div class="right-frame">
+            <?php echo $this->authorChroniclesView; ?>
+        </div>
+
+    </div>
+</div>

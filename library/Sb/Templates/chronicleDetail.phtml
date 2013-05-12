@@ -1,3 +1,4 @@
+<?php use Sb\Helpers\BookHelper; ?>
 <div id="chronicle">
     <div class="inner-padding-20">
         <div class="chr-top">
@@ -9,7 +10,7 @@
             </div>
             <div class="chr-right">
                 <div class="chr-username">
-                    <?php echo sprintf(__("<a class=\"link\" href=\"%s\">%s</a> le %s | %s", "s1b"), $chronicle->getUserProfileLink(), $chronicle->getUserName(), $chronicle->getCreationDate(), $chronicle->getTypeLabel());
+                    <?php echo sprintf(__("<a class=\"link\" href=\"%s\">%s</a> le %s | %s", "s1b"), $chronicle->getUserProfileLink(), $chronicle->getUserName(), $chronicle->getCreationDate()->format(__("d/m/Y", "s1b")), $chronicle->getTypeLabel());
                     ?>
                 </div>
                 <?php echo $socialNetworksBar; ?>
@@ -22,8 +23,8 @@
             <div class="chr-left">
                 <?php if ($chronicle->getChronicleHasBook()) { ?>
                 <div class="chr-bookimage">
-                    <a title="<?php echo $chronicle->getBookTitle(); ?> - <?php echo $chronicle->getBookAuthors(); ?>"
-                        href="<?php echo $chronicle->getBookLink(); ?>"><?php echo $chronicle->getBookImage(); ?></a>
+                    <a title="<?php echo $chronicle->getBook()->getTitle(); ?> - <?php echo $chronicle->getBook()->getOrderableContributors(); ?>"
+                        href="<?php echo $chronicle->getBook()->getLink(); ?>"><?php echo BookHelper::getMediumImageTag($chronicle->getBook(), BookHelper::getDefaultImage()); ?></a>
                 </div>
                 <?php } ?>
             </div>

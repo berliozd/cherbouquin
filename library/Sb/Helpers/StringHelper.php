@@ -31,11 +31,11 @@ class StringHelper {
         return $text;
     }
 
-    /**
+    /** 
      * Return a string cleaned from HTML and double quote
-     * @param String $string
-     * @param Boolean $removeDoubleQuote
-     * @return String
+     * @param String $string the string to clean from HTML
+     * @param Boolean $removeDoubleQuote tell if double quote must removed
+     * @return String the string cleaned from HTML
      */
     public static function cleanHTML($string, $removeDoubleQuote = true) {
         $res = strip_tags($string);

@@ -1,3 +1,5 @@
+<?php use Sb\Helpers\BookHelper; 
+?>
 <div class="chronicle">
     <div class="inner-padding-20">
         <div class="chr-top">
@@ -24,8 +26,8 @@
             <div class="chr-left">
                 <?php if ($chronicle->getChronicleHasBook()) { ?>
                 <div class="chr-bookimage">
-                    <a title="<?php echo $chronicle->getBookTitle(); ?> - <?php echo $chronicle->getBookAuthors(); ?>"
-                        href="<?php echo $chronicle->getBookLink(); ?>"><?php echo $chronicle->getBookImage(); ?></a>
+                    <a title="<?php echo $chronicle->getBook()->getTitle(); ?> - <?php echo $chronicle->getBook()->getOrderableContributors(); ?>"
+                        href="<?php echo $chronicle->getBook()->getLink(); ?>"><?php echo BookHelper::getMediumImageTag($chronicle->getBook(), BookHelper::getDefaultImage()); ?></a>
                 </div>
                 <?php } ?>
             </div>

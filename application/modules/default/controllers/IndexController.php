@@ -129,7 +129,7 @@ class Default_IndexController extends Zend_Controller_Action {
         // Getting chronicles
         $anyGroupTypesChronicles = ChronicleSvc::getInstance()->getLastChroniclesOfAnyType();
         $bloggersChronicles = ChronicleSvc::getInstance()->getLastBloggersChronicles();
-        $bookstoresChronicles = ChronicleSvc::getInstance()->getLastBookStoresOfAnyType();
+        $bookstoresChronicles = ChronicleSvc::getInstance()->getLastBookStoresChronicles();
         
         // Init chronicle view model adapter
         $chronicleListAdapter = new ChronicleListAdapter();
@@ -165,7 +165,7 @@ class Default_IndexController extends Zend_Controller_Action {
     private function getChronicleView(ChronicleListAdapter $chronicleListAdapter, $chronicles, $title, $typeCSS) {
         // Getting list of view model
         $chronicleListAdapter->setChronicles($chronicles);
-        $anyGroupTypeChronicesAsViewModel = $chronicleListAdapter->getAsPushedChronicleViewModelList();
+        $anyGroupTypeChronicesAsViewModel = $chronicleListAdapter->getAsChronicleViewModelLightList();
         // Get chronicles view
         $chroniclesView = new PushedChronicles($title, $anyGroupTypeChronicesAsViewModel, $typeCSS);
         return $chroniclesView->get();

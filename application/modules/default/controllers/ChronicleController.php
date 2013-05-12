@@ -12,6 +12,8 @@ use Sb\Lists\PaginatedList;
 use Sb\View\BookReviews;
 use Sb\Db\Model\UserBook;
 use Sb\View\Components\PressReviewsSubscriptionWidget;
+use Sb\Adapter\ChronicleListAdapter;
+use Sb\Adapter\ChronicleAdapter;
 
 /**
  * ChronicleController
@@ -44,41 +46,36 @@ class Default_ChronicleController extends Zend_Controller_Action {
             // Increment chronicle nb views
             $this->incrementChronicleNbViews($chronicle);
             
-            // Add main chronicle to model view
-            $chronicleView = new ChronicleDetail($chronicle);
+            $chronicleAdapter = new ChronicleAdapter($chronicle);
+            // Get the ChronicleViewModel with maximum 3 similar chronicles, and maximum 5 same author chronicles
+            $chronicleViewModel = $chronicleAdapter->getAsChronicleViewModel(3, 5);
+            
+            // Add main chronicle view model to model view
+            $chronicleView = new ChronicleDetail($chronicleViewModel);
             $this->view->chronicle = $chronicleView->get();
             
             // Get similar chronicles (with same tag or with similar keywords) and add it to model view
-            $similarChronicles = $this->getSimilarChronicles($chronicle);
-            if ($similarChronicles) {
+            $similarChronicles = $chronicleViewModel->getSimilarChronicles();
+            if ($similarChronicles && count($similarChronicles) > 0) {
                 $otherChoniclesSameTypeView = new OtherChroniclesSameType($similarChronicles);
                 $this->view->otherChoniclesSameType = $otherChoniclesSameTypeView->get();
             }
             
             // Get same author chronicles and add it to model view
-            $authorChronicles = ChronicleSvc::getInstance()->getAuthorChronicles($chronicle->getUser()
-                ->getId());
+            $authorChronicles = $chronicleViewModel->getSameAuthorChronicles();
             if ($authorChronicles) {
-                $authorChronicles = $this->getDifferentChronicles($chronicle->getId(), $authorChronicles, 5);
-                if ($authorChronicles) {
-                    $authorChroniclesView = new OtherChroniclesSameAuthor($authorChronicles);
-                    // Add author chronicles to model
-                    $this->view->authorChroniclesView = $authorChroniclesView->get();
-                }
+                $authorChroniclesView = new OtherChroniclesSameAuthor($authorChronicles);
+                // Add author chronicles to model
+                $this->view->authorChroniclesView = $authorChroniclesView->get();
             }
             
-            // Get ad and add it to model view
-            $ad = new Ad("", "");
-            $this->view->ad = $ad->get();
+            // Add common items to model view
+            $this->addCommonItemsToModelView();
             
             // Get reviews and add it to model view
             $reviewsView = $this->getReviews($chronicle);
             if ($reviewsView)
                 $this->view->reviews = $reviewsView->get(); //
-                                                                
-            // Get press reviews subscription widget and add it to view model
-            $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
-            $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
@@ -86,27 +83,38 @@ class Default_ChronicleController extends Zend_Controller_Action {
     }
 
     /**
-     * Get only different chronicles than the one corresponding to the id received in $currentChronicleId parameters
-     * @param int $currentChronicleId the id of the current chronicle
-     * @param Collection of Chronicle $chronicles the collection of current chronicle to parse
-     * @param int $maxNumber the maximum number of chronicle to return
-     * @return a Collection of Chronicle that doesn't contain the main one displayed in the page
+     * Action for chronicles list pages
      */
-    private function getDifferentChronicles($currentChronicleId, $chronicles, $maxNumber) {
+    public function listAction() {
 
-        $result = array();
-        
-        foreach ($chronicles as $chronicle) {
-            /* @$chronicle Chronicle */
-            if ($chronicle->getId() != $currentChronicleId) {
-                $result[] = $chronicle;
-                if (count($result) >= $maxNumber) {
-                    return $result;
-                }
-            }
+        try {
+            
+            $navigationParamName = "pagenumber";
+            
+            $pageNumber = $this->getParam($navigationParamName, 1);
+            
+            // Get 100 last chronicles
+            $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, null);
+            
+            $chroniclesPaginated = new PaginatedList($chronicles, 5, $navigationParamName, $pageNumber);
+            $chroniclesPage = $chroniclesPaginated->getItems();
+            
+            $chroniclesAdapter = new ChronicleListAdapter();
+            $chroniclesAdapter->setChronicles($chroniclesPage);
+            $chronicleDetailViewModelList = $chroniclesAdapter->getAsChronicleViewModelList(2);
+            
+            // Add chronicleDetailViewModel list to model view
+            $this->view->chronicleDetailViewModelList = $chronicleDetailViewModelList;
+            
+            // Add navigation bar to view model
+            $this->view->navigationBar = $chroniclesPaginated->getNavigationBar();
+            
+            // Add common items to model view
+            $this->addCommonItemsToModelView();
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
         }
-        
-        return $result;
     }
 
     /**
@@ -169,63 +177,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
     }
 
     /**
-     * Get 3 similar chronicles for current chronicle : with same tag or same keywords
-     * @param Chronicle $chronicle the current chronicle
-     * @return Collection of chronicle
-     */
-    private function getSimilarChronicles(Chronicle $chronicle) {
-
-        $nbOfSimilarChronicles = 3;
-        
-        // Get the chronicles with same tag
-        $similarChronicles = array();
-        if ($chronicle->getTag()) {
-            $chroniclesWithTag = ChronicleSvc::getInstance()->getChroniclesWithTag($chronicle->getTag()
-                ->getId(), $nbOfSimilarChronicles);
-            $chroniclesWithTag = $this->getDifferentChronicles($chronicle->getId(), $chroniclesWithTag, $nbOfSimilarChronicles);
-            $similarChronicles = $chroniclesWithTag;
-        }
-        
-        // If there's not enough chronicles (or 0) with same tag and if current chronicle has some keywords :
-        // we search for schronicle with same keywords
-        if ((!$similarChronicles || count($similarChronicles) < $nbOfSimilarChronicles) && $chronicle->getKeywords()) {
-            
-            $chroniclesWithKeywords = ChronicleSvc::getInstance()->getChroniclesWithKeywords(explode(",", $chronicle->getKeywords()), $nbOfSimilarChronicles);
-            
-            if ($chroniclesWithKeywords) {
-                // If no chronicles with same tag, we just add the one we just get with same keywords
-                if (!$similarChronicles) {
-                    
-                    $similarChronicles = $chroniclesWithKeywords;
-                    $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
-                } else {
-                    
-                    $filteredChroniclesWithKeywords = array();
-                    // Loop all chronicles found with keywords and remove the one already found with same tag
-                    foreach ($chroniclesWithKeywords as $chronicleWithKeyword) {
-                        
-                        $add = true;
-                        foreach ($similarChronicles as $similarChronicle) {
-                            if ($similarChronicle->getId() == $chronicleWithKeyword->getId()) {
-                                $add = false;
-                                break;
-                            }
-                        }
-                        if ($add)
-                            $filteredChroniclesWithKeywords[] = $chronicleWithKeyword;
-                    }
-                    $filteredChroniclesWithKeywords = $this->getDifferentChronicles($chronicle->getId(), $filteredChroniclesWithKeywords, $nbOfSimilarChronicles);
-                    
-                    // Merge the chronicles found with tag and the one found with keywords
-                    $similarChronicles = array_merge($similarChronicles, $filteredChroniclesWithKeywords);
-                    $similarChronicles = $this->getDifferentChronicles($chronicle->getId(), $similarChronicles, $nbOfSimilarChronicles);
-                }
-            }
-        }
-        return $similarChronicles;
-    }
-
-    /**
      * Get a reviews view object representing a paginated list of reviews for the current book
      * @param Chronicle $chronicle the current chronicle to get the book and the reviews from
      * @return \Sb\View\BookReviews NULL BookReviews object or NULL
@@ -261,6 +212,20 @@ class Default_ChronicleController extends Zend_Controller_Action {
         if ($userBook->getReview()) {
             return true;
         }
+    }
+
+    /**
+     * Add common items to all actions in model view
+     */
+    private function addCommonItemsToModelView() {
+        
+        // Get ad and add it to model view
+        $ad = new Ad("", "");
+        $this->view->ad = $ad->get();
+        
+        // Get press reviews subscription widget and add it to view model
+        $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
+        $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
     }
 
 }

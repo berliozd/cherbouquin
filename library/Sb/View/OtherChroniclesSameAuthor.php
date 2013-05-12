@@ -22,12 +22,8 @@ class OtherChroniclesSameAuthor extends \Sb\View\AbstractView {
 
         $tpl = new Template("otherChroniclesSameAuthor");
 
-        // Set Adapter
-        $chronicleListAdpater = new ChronicleListAdapter();
-        $chronicleListAdpater->setChronicles($this->chronicles);
-
         $tpl->setVariables(array(
-                "chronicles" => $chronicleListAdpater->getAsPushedChronicleViewModelList(),
+                "chronicles" => $this->chronicles,
                 "title" => __("<strong>Chroniques</strong> du même auteur", "s1b")
         ));
 

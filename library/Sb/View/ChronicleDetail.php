@@ -3,21 +3,21 @@
 namespace Sb\View;
 
 use Sb\Templates\Template;
-use Sb\Db\Model\Chronicle;
-use Sb\Adapter\ChronicleAdapter;
+use Sb\Model\ChronicleViewModel;
+use Sb\View\SocialNetworksBar;
 
 /**
  *
  * @author Didier
  */
-class ChronicleDetail extends \Sb\View\AbstractView {
+class ChronicleDetail extends AbstractView {
 
-    private $chronicle;
+    private $chronicleViewModel;
 
-    function __construct(Chronicle $chronicle = null) {
+    function __construct(ChronicleViewModel $chronicleViewModel = null) {
 
         parent::__construct();
-        $this->chronicle = $chronicle;
+        $this->chronicleViewModel = $chronicleViewModel;
     
     }
 
@@ -25,18 +25,15 @@ class ChronicleDetail extends \Sb\View\AbstractView {
 
         $tpl = new Template("chronicleDetail");
         
-        // Get chronicle adaptater
-        $chronicleAdpater = new ChronicleAdapter($this->chronicle);
-        
         // Get Social networks bar
         $imageUrlToPin = null;
-        $textToPin = $this->chronicle->getTitle();
-        if ($this->chronicle->getBook())
-            $imageUrlToPin = $this->chronicle->getBook()->getLargeImageUrl();
+        $textToPin = $this->chronicleViewModel->getTitle();
+        if ($this->chronicleViewModel->getChronicleHasBook())
+            $imageUrlToPin = $this->chronicleViewModel->getBook()->getLargeImageUrl();
         $socialNetworksBar = new SocialNetworksBar($imageUrlToPin, $textToPin);
         
         $tpl->setVariables(array (
-                "chronicle" => $chronicleAdpater->getAsChronicleDetailViewModel($this->defImg),
+                "chronicle" => $this->chronicleViewModel,
                 "socialNetworksBar" => $socialNetworksBar->get() 
         ));
         
