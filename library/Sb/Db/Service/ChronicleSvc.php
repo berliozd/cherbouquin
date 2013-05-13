@@ -45,7 +45,7 @@ class ChronicleSvc extends Service {
 
     public function getLastChroniclesOfAnyType() {
         
-        // When getting any group typess chronicle, we don't want bloggers and book stores chronicles
+        // When getting any group types chronicles, we don't want bloggers and book stores chronicles
         $excludeGroupTypes = GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE;
         return $this->getLastChronicles(4, null, $excludeGroupTypes);
     }
@@ -60,7 +60,7 @@ class ChronicleSvc extends Service {
         return $this->getLastChronicles(3, GroupTypes::BLOGGER);
     }
 
-    public function getLastChronicles($nbOfItems, $groupType, $excludeGroupTypes = null) {
+    public function getLastChronicles($nbOfItems, $groupType = null, $excludeGroupTypes = null) {
 
         try {
             
@@ -75,6 +75,10 @@ class ChronicleSvc extends Service {
                     $key = self::LAST_ANY_GROUPS_CHRONICLES;
                     break;
             }
+            
+            $key = $key . "_m_" . $nbOfItems;
+            if ($excludeGroupTypes)
+                $key .= "_eg_" . str_replace(",", "_", $excludeGroupTypes);
             
             $results = $this->getData($key);
             

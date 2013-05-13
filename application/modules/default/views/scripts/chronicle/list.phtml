@@ -4,8 +4,9 @@ use Sb\Db\Model\Chronicle;
 use Sb\Helpers\BookHelper;
 ?>
 
-<div id="chronicles-list">
-    <div id="content-center">
+<div id="content-center">
+    <div id="chronicles-list">
+        <h1><?php echo $this->title ?></h1>
         <ul>
         <?php
         foreach ($this->chronicleDetailViewModelList as $chronicleViewModel) {
@@ -48,17 +49,17 @@ use Sb\Helpers\BookHelper;
             </div>
         </div>
     </div>
-    <div id="content-right">
+</div>
+<div id="content-right">
 
-        <div class="right-frame">
-            <?php echo $this->ad; ?>
-        </div>
-        <div class="right-frame">
-            <?php echo $this->pressReviewsSubscriptionWidget; ?>
-        </div>
-        <div class="right-frame">
-            <?php echo $this->authorChroniclesView; ?>
-        </div>
-
+    <div class="right-frame">
+        <?php echo $this->ad; ?>
     </div>
+    <div class="right-frame">
+        <?php echo $this->pressReviewsSubscriptionWidget; ?>
+    </div>
+    <div class="right-frame">
+        <?php echo $this->authorChroniclesView; ?>
+    </div>
+    
 </div>

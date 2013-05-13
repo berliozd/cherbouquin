@@ -1,7 +1,6 @@
 .pushed-chronicles {
-    border-bottom: 1px solid #E6E6E6;
     float: left;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }
 
 .pushed-chronicles UL {
@@ -61,6 +60,17 @@
     text-align: left;;
 }
 
-.pc-description {
-    
+.pc-link {
+    border-top: 1px solid #E6E6E6;
+    float: left;
+    padding-top: 5px;
+    margin-top: 15px;
+    width: 100%
+}
+
+.pc-link A {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    font-weight: bold;
 }

@@ -16,31 +16,17 @@ class PushedChronicles extends AbstractView {
 
     private $typeCSS;
 
-    /**
-     *
-     * @return PushedChronicleViewModel[] $chronicles
-     */
-    public function getChronicles() {
+    private $textLink;
 
-        return $this->chronicles;
-    }
+    private $link;
 
     /**
      *
-     * @param PushedChronicleViewModel[] $chronicles
+     * @param Ambigous <PushedChronicleViewModel, unknown> $chronicles
      */
-    public function setChronicles($title, $chronicles) {
+    public function setChronicles($chronicles) {
 
         $this->chronicles = $chronicles;
-    }
-
-    /**
-     *
-     * @return String $title
-     */
-    public function getTitle() {
-
-        return $this->title;
     }
 
     /**
@@ -54,15 +40,6 @@ class PushedChronicles extends AbstractView {
 
     /**
      *
-     * @return String $typeCSS
-     */
-    public function getTypeCSS() {
-
-        return $this->typeCSS;
-    }
-
-    /**
-     *
      * @param String $typeCSS
      */
     public function setTypeCSS($typeCSS) {
@@ -71,21 +48,43 @@ class PushedChronicles extends AbstractView {
     }
 
     /**
+     *
+     * @param String $textLink
      */
-    function __construct($title, $chronicles, $typeCSS) {
+    public function setTextLink($textLink) {
+
+        $this->textLink = $textLink;
+    }
+
+    /**
+     *
+     * @param String $link
+     */
+    public function setLink($link) {
+
+        $this->link = $link;
+    }
+
+    /**
+     */
+    function __construct($title, $chronicles, $typeCSS, $link, $textLink) {
 
         $this->chronicles = $chronicles;
         $this->title = $title;
         $this->typeCSS = $typeCSS;
+        $this->link = $link;
+        $this->textLink = $textLink;
     }
 
     public function get() {
 
         $tpl = new Template("pushedChronicles");
         $tpl->setVariables(array(
-                "title" => $this->getTitle(),
-                "chronicles" => $this->getChronicles(),
-                "typeCSS" => $this->getTypeCSS()
+                "title" => $this->title,
+                "chronicles" => $this->chronicles,
+                "typeCSS" => $this->typeCSS,
+                "link" => $this->link,
+                "textLink" => $this->textLink
         ));
         
         return $tpl->output();

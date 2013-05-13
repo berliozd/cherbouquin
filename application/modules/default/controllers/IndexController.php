@@ -84,10 +84,9 @@ class Default_IndexController extends Zend_Controller_Action {
             // Press reviews subscription widget
             $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
             $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
-            
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
-            $this->forward("error", "error", "default");            
+            $this->forward("error", "error", "default");
         }
     }
 
@@ -142,7 +141,7 @@ class Default_IndexController extends Zend_Controller_Action {
             
             $anyGroupTypesChronicles = array_slice($anyGroupTypesChronicles, 1, 3);
             // Set chronicles view
-            $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $anyGroupTypesChronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles");
+            $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $anyGroupTypesChronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles", $this->view->url(array(), 'chroniclesLastAnyType'), __("Voir d'autres chroniques", "s1b"));
         }
         
         // Set bloggers chronicles
@@ -150,7 +149,7 @@ class Default_IndexController extends Zend_Controller_Action {
             // We take 3 first chronicles only
             $bloggersChronicles = array_slice($bloggersChronicles, 0, 3);
             // Set bloggers chronicle view
-            $this->view->bloggersChronicles = $this->getChronicleView($chronicleListAdapter, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers");
+            $this->view->bloggersChronicles = $this->getChronicleView($chronicleListAdapter, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers", $this->view->url(array(), 'chroniclesLastBloggers'), __("Voir tous les billets des bloggeurs", "s1b"));
         }
         
         // Set bookstores chronicles
@@ -158,16 +157,16 @@ class Default_IndexController extends Zend_Controller_Action {
             // We take 3 first chronicles only
             $bookstoresChronicles = array_slice($bookstoresChronicles, 0, 3);
             // Set bookstores view
-            $this->view->bookStoresChronicles = $this->getChronicleView($chronicleListAdapter, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores");
+            $this->view->bookStoresChronicles = $this->getChronicleView($chronicleListAdapter, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores", $this->view->url(array(), 'chroniclesLastBookStores'), __("Voir tous les billets des libraires", "s1b"));
         }
     }
 
-    private function getChronicleView(ChronicleListAdapter $chronicleListAdapter, $chronicles, $title, $typeCSS) {
+    private function getChronicleView(ChronicleListAdapter $chronicleListAdapter, $chronicles, $title, $typeCSS, $link, $textLink) {
         // Getting list of view model
         $chronicleListAdapter->setChronicles($chronicles);
         $anyGroupTypeChronicesAsViewModel = $chronicleListAdapter->getAsChronicleViewModelLightList();
         // Get chronicles view
-        $chroniclesView = new PushedChronicles($title, $anyGroupTypeChronicesAsViewModel, $typeCSS);
+        $chroniclesView = new PushedChronicles($title, $anyGroupTypeChronicesAsViewModel, $typeCSS, $link, $textLink);
         return $chroniclesView->get();
     }
 

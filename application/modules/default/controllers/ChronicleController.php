@@ -14,6 +14,7 @@ use Sb\Db\Model\UserBook;
 use Sb\View\Components\PressReviewsSubscriptionWidget;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\Adapter\ChronicleAdapter;
+use Sb\Entity\GroupTypes;
 
 /**
  * ChronicleController
@@ -89,12 +90,31 @@ class Default_ChronicleController extends Zend_Controller_Action {
 
         try {
             
+            // Get key that define what type of chronicles to display
+            $key = $this->getParam("key", "last-anytype");
+            
             $navigationParamName = "pagenumber";
             
             $pageNumber = $this->getParam($navigationParamName, 1);
             
             // Get 100 last chronicles
-            $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, null);
+            switch ($key) {
+                case "last-anytype" :
+                    $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, null, GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE);
+                    $title = __("Dernières chroniques", "s1b");
+                    break;
+                case "last-bloggers" :
+                    $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, GroupTypes::BLOGGER);
+                    $title = __("Chroniques des bloggeurs", "s1b");
+                    break;
+                case "last-bookstores" :
+                    $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, GroupTypes::BOOK_STORE);
+                    $title = __("Chroniques des libraires", "s1b");
+                    break;
+            }
+            
+            // Add title list to model view
+            $this->view->title = $title;
             
             $chroniclesPaginated = new PaginatedList($chronicles, 5, $navigationParamName, $pageNumber);
             $chroniclesPage = $chroniclesPaginated->getItems();
