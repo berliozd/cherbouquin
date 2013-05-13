@@ -77,6 +77,11 @@ class Default_ChronicleController extends Zend_Controller_Action {
             $reviewsView = $this->getReviews($chronicle);
             if ($reviewsView)
                 $this->view->reviews = $reviewsView->get(); //
+                                                                
+            // Set SEO information
+            $this->view->tagTitle = $chronicleViewModel->getTitle();
+            $this->view->metaDescription = $chronicleViewModel->getShortenText();
+            $this->view->metaKeywords = $chronicle->getKeywords();
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
