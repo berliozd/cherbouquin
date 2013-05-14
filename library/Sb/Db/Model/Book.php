@@ -2,6 +2,7 @@
 
 namespace Sb\Db\Model;
 
+use Sb\Helpers\StringHelper;
 /** @Entity @Table(name="s1b_books") */
 class Book implements \Sb\Db\Model\Model {
 
@@ -481,7 +482,7 @@ class Book implements \Sb\Db\Model\Model {
     }
 
     public function getLink() {
-        $encodedTitle = \Sb\Helpers\HTTPHelper::encodeTextForURL($this->getTitle());
+        $encodedTitle = StringHelper::sanitize($this->getTitle());
         return sprintf("livre/%s-%s", $encodedTitle, $this->getId());
     }
 

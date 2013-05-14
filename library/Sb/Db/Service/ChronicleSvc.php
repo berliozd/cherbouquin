@@ -6,6 +6,7 @@ use Sb\Db\Dao\ChronicleDao;
 use Sb\Db\Model\Book;
 use Sb\Db\Dao\ContributorDao;
 use Sb\Entity\GroupTypes;
+use Sb\Helpers\StringHelper;
 
 /**
  * Description of ChronicleSvc
@@ -60,7 +61,7 @@ class ChronicleSvc extends Service {
         return $this->getLastChronicles(3, GroupTypes::BLOGGER);
     }
 
-    public function getLastChronicles($nbOfItems, $groupType = null, $excludeGroupTypes = null) {
+    public function getLastChronicles($nbOfItems, $groupType = null, $excludeGroupTypes = null, $useCache = true, $searchTerm = null) {
 
         try {
             
@@ -82,17 +83,18 @@ class ChronicleSvc extends Service {
             
             $results = $this->getData($key);
             
-            if ($results === false) {
+            if ($results === false || !$useCache) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                $results = $dao->getLastChronicles(100, $groupType, $excludeGroupTypes);
+                $results = $dao->getLastChronicles(100, $groupType, $excludeGroupTypes, $searchTerm);
                 
                 foreach ($results as $result) {
                     if ($result->getBook())
                         $result->setBook($this->getFullBookRelatedUserEvent($result->getBook()));
                 }
                 
-                $this->setData($key, $results);
+                if ($useCache)
+                    $this->setData($key, $results);
             }
             
             $results = array_slice($results, 0, $nbOfItems);
@@ -139,7 +141,8 @@ class ChronicleSvc extends Service {
 
         try {
             
-            $key = self::CHRONICLES_WITH_KEYWORDS . "_k_" . implode("_", $keywords) . "_m_" . $numberOfChronicles;
+            // Get cache key : sanitize keywords string and replace "-" by "_"
+            $key = self::CHRONICLES_WITH_KEYWORDS . "_k_" . str_replace("-", "_", StringHelper::sanitize(implode("_", $keywords))) . "_m_" . $numberOfChronicles;
             
             $results = $this->getData($key);
             

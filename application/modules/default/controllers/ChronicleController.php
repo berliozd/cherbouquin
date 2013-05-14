@@ -23,6 +23,14 @@ use Sb\Entity\GroupTypes;
  */
 class Default_ChronicleController extends Zend_Controller_Action {
 
+    const CHRONICLES_LIST = "CHRONICLES_LIST";
+
+    const PAGE_KEY_ANY_GROUPS = "PAGE_KEY_ANY_GROUPS";
+
+    const PAGE_KEY_BLOGGERS = "PAGE_KEY_BLOGGERS";
+
+    const PAGE_KEY_BOOKSTORES = "PAGE_KEY_BOOKSTORES";
+
     public function init() {
         
         // Add chronicle css to head
@@ -95,47 +103,102 @@ class Default_ChronicleController extends Zend_Controller_Action {
 
         try {
             
-            // Get key that define what type of chronicles to display
-            $key = $this->getParam("key", "last-anytype");
-            
             $navigationParamName = "pagenumber";
+            $pageNumber = $this->getParam($navigationParamName, null);
             
-            $pageNumber = $this->getParam($navigationParamName, 1);
+            // Get key that define what type of chronicles to display
+            $key = $this->getParam("key", self::PAGE_KEY_ANY_GROUPS);
             
             // Get 100 last chronicles
             switch ($key) {
-                case "last-anytype" :
+                case self::PAGE_KEY_ANY_GROUPS :
                     $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, null, GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE);
-                    $title = __("Dernières chroniques", "s1b");
                     break;
-                case "last-bloggers" :
+                case self::PAGE_KEY_BLOGGERS :
                     $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, GroupTypes::BLOGGER);
-                    $title = __("Chroniques des bloggeurs", "s1b");
                     break;
-                case "last-bookstores" :
+                case self::PAGE_KEY_BOOKSTORES :
                     $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, GroupTypes::BOOK_STORE);
-                    $title = __("Chroniques des libraires", "s1b");
                     break;
             }
             
-            // Add title list to model view
-            $this->view->title = $title;
+            // Add all chronicle actions common items to model view
+            $this->addCommonItemsToModelView();
             
-            $chroniclesPaginated = new PaginatedList($chronicles, 5, $navigationParamName, $pageNumber);
-            $chroniclesPage = $chroniclesPaginated->getItems();
+            // Add chronicles list action common items to model view
+            $this->addCommonListItemsToModelView($key, $chronicles, $pageNumber, $navigationParamName);
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    /**
+     * Action for chronicles list pages
+     */
+    public function searchAction() {
+
+        try {
             
-            $chroniclesAdapter = new ChronicleListAdapter();
-            $chroniclesAdapter->setChronicles($chroniclesPage);
-            $chronicleDetailViewModelList = $chroniclesAdapter->getAsChronicleViewModelList(2);
+            $navigationParamName = "pagenumber";
+            $pageNumber = $this->getParam($navigationParamName, null);
             
-            // Add chronicleDetailViewModel list to model view
-            $this->view->chronicleDetailViewModelList = $chronicleDetailViewModelList;
+            // Get key that define what type of chronicles to display
+            $key = $this->getParam("key", self::PAGE_KEY_ANY_GROUPS);
             
-            // Add navigation bar to view model
-            $this->view->navigationBar = $chroniclesPaginated->getNavigationBar();
+            $searchTerm = $this->getParam("chroniclesSearchTerm", null);
+            
+            // Search chronicles
+            switch ($key) {
+                case self::PAGE_KEY_ANY_GROUPS :
+                    
+                    if ($pageNumber) {
+                        $chronicles = $this->getResultsInSession($key);
+                    } else {
+                        $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, null, GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE, false, $searchTerm);
+                        $this->setResultsInSession($key, $chronicles);
+                    }
+                    
+                    $initUrl = $this->view->url(array(), 'chroniclesLastAnyType');
+                    break;
+                case self::PAGE_KEY_BLOGGERS :
+                    
+                    if ($pageNumber) {
+                        $chronicles = $this->getResultsInSession($key);
+                    } else {
+                        $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, GroupTypes::BLOGGER, null, false, $searchTerm);
+                        $this->setResultsInSession($key, $chronicles);
+                    }
+                    
+                    $initUrl = $this->view->url(array(), 'chroniclesLastBloggers');
+                    break;
+                case self::PAGE_KEY_BOOKSTORES :
+                    
+                    if ($pageNumber) {
+                        Trace::addItem("From session");
+                        $chronicles = $this->getResultsInSession($key);
+                    } else {
+                        Trace::addItem("From SQL no cache");
+                        $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, GroupTypes::BOOK_STORE, null, false, $searchTerm);
+                        $this->setResultsInSession($key, $chronicles);
+                    }                    
+                    $initUrl = $this->view->url(array(), 'chroniclesLastBookStores');
+                    break;
+            }
+            
+            // Add search term to view model
+            $this->view->searchTerm = $searchTerm;
+            
+            // Add search term to view model
+            $this->view->initUrl = $initUrl;
             
             // Add common items to model view
             $this->addCommonItemsToModelView();
+            
+            // Add chronicles list action common items to model view
+            $this->addCommonListItemsToModelView($key, $chronicles, $pageNumber, $navigationParamName);
+            
+            $this->render("list");
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
@@ -215,7 +278,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 ->getNotDeletedUserBooks();
             $reviewedUserBooks = array_filter($userBooks, array(
                     &$this,
-                    "isReviewd"
+                    "isReviewed"
             ));
             
             $reviews = "";
@@ -232,7 +295,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
         return null;
     }
 
-    private function isReviewd(UserBook $userBook) {
+    private function isReviewed(UserBook $userBook) {
 
         if ($userBook->getReview()) {
             return true;
@@ -251,6 +314,97 @@ class Default_ChronicleController extends Zend_Controller_Action {
         // Get press reviews subscription widget and add it to view model
         $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
         $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
+    }
+
+
+    /**
+     * Add common item to view model for list actions
+     * @param String $key the page key (last chronicles, bloggers, bookstores)
+     * @param Array of ChronicleModelView $chronicles the array of ChronicleViewModel to display
+     * @param int $pageNumber the page number
+     * @param String $navigationParamName the page navigation param name
+     */
+    private function addCommonListItemsToModelView($key, $chronicles, $pageNumber, $navigationParamName) {
+
+        switch ($key) {
+            case self::PAGE_KEY_ANY_GROUPS :
+                
+                $title = __("Dernières chroniques", "s1b");
+                break;
+            case self::PAGE_KEY_BLOGGERS :
+                
+                $title = __("Chroniques des bloggeurs", "s1b");
+                break;
+            case self::PAGE_KEY_BOOKSTORES :
+                
+                $title = __("Chroniques des libraires", "s1b");
+                break;
+        }
+        
+        // Add title list to model view
+        $this->view->title = $title;
+        
+        // Add key value to model view to go in hidden filed for search form
+        $this->view->key = $key;
+        
+        if (!$pageNumber)
+            $pageNumber = 1;
+        $chroniclesPaginated = new PaginatedList($chronicles, 5, $navigationParamName, $pageNumber);
+        $chroniclesPage = $chroniclesPaginated->getItems();
+        
+        $chroniclesAdapter = new ChronicleListAdapter();
+        $chroniclesAdapter->setChronicles($chroniclesPage);
+        // Get as a chronicle view model list with 2 similar chronicles
+        $chronicleDetailViewModelList = $chroniclesAdapter->getAsChronicleViewModelList(2);
+        
+        // Add chronicleDetailViewModel list to model view
+        $this->view->chronicleDetailViewModelList = $chronicleDetailViewModelList;
+        
+        // Add navigation bar to view model
+        $this->view->navigationBar = $chroniclesPaginated->getNavigationBar();
+    }
+
+    /**
+     * Set the resulting array of ChronicleViewModel in session
+     * @param String $key the page key (last chronicles, bloggers, bookstores)
+     * @param array of ChronicleViewModel $value
+     */
+    private function setResultsInSession($key, $value) {
+
+        $sessionData = new Zend_Session_Namespace(self::CHRONICLES_LIST);
+        
+        switch ($key) {
+            case self::PAGE_KEY_ANY_GROUPS :
+                $sessionData->resultsAnyGroups = $value;
+                break;
+            case self::PAGE_KEY_BLOGGERS :
+                $sessionData->resultsBloggers = $value;
+                break;
+            case self::PAGE_KEY_BOOKSTORES :
+                $sessionData->resultsBookStores = $value;
+                break;
+        }
+    }
+
+    /**
+     * Get the resulting array of ChronicleViewModel from session
+     * @param String $key the page key (last chronicles, bloggers, bookstores)
+     */
+    private function getResultsInSession($key) {
+
+        $sessionData = new Zend_Session_Namespace(self::CHRONICLES_LIST);
+        
+        switch ($key) {
+            case self::PAGE_KEY_ANY_GROUPS :
+                return $sessionData->resultsAnyGroups;
+                break;
+            case self::PAGE_KEY_BLOGGERS :
+                return $sessionData->resultsBloggers;
+                break;
+            case self::PAGE_KEY_BOOKSTORES :
+                return $sessionData->resultsBookStores;
+                break;
+        }
     }
 
 }

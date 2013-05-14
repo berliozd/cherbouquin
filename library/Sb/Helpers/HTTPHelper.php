@@ -91,22 +91,6 @@ class HTTPHelper {
         return $dest;
     }
 
-    public static function encodeTextForURL($text) {
-        $text = mb_strtolower($text, 'UTF-8');
-        $text = preg_replace("/[áàâãªä]/u", "a", $text);
-        $text = preg_replace("/[íìîï]/u", "i", $text);
-        $text = preg_replace("/[éèêë]/u", "e", $text);
-        $text = preg_replace("/[óòôõºö]/u", "o", $text);
-        $text = preg_replace("/[úùûü]/u", "u", $text);
-        $text = preg_replace("/[ñ]/u", "n", $text);
-        $text = str_replace("ç", "c", $text);
-        $text = preg_replace("/[':;.()]/u", "-", $text);
-        $text = preg_replace("/[\\W]/u", "-", $text);
-        $text = preg_replace("/[-]$/u", "", $text);
-        $text = preg_replace("/[-]+/u", "-", $text);
-        return $text;
-    }
-
     /**
      * Return the referer : when the referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting 
       values to be reset when return to the page

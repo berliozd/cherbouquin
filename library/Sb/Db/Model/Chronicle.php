@@ -258,7 +258,7 @@ class Chronicle implements \Sb\Db\Model\Model {
      */
     public function getDetailLink() {
         if ($this->getTitle())
-            return HTTPHelper::Link("chronique/" . HTTPHelper::encodeTextForURL(StringHelper::cleanHTML($this->getTitle())) . "-" . $this->getId());
+            return HTTPHelper::Link("chronique/" . StringHelper::sanitize(StringHelper::cleanHTML($this->getTitle())) . "-" . $this->getId());
         else
             return HTTPHelper::Link("chronique/chronique-" . $this->getId());
     }

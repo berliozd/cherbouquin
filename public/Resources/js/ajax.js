@@ -24,6 +24,7 @@ toInit.push("attachFriendSearchEvents()");
 toInit.push("attachLoginEvents()");
 toInit.push("attachAddUserBook()");
 toInit.push("attachPressReviewFormClearingAndRestore()");
+toInit.push("attachChroniclesSearchFormClearingAndRestore()");
 
 /* Hide the flahes messages when clicking anywhere */
 function attachFlashHiding() {
@@ -74,6 +75,10 @@ function attachAddUserBook() {
 /* Add clear and restore behavior on press review subscription form */
 function attachPressReviewFormClearingAndRestore() {
     _attachInputClearingAndRestore("pressReviewFormEmailDefaultLabel", "#press-reviews-subscription-form #email");
+}
+
+function attachChroniclesSearchFormClearingAndRestore() {
+    _attachInputClearingAndRestore("chronicleSearchTermDefaultLabel", "#chronicle-search-form #chronicleSearchTerm");
 }
 
 /* ======================================================================= */
@@ -164,6 +169,11 @@ function _addUserBook(sender) {
     });
 }
 
+/**
+ * Attach action on click and blur text field event to clear and restore default value if not changed
+ * @param defClass class for hidden element containing default value
+ * @param selector text field selector
+ */
 function _attachInputClearingAndRestore(defClass, selector) {
     var bookSearchTermDef = $("." + defClass).val();
     $(selector).focus(function() {

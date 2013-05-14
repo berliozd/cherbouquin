@@ -1,4 +1,8 @@
-/* Other chronicles same type */
+
+/* ----------------------------------- */
+/* ---- Other chronicles same type --- */
+/* ----------------------------------- */
+
 #other-chronicles {
     float: left;
     width: 100%;
@@ -27,6 +31,11 @@
     padding: 3px 25px 0;
     background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1525px transparent;
 }
+
+/* -------------------------------- */
+/* ---- Chronicles same authors --- */
+/* -------------------------------- */
+
 
 #chronicles-same-author {
     
@@ -63,7 +72,10 @@
     color: #707070;
 }
 
-/* Title */
+/* ------------------------- */
+/* ---- Chronicle Detail --- */
+/* ------------------------- */
+
 #chronicle-detail .navigation {
     background-color: #FFF;
 }
@@ -93,6 +105,22 @@
 
 #chronicles-list {
     margin-top: 10px;
+}
+
+#chronicles-list .navigation.top{
+    margin-bottom: 10px;
+}
+
+#cl-searchterm {
+    margin-bottom: 10px;   
+}
+
+#cl-searchterm-value {
+    font-style: italic; 
+}
+
+#cl-searchterm SPAN {
+    font-size: 1.3em;
 }
 
 #chronicles-list UL {
@@ -141,4 +169,34 @@
 
 .cloc-title {
     margin-bottom:5px;
+}
+
+/* ------------------------------ */
+/* ---- Chronicle Search Form --- */
+/* ------------------------------ */
+
+#chronicle-search-form {
+    background-color: #1E1E1E;
+    float: left;
+    width: 290px;
+    padding: 5px;
+}
+
+#chronicle-search-form .search-field {
+    background : url("../images/sprite.png?v=5") no-repeat scroll -550px 0 transparent;
+    width: 130px;
+}
+#chronicle-search-form .search-field INPUT {
+    width: 84px;
+    margin:7px 4px;
+}
+
+#chronicle-search-form DIV {
+    float: left;
+    color: #FFFFFF;
+    font-size: 1.2em;
+    line-height: 30px;
+}
+#chronicle-search-form FORM {
+    float: right;
 }
