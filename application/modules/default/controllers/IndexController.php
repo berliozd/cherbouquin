@@ -40,6 +40,9 @@ class Default_IndexController extends Zend_Controller_Action {
         try {
             global $globalContext;
             
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/homepage.js?v=' . VERSION . "\"></script>");
+            
             $this->view->tagTitle = sprintf(__("%s : livre et littérature - tops | coups de cœur | critiques", "s1b"), \Sb\Entity\Constants::SITENAME);
             $this->view->metaDescription = __("Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon", "s1b");
             $this->view->metaKeywords = "BD|bibliotheque|commentaires|communaute|lecteurs|critiques|livres|emprunt|littérature|livre|notice|partage|policier|polar|prêt|recommandation|roman|thriller";

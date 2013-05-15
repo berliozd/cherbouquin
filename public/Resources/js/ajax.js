@@ -23,8 +23,6 @@ toInit.push("attachRegistrationFormEvents()");
 toInit.push("attachFriendSearchEvents()");
 toInit.push("attachLoginEvents()");
 toInit.push("attachAddUserBook()");
-toInit.push("attachPressReviewFormClearingAndRestore()");
-toInit.push("attachChroniclesSearchFormClearingAndRestore()");
 
 /* Hide the flahes messages when clicking anywhere */
 function attachFlashHiding() {
@@ -77,6 +75,7 @@ function attachPressReviewFormClearingAndRestore() {
     _attachInputClearingAndRestore("pressReviewFormEmailDefaultLabel", "#press-reviews-subscription-form #email");
 }
 
+/* attach clear and restore on chronicles search form */
 function attachChroniclesSearchFormClearingAndRestore() {
     _attachInputClearingAndRestore("chronicleSearchTermDefaultLabel", "#chronicle-search-form #chronicleSearchTerm");
 }

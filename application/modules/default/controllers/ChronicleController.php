@@ -16,11 +16,6 @@ use Sb\Adapter\ChronicleListAdapter;
 use Sb\Adapter\ChronicleAdapter;
 use Sb\Entity\GroupTypes;
 
-/**
- * ChronicleController
- * @author
- * @version
- */
 class Default_ChronicleController extends Zend_Controller_Action {
 
     const CHRONICLES_LIST = "CHRONICLES_LIST";
@@ -44,6 +39,9 @@ class Default_ChronicleController extends Zend_Controller_Action {
     public function indexAction() {
 
         try {
+            
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/chronicle.js?v=' . VERSION . "\"></script>");
             
             // Get chronicle id from request
             $chronicleId = $this->getParam("cid");
@@ -103,6 +101,9 @@ class Default_ChronicleController extends Zend_Controller_Action {
 
         try {
             
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/chronicles.js?v=' . VERSION . "\"></script>");
+            
             $navigationParamName = "pagenumber";
             $pageNumber = $this->getParam($navigationParamName, null);
             
@@ -139,6 +140,9 @@ class Default_ChronicleController extends Zend_Controller_Action {
     public function searchAction() {
 
         try {
+            
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/chronicles.js?v=' . VERSION . "\"></script>");
             
             $navigationParamName = "pagenumber";
             $pageNumber = $this->getParam($navigationParamName, null);
@@ -181,7 +185,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                         Trace::addItem("From SQL no cache");
                         $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, GroupTypes::BOOK_STORE, null, false, $searchTerm);
                         $this->setResultsInSession($key, $chronicles);
-                    }                    
+                    }
                     $initUrl = $this->view->url(array(), 'chroniclesLastBookStores');
                     break;
             }
@@ -315,7 +319,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
         $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
         $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
     }
-
 
     /**
      * Add common item to view model for list actions
