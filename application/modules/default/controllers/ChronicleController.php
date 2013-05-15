@@ -15,6 +15,7 @@ use Sb\View\Components\PressReviewsSubscriptionWidget;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\Adapter\ChronicleAdapter;
 use Sb\Entity\GroupTypes;
+use Sb\View\ChroniclesMoreSeen;
 
 class Default_ChronicleController extends Zend_Controller_Action {
 
@@ -365,6 +366,29 @@ class Default_ChronicleController extends Zend_Controller_Action {
         
         // Add navigation bar to view model
         $this->view->navigationBar = $chroniclesPaginated->getNavigationBar();
+        
+        // Add more seen chronicles to model view
+        $nbMoreSeenChronicles = 5;
+        $orderArray = array(
+                "nb_views",
+                "DESC"
+        );
+        switch ($key) {
+            case self::PAGE_KEY_ANY_GROUPS :
+                $moreSeenChronicles = ChronicleSvc::getInstance()->getLastChronicles($nbMoreSeenChronicles, null, GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE, true, null, $orderArray);
+                break;
+            case self::PAGE_KEY_BLOGGERS :
+                $moreSeenChronicles = ChronicleSvc::getInstance()->getLastChronicles($nbMoreSeenChronicles, GroupTypes::BLOGGER, null, true, null, $orderArray);
+                break;
+            case self::PAGE_KEY_BOOKSTORES :
+                $moreSeenChronicles = ChronicleSvc::getInstance()->getLastChronicles($nbMoreSeenChronicles, GroupTypes::BOOK_STORE, null, true, null, $orderArray);
+                break;
+        }
+        if ($moreSeenChronicles) {            
+            $chroniclesAdapter->setChronicles($moreSeenChronicles);
+            $moreSeenChroniclesView = new ChroniclesMoreSeen($chroniclesAdapter->getAsChronicleViewModelLightList());
+            $this->view->moreSeenChronicles = $moreSeenChroniclesView->get();
+        }
     }
 
     /**

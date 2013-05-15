@@ -34,9 +34,10 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
      * @param string $maxResults number of item to return
      * @param int $groupType the group type the chronicle must be owned by
      * @param string $excludedGroupTypes list of group types seperate by comma to exclude
+     * @param array orderBy an array , first item is colmun and second is the order (ASC or DESC)
      * @return Ambigous <multitype:, \Doctrine\ORM\mixed, \Doctrine\ORM\Internal\Hydration\mixed, \Doctrine\DBAL\Driver\Statement, string>
      */
-    public function getLastChronicles($maxResults = null, $groupType = null, $excludedGroupTypes = null, $searchTerm = null) {
+    public function getLastChronicles($maxResults = null, $groupType = null, $excludedGroupTypes = null, $searchTerm = null, $orderBy = null) {
 
         $dql = "SELECT gc, u, b, t FROM " . self::MODEL . " gc 
         		LEFT JOIN gc.tag t 
@@ -68,7 +69,10 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
             $dql .= "(gc.keywords LIKE '%" . $searchTerm . "%' OR gc.title LIKE '%" . $searchTerm . "%' OR gc.text LIKE '%" . $searchTerm . "%')";
         }
         
-        $dql .= " ORDER BY gc.creation_date DESC";
+        if ($orderBy)
+            $dql .= " ORDER BY gc." . $orderBy[0] . " " . $orderBy[1];
+        else
+            $dql .= " ORDER BY gc.creation_date DESC";
         
         $query = $this->entityManager->createQuery($dql);
         

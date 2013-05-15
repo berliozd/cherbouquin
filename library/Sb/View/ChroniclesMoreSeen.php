@@ -8,7 +8,7 @@ use Sb\Templates\Template;
  *
  * @author Didier
  */
-class OtherChroniclesSameAuthor extends \Sb\View\AbstractView {
+class ChroniclesMoreSeen extends \Sb\View\AbstractView {
 
     private $chronicles;
 
@@ -23,7 +23,7 @@ class OtherChroniclesSameAuthor extends \Sb\View\AbstractView {
 
         $tpl->setVariables(array(
                 "chronicles" => $this->chronicles,
-                "title" => __("<strong>Chroniques</strong> du même auteur", "s1b")
+                "title" => __("<strong>Chroniques</strong> les plus en vues", "s1b")
         ));
 
         return $tpl->output();

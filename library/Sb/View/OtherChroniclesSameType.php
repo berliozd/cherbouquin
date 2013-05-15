@@ -3,7 +3,6 @@
 namespace Sb\View;
 
 use Sb\Templates\Template;
-use Sb\Adapter\ChronicleListAdapter;
 
 /**
  *

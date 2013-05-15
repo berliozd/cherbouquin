@@ -32,43 +32,43 @@
     background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1525px transparent;
 }
 
-/* -------------------------------- */
-/* ---- Chronicles same authors --- */
-/* -------------------------------- */
+/* -------------------------- */
+/* ---- Chronicles Blocks --- */
+/* -------------------------- */
 
 
-#chronicles-same-author {
+#chronicles-block {
     
 }
 
-.csa-title {
+.cb-title {
     font-size: 1.3em;
     margin-bottom: 5px;
 }
 
-#chronicles-same-author UL {
+#chronicles-block UL {
     border: 5px solid #E0E0E0;
     margin: 0;
     padding: 0;
 }
 
-#chronicles-same-author LI {
+#chronicles-block LI {
     border-bottom: 1px solid #E0E0E0;
     list-style: none outside none;
     padding: 5px;
 }
 
-#chronicles-same-author LI A {
+#chronicles-block LI A {
     color: #000;
     text-decoration: none;
     font-weight: bold;
 }
 
-.csa-nbviews {
+.cb-nbviews {
     font-size: 0.9em;
 }
 
-.csa-date {
+.cb-date {
     color: #707070;
 }
 

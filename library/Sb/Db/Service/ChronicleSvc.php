@@ -61,7 +61,7 @@ class ChronicleSvc extends Service {
         return $this->getLastChronicles(3, GroupTypes::BLOGGER);
     }
 
-    public function getLastChronicles($nbOfItems, $groupType = null, $excludeGroupTypes = null, $useCache = true, $searchTerm = null) {
+    public function getLastChronicles($nbOfItems, $groupType = null, $excludeGroupTypes = null, $useCache = true, $searchTerm = null, $orderBy = null) {
 
         try {
             
@@ -80,13 +80,15 @@ class ChronicleSvc extends Service {
             $key = $key . "_m_" . $nbOfItems;
             if ($excludeGroupTypes)
                 $key .= "_eg_" . str_replace(",", "_", $excludeGroupTypes);
+            if ($orderBy)
+                $key .= "_ob_" . $orderBy[0] . "_" . $orderBy[1];
             
             $results = $this->getData($key);
             
             if ($results === false || !$useCache) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                $results = $dao->getLastChronicles(100, $groupType, $excludeGroupTypes, $searchTerm);
+                $results = $dao->getLastChronicles(100, $groupType, $excludeGroupTypes, $searchTerm, $orderBy);
                 
                 foreach ($results as $result) {
                     if ($result->getBook())
