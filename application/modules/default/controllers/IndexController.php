@@ -21,6 +21,8 @@ use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\PushedChronicles;
 use Sb\Trace\Trace;
 use Sb\View\Components\PressReviewsSubscriptionWidget;
+use Sb\View\Components\NewsReader;
+use Sb\Db\Service\PressReviewSvc;
 
 class Default_IndexController extends Zend_Controller_Action {
 
@@ -42,6 +44,12 @@ class Default_IndexController extends Zend_Controller_Action {
             
             $this->view->placeholder('footer')
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/homepage.js?v=' . VERSION . "\"></script>");
+            
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
+            // Add newsreader css to head
+            $this->view->headLink()
+                ->appendStylesheet(BASE_URL . "resources/js/newsReader.css?v=" . VERSION);
             
             $this->view->tagTitle = sprintf(__("%s : livre et littérature - tops | coups de cœur | critiques", "s1b"), \Sb\Entity\Constants::SITENAME);
             $this->view->metaDescription = __("Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon", "s1b");
@@ -87,6 +95,13 @@ class Default_IndexController extends Zend_Controller_Action {
             // Press reviews subscription widget
             $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
             $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
+            
+            // Newsreader
+            $pressReviews = PressReviewSvc::getInstance()->getList(50, 0);
+            if ($pressReviews) {
+                $newsReader = new NewsReader($pressReviews);
+                $this->view->newsReader = $newsReader->get();
+            }
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");

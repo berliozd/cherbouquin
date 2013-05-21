@@ -1,0 +1,59 @@
+<?php
+use Sb\Db\Model\PressReview;
+use Doctrine\Common\Util\Debug;
+use Sb\Helpers\ImageHelper;
+use Sb\Helpers\BookHelper;
+?>
+<div class="nr-title"><?php _e("L'actualité du <strong>livre</strong> dans les médias","s1b");?></div>
+<div class="nr-list">    
+<?php
+$nbReviewPerPage = 5;
+$count = 0;
+$closed = false;
+foreach ($pressReviews as $pressReview) {
+    /* @var $pressReview PressReview */
+    $count++;
+    
+    $css = ($count % 2 == 0 ? "odd" : "even");
+    
+    if ($count % $nbReviewPerPage == 1) {
+        echo '<div class="nr-page" ' . ($count == 1 ? 'style="display:block;"' : '') . '><ul><li class="' . $css . '">';
+        $closed = false;
+    } else if ($count % $nbReviewPerPage == 0) {
+        echo '<li class="' . $css . '">';
+        $closed = true;
+    } else {
+        echo '<li class="' . $css . '">';
+    }
+    ?>
+    
+    <div class="nr-image">
+        <a href="<?php echo $pressReview->getLink(); ?>" target="_blank"><?php echo ImageHelper::getSmallSquareImageTag($pressReview->getMedia()->getTwitter_picture(), $pressReview->getMedia()->getTwitter_name(), "");?></a>
+    </div>
+    <div class="nr-text">
+        <span class="nr-date"><?php echo $pressReview->getDate()->format("d/m/Y"); ?></span>
+        <a href="<?php echo $pressReview->getLink(); ?>" target="_blank"><?php echo $pressReview->getTitle();?></a>
+    </div>
+    
+
+<?php
+    if ($count % $nbReviewPerPage == 1) {
+        echo '</li>';
+    } else if ($count % $nbReviewPerPage == 0) {
+        echo '</li></ul></div>';
+    } else {
+        echo '</li>';
+    }
+}
+if (!$closed) {
+    echo "</ul></div>";
+}
+?>
+<div class="nr-footer">
+        <div class="nr-footerlink"><?php _e("Toute l'actualité des médias","s1b");?></div>
+        <div class="nr-buttons">
+            <a class="navButton prevButton disabled"></a> <a class="navButton nextButton"></a>
+        </div>
+    </div>
+
+</div>

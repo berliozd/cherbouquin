@@ -4,7 +4,6 @@ namespace Sb\Db\Service;
 
 use Sb\Db\Dao\ChronicleDao;
 use Sb\Db\Model\Book;
-use Sb\Db\Dao\ContributorDao;
 use Sb\Entity\GroupTypes;
 use Sb\Helpers\StringHelper;
 
@@ -90,10 +89,10 @@ class ChronicleSvc extends Service {
                 $dao = $this->getDao();
                 $results = $dao->getLastChronicles(100, $groupType, $excludeGroupTypes, $searchTerm, $orderBy);
                 
-                foreach ($results as $result) {
-                    if ($result->getBook())
-                        $result->setBook($this->getFullBookRelatedUserEvent($result->getBook()));
-                }
+//                 foreach ($results as $result) {
+//                     if ($result->getBook())
+//                         $result->setBook($this->getFullBookRelatedUserEvent($result->getBook()));
+//                 }
                 
                 if ($useCache)
                     $this->setData($key, $results);
@@ -193,12 +192,12 @@ class ChronicleSvc extends Service {
      * This is necessary for storing the object in cache otherwise when getting the object from cache (and then detach from database)
      * these members won't be initialized
      * @param Book $book
-     */
-    private function getFullBookRelatedUserEvent(Book $book) {
+//      */
+//     private function getFullBookRelatedUserEvent(Book $book) {
 
-        $contributors = ContributorDao::getInstance()->getListForBook($book->getId());
-        $book->setContributors($contributors);
-        return $book;
-    }
+//         $contributors = ContributorDao::getInstance()->getListForBook($book->getId());
+//         $book->setContributors($contributors);
+//         return $book;
+//     }
 
 }

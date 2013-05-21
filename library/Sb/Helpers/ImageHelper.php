@@ -29,6 +29,11 @@ class ImageHelper {
         return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title=\"%s\" alt=\"%s\"/>", self::getImageSrc($url, $defaultImg), $title, $title);
     }
 
+    public static function getSmallSquareImageTag($url, $title, $defaultImg) {
+
+        return sprintf("<img src='%s' border='0' class='image-thumb-square-small image-frame' title=\"%s\" alt=\"%s\"/>", self::getImageSrc($url, $defaultImg), $title, $title);
+    }
+
     public static function getMediumImageTag($url, $title, $defaultImg) {
 
         return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title=\"%s\" alt=\"%s\"/>", self::getImageSrc($url, $defaultImg), $title, $title);

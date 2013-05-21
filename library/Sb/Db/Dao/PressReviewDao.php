@@ -7,6 +7,8 @@ namespace Sb\Db\Dao;
  */
 class PressReviewDao extends AbstractDao {
 
+    const MODEL = "\\Sb\\Db\\Model\\PressReview";
+    
     private static $instance;
 
     /**
@@ -20,6 +22,29 @@ class PressReviewDao extends AbstractDao {
     }
 
     protected function __construct() {
-        parent::__construct("\\Sb\\Db\\Model\\PressReview");
+        parent::__construct(self::MODEL);
+    }
+    
+    public function getLastPressReviews($maxResults = null, $typeId = null, $orderBy = null) {
+    
+        $dql = "SELECT pr, m FROM " . self::MODEL . " pr
+        		LEFT JOIN pr.media m";
+    
+        if (isset($typeId))
+            $dql .= " WHERE pr.type = " . $typeId;
+        
+        if ($orderBy)
+            $dql .= " ORDER BY pr." . $orderBy[0] . " " . $orderBy[1];
+        else
+            $dql .= " ORDER BY pr.date DESC";
+    
+        $query = $this->entityManager->createQuery($dql);
+    
+        if ($maxResults)
+            $query->setMaxResults($maxResults);
+        else
+            $query->setMaxResults(1);
+        
+        return $this->getResults($query);
     }
 }

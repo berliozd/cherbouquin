@@ -27,9 +27,7 @@ global $globalContext;
                     <div class="accroche accroche-3">
                         <div class="ci-content">
                             <div class="ci-text">
-                                <?php _e(
-            "<span class=\"ci-maintext\">Gérez&nbsp;</span><br/>votre bibliothèque avec la fonction de prêt et emprunt et conservez une trace de vos livres préférés",
-            "s1b");
+                                <?php _e("<span class=\"ci-maintext\">Gérez&nbsp;</span><br/>votre bibliothèque avec la fonction de prêt et emprunt et conservez une trace de vos livres préférés", "s1b");
                                 ?>
                             </div>
                             <div class="ci-button">
@@ -45,8 +43,7 @@ global $globalContext;
                     <div class="accroche accroche-1">
                         <div class="ci-content">
                             <div class="ci-text">
-                                <?php _e(
-            "<span class=\"ci-maintext\">Trouvez&nbsp;</span><br/>le livre qui fera plaisir à votre ami dans sa liste d'envies", "s1b");
+                                <?php _e("<span class=\"ci-maintext\">Trouvez&nbsp;</span><br/>le livre qui fera plaisir à votre ami dans sa liste d'envies", "s1b");
                                 ?>
                             </div>
                             <div class="ci-button">
@@ -77,6 +74,9 @@ global $globalContext;
         </div>
     </div>
     <div id="content-right">
+        <div class="right-frame">
+            <?php echo $this->newsReader;?>            
+        </div>
         <div class="right-frame">
             <?php echo $this->autoPromoWishlist; ?>
         </div>
