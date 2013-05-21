@@ -16,6 +16,8 @@ use Sb\Adapter\ChronicleListAdapter;
 use Sb\Adapter\ChronicleAdapter;
 use Sb\Entity\GroupTypes;
 use Sb\View\ChroniclesMoreSeen;
+use Sb\Db\Service\PressReviewSvc;
+use Sb\View\Components\NewsReader;
 
 class Default_ChronicleController extends Zend_Controller_Action {
 
@@ -43,6 +45,12 @@ class Default_ChronicleController extends Zend_Controller_Action {
             
             $this->view->placeholder('footer')
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/chronicle.js?v=' . VERSION . "\"></script>");
+            
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
+            // Add newsreader css to head
+            $this->view->headLink()
+                ->appendStylesheet(BASE_URL . "resources/js/newsReader.css?v=" . VERSION);
             
             // Get chronicle id from request
             $chronicleId = $this->getParam("cid");
@@ -89,6 +97,13 @@ class Default_ChronicleController extends Zend_Controller_Action {
             $this->view->tagTitle = $chronicleViewModel->getTitle();
             $this->view->metaDescription = $chronicleViewModel->getShortenText();
             $this->view->metaKeywords = $chronicle->getKeywords();
+            
+            // Newsreader
+            $pressReviews = PressReviewSvc::getInstance()->getList(50, 0);
+            if ($pressReviews) {
+                $newsReader = new NewsReader($pressReviews, __("Les <strong>médias</strong> en parlent aussi", "s1b"));
+                $this->view->newsReader = $newsReader->get();
+            }
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
@@ -104,6 +119,12 @@ class Default_ChronicleController extends Zend_Controller_Action {
             
             $this->view->placeholder('footer')
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/chronicles.js?v=' . VERSION . "\"></script>");
+            
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
+            // Add newsreader css to head
+            $this->view->headLink()
+                ->appendStylesheet(BASE_URL . "resources/js/newsReader.css?v=" . VERSION);
             
             $navigationParamName = "pagenumber";
             $pageNumber = $this->getParam($navigationParamName, null);
@@ -144,6 +165,12 @@ class Default_ChronicleController extends Zend_Controller_Action {
             
             $this->view->placeholder('footer')
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/chronicles.js?v=' . VERSION . "\"></script>");
+            
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
+            // Add newsreader css to head
+            $this->view->headLink()
+                ->appendStylesheet(BASE_URL . "resources/js/newsReader.css?v=" . VERSION);
             
             $navigationParamName = "pagenumber";
             $pageNumber = $this->getParam($navigationParamName, null);
@@ -319,6 +346,13 @@ class Default_ChronicleController extends Zend_Controller_Action {
         // Get press reviews subscription widget and add it to view model
         $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
         $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
+        
+        // Newsreader
+        $pressReviews = PressReviewSvc::getInstance()->getList(50, 0);
+        if ($pressReviews) {
+            $newsReader = new NewsReader($pressReviews, __("L'actualité du <strong>livre</strong> dans les médias", "s1b"));
+            $this->view->newsReader = $newsReader->get();
+        }
     }
 
     /**
@@ -384,7 +418,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 $moreSeenChronicles = ChronicleSvc::getInstance()->getLastChronicles($nbMoreSeenChronicles, GroupTypes::BOOK_STORE, null, true, null, $orderArray);
                 break;
         }
-        if ($moreSeenChronicles) {            
+        if ($moreSeenChronicles) {
             $chroniclesAdapter->setChronicles($moreSeenChronicles);
             $moreSeenChroniclesView = new ChroniclesMoreSeen($chroniclesAdapter->getAsChronicleViewModelLightList());
             $this->view->moreSeenChronicles = $moreSeenChroniclesView->get();

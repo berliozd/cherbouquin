@@ -99,7 +99,7 @@ class Default_IndexController extends Zend_Controller_Action {
             // Newsreader
             $pressReviews = PressReviewSvc::getInstance()->getList(50, 0);
             if ($pressReviews) {
-                $newsReader = new NewsReader($pressReviews);
+                $newsReader = new NewsReader($pressReviews, __("L'actualité du <strong>livre</strong> dans les médias","s1b"));
                 $this->view->newsReader = $newsReader->get();
             }
         } catch (\Exception $e) {
