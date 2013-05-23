@@ -21,13 +21,7 @@
             </div>  
         </div>
         <div class="right-col-buttons">
-            <div class="rcb-label">
-                <?php _e("Partager sur","s1b");?>
-            </div>
-            <div class="rcb-buttons">
-                <a href="<?php echo $this->shareLink; ?>" class="bv-share margin-left float-left " title="<?php echo sprintf(__("Partager sur %s", "s1b"), \Sb\Entity\Constants::SITENAME); ?>"></a>
-                <a href="<?php echo $this->facebookShareLink; ?>" class="picto-facebook-m margin-left float-left "></a>                
-            </div>            
+            <?php echo $this->socialBar;?>            
         </div>
     </div>
     <!-- Buttons END -->
