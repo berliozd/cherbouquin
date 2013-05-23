@@ -107,22 +107,22 @@ class ChronicleSvc extends Service {
 
     /**
      * Get a collection of chronicle with a tag specified
-     * @param int $tag_id the tag id to search
+     * @param array of int $tagIds the tag ids to search
      * @param int $numberOfChronicles number of maximum chronicle to get
      * @return Collection of Chronicle
      */
-    public function getChroniclesWithTag($tagId, $numberOfChronicles) {
+    public function getChroniclesWithTags($tagIds, $numberOfChronicles) {
 
         try {
             
-            $key = self::CHRONICLES_WITH_TAG . "_tid_" . $tagId . "_m_" . $numberOfChronicles;
+            $key = self::CHRONICLES_WITH_TAG . "_tid_" . implode("_", $tagIds) . "_m_" . $numberOfChronicles;
             
             $results = $this->getData($key);
             
             if ($results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                $results = $dao->getChroniclesWithTag($tagId, $numberOfChronicles);
+                $results = $dao->getChroniclesWithTags($tagIds, $numberOfChronicles);
                 
                 $this->setData($key, $results);
             }

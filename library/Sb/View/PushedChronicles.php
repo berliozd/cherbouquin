@@ -67,13 +67,23 @@ class PushedChronicles extends AbstractView {
 
     /**
      */
-    function __construct($title, $chronicles, $typeCSS, $link, $textLink) {
+    function __construct($chronicles, $link, $title = null, $typeCSS = null, $textLink = null) {
 
         $this->chronicles = $chronicles;
+        
         $this->title = $title;
+        if (!$title)
+            $this->title = __("Dernières <strong>chroniques</strong>", "s1b");
+        
         $this->typeCSS = $typeCSS;
+        if (!$typeCSS)
+            $this->typeCSS = "last-chronicles";
+        
         $this->link = $link;
+        
         $this->textLink = $textLink;
+        if (!$textLink)
+            $this->textLink = __("Voir d'autres chroniques", "s1b");
     }
 
     public function get() {

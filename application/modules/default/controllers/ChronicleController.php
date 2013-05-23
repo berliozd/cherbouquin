@@ -51,7 +51,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
             // Add newsreader css to head
             $this->view->headLink()
-                ->appendStylesheet(BASE_URL . "resources/js/newsReader.css?v=" . VERSION);
+                ->appendStylesheet(BASE_URL . "resources/css/newsReader.css?v=" . VERSION);
             
             // Get chronicle id from request
             $chronicleId = $this->getParam("cid");
@@ -134,7 +134,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
             // Add newsreader css to head
             $this->view->headLink()
-                ->appendStylesheet(BASE_URL . "resources/js/newsReader.css?v=" . VERSION);
+                ->appendStylesheet(BASE_URL . "resources/css/newsReader.css?v=" . VERSION);
             
             $navigationParamName = "pagenumber";
             $pageNumber = $this->getParam($navigationParamName, null);
@@ -180,7 +180,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
             // Add newsreader css to head
             $this->view->headLink()
-                ->appendStylesheet(BASE_URL . "resources/js/newsReader.css?v=" . VERSION);
+                ->appendStylesheet(BASE_URL . "resources/css/newsReader.css?v=" . VERSION);
             
             $navigationParamName = "pagenumber";
             $pageNumber = $this->getParam($navigationParamName, null);

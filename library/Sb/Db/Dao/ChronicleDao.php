@@ -86,14 +86,14 @@ class ChronicleDao extends \Sb\Db\Dao\AbstractDao {
 
     /**
      * Get a collection of chronicles with a specific tag
-     * @param int $tagId the tag to search
+     * @param array of int $tagIds the tags to search
      * @param int $maxResults number of chronicles to get
      * @return Collection of Chronicle
      */
-    public function getChroniclesWithTag($tagId, $maxResults = null) {
+    public function getChroniclesWithTags($tagIds, $maxResults = null) {
 
         $dql = "SELECT gc FROM " . self::MODEL . " gc";
-        $dql .= " JOIN gc.tag t WHERE t.id = " . $tagId;
+        $dql .= " JOIN gc.tag t WHERE t.id IN (" . implode(",", $tagIds) . ")";
         $dql .= " ORDER BY gc.creation_date DESC";
         
         $query = $this->entityManager->createQuery($dql);

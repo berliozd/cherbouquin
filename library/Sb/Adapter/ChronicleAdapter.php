@@ -166,9 +166,11 @@ class ChronicleAdapter {
         $similarChronicles = array();
         if ($this->chronicle->getTag()) {
             // nb of chronicles requested is + 1 as the current chronicle will be returned in the results
-            $chroniclesWithTag = ChronicleSvc::getInstance()->getChroniclesWithTag($this->chronicle->getTag()
-                ->getId(), $nbOfSimilarChronicles + 1);
-            $chroniclesWithTag = $this->getDifferentChronicles($chroniclesWithTag, $nbOfSimilarChronicles);
+            $chroniclesWithTag = ChronicleSvc::getInstance()->getChroniclesWithTags(array(
+                    $this->chronicle->getTag()
+                        ->getId()
+            ), $nbOfSimilarChronicles + 1);
+            $chroniclesWithTag = ChronicleHelper::getDifferentChronicles($this->chronicle, $chroniclesWithTag, $nbOfSimilarChronicles);
             $similarChronicles = $chroniclesWithTag;
         }
         
@@ -184,7 +186,7 @@ class ChronicleAdapter {
                 if (!$similarChronicles) {
                     
                     $similarChronicles = $chroniclesWithKeywords;
-                    $similarChronicles = $this->getDifferentChronicles($similarChronicles, $nbOfSimilarChronicles);
+                    $similarChronicles = ChronicleHelper::getDifferentChronicles($this->chronicle, $similarChronicles, $nbOfSimilarChronicles);
                 } else {
                     
                     $filteredChroniclesWithKeywords = array();
@@ -201,11 +203,11 @@ class ChronicleAdapter {
                         if ($add)
                             $filteredChroniclesWithKeywords[] = $chronicleWithKeyword;
                     }
-                    $filteredChroniclesWithKeywords = $this->getDifferentChronicles($filteredChroniclesWithKeywords, $nbOfSimilarChronicles);
+                    $filteredChroniclesWithKeywords = ChronicleHelper::getDifferentChronicles($this->chronicle, $filteredChroniclesWithKeywords, $nbOfSimilarChronicles);
                     
                     // Merge the chronicles found with tag and the one found with keywords
                     $similarChronicles = array_merge($similarChronicles, $filteredChroniclesWithKeywords);
-                    $similarChronicles = $this->getDifferentChronicles($similarChronicles, $nbOfSimilarChronicles);
+                    $similarChronicles = ChronicleHelper::getDifferentChronicles($this->chronicle, $similarChronicles, $nbOfSimilarChronicles);
                 }
             }
         }
@@ -217,32 +219,9 @@ class ChronicleAdapter {
         $authorChronicles = ChronicleSvc::getInstance()->getAuthorChronicles($this->chronicle->getUser()
             ->getId());
         if ($authorChronicles)
-            $authorChronicles = $this->getDifferentChronicles($authorChronicles, $nbChroniclesToReturn);
+            $authorChronicles = ChronicleHelper::getDifferentChronicles($this->chronicle, $authorChronicles, $nbChroniclesToReturn);
         
         return $authorChronicles;
-    }
-
-    /**
-     * Get only different chronicles than the current one
-     * @param Collection of Chronicle $chronicles the collection of current chronicle to parse
-     * @param int $maxNumber the maximum number of chronicle to return
-     * @return a Collection of Chronicle that doesn't contain the main one displayed in the page
-     */
-    private function getDifferentChronicles($chronicles, $maxNumber) {
-
-        $result = array();
-        
-        foreach ($chronicles as $chronicle) {
-            /* @$chronicle Chronicle */
-            if ($chronicle->getId() != $this->chronicle->getId()) {
-                $result[] = $chronicle;
-                if (count($result) >= $maxNumber) {
-                    return $result;
-                }
-            }
-        }
-        
-        return $result;
     }
 
 }

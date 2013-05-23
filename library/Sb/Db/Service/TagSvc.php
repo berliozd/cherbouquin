@@ -42,8 +42,8 @@ class TagSvc extends \Sb\Db\Service\Service {
 
     /**
      * Get a list of tags for the list of books
-     * @param type $books : list of books
-     * @return type list of tags
+     * @param array of Book $books : list of books
+     * @return array of Tag list of tags
      */
     public function getTagsForBooks($books) {
 

@@ -97,5 +97,30 @@ class ChronicleHelper {
         return $linkTypeLabel;
     
     }
+    
+    
+    /**
+     * Get only different chronicles than the one passed as first parameter
+     * @param $chronicle the chronicle to remove from collection
+     * @param Collection of Chronicle $chronicles the collection of current chronicle to parse
+     * @param int $maxNumber number of chronicles to return
+     * @return a Collection of Chronicle that doesn't contain the one received as first parameter
+     */
+    public static function getDifferentChronicles($chronicle, $chronicles, $maxNumber) {
+    
+        $result = array();
+    
+        foreach ($chronicles as $chronicleToParse) {
+            /* @$chronicle Chronicle */
+            if ($chronicleToParse->getId() != $chronicle->getId()) {
+                $result[] = $chronicleToParse;
+                if (count($result) >= $maxNumber) {
+                    return $result;
+                }
+            }
+        }
+    
+        return $result;
+    }
 
 }

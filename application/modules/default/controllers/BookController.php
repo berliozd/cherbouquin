@@ -3,6 +3,7 @@ use Sb\Db\Dao\BookDao;
 use Sb\Db\Service\BookSvc;
 use Sb\View\Book as BookView;
 use Sb\Db\Model\Book;
+use Sb\Db\Model\Tag;
 use Sb\View\Components\ButtonsBar;
 use Sb\View\Components\Ad;
 use Sb\Service\MailSvc;
@@ -10,6 +11,10 @@ use Sb\Entity\Constants;
 use Sb\Service\HeaderInformationSvc;
 use Sb\Trace\Trace;
 use Sb\View\SocialNetworksBar;
+use Sb\Db\Service\TagSvc;
+use Sb\Db\Service\ChronicleSvc;
+use Sb\Adapter\ChronicleListAdapter;
+use Sb\View\PushedChronicles;
 
 class Default_BookController extends Zend_Controller_Action {
 
@@ -45,16 +50,21 @@ class Default_BookController extends Zend_Controller_Action {
                 
                 if ($book) {
                     
-                    // Get book view
+                    // Add chronicle css to head
+                    $this->view->headLink()
+                        ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
+                    
+                    // Get book view and add it to view model
                     $bookView = new BookView($book, true, true, true, false, true);
                     $this->view->bookView = $bookView;
                     
-                    // Get book buttonbar
+                    // Get book buttonbar and add it to view model
                     $buttonsBar = new ButtonsBar(false);
                     $this->view->buttonsBar = $buttonsBar;
                     
-                    // Get Books with same contributors
+                    // Get Books with same contributors and add it to view model
                     $this->view->sameAuthorBooks = BookSvc::getInstance()->getBooksWithSameContributors($bookId);
+                    
                     $this->view->placeholder('footer')
                         ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
                     $this->view->placeholder('footer')
@@ -63,33 +73,38 @@ class Default_BookController extends Zend_Controller_Action {
                     // We pass ASIN code to be used by amazon url builder widget
                     $this->view->bookAsin = $book->getASIN();
                     
-                    // Get fnac buy link
+                    // Get fnac buy link and add it to view model
                     $this->view->buyOnFnacLink = null;
                     if ($book->getISBN13())
                         $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $book->getISBN13() . "]]"; //
                                                                                                                                                                                            
-                    // Get share links
+                    // Get social network bar and add it to view model
                     $socialBar = new SocialNetworksBar($book->getLargeImageUrl(), $book->getTitle());
                     $this->view->socialBar = $socialBar->get();
                     
-                    // Get ad
+                    // Get ad and add it to view model
                     $ad = new Ad("bibliotheque", "1223994660");
                     $this->view->ad = $ad;
                     
-                    // Get Header Information
+                    // Get Header Information and add it to view model
                     $headerInformation = HeaderInformationSvc::getInstance()->get($book);
                     $this->view->tagTitle = $headerInformation->getTitle();
                     $this->view->metaDescription = $headerInformation->getDescription();
                     $this->view->metaKeywords = $headerInformation->getKeywords();
                     
-                    // Get last read userbooks for the book
+                    // Get last read userbooks for the book and add it to view model
                     $this->view->lastlyReadUserbooks = Sb\Db\Service\UserBookSvc::getInstance()->getLastlyReadUserbookByBookId($bookId, 5);
+                    
                     if (count($this->view->lastlyReadUserbooks) > 1) {
                         $this->view->placeholder('footer')
                             ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>\n");
                         $this->view->placeholder('footer')
                             ->append("<script>$(function() {initCarousel('carousel-lastUsersWhoReadThatBook', 298, 85)});</script>\n");
                     }
+                    
+                    // Get chronicles and add it to view model
+                    $chronicles = $this->getChroniclesRelativeToBook($book);
+                    $this->view->chronicles = $this->getChronicleView($chronicles);
                 } else
                     $noBook = true;
             } else
@@ -182,6 +197,62 @@ class Default_BookController extends Zend_Controller_Action {
         if ($userBook->getReview()) {
             return true;
         }
+    }
+
+    private function getChroniclesRelativeToBook(Book $book) {
+
+        $chronicles = null;
+        
+        // Get book userbook's tag
+        $bookTags = TagSvc::getInstance()->getTagsForBooks(array(
+                $book
+        ));
+        $bookTagIds = null;
+        foreach ($bookTags as $bookTag) {
+            /* @var $bookTag Tag */
+            $bookTagIds[] = $bookTag->getId();
+        }
+        
+        // Get 3 chronicles with same tags
+        if ($bookTags && count($bookTags) > 0)
+            $chronicles = ChronicleSvc::getInstance()->getChroniclesWithTags($bookTagIds, 3); //
+                                                                                                  
+        // Get last chronicles of any types and add them to previously set list of chronicles
+        if (!$chronicles || count($chronicles) < 3) {
+            $lastChronicles = ChronicleSvc::getInstance()->getLastChronicles(3);
+            foreach ($lastChronicles as $lastChronicle) {
+                
+                $add = true;
+                if ($chronicles) {
+                    foreach ($chronicles as $chronicle) {
+                        if ($chronicle->getId() == $lastChronicle->getId()) {
+                            $add = false;
+                            break;
+                        }
+                    }
+                }
+                
+                if ($add)
+                    $chronicles[] = $lastChronicle;
+            }
+        }
+        
+        if ($chronicles)
+            $chronicles = array_slice($chronicles, 0, 3);
+        
+        return $chronicles;
+    }
+
+    private function getChronicleView($chronicles) {
+
+        $chronicleListAdapter = new ChronicleListAdapter();
+        // Getting list of view model
+        $chronicleListAdapter->setChronicles($chronicles);
+        $chroniclesAsViewModel = $chronicleListAdapter->getAsChronicleViewModelLightList();
+        // Get chronicles view
+        $link = $this->view->url(array(), 'chroniclesLastAnyType');
+        $chroniclesView = new PushedChronicles($chroniclesAsViewModel, $link);
+        return $chroniclesView->get();
     }
 
 }

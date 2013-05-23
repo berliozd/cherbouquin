@@ -71,7 +71,6 @@
 /* ------------------------- */
 /* ---- Chronicle Detail --- */
 /* ------------------------- */
-
 #chronicle-detail .navigation {
     background-color: #FFF;
 }
@@ -96,7 +95,7 @@
 }
 
 #cd-video {
-    float:left;
+    float: left;
     width: 100%;
 }
 
@@ -206,4 +205,57 @@
 
 #chronicle-search-form FORM {
     float: right;
+}
+
+/* ------------------------------------------------------- */
+/* ---- pushed-chronicles on home and book detail page --- */
+/* ------------------------------------------------------- */
+.pushed-chronicles {
+    float: left;
+    padding-bottom: 30px;
+}
+
+.pushed-chronicles UL {
+    padding: 0;
+}
+
+.pushed-chronicles LI {
+    float: left;
+    list-style: none;
+    width: 202px;
+    margin-left: 10px;
+}
+
+.pushed-chronicles LI.first {
+    margin-left: 0;
+}
+
+.pc-image {
+    border: 1px solid #E6E6E6;
+    width: 200px;
+    height: 200px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.pc-title {
+    color: #239CD3;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: left;;
+}
+
+.pc-link {
+    border-top: 1px solid #E6E6E6;
+    float: left;
+    padding-top: 5px;
+    margin-top: 15px;
+    width: 100%
+}
+
+.pc-link A {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    font-weight: bold;
 }

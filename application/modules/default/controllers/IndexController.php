@@ -49,7 +49,11 @@ class Default_IndexController extends Zend_Controller_Action {
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
             // Add newsreader css to head
             $this->view->headLink()
-                ->appendStylesheet(BASE_URL . "resources/js/newsReader.css?v=" . VERSION);
+                ->appendStylesheet(BASE_URL . "resources/css/newsReader.css?v=" . VERSION);
+
+            // Add chronicle css to head
+            $this->view->headLink()
+                ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
             
             $this->view->tagTitle = sprintf(__("%s : livre et littérature - tops | coups de cœur | critiques", "s1b"), \Sb\Entity\Constants::SITENAME);
             $this->view->metaDescription = __("Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon", "s1b");
@@ -99,7 +103,7 @@ class Default_IndexController extends Zend_Controller_Action {
             // Newsreader
             $pressReviews = PressReviewSvc::getInstance()->getList(50, 0);
             if ($pressReviews) {
-                $newsReader = new NewsReader($pressReviews, __("L'actualité du <strong>livre</strong> dans les médias","s1b"));
+                $newsReader = new NewsReader($pressReviews, __("L'actualité du <strong>livre</strong> dans les médias", "s1b"));
                 $this->view->newsReader = $newsReader->get();
             }
         } catch (\Exception $e) {
@@ -184,7 +188,7 @@ class Default_IndexController extends Zend_Controller_Action {
         $chronicleListAdapter->setChronicles($chronicles);
         $anyGroupTypeChronicesAsViewModel = $chronicleListAdapter->getAsChronicleViewModelLightList();
         // Get chronicles view
-        $chroniclesView = new PushedChronicles($title, $anyGroupTypeChronicesAsViewModel, $typeCSS, $link, $textLink);
+        $chroniclesView = new PushedChronicles($anyGroupTypeChronicesAsViewModel, $link, $title, $typeCSS, $textLink);
         return $chroniclesView->get();
     }
 

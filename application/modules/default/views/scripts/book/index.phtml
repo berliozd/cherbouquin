@@ -1,11 +1,12 @@
 <div id="content-center">
     <?php
     echo $this->bookView->get();
+    echo $this->chronicles;
     echo $this->buttonsBar->get();
     ?>
 </div>
 <div id="content-right">
-    
+
     <!-- Buttons START -->
     <div class="right-frame">
         <div class="right-col-buttons">
@@ -13,43 +14,52 @@
                 <?php _e("Acheter sur","s1b");?>
             </div>
             <div class="rcb-buttons">
-                <SCRIPT charset="utf-8" type="text/javascript" src="http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822/FR/cherbouqui-21/8005/130360ea-5296-44dc-94af-a53026e827a4"> </SCRIPT><NOSCRIPT><A HREF="http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822%2FFR%2Fcherbouqui-21%2F8005%2F130360ea-5296-44dc-94af-a53026e827a4&Operation=NoScript">Widgets Amazon.fr</A></NOSCRIPT>                
-                <a type="amzn" asin="<?php echo $this->bookAsin;?>"><div id="amazonButton" title="<?php _e("Acheter sur Amazon", "s1b");?>" class="button bt-amazon float-left margin-left"></div></a>
+                <SCRIPT charset="utf-8" type="text/javascript"
+                    src="http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822/FR/cherbouqui-21/8005/130360ea-5296-44dc-94af-a53026e827a4"> </SCRIPT>
+                <NOSCRIPT>
+                    <A
+                        HREF="http://ws.amazon.fr/widgets/q?ServiceVersion=20070822&MarketPlace=FR&ID=V20070822%2FFR%2Fcherbouqui-21%2F8005%2F130360ea-5296-44dc-94af-a53026e827a4&Operation=NoScript">Widgets
+                        Amazon.fr</A>
+                </NOSCRIPT>
+                <a type="amzn" asin="<?php echo $this->bookAsin;?>"><div id="amazonButton" title="<?php _e("Acheter sur Amazon", "s1b");?>"
+                        class="button bt-amazon float-left margin-left"></div></a>
                 <?php if ($this->buyOnFnacLink) { ?>
-                <a class="button bt-fnac float-left margin-left" target="_blank" href="<?php echo $this->buyOnFnacLink; ?>" title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>
+                <a class="button bt-fnac float-left margin-left" target="_blank" href="<?php echo $this->buyOnFnacLink; ?>"
+                    title="<?php _e("Acheter sur Fnac.com", "s1b");?>"></a>
                 <?php } ?>
-            </div>  
+            </div>
         </div>
         <div class="right-col-buttons">
             <?php echo $this->socialBar;?>            
         </div>
     </div>
     <!-- Buttons END -->
-    
+
     <div class="right-frame">
         <?php echo $this->ad->get(); ?>
     </div>    
     
     <?php if (count($this->sameAuthorBooks) > 0) { ?>
         <div class="right-frame">
-            <div class="same-author-books">
+        <div class="same-author-books">
                 <?php
-                $sameAuthorBooksCoverFlip = new Sb\View\BookCoverFlip($this->sameAuthorBooks, __("Les livres <strong>du même auteur</strong>", "s1b"), "sameAuthorBooks", "sab-books small-coverflip-bkg");
-                echo $sameAuthorBooksCoverFlip->get();
-                ?>
+        $sameAuthorBooksCoverFlip = new Sb\View\BookCoverFlip($this->sameAuthorBooks, __("Les livres <strong>du même auteur</strong>", "s1b"), "sameAuthorBooks", "sab-books small-coverflip-bkg");
+        echo $sameAuthorBooksCoverFlip->get();
+        ?>
             </div>
 
-        </div>
+    </div>
     <?php } ?>
     
     <?php if (count($this->lastlyReadUserbooks) > 0) {?>
     <div class="right-frame">
         <div class="carousel">
-            <?php 
-            $lastUsersWhoReadThatBookView = new Sb\View\LastUsersWhoReadThatBook($this->lastlyReadUserbooks);
+            <?php
+        $lastUsersWhoReadThatBookView = new Sb\View\LastUsersWhoReadThatBook($this->lastlyReadUserbooks);
             echo $lastUsersWhoReadThatBookView->get(); 
             ?>
         </div>
     </div>
     <?php } ?>
-</div> 
+
+</div>
