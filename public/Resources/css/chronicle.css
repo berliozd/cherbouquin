@@ -1,8 +1,6 @@
-
 /* ----------------------------------- */
 /* ---- Other chronicles same type --- */
 /* ----------------------------------- */
-
 #other-chronicles {
     float: left;
     width: 100%;
@@ -24,7 +22,7 @@
     list-style: none outside none;
 }
 
-#other-chronicles LI A, .cl-other-chronicles LI A {
+#other-chronicles LI A,.cl-other-chronicles LI A {
     color: #707070;
     text-decoration: none;
     margin-top: 2px;
@@ -35,8 +33,6 @@
 /* -------------------------- */
 /* ---- Chronicles Blocks --- */
 /* -------------------------- */
-
-
 #chronicles-block {
     
 }
@@ -99,24 +95,33 @@
     margin-top: 10px;
 }
 
+#cd-video {
+    float:left;
+    width: 100%;
+}
+
+#cd-video-iframe {
+    margin: 10px auto;
+    width: 560px;
+}
+
 /* ----------------------- */
 /* ---- Chronicle List --- */
 /* ----------------------- */
-
 #chronicles-list {
     margin-top: 10px;
 }
 
-#chronicles-list .navigation.top{
+#chronicles-list .navigation.top {
     margin-bottom: 10px;
 }
 
 #cl-searchterm {
-    margin-bottom: 10px;   
+    margin-bottom: 10px;
 }
 
 #cl-searchterm-value {
-    font-style: italic; 
+    font-style: italic;
 }
 
 #cl-searchterm SPAN {
@@ -126,7 +131,7 @@
 #chronicles-list UL {
     list-style: none outside none;
     padding: 0;
-    margin:0;
+    margin: 0;
 }
 
 #chronicles-list LI.cl-item {
@@ -159,6 +164,7 @@
 #chronicles-list H2 {
     margin: 0;
 }
+
 #chronicles-list H2 A {
     text-decoration: none;
 }
@@ -168,13 +174,12 @@
 }
 
 .cloc-title {
-    margin-bottom:5px;
+    margin-bottom: 5px;
 }
 
 /* ------------------------------ */
 /* ---- Chronicle Search Form --- */
 /* ------------------------------ */
-
 #chronicle-search-form {
     background-color: #1E1E1E;
     float: left;
@@ -183,12 +188,13 @@
 }
 
 #chronicle-search-form .search-field {
-    background : url("../images/sprite.png?v=5") no-repeat scroll -550px 0 transparent;
+    background: url("../images/sprite.png?v=5") no-repeat scroll -550px 0 transparent;
     width: 130px;
 }
+
 #chronicle-search-form .search-field INPUT {
     width: 84px;
-    margin:7px 4px;
+    margin: 7px 4px;
 }
 
 #chronicle-search-form DIV {
@@ -197,6 +203,7 @@
     font-size: 1.2em;
     line-height: 30px;
 }
+
 #chronicle-search-form FORM {
     float: right;
 }

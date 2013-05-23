@@ -12,6 +12,8 @@ class PressReviewSvc extends Service {
 
     const LAST_PRESSREVIEWS = "LAST_PRESSREVIEWS";
 
+    const LAST_VIDEO_PRESSREVIEW_ONBOOK = "LAST_VIDEO_PRESSREVIEW_ONBOOK";
+
     private static $instance;
 
     /**
@@ -50,6 +52,30 @@ class PressReviewSvc extends Service {
             
             $results = array_slice($results, 0, $nbOfItems);
             return $results;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+    }
+
+    public function getVideoByBookId($bookId) {
+
+        try {
+            
+            $key = self::LAST_VIDEO_PRESSREVIEW_ONBOOK;
+            
+            $key = $key . "_bid_" . $bookId;
+            
+            $result = $this->getData($key);
+            
+            if ($result === false) {
+                /* @var $dao PressReviewDao */
+                $dao = $this->getDao();
+                $result = $dao->getLastVideoPressReviewForBookId($bookId);
+                
+                $this->setData($key, $result);
+            }
+            
+            return $result;
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }

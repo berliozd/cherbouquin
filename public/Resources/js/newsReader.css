@@ -9,13 +9,13 @@
 .nr-list {
     border: 1px solid #E0E0E0;
     float: left;
-    width: 100%;
-    font-size:1.1em;
+    width: 100%;    
 }
 
 .nr-list a {
     text-decoration: none;
     color:#000;
+    font-size:1.1em;
 }
 
 .nr-list ul {

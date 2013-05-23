@@ -18,6 +18,7 @@ use Sb\Entity\GroupTypes;
 use Sb\View\ChroniclesMoreSeen;
 use Sb\Db\Service\PressReviewSvc;
 use Sb\View\Components\NewsReader;
+use Sb\Db\Model\PressReview;
 
 class Default_ChronicleController extends Zend_Controller_Action {
 
@@ -103,6 +104,15 @@ class Default_ChronicleController extends Zend_Controller_Action {
             if ($pressReviews) {
                 $newsReader = new NewsReader($pressReviews, __("Les <strong>médias</strong> en parlent aussi", "s1b"));
                 $this->view->newsReader = $newsReader->get();
+            }
+            
+            // If chronicle is on book, trying to get video on book
+            if ($chronicle->getBook()) {
+                /* @var $video PressReview */
+                $video = PressReviewSvc::getInstance()->getVideoByBookId($chronicle->getBook()
+                    ->getId());
+                if ($video)
+                    $this->view->videoUrl = $video->getLink();
             }
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));

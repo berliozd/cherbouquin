@@ -2,28 +2,35 @@
 
     <div id="chronicle-detail">
         <?php echo $this->chronicle; ?>
+        <?php if ($this->videoUrl) { ?>
+        <div id="cd-video">
+            <div id="cd-video-iframe">
+                <iframe width="560" height="315" src="<?php echo $this->videoUrl; ?>" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+        <?php } ?>
         <?php echo $this->otherChoniclesSameType; ?>
         <?php echo $this->reviews; ?>
     </div>
-    
+
 </div>
 
 <div id="content-right">
-    
+
     <div class="right-frame">
         <?php echo $this->newsReader; ?>
     </div>
-    
+
     <div class="right-frame">
         <?php echo $this->ad; ?>
     </div>
-    
+
     <div class="right-frame">
         <?php echo $this->pressReviewsSubscriptionWidget; ?>
     </div>
-    
+
     <div class="right-frame">
         <?php echo $this->authorChroniclesView; ?>
     </div>
-    
+
 </div>
