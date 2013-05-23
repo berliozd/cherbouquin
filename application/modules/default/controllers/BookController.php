@@ -15,6 +15,7 @@ use Sb\Db\Service\TagSvc;
 use Sb\Db\Service\ChronicleSvc;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\PushedChronicles;
+use Sb\Db\Service\PressReviewSvc;
 
 class Default_BookController extends Zend_Controller_Action {
 
@@ -105,6 +106,11 @@ class Default_BookController extends Zend_Controller_Action {
                     // Get chronicles and add it to view model
                     $chronicles = $this->getChroniclesRelativeToBook($book);
                     $this->view->chronicles = $this->getChronicleView($chronicles);
+                    
+                    // Get video press review associated to book
+                    $video = PressReviewSvc::getInstance()->getVideoByBookId($book->getId());
+                    if ($video)
+                        $this->view->videoUrl = $video->getLink();
                 } else
                     $noBook = true;
             } else

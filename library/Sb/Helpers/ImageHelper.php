@@ -45,9 +45,9 @@ class ImageHelper {
         return sprintf("<img src='%s' border='0' class='bookPreview' title=\"%s\" alt=\"%s\"/>", $src, $title, $title);
     }
 
-    public static function getMediumImageTagForFlipCarousel($url, $title, $defaultImg) {
+    public static function getMediumImageTagForFlipCarousel($url, $href, $title, $defaultImg) {
 
-        return sprintf("<img src='%s' border='0' class='image-thumb' title=\"%s\" alt=\"%s\" />", self::getImageSrc($url, $defaultImg), $title, $title);
+        return sprintf("<img src='%s' href='%s' border='0' class='image-thumb' title=\"%s\" alt=\"%s\" />", self::getImageSrc($url, $defaultImg), $href, $title, $title);
     }
 
 }

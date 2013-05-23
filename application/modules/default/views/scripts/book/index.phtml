@@ -61,5 +61,11 @@
         </div>
     </div>
     <?php } ?>
+    
+    <?php if ($this->videoUrl) { ?>
+    <div class="right-frame">
+        <iframe width="300" height="170" src="<?php echo $this->videoUrl; ?>" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <?php } ?>
 
 </div>

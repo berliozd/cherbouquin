@@ -34,7 +34,9 @@ class BookHelper {
 
     public static function getMediumImageTagForFlipCarousel(Book $book, $defaultImg) {
 
-        return ImageHelper::getMediumImageTagForFlipCarousel($book->getImageUrl(), $book->getTitle(), $defaultImg);
+        $href = HTTPHelper::Link($book->getLink());
+        
+        return ImageHelper::getMediumImageTagForFlipCarousel($book->getImageUrl(), $href, $book->getTitle(), $defaultImg);
     }
 
     public static function getLargeImageTag(Book $book, $defaultImg) {
