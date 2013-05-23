@@ -12,7 +12,7 @@ class PressReviewSvc extends Service {
 
     const LAST_PRESSREVIEWS = "LAST_PRESSREVIEWS";
 
-    const LAST_VIDEO_PRESSREVIEW_ONBOOK = "LAST_VIDEO_PRESSREVIEW_ONBOOK";
+    const PRESSREVIEW_ONBOOK = "PRESSREVIEW_ONBOOK";
 
     private static $instance;
 
@@ -32,50 +32,55 @@ class PressReviewSvc extends Service {
         parent::__construct(PressReviewDao::getInstance(), "PressReview");
     }
 
-    public function getList($nbOfItems, $typeId) {
+    public function getList($maxResults, $typeId) {
 
         try {
             
             $key = self::LAST_PRESSREVIEWS;
             
-            $key = $key . "_m_" . $nbOfItems . "_tid_" . $typeId;
+            $key = $key . "_m_100_tid_" . $typeId;
             
             $results = $this->getData($key);
             
             if ($results === false) {
                 /* @var $dao PressReviewDao */
                 $dao = $this->getDao();
-                $results = $dao->getLastPressReviews($nbOfItems, $typeId);
+                $results = $dao->getLastPressReviews(100, $typeId);
                 
                 $this->setData($key, $results);
             }
             
-            $results = array_slice($results, 0, $nbOfItems);
+            $results = array_slice($results, 0, $maxResults);
             return $results;
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
     }
 
-    public function getVideoByBookId($bookId) {
+    public function getListByBookId($bookId, $typeId = null, $maxResults = null) {
 
         try {
             
-            $key = self::LAST_VIDEO_PRESSREVIEW_ONBOOK;
+            $key = self::PRESSREVIEW_ONBOOK . "_bid_" . $bookId;
+            if (isset($typeId))
+                $key .= "_tid_" . $typeId;
             
-            $key = $key . "_bid_" . $bookId;
+            $key .= "_m_100";
             
-            $result = $this->getData($key);
+            $results = $this->getData($key);
             
-            if ($result === false) {
+            if ($results === false) {
                 /* @var $dao PressReviewDao */
                 $dao = $this->getDao();
-                $result = $dao->getLastVideoPressReviewForBookId($bookId);
+                $results = $dao->getLastPressReviewsForBookId($bookId, $typeId, 100);
                 
-                $this->setData($key, $result);
+                $this->setData($key, $results);
             }
             
-            return $result;
+            if (isset($maxResults))
+                $results = array_slice($results, 0, $maxResults);
+            
+            return $results;
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }

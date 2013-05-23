@@ -19,6 +19,7 @@ use Sb\View\ChroniclesMoreSeen;
 use Sb\Db\Service\PressReviewSvc;
 use Sb\View\Components\NewsReader;
 use Sb\Db\Model\PressReview;
+use Sb\Entity\PressReviewTypes;
 
 class Default_ChronicleController extends Zend_Controller_Action {
 
@@ -109,8 +110,8 @@ class Default_ChronicleController extends Zend_Controller_Action {
             // If chronicle is on book, trying to get video on book
             if ($chronicle->getBook()) {
                 /* @var $video PressReview */
-                $video = PressReviewSvc::getInstance()->getVideoByBookId($chronicle->getBook()
-                    ->getId());
+                $video = PressReviewSvc::getInstance()->getListByBookId($chronicle->getBook()
+                    ->getId(), PressReviewTypes::VIDEO, 1);
                 if ($video)
                     $this->view->videoUrl = $video->getLink();
             }

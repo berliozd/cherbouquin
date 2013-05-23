@@ -4,6 +4,7 @@ use Sb\Db\Service\BookSvc;
 use Sb\View\Book as BookView;
 use Sb\Db\Model\Book;
 use Sb\Db\Model\Tag;
+use Sb\Db\Model\PressReview;
 use Sb\View\Components\ButtonsBar;
 use Sb\View\Components\Ad;
 use Sb\Service\MailSvc;
@@ -13,9 +14,11 @@ use Sb\Trace\Trace;
 use Sb\View\SocialNetworksBar;
 use Sb\Db\Service\TagSvc;
 use Sb\Db\Service\ChronicleSvc;
+use Sb\Db\Service\PressReviewSvc;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\PushedChronicles;
-use Sb\Db\Service\PressReviewSvc;
+use Sb\Entity\PressReviewTypes;
+use Sb\View\BookPressReviews;
 
 class Default_BookController extends Zend_Controller_Action {
 
@@ -54,6 +57,10 @@ class Default_BookController extends Zend_Controller_Action {
                     // Add chronicle css to head
                     $this->view->headLink()
                         ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
+                    
+                    // Add press review css to head
+                    $this->view->headLink()
+                        ->appendStylesheet(BASE_URL . "resources/css/pressReviews.css?v=" . VERSION);
                     
                     // Get book view and add it to view model
                     $bookView = new BookView($book, true, true, true, false, true);
@@ -108,9 +115,18 @@ class Default_BookController extends Zend_Controller_Action {
                     $this->view->chronicles = $this->getChronicleView($chronicles);
                     
                     // Get video press review associated to book
-                    $video = PressReviewSvc::getInstance()->getVideoByBookId($book->getId());
-                    if ($video)
+                    $videoPressReviews = PressReviewSvc::getInstance()->getListByBookId($book->getId(), PressReviewTypes::VIDEO, 1);
+                    if ($videoPressReviews) {
+                        $video = $videoPressReviews[0];
                         $this->view->videoUrl = $video->getLink();
+                    }
+                    
+                    // Get book press reviews
+                    $bookPressReviews = $this->getBookPressReviews($book);
+                    if ($bookPressReviews) {
+                        $bookPressReviewsView = new BookPressReviews($bookPressReviews);
+                        $this->view->pressReviews = $bookPressReviewsView->get();
+                    }
                 } else
                     $noBook = true;
             } else
@@ -259,6 +275,45 @@ class Default_BookController extends Zend_Controller_Action {
         $link = $this->view->url(array(), 'chroniclesLastAnyType');
         $chroniclesView = new PushedChronicles($chroniclesAsViewModel, $link);
         return $chroniclesView->get();
+    }
+
+    private function getBookPressReviews(Book $book) {
+
+        $bookPressReviews = PressReviewSvc::getInstance()->getListByBookId($book->getId(), PressReviewTypes::ARTICLE, 3);
+        
+        // If not enough press reviews associated to book, getting general press reviews
+        if (!$bookPressReviews || count($bookPressReviews) < 3) {
+            
+            // Get general press reviews
+            $generalPressReviews = PressReviewSvc::getInstance()->getList(3, PressReviewTypes::ARTICLE);
+            
+            if (!$bookPressReviews) {
+                
+                $bookPressReviews = $generalPressReviews;
+            } else {
+                if ($generalPressReviews) {
+                    foreach ($generalPressReviews as $generalPressReview) {
+                        /* @var $generalPressReview PressReview */
+                        $add = true;
+                        foreach ($bookPressReviews as $bookPressReview) {
+                            /* @var $bookPressReview PressReview */
+                            if ($generalPressReview->getId() == $bookPressReview->getId()) {
+                                $add = false;
+                                break;
+                            }
+                        }
+                        
+                        if ($add)
+                            $bookPressReviews[] = $generalPressReview;
+                    }
+                }
+            }
+        }
+        
+        if ($bookPressReviews)
+            $bookPressReviews = array_slice($bookPressReviews, 0, 3);
+        
+        return $bookPressReviews;
     }
 
 }

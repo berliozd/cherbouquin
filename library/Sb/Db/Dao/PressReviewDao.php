@@ -51,18 +51,26 @@ class PressReviewDao extends AbstractDao {
         return $this->getResults($query);
     }
 
-    public function getLastVideoPressReviewForBookId($bookId) {
+    public function getLastPressReviewsForBookId($bookId, $typeId = null, $maxResults = null) {
 
-        $dql = "SELECT pr, b FROM " . self::MODEL . " pr
+        $dql = "SELECT pr, b, m FROM " . self::MODEL . " pr
                 JOIN pr.book b
-        		WHERE pr.type = 1 AND b.id = " . $bookId . "
-                ORDER BY pr.date DESC";
+                LEFT JOIN pr.media m
+        		WHERE b.id = " . $bookId;
+        
+        if (isset($typeId))
+            $dql .= " AND pr.type = " . $typeId;
+        
+        $dql .= " ORDER BY pr.date DESC";
         
         $query = $this->entityManager->createQuery($dql);
         
-        $query->setMaxResults(1);
+        if ($maxResults)
+            $query->setMaxResults($maxResults);
+        else
+            $query->setMaxResults(1);
         
-        return $this->getOneResult($query);
+        return $this->getResults($query);
     }
 
 }

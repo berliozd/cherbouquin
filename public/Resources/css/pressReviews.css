@@ -1,0 +1,53 @@
+/* --------------------------- */
+/* ---- Book press reviews --- */
+/* --------------------------- */
+#book-press-reviews {
+    float: left;
+}
+
+#book-press-reviews a {
+    text-decoration: none;
+    color:#000;
+}
+
+#bpr-block-title {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+#book-press-reviews ul {
+    list-style: none outside none;
+    padding: 0;
+}
+
+#book-press-reviews li {
+    border-bottom: 1px solid #E6E6E6;
+    float: left;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+.bpr-image {
+    float: left;
+    width: 80px;
+}
+
+.bpr-text {
+    float: left;
+    width: 560px;
+    font-size: 1.1em;
+}
+
+.bpr-title {
+    color: #239CD3;
+    font-weight: bold;
+}
+
+.bpr-date {
+    
+}
+
+.bpr-content {
+    
+}
