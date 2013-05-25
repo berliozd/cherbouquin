@@ -101,7 +101,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
             $this->view->metaKeywords = $chronicle->getKeywords();
             
             // Newsreader
-            $pressReviews = PressReviewSvc::getInstance()->getList(50, 0);
+            $pressReviews = PressReviewSvc::getInstance()->getList(null, 0, 50);
             if ($pressReviews) {
                 $newsReader = new NewsReader($pressReviews, __("Les <strong>médias</strong> en parlent aussi", "s1b"));
                 $this->view->newsReader = $newsReader->get();
@@ -359,7 +359,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
         $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
         
         // Newsreader
-        $pressReviews = PressReviewSvc::getInstance()->getList(50, 0);
+        $pressReviews = PressReviewSvc::getInstance()->getList(null, 0, 50);
         if ($pressReviews) {
             $newsReader = new NewsReader($pressReviews, __("L'actualité du <strong>livre</strong> dans les médias", "s1b"));
             $this->view->newsReader = $newsReader->get();
