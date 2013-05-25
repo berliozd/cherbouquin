@@ -89,11 +89,6 @@ class ChronicleSvc extends Service {
                 $dao = $this->getDao();
                 $results = $dao->getLastChronicles(100, $groupType, $excludeGroupTypes, $searchTerm, $orderBy);
                 
-//                 foreach ($results as $result) {
-//                     if ($result->getBook())
-//                         $result->setBook($this->getFullBookRelatedUserEvent($result->getBook()));
-//                 }
-                
                 if ($useCache)
                     $this->setData($key, $results);
             }
@@ -111,21 +106,24 @@ class ChronicleSvc extends Service {
      * @param int $numberOfChronicles number of maximum chronicle to get
      * @return Collection of Chronicle
      */
-    public function getChroniclesWithTags($tagIds, $numberOfChronicles) {
+    public function getChroniclesWithTags($tagIds, $numberOfChronicles, $useCache = true) {
 
         try {
             
-            $key = self::CHRONICLES_WITH_TAG . "_tid_" . implode("_", $tagIds) . "_m_" . $numberOfChronicles;
+            if ($useCache) {
+                $key = self::CHRONICLES_WITH_TAG . "_tid_" . implode("_", $tagIds) . "_m_" . $numberOfChronicles;
+                $results = $this->getData($key);
+            }
             
-            $results = $this->getData($key);
-            
-            if ($results === false) {
+            if (!isset($results) || $results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
                 $results = $dao->getChroniclesWithTags($tagIds, $numberOfChronicles);
                 
-                $this->setData($key, $results);
+                if ($useCache)
+                    $this->setData($key, $results);
             }
+            
             return $results;
         } catch (\Exception $e) {
             $this->logException(get_class(), __FUNCTION__, $e);
@@ -187,17 +185,16 @@ class ChronicleSvc extends Service {
         }
     }
 
-    /**
-     * Get a full book with all members initialised
-     * This is necessary for storing the object in cache otherwise when getting the object from cache (and then detach from database)
-     * these members won't be initialized
-     * @param Book $book
-//      */
-//     private function getFullBookRelatedUserEvent(Book $book) {
-
-//         $contributors = ContributorDao::getInstance()->getListForBook($book->getId());
-//         $book->setContributors($contributors);
-//         return $book;
-//     }
-
+/**
+ * Get a full book with all members initialised
+ * This is necessary for storing the object in cache otherwise when getting the object from cache (and then detach from database)
+ * these members won't be initialized
+ * @param Book $book //
+ */
+    // private function getFullBookRelatedUserEvent(Book $book) {
+    
+    // $contributors = ContributorDao::getInstance()->getListForBook($book->getId());
+    // $book->setContributors($contributors);
+    // return $book;
+    // }
 }

@@ -8,6 +8,7 @@ use \Sb\Db\Dao\TagDao;
 use \Sb\Db\Model\Book;
 use \Sb\Db\Model\UserBook;
 use \Sb\Db\Model\Model;
+use Sb\Trace\Trace;
 
 /**
  * Description of BookSvc
@@ -101,15 +102,16 @@ class BookSvc extends Service {
      * @param type $bookId
      * @return a array of Book
      */
-    public function getBooksAlsoLiked($bookId) {
+    public function getBooksAlsoLiked($bookId, $useCache = true) {
 
-        $key = self::BOOKS_ALSO_LIKED . "_bid_" . $bookId;
+        $result = null;
+        
+        if ($useCache) {
+            $key = self::BOOKS_ALSO_LIKED . "_bid_" . $bookId;
+            $result = $this->getData($key);
+        }    
 
-        $resultInCache = $this->getData($key);
-
-        if ($resultInCache === false) {
-
-            $result = null;
+        if (!isset($result) || $result === false) {
 
             // Get the users who liked that book
             $usersWhoLiked = UserDao::getInstance()->getListWhoLikesBooks(array($bookId));
@@ -132,11 +134,11 @@ class BookSvc extends Service {
                     $result = array_filter($result, array(&$this, "hasNotSameContributors"));
                 }
             }
-
-            $this->setData($key, $result);
+            if ($useCache)
+                $this->setData($key, $result);
         }
 
-        return $this->getRandomNumber($this->getData($key), 5);
+        return $this->getRandomNumber($result, 5);
     }
 
     /**
@@ -144,15 +146,16 @@ class BookSvc extends Service {
      * @param type $bookId
      * @return a array of Book
      */
-    public function getBooksWithSameTags($bookId) {
+    public function getBooksWithSameTags($bookId, $useCache = true) {
 
-        $key = self::BOOKS_SAME_TAGS . "_bid_" . $bookId;
+        $result = null;
+        
+        if ($useCache) {
+            $key = self::BOOKS_SAME_TAGS . "_bid_" . $bookId;
+            $result = $this->getData($key);
+        }   
 
-        $resultInCache = $this->getData($key);
-
-        if ($resultInCache === false) {
-
-            $result = null;
+        if (!isset($result) || $result === false) {
 
             // Get the tags for the current book
             $tags = TagDao::getInstance()->getTagsForBook($bookId);
@@ -175,21 +178,23 @@ class BookSvc extends Service {
                 }
             }
 
-            $this->setData($key, $result);
+            if ($useCache)
+                $this->setData($key, $result);
         }
 
-        return $this->getRandomNumber($this->getData($key), 5);
+        return $this->getRandomNumber($result, 5);
     }
 
-    public function getBooksWithSameContributors($bookId) {
+    public function getBooksWithSameContributors($bookId, $useCache = true) {
 
-        $key = self::BOOKS_SAME_CONTRIBUTORS . "_bid_" . $bookId;
+        $result = null;        
+        
+        if ($useCache) {
+            $key = self::BOOKS_SAME_CONTRIBUTORS . "_bid_" . $bookId;
+            $result = $this->getData($key);
+        }
 
-        $resultInCache = $this->getData($key);
-
-        if ($resultInCache === false) {
-
-            $result = null;
+        if (!isset($result) || $result === false) {
 
             // Get the book
             $book = BookDao::getInstance()->get($bookId);
@@ -200,6 +205,7 @@ class BookSvc extends Service {
                 $contributorsIds = array_map(array(&$this, "getId"), $contributors->toArray());
                 $booksWithSameContributors = BookDao::getInstance()->getListWithSameContributors($contributorsIds);
 
+                Trace::addItem(count($booksWithSameContributors));
                 if (count($booksWithSameContributors) > 0) {
                     
                     // Setting the current viewed book
@@ -210,10 +216,11 @@ class BookSvc extends Service {
                 }
             }
 
-            $this->setData($key, $result);
+            if ($useCache)
+                $this->setData($key, $result);
         }
 
-        return $this->getData($key);
+        return $result;
     }
 
     /**

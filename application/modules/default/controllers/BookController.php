@@ -1,10 +1,5 @@
 <?php
-use Sb\Db\Dao\BookDao;
-use Sb\Db\Service\BookSvc;
 use Sb\View\Book as BookView;
-use Sb\Db\Model\Book;
-use Sb\Db\Model\Tag;
-use Sb\Db\Model\PressReview;
 use Sb\View\Components\ButtonsBar;
 use Sb\View\Components\Ad;
 use Sb\Service\MailSvc;
@@ -12,13 +7,11 @@ use Sb\Entity\Constants;
 use Sb\Service\HeaderInformationSvc;
 use Sb\Trace\Trace;
 use Sb\View\SocialNetworksBar;
-use Sb\Db\Service\TagSvc;
-use Sb\Db\Service\ChronicleSvc;
-use Sb\Db\Service\PressReviewSvc;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\PushedChronicles;
-use Sb\Entity\PressReviewTypes;
 use Sb\View\BookPressReviews;
+use Sb\Service\FullBookSvc;
+use Sb\Model\FullBook;
 
 class Default_BookController extends Zend_Controller_Action {
 
@@ -39,7 +32,6 @@ class Default_BookController extends Zend_Controller_Action {
 
         try {
             
-            // $referer = $this->getRequest()->getHeader('referer');
             global $globalContext;
             
             $noBook = false;
@@ -48,22 +40,24 @@ class Default_BookController extends Zend_Controller_Action {
             // Get books with same contributors
             if ($bookId) {
                 
-                // Get book
-                /* @var $book Book */
-                $book = BookDao::getInstance()->get($bookId);
+                // Get full book
+                /* @var $fullBook FullBook */
+                $fullBook = FullBookSvc::getInstance()->get($bookId);
                 
-                if ($book) {
+                if ($fullBook) {
                     
-                    // Add chronicle css to head
+                    // Add css and js files
                     $this->view->headLink()
                         ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
-                    
-                    // Add press review css to head
                     $this->view->headLink()
                         ->appendStylesheet(BASE_URL . "resources/css/pressReviews.css?v=" . VERSION);
+                    $this->view->placeholder('footer')
+                        ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+                    $this->view->placeholder('footer')
+                        ->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
                     
                     // Get book view and add it to view model
-                    $bookView = new BookView($book, true, true, true, false, true);
+                    $bookView = new BookView($fullBook->getBook(), true, true, true, $fullBook->getBooksAlsoLiked(), $fullBook->getBooksWithSameTags(), $fullBook->getReviewedUserBooks(), false, true);
                     $this->view->bookView = $bookView;
                     
                     // Get book buttonbar and add it to view model
@@ -71,23 +65,23 @@ class Default_BookController extends Zend_Controller_Action {
                     $this->view->buttonsBar = $buttonsBar;
                     
                     // Get Books with same contributors and add it to view model
-                    $this->view->sameAuthorBooks = BookSvc::getInstance()->getBooksWithSameContributors($bookId);
-                    
-                    $this->view->placeholder('footer')
-                        ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
-                    $this->view->placeholder('footer')
-                        ->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
+                    $this->view->sameAuthorBooks = $fullBook->getBooksWithSameAuthor();
                     
                     // We pass ASIN code to be used by amazon url builder widget
-                    $this->view->bookAsin = $book->getASIN();
+                    $this->view->bookAsin = $fullBook->getBook()
+                        ->getASIN();
                     
                     // Get fnac buy link and add it to view model
                     $this->view->buyOnFnacLink = null;
-                    if ($book->getISBN13())
-                        $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $book->getISBN13() . "]]"; //
-                                                                                                                                                                                           
+                    if ($fullBook->getBook()
+                        ->getISBN13())
+                        $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $fullBook->getBook()
+                            ->getISBN13() . "]]"; //
+                                                      
                     // Get social network bar and add it to view model
-                    $socialBar = new SocialNetworksBar($book->getLargeImageUrl(), $book->getTitle());
+                    $socialBar = new SocialNetworksBar($fullBook->getBook()
+                        ->getLargeImageUrl(), $fullBook->getBook()
+                        ->getTitle());
                     $this->view->socialBar = $socialBar->get();
                     
                     // Get ad and add it to view model
@@ -95,13 +89,13 @@ class Default_BookController extends Zend_Controller_Action {
                     $this->view->ad = $ad;
                     
                     // Get Header Information and add it to view model
-                    $headerInformation = HeaderInformationSvc::getInstance()->get($book);
+                    $headerInformation = HeaderInformationSvc::getInstance()->get($fullBook->getBook());
                     $this->view->tagTitle = $headerInformation->getTitle();
                     $this->view->metaDescription = $headerInformation->getDescription();
                     $this->view->metaKeywords = $headerInformation->getKeywords();
                     
                     // Get last read userbooks for the book and add it to view model
-                    $this->view->lastlyReadUserbooks = Sb\Db\Service\UserBookSvc::getInstance()->getLastlyReadUserbookByBookId($bookId, 5);
+                    $this->view->lastlyReadUserbooks = $fullBook->getLastlyReadUserbooks();
                     
                     if (count($this->view->lastlyReadUserbooks) > 1) {
                         $this->view->placeholder('footer')
@@ -111,18 +105,20 @@ class Default_BookController extends Zend_Controller_Action {
                     }
                     
                     // Get chronicles and add it to view model
-                    $chronicles = $this->getChroniclesRelativeToBook($book);
-                    $this->view->chronicles = $this->getChronicleView($chronicles);
+                    $this->view->chronicles = $this->getChronicleView($fullBook->getRelatedChronicles());
                     
                     // Get video press review associated to book
-                    $videoPressReviews = PressReviewSvc::getInstance()->getListByBookId($book->getId(), PressReviewTypes::VIDEO, 1);
-                    if ($videoPressReviews) {
-                        $video = $videoPressReviews[0];
-                        $this->view->videoUrl = $video->getLink();
-                    }
+                    $this->view->placeholder('footer')
+                        ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+                    $this->view->placeholder('footer')
+                        ->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
                     
-                    // Get book press reviews
-                    $bookPressReviews = $this->getBookPressReviews($book);
+                    $video = $fullBook->getVideoPressReview();
+                    if ($video)
+                        $this->view->videoUrl = $video->getLink();
+                        
+                        // Get book press reviews
+                    $bookPressReviews = $fullBook->getPressReviews();
                     if ($bookPressReviews) {
                         $bookPressReviewsView = new BookPressReviews($bookPressReviews);
                         $this->view->pressReviews = $bookPressReviewsView->get();
@@ -221,50 +217,6 @@ class Default_BookController extends Zend_Controller_Action {
         }
     }
 
-    private function getChroniclesRelativeToBook(Book $book) {
-
-        $chronicles = null;
-        
-        // Get book userbook's tag
-        $bookTags = TagSvc::getInstance()->getTagsForBooks(array(
-                $book
-        ));
-        $bookTagIds = null;
-        foreach ($bookTags as $bookTag) {
-            /* @var $bookTag Tag */
-            $bookTagIds[] = $bookTag->getId();
-        }
-        
-        // Get 3 chronicles with same tags
-        if ($bookTags && count($bookTags) > 0)
-            $chronicles = ChronicleSvc::getInstance()->getChroniclesWithTags($bookTagIds, 3); //
-                                                                                                  
-        // Get last chronicles of any types and add them to previously set list of chronicles
-        if (!$chronicles || count($chronicles) < 3) {
-            $lastChronicles = ChronicleSvc::getInstance()->getLastChronicles(3);
-            foreach ($lastChronicles as $lastChronicle) {
-                
-                $add = true;
-                if ($chronicles) {
-                    foreach ($chronicles as $chronicle) {
-                        if ($chronicle->getId() == $lastChronicle->getId()) {
-                            $add = false;
-                            break;
-                        }
-                    }
-                }
-                
-                if ($add)
-                    $chronicles[] = $lastChronicle;
-            }
-        }
-        
-        if ($chronicles)
-            $chronicles = array_slice($chronicles, 0, 3);
-        
-        return $chronicles;
-    }
-
     private function getChronicleView($chronicles) {
 
         $chronicleListAdapter = new ChronicleListAdapter();
@@ -277,44 +229,4 @@ class Default_BookController extends Zend_Controller_Action {
         return $chroniclesView->get();
     }
 
-    private function getBookPressReviews(Book $book) {
-
-        $bookPressReviews = PressReviewSvc::getInstance()->getListByBookId($book->getId(), PressReviewTypes::ARTICLE, 3);
-        
-        // If not enough press reviews associated to book, getting general press reviews
-        if (!$bookPressReviews || count($bookPressReviews) < 3) {
-            
-            // Get general press reviews
-            $generalPressReviews = PressReviewSvc::getInstance()->getList(3, PressReviewTypes::ARTICLE);
-            
-            if (!$bookPressReviews) {
-                
-                $bookPressReviews = $generalPressReviews;
-            } else {
-                if ($generalPressReviews) {
-                    foreach ($generalPressReviews as $generalPressReview) {
-                        /* @var $generalPressReview PressReview */
-                        $add = true;
-                        foreach ($bookPressReviews as $bookPressReview) {
-                            /* @var $bookPressReview PressReview */
-                            if ($generalPressReview->getId() == $bookPressReview->getId()) {
-                                $add = false;
-                                break;
-                            }
-                        }
-                        
-                        if ($add)
-                            $bookPressReviews[] = $generalPressReview;
-                    }
-                }
-            }
-        }
-        
-        if ($bookPressReviews)
-            $bookPressReviews = array_slice($bookPressReviews, 0, 3);
-        
-        return $bookPressReviews;
-    }
-
 }
-

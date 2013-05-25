@@ -15,6 +15,8 @@ use Sb\Helpers\HTTPHelper;
 use Sb\Templates\Template;
 use Sb\View\Components\ButtonsBar;
 use Sb\Cache\ZendFileCache;
+use Sb\Service\FullBookSvc;
+use Sb\Model\FullBook;
 
 Sb\Trace\Trace::addItem(LibraryPages::USERBOOK_ADDCHOICE);
 
@@ -31,10 +33,18 @@ if (!$s1b->getIsSubmit()) {
     $book = ZendFileCache::getInstance()->load(Constants::BOOK_TO_ADD_PREFIX . session_id());
     
     // If id is known, getting the book from db to have all associated members and userbooks to show the potential reviews
-    if ($book->getId())
+    $booksAlsoLiked = null;
+    $bookWithSameTags = null;
+    $reviewdUserBooks = null;
+    if ($book->getId()) {
         $book = BookDao::getInstance()->get($book->getId());
+        $fullBook = FullBookSvc::getInstance()->get($book->getId());
+        $booksAlsoLiked = $fullBook->getBooksAlsoLiked();
+        $bookWithSameTags = $fullBook->getBooksWithSameTags();
+        $reviewdUserBooks = $fullBook->getReviewedUserBooks();
+    }   
     
-    showBookDetail($book);
+    showBookDetail($book, $booksAlsoLiked, $bookWithSameTags, $reviewdUserBooks);
 } else {
 
     $bookForm = new BookForm($_POST);
@@ -106,14 +116,14 @@ if (!$s1b->getIsSubmit()) {
     HTTPHelper::redirect(Urls::USER_LIBRARY_DETAIL, array("page" => LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
 }
 
-function showBookDetail(Book $book) {
+function showBookDetail(Book $book, $booksAlsoLiked, $booksWithSameTags, $reviewdUserBooks) {
 
     // Préparation du template
     $tpl = new Template("userBook");
 
     $tpl->set("action", "");
 
-    $bookView = new BookView($book, true, true, true);
+    $bookView = new BookView($book, true, true, true, $booksAlsoLiked, $booksWithSameTags, $reviewdUserBooks);
     $tpl->set("book", $bookView->get());
 
     $tpl->set("bookForm", "");

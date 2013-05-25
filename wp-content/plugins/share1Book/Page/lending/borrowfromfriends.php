@@ -177,7 +177,7 @@ function showBorrowingForm(\Sb\Db\Model\Book $book, \Sb\Context\Model\Context $c
     // Préparation du template
     $tpl = new \Sb\Templates\Template("borrowFromFriendsForm");
 
-    $bookView = new \Sb\View\Book($book, false, false, true, false);
+    $bookView = new \Sb\View\Book($book, false, false, true, null, null, null, false);
     $tpl->set("book", $bookView->get());
 
     $tpl->setVariables(array("friendUserBooks" => $userBooksBorrowable));

@@ -10,9 +10,7 @@ use Sb\Db\Dao\PressReviewDao;
  */
 class PressReviewSvc extends Service {
 
-    const LAST_PRESSREVIEWS = "LAST_PRESSREVIEWS";
-
-    const PRESSREVIEW_ONBOOK = "PRESSREVIEW_ONBOOK";
+    const LST = "LST";
 
     private static $instance;
 
@@ -32,49 +30,30 @@ class PressReviewSvc extends Service {
         parent::__construct(PressReviewDao::getInstance(), "PressReview");
     }
 
-    public function getList($maxResults, $typeId) {
+    public function getList($bookId = null, $typeId = null, $maxResults = null, $useCache = true) {
 
         try {
             
-            $key = self::LAST_PRESSREVIEWS;
+            $results = null;
             
-            $key = $key . "_m_100_tid_" . $typeId;
-            
-            $results = $this->getData($key);
-            
-            if ($results === false) {
-                /* @var $dao PressReviewDao */
-                $dao = $this->getDao();
-                $results = $dao->getLastPressReviews(100, $typeId);
+            if ($useCache) {
+                $key = self::LST;
+                if (isset($bookId))
+                    $key .= "_bid_" . $bookId;
+                if (isset($typeId))
+                    $key .= "_tid_" . $typeId;
+                $key .= "_m_100";
                 
-                $this->setData($key, $results);
+                $results = $this->getData($key);
             }
             
-            $results = array_slice($results, 0, $maxResults);
-            return $results;
-        } catch (\Exception $exc) {
-            $this->logException(get_class(), __FUNCTION__, $exc);
-        }
-    }
-
-    public function getListByBookId($bookId, $typeId = null, $maxResults = null) {
-
-        try {
-            
-            $key = self::PRESSREVIEW_ONBOOK . "_bid_" . $bookId;
-            if (isset($typeId))
-                $key .= "_tid_" . $typeId;
-            
-            $key .= "_m_100";
-            
-            $results = $this->getData($key);
-            
-            if ($results === false) {
+            if (!isset($results) || $results === false) {
                 /* @var $dao PressReviewDao */
                 $dao = $this->getDao();
-                $results = $dao->getLastPressReviewsForBookId($bookId, $typeId, 100);
+                $results = $dao->getLastPressReviews($bookId, $typeId, 100);
                 
-                $this->setData($key, $results);
+                if ($useCache)
+                    $this->setData($key, $results);
             }
             
             if (isset($maxResults))

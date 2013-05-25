@@ -2,7 +2,6 @@
 
 namespace Sb\View;
 
-use Sb\Db\Service\BookSvc;
 use Sb\View\BookShelf;
 
 class Book extends \Sb\View\AbstractView {
@@ -13,8 +12,11 @@ class Book extends \Sb\View\AbstractView {
     private $addHiddenFields;
     private $isInForm;
     private $addRecommendations;
+    private $booksAlsoLiked;
+    private $booksWithSameTags;
+    private $reviewedUserBooks;
 
-    function __construct(\Sb\Db\Model\Book $book, $addButtons, $addReviews, $addHiddenFields, $isInForm = true, $addRecommendations = false) {
+    function __construct(\Sb\Db\Model\Book $book, $addButtons, $addReviews, $addHiddenFields, $booksAlsoLiked = null, $booksWithSameTags = null, $reviewedUserBooks = null, $isInForm = true, $addRecommendations = false) {
         parent::__construct();
         $this->book = $book;
         $this->addButtons = $addButtons;
@@ -22,6 +24,9 @@ class Book extends \Sb\View\AbstractView {
         $this->addHiddenFields = $addHiddenFields;
         $this->isInForm = $isInForm;
         $this->addRecommendations = $addRecommendations;
+        $this->booksAlsoLiked = $booksAlsoLiked;
+        $this->booksWithSameTags = $booksWithSameTags;
+        $this->reviewedUserBooks = $reviewedUserBooks;
     }
 
     public function get() {
@@ -123,12 +128,10 @@ class Book extends \Sb\View\AbstractView {
         }
 
         // book reviews
-        $userBooks = $this->book->getNotDeletedUserBooks();
-        $reviewedUserBooks = array_filter($userBooks, array(&$this, "isReviewd"));
         $reviews = "";
         $nbOfReviewsPerPage = 5;
-        if ($reviewedUserBooks) {
-            $paginatedList = new \Sb\Lists\PaginatedList($reviewedUserBooks, $nbOfReviewsPerPage);
+        if ($this->reviewedUserBooks) {
+            $paginatedList = new \Sb\Lists\PaginatedList($this->reviewedUserBooks, $nbOfReviewsPerPage);
             $reviewsView = new \Sb\View\BookReviews($paginatedList, $this->book->getId());
             $reviews = $reviewsView->get();
         }
@@ -136,17 +139,15 @@ class Book extends \Sb\View\AbstractView {
         if ($this->addRecommendations) {
             // Books users also liked
             $booksUsersAlsoLikedShelf = "";
-            $booksUsersAlsoLiked = BookSvc::getInstance()->getBooksAlsoLiked($id);
-            if (count($booksUsersAlsoLiked) > 0) {
-                $booksUsersAlsoLikedShelfView = new BookShelf($booksUsersAlsoLiked, __("<strong>Les membres</strong> qui ont lu ce livre <strong>ont aussi aimé</strong>", "s1b"));
+            if ($this->booksAlsoLiked && count($this->booksAlsoLiked) > 0) {
+                $booksUsersAlsoLikedShelfView = new BookShelf($this->booksAlsoLiked, __("<strong>Les membres</strong> qui ont lu ce livre <strong>ont aussi aimé</strong>", "s1b"));
                 $booksUsersAlsoLikedShelf = $booksUsersAlsoLikedShelfView->get();
             }
 
             // Books with same tags
             $booksWithSameTagsShelf = "";
-            $booksWithSameTags = BookSvc::getInstance()->getBooksWithSameTags($id);
-            if (count($booksWithSameTags) > 0) {
-                $booksWithSameTagsShelfView = new BookShelf($booksWithSameTags, __("Les livres <strong>dans la même catégorie</strong>", "s1b"));
+            if ($this->booksWithSameTags && count($this->booksWithSameTags) > 0) {
+                $booksWithSameTagsShelfView = new BookShelf($this->booksWithSameTags, __("Les livres <strong>dans la même catégorie</strong>", "s1b"));
                 $booksWithSameTagsShelf = $booksWithSameTagsShelfView->get();
             }
         }

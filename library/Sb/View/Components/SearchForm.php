@@ -3,9 +3,6 @@
 namespace Sb\View\Components;
 
 /**
- * Description of \Sb\View\Book
- * Vues d'un livre : detail
- *
  * @author Didier
  */
 class SearchForm extends \Sb\View\AbstractView {

@@ -4,6 +4,7 @@ namespace Sb\Db\Service;
 
 use Sb\Db\Model\Book;
 use Sb\Db\Dao\TagDao;
+use Sb\Trace\Trace;
 
 /**
  *
@@ -45,19 +46,29 @@ class TagSvc extends \Sb\Db\Service\Service {
      * @param array of Book $books : list of books
      * @return array of Tag list of tags
      */
-    public function getTagsForBooks($books) {
+    public function getTagsForBooks($books, $useCache = true) {
+        
+        Trace::addItem("useCache : " . $useCache);
 
         try {
+            
+            $data = null;
+            
             $bookIds = array_map(array(&$this, "getId"), $books);
 
-            $dataKey = self::TAGS_BOOK . "_bids_" . implode("_", $bookIds);
-
-            $data = $this->getData($dataKey);
-
+            if ($useCache) {
+                $dataKey = self::TAGS_BOOK . "_bids_" . implode("_", $bookIds);                
+                $data = $this->getData($dataKey);                
+            }
+            
             // If no data are cached
-            if ($data === false) {
+            if (!isset($data) || $data === false) {
                 $data = TagDao::getInstance()->getTagsForBooks($bookIds);
-                $this->setData($dataKey, $data);
+                if ($useCache) {
+                    Trace::addItem("setting cache");
+                    $this->setData($dataKey, $data);
+                }
+                    
             }
 
             return $data;

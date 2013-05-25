@@ -110,7 +110,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
             // If chronicle is on book, trying to get video on book
             if ($chronicle->getBook()) {
                 /* @var $video PressReview */
-                $video = PressReviewSvc::getInstance()->getListByBookId($chronicle->getBook()
+                $video = PressReviewSvc::getInstance()->getList($chronicle->getBook()
                     ->getId(), PressReviewTypes::VIDEO, 1);
                 if ($video)
                     $this->view->videoUrl = $video->getLink();

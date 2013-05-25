@@ -181,16 +181,21 @@ class UserBookSvc extends \Sb\Db\Service\Service {
      * @param type $nbBooks
      * @return type
      */
-    public function getLastlyReadUserbookByBookId($bookId, $nbBooks = null) {
+    public function getLastlyReadUserbookByBookId($bookId, $nbBooks = null, $useCache = true) {
 
         try {
 
+            $result = null;
+            
             $maxResult = 25; // Number of userbooks in the list cached. Items are alays taken from that list. 
             //This value will have to be changed if a bigger list needs to be return.
 
-            $dataKey = self::LASTY_READ . "_bid_" . $bookId . "_m_" . $maxResult;
-            $result = $this->getData($dataKey);
-            if ($result === false) {
+            if ($useCache) {
+                $dataKey = self::LASTY_READ . "_bid_" . $bookId . "_m_" . $maxResult;
+                $result = $this->getData($dataKey);
+            }
+            
+            if (!isset($result) || $result === false) {
                 $result = UserBookDao::getInstance()->getLastlyReadUserbookByBookId($bookId, $maxResult);
 
                 // Loop all the userbooks and set the user's userbooks as they are not fetched automatically
@@ -201,13 +206,15 @@ class UserBookSvc extends \Sb\Db\Service\Service {
                     $userbook->setUser($user);
                 }
 
-                $this->setData($dataKey, $result);
+                if ($useCache)
+                    $this->setData($dataKey, $result);
             }
 
             if ($nbBooks)
                 return array_slice($result, 0, $nbBooks);
             else
                 return $result;
+            
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
