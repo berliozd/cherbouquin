@@ -11,6 +11,8 @@ use Sb\Db\Service\ChronicleSvc;
 use Sb\Adapter\ChronicleAdapter;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\ChroniclesBlock;
+use Sb\Db\Service\BookSvc;
+use Sb\View\BookCoverFlip;
 
 class Default_PressReviewController extends Zend_Controller_Action {
 
@@ -88,6 +90,15 @@ class Default_PressReviewController extends Zend_Controller_Action {
                 $chroniclesView = new ChroniclesBlock($chronicleAdapter->getAsChronicleViewModelLightList(), $chroniclesTitle);
                 $this->view->chroniclesView = $chroniclesView->get();
             }
+            
+            // Get books with press reviews
+            $this->view->placeholder('footer')
+                ->append("<script src=\"" . BASE_URL . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+            $this->view->placeholder('footer')
+                ->append("<script>$(function () {initCoverFlip('booksWithPressReviews', 30)});</script>\n");
+            $books = BookSvc::getInstance()->getListWithPressReviews(15);
+            $booksCoverFlip = new BookCoverFlip($books, __("Les livres dont parlent <strong>les médias</strong>", "s1b"), "booksWithPressReviews", "");
+            $this->view->booksCoverFlip = $booksCoverFlip->get();
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");

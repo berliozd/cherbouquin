@@ -5,71 +5,74 @@ use Sb\Entity\Constants;
 use Sb\Helpers\ImageHelper;
 use Sb\Helpers\StringHelper;
 ?>
-<div id="content-center">
-    <div id="pressreviews-list">
-        <h1><?php _e("Actualités du livre dans les medias","s1b");?></h1>
-        <h2><?php echo sprintf(__("%s vous propose une sélection des articles de presse autour du livre","s1b"), Constants::SITENAME);?></h2>
-        <div id="prl-form">
-            <?php _e("Sélectionner un tag pour affiner l'affichage","s1b");?>
-            <form action="<?php echo $this->action;?>" method="GET" name="frmTagsChoice">
-                <select name="tid" class="input-item" onchange="frmTagsChoice.submit();">
-                    <option value=""><?php _e("Aucun", "s1b") ?></option>
-                    <?php foreach ($this->tags as $tag) { ?>
-                        <option <?php echo($this->selectedTagId == $tag->getId() ? "selected" : ""); ?> value="<?php echo $tag->getId(); ?>"><?php echo $tag->getLabel(); ?></option>
-                    <?php } ?>            
-                </select>
-            </form>
-        </div>
-        <div class="navigation top">
-            <div class="nav-links">
-                <?php echo $this->navigationBar; ?>
+<div id="pressreviews">
+    <div id="content-center">
+        <div id="pressreviews-list">
+            <h1><?php _e("Actualités du livre dans les medias","s1b");?></h1>
+            <h2><?php echo sprintf(__("%s vous propose une sélection des articles de presse autour du livre","s1b"), Constants::SITENAME);?></h2>
+            <div id="prl-form">
+                <?php _e("Sélectionner un tag pour affiner l'affichage","s1b");?>
+                <form action="<?php echo $this->action;?>" method="GET" name="frmTagsChoice">
+                    <select name="tid" class="input-item" onchange="frmTagsChoice.submit();">
+                        <option value=""><?php _e("Aucun", "s1b") ?></option>
+                        <?php foreach ($this->tags as $tag) { ?>
+                            <option <?php echo($this->selectedTagId == $tag->getId() ? "selected" : ""); ?> value="<?php echo $tag->getId(); ?>"><?php echo $tag->getLabel(); ?></option>
+                        <?php } ?>            
+                    </select>
+                </form>
+            </div>
+            <div class="navigation top">
+                <div class="nav-links">
+                    <?php echo $this->navigationBar; ?>
+                </div>
+            </div>
+            <div id="press-reviews">    
+                <ul>
+                    <?php foreach ($this->pressReviews as $pressReview) {
+                        /* @var $pressReview PressReview */
+                        ?>
+                    <li>
+                        <div class="pr-image"><?php echo ImageHelper::getSmallSquareImageTag($pressReview->getMedia()->getTwitter_picture(), StringHelper::cleanHTML($pressReview->getTitle()), ""); ?></div>
+                        <div class="pr-text">
+                            <span class="pr-title"><a href="<?php echo $pressReview->getLink();?>" target="_blank" class="link"><?php echo $pressReview->getTitle(); ?></a></span>
+                            &nbsp;
+                            <span class="pr-date"><?php echo $pressReview->getDate()->format("d/m/Y"); ?></span>
+                            &nbsp;|&nbsp;<?php _e("par", "s1b")?>&nbsp;<?php echo "@" . $pressReview->getMedia()->getTwitter_user(); ?>
+                            <br/>                
+                            <span class="pr-content"><?php echo StringHelper::tronque($pressReview->getText(), 150); ?></span>
+                            <a href="<?php echo $pressReview->getLink();?>" target="_blank">[ ... ]</a>
+                        </div>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </div>
+            <div class="navigation">
+                <div class="nav-links">
+                    <?php echo $this->navigationBar; ?>
+                </div>
             </div>
         </div>
-        <div id="press-reviews">    
-            <ul>
-                <?php foreach ($this->pressReviews as $pressReview) {
-                    /* @var $pressReview PressReview */
-                    ?>
-                <li>
-                    <div class="pr-image"><?php echo ImageHelper::getSmallSquareImageTag($pressReview->getMedia()->getTwitter_picture(), StringHelper::cleanHTML($pressReview->getTitle()), ""); ?></div>
-                    <div class="pr-text">
-                        <span class="pr-title"><a href="<?php echo $pressReview->getLink();?>" target="_blank" class="link"><?php echo $pressReview->getTitle(); ?></a></span>
-                        &nbsp;
-                        <span class="pr-date"><?php echo $pressReview->getDate()->format("d/m/Y"); ?></span>
-                        &nbsp;|&nbsp;<?php _e("par", "s1b")?>&nbsp;<?php echo "@" . $pressReview->getMedia()->getTwitter_user(); ?>
-                        <br/>                
-                        <span class="pr-content"><?php echo StringHelper::tronque($pressReview->getText(), 150); ?></span>
-                        <a href="<?php echo $pressReview->getLink();?>" target="_blank">[ ... ]</a>
-                    </div>
-                </li>
-                <?php } ?>
-            </ul>
+    </div>
+    <div id="content-right">
+    
+        <div class="right-frame">
+            <?php echo $this->pressReviewSubscriptionWidget; ?>
         </div>
-        <div class="navigation">
-            <div class="nav-links">
-                <?php echo $this->navigationBar; ?>
+    
+        <div class="right-frame">
+            <?php echo $this->ad; ?>
+        </div>
+    
+        <div class="right-frame">
+            <?php echo $this->chroniclesView; ?>
+        </div>
+    
+        <div class="right-frame">
+            <div class="separator cherbouquin">
+                <span><?php echo Constants::SITENAME; ?></span>
             </div>
+            <?php echo $this->booksCoverFlip; ?>
         </div>
+    
     </div>
-</div>
-<div id="content-right">
-
-    <div class="right-frame">
-        <?php echo $this->pressReviewSubscriptionWidget;?>
-    </div>
-
-    <div class="right-frame">
-        <?php echo $this->ad;?>
-    </div>
-
-    <div class="right-frame">
-        <?php echo $this->chroniclesView;?>
-    </div>
-
-    <div class="right-frame"></div>
-
-    <div class="right-frame"></div>
-
-    <div class="right-frame"></div>
-
 </div>

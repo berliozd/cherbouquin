@@ -179,6 +179,15 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
     font-size: 1.3em;
 }
 
+.separator.cherbouquin {
+    border-color: #239CD3;
+}
+
+.separator.cherbouquin SPAN {
+    background-color: #239CD3;
+    color: #FFF;
+}
+
 /* carousel general styles */
 .carousel UL {list-style: none; padding: 0px; margin:0; }
 

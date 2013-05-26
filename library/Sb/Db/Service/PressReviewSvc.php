@@ -98,20 +98,6 @@ class PressReviewSvc extends Service {
         ), 100);
         
         foreach ($result as $pressReview) {
-            /* @var $pressReview PressReview */
-            if ($pressReview->getBook()) {
-                
-                /* @var $book Book */
-                $book = BookDao::getInstance()->get($pressReview->getBook()
-                    ->getId());
-                
-                /*
-                 * IMPORTANT !!!
-                 */
-                // Do not remove line below : accessing a property is done to properly initialize the proxy object
-                $bookTitle = $book->getTitle();
-                $pressReview->setBook($book);
-            }
             
             if ($pressReview->getMedia()) {
                 

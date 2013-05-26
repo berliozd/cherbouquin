@@ -312,4 +312,18 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
         return $result;
     }
 
+
+    public function getListWithPressReviews() {
+
+        $dql = "SELECT b, c, pr  FROM " . self::MODEL . " b
+            JOIN b.contributors c
+            JOIN b.pressreviews pr
+            ORDER BY pr.date DESC";
+        $query = $this->entityManager->createQuery($dql);
+        $query->setMaxResults(100);
+        
+        $result = $this->getResults($query);
+        
+        return $result;
+    }
 }
