@@ -75,7 +75,11 @@ class FullBookSvc extends Service {
                 $relatedChronicles = $this->getChroniclesRelativeToBook($book);
                 $result->setRelatedChronicles($relatedChronicles);
                 
-                $videoPressReviews = PressReviewSvc::getInstance()->getList($book->getId(), PressReviewTypes::VIDEO, 1, false);
+                $criteria = array(
+                        "type" => PressReviewTypes::VIDEO,
+                        "book" => $book
+                );
+                $videoPressReviews = PressReviewSvc::getInstance()->getList($criteria, 1, false);
                 if ($videoPressReviews) {
                     $video = $videoPressReviews[0];
                     $result->setVideoPressReview($video);
@@ -92,13 +96,21 @@ class FullBookSvc extends Service {
 
     private function getBookPressReviews(Book $book) {
 
-        $bookPressReviews = PressReviewSvc::getInstance()->getList($book->getId(), PressReviewTypes::ARTICLE, 3, false);
+        $criteria = array(
+                "type" => PressReviewTypes::ARTICLE,
+                "book" => $book
+        );
+        
+        $bookPressReviews = PressReviewSvc::getInstance()->getList($criteria, 3, false);
         
         // If not enough press reviews associated to book, getting general press reviews
         if (!$bookPressReviews || count($bookPressReviews) < 3) {
             
             // Get general press reviews
-            $generalPressReviews = PressReviewSvc::getInstance()->getList(null, PressReviewTypes::ARTICLE, 3, false);
+            $criteria = array(
+                    "type" => PressReviewTypes::ARTICLE
+            );
+            $generalPressReviews = PressReviewSvc::getInstance()->getList($criteria, 3, false);
             
             if (!$bookPressReviews) {
                 
@@ -136,7 +148,7 @@ class FullBookSvc extends Service {
         // Get book userbook's tag
         $bookTags = TagSvc::getInstance()->getTagsForBooks(array(
                 $book
-        ), false);        
+        ), false);
         $bookTagIds = null;
         foreach ($bookTags as $bookTag) {
             /* @var $bookTag Tag */
@@ -146,7 +158,7 @@ class FullBookSvc extends Service {
         // Get 3 chronicles with same tags
         if ($bookTags && count($bookTags) > 0)
             $chronicles = ChronicleSvc::getInstance()->getChroniclesWithTags($bookTagIds, 3, false); //
-                                                                                                  
+                                                                                                         
         // Get last chronicles of any types and add them to previously set list of chronicles
         if (!$chronicles || count($chronicles) < 3) {
             $lastChronicles = ChronicleSvc::getInstance()->getLastChronicles(3);

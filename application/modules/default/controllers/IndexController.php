@@ -23,6 +23,7 @@ use Sb\Trace\Trace;
 use Sb\View\Components\PressReviewsSubscriptionWidget;
 use Sb\View\Components\NewsReader;
 use Sb\Db\Service\PressReviewSvc;
+use Sb\Entity\PressReviewTypes;
 
 class Default_IndexController extends Zend_Controller_Action {
 
@@ -50,7 +51,7 @@ class Default_IndexController extends Zend_Controller_Action {
             // Add newsreader css to head
             $this->view->headLink()
                 ->appendStylesheet(BASE_URL . "resources/css/newsReader.css?v=" . VERSION);
-
+            
             // Add chronicle css to head
             $this->view->headLink()
                 ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
@@ -101,7 +102,10 @@ class Default_IndexController extends Zend_Controller_Action {
             $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
             
             // Newsreader
-            $pressReviews = PressReviewSvc::getInstance()->getList(null, 0, 50);
+            $criteria = array(
+                    "type" => PressReviewTypes::ARTICLE
+            );
+            $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
             if ($pressReviews) {
                 $newsReader = new NewsReader($pressReviews, __("L'actualité du <strong>livre</strong> dans les médias", "s1b"));
                 $this->view->newsReader = $newsReader->get();

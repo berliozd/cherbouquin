@@ -3,6 +3,13 @@
 namespace Sb\Db\Service;
 
 use Sb\Db\Dao\PressReviewDao;
+use Sb\Trace\Trace;
+use Sb\Db\Model\Model;
+use Sb\Db\Model\Media;
+use Sb\Db\Model\Book;
+use Sb\Db\Model\PressReview;
+use Sb\Db\Dao\BookDao;
+use Sb\Db\Dao\MediaDao;
 
 /**
  * Description of PressReviewSvc
@@ -30,39 +37,98 @@ class PressReviewSvc extends Service {
         parent::__construct(PressReviewDao::getInstance(), "PressReview");
     }
 
-    public function getList($bookId = null, $typeId = null, $maxResults = null, $useCache = true) {
+    public function getList($criteria = null, $maxResults = null, $useCache = true) {
 
         try {
+            $result = null;
             
-            $results = null;
-            
+            // Build cache key and try to get result in cache
             if ($useCache) {
-                $key = self::LST;
-                if (isset($bookId))
-                    $key .= "_bid_" . $bookId;
-                if (isset($typeId))
-                    $key .= "_tid_" . $typeId;
-                $key .= "_m_100";
-                
-                $results = $this->getData($key);
+                $key = $this->getListCacheKey($criteria);
+                Trace::addItem($key);
+                $result = $this->getData($key);
             }
             
-            if (!isset($results) || $results === false) {
-                /* @var $dao PressReviewDao */
-                $dao = $this->getDao();
-                $results = $dao->getLastPressReviews($bookId, $typeId, 100);
+            // if result not retrieved, get it
+            if (!isset($result) || $result === false) {
                 
+                $result = $this->getListResult($criteria);
+                
+                // set the cache if wanted
                 if ($useCache)
-                    $this->setData($key, $results);
+                    $this->setData($key, $result);
             }
             
+            // Get only the wanted number of items
             if (isset($maxResults))
-                $results = array_slice($results, 0, $maxResults);
+                $result = array_slice($result, 0, $maxResults);
             
-            return $results;
+            return $result;
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
+    }
+
+    private function getListCacheKey($criteria) {
+
+        $key = self::LST;
+        $key .= "_m_100";
+        
+        if (isset($criteria)) {
+            foreach ($criteria as $arrayKey => $arrayValue) {
+                if (isset($arrayValue)) {
+                    if ($arrayValue instanceof Model)
+                        $key .= "_" . $arrayKey . "_" . $arrayValue->getId();
+                    else
+                        $key .= "_" . $arrayKey . "_" . $arrayValue;
+                }
+            }
+        }
+        
+        return $key;
+    }
+
+    private function getListResult($criteria) {
+        
+        /* @var $dao PressReviewDao */
+        $dao = $this->getDao();
+        
+        $result = $dao->getAll($criteria, array(
+                "date" => "DESC"
+        ), 100);
+        
+        foreach ($result as $pressReview) {
+            /* @var $pressReview PressReview */
+            if ($pressReview->getBook()) {
+                
+                /* @var $book Book */
+                $book = BookDao::getInstance()->get($pressReview->getBook()
+                    ->getId());
+                
+                /*
+                 * IMPORTANT !!!
+                 */
+                // Do not remove line below : accessing a property is done to properly initialize the proxy object
+                $bookTitle = $book->getTitle();
+                $pressReview->setBook($book);
+            }
+            
+            if ($pressReview->getMedia()) {
+                
+                /* @var $media Media */
+                $media = MediaDao::getInstance()->get($pressReview->getMedia()
+                    ->getId());
+                
+                /*
+                 * IMPORTANT !!!
+                 */
+                // Do not remove line below : accessing a property is done to properly initialize the proxy object
+                $mediaWebsite = $media->getWebsite();
+                $pressReview->setMedia($media);
+            }
+        }
+        
+        return $result;
     }
 
 }

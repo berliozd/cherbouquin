@@ -3,23 +3,23 @@
 namespace Sb\Db\Dao;
 
 /**
- *
+ * Description of MediaDao
  * @author Didier
  */
-class PressReviewDao extends AbstractDao {
+class MediaDao extends \Sb\Db\Dao\AbstractDao {
 
-    const MODEL = "\\Sb\\Db\\Model\\PressReview";
+    const MODEL = "\\Sb\\Db\\Model\\Media";
 
     private static $instance;
 
     /**
      *
-     * @return \Sb\Db\Dao\PressReviewDao
+     * @return \Sb\Db\Dao\MediaDao
      */
     public static function getInstance() {
 
         if (!self::$instance)
-            self::$instance = new PressReviewDao();
+            self::$instance = new \Sb\Db\Dao\MediaDao();
         return self::$instance;
     }
 

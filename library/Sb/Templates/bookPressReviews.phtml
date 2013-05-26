@@ -3,21 +3,21 @@ use Sb\Db\Model\PressReview;
 use Sb\Helpers\ImageHelper;
 use Sb\Helpers\StringHelper;
 ?>
-<div id="book-press-reviews">
-    <div id="bpr-block-title"><?php _e("Les médias en parle aussi","s1b"); ?></div>
+<div id="press-reviews">
+    <div id="pr-block-title"><?php _e("Les médias en parle aussi","s1b"); ?></div>
     <ul>
         <?php foreach ($pressReviews as $pressReview) {
             /* @var $pressReview PressReview */
             ?>
         <li>
-            <div class="bpr-image"><?php echo ImageHelper::getSmallSquareImageTag($pressReview->getMedia()->getTwitter_picture(), StringHelper::cleanHTML($pressReview->getTitle()), ""); ?></div>
-            <div class="bpr-text">
-                <span class="bpr-title"><a href="<?php echo $pressReview->getLink();?>" target="_blank" class="link"><?php echo $pressReview->getTitle(); ?></a></span>
+            <div class="pr-image"><?php echo ImageHelper::getSmallSquareImageTag($pressReview->getMedia()->getTwitter_picture(), StringHelper::cleanHTML($pressReview->getTitle()), ""); ?></div>
+            <div class="pr-text">
+                <span class="pr-title"><a href="<?php echo $pressReview->getLink();?>" target="_blank" class="link"><?php echo $pressReview->getTitle(); ?></a></span>
                 &nbsp;
-                <span class="bpr-date"><?php echo $pressReview->getDate()->format("d/m/Y"); ?></span>
+                <span class="pr-date"><?php echo $pressReview->getDate()->format("d/m/Y"); ?></span>
                 &nbsp;|&nbsp;<?php _e("par", "s1b")?>&nbsp;<?php echo "@" . $pressReview->getMedia()->getTwitter_user(); ?>
                 <br/>                
-                <span class="bpr-content"><?php echo StringHelper::tronque($pressReview->getText(), 150); ?></span>
+                <span class="pr-content"><?php echo StringHelper::tronque($pressReview->getText(), 150); ?></span>
                 <a href="<?php echo $pressReview->getLink();?>" target="_blank">[ ... ]</a>
             </div>
         </li>

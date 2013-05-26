@@ -101,7 +101,10 @@ class Default_ChronicleController extends Zend_Controller_Action {
             $this->view->metaKeywords = $chronicle->getKeywords();
             
             // Newsreader
-            $pressReviews = PressReviewSvc::getInstance()->getList(null, 0, 50);
+            $criteria = array(
+                    "type" => PressReviewTypes::ARTICLE
+            );
+            $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
             if ($pressReviews) {
                 $newsReader = new NewsReader($pressReviews, __("Les <strong>médias</strong> en parlent aussi", "s1b"));
                 $this->view->newsReader = $newsReader->get();
@@ -109,9 +112,14 @@ class Default_ChronicleController extends Zend_Controller_Action {
             
             // If chronicle is on book, trying to get video on book
             if ($chronicle->getBook()) {
+                
+                $criteria = array(
+                        "type" => PressReviewTypes::VIDEO,
+                        "book" => $chronicle->getBook()
+                );
+                
                 /* @var $video PressReview */
-                $video = PressReviewSvc::getInstance()->getList($chronicle->getBook()
-                    ->getId(), PressReviewTypes::VIDEO, 1);
+                $video = PressReviewSvc::getInstance()->getList($criteria, 1);
                 if ($video)
                     $this->view->videoUrl = $video->getLink();
             }
@@ -359,7 +367,10 @@ class Default_ChronicleController extends Zend_Controller_Action {
         $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
         
         // Newsreader
-        $pressReviews = PressReviewSvc::getInstance()->getList(null, 0, 50);
+        $criteria = array(
+                "type" => PressReviewTypes::ARTICLE
+        );
+        $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
         if ($pressReviews) {
             $newsReader = new NewsReader($pressReviews, __("L'actualité du <strong>livre</strong> dans les médias", "s1b"));
             $this->view->newsReader = $newsReader->get();

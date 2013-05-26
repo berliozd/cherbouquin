@@ -8,7 +8,6 @@ use \Sb\Db\Dao\TagDao;
 use \Sb\Db\Model\Book;
 use \Sb\Db\Model\UserBook;
 use \Sb\Db\Model\Model;
-use Sb\Trace\Trace;
 
 /**
  * Description of BookSvc
@@ -205,7 +204,6 @@ class BookSvc extends Service {
                 $contributorsIds = array_map(array(&$this, "getId"), $contributors->toArray());
                 $booksWithSameContributors = BookDao::getInstance()->getListWithSameContributors($contributorsIds);
 
-                Trace::addItem(count($booksWithSameContributors));
                 if (count($booksWithSameContributors) > 0) {
                     
                     // Setting the current viewed book

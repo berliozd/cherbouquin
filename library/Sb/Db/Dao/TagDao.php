@@ -73,4 +73,17 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
 
         return $result;
     }
+    
+    public function getTagsForPressReviews($orderColumn = "label") {
+    
+        $dql = sprintf("SELECT t FROM " . self::MODEL . " t
+                JOIN t.pressreviews pr
+                ORDER by t." . $orderColumn . " ASC");
+    
+        $query = $this->entityManager->createQuery($dql);
+    
+        $result = $this->getResults($query, null, false);
+    
+        return $result;
+    }
 }
