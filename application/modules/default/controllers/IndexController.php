@@ -44,7 +44,7 @@ class Default_IndexController extends Zend_Controller_Action {
             global $globalContext;
             
             $this->view->placeholder('footer')
-                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/homepage.js?v=' . VERSION . "\"></script>");
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");
             
             $this->view->placeholder('footer')
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
