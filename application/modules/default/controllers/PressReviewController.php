@@ -7,6 +7,10 @@ use Sb\Db\Service\TagSvc;
 use Sb\Db\Dao\TagDao;
 use Sb\View\Components\Ad;
 use Sb\View\Components\PressReviewsSubscriptionWidget;
+use Sb\Db\Service\ChronicleSvc;
+use Sb\Adapter\ChronicleAdapter;
+use Sb\Adapter\ChronicleListAdapter;
+use Sb\View\ChroniclesBlock;
 
 class Default_PressReviewController extends Zend_Controller_Action {
 
@@ -15,6 +19,8 @@ class Default_PressReviewController extends Zend_Controller_Action {
         // Add css to head
         $this->view->headLink()
             ->appendStylesheet(BASE_URL . "resources/css/pressReviews.css?v=" . VERSION);
+        $this->view->headLink()
+            ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
         // Add js to footer
         $this->view->placeholder('footer')
             ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");
@@ -65,6 +71,23 @@ class Default_PressReviewController extends Zend_Controller_Action {
             // Get press review subscription module and add it to view model
             $pressReviewSubscriptionWidget = new PressReviewsSubscriptionWidget();
             $this->view->pressReviewSubscriptionWidget = $pressReviewSubscriptionWidget->get();
+            
+            // Get chronicles and add to view model
+            if ($tagId)
+                $chronicles = ChronicleSvc::getInstance()->getChroniclesWithTags(array(
+                        $tagId
+                ), 5);
+            else
+                $chronicles = ChronicleSvc::getInstance()->getLastChronicles(5);
+            if (count($chronicles) > 0) {
+                $chronicleAdapter = new ChronicleListAdapter();
+                $chronicleAdapter->setChronicles($chronicles);
+                $chroniclesTitle = __("Dernières chroniques", "s1b");
+                if ($tagId)
+                    $chroniclesTitle = __("<strong>Chroniques</strong> dans la même catégorie", "s1b");
+                $chroniclesView = new ChroniclesBlock($chronicleAdapter->getAsChronicleViewModelLightList(), $chroniclesTitle);
+                $this->view->chroniclesView = $chroniclesView->get();
+            }
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");

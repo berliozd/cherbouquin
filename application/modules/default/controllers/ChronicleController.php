@@ -5,7 +5,6 @@ use Sb\View\ChronicleDetail;
 use Sb\Db\Service\ChronicleSvc;
 use Sb\View\OtherChroniclesSameType;
 use Sb\Trace\Trace;
-use Sb\View\OtherChroniclesSameAuthor;
 use Sb\View\Components\Ad;
 use Sb\Helpers\HTTPHelper;
 use Sb\Lists\PaginatedList;
@@ -15,11 +14,11 @@ use Sb\View\Components\PressReviewsSubscriptionWidget;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\Adapter\ChronicleAdapter;
 use Sb\Entity\GroupTypes;
-use Sb\View\ChroniclesMoreSeen;
 use Sb\Db\Service\PressReviewSvc;
 use Sb\View\Components\NewsReader;
 use Sb\Db\Model\PressReview;
 use Sb\Entity\PressReviewTypes;
+use Sb\View\ChroniclesBlock;
 
 class Default_ChronicleController extends Zend_Controller_Action {
 
@@ -82,7 +81,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
             // Get same author chronicles and add it to model view
             $authorChronicles = $chronicleViewModel->getSameAuthorChronicles();
             if ($authorChronicles) {
-                $authorChroniclesView = new OtherChroniclesSameAuthor($authorChronicles);
+                $authorChroniclesView = new ChroniclesBlock($authorChronicles, __("<strong>Chroniques</strong> du même auteur", "s1b"));
                 // Add author chronicles to model
                 $this->view->authorChroniclesView = $authorChroniclesView->get();
             }
@@ -442,7 +441,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
         }
         if ($moreSeenChronicles) {
             $chroniclesAdapter->setChronicles($moreSeenChronicles);
-            $moreSeenChroniclesView = new ChroniclesMoreSeen($chroniclesAdapter->getAsChronicleViewModelLightList());
+            $moreSeenChroniclesView = new ChroniclesBlock($chroniclesAdapter->getAsChronicleViewModelLightList(), __("<strong>Chroniques</strong> les plus en vues", "s1b"));
             $this->view->moreSeenChronicles = $moreSeenChroniclesView->get();
         }
     }
