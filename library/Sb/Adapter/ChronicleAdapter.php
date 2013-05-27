@@ -12,6 +12,8 @@ use Sb\Helpers\ChronicleHelper;
 use Sb\Entity\ChronicleLinkType;
 use Sb\Entity\Urls;
 use Sb\Db\Service\ChronicleSvc;
+use Sb\Db\Service\PressReviewSvc;
+use Sb\Helpers\EntityHelper;
 
 /**
  *
@@ -45,9 +47,12 @@ class ChronicleAdapter {
     /**
      * Get a chronicle as ChronicleViewModel object for chronicle detail page
      * @param int $nbSimilarChronicles the number of similar chronicles to return , if not passed (null), then no similar chronicles will be returned
+     * @param int $nbSameAuthorChronicles number of same author chronicles to return
+     * @param int $nbPressReviews number of press reviews to return
+     * @param boolean flag to tell to use cache or not
      * @return \Sb\Model\ChronicleViewModel a chronicle as a ChronicleViewModel object
      */
-    public function getAsChronicleViewModel($nbSimilarChronicles = null, $nbSameAuthorChronicles = null) {
+    public function getAsChronicleViewModel($nbSimilarChronicles = null, $nbSameAuthorChronicles = null, $nbPressReviews = null, $useCache = true) {
         
         /* @var $chronicle ChronicleViewModel */
         $chronicleViewModel = new ChronicleViewModel();
@@ -110,15 +115,52 @@ class ChronicleAdapter {
             
             // Set the similar chronicles
             if ($nbSimilarChronicles) {
-                $chroniclesAdapter->setChronicles($this->getSimilarChronicles($nbSimilarChronicles));
+                $chroniclesAdapter->setChronicles($this->getSimilarChronicles($nbSimilarChronicles, $useCache));
                 $chronicleViewModel->setSimilarChronicles($chroniclesAdapter->getAsChronicleViewModelList());
             }
             
             // Set the same author chronicles
             if ($nbSameAuthorChronicles) {
-                $chroniclesAdapter->setChronicles($this->getSameAuthorChronicles($nbSameAuthorChronicles));
+                $chroniclesAdapter->setChronicles($this->getSameAuthorChronicles($nbSameAuthorChronicles, $useCache));
                 $chronicleViewModel->setSameAuthorChronicles($chroniclesAdapter->getAsChronicleViewModelList());
             }
+        }
+        
+        // Set press reviews
+        if ($nbPressReviews) {
+            $pressReviews = null;
+            // Get press review with same tag
+            if ($this->chronicle->getTag()) {
+                $pressReviews = PressReviewSvc::getInstance()->getList(array(
+                        "tag" => $this->chronicle->getTag()
+                ), $nbPressReviews, $useCache);
+            }
+            
+            if ((!$pressReviews || count($pressReviews) < $nbPressReviews) && $this->chronicle->getKeywords()) {
+                $keyWords = explode(",", $this->chronicle->getKeywords());
+                foreach ($keyWords as $keyWord) {
+                    // Get press review with same keywords
+                    $pressReviewsWithKeywords = PressReviewSvc::getInstance()->getList(array(
+                            "keywords" => array(
+                                    "LIKE",
+                                    $keyWord
+                            )
+                    ), $nbPressReviews, $useCache);
+                    
+                    if ($pressReviewsWithKeywords) {
+                        if (!$pressReviews) {
+                            $pressReviews = $pressReviewsWithKeywords;
+                        } else {
+                            $pressReviews = EntityHelper::mergeEntities($pressReviews, $pressReviewsWithKeywords);
+                        }
+                        if (count($pressReviews) >= $nbPressReviews)
+                            break;
+                    }
+                }
+                $pressReviews = array_slice($pressReviews, 0, $nbPressReviews);
+            }
+            
+            $chronicleViewModel->setPressReviews($pressReviews);
         }
         
         return $chronicleViewModel;
@@ -160,7 +202,7 @@ class ChronicleAdapter {
      * @param number $nbOfSimilarChronicles the number of chronicles to return
      * @return Collection of chronicle
      */
-    private function getSimilarChronicles($nbOfSimilarChronicles = 3) {
+    private function getSimilarChronicles($nbOfSimilarChronicles = 3, $useCache = true) {
         
         // Get the chronicles with same tag
         $similarChronicles = array();
@@ -169,7 +211,7 @@ class ChronicleAdapter {
             $chroniclesWithTag = ChronicleSvc::getInstance()->getChroniclesWithTags(array(
                     $this->chronicle->getTag()
                         ->getId()
-            ), $nbOfSimilarChronicles + 1);
+            ), $nbOfSimilarChronicles + 1, $useCache);
             $chroniclesWithTag = ChronicleHelper::getDifferentChronicles($this->chronicle, $chroniclesWithTag, $nbOfSimilarChronicles);
             $similarChronicles = $chroniclesWithTag;
         }
@@ -179,7 +221,7 @@ class ChronicleAdapter {
         if ((!$similarChronicles || count($similarChronicles) < $nbOfSimilarChronicles) && $this->chronicle->getKeywords()) {
             
             // nb of chronicles requested is + 1 as the current chronicle will be returned in the results
-            $chroniclesWithKeywords = ChronicleSvc::getInstance()->getChroniclesWithKeywords(explode(",", $this->chronicle->getKeywords()), $nbOfSimilarChronicles + 1);
+            $chroniclesWithKeywords = ChronicleSvc::getInstance()->getChroniclesWithKeywords(explode(",", $this->chronicle->getKeywords()), $nbOfSimilarChronicles + 1, $useCache);
             
             if ($chroniclesWithKeywords) {
                 // If no chronicles with same tag, we just add the one we just get with same keywords
@@ -214,10 +256,10 @@ class ChronicleAdapter {
         return $similarChronicles;
     }
 
-    private function getSameAuthorChronicles($nbChroniclesToReturn) {
+    private function getSameAuthorChronicles($nbChroniclesToReturn, $useCache = true) {
         // Get same author chronicles and add it to model view
         $authorChronicles = ChronicleSvc::getInstance()->getAuthorChronicles($this->chronicle->getUser()
-            ->getId());
+            ->getId(), $useCache);
         if ($authorChronicles)
             $authorChronicles = ChronicleHelper::getDifferentChronicles($this->chronicle, $authorChronicles, $nbChroniclesToReturn);
         

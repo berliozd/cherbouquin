@@ -9,7 +9,7 @@ use Sb\Db\Model\PressReview;
  *
  * @author Didier
  */
-class FullBook {
+class BookPage {
     
     /* @var $book Book */
     private $book;

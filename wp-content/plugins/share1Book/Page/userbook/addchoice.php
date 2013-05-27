@@ -15,8 +15,7 @@ use Sb\Helpers\HTTPHelper;
 use Sb\Templates\Template;
 use Sb\View\Components\ButtonsBar;
 use Sb\Cache\ZendFileCache;
-use Sb\Service\FullBookSvc;
-use Sb\Model\FullBook;
+use Sb\Service\BookPageSvc;
 
 Sb\Trace\Trace::addItem(LibraryPages::USERBOOK_ADDCHOICE);
 
@@ -38,10 +37,10 @@ if (!$s1b->getIsSubmit()) {
     $reviewdUserBooks = null;
     if ($book->getId()) {
         $book = BookDao::getInstance()->get($book->getId());
-        $fullBook = FullBookSvc::getInstance()->get($book->getId());
-        $booksAlsoLiked = $fullBook->getBooksAlsoLiked();
-        $bookWithSameTags = $fullBook->getBooksWithSameTags();
-        $reviewdUserBooks = $fullBook->getReviewedUserBooks();
+        $bookPage = BookPageSvc::getInstance()->get($book->getId());
+        $booksAlsoLiked = $bookPage->getBooksAlsoLiked();
+        $bookWithSameTags = $bookPage->getBooksWithSameTags();
+        $reviewdUserBooks = $bookPage->getReviewedUserBooks();
     }   
     
     showBookDetail($book, $booksAlsoLiked, $bookWithSameTags, $reviewdUserBooks);

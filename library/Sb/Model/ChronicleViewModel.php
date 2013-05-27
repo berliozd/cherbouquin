@@ -33,6 +33,8 @@ class ChronicleViewModel extends ChronicleViewModelLight {
     private $similarChronicles;
 
     private $sameAuthorChronicles;
+    
+    private $pressReviews;
 
     /**
      *
@@ -267,5 +269,25 @@ class ChronicleViewModel extends ChronicleViewModelLight {
 
         $this->sameAuthorChronicles = $sameAuthorChronicles;
     }
+	/**
+     * @return array of PressReview $pressReviews
+     */
+    public function getPressReviews() {
+
+        return $this->pressReviews;
+    }
+
+
+	/**
+     * @param array of PressReview $pressReviews
+     */
+    public function setPressReviews($pressReviews) {
+
+        $this->pressReviews = $pressReviews;
+    }
+
+
+    
+    
 
 }

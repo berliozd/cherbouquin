@@ -12,13 +12,13 @@ use Sb\View\BookReviews;
 use Sb\Db\Model\UserBook;
 use Sb\View\Components\PressReviewsSubscriptionWidget;
 use Sb\Adapter\ChronicleListAdapter;
-use Sb\Adapter\ChronicleAdapter;
 use Sb\Entity\GroupTypes;
 use Sb\Db\Service\PressReviewSvc;
 use Sb\View\Components\NewsReader;
-use Sb\Db\Model\PressReview;
 use Sb\Entity\PressReviewTypes;
 use Sb\View\ChroniclesBlock;
+use Sb\View\BookPressReviews;
+use Sb\Service\ChroniclePageSvc;
 
 class Default_ChronicleController extends Zend_Controller_Action {
 
@@ -49,79 +49,70 @@ class Default_ChronicleController extends Zend_Controller_Action {
             
             $this->view->placeholder('footer')
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
-            // Add newsreader css to head
+            
             $this->view->headLink()
                 ->appendStylesheet(BASE_URL . "resources/css/newsReader.css?v=" . VERSION);
+            
+            $this->view->headLink()
+                ->appendStylesheet(BASE_URL . "resources/css/pressReviews.css?v=" . VERSION);
             
             // Get chronicle id from request
             $chronicleId = $this->getParam("cid");
             
-            // Get main chronicle
-            /* @var $chronicle Chronicle */
-            $chronicle = ChronicleDao::getInstance()->get($chronicleId);
+            // Get chronicle page
+            $chroniclePage = ChroniclePageSvc::getInstance()->get($chronicleId);
             
             // Increment chronicle nb views
-            $this->incrementChronicleNbViews($chronicle);
-            
-            $chronicleAdapter = new ChronicleAdapter($chronicle);
-            // Get the ChronicleViewModel with maximum 3 similar chronicles, and maximum 5 same author chronicles
-            $chronicleViewModel = $chronicleAdapter->getAsChronicleViewModel(3, 5);
+            $this->incrementChronicleNbViews($chroniclePage->getChronicle());
             
             // Add main chronicle view model to model view
-            $chronicleView = new ChronicleDetail($chronicleViewModel);
+            $chronicleView = new ChronicleDetail($chroniclePage->getChronicleViewModel());
             $this->view->chronicle = $chronicleView->get();
             
             // Get similar chronicles (with same tag or with similar keywords) and add it to model view
-            $similarChronicles = $chronicleViewModel->getSimilarChronicles();
+            $similarChronicles = $chroniclePage->getSimilarChronicles();
             if ($similarChronicles && count($similarChronicles) > 0) {
                 $otherChoniclesSameTypeView = new OtherChroniclesSameType($similarChronicles);
                 $this->view->otherChoniclesSameType = $otherChoniclesSameTypeView->get();
             }
             
             // Get same author chronicles and add it to model view
-            $authorChronicles = $chronicleViewModel->getSameAuthorChronicles();
-            if ($authorChronicles) {
-                $authorChroniclesView = new ChroniclesBlock($authorChronicles, __("<strong>Chroniques</strong> du même auteur", "s1b"));
+            if ($chroniclePage->getSameAuthorChronicles()) {
+                $authorChroniclesView = new ChroniclesBlock($chroniclePage->getSameAuthorChronicles(), __("<strong>Chroniques</strong> du même auteur", "s1b"));
                 // Add author chronicles to model
                 $this->view->authorChroniclesView = $authorChroniclesView->get();
             }
             
+            // Get press reviews
+            if ($chroniclePage->getPressReviews()) {
+                $pressReviewsView = new BookPressReviews($chroniclePage->getPressReviews());
+                $this->view->pressReviewsView = $pressReviewsView->get();
+            }
+            
+            // Get reviews and add it to model view
+            if ($chroniclePage->getUserBooksReviews()) {
+                $paginatedList = new PaginatedList($chroniclePage->getUserBooksReviews(), 5);
+                $reviewsView = new BookReviews($paginatedList, $chroniclePage->getChronicle()
+                    ->getBook()
+                    ->getId());
+                $this->view->reviews = $reviewsView->get();
+            }
+            
+            // Get video press review and add it to view model
+            if ($chroniclePage->getVideoPressReview())
+                $this->view->videoUrl = $chroniclePage->getVideoPressReview()
+                    ->getLink(); //
+                                     
             // Add common items to model view
             $this->addCommonItemsToModelView();
             
-            // Get reviews and add it to model view
-            $reviewsView = $this->getReviews($chronicle);
-            if ($reviewsView)
-                $this->view->reviews = $reviewsView->get(); //
-                                                                
             // Set SEO information
-            $this->view->tagTitle = $chronicleViewModel->getTitle();
-            $this->view->metaDescription = $chronicleViewModel->getShortenText();
-            $this->view->metaKeywords = $chronicle->getKeywords();
-            
-            // Newsreader
-            $criteria = array(
-                    "type" => PressReviewTypes::ARTICLE
-            );
-            $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
-            if ($pressReviews) {
-                $newsReader = new NewsReader($pressReviews, __("Les <strong>médias</strong> en parlent aussi", "s1b"));
-                $this->view->newsReader = $newsReader->get();
-            }
-            
-            // If chronicle is on book, trying to get video on book
-            if ($chronicle->getBook()) {
-                
-                $criteria = array(
-                        "type" => PressReviewTypes::VIDEO,
-                        "book" => $chronicle->getBook()
-                );
-                
-                /* @var $video PressReview */
-                $video = PressReviewSvc::getInstance()->getList($criteria, 1);
-                if ($video)
-                    $this->view->videoUrl = $video->getLink();
-            }
+            $this->view->tagTitle = $chroniclePage->getChronicleViewModel()
+                ->getTitle();
+            $this->view->metaDescription = $chroniclePage->getChronicleViewModel()
+                ->getShortenText();
+            $this->view->metaKeywords = $chroniclePage->getChronicle()
+                ->getKeywords();
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
@@ -367,7 +358,10 @@ class Default_ChronicleController extends Zend_Controller_Action {
         
         // Newsreader
         $criteria = array(
-                "type" => PressReviewTypes::ARTICLE
+                "type" => array(
+                        "=",
+                        PressReviewTypes::ARTICLE
+                )
         );
         $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
         if ($pressReviews) {

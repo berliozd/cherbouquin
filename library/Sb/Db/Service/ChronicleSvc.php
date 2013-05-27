@@ -3,7 +3,6 @@
 namespace Sb\Db\Service;
 
 use Sb\Db\Dao\ChronicleDao;
-use Sb\Db\Model\Book;
 use Sb\Entity\GroupTypes;
 use Sb\Helpers\StringHelper;
 
@@ -110,6 +109,8 @@ class ChronicleSvc extends Service {
 
         try {
             
+            $results = null;
+            
             if ($useCache) {
                 $key = self::CHRONICLES_WITH_TAG . "_tid_" . implode("_", $tagIds) . "_m_" . $numberOfChronicles;
                 $results = $this->getData($key);
@@ -136,21 +137,25 @@ class ChronicleSvc extends Service {
      * @param int $numberOfChronicles number of maximum chronicle to get
      * @return Collection of chronicle
      */
-    public function getChroniclesWithKeywords($keywords, $numberOfChronicles) {
+    public function getChroniclesWithKeywords($keywords, $numberOfChronicles, $useCache = true) {
 
         try {
             
-            // Get cache key : sanitize keywords string and replace "-" by "_"
-            $key = self::CHRONICLES_WITH_KEYWORDS . "_k_" . str_replace("-", "_", StringHelper::sanitize(implode("_", $keywords))) . "_m_" . $numberOfChronicles;
+            $results = null;
             
-            $results = $this->getData($key);
+            if ($useCache) {
+                // Get cache key : sanitize keywords string and replace "-" by "_"
+                $key = self::CHRONICLES_WITH_KEYWORDS . "_k_" . str_replace("-", "_", StringHelper::sanitize(implode("_", $keywords))) . "_m_" . $numberOfChronicles;
+                $results = $this->getData($key);
+            }
             
-            if ($results === false) {
+            if (!isset($results) || $results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
                 $results = $dao->getChroniclesWithKeywords($keywords, $numberOfChronicles);
                 
-                $this->setData($key, $results);
+                if ($useCache)
+                    $this->setData($key, $results);
             }
             return $results;
         } catch (\Exception $e) {
@@ -163,21 +168,26 @@ class ChronicleSvc extends Service {
      * @param int $authorId
      * @return Collection of chronicle
      */
-    public function getAuthorChronicles($authorId) {
+    public function getAuthorChronicles($authorId, $useCache = true) {
 
         try {
             
             $numberOfChronicles = 10;
-            $key = self::AUTHORS_CHRONICLES . "_aid_" . $authorId . "_m_" . $numberOfChronicles;
             
-            $results = $this->getData($key);
+            $results = null;
             
-            if ($results === false) {
+            if ($useCache) {
+                $key = self::AUTHORS_CHRONICLES . "_aid_" . $authorId . "_m_" . $numberOfChronicles;
+                $results = $this->getData($key);
+            }
+            
+            if (!isset($results) || $results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
                 $results = $dao->getChroniclesOfAuthor($authorId, $numberOfChronicles);
                 
-                $this->setData($key, $results);
+                if ($useCache)
+                    $this->setData($key, $results);
             }
             return $results;
         } catch (\Exception $e) {
@@ -185,16 +195,4 @@ class ChronicleSvc extends Service {
         }
     }
 
-/**
- * Get a full book with all members initialised
- * This is necessary for storing the object in cache otherwise when getting the object from cache (and then detach from database)
- * these members won't be initialized
- * @param Book $book //
- */
-    // private function getFullBookRelatedUserEvent(Book $book) {
-    
-    // $contributors = ContributorDao::getInstance()->getListForBook($book->getId());
-    // $book->setContributors($contributors);
-    // return $book;
-    // }
 }

@@ -10,8 +10,8 @@ use Sb\View\SocialNetworksBar;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\PushedChronicles;
 use Sb\View\BookPressReviews;
-use Sb\Service\FullBookSvc;
-use Sb\Model\FullBook;
+use Sb\Service\BookPageSvc;
+use Sb\Model\BookPage;
 
 class Default_BookController extends Zend_Controller_Action {
 
@@ -40,11 +40,11 @@ class Default_BookController extends Zend_Controller_Action {
             // Get books with same contributors
             if ($bookId) {
                 
-                // Get full book
-                /* @var $fullBook FullBook */
-                $fullBook = FullBookSvc::getInstance()->get($bookId);
+                // Get book page
+                /* @var $bookPage BookPage */
+                $bookPage = BookPageSvc::getInstance()->get($bookId);
                 
-                if ($fullBook) {
+                if ($bookPage) {
                     
                     // Add css and js files
                     $this->view->headLink()
@@ -57,7 +57,7 @@ class Default_BookController extends Zend_Controller_Action {
                         ->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
                     
                     // Get book view and add it to view model
-                    $bookView = new BookView($fullBook->getBook(), true, true, true, $fullBook->getBooksAlsoLiked(), $fullBook->getBooksWithSameTags(), $fullBook->getReviewedUserBooks(), false, true);
+                    $bookView = new BookView($bookPage->getBook(), true, true, true, $bookPage->getBooksAlsoLiked(), $bookPage->getBooksWithSameTags(), $bookPage->getReviewedUserBooks(), false, true);
                     $this->view->bookView = $bookView;
                     
                     // Get book buttonbar and add it to view model
@@ -65,22 +65,22 @@ class Default_BookController extends Zend_Controller_Action {
                     $this->view->buttonsBar = $buttonsBar;
                     
                     // Get Books with same contributors and add it to view model
-                    $this->view->sameAuthorBooks = $fullBook->getBooksWithSameAuthor();
+                    $this->view->sameAuthorBooks = $bookPage->getBooksWithSameAuthor();
                     
                     // We pass ASIN code to be used by amazon url builder widget
-                    $this->view->bookAsin = $fullBook->getBook()
+                    $this->view->bookAsin = $bookPage->getBook()
                         ->getASIN();
                     
                     // Get fnac buy link and add it to view model
                     $this->view->buyOnFnacLink = null;
-                    if ($fullBook->getBook()
+                    if ($bookPage->getBook()
                         ->getISBN13())
-                        $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $fullBook->getBook()
+                        $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $bookPage->getBook()
                             ->getISBN13() . "]]"; //
                                                       
                     // Get social network bar and add it to view model
-                    $socialBar = new SocialNetworksBar($fullBook->getBook()
-                        ->getLargeImageUrl(), $fullBook->getBook()
+                    $socialBar = new SocialNetworksBar($bookPage->getBook()
+                        ->getLargeImageUrl(), $bookPage->getBook()
                         ->getTitle());
                     $this->view->socialBar = $socialBar->get();
                     
@@ -89,13 +89,13 @@ class Default_BookController extends Zend_Controller_Action {
                     $this->view->ad = $ad;
                     
                     // Get Header Information and add it to view model
-                    $headerInformation = HeaderInformationSvc::getInstance()->get($fullBook->getBook());
+                    $headerInformation = HeaderInformationSvc::getInstance()->get($bookPage->getBook());
                     $this->view->tagTitle = $headerInformation->getTitle();
                     $this->view->metaDescription = $headerInformation->getDescription();
                     $this->view->metaKeywords = $headerInformation->getKeywords();
                     
                     // Get last read userbooks for the book and add it to view model
-                    $this->view->lastlyReadUserbooks = $fullBook->getLastlyReadUserbooks();
+                    $this->view->lastlyReadUserbooks = $bookPage->getLastlyReadUserbooks();
                     
                     if (count($this->view->lastlyReadUserbooks) > 1) {
                         $this->view->placeholder('footer')
@@ -105,7 +105,7 @@ class Default_BookController extends Zend_Controller_Action {
                     }
                     
                     // Get chronicles and add it to view model
-                    $this->view->chronicles = $this->getChronicleView($fullBook->getRelatedChronicles());
+                    $this->view->chronicles = $this->getChronicleView($bookPage->getRelatedChronicles());
                     
                     // Get video press review associated to book
                     $this->view->placeholder('footer')
@@ -113,12 +113,12 @@ class Default_BookController extends Zend_Controller_Action {
                     $this->view->placeholder('footer')
                         ->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
                     
-                    $video = $fullBook->getVideoPressReview();
+                    $video = $bookPage->getVideoPressReview();
                     if ($video)
                         $this->view->videoUrl = $video->getLink();
                         
                         // Get book press reviews
-                    $bookPressReviews = $fullBook->getPressReviews();
+                    $bookPressReviews = $bookPage->getPressReviews();
                     if ($bookPressReviews) {
                         $bookPressReviewsView = new BookPressReviews($bookPressReviews);
                         $this->view->pressReviews = $bookPressReviewsView->get();

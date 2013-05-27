@@ -103,7 +103,10 @@ class Default_IndexController extends Zend_Controller_Action {
             
             // Newsreader
             $criteria = array(
-                    "type" => PressReviewTypes::ARTICLE
+                    "type" => array(
+                            "=",
+                            PressReviewTypes::ARTICLE
+                    )
             );
             $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
             if ($pressReviews) {

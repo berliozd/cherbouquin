@@ -3,12 +3,8 @@
 namespace Sb\Db\Service;
 
 use Sb\Db\Dao\PressReviewDao;
-use Sb\Trace\Trace;
 use Sb\Db\Model\Model;
 use Sb\Db\Model\Media;
-use Sb\Db\Model\Book;
-use Sb\Db\Model\PressReview;
-use Sb\Db\Dao\BookDao;
 use Sb\Db\Dao\MediaDao;
 
 /**
@@ -45,7 +41,6 @@ class PressReviewSvc extends Service {
             // Build cache key and try to get result in cache
             if ($useCache) {
                 $key = $this->getListCacheKey($criteria);
-                Trace::addItem($key);
                 $result = $this->getData($key);
             }
             
@@ -79,8 +74,10 @@ class PressReviewSvc extends Service {
                 if (isset($arrayValue)) {
                     if ($arrayValue instanceof Model)
                         $key .= "_" . $arrayKey . "_" . $arrayValue->getId();
-                    else
-                        $key .= "_" . $arrayKey . "_" . $arrayValue;
+                    else {
+                        // in that case $arrayValue is an array and contains operator (=, LIKE) as first element and value to compare as second element
+                        $key .= "_" . $arrayKey . "_" . $arrayValue[1];
+                    }
                 }
             }
         }
@@ -92,8 +89,7 @@ class PressReviewSvc extends Service {
         
         /* @var $dao PressReviewDao */
         $dao = $this->getDao();
-        
-        $result = $dao->getAll($criteria, array(
+        $result = $dao->getList($criteria, array(
                 "date" => "DESC"
         ), 100);
         

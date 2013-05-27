@@ -2,7 +2,7 @@
 
 namespace Sb\Service;
 
-use Sb\Model\FullBook;
+use Sb\Model\BookPage;
 use Sb\Db\Model\Book;
 use Sb\Db\Model\UserBook;
 use Sb\Db\Dao\BookDao;
@@ -14,28 +14,28 @@ use Sb\Db\Service\TagSvc;
 use Sb\Entity\PressReviewTypes;
 
 /**
- * Description of FullBookSvc
+ * Description of BookPageSvc
  * @author Didier
  */
-class FullBookSvc extends Service {
+class BookPageSvc extends Service {
 
-    const FULL_BOOK = "FULL_BOOK";
+    const BOOK_PAGE = "BOOK_PAGE";
 
     private static $instance;
 
     protected function __construct() {
 
-        parent::__construct("FullBook");
+        parent::__construct("BookPage");
     }
 
     /**
      *
-     * @return FullBookSvc
+     * @return BookPageSvc
      */
     public static function getInstance() {
 
         if (!self::$instance)
-            self::$instance = new FullBookSvc();
+            self::$instance = new BookPageSvc();
         return self::$instance;
     }
 
@@ -43,12 +43,12 @@ class FullBookSvc extends Service {
 
         try {
             
-            $key = self::FULL_BOOK . "_id_" . $bookId;
+            $key = self::BOOK_PAGE . "_id_" . $bookId;
             
             $result = $this->getData($key);
             
             if ($result === false) {
-                $result = new FullBook();
+                $result = new BookPage();
                 
                 $book = BookDao::getInstance()->get($bookId);
                 
@@ -76,7 +76,10 @@ class FullBookSvc extends Service {
                 $result->setRelatedChronicles($relatedChronicles);
                 
                 $criteria = array(
-                        "type" => PressReviewTypes::VIDEO,
+                        "type" => array(
+                                "=",
+                                PressReviewTypes::VIDEO
+                        ),
                         "book" => $book
                 );
                 $videoPressReviews = PressReviewSvc::getInstance()->getList($criteria, 1, false);
@@ -97,7 +100,10 @@ class FullBookSvc extends Service {
     private function getBookPressReviews(Book $book) {
 
         $criteria = array(
-                "type" => PressReviewTypes::ARTICLE,
+                "type" => array(
+                        "=",
+                        PressReviewTypes::ARTICLE
+                ),
                 "book" => $book
         );
         
@@ -108,7 +114,10 @@ class FullBookSvc extends Service {
             
             // Get general press reviews
             $criteria = array(
-                    "type" => PressReviewTypes::ARTICLE
+                    "type" => array(
+                            "=",
+                            PressReviewTypes::ARTICLE
+                    )
             );
             $generalPressReviews = PressReviewSvc::getInstance()->getList($criteria, 3, false);
             

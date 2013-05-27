@@ -8,7 +8,6 @@ use Sb\Db\Dao\TagDao;
 use Sb\View\Components\Ad;
 use Sb\View\Components\PressReviewsSubscriptionWidget;
 use Sb\Db\Service\ChronicleSvc;
-use Sb\Adapter\ChronicleAdapter;
 use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\ChroniclesBlock;
 use Sb\Db\Service\BookSvc;
@@ -48,7 +47,10 @@ class Default_PressReviewController extends Zend_Controller_Action {
             $this->view->tags = $tags;
             
             $criteria = array(
-                    "type" => PressReviewTypes::ARTICLE
+                    "type" => array(
+                            "=",
+                            PressReviewTypes::ARTICLE
+                    )
             );
             if ($tag)
                 $criteria["tag"] = $tag;
