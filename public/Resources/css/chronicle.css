@@ -112,6 +112,10 @@
     margin-top: 10px;
 }
 
+#chronicles-list h1 {
+    color: #239CD3;
+}
+
 #chronicles-list .navigation.top {
     margin-bottom: 10px;
 }

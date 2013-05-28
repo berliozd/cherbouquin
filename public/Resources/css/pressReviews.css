@@ -64,3 +64,52 @@
     font-size: 1.1em;
     margin: 10px 0 5px;
 }
+
+/* -------------------- */
+/* ---- Videos List --- */
+/* -------------------- */
+
+#videos-list {
+    margin-top: 10px;
+}
+
+#videos-list h1 {
+    color: #239CD3;
+}
+
+#videos-list h2 {
+    font-weight: normal;
+}
+
+#videos-list .navigation.top {
+    margin-bottom: 10px;
+}
+
+#videos-list ul {
+    list-style: none outside none;
+    padding: 0;
+    margin: 0;
+}
+
+#videos-list li.vl-item {
+    border-bottom: 1px solid #DEDFDF;
+    float: left;
+    margin-bottom: 7px;
+    padding-bottom: 8px;
+    width: 100%;
+}
+
+#videos-list .vl-left {
+    float: left;
+    width: 33%;
+}
+
+#videos-list .vl-right {
+    float: left;
+    width: 67%;
+}
+
+.vl-title {
+    color: #239CD3;
+    font-weight: bold;
+}

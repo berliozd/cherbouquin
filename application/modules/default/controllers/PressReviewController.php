@@ -107,4 +107,55 @@ class Default_PressReviewController extends Zend_Controller_Action {
         }
     }
 
+    /**
+     * Action for press review (type video) list pages
+     */
+    public function videosAction() {
+
+        try {
+            $navigationParamName = "pagenumber";
+            $pageNumber = $this->getParam($navigationParamName, null);
+            
+            $criteria = array(
+                    "type" => array(
+                            "=",
+                            PressReviewTypes::VIDEO
+                    )
+            );
+            
+            $videosPressReviews = PressReviewSvc::getInstance()->getList($criteria, 100, true);
+            $this->view->videosPressReviews = $videosPressReviews;
+            
+            if (!$pageNumber)
+                $pageNumber = 1;
+            $pressReviewsPaginated = new PaginatedList($videosPressReviews, 5, $navigationParamName, $pageNumber);
+            $pagesPressReviews = $pressReviewsPaginated->getItems();
+            
+            // Add press review list to model view
+            $this->view->pressReviews = $pagesPressReviews;
+            
+            // Add navigation bar to view model
+            $this->view->navigationBar = $pressReviewsPaginated->getNavigationBar();
+            
+            // Get add and add it to view model
+            $ad = new Ad("", "");
+            $this->view->ad = $ad->get();
+            
+            // Get press review subscription module and add it to view model
+            $pressReviewSubscriptionWidget = new PressReviewsSubscriptionWidget();
+            $this->view->pressReviewSubscriptionWidget = $pressReviewSubscriptionWidget->get();
+            
+            // Get chronicles and add to view model
+            $chronicles = ChronicleSvc::getInstance()->getLastChronicles(5);
+            $chronicleAdapter = new ChronicleListAdapter();
+            $chronicleAdapter->setChronicles($chronicles);
+            $chroniclesView = new ChroniclesBlock($chronicleAdapter->getAsChronicleViewModelLightList(), __("Dernières chroniques", "s1b"));
+            $this->view->chroniclesView = $chroniclesView->get();
+            
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
 }

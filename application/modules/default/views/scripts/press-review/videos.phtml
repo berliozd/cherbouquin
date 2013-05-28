@@ -1,0 +1,60 @@
+<?php
+use Sb\Db\Model\PressReview;
+use Sb\Db\Model\Tag;
+use Sb\Entity\Constants;
+use Sb\Helpers\ImageHelper;
+use Sb\Helpers\StringHelper;
+?>
+<div id="pressreviews">
+    <div id="content-center">
+        <div id="videos-list">
+            <h1><?php _e("Actualités du livre en vidéo","s1b");?></h1>
+            <h2><?php echo sprintf(__("%s vous propose une sélection des videos autour du livre","s1b"), Constants::SITENAME);?></h2>            
+            <div class="navigation top">
+                <div class="nav-links">
+                    <?php echo $this->navigationBar; ?>
+                </div>
+            </div>
+            <ul>
+                <?php foreach ($this->pressReviews as $pressReview) {
+                    /* @var $pressReview PressReview */
+                    ?>
+                <li class="vl-item">
+                    <div class="vl-left">
+                        <iframe width="200" height="113" src="<?php echo $pressReview->getLink(); ?>" frameborder="0" allowfullscreen></iframe>
+                    </div>                    
+                    <div class="vl-right">
+                        <span class="vl-title"><?php echo $pressReview->getTitle(); ?></span>
+                        &nbsp;
+                        <span class="vl-date"><?php echo $pressReview->getDate()->format("d/m/Y"); ?></span>
+                        &nbsp;|&nbsp;<?php _e("par", "s1b")?>&nbsp;<?php echo "@" . $pressReview->getMedia()->getTwitter_user(); ?>
+                        <br/>                
+                        <span class="vl-content"><?php echo $pressReview->getText(); ?></span>
+                    </div>
+                
+                </li>
+                <?php } ?>
+            </ul>
+            <div class="navigation">
+                <div class="nav-links">
+                    <?php echo $this->navigationBar; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content-right">
+    
+        <div class="right-frame">
+            <?php echo $this->pressReviewSubscriptionWidget; ?>
+        </div>
+    
+        <div class="right-frame">
+            <?php echo $this->ad; ?>
+        </div>
+    
+        <div class="right-frame">
+            <?php echo $this->chroniclesView; ?>
+        </div>
+    
+    </div>
+</div>
