@@ -192,7 +192,7 @@ class ChronicleAdapter {
         else if ($this->chronicle->getImage())
             $lightChronicle->setImage($this->chronicle->getImage());
         else if ($this->chronicle->getTag())
-            $lightChronicle->setImage(sprintf(BASE_URL . "Resources/images/tags/large/tag_%s.jpg", $this->chronicle->getTag()
+            $lightChronicle->setImage(sprintf("/images/tag/tag_id%s.jpg", $this->chronicle->getTag()
                 ->getId()));
     }
 
