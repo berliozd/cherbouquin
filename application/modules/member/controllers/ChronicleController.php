@@ -50,7 +50,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
             
             $imageUploadPath = $this->getImageUploadPath($groupId);
             
-            // Create directory to upload the images in case in doesn't exist for the group
+            // Create directory to upload the images in case it doesn't exist for the group
             if (!file_exists($imageUploadPath))
                 mkdir($imageUploadPath); //
                                              

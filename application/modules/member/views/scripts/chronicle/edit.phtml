@@ -2,6 +2,7 @@
 
     <?php $facebookMsg = __("Vous devez vous connecter sur facebook pour poster.", "s1b");?>
     $(document).ready(function(){
+        //setTimeout("$('#post_on_facebook-element').show();", 2000);
         $('#post_on_facebook-element').append('<div id="facebook-login"><?php echo $facebookMsg;?><fb:login-button show-faces="false" width="200" max-rows="1"></fb:login-button></div>');
     });
 
@@ -23,9 +24,9 @@
 		if (status === 'connected') {
 			// Hide connect button
 			$("#facebook-login").hide();
-			// Show and check checkbox
-			$("#post_on_facebook").show().attr('checked', true);			
-			
+			// Show checkbox
+			// The checkbox is not checked because the current request can be a post wth invalid data and it can have been checked or not previously.
+			$("#post_on_facebook").show();
 		} else {
 		    $("#facebook-login").show();
 			// Hide and uncheck checkbox
