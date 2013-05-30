@@ -13,35 +13,42 @@ function cssSelected($page) {
             <div class="nur-image"><img src="<?php echo $user->getGravatar(); ?>" /></div>
             <div class="nur-status">
                 <div class="nurs-status <?php echo $statusCssClass; ?>">
-                    <div class="nurss-title">Statut</div>
-                    <div class="nurss-value"><?php echo $userStatus; ?></div>
+                    <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS); ?>">Mes paramètres</a>
                 </div>
                 <div>
-                    <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS); ?>">Mes paramètres</a>
+                    <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::MY_PROFILE); ?>"><?php _e("Mon profil","s1b"); ?></a>
                 </div>
             </div>
         </div>
         <div class="nu-links">
             <ul class="nul-links">
+                <li id="nul-news">
+                        <span><?php _e("Actualités","s1b");?></span>
+                        <ul>
+                            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LAST_CHRONICLES); ?>"><?php _e("Chroniques","s1b");?></a></li>
+                            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::PRESS_REVIEWS_IN_MEDIAS); ?>"><?php _e("Dans les medias","s1b");?></a></li>
+                            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BLOGGERS_CHRONICLES); ?>"><?php _e("En direct des blogs","s1b");?></a></li>
+                            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BOOKSTORES_CHRONICLES); ?>"><?php _e("Le mot des libraires","s1b");?></a></li>
+                            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::PRESS_REVIEWS_ALL_VIDEOS); ?>"><?php _e("Toutes les vidéos","s1b");?></a></li>
+                        </ul>
+                </li>
                 <li>
-                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_HOME); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_HOME); ?>">A la page</a></li>
+                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_HOME); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_HOME); ?>"><?php _e("A la page","");?></a></li>
                 <li>
-                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_LIBRARY); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("reset" => 1)); ?>">Ma bibliothèque</a></li>
+                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_LIBRARY); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("reset" => 1)); ?>"><?php _e("Mes livres","s1b");?></a></li>
                 <li>
                     <?php if ($nbPendingFriendRequests>0){ ?>
                     <span class="nu-indice"><?php echo $nbPendingFriendRequests;?></span>
                     <?php } ?>
-                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_FRIENDS); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS); ?>">Mes amis</a></li>
+                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_FRIENDS); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS); ?>"><?php _e("Mes amis","s1b");?></a></li>
                 <li>
                     <?php if ($nbMessagesToRead>0){ ?>
                     <span class="nu-indice"><?php echo $nbMessagesToRead;?></span>
                     <?php } ?>
-                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_MAILBOX); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX); ?>">Ma messagerie</a></li>
-                <li>
-                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::MY_PROFILE); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::MY_PROFILE); ?>">Mon profil</a></li>
+                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_MAILBOX); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX); ?>"><?php _e("Ma messagerie","s1b");?></a></li>
             </ul>
             <div class="nul-button">
-                <a class="button bt-black-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGOUT); ?>">Se déconnecter</a>
+                <a class="button bt-black-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGOUT); ?>"><?php _e("Se déconnecter","s1b");?></a>
             </div>            
         </div>
     </div>

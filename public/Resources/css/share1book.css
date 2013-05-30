@@ -196,9 +196,9 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
 .pf-title {background-color: #fff;color: #f14e07;font-size: 1.6em;font-weight: bold;text-align: center; border-bottom: 1px solid #f14e07;}
 
 /* profile visibility picto */
-.profile-picto-small-myfriends {background: url("../images/sprite.png?v=5") repeat-x scroll 0 -1014px transparent;}
-.profile-picto-small-public {background: url("../images/sprite.png?v=5") repeat-x scroll 0 -1048px transparent;}
-.profile-picto-small-private {background: url("../images/sprite.png?v=5") repeat-x scroll 0 -1082px transparent;}
+.profile-picto-small-myfriends {background: url("../images/sprite.png?v=5") repeat-x scroll 90px -1014px transparent;}
+.profile-picto-small-public {background: url("../images/sprite.png?v=5") repeat-x scroll 90px -1048px transparent;}
+.profile-picto-small-private {background: url("../images/sprite.png?v=5") repeat-x scroll 90px -1082px transparent;}
 
 SELECT {height: 28px;}
 A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bold;}
@@ -256,25 +256,64 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 /*nav-user*/
 #nav-user {color:#FFF;}
 #nav-user A, #nav-user A:visited, #nav-user A:hover {color:#fff; text-decoration: none;}
-.nu-resume {float:left; width:178px; background-color: #323639; box-shadow: 0 0 10px #000000 inset;  border-radius: 0 0 0 10px; padding:6px;}
+.nu-resume {float:left; width:185px; background-color: #323639; box-shadow: 0 0 10px #000000 inset;  border-radius: 0 0 0 10px; padding:6px;}
 .nu-resume IMG {border: 2px #313538 solid; width:53px; height:53px;}
 .nur-image, .nur-status {float:left;}
-.nur-status {padding:4px 6px; font-size: 1.2em;}
-.nurs-status {height: 33px;padding-left: 37px;}
+.nur-status {padding-left:2px; font-size: 1.2em;}
+.nurs-status {height: 25px; padding-right: 33px; padding-top:5px;}
 .nu-indice {background: url("../images/sprite.png?v=5") no-repeat scroll 0 -1678px transparent;font-size: 0.7em;height: 20px;padding-top: 2px;position: absolute;right: 0;text-align: center;top: -18px;width: 21px;}
-
-.nurss-title {text-transform: uppercase; font-weight: bold; }
-.nurss-value {color: #239CD3;}
-.nu-links {float: left;padding: 20px;width: 750px; }
+.nu-links {float: left;padding: 20px;width: 740px; }
 .nul-links {float: left;list-style: none outside none;margin: 0;padding: 0;text-align: center;}
-.nul-links LI { float: left;font-size: 1.4em;font-weight: bold;margin-right: 19px;text-align: left;text-transform: uppercase; position:relative;}
-#nav-user .nul-links LI A.selected, #nav-user .nul-links LI A.selected:visited, #nav-user .nul-links LI A.selected:hover {color:#000;}
+.nul-links>LI { float: left;font-size: 1.4em;font-weight: bold;margin-right: 30px;text-align: left;text-transform: uppercase; position:relative;}
 .nul-button {float:right;}
+#nav-user .nul-links LI A.selected, #nav-user .nul-links LI A.selected:visited, #nav-user .nul-links LI A.selected:hover {color:#000;}
+
+li#nul-news {
+    border-color: transparent;
+    border-style: solid; 
+    border-width: 1px 1px 0; 
+    border-radius: 10px 10px 0 0; 
+    margin-right: 5px; 
+    margin-top: -5px; 
+    padding-left: 22px; 
+    padding-right: 1px; 
+    padding-top: 5px; 
+    width: 130px;
+    position: relative;
+}
+
+li#nul-news ul {
+    display:none;
+    background-color: #239CD3; 
+    border-color: transparent; 
+    border-radius: 0 0 10px 10px; 
+    border-style: solid; 
+    border-width: 0 1px 1px; 
+    left: -1px; 
+    padding-bottom: 5px; 
+    padding-left: 22px; 
+    position: absolute; 
+    text-transform: none; 
+    top: 25px; 
+    width: 131px;
+}
+li#nul-news ul>li {
+    list-style: disc outside none; 
+    padding-right:3px;
+}
+li#nul-news span {
+    position: relative; 
+    background-color: #239CD3;
+}
+li#nul-news:hover {border-color: #363A3D; }
+li#nul-news:hover ul {
+    display:block;
+    border-color: #363A3D;
+}
+li#nul-news:hover span {color: #363A3D;}
 
 /* carousel */
 .carousel-wrap {position: relative;}
-/*li {text-align:center; }
-li span {display:block;margin:5px;background:blue;}*/
 .carousel-items {margin:0;padding:0; list-style:none;width:980px;height:400px;overflow:hidden; }
 .carousel-items li {text-align:left; display:block;width:980px;height:400px; }
 UL.carousel-pagination {background: none repeat scroll 0 0 transparent;left: 240px;position: absolute;top: 310px;width: 85px;}

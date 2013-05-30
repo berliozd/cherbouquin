@@ -1,8 +1,8 @@
 <?php
 use Sb\Db\Model\PressReview;
-use Doctrine\Common\Util\Debug;
 use Sb\Helpers\ImageHelper;
-use Sb\Helpers\BookHelper;
+use Sb\Helpers\HTTPHelper;
+use Sb\Entity\Urls;
 ?>
 <div class="nr-title"><?php echo $title;?></div>
 <div class="nr-list">    
@@ -50,7 +50,7 @@ if (!$closed) {
 }
 ?>
 <div class="nr-footer">
-        <div class="nr-footerlink"><?php _e("Toute l'actualité des médias","s1b");?></div>
+        <div class="nr-footerlink"><a class="link" href="<?php echo HTTPHelper::Link(Urls::PRESS_REVIEWS_IN_MEDIAS);?>"><?php _e("Toute l'actualité des médias","s1b");?></a></div>
         <div class="nr-buttons">
             <a class="navButton prevButton disabled"></a> <a class="navButton nextButton"></a>
         </div>

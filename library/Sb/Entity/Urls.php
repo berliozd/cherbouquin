@@ -25,6 +25,11 @@ class Urls {
     const PRESS_REVIEW = "revues-de-presse"; // revues de presse
     const PARTNERS = "nos-partenaires"; // nos partenaires
     const STEP_BY_STEP = "pas-a-pas"; // Pas à pas
+    const LAST_CHRONICLES = "chroniques/dernieres-chroniques";
+    const BLOGGERS_CHRONICLES = "chroniques/chroniques-des-bloggeurs";
+    const BOOKSTORES_CHRONICLES = "chroniques/chroniques-des-libraires";
+    const PRESS_REVIEWS_IN_MEDIAS = "revues-de-presse/dans-les-medias";
+    const PRESS_REVIEWS_ALL_VIDEOS = "revues-de-presse/toutes-les-videos";
     
     // account connection-registration-activation
     const LOGIN = 'index/log'; // Zend : default / index / log

@@ -291,7 +291,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
             $pushedChronicle = $chronicleAdapter->getAsChronicleViewModelLight();
             $facebookMessage = $pushedChronicle->getTitle();
             $facebookTitle = sprintf(__("%s vient de poster une chronique sur%s", "s1b"), $globalContext->getConnectedUser()->getFirstName(), Constants::SITENAME);
-            $facebookCaption = $pushedChronicle->getDescription();
+            $facebookCaption = $pushedChronicle->getShortenText();
             $facebookLink = $pushedChronicle->getDetailLink();
             $facebookPicture = $pushedChronicle->getImage();
             

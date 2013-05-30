@@ -24,6 +24,7 @@ use Sb\View\Components\PressReviewsSubscriptionWidget;
 use Sb\View\Components\NewsReader;
 use Sb\Db\Service\PressReviewSvc;
 use Sb\Entity\PressReviewTypes;
+use Sb\View\Components\GooglePlus;
 
 class Default_IndexController extends Zend_Controller_Action {
 
@@ -62,14 +63,19 @@ class Default_IndexController extends Zend_Controller_Action {
             
             $this->view->subscribeLink = HTTPHelper::Link(Urls::SUBSCRIBE);
             
-            $facebookFrame = new FacebookFrame();
-            $this->view->faceBookFrame = $facebookFrame->get();
-            
-            $ad = new Ad("user_login", "0457389056");
-            $this->view->ad = $ad->get();
-            
-            $twitter = new TwitterWidget();
-            $this->view->twitter = $twitter->get();
+            if (IS_PRODUCTION) {
+                $facebookFrame = new FacebookFrame();
+                $this->view->faceBookFrame = $facebookFrame->get();
+                
+                $ad = new Ad("user_login", "0457389056");
+                $this->view->ad = $ad->get();
+                
+                $twitter = new TwitterWidget();
+                $this->view->twitter = $twitter->get();
+                
+                $googlePlus = new GooglePlus();
+                $this->view->googlePlus = $googlePlus->get();
+            }
             
             $this->view->placeholder('footer')
                 ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>");

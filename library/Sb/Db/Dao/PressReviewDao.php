@@ -42,6 +42,7 @@ class PressReviewDao extends AbstractDao {
         }
         $dql .= $joins;
         
+        $criterias = "";
         // Get the criteria part separated by AND
         foreach ($criteria as $key => $value) {
             if ($value instanceof Model)

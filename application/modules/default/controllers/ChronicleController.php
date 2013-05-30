@@ -386,11 +386,11 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 break;
             case self::PAGE_KEY_BLOGGERS :
                 
-                $title = __("Chroniques des bloggeurs", "s1b");
+                $title = __("En direct des blogs", "s1b");
                 break;
             case self::PAGE_KEY_BOOKSTORES :
                 
-                $title = __("Chroniques des libraires", "s1b");
+                $title = __("Le mot des libraires", "s1b");
                 break;
         }
         

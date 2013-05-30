@@ -2,7 +2,11 @@
 
 namespace Sb\View\Components;
 
-class FacebookFrame extends \Sb\View\AbstractView {
+/**
+ *
+ * @author Didier
+ */
+class GooglePlus extends \Sb\View\AbstractView {
 
     function __construct() {
 
@@ -10,12 +14,16 @@ class FacebookFrame extends \Sb\View\AbstractView {
     }
 
     public function get() {
-
+        
+        // Renders the google plus only on production
         if ($this->getConfig()
             ->getIsProduction()) {
-            $tpl = new \Sb\Templates\Template("components/facebookFrame");
+            $tpl = new \Sb\Templates\Template("components/googlePlus");
+            
             return $tpl->output();
-        } else
+        } 
+
+        else
             return "";
     }
 
