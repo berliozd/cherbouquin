@@ -104,7 +104,7 @@ class HeaderInformationSvc extends Service {
         try {
             $result = new HeaderInformation();
             
-            $title = $this->addPageAndTag(sprintf(__("%s : derniers livres ajoutés par les membres", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
+            $title = $this->addPageAndTag(sprintf(__("Derniers livres ajoutés par les membres - %s", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
             $description = __("Derniers livres ajoutés par les lecteurs et membres de la communauté|voir derniers livres ajoutés par tag ou catégorie", "s1b");
             $keyWords = __("derniers ajouts|derniers livres", "s1b");
             
@@ -123,7 +123,7 @@ class HeaderInformationSvc extends Service {
         try {
             $result = new HeaderInformation();
             
-            $title = $this->addPageAndTag(sprintf(__("%s : coups de cœur des lecteurs | livres", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
+            $title = $this->addPageAndTag(sprintf(__("Coups de cœur des lecteurs | livres - %s", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
             $description = __("Coups de cœur des lecteurs et membres de la communauté|voir coups de cœur par tag ou catégorie", "s1b");
             $keyWords = __("coups de cœur|coups de cœur lecteurs|coups de cœur membres", "s1b");
             
@@ -142,7 +142,7 @@ class HeaderInformationSvc extends Service {
         try {
             $result = new HeaderInformation();
             
-            $title = $this->addPageAndTag(sprintf(__("%s : top des lecteurs | livres", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
+            $title = $this->addPageAndTag(sprintf(__("Top des lecteurs | livres - %s", "s1b"), Constants::SITENAME), $pageNumber, $tagLabel);
             $description = __("Top des lecteurs et membres de la communauté|voir tops par tag ou catégorie", "s1b");
             $keyWords = __("top|top lecteurs|top membres", "s1b");
             
@@ -163,45 +163,49 @@ class HeaderInformationSvc extends Service {
             
             switch ($routeName) {
                 case "newsletters" :
-                    $result->setTitle(sprintf(__("%s : newsletter", "s1b"), Constants::SITENAME));
+                    $result->setTitle(sprintf(__("Newsletters", "s1b - %s"), Constants::SITENAME));
                     $result->setDescription("Les newsletters envoyées pour vous tenir informé des parutions, des coups de cœur et commentaires de la communauté");
                     $result->setKeywords("newsletter");
                     break;
                 case "pressReviews" :
-                    $result->setTitle(sprintf(__("%s : que s'est-il passé dans la presse ?", "s1b"), Constants::SITENAME));
+                    $result->setTitle(sprintf(__("Que s'est-il passé dans la presse ? - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Les revues de presse envoyées pour vous tenir informé des derniers articles, interviews ou polémiques parus");
                     $result->setKeywords("revue de presse");
                     break;
                 case "stepByStep" :
-                    $result->setTitle(sprintf(__("%s : aide - pas à pas - comment utiliser le site ?", "s1b"), Constants::SITENAME));
+                    $result->setTitle(sprintf(__("Aide - pas à pas - comment utiliser le site ? - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Si vous avez besoin d'un pas à pas pour utiliser pleinement toutes les fonctionnalités du site");
                     $result->setKeywords("aide|pas à pas");
                     break;
                 case "about" :
-                    $result->setTitle(sprintf(__("%s : à propos du projet", "s1b"), Constants::SITENAME));
+                    $result->setTitle(sprintf(__("A propos du projet - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Comment et pourquoi nous est venu cette idée de communauté autour du livre et de la lecture");
                     $result->setKeywords("à propos|projet|pourquoi|société");
                     break;
                 case "press" :
-                    $result->setTitle(sprintf(__("%s : la presse et les blogs littéraires parlent de nous", "s1b"), Constants::SITENAME));
+                    $result->setTitle(sprintf(__("La presse et les blogs littéraires parlent de nous - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Envoi de communiqués de presse aux médias pour qu'ils parlent de nous | les blogs et blogueurs littéraires qui nous soutiennent");
                     $result->setKeywords("presse|blog|blogueurs littéraires|blogueurs BD");
                     break;
                 case "team" :
-                    $result->setTitle(sprintf(__("%s : découvrir l'équipe - les collaborateurs", "s1b"), Constants::SITENAME));
+                    $result->setTitle(sprintf(__("Découvrir l'équipe - les collaborateurs - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Découvrez l'équipe qui travaille derrière un ordinateur, mais pas que, pour développer la communauté");
                     $result->setKeywords("équipe|collaborateur");
                     break;
                 case "howItWorks" :
-                    $result->setTitle(sprintf(__("%s : aide - comment ça marche ?", "s1b"), Constants::SITENAME));
+                    $result->setTitle(sprintf(__("Aide - comment ça marche ? - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Si vous souhaitez tout comprendre sur l'utilisation du site sans rentrer dans un pas à pas");
                     $result->setKeywords("aide générale");
                     break;
                 case "helpUs" :
-                    $result->setTitle(sprintf(__("%s : pourquoi et comment nous aider ?", "s1b"), Constants::SITENAME));
+                    $result->setTitle(sprintf(__("Pourquoi et comment nous aider ? - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Si vous souhaitez nous donner un coup de pouce sans même vous en rendre compte");
                     $result->setKeywords("nous aider");
                     break;
+                case "partners" : 
+                    $result->setTitle(sprintf(__("Nos partenaires autour du livre - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription("Quels sont nos partenaires qui nous permettent de vous proposer un contenu enrichi ?");
+                    $result->setKeywords("partenariat|livres|littérature");
                 default :
                     break;
             }
