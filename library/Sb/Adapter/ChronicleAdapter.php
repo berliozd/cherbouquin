@@ -80,27 +80,27 @@ class ChronicleAdapter {
         }
         
         // Set link info
-        $chronicleViewModel->setLinkCss("pci-link-other");
+        $chronicleViewModel->setLinkCss("chr-link-other");
         $chronicleViewModel->setLinkText(__("En savoir plus", "s1b"));
         switch ($this->chronicle->getLink_type()) {
             case ChronicleLinkType::IMAGE :
-                $chronicleViewModel->setLinkCss("pci-link-image");
+                $chronicleViewModel->setLinkCss("chr-link-image");
                 $chronicleViewModel->setLinkText(__("Voir la photo", "s1b"));
                 break;
             case ChronicleLinkType::PODCAST :
-                $chronicleViewModel->setLinkCss("pci-link-podcast");
+                $chronicleViewModel->setLinkCss("chr-link-podcast");
                 $chronicleViewModel->setLinkText(__("Ecouter le podcast", "s1b"));
                 break;
             case ChronicleLinkType::PRESS :
-                $chronicleViewModel->setLinkCss("pci-link-press");
+                $chronicleViewModel->setLinkCss("chr-link-press");
                 $chronicleViewModel->setLinkText(__("Lire l'article", "s1b"));
                 break;
             case ChronicleLinkType::URL :
-                $chronicleViewModel->setLinkCss("pci-link-url");
+                $chronicleViewModel->setLinkCss("chr-link-url");
                 $chronicleViewModel->setLinkText(__("En savoir plus", "s1b"));
                 break;
             case ChronicleLinkType::VIDEO :
-                $chronicleViewModel->setLinkCss("pci-link-video");
+                $chronicleViewModel->setLinkCss("chr-link-video");
                 $linkText = __("Regarder la video", "s1b");
                 break;
         }
