@@ -19,6 +19,7 @@ use Sb\Entity\PressReviewTypes;
 use Sb\View\ChroniclesBlock;
 use Sb\View\BookPressReviews;
 use Sb\Service\ChroniclePageSvc;
+use Sb\Service\HeaderInformationSvc;
 
 class Default_ChronicleController extends Zend_Controller_Action {
 
@@ -438,6 +439,14 @@ class Default_ChronicleController extends Zend_Controller_Action {
             $moreSeenChroniclesView = new ChroniclesBlock($chroniclesAdapter->getAsChronicleViewModelLightList(), __("<strong>Chroniques</strong> les plus en vues", "s1b"));
             $this->view->moreSeenChronicles = $moreSeenChroniclesView->get();
         }
+        
+        // Add SEO (title, meta description and keywords)
+        $routeName = Zend_Controller_Front::getInstance()->getRouter()
+            ->getCurrentRouteName();
+        $headerInformation = HeaderInformationSvc::getInstance()->getByRouteName($routeName);
+        $this->view->tagTitle = $headerInformation->getTitle();
+        $this->view->metaDescription = $headerInformation->getDescription();
+        $this->view->metaKeywords = $headerInformation->getKeywords();
     }
 
     /**

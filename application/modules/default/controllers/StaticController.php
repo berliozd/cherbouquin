@@ -29,7 +29,7 @@ class Default_StaticController extends Zend_Controller_Action {
 
                 // Get Header information
                 $routeName = Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName();
-                $headerInformation = HeaderInformationSvc::getInstance()->getForStaticPage($routeName);
+                $headerInformation = HeaderInformationSvc::getInstance()->getByRouteName($routeName);
                 $this->view->tagTitle = $headerInformation->getTitle();
                 $this->view->metaDescription = $headerInformation->getDescription();
                 $this->view->metaKeywords = $headerInformation->getKeywords();

@@ -156,7 +156,7 @@ class HeaderInformationSvc extends Service {
         }
     }
 
-    public function getForStaticPage($routeName) {
+    public function getByRouteName($routeName) {
 
         try {
             $result = new HeaderInformation();
@@ -202,10 +202,36 @@ class HeaderInformationSvc extends Service {
                     $result->setDescription("Si vous souhaitez nous donner un coup de pouce sans même vous en rendre compte");
                     $result->setKeywords("nous aider");
                     break;
-                case "partners" : 
+                case "partners" :
                     $result->setTitle(sprintf(__("Nos partenaires autour du livre - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Quels sont nos partenaires qui nous permettent de vous proposer un contenu enrichi ?");
                     $result->setKeywords("partenariat|livres|littérature");
+                    break;
+                case "chroniclesLastAnyType" :
+                    $result->setTitle(sprintf(__("Nos dernières chroniques autour du livre - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
+                    $result->setKeywords("livres|littérature|chroniques");
+                    break;
+                case "chroniclesLastBloggers" :
+                    $result->setTitle(sprintf(__("Nos dernières chroniques de bloggeurs littéraires - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
+                    $result->setKeywords("livres|littérature|chroniques");
+                    break;
+                case "chroniclesLastBookStores" :
+                    $result->setTitle(sprintf(__("Nos dernières chroniques de libraires - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
+                    $result->setKeywords("livres|littérature|chroniques");
+                    break;
+                case "articlePressReviews" :
+                    $result->setTitle(sprintf(__("Dans les medias - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
+                    $result->setKeywords("livres|littérature|chroniques");
+                    break;
+                case "videoPressReviews" :
+                    $result->setTitle(sprintf(__("Toutes les vidéos - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
+                    $result->setKeywords("livres|littérature|chroniques");
+                    break;                
                 default :
                     break;
             }

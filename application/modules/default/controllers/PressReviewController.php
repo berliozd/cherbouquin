@@ -12,6 +12,7 @@ use Sb\Adapter\ChronicleListAdapter;
 use Sb\View\ChroniclesBlock;
 use Sb\Db\Service\BookSvc;
 use Sb\View\BookCoverFlip;
+use Sb\Service\HeaderInformationSvc;
 
 class Default_PressReviewController extends Zend_Controller_Action {
 
@@ -101,6 +102,9 @@ class Default_PressReviewController extends Zend_Controller_Action {
             $books = BookSvc::getInstance()->getListWithPressReviews(15);
             $booksCoverFlip = new BookCoverFlip($books, __("Les livres dont parlent <strong>les médias</strong>", "s1b"), "booksWithPressReviews", "");
             $this->view->booksCoverFlip = $booksCoverFlip->get();
+            
+            // Add common items to model view (SEO)
+            $this->addCommonListItemsToModelView();
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
@@ -152,10 +156,22 @@ class Default_PressReviewController extends Zend_Controller_Action {
             $chroniclesView = new ChroniclesBlock($chronicleAdapter->getAsChronicleViewModelLightList(), __("Dernières chroniques", "s1b"));
             $this->view->chroniclesView = $chroniclesView->get();
             
+            // Add common items to model view (SEO)
+            $this->addCommonListItemsToModelView();
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
+    }
+
+    private function addCommonListItemsToModelView() {
+        // Add SEO (title, meta description and keywords)
+        $routeName = Zend_Controller_Front::getInstance()->getRouter()
+            ->getCurrentRouteName();
+        $headerInformation = HeaderInformationSvc::getInstance()->getByRouteName($routeName);
+        $this->view->tagTitle = $headerInformation->getTitle();
+        $this->view->metaDescription = $headerInformation->getDescription();
+        $this->view->metaKeywords = $headerInformation->getKeywords();
     }
 
 }
