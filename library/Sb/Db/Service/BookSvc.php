@@ -197,6 +197,7 @@ class BookSvc extends Service {
             
             // Get the tags for the current book
             $tags = TagDao::getInstance()->getTagsForBook($bookId);
+            
             if (count($tags) > 0) {
                 $tagsId = array_map(array(
                         &$this,

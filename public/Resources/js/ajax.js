@@ -169,7 +169,8 @@ function _addUserBook(sender) {
 }
 
 /**
- * Attach action on click and blur text field event to clear and restore default value if not changed
+ * Attach action on click and blur text field event to clear and restore default
+ * value if not changed
  * @param defClass class for hidden element containing default value
  * @param selector text field selector
  */

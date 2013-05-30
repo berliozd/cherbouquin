@@ -20,7 +20,9 @@ class UserEventSvc extends \Sb\Db\Service\Service {
     private static $instance;
 
     const USER_LAST_EVENT_OF_TYPE = "USER_LAST_EVENT_OF_TYPE";
+
     const LAST_EVENT_OF_TYPE = "LAST_EVENT_OF_TYPE";
+
     const FRIENDS_LAST_EVENT_OF_TYPE = "FRIENDS_LAST_EVENT_OF_TYPE";
 
     /**
@@ -28,22 +30,24 @@ class UserEventSvc extends \Sb\Db\Service\Service {
      * @return \Sb\Db\Service\UserEventSvc
      */
     public static function getInstance() {
+
         if (!self::$instance)
             self::$instance = new \Sb\Db\Service\UserEventSvc();
         return self::$instance;
     }
 
     protected function __construct() {
+
         parent::__construct(\Sb\Db\Dao\UserEventDao::getInstance(), "UserEvent");
     }
 
     public function prepareUserBookEvents(UserBook $oldUserBook, UserBookForm $newUserBook) {
 
         $userEvents = array();
-
+        
         try {
             if ($oldUserBook->getRating() != $newUserBook->getRating()) {
-                $userEvent = new \Sb\Db\Model\UserEvent;
+                $userEvent = new \Sb\Db\Model\UserEvent();
                 $userEvent->setItem_id($oldUserBook->getId());
                 $userEvent->setUser($oldUserBook->getUser());
                 $userEvent->setNew_value($newUserBook->getRating());
@@ -51,9 +55,9 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_RATING_CHANGE);
                 $userEvents[] = $userEvent;
             }
-
+            
             if ($oldUserBook->getIsBlowOfHeart() != $newUserBook->getIsBlowOfHeart()) {
-                $userEvent = new \Sb\Db\Model\UserEvent;
+                $userEvent = new \Sb\Db\Model\UserEvent();
                 $userEvent->setItem_id($oldUserBook->getId());
                 $userEvent->setUser($oldUserBook->getUser());
                 $userEvent->setNew_value($newUserBook->getIsBlowOfHeart());
@@ -61,9 +65,9 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_BLOWOFHEART_CHANGE);
                 $userEvents[] = $userEvent;
             }
-
+            
             if ($oldUserBook->getHyperlink() != $newUserBook->getHyperLink()) {
-                $userEvent = new \Sb\Db\Model\UserEvent;
+                $userEvent = new \Sb\Db\Model\UserEvent();
                 $userEvent->setItem_id($oldUserBook->getId());
                 $userEvent->setUser($oldUserBook->getUser());
                 // Removing http:// or https:// from url
@@ -74,20 +78,22 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_HYPERLINK_CHANGE);
                 $userEvents[] = $userEvent;
             }
-
-            $oldReadingStateId = ($oldUserBook->getReadingState() ? $oldUserBook->getReadingState()->getId() : -1);
+            
+            $oldReadingStateId = ($oldUserBook->getReadingState() ? $oldUserBook->getReadingState()
+                ->getId() : -1);
             if ($oldReadingStateId != $newUserBook->getReadingStateId()) {
-                $userEvent = new \Sb\Db\Model\UserEvent;
+                $userEvent = new \Sb\Db\Model\UserEvent();
                 $userEvent->setItem_id($oldUserBook->getId());
                 $userEvent->setUser($oldUserBook->getUser());
                 $userEvent->setNew_value($newUserBook->getReadingStateId());
-                $userEvent->setOld_value(($oldUserBook->getReadingState() ? $oldUserBook->getReadingState()->getId() : null));
+                $userEvent->setOld_value(($oldUserBook->getReadingState() ? $oldUserBook->getReadingState()
+                    ->getId() : null));
                 $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_READINGSTATE_CHANGE);
                 $userEvents[] = $userEvent;
             }
-
+            
             if ($oldUserBook->getReview() != $newUserBook->getReview()) {
-                $userEvent = new \Sb\Db\Model\UserEvent;
+                $userEvent = new \Sb\Db\Model\UserEvent();
                 $userEvent->setItem_id($oldUserBook->getId());
                 $userEvent->setUser($oldUserBook->getUser());
                 $userEvent->setNew_value($newUserBook->getReview());
@@ -95,9 +101,9 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 $userEvent->setType_id(\Sb\Entity\EventTypes::USERBOOK_REVIEW_CHANGE);
                 $userEvents[] = $userEvent;
             }
-
+            
             if ($oldUserBook->getIsWished() != $newUserBook->getIsWished()) {
-                $userEvent = new \Sb\Db\Model\UserEvent;
+                $userEvent = new \Sb\Db\Model\UserEvent();
                 $userEvent->setItem_id($oldUserBook->getId());
                 $userEvent->setUser($oldUserBook->getUser());
                 $userEvent->setNew_value($newUserBook->getIsWished());
@@ -112,10 +118,12 @@ class UserEventSvc extends \Sb\Db\Service\Service {
     }
 
     public function persistAll($userEvents) {
+
         try {
             if ($userEvents && count($userEvents) > 0) {
                 foreach ($userEvents as $userEvent) {
-                    $this->getDao()->add($userEvent);
+                    $this->getDao()
+                        ->add($userEvent);
                 }
             }
         } catch (\Exception $exc) {
@@ -124,6 +132,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
     }
 
     public function getLastEventsOfType($typeId = null, $maxResult = 10) {
+
         try {
             $dataKey = self::LAST_EVENT_OF_TYPE . "_tid_" . $typeId . "_m_" . $maxResult;
             $result = $this->getData($dataKey);
@@ -143,6 +152,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
     }
 
     public function getFriendsLastEventsOfType($userId, $typeId) {
+
         try {
             $dataKey = self::FRIENDS_LAST_EVENT_OF_TYPE . "_uid_" . $userId . "_tid_" . $typeId;
             $result = $this->getData($dataKey);
@@ -168,6 +178,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
      * @return type
      */
     public function getUserLastEventsOfType($userId, $typeId = null, $maxResult = 10) {
+
         try {
             $dataKey = self::USER_LAST_EVENT_OF_TYPE . "_uid_" . $userId . "_tid_" . $typeId . "_m_" . $maxResult;
             $result = $this->getData($dataKey);
@@ -176,10 +187,10 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 // Looping all events and set nested members depending on event type
                 foreach ($result as $event) {
                     switch ($event->getType_id()) {
-                        case EventTypes::USERBOOK_REVIEW_CHANGE:
+                        case EventTypes::USERBOOK_REVIEW_CHANGE :
                             $event = $this->getFullBookRelatedUserEvent($event);
                             break;
-                        case EventTypes::USER_ADD_FRIEND:
+                        case EventTypes::USER_ADD_FRIEND :
                             $friend = UserDao::getInstance()->get($event->getNew_value());
                             /*
                              * IMPORTANT !!!
@@ -189,15 +200,15 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                             // Do not remove line below : set user userbooks list
                             $userbooks = new \Doctrine\Common\Collections\ArrayCollection(UserBookDao::getInstance()->getListAllBooks($friend->getId(), true));
                             $friend->setUserBooks($userbooks);
-
+                            
                             /**
                              * End IMPORTANT
                              */
                             if ($friend)
                                 $event->setFriend($friend);
                             break;
-
-                        default:
+                        
+                        default :
                             break;
                     }
                 }
@@ -211,7 +222,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
 
     /**
      * Get a full UserEvent object related to a book with all members initialised
-     * This is necessary for storing the object in cache otherwise when getting the object from cahc (and detach from database) 
+     * This is necessary for storing the object in cache otherwise when getting the object from cahc (and detach from database)
      * these members won't be initialized
      * @param \Sb\Db\Model\UserEvent $event
      */
@@ -226,7 +237,7 @@ class UserEventSvc extends \Sb\Db\Service\Service {
                 $event->setBook($book);
             }
             return $event;
-        }else
+        } else
             return $event;
     }
 

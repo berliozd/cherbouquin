@@ -69,7 +69,7 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
         $query = $this->entityManager->createQuery($dql);
 
         // We don't cache the result as this is always called throught the TagSvc service which it-self caches the result
-        $result = $this->getResults($query, null, false);
+        $result = $this->getResults($query);
 
         return $result;
     }
@@ -82,7 +82,7 @@ class TagDao extends \Sb\Db\Dao\AbstractDao {
     
         $query = $this->entityManager->createQuery($dql);
     
-        $result = $this->getResults($query, null, false);
+        $result = $this->getResults($query);
     
         return $result;
     }

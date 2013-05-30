@@ -3,15 +3,18 @@
 namespace Sb\Db\Service;
 
 use Sb\Db\Model\User;
+use Sb\Db\Dao\UserDao;
+use Sb\Helpers\UserSettingHelper;
+use Sb\Db\Model\UserSetting;
 
 /**
  * Description of UserSvc
- *
  * @author Didier
  */
 class UserSvc extends \Sb\Db\Service\Service {
 
     private static $instance;
+
     private $userUserbooksIds;
 
     /**
@@ -20,13 +23,15 @@ class UserSvc extends \Sb\Db\Service\Service {
      * @return \Sb\Db\Service\UserSvc
      */
     public static function getInstance() {
+
         if (!self::$instance)
-            self::$instance = new \Sb\Db\Service\UserSvc();
+            self::$instance = new UserSvc();
         return self::$instance;
     }
 
     protected function __construct() {
-        parent::__construct(\Sb\Db\Dao\UserDao::getInstance(), "User");
+
+        parent::__construct(UserDao::getInstance(), "User");
     }
 
     /**
@@ -38,10 +43,10 @@ class UserSvc extends \Sb\Db\Service\Service {
      * @return \Sb\Db\Model\User
      */
     public function addLightUser($lastname, $firstname, $username, $email, $password) {
+
         $user = null;
-
-
-        $userTmp = new \Sb\Db\Model\User;
+        
+        $userTmp = new User();
         // Création du user dans la table s1b_users
         $userTmp->setToken(sha1(uniqid(rand())));
         $userTmp->setEmail($email);
@@ -58,13 +63,13 @@ class UserSvc extends \Sb\Db\Service\Service {
         $userTmp->setTokenFacebook("");
         $userTmp->setPicture("");
         $userTmp->setPictureBig("");
-
-        $setting = new \Sb\Db\Model\UserSetting();
-        \Sb\Helpers\UserSettingHelper::loadDefaultSettings($setting);
+        
+        $setting = new UserSetting();
+        UserSettingHelper::loadDefaultSettings($setting);
         $userTmp->setSetting($setting);
-
-        $user = \Sb\Db\Dao\UserDao::getInstance()->add($userTmp);
-
+        
+        $user = UserDao::getInstance()->add($userTmp);
+        
         return $user;
     }
 
@@ -76,7 +81,7 @@ class UserSvc extends \Sb\Db\Service\Service {
                     return true;
             }
         }
-
+        
         return false;
     }
 
