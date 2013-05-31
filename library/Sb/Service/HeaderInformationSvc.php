@@ -208,29 +208,29 @@ class HeaderInformationSvc extends Service {
                     $result->setKeywords("partenariat|livres|littérature");
                     break;
                 case "chroniclesLastAnyType" :
-                    $result->setTitle(sprintf(__("Nos dernières chroniques autour du livre - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
-                    $result->setKeywords("livres|littérature|chroniques");
+                    $result->setTitle(sprintf(__("Découvrir les chroniques autour du livre - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription(__("Découvrir les chroniques sur l'actualité du livre (critiques, prix littéraires, analyse de livre), et partagez vos coups de cœur avec votre communauté.","s1b"));
+                    $result->setKeywords("analyse de livre|livre à la une");
                     break;
                 case "chroniclesLastBloggers" :
-                    $result->setTitle(sprintf(__("Nos dernières chroniques de bloggeurs littéraires - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
-                    $result->setKeywords("livres|littérature|chroniques");
+                    $result->setTitle(sprintf(__("Le livre à lire ou une critique de livre sur les blogs - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription(__("Livres à lire, des romans, des polars, des bandes dessinées, des mangas, des critiques littéraires, des fiches de lecture en direct des blogs","s1b"));
+                    $result->setKeywords("critique de livre|le livre à lire|blog|livres à lire|bibliothèque");
                     break;
                 case "chroniclesLastBookStores" :
-                    $result->setTitle(sprintf(__("Nos dernières chroniques de libraires - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
-                    $result->setKeywords("livres|littérature|chroniques");
+                    $result->setTitle(sprintf(__("Partager les conseils de libraires, leurs coups de cœur - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription(__("Les libraires partagent leurs coups de cœur, leurs lectures et vous aident à choisir les livres qui vous plairont.","s1b"));
+                    $result->setKeywords("librairie|libraire|sélection|livre|littérature|littéraire|choix livre|choisir livre|meilleur livre|best seller|best-seller|roman|essai|BD|bouquin|lecture|lecteur|conseils de lecture|conseils de libraires");
                     break;
                 case "articlePressReviews" :
-                    $result->setTitle(sprintf(__("Dans les medias - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
-                    $result->setKeywords("livres|littérature|chroniques");
+                    $result->setTitle(sprintf(__("Retrouver tous les articles sur l'actualité du livre - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription(__("Retrouver tous les articles sur l'actualité du livre (presse, critiques, sorties littéraires) et le livre à la une.","s1b"));
+                    $result->setKeywords("presse|critiques|sorties littéraires");
                     break;
                 case "videoPressReviews" :
-                    $result->setTitle(sprintf(__("Toutes les vidéos - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription("Voici les dernières chroniques littéraires sur différents sujets abordés.");
-                    $result->setKeywords("livres|littérature|chroniques");
+                    $result->setTitle(sprintf(__("Trouver des vidéos de livre à la une, d'interviews, de critiques - %s", "s1b"), Constants::SITENAME));
+                    $result->setDescription("Visionner les dernières vidéos de livre à la une, d'interviews, de critiques.");
+                    $result->setKeywords(" vidéo|interview|critique|fiche de lecture");
                     break;                
                 default :
                     break;
