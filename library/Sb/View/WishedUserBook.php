@@ -35,6 +35,8 @@ class WishedUserBook extends AbstractView {
         if ($this->book->getContributors())
             $bookAuthors = sprintf("Auteur(s) : %s", $this->book->getOrderableContributors());
         $isOffered = ($this->userbook->getActiveGiftRelated() != null);
+        $offerer = null;
+        $deactivateGiftOptionLink = "";
         if ($isOffered) {
             $deactivateGiftOptionLink = HTTPHelper::Link(Urls::USERBOOK_GIFT_DISABLE, array("ubgid" => $this->userbook->getActiveGiftRelated()->getId()));
             $offerer = $this->userbook->getActiveGiftRelated()->getOfferer();
