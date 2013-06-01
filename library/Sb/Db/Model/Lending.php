@@ -16,13 +16,13 @@ class Lending implements \Sb\Db\Model\Model {
     protected $id;
 
     /**
-     * @ManyToOne(targetEntity="UserBook", inversedBy="lendings")
+     * @ManyToOne(targetEntity="UserBook", inversedBy="lendings", fetch="EAGER")
      * @JoinColumn(name="userbook_id", referencedColumnName="id")
      * */
     protected $userbook;
 
     /**
-     * @ManyToOne(targetEntity="UserBook", inversedBy="borrowings")
+     * @ManyToOne(targetEntity="UserBook", inversedBy="borrowings", fetch="EAGER")
      * @JoinColumn(name="borrower_userbook_id", referencedColumnName="id")
      * */
     protected $borrower_userbook;
@@ -87,7 +87,7 @@ class Lending implements \Sb\Db\Model\Model {
 
     public function getCreationDate() {
         if (!$this->creation_date) {
-            $this->creation_date = now();
+            $this->creation_date = new \DateTime();
         }
         return $this->creation_date;
     }

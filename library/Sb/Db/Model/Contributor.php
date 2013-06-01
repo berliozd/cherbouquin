@@ -78,7 +78,7 @@ class Contributor implements \Sb\Db\Model\Model {
 
     public function getCreationDate() {
         if (!$this->creation_date) {
-            $this->creation_date = now();
+            $this->creation_date = new \DateTime();
         }
         return $this->creation_date;
     }

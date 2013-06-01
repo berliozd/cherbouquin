@@ -65,7 +65,7 @@ class BookContributor implements \Sb\Db\Model\Model {
      */
     public function getCreationDate() {
         if (!$this->creationDate) {
-            $this->creationDate = now();
+            $this->creationDate = new \DateTime();
         }
         return $this->creationDate;
     }

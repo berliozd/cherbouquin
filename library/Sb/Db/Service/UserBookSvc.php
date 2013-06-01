@@ -44,44 +44,65 @@ class UserBookSvc extends \Sb\Db\Service\Service {
 
     public function getUserBooks($key, $id, $useCache) {
 
-        $userBookDao = UserBookDao::getInstance();
-        switch ($key) {
-            case self::ALL_BOOKS_KEY :
-                $userBooks = $userBookDao->getListAllBooks($id, $useCache);
-                break;
-            case self::BORROWED_BOOKS_KEY :
-                $userBooks = $userBookDao->getListBorrowedBooks($id, $useCache);
-                break;
-            case self::LENDED_BOOKS_KEY :
-                $userBooks = $userBookDao->getListLendedBooks($id, $useCache);
-                break;
-            case self::MY_BOOKS_KEY :
-                $userBooks = $userBookDao->getListMyBooks($id, $useCache);
-                break;
-            case self::WISHED_BOOKS_KEY :
-                $userBooks = $userBookDao->getListWishedBooks($id, -1, $useCache);
-                break;
-            default :
-                $userBooks = $userBookDao->getListMyBooks($id, $useCache);
-                break;
+        try {
+            
+            $result = null;
+            
+            $fullKey = $key . "_uid_" . $id;
+            
+            // Build cache key and try to get result in cache
+            if ($useCache)
+                $result = $this->getData($fullKey); //
+                                                        
+            // if result not retrieved, get it
+            if (!isset($result) || $result === false) {
+                
+                /* @var $userBookDao UserBookDao */
+                $userBookDao = $this->getDao();
+                
+                switch ($key) {
+                    case self::ALL_BOOKS_KEY :
+                        $result = $userBookDao->getListAllBooks($id, false);
+                        break;
+                    case self::BORROWED_BOOKS_KEY :
+                        $result = $userBookDao->getListBorrowedBooks($id, false);
+                        break;
+                    case self::LENDED_BOOKS_KEY :
+                        $result = $userBookDao->getListLendedBooks($id, false);
+                        break;
+                    case self::MY_BOOKS_KEY :
+                        $result = $userBookDao->getListMyBooks($id, false);
+                        break;
+                    case self::WISHED_BOOKS_KEY :
+                        $result = $userBookDao->getListWishedBooks($id, -1, false);
+                        break;
+                    default :
+                        $result = $userBookDao->getListMyBooks($id, false);
+                        break;
+                }
+                
+                $this->setData($fullKey, $result);
+            }
+            
+            return $result;
+        } catch (\Exception $e) {
+            $this->logException(get_class(), __FUNCTION__, $e);
         }
-        return $userBooks;
     }
 
-    public function addFromPost(\Sb\Db\Model\User $user, \Sb\Config\Model\Config $config) {
+    public function addFromPost(\Sb\Db\Model\User $user,\Sb\Config\Model\Config $config) {
 
         $bookForm = new \Sb\Form\Book($_POST);
         
         // Testing if book can be found in db by id
         $book = null;
         if ($bookForm->getId())
-            $book = BookDao::getInstance()->get($bookForm->getId()); //
-
-        // Testing if book can be found in db by isbn10, isbn13, asin
+            $book = BookDao::getInstance()->get($bookForm->getId());
+            // Testing if book can be found in db by isbn10, isbn13, asin
         if (!$book)
-            $book = BookDao::getInstance()->getOneByCodes($bookForm->getISBN10(), $bookForm->getISBN13(), $bookForm->getASIN()); //
-
-        // Testing if we need to add the book first
+            $book = BookDao::getInstance()->getOneByCodes($bookForm->getISBN10(), $bookForm->getISBN13(), $bookForm->getASIN());
+            
+            // Testing if we need to add the book first
         if (!$book) {
             // Getting book from POST
             $book = new \Sb\Db\Model\Book();
@@ -106,13 +127,13 @@ class UserBookSvc extends \Sb\Db\Service\Service {
         }
     }
 
-    public function addFromBookId($id, \Sb\Db\Model\User $user, \Sb\Config\Model\Config $config) {
+    public function addFromBookId($id,\Sb\Db\Model\User $user,\Sb\Config\Model\Config $config) {
 
         $book = BookDao::getInstance()->get($id);
         return $this->addUserBook($book, $user, $config);
     }
 
-    private function addUserBook(\Sb\Db\Model\Book $book, \Sb\Db\Model\User $user, \Sb\Config\Model\Config $config) {
+    private function addUserBook(\Sb\Db\Model\Book $book,\Sb\Db\Model\User $user,\Sb\Config\Model\Config $config) {
 
         $userBookDao = UserBookDao::getInstance();
         $userBook = $userBookDao->getByBookIdAndUserId($user->getId(), $book->getId());
