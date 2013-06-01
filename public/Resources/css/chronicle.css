@@ -306,6 +306,10 @@
     padding-bottom: 30px;
 }
 
+.pushed-chronicles a {
+    text-decoration: none;
+}
+
 .pushed-chronicles UL {
     padding: 0;
 }
@@ -327,6 +331,7 @@
     height: 200px;
     background-position: center center;
     background-repeat: no-repeat;
+    background-color: #3AB2CB;
 }
 
 .pc-title {

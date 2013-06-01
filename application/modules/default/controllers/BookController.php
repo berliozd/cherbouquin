@@ -115,9 +115,9 @@ class Default_BookController extends Zend_Controller_Action {
                     
                     $video = $bookPage->getVideoPressReview();
                     if ($video)
-                        $this->view->videoUrl = $video->getLink();
-                        
-                        // Get book press reviews
+                        $this->view->videoUrl = $video->getLink(); //
+
+                    // Get book press reviews
                     $bookPressReviews = $bookPage->getPressReviews();
                     if ($bookPressReviews) {
                         $bookPressReviewsView = new BookPressReviews($bookPressReviews);
