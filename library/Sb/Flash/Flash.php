@@ -98,10 +98,8 @@ class Flash {
        
         $flashes = null;
         // Récupération des messages flashes éventuels
-        if (\Sb\Flash\Flash::hasItems()) {
+        if (\Sb\Flash\Flash::hasItems())
             $flashes = \Sb\Flash\Flash::getItems();
-            \Sb\Trace\Trace::addItem("Récupération des messages flashes");
-        }
 
         $ret = "";
         if ($flashes) {
