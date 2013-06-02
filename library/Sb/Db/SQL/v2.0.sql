@@ -1,3 +1,4 @@
+SET NAMES UTF8;
 --
 -- Update chronicles tables
 --
@@ -543,3 +544,5 @@ INSERT INTO `s1b_pressreviews` (`book_id`, `title`, `text`, `link`, `media_id`, 
 INSERT INTO `s1b_pressreviews` (`book_id`, `title`, `text`, `link`, `media_id`, `author`, `date`, `keywords`, `tag_id`, `is_validated`, `type`) VALUES (NULL, 'Guy Novès se livre enfin', 'Pour la première fois, le manager toulousain raconte ses 38 ans au Stade dans un ouvrage.', 'http://www.20minutes.fr/toulouse/1155299-guy-noves-livre-enfin', 24, 'Nicolas Stival', '2013-5-15', 'Guy Novès; Rugby; sport; entraîneur', '26', '0', '0');
 INSERT INTO `s1b_pressreviews` (`book_id`, `title`, `text`, `link`, `media_id`, `author`, `date`, `keywords`, `tag_id`, `is_validated`, `type`) VALUES (NULL, 'BD: Boulet lance ses bulles en Amérique du Nord', 'Boulet, l\'auteur vedette français de bande dessinée, est parti ce printemps à la conquête du Nouveau Monde, avec son premier livre en anglais destiné exclusivement à ses fans américains.', 'http://www.lepoint.fr/culture/bd-boulet-lance-ses-bulles-en-amerique-du-nord-14-05-2013-1666310_3.php', 15, 'AFP', '2013-5-14', 'Boulet; BD; bande dessinée', '3', '0', '0');
 INSERT INTO `s1b_pressreviews` (`book_id`, `title`, `text`, `link`, `media_id`, `author`, `date`, `keywords`, `tag_id`, `is_validated`, `type`) VALUES (NULL, 'Joséphine : l\'adaptation de la BD de Pénélope Bagieu se dévoile (bande-annonce)', 'Après le succès de la bande-dessinée de Pénélope Bagieu, Joséphine débarque au cinéma. On découvre aujourd’hui la première bande-annonce du film avec dans le rôle principal Marilou Berry. ', 'http://reviewer.lavoixdunord.fr/fr/cinema/actualites/69671/josephine-l-adaptation-de-la-bd-de-penelope-bagieu-se-devoile-bande-annonce/?CFID=8181251&CFTOKEN=1656baf0938252c5-EE3C6F6D-5056-9A48-A37FC07287EDB9B1', 103, 'Jeanne Pinard', '2013-5-14', 'Pénélope Bagieu; Joséphine; adaptation; cinéma; BD; bande dessinée', '3', '0', '0');
+
+
