@@ -10,6 +10,10 @@ use \Sb\Trace\Trace;
  */
 class Service {
 
+    const CRITERIA_TYPE_MODEL = "MODEL";
+
+    const CRITERIA_TYPE_STRING = "STRING";
+
     private $cache;
 
     private $dao;
@@ -49,9 +53,29 @@ class Service {
         return $this->dao;
     }
 
-    protected function logException($className, $functionName,\Exception $exc) {
+    protected function logException($className, $functionName, \Exception $exc) {
 
         Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", $className, $functionName, $exc->getTraceAsString()));
+    }
+
+    public function getCacheSuffixFromCriteria($criteria) {
+
+        $suffix = "";
+        if (isset($criteria)) {
+            foreach ($criteria as $arrayKey => $arrayValue) {
+                if (isset($arrayValue)) {
+                    if ($arrayValue[0]) // Value passed is a model or an array of models
+                        $suffix .= "_" . $arrayKey . "_" . $arrayValue[2]->getId();
+                    else {
+                        // in that case $arrayValue is an array and contains operator (=, LIKE) as first element and value to compare as second element
+                        $suffix .= "_" . $arrayKey;
+                        $suffix .= "_" . $arrayValue[2];
+                    }
+                }
+            }
+        }
+        
+        return $suffix;
     }
 
 }

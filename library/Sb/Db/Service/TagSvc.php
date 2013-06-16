@@ -17,6 +17,8 @@ class TagSvc extends \Sb\Db\Service\Service {
 
     const TAGS_PRESSREVIEWS = "TAGS_PRESSREVIEWS";
 
+    const TAGS_CHRONICLES = "TAGS_CHRONICLES";
+
     private static $instance;
 
     /**
@@ -99,6 +101,31 @@ class TagSvc extends \Sb\Db\Service\Service {
             
             if (!isset($data) || $data === false) {
                 $data = TagDao::getInstance()->getTagsForPressReviews($orderColumn);
+                $this->setData($dataKey, $data);
+            }
+            
+            return $data;
+        } catch (\Exception $exc) {
+            $this->logException(get_class(), __FUNCTION__, $exc);
+        }
+        return null;
+    }
+
+    /**
+     * Get list of tags with chronicles
+     * @return array of Tag list of tags
+     */
+    public function getTagsForChronicles($orderColumn = "label") {
+
+        try {
+            
+            $data = null;
+            
+            $dataKey = self::TAGS_CHRONICLES;
+            $data = $this->getData($dataKey);
+            
+            if (!isset($data) || $data === false) {
+                $data = TagDao::getInstance()->getTagsForChronicles($orderColumn);
                 $this->setData($dataKey, $data);
             }
             

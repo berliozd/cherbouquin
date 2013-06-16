@@ -77,10 +77,15 @@ class BookPageSvc extends Service {
                 
                 $criteria = array(
                         "type" => array(
+                                false,
                                 "=",
                                 PressReviewTypes::VIDEO
                         ),
-                        "book" => $book
+                        "book" => array(
+                                true,
+                                "=",
+                                $book
+                        )
                 );
                 $videoPressReviews = PressReviewSvc::getInstance()->getList($criteria, 1, false);
                 if ($videoPressReviews) {
@@ -101,10 +106,15 @@ class BookPageSvc extends Service {
 
         $criteria = array(
                 "type" => array(
+                        false,
                         "=",
                         PressReviewTypes::ARTICLE
                 ),
-                "book" => $book
+                "book" => array(
+                        true,
+                        "=",
+                        $book
+                )
         );
         
         $bookPressReviews = PressReviewSvc::getInstance()->getList($criteria, 3, false);
@@ -115,6 +125,7 @@ class BookPageSvc extends Service {
             // Get general press reviews
             $criteria = array(
                     "type" => array(
+                            false,
                             "=",
                             PressReviewTypes::ARTICLE
                     )

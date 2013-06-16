@@ -132,20 +132,27 @@ class ChronicleAdapter {
             // Get press review with same tag
             if ($this->chronicle->getTag()) {
                 $pressReviews = PressReviewSvc::getInstance()->getList(array(
-                        "tag" => $this->chronicle->getTag()
+                        "tag" => array(
+                                true,
+                                "=",
+                                $this->chronicle->getTag()
+                        )
                 ), $nbPressReviews, $useCache);
             }
             
+            // Get press review with same keywords
             if ((!$pressReviews || count($pressReviews) < $nbPressReviews) && $this->chronicle->getKeywords()) {
                 $keyWords = explode(",", $this->chronicle->getKeywords());
                 foreach ($keyWords as $keyWord) {
                     // Get press review with same keywords
-                    $pressReviewsWithKeywords = PressReviewSvc::getInstance()->getList(array(
+                    $criteria = array(
                             "keywords" => array(
+                                    false,
                                     "LIKE",
                                     $keyWord
                             )
-                    ), $nbPressReviews, $useCache);
+                    );
+                    $pressReviewsWithKeywords = PressReviewSvc::getInstance()->getList($criteria, $nbPressReviews, $useCache);
                     
                     if ($pressReviewsWithKeywords) {
                         if (!$pressReviews) {
@@ -157,7 +164,8 @@ class ChronicleAdapter {
                             break;
                     }
                 }
-                $pressReviews = array_slice($pressReviews, 0, $nbPressReviews);
+                if ($pressReviews)
+                    $pressReviews = array_slice($pressReviews, 0, $nbPressReviews);
             }
             
             $chronicleViewModel->setPressReviews($pressReviews);
@@ -186,7 +194,8 @@ class ChronicleAdapter {
         $lightChronicle->setDetailLink($this->chronicle->getDetailLink());
         
         // Set Image
-        if ($this->chronicle->getBook())
+        if ($this->chronicle->getBook() && $this->chronicle->getBook()
+            ->getId() > 0)
             $lightChronicle->setImage($this->chronicle->getBook()
                 ->getLargeImageUrl());
         else if ($this->chronicle->getImage())

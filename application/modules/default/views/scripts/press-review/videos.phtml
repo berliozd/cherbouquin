@@ -1,15 +1,14 @@
 <?php
 use Sb\Db\Model\PressReview;
-use Sb\Db\Model\Tag;
 use Sb\Entity\Constants;
-use Sb\Helpers\ImageHelper;
-use Sb\Helpers\StringHelper;
 ?>
 <div id="pressreviews">
     <div id="content-center">
         <div id="videos-list">
             <h1><?php _e("Actualités du livre en vidéo","s1b");?></h1>
-            <h2><?php echo sprintf(__("%s vous propose une sélection des videos autour du livre","s1b"), Constants::SITENAME);?></h2>            
+            <h2><?php echo sprintf(__("%s vous propose une sélection des videos autour du livre","s1b"), Constants::SITENAME);?></h2>
+            <?php echo $this->contentSearch;?>
+            <?php if ($this->pressReviews) { ?>
             <div class="navigation top">
                 <div class="nav-links">
                     <?php echo $this->navigationBar; ?>
@@ -21,13 +20,13 @@ use Sb\Helpers\StringHelper;
                     ?>
                 <li class="vl-item">
                     <div class="vl-left">
-                        <iframe width="200" height="113" src="<?php echo $pressReview->getLink(); ?>" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="200" height="122" src="<?php echo $pressReview->getLink(); ?>" frameborder="0" allowfullscreen></iframe>
                     </div>                    
                     <div class="vl-right">
                         <span class="vl-title"><?php echo $pressReview->getTitle(); ?></span>
                         &nbsp;
                         <span class="vl-date"><?php echo $pressReview->getDate()->format("d/m/Y"); ?></span>
-                        &nbsp;|&nbsp;<?php _e("par", "s1b")?>&nbsp;<?php echo "@" . $pressReview->getMedia()->getTwitter_user(); ?>
+                        &nbsp;<?php _e("par", "s1b")?>&nbsp;<a href="https://twitter.com/<?php echo $pressReview->getMedia()->getTwitter_user();?>" class="link" target="_blank"><?php echo "@" . $pressReview->getMedia()->getTwitter_user(); ?></a>                        
                         <br/>                
                         <span class="vl-content"><?php echo $pressReview->getText(); ?></span>
                     </div>
@@ -40,6 +39,9 @@ use Sb\Helpers\StringHelper;
                     <?php echo $this->navigationBar; ?>
                 </div>
             </div>
+            <?php } else {?>
+            <div><?php _e("Aucune video ne correspond à votre recherche.","s1b"); ?></div>
+            <?php }?>
         </div>
     </div>
     <div id="content-right">
@@ -54,6 +56,13 @@ use Sb\Helpers\StringHelper;
     
         <div class="right-frame">
             <?php echo $this->chroniclesView; ?>
+        </div>
+        
+        <div class="right-frame">
+            <div class="separator cherbouquin">
+                <span><?php echo Constants::SITENAME; ?></span>
+            </div>
+            <?php echo $this->booksCoverFlip; ?>
         </div>
     
     </div>

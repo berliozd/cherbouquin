@@ -48,9 +48,7 @@ class Default_BookController extends Zend_Controller_Action {
                     
                     // Add css and js files
                     $this->view->headLink()
-                        ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
-                    $this->view->headLink()
-                        ->appendStylesheet(BASE_URL . "resources/css/pressReviews.css?v=" . VERSION);
+                        ->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
                     $this->view->placeholder('footer')
                         ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
                     $this->view->placeholder('footer')
@@ -116,7 +114,7 @@ class Default_BookController extends Zend_Controller_Action {
                     $video = $bookPage->getVideoPressReview();
                     if ($video)
                         $this->view->videoUrl = $video->getLink(); //
-
+                                                                       
                     // Get book press reviews
                     $bookPressReviews = $bookPage->getPressReviews();
                     if ($bookPressReviews) {

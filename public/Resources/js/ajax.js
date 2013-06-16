@@ -75,10 +75,7 @@ function attachPressReviewFormClearingAndRestore() {
     _attachInputClearingAndRestore("pressReviewFormEmailDefaultLabel", "#press-reviews-subscription-form #email");
 }
 
-/* attach clear and restore on chronicles search form */
-function attachChroniclesSearchFormClearingAndRestore() {
-    _attachInputClearingAndRestore("chronicleSearchTermDefaultLabel", "#chronicle-search-form #chronicleSearchTerm");
-}
+
 
 /* ======================================================================= */
 /* ====================== private function =============================== */

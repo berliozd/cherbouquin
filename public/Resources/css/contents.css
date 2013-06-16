@@ -1,3 +1,8 @@
+.title-chronicles-right-col {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
 /* ----------------------- */
 /* ---- Home chronicle --- */
 /* ----------------------- */
@@ -124,11 +129,6 @@
     
 }
 
-.cb-title {
-    font-size: 1.3em;
-    margin-bottom: 5px;
-}
-
 #chronicles-block UL {
     border: 5px solid #E0E0E0;
     margin: 0;
@@ -234,12 +234,21 @@
 
 #chronicles-list .cl-left {
     float: left;
-    width: 20%;
+    width: 28%;
 }
 
 #chronicles-list .cl-right {
     float: left;
-    width: 80%;
+    width: 72%;
+}
+
+#chronicles-list .cl-image {
+    border: 1px solid #E6E6E6;
+    width: 170px;
+    height: 170px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #3AB2CB;
 }
 
 #chronicles-list .cl-user {
@@ -267,35 +276,9 @@
     margin-bottom: 5px;
 }
 
-/* ------------------------------ */
-/* ---- Chronicle Search Form --- */
-/* ------------------------------ */
-#chronicle-search-form {
-    background-color: #1E1E1E;
-    float: left;
-    width: 290px;
-    padding: 5px;
-}
-
-#chronicle-search-form .search-field {
-    background: url("../images/sprite.png?v=5") no-repeat scroll -550px 0 transparent;
-    width: 130px;
-}
-
-#chronicle-search-form .search-field INPUT {
-    width: 84px;
-    margin: 7px 4px;
-}
-
-#chronicle-search-form DIV {
-    float: left;
-    color: #FFFFFF;
-    font-size: 1.2em;
-    line-height: 30px;
-}
-
-#chronicle-search-form FORM {
-    float: right;
+#chronicles .pb-title {
+    font-size: 1.1em;
+    margin: 10px 0 5px;
 }
 
 /* ------------------------------------------------------- */
@@ -335,7 +318,7 @@
     background-color: #3AB2CB;
 }
 
-.pc-title {
+.pc-title a {
     color: #239CD3;
     font-size: 1.2em;
     font-weight: bold;
@@ -354,5 +337,209 @@
     text-decoration: none;
     text-transform: uppercase;
     color: #000;
+    font-weight: bold;
+}
+
+/* --------------------------- */
+/* ---- widget news reader --- */
+/* --------------------------- */
+.nr-page {
+    display: none;
+}
+
+.nr-list {
+    border: 1px solid #E0E0E0;
+    float: left;
+    width: 100%;
+}
+
+.nr-list a {
+    text-decoration: none;
+    color: #000;
+    font-size: 1.1em;
+}
+
+.nr-list ul {
+    list-style: none;
+}
+
+.nr-list ul {
+    padding: 0;
+    margin: 0;
+}
+
+.nr-list li {
+    width: 100%;
+    margin: 0;
+    border-bottom: 1px solid #E0E0E0;
+    float: left;
+}
+
+.nr-image {
+    float: left;
+    margin: 5px;
+}
+
+.nr-text {
+    margin: 5px;
+}
+
+.nr-date {
+    font-weight: bold;
+    color: #8f1b7c;
+}
+
+.nr-list li.odd {
+    background-color: #f5f5f5;
+}
+
+.nr-list .navButton {
+    cursor: pointer;
+    width: 17px;
+    height: 15px;
+    display: block;
+    float: left;
+}
+
+.nr-list .prevButton {
+    background: url("../images/sprite.png") no-repeat scroll 0 -2352px transparent;
+}
+
+.nr-list .prevButton.disabled {
+    background: url("../images/sprite.png") no-repeat scroll 0 -2373px transparent;
+}
+
+.nr-list .nextButton {
+    background: url("../images/sprite.png") no-repeat scroll 0 -2329px transparent;
+}
+
+.nr-list .nextButton.disabled {
+    background: url("../images/sprite.png") no-repeat scroll 0 -2393px transparent;
+}
+
+.nr-footer {
+    height: 15px;
+    padding: 5px;
+}
+
+.nr-footerlink {
+    float: left;
+    padding: 5px;
+    color: #239CD3;
+    font-weight: bold;
+}
+
+.nr-buttons {
+    float: right;
+    padding: 5px;
+}
+
+/* ---------------------------------- */
+/* ---- General press reviews CSS --- */
+/* ---------------------------------- */
+#press-reviews {
+    float: left;
+}
+
+#press-reviews a {
+    text-decoration: none;
+    color: #000;
+}
+
+#pr-block-title {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+#press-reviews ul {
+    list-style: none outside none;
+    padding: 0;
+}
+
+#press-reviews li {
+    border-bottom: 1px solid #E6E6E6;
+    float: left;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+.pr-image {
+    float: left;
+    width: 70px;
+}
+
+.pr-text {
+    float: left;
+    width: 560px;
+    font-size: 1.1em;
+}
+
+.pr-title {
+    color: #239CD3;
+    font-weight: bold;
+}
+
+/* -------------------------------- */
+/* ---- Press reviews page list --- */
+/* -------------------------------- */
+#pressreviews-list h1 {
+    color: #239CD3;
+}
+
+#pressreviews-list h2 {
+    font-weight: normal;
+}
+
+#pressreviews .pb-title {
+    font-size: 1.1em;
+    margin: 10px 0 5px;
+}
+
+/* -------------------- */
+/* ---- Videos List --- */
+/* -------------------- */
+#videos-list {
+    margin-top: 10px;
+}
+
+#videos-list h1 {
+    color: #239CD3;
+}
+
+#videos-list h2 {
+    font-weight: normal;
+}
+
+#videos-list .navigation.top {
+    margin-bottom: 10px;
+}
+
+#videos-list ul {
+    list-style: none outside none;
+    padding: 0;
+    margin: 0;
+}
+
+#videos-list li.vl-item {
+    border-bottom: 1px solid #DEDFDF;
+    float: left;
+    margin-bottom: 7px;
+    padding-bottom: 8px;
+    width: 100%;
+}
+
+#videos-list .vl-left {
+    float: left;
+    width: 33%;
+}
+
+#videos-list .vl-right {
+    float: left;
+    width: 67%;
+}
+
+.vl-title {
+    color: #239CD3;
     font-weight: bold;
 }

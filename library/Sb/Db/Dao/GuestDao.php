@@ -56,7 +56,7 @@ class GuestDao extends \Sb\Db\Dao\AbstractDao {
     }
 
     public function update(\Sb\Db\Model\Guest $guest) {
-        $this->getEntityManager()->persist($guest);
+        $this->entityManager>persist($guest);
 
         if ($guest->getInvitations()) {
             foreach ($guest->getInvitations() as $invitationToAdd) {
@@ -64,7 +64,7 @@ class GuestDao extends \Sb\Db\Dao\AbstractDao {
             }
         }
 
-        $this->getEntityManager()->flush();
+        $this->entityManager>flush();
         return true;
     }
 

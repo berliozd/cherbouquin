@@ -2,101 +2,90 @@
 use Sb\Model\ChronicleViewModel;
 use Sb\Helpers\BookHelper;
 use Sb\Helpers\ImageHelper;
+use Sb\Entity\Constants;
 ?>
 
-<div id="content-center">
-    <div id="chronicles-list">
-        <h1><?php echo $this->title ?></h1>
-        <?php if ($this->searchTerm) { ?>
-            <div id="cl-searchterm"><span><?php _e("Termes recherchés : ","s1b");?></span><span id="cl-searchterm-value"><?php echo $this->searchTerm;?></span><br/><a class="link" href="<?php echo $this->initUrl;?>">Réinitialiser</a></div>            
-        <?php } ?>
-        <?php if ($this->chronicleDetailViewModelList) { ?>
-        <div class="navigation top">
-            <div class="nav-links">
-                <?php echo $this->navigationBar; ?>
+<div id="chronicles">
+    <div id="content-center">
+        <div id="chronicles-list">
+            <h1><?php echo $this->title ?></h1>
+            <?php echo $this->contentSearch;?>        
+            <?php if ($this->chronicleDetailViewModelList) { ?>
+            <div class="navigation top">
+                <div class="nav-links">
+                    <?php echo $this->navigationBar; ?>
+                </div>
             </div>
-        </div>
-        <ul>
-        <?php foreach ($this->chronicleDetailViewModelList as $chronicleViewModel) {
-            /* @var $chronicleViewModel ChronicleViewModel */ ?>
-            <li class="cl-item">
-                <div class="cl-left">
-                <?php if ($chronicleViewModel->getChronicleHasBook()) { ?>
-                    <a href="<?php echo $chronicleViewModel->getDetailLink();?>"><?php echo BookHelper::getMediumImageTag($chronicleViewModel->getBook(), BookHelper::getDefaultImage()); ?></a>
-                <?php } else if ($chronicleViewModel->getImage()) {?>
-                    <a href="<?php echo $chronicleViewModel->getDetailLink();?>"><?php echo ImageHelper::getMediumImageTag($chronicleViewModel->getImage(), $chronicleViewModel->getTitle(),  BookHelper::getDefaultImage()); ?></a>
-                <?php } else {
-                    echo "&nbsp;";
-                }?>
-                </div >
-                <div class="cl-right">
-                    <h2><a href="<?php echo $chronicleViewModel->getDetailLink();?>" class="link"><?php echo $chronicleViewModel->getTitle();?></a></h2>
-                    <div class="cl-user"><?php echo sprintf(__("<a href=\"%s\" class=\"link\">%s</a> le %s", "s1b"), $chronicleViewModel->getUserProfileLink(), $chronicleViewModel->getUserName(), $chronicleViewModel->getCreationDate()->format("d/m/Y H:i:s")); ?></div>
-                    <div class="cl-text">
-                        <?php echo $chronicleViewModel->getShortenText(); ?>
-                        <br/>
-                        <?php echo sprintf(__("<a href=\"%s\" class=\"link\">Lire la suite</a>", "s1b"), $chronicleViewModel->getDetailLink());?>
-                    </div>                    
-                    <?php if ($chronicleViewModel->getSimilarChronicles()) {?>
-                    <div class="cl-other-chronicles">
-                        <div class="cloc-title"><?php _e("Autres articles sur un sujet similaire","s1b");?></div>
-                        <ul>
-                            <?php 
-                            /* @var $similarChronicle ChronicleViewModel */
-                            foreach ($chronicleViewModel->getSimilarChronicles() as $similarChronicle) {?>
-                                <li><?php echo sprintf(__("<a href=\"%s\">%s</a>","s1b"), $similarChronicle->getDetailLink(), $similarChronicle->getTitle());?></li>
-                            <?php } ?>
-                        </ul>
+            <ul>
+            <?php foreach ($this->chronicleDetailViewModelList as $chronicleViewModel) {
+                /* @var $chronicleViewModel ChronicleViewModel */ ?>
+                <li class="cl-item">
+                    <div class="cl-left">
+                        <a href="<?php echo $chronicleViewModel->getDetailLink();?>" title="<?php echo $chronicleViewModel->getTitle(); ?>">
+                    		<div class="cl-image" title="<?php echo $chronicleViewModel->getTitle(); ?>" style="background-image: url('<?php echo $chronicleViewModel->getImage(); ?>');">&nbsp;</div>
+                    	</a>
+                    </div >
+                    <div class="cl-right">
+                        <h2><a href="<?php echo $chronicleViewModel->getDetailLink();?>" class="link"><?php echo $chronicleViewModel->getTitle();?></a></h2>
+                        <div class="cl-user"><?php echo sprintf(__("<a href=\"%s\" class=\"link\">%s</a> le %s", "s1b"), $chronicleViewModel->getUserProfileLink(), $chronicleViewModel->getUserName(), $chronicleViewModel->getCreationDate()->format("d/m/Y")); ?></div>
+                        <div class="cl-text">
+                            <?php echo $chronicleViewModel->getShortenText(); ?>
+                            <br/>
+                            <?php echo sprintf(__("<a href=\"%s\" class=\"link\">Lire la suite</a>", "s1b"), $chronicleViewModel->getDetailLink());?>
+                        </div>                    
+                        <?php if ($chronicleViewModel->getSimilarChronicles()) {?>
+                        <div class="cl-other-chronicles">
+                            <div class="cloc-title"><?php _e("Autres articles sur un sujet similaire","s1b");?></div>
+                            <ul>
+                                <?php 
+                                /* @var $similarChronicle ChronicleViewModel */
+                                foreach ($chronicleViewModel->getSimilarChronicles() as $similarChronicle) {?>
+                                    <li><?php echo sprintf(__("<a href=\"%s\">%s</a>","s1b"), $similarChronicle->getDetailLink(), $similarChronicle->getTitle());?></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                        <?php } ?>
                     </div>
-                    <?php } ?>
+                </li>
+            <?php } ?>
+            </ul>
+            <div class="navigation">
+                <div class="nav-links">
+                    <?php echo $this->navigationBar; ?>
                 </div>
-            </li>
-        <?php } ?>
-        </ul>
-        <div class="navigation">
-            <div class="nav-links">
-                <?php echo $this->navigationBar; ?>
             </div>
+            <?php } else { ?>
+            <div><?php _e("Aucune chronique ne correspond à votre recherche.","s1b"); ?></div>
+            <?php }?>
         </div>
-        <?php } else { ?>
-        <div><?php _e("Aucune chronique ne correspond à vos termes recherchés.","s1b"); ?></div>
-        <?php }?>
     </div>
-</div>
-<div id="content-right">
-
-    <div class="right-frame">
-        <?php echo $this->newsReader; ?>
-    </div>
+    <div id="content-right">
     
-    <div class="right-frame">
-        <div id="chronicle-search-form">
-            <div>Rechercher une chronique</div>
-            <form method="get" action="/default/chronicle/search">
-                <div class="search-field">
-                    <input type="text" class="search-field-input" name="chroniclesSearchTerm" value="<?php _e("Mot clé","s1b");?>" id="chronicleSearchTerm"/>
-                    <input type="hidden" name="key" value="<?php echo $this->key;?>" />
-                    <input type="hidden" name="chroniclesSearchTermDef" value="<?php _e("Mot clé","s1b");?>" disabled class="chronicleSearchTermDefaultLabel"/>
-                    <button class="search-button"/>
-                </div>
-            </form>
+        <div class="right-frame">
+            <?php echo $this->newsReader; ?>
         </div>
-    </div>    
-    
-    <div class="right-frame">
-        <?php echo $this->ad; ?>
+        
+        <div class="right-frame">
+            <?php echo $this->ad; ?>
+        </div>
+        
+        <div class="right-frame">
+            <?php echo $this->pressReviewsSubscriptionWidget; ?>
+        </div>
+        
+        <div class="right-frame">
+            <?php echo $this->authorChroniclesView; ?>
+        </div>
+        
+        <div class="right-frame">
+            <?php echo $this->moreSeenChronicles; ?>
+        </div>
+        
+        <div class="right-frame">
+            <div class="separator cherbouquin">
+                <span><?php echo Constants::SITENAME; ?></span>
+            </div>
+            <?php echo $this->booksCoverFlip; ?>
+        </div>    
     </div>
-    
-    <div class="right-frame">
-        <?php echo $this->pressReviewsSubscriptionWidget; ?>
-    </div>
-    
-    <div class="right-frame">
-        <?php echo $this->authorChroniclesView; ?>
-    </div>
-    
-    <div class="right-frame">
-        <?php echo $this->moreSeenChronicles; ?>
-    </div>    
-    
 </div>

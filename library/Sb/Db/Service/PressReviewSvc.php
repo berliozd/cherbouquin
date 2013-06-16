@@ -3,7 +3,6 @@
 namespace Sb\Db\Service;
 
 use Sb\Db\Dao\PressReviewDao;
-use Sb\Db\Model\Model;
 use Sb\Db\Model\Media;
 use Sb\Db\Dao\MediaDao;
 
@@ -68,19 +67,7 @@ class PressReviewSvc extends Service {
 
         $key = self::LST;
         $key .= "_m_100";
-        
-        if (isset($criteria)) {
-            foreach ($criteria as $arrayKey => $arrayValue) {
-                if (isset($arrayValue)) {
-                    if ($arrayValue instanceof Model)
-                        $key .= "_" . $arrayKey . "_" . $arrayValue->getId();
-                    else {
-                        // in that case $arrayValue is an array and contains operator (=, LIKE) as first element and value to compare as second element
-                        $key .= "_" . $arrayKey . "_" . $arrayValue[1];
-                    }
-                }
-            }
-        }
+        $key .= $this->getCacheSuffixFromCriteria($criteria);
         
         return $key;
     }
@@ -105,7 +92,9 @@ class PressReviewSvc extends Service {
                  * IMPORTANT !!!
                  */
                 // Do not remove line below : accessing a property is done to properly initialize the proxy object
-                $mediaWebsite = $media->getWebsite();
+                if ($media)
+                    $mediaWebsite = $media->getWebsite();
+                
                 $pressReview->setMedia($media);
             }
         }

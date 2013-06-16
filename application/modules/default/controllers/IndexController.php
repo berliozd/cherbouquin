@@ -32,7 +32,7 @@ class Default_IndexController extends Zend_Controller_Action {
         
         // Add homepage css to head
         $this->view->headLink()
-            ->appendStylesheet(BASE_URL . "resources/css/homepage.css?v=" . VERSION);
+            ->appendStylesheet(BASE_URL . "Resources/css/homepage.css?v=" . VERSION);
     }
 
     /**
@@ -49,13 +49,10 @@ class Default_IndexController extends Zend_Controller_Action {
             
             $this->view->placeholder('footer')
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
-            // Add newsreader css to head
-            $this->view->headLink()
-                ->appendStylesheet(BASE_URL . "resources/css/newsReader.css?v=" . VERSION);
             
             // Add chronicle css to head
             $this->view->headLink()
-                ->appendStylesheet(BASE_URL . "resources/css/chronicle.css?v=" . VERSION);
+                ->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
             
             $this->view->tagTitle = sprintf(__("%s : livre et littérature - tops | coups de cœur | critiques", "s1b"), \Sb\Entity\Constants::SITENAME);
             $this->view->metaDescription = __("Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon", "s1b");
@@ -110,13 +107,14 @@ class Default_IndexController extends Zend_Controller_Action {
             // Newsreader
             $criteria = array(
                     "type" => array(
+                            false,
                             "=",
                             PressReviewTypes::ARTICLE
                     )
             );
             $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
             if ($pressReviews) {
-                $newsReader = new NewsReader($pressReviews, __("L'actualité du <strong>livre</strong> dans les médias", "s1b"));
+                $newsReader = new NewsReader($pressReviews);
                 $this->view->newsReader = $newsReader->get();
             }
         } catch (\Exception $e) {

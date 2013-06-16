@@ -74,6 +74,14 @@ use Sb\View\PushedBooks;
     </div>
     <div id="content-right">
         
+        
+        <!-- BLOCK ad START -->
+        <div class="right-frame">
+            <?php echo $this->ad->get();?>
+        </div>  
+        <!-- BLOCK ad END -->        
+        
+        
         <!-- BLOCK auto promo START -->        
         <div class="right-frame">
             <?php echo $this->autoPromoWishList->get();?>
@@ -97,11 +105,11 @@ use Sb\View\PushedBooks;
         <!-- BLOCK user wished books END -->
         
         
-        <!-- BLOCK ad START -->
+        <!-- BLOCK create chonicle links START -->        
         <div class="right-frame">
-            <?php echo $this->ad->get();?>
-        </div>  
-        <!-- BLOCK ad END -->
+            <?php echo $this->createChroniclesLinkView;?>
+        </div>
+        <!-- BLOCK create chonicle links END -->
         
         
         <!-- BLOCK facebook START -->
@@ -116,12 +124,6 @@ use Sb\View\PushedBooks;
             <?php echo $this->twitter->get();?>
         </div>  
         <!-- BLOCK twitter END -->
-        
-        <!-- BLOCK create chonicle links START -->        
-        <div class="right-frame">
-            <?php echo $this->createChroniclesLinkView;?>
-        </div>
-        <!-- BLOCK create chonicle links END -->
         
     </div>
 </div>

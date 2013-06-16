@@ -11,7 +11,9 @@
         		<div class="pc-image" title="<?php echo $chronicle->getTitle(); ?>" style="background-image: url('<?php echo $chronicle->getImage(); ?>');">&nbsp;</div>
         	</a>        	
             <div class="pc-title">
-                <?php echo $chronicle->getTitle(); ?>
+                <a href="<?php echo $chronicle->getDetailLink();?>" title="<?php echo $chronicle->getTitle(); ?>">
+                    <?php echo $chronicle->getTitle(); ?>
+                </a>
             </div>
             <div class="pc-description">
                 <?php echo $chronicle->getShortenText(); ?>
