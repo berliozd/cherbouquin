@@ -32,16 +32,7 @@ class ChronicleForm extends \Zend_Form {
     }
 
     public function setNewChronicle($userId, $groupId) {
-        
-        // $this->setDefaults(array (
-        // "title" => "title de test",
-        // "keywords" => "mots clés de test mots clés de test ",
-        // "text" => "texte de chronique de test texte de chronique de test texte de chronique de test texte de chronique de test texte de chronique de test texte de chronique de test texte de
-        // chronique de test texte de chronique de test texte de chronique de test texte de chronique de test texte de chronique de test ",
-        // "link" => "http://www.test.fr",
-        // "user_id" => $userId,
-        // "group_id" => $groupId
-        // ));
+
         $this->setDefaults(array(
                 "user_id" => $userId,
                 "group_id" => $groupId
@@ -77,7 +68,8 @@ class ChronicleForm extends \Zend_Form {
 
     private function setForm($imageUploadPath, $new) {
 
-        $this->setAction('/member/chronicle/post')->setMethod('post');
+        $this->setAction('/member/chronicle/post')
+            ->setMethod('post');
         $this->setAttrib('enctype', 'multipart/form-data');
         
         // Title element
@@ -144,7 +136,8 @@ class ChronicleForm extends \Zend_Form {
         $linkTypeOptions = $this->pushLinkTypeOption($linkTypeOptions, ChronicleLinkType::PRESS);
         $linkTypeOptions = $this->pushLinkTypeOption($linkTypeOptions, ChronicleLinkType::URL);
         $linkTypeOptions = $this->pushLinkTypeOption($linkTypeOptions, ChronicleLinkType::VIDEO);
-        $linkTypeElement->addMultiOptions($linkTypeOptions)->setLabel(__("Sélectionner le type de lien", "s1b"));
+        $linkTypeElement->addMultiOptions($linkTypeOptions)
+            ->setLabel(__("Sélectionner le type de lien", "s1b"));
         
         // Link element
         $linkElement = new \Zend_Form_Element_Text("link");
@@ -269,7 +262,7 @@ class ChronicleForm extends \Zend_Form {
 
     public function getChronicleLinkType() {
 
-        return $this->getValue("linkType");
+        return $this->getValue("link_type");
     }
 
     public function getChronicleLink() {
@@ -342,7 +335,6 @@ class ChronicleForm extends \Zend_Form {
         );
         
         foreach ($tags as $tag) {
-            
             /* @var $tag Tag */
             $result[$tag->getId()] = $tag->getLabel();
         }

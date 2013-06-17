@@ -30,7 +30,8 @@ class Member_ChronicleController extends Zend_Controller_Action {
         AuthentificationSvc::getInstance()->checkUserIsConnected();
         
         // Add chronicle css to head
-        $this->view->headLink()->appendStylesheet(BASE_URL . "Resources/css/groupAdmin.css?v=" . VERSION);
+        $this->view->headLink()
+            ->appendStylesheet(BASE_URL . "Resources/css/groupAdmin.css?v=" . VERSION);
     }
 
     public function addAction() {
@@ -117,7 +118,8 @@ class Member_ChronicleController extends Zend_Controller_Action {
             global $globalContext;
             
             // Form is not posted correctly, we redirect to the previous page
-            if (!$this->getRequest()->isPost()) {
+            if (!$this->getRequest()
+                ->isPost()) {
                 Flash::addItem(__("Requête invalide.", "s1b"));
                 return HTTPHelper::redirectToReferer();
             }
@@ -219,6 +221,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
         $chronicle->setTitle($form->getChronicleTitle());
         $chronicle->setType_id($form->getChronicleType());
         $chronicle->setUser($globalContext->getConnectedUser());
+        $chronicle->setLink_type($form->getChronicleLinkType());
     }
 
     private function checkUserIsMemberOfGroup($groupId) {
@@ -231,7 +234,8 @@ class Member_ChronicleController extends Zend_Controller_Action {
         $found = false;
         foreach ($user->getGroupusers() as $groupUser) {
             /* @var $groupUser GroupUser */
-            if ($groupUser->getGroup()->getId() == $groupId) {
+            if ($groupUser->getGroup()
+                ->getId() == $groupId) {
                 $found = true;
                 break;
             }
@@ -246,12 +250,15 @@ class Member_ChronicleController extends Zend_Controller_Action {
 
         global $globalContext;
         
-        $chronicleGroupId = $chronicle->getGroup()->getId();
+        $chronicleGroupId = $chronicle->getGroup()
+            ->getId();
         
         $found = false;
-        foreach ($globalContext->getConnectedUser()->getGroupusers() as $groupUser) {
+        foreach ($globalContext->getConnectedUser()
+            ->getGroupusers() as $groupUser) {
             /* @var $groupUser GroupUser */
-            if ($groupUser->getGroup()->getId() == $chronicleGroupId) {
+            if ($groupUser->getGroup()
+                ->getId() == $chronicleGroupId) {
                 $found = true;
                 break;
             }
@@ -290,7 +297,8 @@ class Member_ChronicleController extends Zend_Controller_Action {
             $chronicleAdapter = new ChronicleAdapter($chronicle);
             $pushedChronicle = $chronicleAdapter->getAsChronicleViewModelLight();
             $facebookMessage = $pushedChronicle->getTitle();
-            $facebookTitle = sprintf(__("%s vient de poster une chronique sur%s", "s1b"), $globalContext->getConnectedUser()->getFirstName(), Constants::SITENAME);
+            $facebookTitle = sprintf(__("%s vient de poster une chronique sur%s", "s1b"), $globalContext->getConnectedUser()
+                ->getFirstName(), Constants::SITENAME);
             $facebookCaption = $pushedChronicle->getShortenText();
             $facebookLink = $pushedChronicle->getDetailLink();
             $facebookPicture = $pushedChronicle->getImage();

@@ -386,7 +386,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
         // Get tags and add it to model view
         $tags = TagSvc::getInstance()->getTagsForChronicles();
         $this->view->tags = $tags;
-        
         // Get search content form and add it to model view
         $contentSearch = new ContentSearch("/default/chronicle/search", $tags, $tagId, __("Rechercher une chronique", "s1b"), $key, $searchTerm, $initUrl);
         $this->view->contentSearch = $contentSearch->get();

@@ -602,3 +602,13 @@ INSERT INTO `s1b_pressreviews` (`book_id` , `title` , `text`, `link` , `media_id
 --
 ALTER TABLE `s1b_pressreviews` CHANGE `author` `author` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;
 update s1b_pressreviews set author = NULL where author = 'NULL';
+
+
+--
+-- Mise à jour de la table `s1b_tags`
+--
+
+update s1b_tags set label = REPLACE(label , '&eacute;', 'é');
+update s1b_tags set label = REPLACE(label , '&egrave;', 'è');
+update s1b_tags set label = REPLACE(label , '&ecirc;', 'ê');
+update s1b_tags set label = REPLACE(label , '&acirc;', 'â');
