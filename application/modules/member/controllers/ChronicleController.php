@@ -161,15 +161,9 @@ class Member_ChronicleController extends Zend_Controller_Action {
                 else // And add a new chronicle if not
                     ChronicleDao::getInstance()->add($chronicle); //
                                                                       
-                // 3. Post on facebook if necessary
-                if ($form->getChroniclePostOnFacebook())
-                    $postOk = $this->postOnFacebook($chronicle); //
-                                                                     
                 // 4. We redirect to confirmation page
                 $sessionData = new Zend_Session_Namespace(self::EDIT_CHRONICLE_NAMESPACE);
                 $sessionData->chronicleId = $chronicle->getId();
-                $sessionData->postedOnFacebook = $form->getChroniclePostOnFacebook();
-                $sessionData->postedOnFacebookOk = $postOk;
                 $sessionData->lock();
                 $this->redirect("member/chronicle/confirmation");
             }
@@ -187,8 +181,44 @@ class Member_ChronicleController extends Zend_Controller_Action {
             /* @var $chronicle Chronicle */
             $chronicle = ChronicleDao::getInstance()->get($sessionData->chronicleId);
             $this->view->chronicleLink = $chronicle->getDetailLink();
-            $this->view->postedOnFacebook = $sessionData->postedOnFacebook;
-            $this->view->postedOnFacebookOk = $sessionData->postedOnFacebookOk;
+            $this->view->postOnFacebookLink = $this->view->url(array(
+                    "module" => "member",
+                    "controller" => "chronicle",
+                    "action" => "post-on-facebook"
+            ));
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    public function postOnFacebookAction() {
+
+        try {
+            $home = $this->view->url(array(
+                    "module" => "default",
+                    "controller" => "index",
+                    "action" => "index"
+            ));
+            $returnUri = $this->view->url(array(
+                    "module" => "member",
+                    "controller" => "chronicle",
+                    "action" => "post-on-facebook"
+            ));
+            // Testing if user is facebook connected
+            $facebookSvc = new \Sb\Facebook\Service\FacebookSvc(SHARE1BOOK_FACEBOOK_API_ID, SHARE1BOOK_FACEBOOK_SECRET, $returnUri, $home);
+            $facebookUser = $facebookSvc->getUser();
+            if ($facebookUser) {
+                $sessionData = new Zend_Session_Namespace(self::EDIT_CHRONICLE_NAMESPACE);
+                /* @var $chronicle Chronicle */
+                $chronicle = ChronicleDao::getInstance()->get($sessionData->chronicleId);
+                if ($this->postOnFacebook($chronicle, $facebookSvc))
+                    Flash::addItem(__("Votre post sur facebook a été effectué avec succès.", "s1b"));
+                else
+                    Flash::addItem(__("Une erreur s'est produite lors de votre post sur facebook", "s1b"));
+                $this->redirect("default/index/index");
+            } else
+                $this->redirect($facebookSvc->getFacebookLogInUrl());
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
@@ -285,25 +315,25 @@ class Member_ChronicleController extends Zend_Controller_Action {
      * @param Chronicle $chronicle the chronicle to post on facebook
      * @return boolean return TRUE if post was succesfull, FALSE otherwise
      */
-    private function postOnFacebook(Chronicle $chronicle) {
+    private function postOnFacebook(Chronicle $chronicle, $facebookSvc) {
 
         try {
             
-            global $globalConfig;
+            Trace::addItem("postOnFacebook");
             global $globalContext;
-            
-            $facebookSvc = new FacebookSvc($globalConfig->getFacebookApiId(), $globalConfig->getFacebookSecret(), "", "");
             // Set facebook posts variables using a ChronicleAdapter and a PushedChronicle
             $chronicleAdapter = new ChronicleAdapter($chronicle);
             $pushedChronicle = $chronicleAdapter->getAsChronicleViewModelLight();
             $facebookMessage = $pushedChronicle->getTitle();
-            $facebookTitle = sprintf(__("%s vient de poster une chronique sur%s", "s1b"), $globalContext->getConnectedUser()
+            $facebookTitle = sprintf(__("%s vient de poster une chronique sur %s", "s1b"), $globalContext->getConnectedUser()
                 ->getFirstName(), Constants::SITENAME);
             $facebookCaption = $pushedChronicle->getShortenText();
             $facebookLink = $pushedChronicle->getDetailLink();
             $facebookPicture = $pushedChronicle->getImage();
             
-            return $facebookSvc->post($facebookMessage, $facebookTitle, $facebookCaption, $facebookLink, $facebookPicture);
+            Trace::addItem("posting $facebookMessage with title $facebookTitle and caption $facebookCaption, link $facebookLink and picture $facebookPicture");
+            $post = $facebookSvc->post($facebookMessage, $facebookTitle, $facebookCaption, $facebookLink, $facebookPicture);
+            return $post;
         } catch (\Exception $e) {
             
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));

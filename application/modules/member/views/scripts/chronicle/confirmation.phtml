@@ -3,11 +3,5 @@
 <br />
 <?php _e("Vous pouvez la consultez en cliquant sur le lien suivant : ","s1b");?>
 <a href="<?php echo $this->chronicleLink;?>" target="_blank" class="link"><?php _e("Voir la chronique","s1b")?></a> <br />
-<?php if ($this->postedOnFacebook) {?>
-    <?php if ($this->postedOnFacebookOk) {?>
-        <?php _e("Post sur facebook OK","s1b");?>
-    <?php }else {?>
-        <?php _e("Post sur facebook KO","s1b");?>
-    <?php }?>
-<?php }?>   
+<a href="<?php echo $this->postOnFacebookLink;?>" target="_blank" class="link"><?php _e("Poster sur facebook","s1b")?></a> <br />
 </div>

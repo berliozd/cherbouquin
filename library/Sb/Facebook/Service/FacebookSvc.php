@@ -2,6 +2,7 @@
 
 namespace Sb\Facebook\Service;
 
+use Sb\Trace\Trace;
 /**
  * Description of \Sb\Facebook\Service\FacebookSvc
  * @author Didier
@@ -65,6 +66,7 @@ class FacebookSvc {
             try {
                 $user_profile = $this->facebook->api('/me');
             } catch (\FacebookApiException $e) {
+                Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", trace 1 -TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
                 $user_facebook = null;
             }
         }
@@ -86,6 +88,7 @@ class FacebookSvc {
                     return $facebookUser;
                 }
             } catch (\Exception $o) {
+                Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", trace 2 - TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             }
         }
         return null;
@@ -114,6 +117,7 @@ class FacebookSvc {
             $ret = $this->facebook->api('/me/feed/', 'POST', $options);
             return true;
         } catch (\FacebookApiException $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             return false;
         }
         return false;

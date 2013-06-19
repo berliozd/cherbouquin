@@ -25,13 +25,20 @@ $env = "beta";
 $localFolder = "E:\\Dev\\wamp2.0\\www\\cherbouquin\\";
 $localBackupFolder = "E:\\Temp\\CherBouquin\\BackupDeploy\\";
 
-$revisionHash = "803671-639bc5-2a279d";
-$filesString = "library/Sb/Entity/Urls.php
-wp-content/themes/new_s1b/footer-opening.php
-public/Resources/css/share1book.css
-public/Resources/images/sprite.png
-wp-content/themes/new_s1b/footer-opening.php
-application/modules/default/views/scripts/index/index.phtml";
+$revisionHash = "1fb3de";
+$filesString = "application/modules/default/controllers/ChronicleController.php
+application/modules/member/controllers/ChronicleController.php
+images/icon_twitter/ActuCine.png
+images/icon_twitter/Cine_Obs.png
+images/icon_twitter/MediapartLeClub.png
+images/icon_twitter/Nice_Matin.png
+images/icon_twitter/WEBINDEP.png
+images/icon_twitter/charentelibre.png
+images/icon_twitter/francerealnews.png
+images/icon_twitter/lavoixdunord.png
+images/icon_twitter/yabiladi_maroc.png
+images/icon_twitter/youmag.png
+library/Sb/ZendForm/ChronicleForm.php";
 
 include('Net/SFTP.php');
 
