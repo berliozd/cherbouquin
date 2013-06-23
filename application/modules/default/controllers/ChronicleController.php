@@ -114,12 +114,11 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 $this->addCommonItemsToModelView();
                 
                 // Set SEO information
-                $this->view->tagTitle = $chroniclePage->getChronicleViewModel()
-                    ->getTitle();
-                $this->view->metaDescription = $chroniclePage->getChronicleViewModel()
-                    ->getShortenText();
-                $this->view->metaKeywords = $chroniclePage->getChronicle()
-                    ->getKeywords();
+                $headerInformation = HeaderInformationSvc::getInstance()->getForChroniclePage($chroniclePage);
+                $this->view->tagTitle = $headerInformation->getTitle();
+                $this->view->metaDescription = $headerInformation->getDescription();
+                $this->view->metaKeywords = $headerInformation->getKeywords();
+                $this->view->urlCanonical = $headerInformation->getUrlCanonical();
             } else {
                 Flash::addItem(__("La chronique que vous souhaitez consulter n'existe pas.", "s1b"));
                 HTTPHelper::redirectToReferer();

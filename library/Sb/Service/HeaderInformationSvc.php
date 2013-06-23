@@ -8,6 +8,8 @@ use Sb\Entity\Constants;
 use Sb\Db\Model\Tag;
 use Sb\Db\Model\Book;
 use Sb\Db\Service\TagSvc;
+use Sb\Helpers\HTTPHelper;
+use Sb\Model\ChroniclePage;
 
 /**
  * Retrieve header information (tile, meta, etc..) for different context (book pages, etc...)
@@ -42,6 +44,9 @@ class HeaderInformationSvc extends Service {
 
         try {
             $result = new HeaderInformation();
+            
+            // Set url canonical
+            $result->setUrlCanonical(HTTPHelper::Link($book->getLink()));
             
             // Set title tag
             $publisherName = "";
@@ -97,6 +102,27 @@ class HeaderInformationSvc extends Service {
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
+    }
+
+    /**
+     * Get HeaderInformation object for chronicle detail page
+     * @param ChroniclePage $chroniclePage
+     * @return \Sb\Model\HeaderInformation
+     */
+    public function getForChroniclePage(ChroniclePage $chroniclePage) {
+
+        $result = new HeaderInformation();
+        
+        $result->setTitle($chroniclePage->getChronicleViewModel()
+            ->getTitle());
+        $result->setDescription($chroniclePage->getChronicleViewModel()
+            ->getShortenText());
+        $result->setKeywords($chroniclePage->getChronicle()
+            ->getKeywords());
+        $result->setUrlCanonical($chroniclePage->getChronicleViewModel()
+            ->getDetailLink());
+        
+        return $result;
     }
 
     public function getForLastAddedPage($pageNumber, $tagLabel = null) {
@@ -209,29 +235,29 @@ class HeaderInformationSvc extends Service {
                     break;
                 case "chroniclesLastAnyType" :
                     $result->setTitle(sprintf(__("Découvrir les chroniques autour du livre - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription(__("Découvrir les chroniques sur l'actualité du livre (critiques, prix littéraires, analyse de livre), et partagez vos coups de cœur avec votre communauté.","s1b"));
+                    $result->setDescription(__("Découvrir les chroniques sur l'actualité du livre (critiques, prix littéraires, analyse de livre), et partagez vos coups de cœur avec votre communauté.", "s1b"));
                     $result->setKeywords("analyse de livre|livre à la une");
                     break;
                 case "chroniclesLastBloggers" :
                     $result->setTitle(sprintf(__("Le livre à lire ou une critique de livre sur les blogs - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription(__("Livres à lire, des romans, des polars, des bandes dessinées, des mangas, des critiques littéraires, des fiches de lecture en direct des blogs","s1b"));
+                    $result->setDescription(__("Livres à lire, des romans, des polars, des bandes dessinées, des mangas, des critiques littéraires, des fiches de lecture en direct des blogs", "s1b"));
                     $result->setKeywords("critique de livre|le livre à lire|blog|livres à lire|bibliothèque");
                     break;
                 case "chroniclesLastBookStores" :
                     $result->setTitle(sprintf(__("Partager les conseils de libraires, leurs coups de cœur - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription(__("Les libraires partagent leurs coups de cœur, leurs lectures et vous aident à choisir les livres qui vous plairont.","s1b"));
+                    $result->setDescription(__("Les libraires partagent leurs coups de cœur, leurs lectures et vous aident à choisir les livres qui vous plairont.", "s1b"));
                     $result->setKeywords("librairie|libraire|sélection|livre|littérature|littéraire|choix livre|choisir livre|meilleur livre|best seller|best-seller|roman|essai|BD|bouquin|lecture|lecteur|conseils de lecture|conseils de libraires");
                     break;
                 case "articlePressReviews" :
                     $result->setTitle(sprintf(__("Retrouver tous les articles sur l'actualité du livre - %s", "s1b"), Constants::SITENAME));
-                    $result->setDescription(__("Retrouver tous les articles sur l'actualité du livre (presse, critiques, sorties littéraires) et le livre à la une.","s1b"));
+                    $result->setDescription(__("Retrouver tous les articles sur l'actualité du livre (presse, critiques, sorties littéraires) et le livre à la une.", "s1b"));
                     $result->setKeywords("presse|critiques|sorties littéraires");
                     break;
                 case "videoPressReviews" :
                     $result->setTitle(sprintf(__("Trouver des vidéos de livre à la une, d'interviews, de critiques - %s", "s1b"), Constants::SITENAME));
                     $result->setDescription("Visionner les dernières vidéos de livre à la une, d'interviews, de critiques.");
                     $result->setKeywords(" vidéo|interview|critique|fiche de lecture");
-                    break;                
+                    break;
                 default :
                     break;
             }

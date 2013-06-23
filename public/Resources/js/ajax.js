@@ -70,10 +70,7 @@ function attachAddUserBook() {
     });
 }
 
-/* Add clear and restore behavior on press review subscription form */
-function attachPressReviewFormClearingAndRestore() {
-    _attachInputClearingAndRestore("pressReviewFormEmailDefaultLabel", "#press-reviews-subscription-form #email");
-}
+
 
 
 

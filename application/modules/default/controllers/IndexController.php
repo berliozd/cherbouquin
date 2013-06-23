@@ -49,6 +49,8 @@ class Default_IndexController extends Zend_Controller_Action {
             
             $this->view->placeholder('footer')
                 ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
+            $this->view->placeholder('footer')
+                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/content.js?v=' . VERSION . "\"></script>");
             
             // Add chronicle css to head
             $this->view->headLink()

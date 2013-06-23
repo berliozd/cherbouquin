@@ -87,7 +87,7 @@ INPUT.button, BUTTON.button {height:28px; padding:0; font-size: 10px;}
 .bt-carroussel {background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 0 -286px transparent;font-size: 1.1em;height: 26px;padding: 9px 0;width: 139px;}
 .bt-delete  {background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 0 -391px transparent; height: 30px; padding: 0;width: 30px;}
 .bv-share {  background: url("../images/sprite.png?v=2") no-repeat scroll 0 -2138px transparent; height: 45px;width: 45px;}
-.search-button{background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 5px -343px transparent; border: medium none; cursor: pointer; float: right; height: 31px; padding: 3px; width: 36px;}
+.search-button{background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 5px -343px transparent; border: medium none; cursor: pointer; float: right; height: 31px; padding: 0; width: 33px;}
 .link-button {background-color: transparent; color: #239CD3; float: right; font-size: 1em !important; margin: 0 auto; text-decoration: underline; text-transform: none;}
 
 .bt-amazon {background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 0 -762px transparent; height: 27px; width: 92px;}
@@ -223,7 +223,7 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 
 /* search form */
 .search-form {float:left;width:375px;}
-.sff-input {float:left;margin: 7px;}
+.sff-input {float:left;margin: 7px 0 7px 7px;}
 .sf-label {color: #FFF;float: left;font-size: 1.3em;font-weight: bold;line-height: 36px; margin-right: 2px;}
 /* in connected header */
 #header .search-form.connected {width: 980px;}
@@ -268,59 +268,73 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .nur-status {padding-left:2px; font-size: 1.2em;}
 .nurs-status {height: 25px; padding-right: 33px; padding-top:5px;}
 .nu-indice {background: url("../images/sprite.png?v=6") no-repeat scroll 0 -1678px transparent;font-size: 0.7em;height: 20px;padding-top: 2px;position: absolute;right: 0;text-align: center;top: -18px;width: 21px;}
-.nu-links {float: left;padding: 20px;width: 740px; }
-.nul-links {float: left;list-style: none outside none;margin: 0;padding: 0;text-align: center;}
-.nul-links>LI { float: left;font-size: 1.4em;font-weight: bold;margin-right: 30px;text-align: left;text-transform: uppercase; position:relative;}
+.nu-links {float: left;padding: 20px 20px 20px 10px; width: 750px; }
+
+.nul-links {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.nul-links>LI {
+    float: left;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-right: 30px;
+    text-transform: uppercase;
+}
+
 .nul-button {float:right;}
 #nav-user .nul-links li a.selected, #nav-user .nul-links li a.selected:visited {color:#000;}
 #nav-user .nul-links li:hover, #nav-user .nul-links li a:hover {color:#000;}
 
-li#nul-news {
-    border-color: transparent;
-    border-style: solid; 
-    border-width: 1px 1px 0; 
-    border-radius: 10px 10px 0 0; 
-    margin-right: 2px; 
-    margin-top: -5px; 
+#nul-news {	
     padding-left: 22px; 
-    padding-right: 1px; 
-    padding-top: 5px; 
-    width: 120px;
     position: relative;
 }
 
-li#nul-news ul {
-    display:none;
-    background-color: #239CD3; 
-    border-color: transparent; 
-    border-radius: 0 0 10px 10px; 
-    border-style: solid; 
-    border-width: 0 1px 1px; 
-    left: -1px; 
-    padding-bottom: 5px; 
-    padding-left: 22px; 
-    position: absolute; 
-    text-transform: none; 
-    top: 25px; 
-    width: 121px;
-    font-size:0.95em;
+#nul-news ul {
+	padding-left:25px;
+	font-size:0.95em;
+	text-transform:none;
 }
-li#nul-news ul>li {
-    list-style: disc outside none; 
+
+#nul-news ul li {	
+	list-style: disc outside none;
     padding-right: 3px;
     color: #fff;
-    font-weight: normal;
+    font-weight: normal; 
+    float: left;
 }
-li#nul-news span {
-    position: relative; 
+
+#nul-news #links-hover {
+    display: none;
+    border-radius: 10px;
+    border: 1px solid #363A3D;
     background-color: #239CD3;
+    width: 147px;
+    position: absolute;
+    left: -9px;
+    top: -1px;
 }
-li#nul-news:hover {border-color: #363A3D; }
-li#nul-news:hover ul {
+
+#nul-news:hover #links-hover {
+     display: block; 
+}
+
+#nul-news #links-hover span, #nul-news span {
+    cursor: pointer;    
+}
+
+#nul-news #links-hover span {
+    color: #363A3D;
+    text-align:center;
     display:block;
-    border-color: #363A3D;
 }
-li#nul-news:hover span {color: #363A3D;}
+
+
+
 
 /* carousel */
 .carousel-wrap {position: relative;}
@@ -863,7 +877,7 @@ TD.mb-col-state{color:#f56903;}
 .last-rated-books .pb-title {font-size: 1.1em; font-weight: bold; margin:10px 0 5px;}
 
 /* press reviews subscription widget */
-#press-reviews-subscription-form {padding: 10px 5px 10px 90px; float:left; background: url("../images/sprite.png?v=6") no-repeat scroll 3px -2200px #1E1E1E;}
+#press-reviews-subscription-form {padding: 10px 5px 10px 85px; float:left; background: url("../images/sprite.png?v=6") no-repeat scroll 3px -2200px #1E1E1E;}
 #prsf-title {color:#239CD3; font-size:1.3em; font-weight: bold;}
 #prsf-subtitle {color:#FFF; font-size:1.2em; text-align: justify; margin-bottom: 5px;}
 #prsf-form {}
@@ -889,11 +903,13 @@ TD.mb-col-state{color:#f56903;}
 }
 
 #content-search-form .search-field INPUT {
-    width: 84px;
-    margin: 4px;
+    width: 75px;
+    margin: 4px 0 4px 4px;;
 }
 
 #content-search-form .search-button {
+    width: 35px;
+    padding : 0;
     background: url("../images/sprite-buttons.png?v=3") no-repeat scroll 5px -346px transparent;
 }
 

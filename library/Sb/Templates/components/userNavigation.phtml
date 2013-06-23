@@ -7,6 +7,21 @@ function cssSelected($page) {
         return "selected";
 }
 ?>
+
+<script>
+$(function() {
+    $("#nul-news span").click(function() {
+
+        var isVisible = ($('#links-hover').css('display') != 'none');
+
+        if (isVisible)
+            $('#links-hover').css('display','none');
+        else
+            $('#links-hover').css('display','block');        
+    });
+});
+</script>
+
 <div id="nav-wrap">
     <div id="nav-user">
         <div class="nu-resume">
@@ -23,6 +38,8 @@ function cssSelected($page) {
         <div class="nu-links">
             <ul class="nul-links">
                 <li id="nul-news">
+                    <span><?php _e("Actualités","s1b");?></span>
+                    <div id="links-hover">
                         <span><?php _e("Actualités","s1b");?></span>
                         <ul>
                             <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LAST_CHRONICLES); ?>"><?php _e("Chroniques","s1b");?></a></li>
@@ -31,6 +48,7 @@ function cssSelected($page) {
                             <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BOOKSTORES_CHRONICLES); ?>"><?php _e("Le mot des libraires","s1b");?></a></li>
                             <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::PRESS_REVIEWS_ALL_VIDEOS); ?>"><?php _e("Toutes les vidéos","s1b");?></a></li>
                         </ul>
+                    </div>
                 </li>
                 <li>
                     <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_HOME); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_HOME); ?>"><?php _e("A la page","");?></a></li>

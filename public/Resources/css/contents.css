@@ -158,6 +158,13 @@
 /* ------------------------- */
 /* ---- Chronicle Detail --- */
 /* ------------------------- */
+
+#chronicle-detail h1 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
 #chronicle-detail .navigation {
     background-color: #FFF;
 }

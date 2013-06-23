@@ -197,11 +197,6 @@ class ChronicleForm extends \Zend_Form {
             ->setRequired(true)
             ->addErrorMessage(__("Le tag doit être renseignée.", "s1b"));
         
-        // Facebook post checkbox element
-        $postOnFacebookCheckboxElement = new \Zend_Form_Element_Checkbox("post_on_facebook");
-        $postOnFacebookCheckboxElement->setLabel(__("Poster sur facebook", "s1b"));
-        $postOnFacebookCheckboxElement->class = "facebook-post-checkbox";
-        
         // userId element
         $userIdElement = new \Zend_Form_Element_Hidden("user_id");
         $this->removeAllDecorators($userIdElement);
@@ -232,7 +227,6 @@ class ChronicleForm extends \Zend_Form {
                 $bookIdElement,
                 $tagElement,
                 $imageElement,
-                $postOnFacebookCheckboxElement,
                 $userIdElement,
                 $groupIdElement,
                 $idElement,

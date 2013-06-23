@@ -1,3 +1,6 @@
+<?php
+$currentPage = "http://" .  $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; 
+?>
 <script>
     $(document).ready(function() {
         // Show the social networks bar after a 2 seconds delay. This is necessary to let each widget time to load properly and not break the layout of the bar.
@@ -18,7 +21,7 @@
 
     <!-- Facebook -->
     <iframe
-        src="http://www.facebook.com/plugins/like.php?href=http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ?>&layout=button_count&show_faces=true&action=like&font=arial&colorscheme=light"
+        src="http://www.facebook.com/plugins/like.php?href=http://<?php echo $currentPage; ?>&layout=button_count&show_faces=true&action=like&font=arial&colorscheme=light"
         scrolling="no" frameborder="0" style="border: none; overflow: hidden; width: 90px; height: 20px; margin-top: 3px;" allowTransparency="true"></iframe>
 
     <!-- Google+ -->
@@ -27,7 +30,7 @@
     width: 65px !important;
 }
 </style>
-    <!-- Place this tag where you want the +1 button to render. -->
+	<!-- Place this tag where you want the +1 button to render. -->
     <div class="g-plusone" data-size="medium"></div>
     <!-- Place this tag after the last +1 button tag. -->
     <script type="text/javascript">
@@ -47,7 +50,7 @@
     <?php if ($imageUrlToPin) { ?>
     <!-- Pinterest -->
     <a
-        href="//pinterest.com/pin/create/button/?url=<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ?>&media=<?php echo $imageUrlToPin; ?>&description=<?php echo $textToPin; ?>"
+        href="//pinterest.com/pin/create/button/?url=<?php echo $currentPage; ?>&media=<?php echo $imageUrlToPin; ?>&description=<?php echo $textToPin; ?>"
         data-pin-do="buttonPin" data-pin-config="beside"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     <?php } ?>

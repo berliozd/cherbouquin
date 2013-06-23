@@ -2,7 +2,8 @@
     <div class="colx2- float-left">
         <?php _e("Sélectionner un tag pour affiner l'affichage","s1b");?>
         <form method="GET" action="<?php echo $action;?>" name="frmTagsChoice">
-            <input type="hidden" name="pageKey" value="<?php echo $pageKey;?>" /> <select name="tid" class="input-item" onchange="frmTagsChoice.submit();">
+            <input type="hidden" name="pageKey" value="<?php echo $pageKey;?>" />
+            <select name="tid" class="input-item" onchange="frmTagsChoice.submit();">
                 <option value=""><?php _e("Aucun", "s1b") ?></option>
                 <?php foreach ($tags as $tag) { ?>
                 <option <?php echo($selectedTagId == $tag->getId() ? "selected" : ""); ?> value="<?php echo $tag->getId(); ?>"><?php echo $tag->getLabel(); ?></option>
@@ -18,7 +19,7 @@
                 <input type="text" class="search-field-input" name="contentSearchTerm" value="<?php _e("Mot clé","s1b");?>" id="contentSearchTerm" />
                 <input type="hidden" name="pageKey" value="<?php echo $pageKey;?>" />
                 <input type="hidden" name="contentSearchTermDef" value="<?php _e("Mot clé","s1b");?>" disabled class="contentSearchTermDefaultLabel" />
-                <button class="search-button" />
+                <button class="search-button"></button>
             </div>
         </form>
     </div>

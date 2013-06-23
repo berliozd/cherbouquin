@@ -91,6 +91,7 @@ class Default_BookController extends Zend_Controller_Action {
                     $this->view->tagTitle = $headerInformation->getTitle();
                     $this->view->metaDescription = $headerInformation->getDescription();
                     $this->view->metaKeywords = $headerInformation->getKeywords();
+                    $this->view->urlCanonical = $headerInformation->getUrlCanonical();
                     
                     // Get last read userbooks for the book and add it to view model
                     $this->view->lastlyReadUserbooks = $bookPage->getLastlyReadUserbooks();
