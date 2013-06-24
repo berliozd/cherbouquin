@@ -106,6 +106,8 @@ class ChroniclePageSvc extends Service {
                 if ($userBook->getReview())
                     $result[] = $userBook;
             }
+            
+            return $result;
         }
         
         return null;
