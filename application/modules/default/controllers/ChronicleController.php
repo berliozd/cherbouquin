@@ -346,7 +346,13 @@ class Default_ChronicleController extends Zend_Controller_Action {
                         false,
                         "=",
                         PressReviewTypes::ARTICLE
-                )
+                ),
+        		// Add is_validated criteria
+        		"is_validated" => array (
+        				false,
+        				"=",
+        				1
+        		)
         );
         $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
         if ($pressReviews) {

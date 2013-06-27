@@ -127,7 +127,12 @@ class ChroniclePageSvc extends Service {
                             true,
                             "=",
                             $chronicle->getBook()
-                    )
+                    ),
+            		"is_validated" => array (
+            				false,
+            				"=",
+            				1
+            		)
             );
             
             $video = PressReviewSvc::getInstance()->getList($criteria, 1, false);

@@ -136,7 +136,13 @@ class ChronicleAdapter {
                                 true,
                                 "=",
                                 $this->chronicle->getTag()
-                        )
+                        ),
+                		// Add is_validated criteria
+                		"is_validated" => array (
+                				false,
+                				"=",
+                				1
+                		)
                 ), $nbPressReviews, $useCache);
             }
             

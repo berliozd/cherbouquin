@@ -85,7 +85,13 @@ class BookPageSvc extends Service {
                                 true,
                                 "=",
                                 $book
-                        )
+                        ),
+                		// Add is_validated criteria
+                		"is_validated" => array (
+                				false,
+                				"=",
+                				1
+                		)
                 );
                 $videoPressReviews = PressReviewSvc::getInstance()->getList($criteria, 1, false);
                 if ($videoPressReviews) {
@@ -114,7 +120,12 @@ class BookPageSvc extends Service {
                         true,
                         "=",
                         $book
-                )
+                ),
+        		"is_validated" => array (
+        				false,
+        				"=",
+        				1
+        		)
         );
         
         $bookPressReviews = PressReviewSvc::getInstance()->getList($criteria, 3, false);

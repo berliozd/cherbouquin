@@ -234,13 +234,20 @@ class Default_PressReviewController extends Zend_Controller_Action {
                     $tag
             );
             
-            // Add keywords criteria
+        // Add keywords criteria
         if ($searchTerm)
             $criteria["keywords"] = array(
                     false,
                     "LIKE",
                     $searchTerm
             );
+        
+        // Add is_validated criteria
+        $criteria ["is_validated"] = array (
+        		false,
+        		"=",
+        		1
+        );
         
         $result = PressReviewSvc::getInstance()->getList($criteria, 100, $useCache);
         return $result;
