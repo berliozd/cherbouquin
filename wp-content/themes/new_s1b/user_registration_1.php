@@ -1,5 +1,7 @@
 <?php
 
+use \Sb\Helpers\ArrayHelper;
+
 $registeringErrors = array();
 
 if ($_POST) {
@@ -85,7 +87,7 @@ function validatePost() {
         \Sb\Flash\Flash::addItem(__("Votre mot de passe doit faire au moins 8 caractères.", "s1b"));
         $ret = false;
     }
-    if (!$_POST['cgu_validation']) {
+    if (!ArrayHelper::getSafeFromArray($_POST, 'cgu_validation', false)) {
         \Sb\Flash\Flash::addItem(__("Vous devez accepter les CGU.", "s1b"));
         $ret = false;
     }
