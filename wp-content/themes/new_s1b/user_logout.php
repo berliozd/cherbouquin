@@ -3,7 +3,7 @@
 /**
  * Template Name: user_logout
  */
-if ($_COOKIES && array_key_exists("PHPSESSID", $_COOKIES)) {
+if (isset($_COOKIES) && array_key_exists("PHPSESSID", $_COOKIES)) {
     unset($_COOKIES["PHPSESSID"]);
 }
 
@@ -14,7 +14,9 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-$tmpLang = $_SESSION['WPLANG'];
+$tmpLang = null;
+if (isset($_SESSION) && array_key_exists('WPLANG', $_SESSION))
+	$tmpLang = $_SESSION['WPLANG'];
 session_destroy();
 
 $noAuthentification = true;

@@ -8,6 +8,10 @@ get_header();
  * Template Name: user_registration
  */
 ?>
+
+<?php
+use \Sb\Helpers\ArrayHelper; 
+?>
 <div id="content-wide">
     <div class="registration">           
         <div class="r-left">
@@ -29,7 +33,7 @@ get_header();
                             <?php _e("Nom *", "s1b"); ?>
                         </div>
                         <div class="r-field">
-                            <input type="text" class="textinput input-item" name="last_name" value="<?php echo $_POST['last_name'] ?>"/>
+                            <input type="text" class="textinput input-item" name="last_name" value="<?php echo ArrayHelper::getSafeFromArray($_POST, "last_name", ""); ?>"/>
                         </div>
                     </div>
                     <div class="r-line">
@@ -37,7 +41,7 @@ get_header();
                             <?php _e("Prénom *", "s1b"); ?>
                         </div>                            
                         <div class="r-field">
-                            <input type="text" class="textinput input-item" name="first_name" value="<?php echo $_POST['first_name'] ?>"/>
+                            <input type="text" class="textinput input-item" name="first_name" value="<?php echo ArrayHelper::getSafeFromArray($_POST, "first_name", ""); ?>"/>
                         </div>
                     </div>
                     <div class="r-line">
@@ -45,7 +49,7 @@ get_header();
                             <?php _e("Identifiant *", "s1b"); ?>
                         </div>
                         <div class="r-field">
-                            <input type="text" class="textinput input-item" name="user_name" value="<?php echo $_POST['user_name'] ?>"/>
+                            <input type="text" class="textinput input-item" name="user_name" value="<?php echo ArrayHelper::getSafeFromArray($_POST, "user_name", ""); ?>"/>
                         </div>
                     </div>
                     <div class="r-line">
@@ -53,7 +57,7 @@ get_header();
                             <?php _e("Email *", "s1b"); ?>
                         </div>
                         <div class="r-field">
-                            <input type="text" class="textinput input-item" name="email" value="<?php echo $_POST['email'] ?>"/>
+                            <input type="text" class="textinput input-item" name="email" value="<?php echo ArrayHelper::getSafeFromArray($_POST, "email", ""); ?>"/>
                         </div>
                     </div>
                     <div class="r-line">

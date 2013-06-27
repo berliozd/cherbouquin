@@ -200,6 +200,8 @@ abstract class BaseFacebook {
      */
     protected $fileUploadSupport = false;
 
+    protected $user;
+    
     /**
      * Initialize a Facebook Application.
      *

@@ -2,8 +2,6 @@
 
 namespace Sb\Db\Dao;
 
-use Sb\Trace\Trace;
-
 /**
  * Description of \Sb\Db\Dao\AbstractDao
  * @author Didier
@@ -170,8 +168,6 @@ abstract class AbstractDao {
         
         if ($maxResults)
             $query->setMaxResults($maxResults);
-        
-        Trace::addItem($query->getDQL());
         
         return $this->getResults($query);
     }
