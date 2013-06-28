@@ -129,6 +129,9 @@ function showBookDetail(Book $book, $booksAlsoLiked, $booksWithSameTags, $review
 
     $buttonsBar = new ButtonsBar(false);
     $tpl->set("buttonsBar", $buttonsBar->get());
+    
+    $referer = HTTPHelper::getReferer();
+    $tpl->setVariables(array("referer" => $referer));
 
     echo $tpl->output();
 }

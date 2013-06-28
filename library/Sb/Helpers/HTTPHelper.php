@@ -93,19 +93,15 @@ class HTTPHelper {
 
     /**
      * Return the referer : when the referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting 
-      values to be reset when return to the page
+      values to be reset when returning to the page
      * @return string
      */
     public static function getReferer() {
         // When referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting 
-        // values to be reset when return to the page
+        // values to be reset when returning to the page
         $referer = ArrayHelper::getSafeFromArray($_SERVER, "HTTP_REFERER", null);
-        if ($referer) {
-            $libraryUrl = self::Link(Urls::USER_LIBRARY);
-            if (strpos($referer, $libraryUrl) !== false) {
-                $referer = str_replace("reset=1", "", $referer);
-            }
-        }
+        if ($referer && (strpos($referer, self::Link(Urls::USER_LIBRARY)) !== false))
+			$referer = str_replace("reset=1", "", $referer);
         return $referer;
     }
 

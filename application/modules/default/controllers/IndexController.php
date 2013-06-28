@@ -25,6 +25,7 @@ use Sb\View\Components\NewsReader;
 use Sb\Db\Service\PressReviewSvc;
 use Sb\Entity\PressReviewTypes;
 use Sb\View\Components\GooglePlus;
+use Sb\Helpers\ChronicleHelper;
 
 class Default_IndexController extends Zend_Controller_Action {
 
@@ -107,24 +108,12 @@ class Default_IndexController extends Zend_Controller_Action {
             $this->view->pressReviewsSubscriptionWidget = $pressReviewsSubscriptionWidget->get();
             
             // Newsreader
-            $criteria = array(
-                    "type" => array(
-                            false,
-                            "=",
-                            PressReviewTypes::ARTICLE
-                    ), 
-            		// Add is_validated criteria
-            		"is_validated" => array (
-            				false,
-            				"=",
-            				1
-            		)
-            );
-            $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
+            $pressReviews = $this->getNewsReaderPressReviews();
             if ($pressReviews) {
                 $newsReader = new NewsReader($pressReviews);
                 $this->view->newsReader = $newsReader->get();
             }
+            
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
@@ -167,36 +156,39 @@ class Default_IndexController extends Zend_Controller_Action {
     private function setViewChronicles() {
         
         // Getting chronicles
-        $anyGroupTypesChronicles = ChronicleSvc::getInstance()->getLastChroniclesOfAnyType();
+    	$lastChronicles = ChronicleSvc::getInstance()->getLastAnyType();
+    	$lastChronicle = array_slice($lastChronicles, 0, 1);
+    	$lastChronicle = $lastChronicle[0];    	
+        $notBloggersOrBookStoresChronicles = ChronicleSvc::getInstance()->getLastChroniclesNotBloggersOrBookStores();
         $bloggersChronicles = ChronicleSvc::getInstance()->getLastBloggersChronicles();
         $bookstoresChronicles = ChronicleSvc::getInstance()->getLastBookStoresChronicles();
         
         // Init chronicle view model adapter
         $chronicleListAdapter = new ChronicleListAdapter();
         
+        $chronicleView = new PushedChronicle($lastChronicle);
+        $this->view->chronicle = $chronicleView->get();
+        
         // Set chronicles from any groups except bloggers and bookstores
-        if ($anyGroupTypesChronicles && count($anyGroupTypesChronicles) > 0) {
-            
-            $chronicleView = new PushedChronicle($anyGroupTypesChronicles[0]);
-            $this->view->chronicle = $chronicleView->get();
-            
-            $anyGroupTypesChronicles = array_slice($anyGroupTypesChronicles, 1, 3);
+        if ($notBloggersOrBookStoresChronicles && count($notBloggersOrBookStoresChronicles) > 0) {
+        	// We take 3 first chronicles only and different from the last chronicle
+            $notBloggersOrBookStoresChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $notBloggersOrBookStoresChronicles, 3);
             // Set chronicles view
-            $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $anyGroupTypesChronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles", $this->view->url(array(), 'chroniclesLastAnyType'), __("Voir d'autres chroniques", "s1b"));
+            $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $notBloggersOrBookStoresChronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles", $this->view->url(array(), 'chroniclesLastAnyType'), __("Voir d'autres chroniques", "s1b"));
         }
         
         // Set bloggers chronicles
         if ($bloggersChronicles && count($bloggersChronicles) > 0) {
-            // We take 3 first chronicles only
-            $bloggersChronicles = array_slice($bloggersChronicles, 0, 3);
+            // We take 3 first chronicles only and different from the last chronicle
+        	$bloggersChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $bloggersChronicles , 3);
             // Set bloggers chronicle view
             $this->view->bloggersChronicles = $this->getChronicleView($chronicleListAdapter, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers", $this->view->url(array(), 'chroniclesLastBloggers'), __("Voir tous les billets des bloggeurs", "s1b"));
         }
         
         // Set bookstores chronicles
         if ($bookstoresChronicles && count($bookstoresChronicles) > 0) {
-            // We take 3 first chronicles only
-            $bookstoresChronicles = array_slice($bookstoresChronicles, 0, 3);
+            // We take 3 first chronicles only and different from the last chronicle
+            $bookstoresChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $bookstoresChronicles, 3);
             // Set bookstores view
             $this->view->bookStoresChronicles = $this->getChronicleView($chronicleListAdapter, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores", $this->view->url(array(), 'chroniclesLastBookStores'), __("Voir tous les billets des libraires", "s1b"));
         }
@@ -210,5 +202,26 @@ class Default_IndexController extends Zend_Controller_Action {
         $chroniclesView = new PushedChronicles($anyGroupTypeChronicesAsViewModel, $link, $title, $typeCSS, $textLink);
         return $chroniclesView->get();
     }
+    
+    private function getNewsReaderPressReviews() {
+		// Newsreader
+    	$criteria = array(
+    			"type" => array(
+    					false,
+    					"=",
+    					PressReviewTypes::ARTICLE
+    			),
+    			// Add is_validated criteria
+    			"is_validated" => array (
+    					false,
+    					"=",
+    					1
+    			)
+    	);
+    	$pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
+    	
+    	return $pressReviews;
+	}
+
 
 }

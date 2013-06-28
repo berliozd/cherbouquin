@@ -101,8 +101,8 @@ class ChronicleHelper {
     
     /**
      * Get only different chronicles than the one passed as first parameter
-     * @param $chronicle the chronicle to remove from collection
-     * @param Collection of Chronicle $chronicles the collection of current chronicle to parse
+     * @param Chronicle $chronicle chronicle to remove from collection
+     * @param Array $chronicles the collection of current chronicle to parse
      * @param int $maxNumber number of chronicles to return
      * @return a Collection of Chronicle that doesn't contain the one received as first parameter
      */

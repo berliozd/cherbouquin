@@ -45,7 +45,12 @@ class ChronicleSvc extends Service {
         parent::__construct(ChronicleDao::getInstance(), "Chronicle");
     }
 
-    public function getLastChroniclesOfAnyType() {
+    public function getLastAnyType() {
+
+        return $this->getLastChronicles(4, null, null);
+    }
+    
+    public function getLastChroniclesNotBloggersOrBookStores() {
         
         // When getting any group types chronicles, we don't want bloggers and book stores chronicles
         $excludeGroupTypes = GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE;
@@ -54,12 +59,12 @@ class ChronicleSvc extends Service {
 
     public function getLastBookStoresChronicles() {
 
-        return $this->getLastChronicles(3, GroupTypes::BOOK_STORE);
+        return $this->getLastChronicles(4, GroupTypes::BOOK_STORE);
     }
 
     public function getLastBloggersChronicles() {
 
-        return $this->getLastChronicles(3, GroupTypes::BLOGGER);
+        return $this->getLastChronicles(4, GroupTypes::BLOGGER);
     }
 
     public function getLastChronicles($nbOfItems, $groupTypeId = null, $excludeGroupTypesIds = null, $useCache = true, $searchTerm = null, $orderBy = null, $tagId = null) {
