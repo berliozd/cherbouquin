@@ -65,6 +65,11 @@ class Member_ChronicleController extends Zend_Controller_Action {
             $group = GroupDao::getInstance()->get($groupId);
             $this->view->group = $group;
             
+            // Get help url and add it to view model
+            $helpUrl = $this->view->url(array(), 'stepByStep');
+            $helpUrl .= "#chronicle";
+            $this->view->helpUrl = $helpUrl;
+            
             return $this->render("edit");
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));

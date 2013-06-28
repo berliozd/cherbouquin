@@ -43,10 +43,8 @@ class BookList {
                 }
 
                 // Paging
-                if ($this->listOptions->getPaging()) {
+                if ($this->listOptions->getPaging())
                     $pageId = $this->listOptions->getPaging()->getCurrentPageId();
-                    \Sb\Trace\Trace::addItem("Assignation de la page " . $pageId . " pour la liste de livre.");
-                }
 
                 // Searching
                 if ($this->listOptions->getSearch()) {

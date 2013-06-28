@@ -18,7 +18,6 @@ class BookSearch {
         if ($this->allResults) {
             $this->hasResults = true;
             if ($pageId) {
-                \Sb\Trace\Trace::addItem("Affectation du listOptions");
                 $listOptions = new \Sb\Lists\Options();
                 $paging = new \Sb\Lists\Paging();
                 $paging->setCurrentPageId($pageId);
@@ -44,7 +43,6 @@ class BookSearch {
         } else {
             // Pagination: Tentative de récupération des données depuis le cache
             $this->allResults = $cache->load($fullCacheKey);
-            \Sb\Trace\Trace::addItem(count($this->allResults) . " retrouvé(s) dans le cache.");
         }
     }
 
@@ -55,26 +53,20 @@ class BookSearch {
             $searchTerm = trim($searchTerm);
 
             // faire la recherche dans la base de donnée
-            \Sb\Trace\Trace::addItem('Début de recherche dans la base.');
             $this->allResults = \Sb\Db\Dao\BookDao::getInstance()->getListByKeyword($searchTerm);
-
-            \Sb\Trace\Trace::addItem(count($this->allResults) . " résulat(s) trouvé(s) dans la base.");
 
             try {
                 $amazonResults = null;
                 // si pas de résultat ou nb de resultats < à ce que l'on souhaite afficher, faire la recherche Amazon
                 if ((!$this->allResults) || (count($this->allResults) < $nbResultsToShow)) {
 
-                    \Sb\Trace\Trace::addItem('Pas de résultats trouvés dans la base ou pas suffisamment -> début de recherche sur Amazon.');
                     // Requesting amazon FR first
                     $amazonResults = $this->getAmazonResults($searchTerm, $amazonApiKey, $amazonSecretKey, $amazonAssociateTag, $amazonNumberOfPageRequested, 'FR');
                     // Requesting amazon US
                     if (!$amazonResults)
                         $amazonResults = $this->getAmazonResults($searchTerm, $amazonApiKey, $amazonSecretKey, $amazonAssociateTag, $amazonNumberOfPageRequested, 'US');
-                } else {
-                    \Sb\Trace\Trace::addItem('Résulats trouvés dans la base.');
                 }
-
+                
                 // si des résultats ont été trouvés avec Amazon
                 // si des résultats avaient été trouvés dans la base
                 // ==> ils doivent être mergés ensemble
@@ -83,17 +75,10 @@ class BookSearch {
                     $allResultsKeys = array_map(array(&$this, "extractKey"), $this->allResults);
                     $this->allResults = array_combine($allResultsKeys, $this->allResults);
 
-                    \Sb\Trace\Trace::addItem("Livres trouvés dans la base:" . implode(",", array_keys($this->allResults)));
-                    \Sb\Trace\Trace::addItem("Livres trouvés dans la Amazon:" . implode(",", array_keys($amazonResults)));
-                    \Sb\Trace\Trace::addItem("Merge des résulats issues de la base et de ceux issues de amazon.");
-
                     // Adding the books not present in sql found on amazon after the books that are already in sql
                     $this->allResults = $this->allResults + array_diff_key($amazonResults, $this->allResults);
 
-                    \Sb\Trace\Trace::addItem(count($this->allResults) . " résulat(s) après merge.");
-                    \Sb\Trace\Trace::addItem("Livres mergés:" . implode(",", array_keys($this->allResults)));
                 } elseif ($amazonResults) {
-                    \Sb\Trace\Trace::addItem("Les résulats sont issus d'amazon uniquement.");
                     $this->allResults = $amazonResults;
                 }
             } catch (\Exception $exc) {
@@ -131,10 +116,8 @@ class BookSearch {
 
             $tmpAmazonResults = null;
 
-            \Sb\Trace\Trace::addItem("Page " . $itemPageNum . " demandée.");
             // recherche faite sur le code isbn10
             if (strlen($searchTerm) == 10) {
-                \Sb\Trace\Trace::addItem('Recherche Amazon sur ISBN : ' . $searchTerm);
                 $tmpAmazonResults = $amazonService->itemSearch(
                         array('SearchIndex' => 'Books',
                             'AssociateTag' => $amazonAssociateTag,
@@ -143,7 +126,6 @@ class BookSearch {
                             //'Version' => $version,
                             'ItemPage' => $itemPageNum));
                 if (!$tmpAmazonResults || $tmpAmazonResults->totalResults() == 0) {
-                    \Sb\Trace\Trace::addItem('Recherche Amazon sur ASIN : ' . $searchTerm);
                     $tmpAmazonResults = $amazonService->itemSearch(
                             array('SearchIndex' => 'Books',
                                 'AssociateTag' => $amazonAssociateTag,
@@ -157,7 +139,6 @@ class BookSearch {
 
             // recherche faite sur le mot clé
             if (!$tmpAmazonResults || $tmpAmazonResults->totalResults() == 0) {
-                \Sb\Trace\Trace::addItem('Recherche Amazon sur mot clé : ' . $searchTerm);
                 $tmpAmazonResults = $amazonService->itemSearch(
                         array('SearchIndex' => 'Books',
                             'AssociateTag' => $amazonAssociateTag,
@@ -184,7 +165,6 @@ class BookSearch {
                 }
             }
         }
-        \Sb\Trace\Trace::addItem(count($booksFromAmazon) . " résultat(s) trouvé(s) sur amazon $amazonSite (après mapping vers Book).");
         return $booksFromAmazon;
     }
 
@@ -197,5 +177,3 @@ class BookSearch {
     }
 
 }
-
-?>

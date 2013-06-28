@@ -6,5 +6,6 @@
         <?php echo sprintf("Vous allez créer une chronique pour le groupe \"%s\".", $this->group->getName());?>
     <?php }?>
     </h1>
-    <?php echo $this->form?>    
+    <a class="help" href="<?php echo $this->helpUrl; ?>" target="_blank">(Aide sur le formulaire)</a>
+    <?php echo $this->form?>
 </div>

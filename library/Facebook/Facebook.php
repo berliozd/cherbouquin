@@ -75,22 +75,17 @@ class Facebook extends \BaseFacebook
   protected function clearPersistentData($key) {
     if (!in_array($key, self::$kSupportedKeys)) {
         \Sb\Trace\Trace::addItem("'Unsupported key passed to clearPersistentData.'");
-      self::errorLog('Unsupported key passed to clearPersistentData.');
-      return;
+		self::errorLog('Unsupported key passed to clearPersistentData.');
+		return;
     }
 
     $session_var_name = $this->constructSessionVariableName($key);
-    \Sb\Trace\Trace::addItem("clear SESSION :" . $session_var_name);
     unset($_SESSION[$session_var_name]);
-//    \Sb\Trace\Trace::addItem("clear COOKIE :" . $session_var_name);
-//    unset($_COOKIE[$session_var_name]);
   }
 
   protected function clearAllPersistentData() {
-      \Sb\Trace\Trace::addItem("clearAllPersistentData");
-    foreach (self::$kSupportedKeys as $key) {
-      $this->clearPersistentData($key);
-    }
+	foreach (self::$kSupportedKeys as $key)
+    	$this->clearPersistentData($key);
   }
 
   protected function constructSessionVariableName($key) {

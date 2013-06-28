@@ -28,3 +28,7 @@
 #chronicle-form #post_on_facebook-label {
     border-top:1px solid #CCC;
 }
+
+#chronicle-form .help {
+    color:#F00;
+}
