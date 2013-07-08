@@ -65,10 +65,10 @@ class Book implements \Sb\Db\Model\Model {
      *      inverseJoinColumns={@JoinColumn(name="contributor_id", referencedColumnName="id")}
      *      )
      * */
-    protected $contributors; // WARNING : Fetch mode is declared EAGER because we want to automatically get the contributors (and have it stored in cache with a Book)
+    protected $contributors;
 
     /**
-     * @ManyToOne(targetEntity="Publisher", inversedBy="books")
+     * @ManyToOne(targetEntity="Publisher", inversedBy="books", fetch="EAGER")
      * @JoinColumn(name="publisher_id", referencedColumnName="id")
      */
     protected $publisher;
@@ -113,9 +113,6 @@ class Book implements \Sb\Db\Model\Model {
     }
 
     public function setId($id) {
-        //        if ($this->id !== null && $this->id != $id) {
-        //            throw new \Exception('Cannot change identifier to ' . $id . ', already set to ' . $this->id);
-        //        }
         if (is_numeric($id)) {
             $this->id = (int) $id;
         }
