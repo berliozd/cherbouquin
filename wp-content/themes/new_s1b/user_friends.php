@@ -60,8 +60,6 @@ use Sb\View\Components\Ad;
     foreach ($friends as $friend) {                    
         $friendLibraryLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_LIBRARY, array("fid" => $friend->getId()));
         $friendProfileLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE, array("uid" => $friend->getId()));
-        $friendNbBooks = 0;
-        $friendNbBooks = count($friend->getNotDeletedUserBooks());
         if (($i%3 == 0) && ($i != 0)) {echo "<div class=\"horizontal-sep-1\"></div>";}
         $i += 1;
         ?>                        
@@ -94,9 +92,15 @@ use Sb\View\Components\Ad;
                     <a href="<?php echo $friendProfileLink;?>" class="link"><?php _e("Voir son profil","s1b");?></a>
                 </div>
                 <div class="fi-line-sep"></div>
-                <?php if ($friendNbBooks && ($friendNbBooks > 0)) { 
-                    $userbooks = $friend->getNotDeletedUserBooks();
-                    $book = $userbooks[count($userbooks)-1]->getBook(); // getting last book                        
+                <?php
+                // Get friend not deleted userbooks
+                $criteria = array();
+                $criteria["is_deleted"] = array(false, "=", 0);
+                $criteria["user"] = array(true, "=", $friend);
+                $orderBy = array("id" => "DESC");
+                $friendUserBooks = Sb\Db\Dao\UserBookDao::getInstance()->getList($criteria, $orderBy, 1);
+                if (count($friendUserBooks)) {
+                    $book = $friendUserBooks[count($friendUserBooks)-1]->getBook(); // getting last book
                     $bookLink = \Sb\Helpers\HTTPHelper::Link($book->getLink());
                 ?>
                     <div class="fi-image">
