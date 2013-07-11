@@ -267,7 +267,21 @@ A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bol
 .nur-image, .nur-status {float:left;}
 .nur-status {padding-left:2px; font-size: 1.2em;}
 .nurs-status {height: 25px; padding-right: 33px; padding-top:5px;}
-.nu-indice {background: url("../images/sprite.png?v=6") no-repeat scroll 0 -1678px transparent;font-size: 0.7em;height: 20px;padding-top: 2px;position: absolute;right: -10px;text-align: center;top: -18px;width: 21px;}
+
+.nu-indice {
+    background: url("../images/sprite.png?v=6") no-repeat scroll 0 -1678px transparent;
+    font-size: 0.7em;
+    height: 20px;
+    padding-top: 2px;
+    position: absolute;
+    right: -10px;
+    text-align: center;
+    top: -18px;
+    width: 21px;
+}
+
+span.nu-indice {color:#fff !important;}
+
 .nu-links {float: left;padding: 20px 20px 20px 10px; width: 750px; }
 
 .nul-links {
