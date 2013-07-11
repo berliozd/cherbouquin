@@ -1,7 +1,7 @@
 <?php
 require_once 'includes/init.php';
 
-require_once 'user_profile_edit_1.php';
+require_once 'TODELETE__user_profile_edit_1.php';
 
 get_header();
 /**

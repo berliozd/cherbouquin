@@ -28,7 +28,11 @@ use Sb\Helpers\UserHelper;
         <div class="buttons-bar">
             <div class="inner-padding">
                 <a class="button float-right bt-delete" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_DELETE_MESSAGE,array("mid" => $this->message->getId())); ?>"></a>
-                <a class="button float-right margin-right bt-blue-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_REPLY_MESSAGE, array("mid" => $this->message->getId())); ?>"><?php _e("répondre", "s1b"); ?></a>                
+                <?php
+                // Display "répondre" button only of message sender is not admin 
+                if ($this->message->getSender()->getId() != 1) {?>
+                <a class="button float-right margin-right bt-blue-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_REPLY_MESSAGE, array("mid" => $this->message->getId())); ?>"><?php _e("répondre", "s1b"); ?></a>
+                <?php }?>                
             </div>
         </div>
     </div>

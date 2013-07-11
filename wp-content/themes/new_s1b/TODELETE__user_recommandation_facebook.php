@@ -1,7 +1,7 @@
 <?php
 require_once 'includes/init.php';
 get_header();
-require_once 'user_recommandation_facebook_1.php';
+require_once 'TODELETE__user_recommandation_facebook_1.php';
 /**
  * Template Name: user_recommandation_facebook
  */

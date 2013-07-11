@@ -13,8 +13,6 @@ class Urls {
 
     const ACTIVATE = 'membre/activation'; // user_activate
     
-    const RECOMMAND_ON_FACEBOOK = "messagerie/recommander-facebook"; // user_recommandation_facebook
-
     const CONTACT = "contact"; // user_contact_form
     const ABOUT = "a-propos"; // user_about
     const TEAM = "lequipe"; // user_the_team
@@ -44,7 +42,8 @@ class Urls {
     const USER_HOME = "membre/a-la-page"; // Zend : member / index / index
     // User profile
     const MY_PROFILE = 'profil-membre'; // user_profile
-    const USER_PROFILE_EDIT = 'profil-membre/informations'; // user_profile_edit
+    const USER_PROFILE_EDIT = 'member/profile/edit';  // Zend : member / profile / edit
+    const USER_PROFILE_SUBMIT = 'member/profile/submit';  // Zend : member / profile / submit
     const USER_PROFILE_GRAVATAR = 'profil-membre/gravatar'; // user_profile_gravatar
     const USER_PROFILE_SETTINGS = 'profil-membre/parametrage'; // user_profile_settings
     const USER_PROFILE_DELETE_ACCOUNT = 'profil-membre/supprimer'; // user_profile_delete

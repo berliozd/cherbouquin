@@ -27,7 +27,6 @@ class ChronicleAdapter {
     /**
      */
     function __construct(Chronicle $chronicle) {
-
         $this->chronicle = $chronicle;
     }
 
@@ -36,7 +35,6 @@ class ChronicleAdapter {
      * @return \Sb\Model\ChronicleViewModelLight a chronicle as a ChronicleViewModelLight object
      */
     public function getAsChronicleViewModelLight() {
-
         $lightChronicle = new ChronicleViewModelLight();
         
         $this->setChronicleViewModelLight($lightChronicle);
@@ -62,11 +60,9 @@ class ChronicleAdapter {
         
         $chronicleViewModel->setText($this->chronicle->getText());
         
-        $chronicleViewModel->setUserName($this->chronicle->getUser()
-            ->getUserName());
+        $chronicleViewModel->setUserName($this->chronicle->getUser()->getUserName());
         $chronicleViewModel->setUserProfileLink(HTTPHelper::Link(Urls::USER_PROFILE, array(
-                "uid" => $this->chronicle->getUser()
-                    ->getId()
+                "uid" => $this->chronicle->getUser()->getId()
         )));
         $chronicleViewModel->setUserImage(UserHelper::getMediumImageTag($this->chronicle->getUser()));
         
@@ -133,16 +129,12 @@ class ChronicleAdapter {
             if ($this->chronicle->getTag()) {
                 $pressReviews = PressReviewSvc::getInstance()->getList(array(
                         "tag" => array(
-                                true,
-                                "=",
-                                $this->chronicle->getTag()
-                        ),
-                		// Add is_validated criteria
-                		"is_validated" => array (
-                				false,
-                				"=",
-                				1
-                		)
+                                true, "=", $this->chronicle->getTag()
+                        ), 
+                        // Add is_validated criteria
+                        "is_validated" => array(
+                                false, "=", 1
+                        )
                 ), $nbPressReviews, $useCache);
             }
             
@@ -153,9 +145,7 @@ class ChronicleAdapter {
                     // Get press review with same keywords
                     $criteria = array(
                             "keywords" => array(
-                                    false,
-                                    "LIKE",
-                                    $keyWord
+                                    false, "LIKE", $keyWord
                             )
                     );
                     $pressReviewsWithKeywords = PressReviewSvc::getInstance()->getList($criteria, $nbPressReviews, $useCache);
@@ -200,15 +190,12 @@ class ChronicleAdapter {
         $lightChronicle->setDetailLink($this->chronicle->getDetailLink());
         
         // Set Image
-        if ($this->chronicle->getBook() && $this->chronicle->getBook()
-            ->getId() > 0)
-            $lightChronicle->setImage($this->chronicle->getBook()
-                ->getLargeImageUrl());
+        if ($this->chronicle->getBook() && $this->chronicle->getBook()->getId() > 0)
+            $lightChronicle->setImage($this->chronicle->getBook()->getLargeImageUrl());
         else if ($this->chronicle->getImage())
             $lightChronicle->setImage($this->chronicle->getImage());
         else if ($this->chronicle->getTag())
-            $lightChronicle->setImage(sprintf("/images/tag/tag_id%s.jpg", $this->chronicle->getTag()
-                ->getId()));
+            $lightChronicle->setImage(sprintf("/images/tag/tag_id%s.jpg", $this->chronicle->getTag()->getId()));
         else
             $lightChronicle->setImage("/public/Resources/images/chronicle-default-img.png");
     }
@@ -226,8 +213,7 @@ class ChronicleAdapter {
         if ($this->chronicle->getTag()) {
             // nb of chronicles requested is + 1 as the current chronicle will be returned in the results
             $chroniclesWithTag = ChronicleSvc::getInstance()->getChroniclesWithTags(array(
-                    $this->chronicle->getTag()
-                        ->getId()
+                    $this->chronicle->getTag()->getId()
             ), $nbOfSimilarChronicles + 1, $useCache);
             $chroniclesWithTag = ChronicleHelper::getDifferentChronicles($this->chronicle, $chroniclesWithTag, $nbOfSimilarChronicles);
             $similarChronicles = $chroniclesWithTag;
@@ -275,8 +261,7 @@ class ChronicleAdapter {
 
     private function getSameAuthorChronicles($nbChroniclesToReturn, $useCache = true) {
         // Get same author chronicles and add it to model view
-        $authorChronicles = ChronicleSvc::getInstance()->getAuthorChronicles($this->chronicle->getUser()
-            ->getId(), $useCache);
+        $authorChronicles = ChronicleSvc::getInstance()->getAuthorChronicles($this->chronicle->getUser()->getId(), $useCache);
         if ($authorChronicles)
             $authorChronicles = ChronicleHelper::getDifferentChronicles($this->chronicle, $authorChronicles, $nbChroniclesToReturn);
         
