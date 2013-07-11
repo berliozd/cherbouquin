@@ -25,7 +25,6 @@ use Sb\Db\Service\BookSvc;
 use Sb\View\BookCoverFlip;
 use Sb\Db\Service\TagSvc;
 use Sb\View\Components\ContentSearch;
-
 class Default_ChronicleController extends Zend_Controller_Action {
 
     private $navigationParamName = "pagenumber";
@@ -41,25 +40,20 @@ class Default_ChronicleController extends Zend_Controller_Action {
     public function init() {
         
         // Add css
-        $this->view->headLink()
-            ->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
+        $this->view->headLink()->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
         
         // Add js files
-        $this->view->placeholder('footer')
-            ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
-        $this->view->placeholder('footer')
-            ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/content.js?v=' . VERSION . "\"></script>");
+        $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
+        $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/content.js?v=' . VERSION . "\"></script>");
     }
 
     /**
      * The default action - show a chronicle detail page
      */
     public function indexAction() {
-
         try {
             
-            $this->view->headLink()
-                ->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
+            $this->view->headLink()->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
             
             // Get chronicle id from request
             $chronicleId = $this->getParam("cid");
@@ -69,8 +63,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
             
             if ($chroniclePage) {
                 // Increment chronicle nb views
-                $this->incrementChronicleNbViews($chroniclePage->getChronicle()
-                    ->getId());
+                $this->incrementChronicleNbViews($chroniclePage->getChronicle()->getId());
                 
                 // Add main chronicle view model to model view
                 $chronicleView = new ChronicleDetail($chroniclePage->getChronicleViewModel());
@@ -99,17 +92,14 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 // Get reviews and add it to model view
                 if ($chroniclePage->getUserBooksReviews()) {
                     $paginatedList = new PaginatedList($chroniclePage->getUserBooksReviews(), 5);
-                    $reviewsView = new BookReviews($paginatedList, $chroniclePage->getChronicle()
-                        ->getBook()
-                        ->getId());
+                    $reviewsView = new BookReviews($paginatedList, $chroniclePage->getChronicle()->getBook()->getId());
                     $this->view->reviews = $reviewsView->get();
                 }
                 
                 // Get video press review and add it to view model
                 if ($chroniclePage->getVideoPressReview())
-                    $this->view->videoUrl = $chroniclePage->getVideoPressReview()
-                        ->getLink(); //
-                                         
+                    $this->view->videoUrl = $chroniclePage->getVideoPressReview()->getLink(); //
+                                                                                                  
                 // Add common items to model view
                 $this->addCommonItemsToModelView();
                 
@@ -119,11 +109,12 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 $this->view->metaDescription = $headerInformation->getDescription();
                 $this->view->metaKeywords = $headerInformation->getKeywords();
                 $this->view->urlCanonical = $headerInformation->getUrlCanonical();
+                $this->view->pageImage = $headerInformation->getPageImage();
             } else {
                 Flash::addItem(__("La chronique que vous souhaitez consulter n'existe pas.", "s1b"));
                 HTTPHelper::redirectToReferer();
             }
-        } catch (\Exception $e) {
+        } catch ( \Exception $e ) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
@@ -133,7 +124,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * Action for chronicles list pages
      */
     public function listAction() {
-
         try {
             
             $pageNumber = $this->getParam($this->navigationParamName, null);
@@ -159,7 +149,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
             
             // Add chronicles list action common items to model view
             $this->addCommonListItemsToModelView($key, $chronicles, $pageNumber, null, null, null);
-        } catch (\Exception $e) {
+        } catch ( \Exception $e ) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
@@ -169,7 +159,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * Action for chronicles list pages
      */
     public function searchAction() {
-
         try {
             
             $pageNumber = $this->getParam($this->navigationParamName, null);
@@ -224,7 +213,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
             $this->addCommonListItemsToModelView($key, $chronicles, $pageNumber, $tagId, $searchTerm, $initUrl);
             
             $this->render("list");
-        } catch (\Exception $e) {
+        } catch ( \Exception $e ) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
@@ -235,13 +224,11 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @param int $chronicleId
      */
     private function incrementChronicleNbViews($chronicleId) {
-
         $cookieName = "chroniclesSeen";
         $chronicleNotSeen = false;
         
         // Get cookie 'chroniclesSeen'
-        $chroniclesSeenCookie = $this->getRequest()
-            ->getCookie($cookieName);
+        $chroniclesSeenCookie = $this->getRequest()->getCookie($cookieName);
         
         // Parse cookie and tell if current chronicle has been seen already
         if ($chroniclesSeenCookie) {
@@ -274,9 +261,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @param String $cookieValue
      */
     private function setChronicleSeenCookie($cookieName, $cookieValue) {
-
-        $this->getResponse()
-            ->setRawHeader(new Zend_Http_Header_SetCookie($cookieName, $cookieValue, time() + 3600 * 24, '/', HTTPHelper::getHostBase(), false, true));
+        $this->getResponse()->setRawHeader(new Zend_Http_Header_SetCookie($cookieName, $cookieValue, time() + 3600 * 24, '/', HTTPHelper::getHostBase(), false, true));
     }
 
     /**
@@ -284,7 +269,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @param Chronicle $chronicle
      */
     private function incrementChronicleInDB(Chronicle $chronicle) {
-
         $chronicle->setNb_views($chronicle->getNb_views() + 1);
         ChronicleDao::getInstance()->update($chronicle);
     }
@@ -295,23 +279,19 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @return \Sb\View\BookReviews NULL BookReviews object or NULL
      */
     private function getReviews(Chronicle $chronicle) {
-
         if ($chronicle->getBook()) {
             
             // book reviews
-            $userBooks = $chronicle->getBook()
-                ->getNotDeletedUserBooks();
+            $userBooks = $chronicle->getBook()->getNotDeletedUserBooks();
             $reviewedUserBooks = array_filter($userBooks, array(
-                    &$this,
-                    "isReviewed"
+                    &$this, "isReviewed"
             ));
             
             $reviews = "";
             if ($reviewedUserBooks) {
                 
                 $paginatedList = new PaginatedList($reviewedUserBooks, 5);
-                $reviewsView = new BookReviews($paginatedList, $chronicle->getBook()
-                    ->getId());
+                $reviewsView = new BookReviews($paginatedList, $chronicle->getBook()->getId());
                 
                 return $reviewsView;
             }
@@ -321,10 +301,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
     }
 
     private function isReviewed(UserBook $userBook) {
-
-        if ($userBook->getReview()) {
-            return true;
-        }
+        if ($userBook->getReview()) {return true;}
     }
 
     /**
@@ -343,16 +320,12 @@ class Default_ChronicleController extends Zend_Controller_Action {
         // Newsreader
         $criteria = array(
                 "type" => array(
-                        false,
-                        "=",
-                        PressReviewTypes::ARTICLE
-                ),
-        		// Add is_validated criteria
-        		"is_validated" => array (
-        				false,
-        				"=",
-        				1
-        		)
+                        false, "=", PressReviewTypes::ARTICLE
+                ), 
+                // Add is_validated criteria
+                "is_validated" => array(
+                        false, "=", 1
+                )
         );
         $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
         if ($pressReviews) {
@@ -369,7 +342,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @param String $navigationParamName the page navigation param name
      */
     private function addCommonListItemsToModelView($key, $chronicles, $pageNumber, $tagId, $searchTerm, $initUrl) {
-
         switch ($key) {
             case self::PAGE_KEY_ANY_GROUPS :
                 
@@ -414,8 +386,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
         // Add more seen chronicles to model view
         $nbMoreSeenChronicles = 5;
         $orderArray = array(
-                "nb_views",
-                "DESC"
+                "nb_views", "DESC"
         );
         switch ($key) {
             case self::PAGE_KEY_ANY_GROUPS :
@@ -435,17 +406,14 @@ class Default_ChronicleController extends Zend_Controller_Action {
         }
         
         // Get books with press reviews
-        $this->view->placeholder('footer')
-            ->append("<script src=\"" . BASE_URL . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
-        $this->view->placeholder('footer')
-            ->append("<script>$(function () {initCoverFlip('booksWithPressReviews', 30)});</script>\n");
+        $this->view->placeholder('footer')->append("<script src=\"" . BASE_URL . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+        $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('booksWithPressReviews', 30)});</script>\n");
         $books = BookSvc::getInstance()->getListWithPressReviews(15);
         $booksCoverFlip = new BookCoverFlip($books, __("Les livres dont parlent <strong>les médias</strong>", "s1b"), "booksWithPressReviews", "");
         $this->view->booksCoverFlip = $booksCoverFlip->get();
         
         // Add SEO (title, meta description and keywords)
-        $routeName = Zend_Controller_Front::getInstance()->getRouter()
-            ->getCurrentRouteName();
+        $routeName = Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName();
         $headerInformation = HeaderInformationSvc::getInstance()->getByRouteName($routeName);
         $this->view->tagTitle = $headerInformation->getTitle();
         $this->view->metaDescription = $headerInformation->getDescription();
@@ -458,7 +426,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @param array of ChronicleViewModel $value
      */
     private function setResultsInSession($key, $value) {
-
         $sessionData = new Zend_Session_Namespace(self::CHRONICLES_LIST);
         
         switch ($key) {
@@ -479,7 +446,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
      * @param String $key the page key (last chronicles, bloggers, bookstores)
      */
     private function getResultsInSession($key) {
-
         $sessionData = new Zend_Session_Namespace(self::CHRONICLES_LIST);
         
         switch ($key) {

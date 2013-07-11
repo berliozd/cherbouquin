@@ -16,33 +16,29 @@ class HeaderInformation {
 
     private $urlCanonical;
 
-    public function getTitle() {
+    private $pageImage;
 
+    public function getTitle() {
         return $this->title;
     }
 
     public function setTitle($title) {
-
         $this->title = $title;
     }
 
     public function getDescription() {
-
         return $this->description;
     }
 
     public function setDescription($description) {
-
         $this->description = $description;
     }
 
     public function getKeywords() {
-
         return $this->keywords;
     }
 
     public function setKeywords($keywords) {
-
         $this->keywords = $keywords;
     }
 
@@ -51,7 +47,6 @@ class HeaderInformation {
      * @return String $urlCanonical
      */
     public function getUrlCanonical() {
-
         return $this->urlCanonical;
     }
 
@@ -60,8 +55,23 @@ class HeaderInformation {
      * @param String $urlCanonical
      */
     public function setUrlCanonical($urlCanonical) {
-
         $this->urlCanonical = $urlCanonical;
+    }
+
+    /**
+     *
+     * @return String $pageImage
+     */
+    public function getPageImage() {
+        return $this->pageImage;
+    }
+
+    /**
+     *
+     * @param String $pageImage
+     */
+    public function setPageImage($pageImage) {
+        $this->pageImage = $pageImage;
     }
 
 }

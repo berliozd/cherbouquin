@@ -211,7 +211,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
                     "action" => "post-on-facebook"
             ));
             // Testing if user is facebook connected
-            $facebookSvc = new \Sb\Facebook\Service\FacebookSvc(SHARE1BOOK_FACEBOOK_API_ID, SHARE1BOOK_FACEBOOK_SECRET, $returnUri, $home);
+            $facebookSvc = new FacebookSvc(SHARE1BOOK_FACEBOOK_API_ID, SHARE1BOOK_FACEBOOK_SECRET, $returnUri, $home);
             $facebookUser = $facebookSvc->getUser();
             if ($facebookUser) {
                 $sessionData = new Zend_Session_Namespace(self::EDIT_CHRONICLE_NAMESPACE);

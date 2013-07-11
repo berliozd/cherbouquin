@@ -24,14 +24,12 @@ class HeaderInformationSvc extends Service {
      * @return HeaderInformationSvc
      */
     public static function getInstance() {
-
         if (!self::$instance)
             self::$instance = new HeaderInformationSvc();
         return self::$instance;
     }
 
     protected function __construct() {
-
         parent::__construct("HeaderInformation");
     }
 
@@ -41,7 +39,6 @@ class HeaderInformationSvc extends Service {
      * @return \Sb\Model\HeaderInformation HeaderInformation object for book pages
      */
     public function get(Book $book) {
-
         try {
             $result = new HeaderInformation();
             
@@ -51,9 +48,8 @@ class HeaderInformationSvc extends Service {
             // Set title tag
             $publisherName = "";
             if ($book->getPublisher())
-                $publisherName = $book->getPublisher()
-                    ->getName(); //
-                                     
+                $publisherName = $book->getPublisher()->getName(); //
+                                 
             // Get if book is an ebook
             $bookIsEbook = !$book->getISBN10() && (substr($book->getASIN(), 0, 1) == "B");
             
@@ -85,21 +81,23 @@ class HeaderInformationSvc extends Service {
             if ($bookTags && count($bookTags) > 0) {
                 $firstTags = array_slice($bookTags, 0, 5);
                 $firstTagNames = array_map(array(
-                        &$this,
-                        "getTagName"
+                        &$this, "getTagName"
                 ), $firstTags);
                 $tags = implode(" | ", $firstTagNames);
             }
             $keywords = sprintf(__("%s | %s | %s", "s1b"), $book->getTitle(), $book->getOrderableContributors(), $publisherName);
             if ($tags != "")
-                $keywords = sprintf(__("%s | %s | %s | %s", "s1b"), $book->getTitle(), $book->getOrderableContributors(), $publisherName, $tags);
-                
-                // Remove double quotes
+                $keywords = sprintf(__("%s | %s | %s | %s", "s1b"), $book->getTitle(), $book->getOrderableContributors(), $publisherName, $tags); //
+                                                                                                                                                      
+            // Remove double quotes
             $keywords = str_replace("\"", "", $keywords);
             $result->setKeywords($keywords);
             
+            // Set page image
+            $result->setPageImage($book->getImageUrl());
+            
             return $result;
-        } catch (\Exception $exc) {
+        } catch ( \Exception $exc ) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
     }
@@ -110,23 +108,18 @@ class HeaderInformationSvc extends Service {
      * @return \Sb\Model\HeaderInformation
      */
     public function getForChroniclePage(ChroniclePage $chroniclePage) {
-
         $result = new HeaderInformation();
         
-        $result->setTitle($chroniclePage->getChronicleViewModel()
-            ->getTitle());
-        $result->setDescription($chroniclePage->getChronicleViewModel()
-            ->getShortenText());
-        $result->setKeywords($chroniclePage->getChronicle()
-            ->getKeywords());
-        $result->setUrlCanonical($chroniclePage->getChronicleViewModel()
-            ->getDetailLink());
+        $result->setTitle($chroniclePage->getChronicleViewModel()->getTitle());
+        $result->setDescription($chroniclePage->getChronicleViewModel()->getShortenText());
+        $result->setKeywords($chroniclePage->getChronicle()->getKeywords());
+        $result->setUrlCanonical($chroniclePage->getChronicleViewModel()->getDetailLink());
+        $result->setPageImage($chroniclePage->getChronicleViewModel()->getImage());
         
         return $result;
     }
 
     public function getForLastAddedPage($pageNumber, $tagLabel = null) {
-
         try {
             $result = new HeaderInformation();
             
@@ -139,13 +132,12 @@ class HeaderInformationSvc extends Service {
             $result->setKeywords($keyWords);
             
             return $result;
-        } catch (\Exception $exc) {
+        } catch ( \Exception $exc ) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
     }
 
     public function getForBohPage($pageNumber, $tagLabel = null) {
-
         try {
             $result = new HeaderInformation();
             
@@ -158,13 +150,12 @@ class HeaderInformationSvc extends Service {
             $result->setKeywords($keyWords);
             
             return $result;
-        } catch (\Exception $exc) {
+        } catch ( \Exception $exc ) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
     }
 
     public function getForTopsPage($pageNumber, $tagLabel = null) {
-
         try {
             $result = new HeaderInformation();
             
@@ -177,13 +168,12 @@ class HeaderInformationSvc extends Service {
             $result->setKeywords($keyWords);
             
             return $result;
-        } catch (\Exception $exc) {
+        } catch ( \Exception $exc ) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
     }
 
     public function getByRouteName($routeName) {
-
         try {
             $result = new HeaderInformation();
             
@@ -263,18 +253,16 @@ class HeaderInformationSvc extends Service {
             }
             
             return $result;
-        } catch (\Exception $exc) {
+        } catch ( \Exception $exc ) {
             $this->logException(get_class(), __FUNCTION__, $exc);
         }
     }
 
     private function getTagName(Tag $tag) {
-
         return $tag->getLabel();
     }
 
     private function addPageAndTag($title, $pageNumber, $tagLabel = null) {
-
         if ($pageNumber > 1)
             $title .= sprintf(__(" - page %s", "s1b"), $pageNumber);
         if ($tagLabel)
