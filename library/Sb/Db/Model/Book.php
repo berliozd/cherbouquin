@@ -292,11 +292,11 @@ class Book implements \Sb\Db\Model\Model {
         }
         $publicationInfo = "";
         if ($this->getPublishingDate() && $pub) // publisher et date de publication renseignées
-            $publicationInfo = sprintf(__("Publié le <span itemprop=\"datePublished\" content=\"%s\">%s</span> <span class=\"publisher\" itemprop=\"publisher\">par %s</span>", "s1b"), $this->getPublishingDate()->format(__("Y-m-d", "s1b")), $pubDtStr, $pub);
+            $publicationInfo = sprintf(__("Publié le <span itemprop=\"datePublished\" content=\"%s\">%s</span> par <span class=\"publisher\" itemprop=\"publisher\">%s</span>", "s1b"), $this->getPublishingDate()->format(__("Y-m-d", "s1b")), $pubDtStr, $pub);
         elseif ($this->getPublishingDate()) // date de publication renseignée
             $publicationInfo = sprintf(__("Publié le <span itemprop=\"datePublished\" content=\"%s\">%s</span>", "s1b"), $this->getPublishingDate()->format(__("Y-m-d", "s1b")), $pubDtStr);
         elseif ($pub) // publisher renseigné
-            $publicationInfo = sprintf(__("Publié <span class=\"publisher\" itemprop=\"publisher\">par %s</span>", "s1b"), $pub);
+            $publicationInfo = sprintf(__("Publié par <span class=\"publisher\" itemprop=\"publisher\">%s</span>", "s1b"), $pub);
 
         return $publicationInfo;
     }

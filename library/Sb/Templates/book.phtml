@@ -52,8 +52,8 @@
                 <h1 class="pbi-title" itemprop="name">
                     <?php echo $bookTitle; ?>
                 </h1>
-                <div class="pbi-authors" itemprop="author">
-                    <?php echo sprintf("de %s", $bookAuthors); ?>
+                <div class="pbi-authors">
+                    <?php echo sprintf("de <span itemprop=\"author\">%s</span>", $bookAuthors); ?>
                 </div>
                 <div class="pbi-description" itemprop="description">
                     <?php echo $bookDescription; ?>                    
