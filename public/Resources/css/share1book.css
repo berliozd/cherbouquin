@@ -101,7 +101,7 @@ INPUT.button, BUTTON.button {height:28px; padding:0; font-size: 10px;}
 .see-more {background-color: #F2F2F2;float: left; text-align: right;text-transform: uppercase;width: 100%;font-size: 0.9em;font-weight: bold;}
 .see-more A, .see-more A:visited, .see-more A:hover {color: #000000;text-decoration: none;}
 .stars {float:left;margin:0;width:80px; height:20px;}
-DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px;}
+DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px; text-indent: -999em;}
 .blowofheart {background: url("../images/sprite.png?v=6") no-repeat scroll 2px -392px transparent;float: left;width: 22px; height: 18px; padding-top: 5px;}
 .no-rating {background: url("../images/sprite.png?v=6") no-repeat scroll 0 -569px transparent;}
 .rating-0 {background: url("../images/sprite.png?v=6") no-repeat scroll 0 -427px transparent;}

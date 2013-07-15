@@ -87,7 +87,7 @@ class Book extends \Sb\View\AbstractView {
             $isConnected = false;
         }
 
-        $image = \Sb\Helpers\BookHelper::getMediumImageTag($this->book, $this->defImg);
+        $image = \Sb\Helpers\BookHelper::getMediumImageTag($this->book, $this->defImg, true);
         $bookTitle = $this->book->getTitle();
         $bookDescription = $this->book->getDescription();
         $bookPublication = $this->book->getPublicationInfo();
