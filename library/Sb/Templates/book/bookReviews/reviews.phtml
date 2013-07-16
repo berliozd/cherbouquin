@@ -26,7 +26,8 @@
                 
                 $userReviewLink = Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE, array("uid"=>$userBook->getUser()->getId()));
                 $userReviewDate = $userBook->getLastModificationDate()->format(__("d/m/Y H:i:s", "s1b"));
-                $reviewPublication = sprintf(__("Publié le %s <strong>par <a class=\"link\" href=\"%s\">%s</a></strong>", "s1b"), $userReviewDate, $userReviewLink,  $userBookUserName);
+                $userReviewDateForMeta = $userBook->getLastModificationDate()->format(__("Y-m-d", "s1b"));
+                $reviewPublication = sprintf(__("Publié le <meta itemprop=\"datePublished\" content=\"%s\" />%s <strong>par <a class=\"link\" href=\"%s\" itemprop=\"author\">%s</a></strong>", "s1b"), $userReviewDateForMeta, $userReviewDate, $userReviewLink,  $userBookUserName);
                 $rating = $userBook->getRating();
                 $ratingCss = "rating-" . $rating;
                 $isBlowOfHeart = $userBook->getIsBlowOfHeart();
@@ -35,21 +36,21 @@
                 <?php if ($i != 1) { ?>
                     <div class="horizontal-sep-1"></div>
                 <?php }; ?>
-                <div class="bvr-item">
-                    <img src="<?php echo $imageSrc; ?>" class="image-frame image-thumb-square-small float-left"/>
+                <div class="bvr-item" itemprop="review" itemscope itemtype="http://schema.org/Review">
+                    <img src="<?php echo $imageSrc; ?>" class="image-frame image-thumb-square-small float-left" itemprop="image" />
                     <div class="bvri-content">
                         <div class="bvri-plublication">
                             <?php echo $reviewPublication; ?>                
                         </div>
                         <div class="bvri-rating">
                             <?php if ($rating) { ?>
-                                <div class="rating <?php echo $ratingCss; ?>"></div>
+                                <div class="rating <?php echo $ratingCss; ?>" itemprop="reviewRating"><?php echo $rating;?></div>
                             <?php } ?>
                             <?php if ($isBlowOfHeart) { ?>
                                 <div class="blowofheart <?php echo ($rating ? "picto-sep" : "") ?>"></div>
                             <?php } ?>
                         </div>
-                        <div class="bvri-review"><?php echo $userBook->getReview(); ?></div>
+                        <div class="bvri-review" itemprop="reviewBody"><?php echo $userBook->getReview(); ?></div>
                         <?php if ($userBook->getHyperLink()) { ?>
                             <div class="bvri-link">
                             <?php _e("Lien : ", "s1b"); ?><a href="http://<?php echo trim($userBook->getHyperLink()); ?>" target="_blank" class="link" ><?php echo \Sb\Helpers\StringHelper::tronque($userBook->getHyperLink(), 100); ?></a>
