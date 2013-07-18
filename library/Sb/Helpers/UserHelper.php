@@ -16,7 +16,7 @@ class UserHelper {
     }
 
     public static function getMediumImageTag(User $user) {
-        return sprintf("<img src=\"%s\" title=\"%s\" border='0' class=\"user-thumb\" />", $user->getGravatar(), $user->getUserName());
+        return sprintf("<img src=\"%s\" title=\"%s\" border='0' class=\"user-thumb\" itemprop=\"image\" />", $user->getGravatar(), $user->getUserName());
     }
 
     public static function getSmallImageTag(User $user) {

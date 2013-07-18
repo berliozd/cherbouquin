@@ -2,12 +2,12 @@
 use Sb\Helpers\BookHelper; 
 use Sb\Helpers\HTTPHelper;
 ?>
-<div id="chronicle">
+<div id="chronicle" itemscope itemtype="http://schema.org/Article">
     <div class="inner-padding-20">
-        <div class="chr-top">
+        <div class="chr-top" >
             <div class="chr-left">
-                <div class="chr-userimage">
-                    <a title="<?php echo $chronicle->getUserName(); ?>" href="<?php echo $chronicle->getUserProfileLink(); ?>"> <?php echo $chronicle->getUserImage(); ?>
+                <div class="chr-userimage" itemscope itemtype="http://schema.org/Person">
+                    <a title="<?php echo $chronicle->getUserName(); ?>" href="<?php echo $chronicle->getUserProfileLink(); ?>" > <?php echo $chronicle->getUserImage(); ?>
                     </a>
                 </div>
             </div>
@@ -17,7 +17,7 @@ use Sb\Helpers\HTTPHelper;
                     ?>
                 </div>
                 <?php echo $socialNetworksBar; ?>
-                <h1><?php echo $chronicle->getTitle(); ?></h1>
+                <h1 itemprop="name"><?php echo $chronicle->getTitle(); ?></h1>
             </div>
         </div>
         <div class="chr-bottom">
@@ -25,17 +25,17 @@ use Sb\Helpers\HTTPHelper;
                 <?php if ($chronicle->getChronicleHasBook()) { ?>
                 <div class="chr-bookimage">
                     <a title="<?php echo $chronicle->getBook()->getTitle(); ?> - <?php echo $chronicle->getBook()->getOrderableContributors(); ?>"
-                        href="<?php echo HTTPHelper::Link($chronicle->getBook()->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($chronicle->getBook(), BookHelper::getDefaultImage()); ?></a>
+                        href="<?php echo HTTPHelper::Link($chronicle->getBook()->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($chronicle->getBook(), BookHelper::getDefaultImage(), true); ?></a>
                 </div>
                 <?php } ?>
             </div>
             <div class="chr-right">
-                <div class="chr-text">
+                <div class="chr-text" itemprop="articleBody">
                     <?php echo $chronicle->getText(); ?>
                 </div>
                 <?php if ($chronicle->getLink()) { ?>
                 <div class="chr-link">
-                    <a href="<?php echo $chronicle->getLink(); ?>" class="link <?php echo $chronicle->getLinkCss(); ?>" target="_blank"><?php echo $chronicle->getLinkText(); ?></a>
+                    <a href="<?php echo $chronicle->getLink(); ?>" class="link <?php echo $chronicle->getLinkCss(); ?>" target="_blank" itemprop="isBasedOnUrl"><?php echo $chronicle->getLinkText(); ?></a>
                 </div>
                 <?php } ?>
                 <?php if ($chronicle->getSource()) { ?>
