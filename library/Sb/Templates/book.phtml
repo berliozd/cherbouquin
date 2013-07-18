@@ -20,14 +20,14 @@
                 <?php echo $image; ?>
             </div>            
             <div class="pbi-content">
-                <div class="pbi-flags">
+                <div class="pbi-flags" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                     <?php if ($isInLibrary) { ?>
                         <?php if ($rating) { ?>
                             <div class="pbif-rating-label"><?php _e("Ma note ", "s1b"); ?></div>
                             <div class="rating <?php echo $ratingCss; ?>"></div>
                         <?php } elseif ($averageRating) { ?>
                             <div class="pbif-rating-label"><?php echo sprintf(__("Note moyenne (<span itemprop=\"reviewCount\">%s</span> note(s))", "s1b"), $nbRatings); ?></div>
-                            <div class="rating <?php echo $ratingCss; ?>" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" >
+                            <div class="rating <?php echo $ratingCss; ?>" >
                                 <span itemprop="ratingValue"><?php echo $averageRating;?></span>
                             </div>
                         <?php } ?>
@@ -43,7 +43,7 @@
                     <?php } else { ?>                    
                         <?php if ($averageRating) { ?>
                             <div class="pbif-rating-label"><?php echo sprintf(__("Note moyenne (<span itemprop=\"reviewCount\">%s</span> note(s))", "s1b"), $nbRatings); ?></div>
-                            <div class="rating <?php echo $ratingCss; ?>" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" >
+                            <div class="rating <?php echo $ratingCss; ?>" >
                                 <span itemprop="ratingValue"><?php echo $averageRating;?></span>
                             </div>
                         <?php } ?>
