@@ -13,7 +13,7 @@ use Sb\Helpers\HTTPHelper;
             </div>
             <div class="chr-right">
                 <div class="chr-username">
-                    <?php echo sprintf(__("<a class=\"link\" href=\"%s\">%s</a> le %s | %s", "s1b"), $chronicle->getUserProfileLink(), $chronicle->getUserName(), $chronicle->getCreationDate()->format(__("d/m/Y", "s1b")), $chronicle->getTypeLabel());
+                    <?php echo sprintf(__("<a class=\"link\" href=\"%s\">%s</a> le <meta itemprop=\"datePublished\" content=\"%s\"> %s | %s", "s1b"), $chronicle->getUserProfileLink(), $chronicle->getUserName(), $chronicle->getCreationDate()->format(__("Y-m-d", "s1b")), $chronicle->getCreationDate()->format(__("d/m/Y", "s1b")), $chronicle->getTypeLabel());
                     ?>
                 </div>
                 <?php echo $socialNetworksBar; ?>
