@@ -32,8 +32,7 @@ class Default_IndexController extends Zend_Controller_Action {
     public function init() {
         
         // Add homepage css to head
-        $this->view->headLink()
-            ->appendStylesheet(BASE_URL . "Resources/css/homepage.css?v=" . VERSION);
+        $this->view->headLink()->appendStylesheet(BASE_URL . "Resources/css/homepage.css?v=" . VERSION);
     }
 
     /**
@@ -41,21 +40,16 @@ class Default_IndexController extends Zend_Controller_Action {
      * @global type $globalContext
      */
     public function indexAction() {
-
         try {
             global $globalContext;
             
-            $this->view->placeholder('footer')
-                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");
+            $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");
             
-            $this->view->placeholder('footer')
-                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
-            $this->view->placeholder('footer')
-                ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/content.js?v=' . VERSION . "\"></script>");
+            $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
+            $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/content.js?v=' . VERSION . "\"></script>");
             
             // Add chronicle css to head
-            $this->view->headLink()
-                ->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
+            $this->view->headLink()->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
             
             $this->view->tagTitle = sprintf(__("%s : livre et littérature - tops | coups de cœur | critiques", "s1b"), \Sb\Entity\Constants::SITENAME);
             $this->view->metaDescription = __("Créez votre bibliothèque, partagez vos livres et coups de cœur avec la communauté de lecteurs et offrez le bon livre sans risque de doublon", "s1b");
@@ -77,10 +71,8 @@ class Default_IndexController extends Zend_Controller_Action {
                 $this->view->googlePlus = $googlePlus->get();
             }
             
-            $this->view->placeholder('footer')
-                ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>");
-            $this->view->placeholder('footer')
-                ->append("<script>$(function() {initCarousel('carousel-items', 980, 340)});</script>");
+            $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>");
+            $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-items', 980, 340)});</script>");
             
             // Getting auto promo widget
             $autoPromoWishlist = new AutoPromoWishlistWidget();
@@ -90,10 +82,8 @@ class Default_IndexController extends Zend_Controller_Action {
             $this->setViewChronicles();
             
             // Getting last rated books cover flip
-            $this->view->placeholder('footer')
-                ->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
-            $this->view->placeholder('footer')
-                ->append("<script>$(function () {initCoverFlip('lastRatedBooks', 30)});</script>\n");
+            $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+            $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('lastRatedBooks', 30)});</script>\n");
             $lastRatedBooks = BookSvc::getInstance()->getLastRatedBookForHomePage();
             $lastRatedCoverFlip = new BookCoverFlip($lastRatedBooks, __("Derniers livres notés", "s1b"), "lastRatedBooks", "");
             $this->view->lastRatedCoverFlip = $lastRatedCoverFlip->get();
@@ -113,15 +103,13 @@ class Default_IndexController extends Zend_Controller_Action {
                 $newsReader = new NewsReader($pressReviews);
                 $this->view->newsReader = $newsReader->get();
             }
-            
-        } catch (\Exception $e) {
+        } catch ( \Exception $e ) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
     }
 
     public function logAction() {
-
         $invalidDataMsg = __("Les informations saisies ne nous permettent pas de vous authentifier.", "s1b");
         $accountNotActivated = __("Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.", "s1b");
         $accountDeleted = __("Votre compte a été supprimé.", "s1b");
@@ -153,12 +141,38 @@ class Default_IndexController extends Zend_Controller_Action {
         $this->_redirect('');
     }
 
+    public function activateAction() {
+        $email = $this->getParam("Email", null);
+        
+        if ($email) {
+            
+            $user = UserDao::getInstance()->getByEmail($email);
+            if ($user) {
+                
+                if ($user->getActivated())
+                    Flash::addItem(__("utilisateur déjà actif", "s1b"));
+                else {
+                    $token = htmlspecialchars($this->getParam("Token", null));
+                    if ($user->getToken() == $token) {
+                        $user->setActivated(true);
+                        UserDao::getInstance()->update($user);
+                        Flash::addItem(__("Votre compte est désormais activé", "s1b"));
+                    } else {
+                        Flash::addItem(__("Token invalide!", "s1b"));
+                    }
+                }
+            } else // user is unknown
+                Flash::addItem(__("Une erreur est survenue lors de l'activation, merci de contacter l'administrateur via le formulaire de ", "s1b") . '<a href=' . Urls::CONTACT . '>' . __("contact", "s1b") . '</a>');
+        }
+        HTTPHelper::redirect(Urls::LOGIN);
+    }
+
     private function setViewChronicles() {
         
         // Getting chronicles
-    	$lastChronicles = ChronicleSvc::getInstance()->getLastAnyType();
-    	$lastChronicle = array_slice($lastChronicles, 0, 1);
-    	$lastChronicle = $lastChronicle[0];    	
+        $lastChronicles = ChronicleSvc::getInstance()->getLastAnyType();
+        $lastChronicle = array_slice($lastChronicles, 0, 1);
+        $lastChronicle = $lastChronicle[0];
         $notBloggersOrBookStoresChronicles = ChronicleSvc::getInstance()->getLastChroniclesNotBloggersOrBookStores();
         $bloggersChronicles = ChronicleSvc::getInstance()->getLastBloggersChronicles();
         $bookstoresChronicles = ChronicleSvc::getInstance()->getLastBookStoresChronicles();
@@ -171,7 +185,7 @@ class Default_IndexController extends Zend_Controller_Action {
         
         // Set chronicles from any groups except bloggers and bookstores
         if ($notBloggersOrBookStoresChronicles && count($notBloggersOrBookStoresChronicles) > 0) {
-        	// We take 3 first chronicles only and different from the last chronicle
+            // We take 3 first chronicles only and different from the last chronicle
             $notBloggersOrBookStoresChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $notBloggersOrBookStoresChronicles, 3);
             // Set chronicles view
             $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $notBloggersOrBookStoresChronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles", $this->view->url(array(), 'chroniclesLastAnyType'), __("Voir d'autres chroniques", "s1b"));
@@ -180,7 +194,7 @@ class Default_IndexController extends Zend_Controller_Action {
         // Set bloggers chronicles
         if ($bloggersChronicles && count($bloggersChronicles) > 0) {
             // We take 3 first chronicles only and different from the last chronicle
-        	$bloggersChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $bloggersChronicles , 3);
+            $bloggersChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $bloggersChronicles, 3);
             // Set bloggers chronicle view
             $this->view->bloggersChronicles = $this->getChronicleView($chronicleListAdapter, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers", $this->view->url(array(), 'chroniclesLastBloggers'), __("Voir tous les billets des bloggeurs", "s1b"));
         }
@@ -202,26 +216,21 @@ class Default_IndexController extends Zend_Controller_Action {
         $chroniclesView = new PushedChronicles($anyGroupTypeChronicesAsViewModel, $link, $title, $typeCSS, $textLink);
         return $chroniclesView->get();
     }
-    
-    private function getNewsReaderPressReviews() {
-		// Newsreader
-    	$criteria = array(
-    			"type" => array(
-    					false,
-    					"=",
-    					PressReviewTypes::ARTICLE
-    			),
-    			// Add is_validated criteria
-    			"is_validated" => array (
-    					false,
-    					"=",
-    					1
-    			)
-    	);
-    	$pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
-    	
-    	return $pressReviews;
-	}
 
+    private function getNewsReaderPressReviews() {
+        // Newsreader
+        $criteria = array(
+                "type" => array(
+                        false, "=", PressReviewTypes::ARTICLE
+                ), 
+                // Add is_validated criteria
+                "is_validated" => array(
+                        false, "=", 1
+                )
+        );
+        $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
+        
+        return $pressReviews;
+    }
 
 }

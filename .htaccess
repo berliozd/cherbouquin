@@ -17,7 +17,6 @@ RewriteRule ^default(.)*$ public/index.php [L]
 RewriteRule ^member(.)*$ public/index.php [L]
 # Rewrites for Zend controllers
 RewriteRule ^$ public/index.php [L]                     # module:default / controller:index / action:index
-RewriteRule ^index/log$ public/index.php [L]            # module:default / controller:index / action:log
 RewriteRule ^error(.)*$ public/index.php [L]            
 RewriteRule ^wished-userbook(.)*$ public/index.php [L]  # module:default / controller:wished-userbooks
 RewriteRule ^userbook-gift(.)*$ public/index.php [L]    # module:default / controller:userbook-gift

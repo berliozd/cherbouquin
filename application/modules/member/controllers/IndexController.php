@@ -1,6 +1,4 @@
 <?php
-
-
 use Sb\Db\Model\Book;
 use Sb\Db\Model\User;
 use Sb\Db\Dao\BookDao;
@@ -19,13 +17,12 @@ use Sb\View\Components\TwitterWidget;
 use Sb\View\Components\FacebookFrame;
 use Sb\View\Components\CreateChroniclesLinks;
 use Sb\Trace\Trace;
-
-
 class Member_IndexController extends Zend_Controller_Action {
 
     private $blowOfHeartFriendsBooksId = null;
+
     private $context = null;
-    
+
     public function init() {
         
         // Checks is user is connected
@@ -38,10 +35,8 @@ class Member_IndexController extends Zend_Controller_Action {
     /**
      * Show member home page action
      * @global type $globalContextMe
-     *
      */
     public function indexAction() {
-        
         try {
             global $globalContext;
             
@@ -53,10 +48,14 @@ class Member_IndexController extends Zend_Controller_Action {
             $this->view->isShowingFriendsBOH = false;
             if (!$blowOfHeartFriendsBooks || count($blowOfHeartFriendsBooks) < 5) {
                 // Setting class property with array of friend boh books ids to use it in "notInArray" function below
-                $this->blowOfHeartFriendsBooksId = array_map(array(&$this, "getId"), $blowOfHeartFriendsBooks);
+                $this->blowOfHeartFriendsBooksId = array_map(array(
+                        &$this, "getId"
+                ), $blowOfHeartFriendsBooks);
                 // Getting all users boh
                 $blowOfHeartBooks = BookSvc::getInstance()->getBOHForUserHomePage();
-                $blowOfHeartBooks = array_filter($blowOfHeartBooks, array(&$this, "notInArray"));
+                $blowOfHeartBooks = array_filter($blowOfHeartBooks, array(
+                        &$this, "notInArray"
+                ));
                 // Merging 2 arrays
                 if ($blowOfHeartFriendsBooks && $blowOfHeartBooks)
                     $blowOfHeartBooks = array_merge($blowOfHeartFriendsBooks, $blowOfHeartBooks);
@@ -105,15 +104,14 @@ class Member_IndexController extends Zend_Controller_Action {
             $this->view->facebookFrame = new FacebookFrame();
             
             // Get create chronicle links widget
-            if ($connectedUser->getIs_partner() && $connectedUser->getGroupusers()) {            
+            if ($connectedUser->getIs_partner() && $connectedUser->getGroupusers()) {
                 $createChroniclesLink = new CreateChroniclesLinks($connectedUser->getGroupusers());
                 $this->view->createChroniclesLinkView = $createChroniclesLink->get();
             }
-        } catch (\Exception $e) {
+        } catch ( \Exception $e ) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
-        
     }
 
     private function notInArray(Book $book) {
@@ -123,5 +121,6 @@ class Member_IndexController extends Zend_Controller_Action {
     private function getId(Book $book) {
         return $book->getId();
     }
+
 }
 

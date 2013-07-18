@@ -11,7 +11,7 @@ class Urls {
 
     const BOOK_SEARCH = "resultats"; // library_fullwidth
 
-    const ACTIVATE = 'membre/activation'; // user_activate
+    const ACTIVATE = 'default/index/activate'; // Zend : default / index / activate
     
     const CONTACT = "contact"; // user_contact_form
     const ABOUT = "a-propos"; // user_about
@@ -30,7 +30,7 @@ class Urls {
     const PRESS_REVIEWS_ALL_VIDEOS = "revues-de-presse/videos";
     
     // account connection-registration-activation
-    const LOGIN = 'index/log'; // Zend : default / index / log
+    const LOGIN = 'default/index/log'; // Zend : default / index / log
     const LOGOUT = 'membre/deconnexion'; // user_logout
     const LOGIN_FACEBOOK = 'membre/connexion-facebook'; // user_facebook_connect
     const SUBSCRIBE = 'membre/inscription'; //user_registration
