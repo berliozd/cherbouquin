@@ -11,6 +11,7 @@ RewriteRule ^(.*)$   http://www.%{HTTP_HOST}/$1  [L,R=301]
 # Rewrite for removing trailing slash and prevent duplicated content in google
 RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)/$ /livre/$1-$3 [L,R=301]
 RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)$ /livre/$1-$3 [L,R=301]
+RewriteRule ^contact/(.*)$ /contact [L,R=301]
 
 # Rewrites for Zend modules
 RewriteRule ^default(.)*$ public/index.php [L]
@@ -38,6 +39,7 @@ RewriteRule ^lequipe(.)*$ public/index.php [L]          # module:default / contr
 RewriteRule ^comment-ca-marche(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
 RewriteRule ^nous-aider(.)*$ public/index.php [L]       # module:default / controller:static / action:index (route)
 RewriteRule ^nos-partenaires(.)*$ public/index.php [L]  # module:default / controller:static / action:index (route)
+RewriteRule ^contact$ public/index.php [L]              # module:default / controller:index / action:contact (route)
 
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f

@@ -26,7 +26,9 @@ use Sb\Db\Service\PressReviewSvc;
 use Sb\Entity\PressReviewTypes;
 use Sb\View\Components\GooglePlus;
 use Sb\Helpers\ChronicleHelper;
-
+use Sb\Helpers\ArrayHelper;
+use Sb\Service\MailSvc;
+use Sb\Entity\Constants;
 class Default_IndexController extends Zend_Controller_Action {
 
     public function init() {
@@ -43,8 +45,7 @@ class Default_IndexController extends Zend_Controller_Action {
         try {
             global $globalContext;
             
-            $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");
-            
+            $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");            
             $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
             $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/content.js?v=' . VERSION . "\"></script>");
             
@@ -110,6 +111,7 @@ class Default_IndexController extends Zend_Controller_Action {
     }
 
     public function logAction() {
+
         $invalidDataMsg = __("Les informations saisies ne nous permettent pas de vous authentifier.", "s1b");
         $accountNotActivated = __("Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.", "s1b");
         $accountDeleted = __("Votre compte a été supprimé.", "s1b");
@@ -142,6 +144,7 @@ class Default_IndexController extends Zend_Controller_Action {
     }
 
     public function activateAction() {
+
         $email = $this->getParam("Email", null);
         
         if ($email) {
@@ -165,6 +168,55 @@ class Default_IndexController extends Zend_Controller_Action {
                 Flash::addItem(__("Une erreur est survenue lors de l'activation, merci de contacter l'administrateur via le formulaire de ", "s1b") . '<a href=' . Urls::CONTACT . '>' . __("contact", "s1b") . '</a>');
         }
         HTTPHelper::redirect(Urls::LOGIN);
+    }
+
+    public function contactAction() {
+
+        try {
+            
+            if ($_POST) {
+                
+                $emailSent = false;
+                
+                if ($this->validateContactForm()) {
+                    
+                    $name = ArrayHelper::getSafeFromArray($_POST, "contactName", null);
+                    $firstName = ArrayHelper::getSafeFromArray($_POST, "contactFirstName", null);
+                    $email = ArrayHelper::getSafeFromArray($_POST, "email", null);
+                    $message = ArrayHelper::getSafeFromArray($_POST, "comments", null);
+                    $sendCopy = ArrayHelper::getSafeFromArray($_POST, "sendCopy", false);
+                    
+                    $subject = sprintf(__("Formulaire de contact : %s %s", "s1b"), $name, $firstName);
+                    $body = sprintf(__("Nom : %s <br/>Prénom: %s <br/>Email : %s <br/>Message: %s <br/>", "s1b"), $name, $firstName, $email, $message);
+                    
+                    $mailSvc = MailSvc::getNewInstance(null, Constants::CONTACT_EMAIL);
+                    $mailSvc->send(Constants::CONTACT_EMAIL . ", berliozd@gmail.com", $subject, $body);
+                    //$mailSvc->send(Constants::CONTACT_EMAIL . ", berliozd@gmail.com, rebiffe_olivier@yahoo.fr", $subject, $body);
+                    
+                    if ($sendCopy) {
+                        $subject = __("Formulaire de contact", "s1b");
+                        $copyMessage = sprintf(__("Merci d'avoir contacté %s.", "s1b"), Constants::SITENAME) . "<br/>" . __("Nous nous efforçons de vous répondre au plus vite.", "s1b") . "<br/>" . sprintf(__("L'équipe %s", "s1b"), Constants::SITENAME) . "<br/><br/>" . $body;
+                        $mailSvc->send($email, $subject, $copyMessage);
+                    }
+                    
+                    $emailSent = true;
+                } else
+                    Flash::addItem(__("Le message n'a pas pu être envoyé.", "s1b"));                    
+                
+                if ($emailSent) {
+
+                    Flash::addItem(__("Merci.", "s1b"));
+                    Flash::addItem(__("Votre e-mail a été envoyé. Vous recevrez une réponse au plus vite.", "s1b"));
+                    Flash::addItem(sprintf(__("L'equipe %s", "s1b"), Constants::SITENAME));
+
+                    HTTPHelper::redirect("");
+                }
+                
+            }
+        } catch ( \Exception $e ) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
     }
 
     private function setViewChronicles() {
@@ -231,6 +283,37 @@ class Default_IndexController extends Zend_Controller_Action {
         $pressReviews = PressReviewSvc::getInstance()->getList($criteria, 50);
         
         return $pressReviews;
+    }
+
+    private function validateContactForm() {
+        $name = ArrayHelper::getSafeFromArray($_POST, "contactName", null);
+        $firstName = ArrayHelper::getSafeFromArray($_POST, "contactFirstName", null);
+        $email = ArrayHelper::getSafeFromArray($_POST, "email", null);
+        $message = ArrayHelper::getSafeFromArray($_POST, "comments", null);
+        
+        $ok = true;
+        
+        if (!$name) {
+            Flash::addItem(__("Indiquez votre nom", "s1b"));
+            $ok = false;
+        }
+        if (!$firstName) {
+            Flash::addItem(__("Indiquez votre prénom", "s1b"));
+            $ok = false;
+        }
+        if (!$email) {
+            Flash::addItem(__("Indiquez une adresse mail valide", "s1b"));
+            $ok = false;
+        } elseif (!eregi("^[A-Z0-9._%-]+@[A-Z0-9._%-]+\\.[A-Z]{2,4}$", $email)) {
+            Flash::addItem(__("Indiquez une adresse mail valide", "s1b"));
+            $ok = false;
+        }
+        if (!$message) {
+            Flash::addItem(__("Le message est vide.", "s1b"));
+            $ok = false;
+        }
+        
+        return $ok;
     }
 
 }
