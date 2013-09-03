@@ -190,8 +190,7 @@ class Default_IndexController extends Zend_Controller_Action {
                     $body = sprintf(__("Nom : %s <br/>Prénom: %s <br/>Email : %s <br/>Message: %s <br/>", "s1b"), $name, $firstName, $email, $message);
                     
                     $mailSvc = MailSvc::getNewInstance(null, Constants::CONTACT_EMAIL);
-                    $mailSvc->send(Constants::CONTACT_EMAIL . ", berliozd@gmail.com", $subject, $body);
-                    //$mailSvc->send(Constants::CONTACT_EMAIL . ", berliozd@gmail.com, rebiffe_olivier@yahoo.fr", $subject, $body);
+                    $mailSvc->send(Constants::CONTACT_EMAIL . ", berliozd@gmail.com, rebiffe_olivier@yahoo.fr", $subject, $body);
                     
                     if ($sendCopy) {
                         $subject = __("Formulaire de contact", "s1b");
