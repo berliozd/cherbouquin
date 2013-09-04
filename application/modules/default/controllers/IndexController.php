@@ -121,148 +121,163 @@ class Default_IndexController extends Zend_Controller_Action {
 
     public function logAction() {
 
-        $invalidDataMsg = __("Les informations saisies ne nous permettent pas de vous authentifier.", "s1b");
-        $accountNotActivated = __("Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.", "s1b");
-        $accountDeleted = __("Votre compte a été supprimé.", "s1b");
-        
-        if ($_POST) {
+        try {
+            $invalidDataMsg = __("Les informations saisies ne nous permettent pas de vous authentifier.", "s1b");
+            $accountNotActivated = __("Votre compte n'est pas activé. Merci de vérifier votre boite email. Vous avez certainemnt reçu un message vous demandant de l'activer.", "s1b");
+            $accountDeleted = __("Votre compte a été supprimé.", "s1b");
             
-            $userInForm = new User();
-            UserMapper::map($userInForm, $_POST);
-            
-            if ($userInForm->IsValidForS1bAuthentification()) {
-                $activeUser = UserDao::getInstance()->getS1bUser($userInForm->getEmail(), $userInForm->getPassword());
-                if ($activeUser) {
-                    if ($activeUser->getDeleted())
-                        Flash::addItem($accountDeleted);
-                    elseif (!$activeUser->getActivated())
-                        Flash::addItem($accountNotActivated);
-                    else {
-                        $activeUser->setLastLogin(new \DateTime());
-                        UserDao::getInstance()->update($activeUser);
-                        AuthentificationSvc::getInstance()->loginSucces($activeUser);
-                    }
+            if ($_POST) {
+                
+                $userInForm = new User();
+                UserMapper::map($userInForm, $_POST);
+                
+                if ($userInForm->IsValidForS1bAuthentification()) {
+                    $activeUser = UserDao::getInstance()->getS1bUser($userInForm->getEmail(), $userInForm->getPassword());
+                    if ($activeUser) {
+                        if ($activeUser->getDeleted())
+                            Flash::addItem($accountDeleted);
+                        elseif (!$activeUser->getActivated())
+                            Flash::addItem($accountNotActivated);
+                        else {
+                            $activeUser->setLastLogin(new \DateTime());
+                            UserDao::getInstance()->update($activeUser);
+                            AuthentificationSvc::getInstance()->loginSucces($activeUser);
+                        }
+                    } else
+                        Flash::addItem($invalidDataMsg);
                 } else
                     Flash::addItem($invalidDataMsg);
-            } else
-                Flash::addItem($invalidDataMsg);
+            }
+            $this->_redirect('');
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
         }
-        $this->_redirect('');
     }
 
     public function facebookLogAction() {
 
-        global $globalConfig;
-        
-        $accountDeleted = __("Votre compte a été supprimé.", "s1b");
-        $home = HTTPHelper::Link("");
-        $loginFaceBook = HTTPHelper::Link(Urls::LOGIN_FACEBOOK);
-        
-        // Testing if user is facebook connected
-        $facebookSvc = new FacebookSvc($globalConfig->getFacebookApiId(), $globalConfig->getFacebookSecret(), $loginFaceBook, $home);
-        $facebookUser = $facebookSvc->getUser();
-        
-        if ($facebookUser) {
+        try {
+            global $globalConfig;
             
-            // If yes, testing if a user exist in db (and not deleted)
-            // Search a matching activated user in DB
-            $faceBookEmail = $facebookUser->getEmail();
-            $facebookId = $facebookUser->getUid();
-            $userInDB = \Sb\Db\Dao\UserDao::getInstance()->getFacebookUser($faceBookEmail);
+            $accountDeleted = __("Votre compte a été supprimé.", "s1b");
+            $home = HTTPHelper::Link("");
+            $loginFaceBook = HTTPHelper::Link(Urls::LOGIN_FACEBOOK);
             
-            if (!$userInDB) { // If no existing user => create an account and redirect to user homepage
-                              // create user in db
-                $userFromFB = new User();
-                UserMapper::mapFromFacebookUser($userFromFB, $facebookUser);
-                $userFromFB->setToken(sha1(uniqid(rand())));
-                $userFromFB->setDeleted(false);
-                $setting = new UserSetting();
-                UserSettingHelper::loadDefaultSettings($setting);
-                $userFromFB->setSetting($setting);
-                $userInDB = UserDao::getInstance()->add($userFromFB);
+            // Testing if user is facebook connected
+            $facebookSvc = new FacebookSvc($globalConfig->getFacebookApiId(), $globalConfig->getFacebookSecret(), $loginFaceBook, $home);
+            $facebookUser = $facebookSvc->getUser();
+            
+            if ($facebookUser) {
                 
-                // send confirmation email
-                $subject = sprintf(__("Votre compte %s a été créé avec Facebook", "s1b"), Constants::SITENAME);
-                MailSvc::getInstance()->send($userInDB->getEmail(), $subject, MailHelper::faceBookAccountCreationEmailBody($userInDB->getFirstName()));
+                // If yes, testing if a user exist in db (and not deleted)
+                // Search a matching activated user in DB
+                $faceBookEmail = $facebookUser->getEmail();
+                $facebookId = $facebookUser->getUid();
+                $userInDB = \Sb\Db\Dao\UserDao::getInstance()->getFacebookUser($faceBookEmail);
                 
-                // Test if the email matches invitations and set them to accepted and validated
-                InvitationSvc::getInstance()->setInvitationsAccepted($userInDB->getEmail());
-                
-                // Send warning email to webmaster
-                MailSvc::getInstance()->send(\Sb\Entity\Constants::WEBMASTER_EMAIL . ", berliozd@gmail.com, rebiffe_olivier@yahoo.fr", __("nouveau user via facebook", "s1b"), $userInDB->getEmail());
-                
-                // send message in user internal mailbox
-                MessageSvc::getInstance()->createWelcomeMessage($userInDB->getId());
-                
-                // redirect to user homepage
-                AuthentificationSvc::getInstance()->loginSucces($userInDB);
-            } elseif ($userInDB->getDeleted()) { // In user deleted, display a message and redirect to referer
-                
-                Flash::addItem($accountDeleted);
-                $facebookSvc->cleanUser();
-                $facebookUser = null;
-                $faceBookEmail = null;
-                $facebookId = null;
-                HTTPHelper::redirectToReferer();
-            } else { // If yes => connect and redirect to user homepage
-                if (!$userInDB->getConnexionType() != ConnexionType::FACEBOOK)
-                    $userInDB->setConnexionType(ConnexionType::FACEBOOK);
-                
-                if (!$userInDB->getFacebookId())
-                    $userInDB->setFacebookId($facebookUser->getUid());
-                
-                if (!$userInDB->getPicture())
-                    $userInDB->setPicture($facebookUser->getPic_small());
-                
-                if (!$userInDB->getPictureBig())
-                    $userInDB->setPictureBig($facebookUser->getPic());
-                
-                if (!$userInDB->getFacebookLanguage())
-                    $userInDB->setFacebookLanguage($facebookUser->getLocale());
-                
-                if (!$userInDB->getGender())
-                    $userInDB->setGender($facebookUser->getSex());
-                
-                if (!$userInDB->getCity())
-                    $userInDB->setCity($facebookUser->getHometown_location());
-                
-                if (!$userInDB->getBirthDay())
-                    $userInDB->setBirthDay($facebookUser->getBirthday());
-                
-                $userInDB->setLastLogin(new \DateTime());
-                
-                UserDao::getInstance()->update($userInDB);
-                
-                AuthentificationSvc::getInstance()->loginSucces($userInDB);
-            }
-        } else // If no, redirect to facebook login page
-            HTTPHelper::redirectToUrl($facebookSvc->getFacebookLogInUrl());
+                if (!$userInDB) { // If no existing user => create an account and redirect to user homepage
+                                  // create user in db
+                    $userFromFB = new User();
+                    UserMapper::mapFromFacebookUser($userFromFB, $facebookUser);
+                    $userFromFB->setToken(sha1(uniqid(rand())));
+                    $userFromFB->setDeleted(false);
+                    $setting = new UserSetting();
+                    UserSettingHelper::loadDefaultSettings($setting);
+                    $userFromFB->setSetting($setting);
+                    $userInDB = UserDao::getInstance()->add($userFromFB);
+                    
+                    // send confirmation email
+                    $subject = sprintf(__("Votre compte %s a été créé avec Facebook", "s1b"), Constants::SITENAME);
+                    MailSvc::getInstance()->send($userInDB->getEmail(), $subject, MailHelper::faceBookAccountCreationEmailBody($userInDB->getFirstName()));
+                    
+                    // Test if the email matches invitations and set them to accepted and validated
+                    InvitationSvc::getInstance()->setInvitationsAccepted($userInDB->getEmail());
+                    
+                    // Send warning email to webmaster
+                    MailSvc::getInstance()->send(\Sb\Entity\Constants::WEBMASTER_EMAIL . ", berliozd@gmail.com, rebiffe_olivier@yahoo.fr", __("nouveau user via facebook", "s1b"), $userInDB->getEmail());
+                    
+                    // send message in user internal mailbox
+                    MessageSvc::getInstance()->createWelcomeMessage($userInDB->getId());
+                    
+                    // redirect to user homepage
+                    AuthentificationSvc::getInstance()->loginSucces($userInDB);
+                } elseif ($userInDB->getDeleted()) { // In user deleted, display a message and redirect to referer
+                    
+                    Flash::addItem($accountDeleted);
+                    $facebookSvc->cleanUser();
+                    $facebookUser = null;
+                    $faceBookEmail = null;
+                    $facebookId = null;
+                    HTTPHelper::redirectToReferer();
+                } else { // If yes => connect and redirect to user homepage
+                    if (!$userInDB->getConnexionType() != ConnexionType::FACEBOOK)
+                        $userInDB->setConnexionType(ConnexionType::FACEBOOK);
+                    
+                    if (!$userInDB->getFacebookId())
+                        $userInDB->setFacebookId($facebookUser->getUid());
+                    
+                    if (!$userInDB->getPicture())
+                        $userInDB->setPicture($facebookUser->getPic_small());
+                    
+                    if (!$userInDB->getPictureBig())
+                        $userInDB->setPictureBig($facebookUser->getPic());
+                    
+                    if (!$userInDB->getFacebookLanguage())
+                        $userInDB->setFacebookLanguage($facebookUser->getLocale());
+                    
+                    if (!$userInDB->getGender())
+                        $userInDB->setGender($facebookUser->getSex());
+                    
+                    if (!$userInDB->getCity())
+                        $userInDB->setCity($facebookUser->getHometown_location());
+                    
+                    if (!$userInDB->getBirthDay())
+                        $userInDB->setBirthDay($facebookUser->getBirthday());
+                    
+                    $userInDB->setLastLogin(new \DateTime());
+                    
+                    UserDao::getInstance()->update($userInDB);
+                    
+                    AuthentificationSvc::getInstance()->loginSucces($userInDB);
+                }
+            } else // If no, redirect to facebook login page
+                HTTPHelper::redirectToUrl($facebookSvc->getFacebookLogInUrl());
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
     }
 
     public function activateAction() {
 
-        $email = $this->getParam("Email", null);
-        
-        if ($email) {
+        try {
+            $email = $this->getParam("Email", null);
             
-            $user = UserDao::getInstance()->getByEmail($email);
-            if ($user) {
+            if ($email) {
                 
-                if ($user->getActivated())
-                    Flash::addItem(__("utilisateur déjà actif", "s1b"));
-                else {
-                    $token = htmlspecialchars($this->getParam("Token", null));
-                    if ($user->getToken() == $token) {
-                        $user->setActivated(true);
-                        UserDao::getInstance()->update($user);
-                        Flash::addItem(__("Votre compte est désormais activé", "s1b"));
-                    } else
-                        Flash::addItem(__("Token invalide!", "s1b"));
-                }
-            } else // user is unknown
-                Flash::addItem(__("Une erreur est survenue lors de l'activation, merci de contacter l'administrateur via le formulaire de ", "s1b") . '<a href=' . Urls::CONTACT . '>' . __("contact", "s1b") . '</a>');
+                $user = UserDao::getInstance()->getByEmail($email);
+                if ($user) {
+                    
+                    if ($user->getActivated())
+                        Flash::addItem(__("utilisateur déjà actif", "s1b"));
+                    else {
+                        $token = htmlspecialchars($this->getParam("Token", null));
+                        if ($user->getToken() == $token) {
+                            $user->setActivated(true);
+                            UserDao::getInstance()->update($user);
+                            Flash::addItem(__("Votre compte est désormais activé", "s1b"));
+                        } else
+                            Flash::addItem(__("Token invalide!", "s1b"));
+                    }
+                } else // user is unknown
+                    Flash::addItem(__("Une erreur est survenue lors de l'activation, merci de contacter l'administrateur via le formulaire de ", "s1b") . '<a href=' . Urls::CONTACT . '>' . __("contact", "s1b") . '</a>');
+            }
+            HTTPHelper::redirect(Urls::LOGIN);
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
         }
-        HTTPHelper::redirect(Urls::LOGIN);
     }
 
     public function contactAction() {

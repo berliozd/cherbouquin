@@ -17,6 +17,7 @@ use Sb\View\Components\TwitterWidget;
 use Sb\View\Components\FacebookFrame;
 use Sb\View\Components\CreateChroniclesLinks;
 use Sb\Trace\Trace;
+
 class Member_IndexController extends Zend_Controller_Action {
 
     private $blowOfHeartFriendsBooksId = null;
@@ -37,6 +38,7 @@ class Member_IndexController extends Zend_Controller_Action {
      * @global type $globalContextMe
      */
     public function indexAction() {
+
         try {
             global $globalContext;
             
@@ -108,17 +110,19 @@ class Member_IndexController extends Zend_Controller_Action {
                 $createChroniclesLink = new CreateChroniclesLinks($connectedUser->getGroupusers());
                 $this->view->createChroniclesLinkView = $createChroniclesLink->get();
             }
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
     }
 
     private function notInArray(Book $book) {
+
         return !in_array($book->getId(), $this->blowOfHeartFriendsBooksId);
     }
 
     private function getId(Book $book) {
+
         return $book->getId();
     }
 
