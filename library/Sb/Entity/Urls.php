@@ -32,7 +32,7 @@ class Urls {
     // account connection-registration-activation
     const LOGIN = 'default/index/log'; // Zend : default / index / log
     const LOGOUT = 'membre/deconnexion'; // user_logout
-    const LOGIN_FACEBOOK = 'membre/connexion-facebook'; // user_facebook_connect
+    const LOGIN_FACEBOOK = 'default/index/facebook-log'; // Zend : default / index / facebook-log
     const SUBSCRIBE = 'membre/inscription'; //user_registration
     const REFUSE_INVITATION = 'membre/refus-invitation'; //user_refuse_invitation
     const LOST_PASSWORD = 'mot-de-passe-perdu';
