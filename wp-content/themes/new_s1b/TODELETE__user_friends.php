@@ -5,7 +5,7 @@ use Sb\Helpers\HTTPHelper;
 
 require_once 'includes/init.php';
 get_header();
-require_once 'user_friends_1.php';
+require_once 'TODELETE__user_friends_1.php';
 
 use Sb\View\Components\FriendsWidget;
 use Sb\View\Components\Ad;
