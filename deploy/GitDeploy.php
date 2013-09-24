@@ -7,13 +7,13 @@ set_include_path(get_include_path() . PATH_SEPARATOR . 'E:\Dev\wamp2.0\www\cherb
 // $host = "37.59.62.193";
 // $login = "root";
 // $password = "1gGvzHYN";
-// $remoteFolder = "/home/www.cherbouquin.com/";
+// $remoteFolder = "/home/www.cherbouquin.fr/";
 // $env = "kim";
 
 $host = "46.105.8.132";
 $login = "root";
 $password = "7UqbxwEA";
-$remoteFolder = "/var/www/html/newbeta.cherbouquin.fr/";
+$remoteFolder = "/var/www/html/beta.cherbouquin.fr/";
 $env = "beta";
 
 // $host = "46.105.8.132";
@@ -25,20 +25,11 @@ $env = "beta";
 $localFolder = "E:\\Dev\\wamp2.0\\www\\cherbouquin\\";
 $localBackupFolder = "E:\\Temp\\CherBouquin\\BackupDeploy\\";
 
-$revisionHash = "1fb3de";
-$filesString = "application/modules/default/controllers/ChronicleController.php
-application/modules/member/controllers/ChronicleController.php
-images/icon_twitter/ActuCine.png
-images/icon_twitter/Cine_Obs.png
-images/icon_twitter/MediapartLeClub.png
-images/icon_twitter/Nice_Matin.png
-images/icon_twitter/WEBINDEP.png
-images/icon_twitter/charentelibre.png
-images/icon_twitter/francerealnews.png
-images/icon_twitter/lavoixdunord.png
-images/icon_twitter/yabiladi_maroc.png
-images/icon_twitter/youmag.png
-library/Sb/ZendForm/ChronicleForm.php";
+$revisionHash = "e81cb22a";
+$filesString = "library/Sb/Templates/wishedUserBook.phtml
+library/Sb/View/WishedUserBook.php
+wp-content/themes/new_s1b/user_friends_wishlist.php
+wp-content/themes/new_s1b/user_friends_wishlist_1.php";
 
 include('Net/SFTP.php');
 
