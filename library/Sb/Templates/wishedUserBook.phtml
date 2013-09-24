@@ -11,6 +11,7 @@
         </div>
         <a class="book-link" href="<?php echo $viewBookLink; ?>"><?php echo "Découvrir ce livre"; ?> </a>
         <div class="wbi-giftoption">
+            <?php if ($isConnected) {?>
             <div class="wbi-giftoption-addoption">
                 <?php if (!$isOffered) { ?>
                     <span class="wbi-giftoption-notbought"><?php _e("Ce livre n'a pas encore été offert.","s1b");?></span>
@@ -33,6 +34,7 @@
                     ?>
                 <?php } ?>            
             </div>
+            <?php }?>
             <div class="wbi-giftoption-buy">
                 <a class="button bt-amazon float-left margin-right" target="_blank" href="<?php echo $buyOnAmazonLink; ?>" title="<?php _e("Acheter sur Amazon", "s1b");?>"></a>
                 <?php if ($buyOnFnacLink) { ?>

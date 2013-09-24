@@ -1,4 +1,7 @@
 <?php
+
+$noAuthentification = true;
+
 require_once 'includes/init.php';
 
 require_once 'user_friends_wishlist_1.php';
@@ -20,6 +23,9 @@ use Sb\Helpers\UserHelper;
  */
 ?>
 <div id="content-wide">
+    <?php
+    if ($user) { 
+    ?>
     <div class="friends-list-header">
         <?php
         $friendsPageNavigation = new \Sb\View\Components\FriendsPageNavigation("wishes");
@@ -45,6 +51,7 @@ use Sb\Helpers\UserHelper;
             </div>
         </div>
     </div>
+    <?php }?>
 </div>
 <div id="content-center">
     <div class="friends-wished-books">
@@ -113,8 +120,10 @@ use Sb\Helpers\UserHelper;
 <div id="content-right">
     <div class="right-frame">
         <?php
-        $friendWidget = new FriendsWidget;
-        echo $friendWidget->get();
+        if ($user) {
+            $friendWidget = new FriendsWidget;
+            echo $friendWidget->get();
+        }
         ?>
     </div>
     <div class="right-frame">

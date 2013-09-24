@@ -11,12 +11,16 @@ use \Sb\Db\Model\Book;
 use \Sb\Db\Model\User;
 
 $user = $context->getConnectedUser();
+if ($user) {
 
-// Get friend list for friend selection form
-$friends = $user->getAcceptedFriends();
-// Order the friends list by firstname asc 
-if ($friends && count($friends) > 0)
-    usort($friends, "compareFirstName");    
+    // Get friend list for friend selection form
+    $friends = $user->getAcceptedFriends();
+
+    // Order the friends list by firstname asc
+    if ($friends && count($friends) > 0)
+        usort($friends, "compareFirstName");
+
+}
 
 $selectedFrienId = ArrayHelper::getSafeFromArray($_GET, "friendId", null);
 $selectedFriend = null;

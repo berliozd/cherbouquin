@@ -59,7 +59,8 @@ class WishedUserBook extends AbstractView {
             "buyOnFnacLink" => $buyOnFnacLink,
             "offerer" => $offerer,
             "setAsOfferedLink" => $setAsOfferedLink,
-            "deactivateGiftOptionLink" => $deactivateGiftOptionLink));
+            "deactivateGiftOptionLink" => $deactivateGiftOptionLink,
+            "isConnected" => $this->getContext()->getConnectedUser()));
 
         return $tplBook->output();
     }
