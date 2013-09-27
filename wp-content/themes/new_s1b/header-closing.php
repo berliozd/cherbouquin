@@ -8,7 +8,7 @@
                 <div id="header-top">
                     <div class="header-inner">                        
                         <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(""); ?>">
-                            <img border="0" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/logo.png"  />
+                            <img border="0" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/logo.png" alt="logo Cherbouquin" />
                         </a>
                     </div>
                 </div>

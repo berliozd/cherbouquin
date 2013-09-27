@@ -64,7 +64,7 @@ class ChronicleAdapter {
         $chronicleViewModel->setUserProfileLink(HTTPHelper::Link(Urls::USER_PROFILE, array(
                 "uid" => $this->chronicle->getUser()->getId()
         )));
-        $chronicleViewModel->setUserImage(UserHelper::getMediumImageTag($this->chronicle->getUser()));
+        $chronicleViewModel->setUserImage(UserHelper::getMediumImageTag($this->chronicle->getUser(), __("image chroniqueur", "s1b")));
         
         $chronicleViewModel->setSource($this->chronicle->getSource());
         

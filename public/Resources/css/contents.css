@@ -39,8 +39,10 @@
     width: 485px;
 }
 
-.chr-head {
+.chr-head h1 {
     font-size: 2.6em;
+    font-weight: normal;
+    margin: 0;
 }
 
 .chr-title {
