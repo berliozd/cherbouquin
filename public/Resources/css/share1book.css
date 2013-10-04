@@ -18,6 +18,7 @@ body {margin:0; background: url("../images/background.png") repeat scroll 0 0 tr
 
 /* main layout */
 #page { float: left; width: 100%; }
+#header {overflow: hidden;}
 #header-top {background-color:#000;}
 #header-top .header-inner {background: url("../images/header-background.png") no-repeat scroll 0 0 transparent; padding-left: 80px;width: 1060px;}
 #header-bottom {height:50px; background-color:#363a3d;}
