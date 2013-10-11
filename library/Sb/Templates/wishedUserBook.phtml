@@ -1,3 +1,6 @@
+<?php
+global $globalContext; 
+?>
 <div class="wb-item">
     <div class="wbi-image">
         <a title="<?php echo $bookTitle; ?> - <?php echo $bookAuthors; ?>" href="<?php echo $viewBookLink; ?>"><?php echo $image; ?></a>
@@ -18,8 +21,7 @@
                     <a href="<?php echo $setAsOfferedLink;?>" class="button bt-blue-xxxl"><?php _e("Marquez-le comme acheté", "s1b"); ?></a>
                 <?php } else { ?>
                     <?php 
-                    global $context;
-                    $giftOptionFromMe = ($offerer->getId() == $context->getConnectedUser()->getId());
+                    $giftOptionFromMe = ($offerer->getId() == $globalContext->getConnectedUser()->getId());
                     ?>
                     <span class="wbi-giftoption-bought">
                         <?php 

@@ -10,18 +10,21 @@ use Sb\Entity\EventTypes;
 use Sb\Flash\Flash;
 use Sb\Helpers\HTTPHelper;
 use Sb\Helpers\SecurityHelper;
+use Sb\Helpers\EntityHelper;
 use Sb\Authentification\Service\AuthentificationSvc;
+use Sb\Helpers\ArrayHelper;
+use Sb\Trace\Trace;
+use Sb\Db\Model\User;
 
 class Default_UsersController extends Zend_Controller_Action {
-
-    public function init() {
-        AuthentificationSvc::getInstance()->checkUserIsConnected();
-    }
 
     public function profileAction() {
 
         global $globalContext;
 
+        // Users profile are only accessible for connected users
+        AuthentificationSvc::getInstance()->checkUserIsConnected();
+        
         $noUser = true;
         $friendId = $this->_getParam("uid");
 
@@ -106,10 +109,58 @@ class Default_UsersController extends Zend_Controller_Action {
             HTTPHelper::redirectToReferer();
         }
     }
+    
+    public function wishListAction() {
+        try {
+            
+            global $globalContext;
+            
+            $user = $globalContext->getConnectedUser();
+            if ($user) {
+            
+                // Get friend list for friend selection form
+                $friends = $user->getAcceptedFriends();
+            
+                // Order the friends list by firstname asc
+                if ($friends && count($friends) > 0)
+                    usort($friends, array($this,"compareFirstName"));
+                
+                $this->view->friends = $friends;
+                $this->view->user = $user;
+            }
+            
+            $selectedFriendId = ArrayHelper::getSafeFromArray($_GET, "friendId", null);
+            $selectedFriend = null;
+            if ($selectedFriendId) {
+                $selectedFriend = UserDao::getInstance()->get($selectedFriendId);
+                $this->view->selectedFriend = $selectedFriend;
+            
+                $friendBooks = $selectedFriend->getNotDeletedUserBooks();
+                $friendWishedBooks = array_filter($friendBooks, array($this,"isWished"));
+                $this->view->friendWishedBooks = $friendWishedBooks;
+            
+                $this->view->booksHeCouldLikes = BookSvc::getInstance()->getBooksUserCouldLike($selectedFriendId);
+            }
+            
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
 
     private function getBook(UserBook $userBook) {
         return $userBook->getBook();
     }
+    
+
+    private function isWished(UserBook $userBook) {
+        if ($userBook->getIsWished()) {
+            return true;
+        }
+    }
+    
+    private function compareFirstName(User $user1, User $user2) {
+        return EntityHelper::compareBy($user1, $user2, EntityHelper::ASC, "getFirstName");
+    }
 
 }
-
