@@ -8,6 +8,7 @@ use Sb\Flash\Flash;
 use Sb\Helpers\DateHelper;
 use Sb\Helpers\HTTPHelper;
 use Sb\Entity\Urls;
+use Sb\Trace\Trace;
 class Member_ProfileController extends Zend_Controller_Action {
 
     public function init() {
@@ -104,4 +105,20 @@ class Member_ProfileController extends Zend_Controller_Action {
         $this->redirect(Urls::USER_PROFILE_EDIT);
     }
 
+    /**
+     * Show connected user profile
+     */
+    public function indexAction() {
+    
+        try {
+            global $globalContext;
+            $user = $globalContext->getConnectedUser();
+            $this->view->user = $user;
+            $this->view->userSettings = $user->getSetting();
+    
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
 }

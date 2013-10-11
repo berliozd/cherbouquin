@@ -41,7 +41,7 @@ class Urls {
     const USER_LIBRARY_DETAIL = "bibliotheque-detail"; // page
     const USER_HOME = "membre/a-la-page";                                           // Zend : member / index / index
     // User profile
-    const MY_PROFILE = 'profil-membre'; // user_profile
+    const MY_PROFILE = 'member/profile/index';                                      // Zend : member / profile / index
     const USER_PROFILE_EDIT = 'member/profile/edit';                                // Zend : member / profile / edit
     const USER_PROFILE_SUBMIT = 'member/profile/submit';                            // Zend : member / profile / submit
     const USER_PROFILE_GRAVATAR = 'profil-membre/gravatar';         // user_profile_gravatar

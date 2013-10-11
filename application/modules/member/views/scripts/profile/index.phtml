@@ -1,0 +1,16 @@
+<div class="other-profile-bkg">
+    <div id="content-center">
+        <?php
+        $profileView = new \Sb\View\UserProfile($this->user, $this->userSettings, true, true, false);
+        echo $profileView->get();
+        ?>
+    </div>
+    <div id="content-right">
+        <div class="right-frame">
+            <?php
+            $ad = new \Sb\View\Components\Ad("", "");
+            echo $ad->get();
+            ?>
+        </div>
+    </div>
+</div>
