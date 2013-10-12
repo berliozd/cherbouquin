@@ -56,12 +56,13 @@ class Urls {
     const USER_MAILBOX_SEND_MESSAGE = 'messagerie/envoyer'; // user_message_send
     const USER_MAILBOX_RECOMMAND = "messagerie/recommander"; // user_message_recommandation
     // User friends
-    const USER_FRIENDS = 'member/friends/list';                                     // Zend : member / friends/ list
+    const USER_FRIENDS = 'member/friends/list';                                     // Zend : member / friends / list
     const USER_FRIENDS_WISHLIST = 'default/users/wish-list';                        // Zend : default / users / wish-list
     const USER_FRIENDS_SELECTION = 'amis/selection-destinataires'; // user_friends_form_selection
     const USER_FRIENDS_FRIENDS = 'amis/amis-d-amis'; // user_friends_of_friends
     const USER_FRIENDS_INVITE = 'amis/inviter'; // user_friends_invite
-    const USER_FRIENDS_REQUEST = 'amis/ami-requete'; // user_friends_request
+    //const USER_FRIENDS_REQUEST = 'amis/ami-requete'; // user_friends_request
+    const USER_FRIENDS_REQUEST = 'member/friends/request';                          // Zend : member / friends / request
     const USER_FRIENDS_PENDING_REQUEST = 'amis/requete'; // user_friends_pending_request
     const USER_FRIENDS_FIND = 'amis/ajouter'; // user_friends_search
 
