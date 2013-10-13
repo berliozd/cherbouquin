@@ -49,11 +49,11 @@ class Urls {
     const USER_PROFILE_DELETE_ACCOUNT = 'profil-membre/supprimer'; // user_profile_delete
     const USER_PROFILE_EDIT_PASSWORD = 'profil-membre/modification-mot-de-passe'; // user_profile_edit_password
     // User mailbox
-    const USER_MAILBOX = 'messagerie'; // user_mailbox
-    const USER_MAILBOX_DELETE_MESSAGE = 'messagerie/supprimer'; // user_message_delete
+    const USER_MAILBOX = 'member/mailbox/index';                                    // Zend : member / mailbox / index
+    const USER_MAILBOX_DELETE_MESSAGE = 'member/mailbox/delete';                    // Zend : member / mailbox / delete
     const USER_MAILBOX_READ_MESSAGE = 'member/mailbox/read-message';                // Zend : member / mailbox / read
-    const USER_MAILBOX_REPLY_MESSAGE = 'messagerie/repondre'; // user_message_read
-    const USER_MAILBOX_SEND_MESSAGE = 'messagerie/envoyer'; // user_message_send
+    const USER_MAILBOX_REPLY_MESSAGE = 'member/mailbox/reply';                      // Zend : member / mailbox / reply
+    const USER_MAILBOX_SEND_MESSAGE = 'member/mailbox/send';                        // Zend : member / mailbox / send
     const USER_MAILBOX_RECOMMAND = "messagerie/recommander"; // user_message_recommandation
     // User friends
     const USER_FRIENDS = 'member/friends/list';                                     // Zend : member / friends / list
