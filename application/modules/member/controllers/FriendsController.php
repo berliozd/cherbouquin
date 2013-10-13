@@ -13,6 +13,7 @@ use Sb\Helpers\MailHelper;
 use Sb\Db\Model\Message;
 use Sb\Db\Model\User;
 use Sb\Service\MailSvc;
+use Sb\Entity\Urls;
 
 /**
  *
@@ -49,7 +50,7 @@ class Member_FriendsController extends Zend_Controller_Action {
             }
             
             $nbFriends = count($friends);
-            $this->view->nbFriends = $nbFriends;            
+            $this->view->nbFriends = $nbFriends;
             if ($nbFriends == 0)
                 $this->view->noFriendsMessage = __("Aucun amis", "s1b");
         } catch (\Exception $e) {
@@ -59,14 +60,15 @@ class Member_FriendsController extends Zend_Controller_Action {
     }
 
     public function requestAction() {
+
         try {
-        	
+            
             global $globalContext;
             $user = $globalContext->getConnectedUser();
             
             $requestFriendId = ArrayHelper::getSafeFromArray($_GET, 'fid', null);
             if ($requestFriendId) {
-            
+                
                 // testing if a request to that user has been done or if the requested user is already a friend
                 $userFriendShips = $user->getFriendships_as_source();
                 if ($userFriendShips && count($userFriendShips)) {
@@ -81,7 +83,7 @@ class Member_FriendsController extends Zend_Controller_Action {
                         }
                     }
                 }
-            
+                
                 // testing the accepted or pending frienship that the requested user has initiated
                 $requestedUser = UserDao::getInstance()->get($requestFriendId);
                 $requestedUserFriendShips = $requestedUser->getFriendships_as_source();
@@ -104,8 +106,8 @@ class Member_FriendsController extends Zend_Controller_Action {
             }
             
             // add friendship line
-            $newFriendShip = new FriendShip;
-            $newFriendShip->setCreationDate(new \DateTime);
+            $newFriendShip = new FriendShip();
+            $newFriendShip->setCreationDate(new \DateTime());
             $newFriendShip->setUser_source($user);
             $newFriendShip->setUser_target($requestedUser);
             FriendShipDao::getInstance()->add($newFriendShip);
@@ -114,15 +116,14 @@ class Member_FriendsController extends Zend_Controller_Action {
             MailSvc::getInstance()->send($requestedUser->getEmail(), sprintf(__("%s - Vous avez reçu une demande d'ami.", "s1b"), Constants::SITENAME), MailHelper::friendRequestEmailBody($user->getUserName()));
             
             // add message line for requestedUser
-            $message = new Message;
+            $message = new Message();
             $message->setRecipient($requestedUser);
             $message->setSender($user);
-            $message->setDate(new \DateTime);
+            $message->setDate(new \DateTime());
             $message->setTitle(__("Demande d'ami", "s1b"));
             $message->setMessage(sprintf(__("Bonjour,<br/><br/>Vous avez reçu une demande d'ami de %s.", "s1b"), $user->getUserName()));
             $message->setIs_read(false);
             MessageDao::getInstance()->add($message);
-            
             
             Flash::addItem(__("Votre demande a bien été envoyée.", "s1b"));
             HTTPHelper::redirectToReferer();
@@ -131,12 +132,57 @@ class Member_FriendsController extends Zend_Controller_Action {
             $this->forward("error", "error", "default");
         }
     }
-    
+
+    /**
+     * Shows a form for selecting friends for emails
+     */
+    public function selectAction() {
+
+        try {
+            
+            global $globalContext;
+            
+            $user = $globalContext->getConnectedUser();
+            $friends = $user->getFriendsForEmailing();
+            $this->sortByUserName($friends);
+            $nbRecipients = count($friends);
+            
+            if ($nbRecipients <= 0) {
+                Flash::addItem(__("Pas de destinataire possible. Vous devez ajouter des amis pour pouvoir envoyer des messages.", "s1b"));
+                HTTPHelper::redirectToReferer();
+            }
+            
+            $this->view->friends = $friends;
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
     private function filterBySearchTerm(User $user) {
 
         global $searchTerm;
         if (preg_match("/$searchTerm/i", $user->getFirstName()) || preg_match("/$searchTerm/i", $user->getLastName()) || preg_match("/$searchTerm/i", $user->getUserName())) {return true;}
         return false;
+    }
+
+    private function sortByUserName(&$friends) {
+
+        usort($friends, array(
+                &$this, "compareByUserNameAsc"
+        ));
+    }
+
+    private function compareByUserNameAsc(User $friend1, User $friend2) {
+
+        $val1 = strtoupper(call_user_func(array(
+                &$friend1, "getUserName"
+        )));
+        $val2 = strtoupper(call_user_func(array(
+                &$friend2, "getUserName"
+        )));
+        if ($val1 == $val2) {return 0;}
+        return ($val1 < $val2) ? -1 : 1;
     }
 
 }
