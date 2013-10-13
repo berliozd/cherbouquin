@@ -7,7 +7,7 @@
             <div class="ubc-part">
                 <?php
                 if ($nbMessagesToRead > 0) {
-                    echo sprintf(__("<a class=\"ub-highlight\" href=\"%s\">%s message(s)</a> non lu", "s1b"), \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\urls::USER_MAILBOX), $nbMessagesToRead);
+                    echo sprintf(__("<a class=\"ub-highlight\" href=\"%s\">%s message(s)</a> non lu", "s1b"), \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX), $nbMessagesToRead);
                 } else {
                     _e("Vous n'avez pas de messages non lu", "s1b");
                 }
@@ -15,10 +15,10 @@
             </div>
             <div class="ubc-sep"></div>
             <div class="ubc-part">
-                <a class="bt-blue-xl button" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\urls::USER_MAILBOX_SEND_MESSAGE); ?>">
+                <a class="bt-blue-xl button" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX_SEND_MESSAGE); ?>">
                     <?php _e("Envoyer un message", "s1b"); ?>
                 </a>
-                <a class="ubc-bottom-link" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\urls::USER_MAILBOX); ?>"><?php _e("Voir tous mes messages", "s1b"); ?></a>
+                <a class="ubc-bottom-link" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX); ?>"><?php _e("Voir tous mes messages", "s1b"); ?></a>
             </div>
         </div>
     </div>
