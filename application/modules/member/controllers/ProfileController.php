@@ -9,6 +9,7 @@ use Sb\Helpers\DateHelper;
 use Sb\Helpers\HTTPHelper;
 use Sb\Entity\Urls;
 use Sb\Trace\Trace;
+
 class Member_ProfileController extends Zend_Controller_Action {
 
     public function init() {
@@ -18,6 +19,7 @@ class Member_ProfileController extends Zend_Controller_Action {
     }
 
     public function editAction() {
+
         global $globalContext;
         
         $user = $globalContext->getConnectedUser();
@@ -45,6 +47,7 @@ class Member_ProfileController extends Zend_Controller_Action {
     }
 
     public function submitAction() {
+
         global $globalContext;
         $user = $globalContext->getConnectedUser();
         $userSettings = $user->getSetting();
@@ -109,13 +112,65 @@ class Member_ProfileController extends Zend_Controller_Action {
      * Show connected user profile
      */
     public function indexAction() {
-    
+
         try {
             global $globalContext;
             $user = $globalContext->getConnectedUser();
             $this->view->user = $user;
             $this->view->userSettings = $user->getSetting();
-    
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    public function deleteAction() {
+
+        try {
+            
+            global $globalContext;
+
+            $user = $globalContext->getConnectedUser();
+            $userSettings = $user->getSetting();
+            
+            $this->view->user = $user;
+            $this->view->userSettings = $user->getSetting();
+            if ($_POST) {
+                
+                $user->setDeleted(true);
+                UserDao::getInstance()->update($user);
+                session_destroy();
+                HTTPHelper::redirect(Urls::LOGIN);
+            }
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    public function gravatarAction() {
+        try {
+            
+            global $globalContext;
+            
+            $user = $globalContext->getConnectedUser();
+            $userSettings = $user->getSetting();
+            
+            $this->view->user = $user;
+            $this->view->userSettings = $user->getSetting();
+            
+            if ($_POST) {
+                if (!empty($_POST['gravatar'])) {
+                    $gravatar = trim($_POST['gravatar']);
+                    $user->setGravatar($gravatar);
+                    UserDao::getInstance()->update($user);
+                    Flash::addItem(__("Votre photo a été mise à jour.", "s1b"));
+                } else {
+                    Flash::addItem(__("Vous devez sélectionner au moins un Gravatar", "s1b"));
+                }
+                HTTPHelper::redirect(Urls::MY_PROFILE);
+            }
+        	
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");

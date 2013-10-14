@@ -44,9 +44,9 @@ class Urls {
     const MY_PROFILE = 'member/profile/index';                                      // Zend : member / profile / index
     const USER_PROFILE_EDIT = 'member/profile/edit';                                // Zend : member / profile / edit
     const USER_PROFILE_SUBMIT = 'member/profile/submit';                            // Zend : member / profile / submit
-    const USER_PROFILE_GRAVATAR = 'profil-membre/gravatar';         // user_profile_gravatar
+    const USER_PROFILE_GRAVATAR = 'member/profile/gravatar';                        // Zend : member / profile / gravatar
     const USER_PROFILE_SETTINGS = 'profil-membre/parametrage'; // user_profile_settings
-    const USER_PROFILE_DELETE_ACCOUNT = 'profil-membre/supprimer'; // user_profile_delete
+    const USER_PROFILE_DELETE_ACCOUNT = 'member/profile/delete';                    // Zend : member / profile / delete
     const USER_PROFILE_EDIT_PASSWORD = 'profil-membre/modification-mot-de-passe'; // user_profile_edit_password
     // User mailbox
     const USER_MAILBOX = 'member/mailbox/index';                                    // Zend : member / mailbox / index
