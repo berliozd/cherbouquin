@@ -45,6 +45,7 @@ if ($_POST) {
     if ($friendSelections) {
         $friendSelectionsIds = \Sb\Helpers\ArrayHelper::getSafeFromArray($_POST, 'Friends', null);
         $friendList = array();
+        $friendIdList = "";
         foreach ($friendSelectionsIds as $friendSelection) {
             $friend = \Sb\Db\Dao\UserDao::getInstance()->get($friendSelection);
             $friendList[] = $friend;

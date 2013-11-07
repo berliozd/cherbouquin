@@ -3,6 +3,8 @@
 namespace Sb\View;
 
 use Sb\View\BookShelf;
+use Sb\Helpers\HTTPHelper;
+use Sb\Entity\Urls;
 
 class Book extends \Sb\View\AbstractView {
 
@@ -47,6 +49,7 @@ class Book extends \Sb\View\AbstractView {
         $lendingText = null;
         $lendingLink = null;
         $editBookLink = null;
+        $recommandLink = null;
         $owned = null;
         $requestBorrowLink = null;
         
@@ -71,18 +74,20 @@ class Book extends \Sb\View\AbstractView {
 
                 $lendingLink = "";
                 if ($userBook->getIsOwned())
-                    $lendingLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_EDIT, "ubid" => $userBook->getId()));
+                    $lendingLink = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_EDIT, "ubid" => $userBook->getId()));
 
                 $lendingText = __("Prêter à un ami", "s1b");
                 if ($userBook->getActiveLending())
                     $lendingText = __("Prêt", "s1b");
 
-                $editBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
+                $editBookLink = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
                 
                 $owned = $userBook->getIsOwned();
                 $requestBorrowLink = "";
+                
+                $recommandLink = HTTPHelper::Link(Urls::USER_MAILBOX_RECOMMAND, array("id" => $this->book->getId()));
             } else
-                $requestBorrowLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROWFROMFRIENDS, "bid" => $this->book->getId()));
+                $requestBorrowLink = HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROWFROMFRIENDS, "bid" => $this->book->getId()));
         } else {
             $isConnected = false;
         }
@@ -164,6 +169,7 @@ class Book extends \Sb\View\AbstractView {
             "lendingLink" => $lendingLink,
             "editBookLink" => $editBookLink,
             "requestBorrowLink" => $requestBorrowLink,
+            "recommandLink" => $recommandLink,
             "image" => $image,
             "bookTitle" => $bookTitle,
             "bookDescription" => $bookDescription,
