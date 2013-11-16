@@ -25,11 +25,11 @@ $env = "beta";
 $localFolder = "E:\\Dev\\wamp2.0\\www\\cherbouquin\\";
 $localBackupFolder = "E:\\Temp\\CherBouquin\\BackupDeploy\\";
 
-$revisionHash = "e81cb22a";
-$filesString = "library/Sb/Templates/wishedUserBook.phtml
-library/Sb/View/WishedUserBook.php
-wp-content/themes/new_s1b/user_friends_wishlist.php
-wp-content/themes/new_s1b/user_friends_wishlist_1.php";
+$revisionHash = "315a0c4e";
+$filesString = "application/modules/member/controllers/ProfileController.php
+application/modules/member/views/scripts/profile/delete.phtml
+application/modules/member/views/scripts/profile/gravatar.phtml
+library/Sb/Entity/Urls.php";
 
 include('Net/SFTP.php');
 
