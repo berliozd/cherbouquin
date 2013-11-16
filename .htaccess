@@ -8,43 +8,28 @@ RewriteBase /
 RewriteCond %{HTTP_HOST} !^www\. [NC]
 RewriteRule ^(.*)$   http://www.%{HTTP_HOST}/$1  [L,R=301]
 
-# Rewrite for removing trailing slash and prevent duplicated content in google
-RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)/$ /livre/$1-$3 [L,R=301]
-RewriteRule ^livre/([a-z0-9\-]+)/([a-z0-9\-]+)/(.*)$ /livre/$1-$3 [L,R=301]
-RewriteRule ^contact/(.*)$ /contact [L,R=301]
+# Page à la racine du site qui ne nessecite pas de réécriture
+RewriteRule ^images(.)*$ - [L,NC]
+RewriteRule ^cgu(.)*$ - [L,NC]
+RewriteRule ^newsletter(.)*$ - [L,NC]
+RewriteRule ^wp-admin(.)*$ - [END]
+RewriteRule ^wp-login(.)*$ - [END]
 
-# Rewrites for Zend modules
-RewriteRule ^default(.)*$ public/index.php [L]
-RewriteRule ^member(.)*$ public/index.php [L]
-# Rewrites for Zend controllers
-RewriteRule ^$ public/index.php [L]                     # module:default / controller:index / action:index
-RewriteRule ^error(.)*$ public/index.php [L]            
-RewriteRule ^wished-userbook(.)*$ public/index.php [L]  # module:default / controller:wished-userbooks
-RewriteRule ^userbook-gift(.)*$ public/index.php [L]    # module:default / controller:userbook-gift
-RewriteRule ^userbook-gifts(.)*$ public/index.php [L]   # module:default / controller:userbook-gifts
-RewriteRule ^test(.)*$ public/index.php [L]
-RewriteRule ^library(.)*$ public/index.php [L]          # module:default / controller:library
-RewriteRule ^users(.)*$ public/index.php [L]            # module:default / controller:users
-RewriteRule ^book-search(.)*$ public/index.php [L]
-RewriteRule ^userbook(.)*$ public/index.php [L]
-RewriteRule ^membre/a-la-page(.)*$ public/index.php [L]
-RewriteRule ^livre(.)*$ public/index.php [L]            # module:default / controller:book / action:index
-RewriteRule ^chronique(.)*$ public/index.php [L]        # module:default / controller:chronicle / action:index
-RewriteRule ^bulletin(.)*$ public/index.php [L]         # module:default / controller:static / action:index (route)
-RewriteRule ^revues-de-presse(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
-RewriteRule ^pas-a-pas(.)*$ public/index.php [L]  		# module:default / controller:static / action:index (route)
-RewriteRule ^a-propos(.)*$ public/index.php [L]         # module:default / controller:static / action:index (route)
-RewriteRule ^presse(.)*$ public/index.php [L]           # module:default / controller:static / action:index (route)
-RewriteRule ^lequipe(.)*$ public/index.php [L]          # module:default / controller:static / action:index (route)
-RewriteRule ^comment-ca-marche(.)*$ public/index.php [L] # module:default / controller:static / action:index (route)
-RewriteRule ^nous-aider(.)*$ public/index.php [L]       # module:default / controller:static / action:index (route)
-RewriteRule ^nos-partenaires(.)*$ public/index.php [L]  # module:default / controller:static / action:index (route)
-RewriteRule ^contact$ public/index.php [L]              # module:default / controller:index / action:contact (route)
+# Page wordpress à réécrire vers la page index wordpress
+RewriteRule ^resultats(.)* index.php$1 [END]
+RewriteRule ^bibliotheque-damis(.)* index.php$1 [END]
+RewriteRule ^bibliotheque-detail(.)* index.php$1 [END]
+RewriteRule ^bibliotheque(.)* index.php$1 [END]
+RewriteRule ^membre/deconnexion(.)*$ index.php [END]
+RewriteRule ^membre/inscription(.)*$ index.php [END]
+RewriteRule ^mot-de-passe-perdu(.)*$ index.php [END]
+RewriteRule ^profil-membre(.)* index.php$1 [END]
+RewriteRule ^messagerie(.)* index.php$1 [END]
+RewriteRule ^amis(.)* index.php$1 [END]
 
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
+# Toutes les autres pages
+RewriteRule . /public/index.php [L]
+
 </IfModule>
 
 # END WordPress
