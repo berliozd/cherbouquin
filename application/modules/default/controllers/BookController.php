@@ -63,7 +63,7 @@ class Default_BookController extends Zend_Controller_Action {
                     // Get fnac buy link and add it to view model
                     $this->view->buyOnFnacLink = null;
                     if ($bookPage->getBook()->getISBN13())
-                        $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[http://recherche.fnac.com/search/quick.do?text=" . $bookPage->getBook()->getISBN13() . "]]"; //
+                        $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[recherche.fnac.com/search/quick.do?text=" . $bookPage->getBook()->getISBN13() . "]]"; //
                                                                                                                                                                                                           
                     // Get social network bar and add it to view model
                     $socialBar = new SocialNetworksBar($bookPage->getBook()->getLargeImageUrl(), $bookPage->getBook()->getTitle());
