@@ -10,6 +10,7 @@ if (!empty($_POST)) {
     $settings_DisplayEmail = $_POST['settings_DisplayEmail'];
     $settings_SendMessages = $_POST['settings_SendMessages'];
     $settings_DisplayBirthDay = $_POST['settings_DisplayBirthDay'];
+    $settings_DisplayWishList = $_POST['settings_DisplayWishList'];
     $settings_AllowFollowers = $_POST['settings_AllowFollowers'];
     $settings_EmailMe = $_POST['settings_EmailMe'];
     $settings_AcceptNewsletter = ($_POST['settings_AcceptNewsletter'] == 1 ? true : false);
@@ -18,9 +19,11 @@ if (!empty($_POST)) {
     $userSettings->setDisplayEmail($settings_DisplayEmail);
     $userSettings->setSendMessages($settings_SendMessages);
     $userSettings->setDisplayBirthday($settings_DisplayBirthDay);
+    $userSettings->setDisplay_wishlist($settings_DisplayWishList);    
     $userSettings->setAllowFollowers($settings_AllowFollowers);
     $userSettings->setEmailMe($settings_EmailMe);
     $userSettings->setAccept_newsletter($settings_AcceptNewsletter);
+    
 
     \Sb\Db\Dao\UserSettingDao::getInstance()->update($userSettings);
 

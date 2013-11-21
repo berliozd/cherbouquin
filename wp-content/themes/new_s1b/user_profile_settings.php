@@ -3,6 +3,10 @@ require_once 'includes/init.php';
 get_header();
 require_once 'user_profile_settings_1.php';
 
+use \Sb\Entity\UserDataVisibility;
+use \Sb\View\UserProfile;
+use \Sb\Entity\Constants;
+
 /**
  * Template Name: user_profile_settings
  */
@@ -10,7 +14,7 @@ require_once 'user_profile_settings_1.php';
 <div class="user-profile-bkg">
     <div id="content-center"  >
         <?php
-        $profileView =new \Sb\View\UserProfile($user, $userSettings, true, true, false);
+        $profileView =new UserProfile($user, $userSettings, true, true, false);
         echo $profileView->get();
         ?>
         <div class="profile-edit-settings">
@@ -29,10 +33,10 @@ require_once 'user_profile_settings_1.php';
                         <?php _e("Si vous limitez l'accès à vos amis seuls vos paramètres publics mentionnés ci-dessus seront visibles pour les autres utilisateurs.", "s1b"); ?>
                     </div>
                     <div class="pes-question-field">
-                        <input type="radio" name="settings_DisplayProfile" id="radio" value="<?php echo \Sb\Entity\UserDataVisibility::MEMBERS_ONLY; ?>" <?php if ($userSettings->getDisplayProfile() == \Sb\Entity\UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
-                        <label><?php echo __("membres", "s1b") . " " . \Sb\Entity\Constants::SITENAME; ?></label>
+                        <input type="radio" name="settings_DisplayProfile" id="radio" value="<?php echo UserDataVisibility::MEMBERS_ONLY; ?>" <?php if ($userSettings->getDisplayProfile() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
+                        <label><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
                         <br/>
-                        <input type="radio" name="settings_DisplayProfile" id="radio" value="<?php echo \Sb\Entity\UserDataVisibility::FRIENDS; ?>" <?php if ($userSettings->getDisplayProfile() == \Sb\Entity\UserDataVisibility::FRIENDS) echo "checked" ?> />
+                        <input type="radio" name="settings_DisplayProfile" id="radio" value="<?php echo UserDataVisibility::FRIENDS; ?>" <?php if ($userSettings->getDisplayProfile() == UserDataVisibility::FRIENDS) echo "checked" ?> />
                         <label><?php _e("seulement mes amis", "s1b"); ?></label>
                     </div>
                 </div>
@@ -44,13 +48,13 @@ require_once 'user_profile_settings_1.php';
                         <?php _e("Si vous limitez l'accès à vos amis et que vous avez choisi de ne pas limiter votre profil, votre adresse email ne sera visible que par vos amis.", "s1b"); ?>
                     </div>
                     <div class="pes-question-field">
-                        <input type="radio" name="settings_DisplayEmail" id="radio" value="<?php echo \Sb\Entity\UserDataVisibility::MEMBERS_ONLY; ?>" <?php if ($userSettings->getDisplayEmail() == \Sb\Entity\UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
-                        <label><?php echo __("membres", "s1b") . " " . \Sb\Entity\Constants::SITENAME; ?></label>
+                        <input type="radio" name="settings_DisplayEmail" id="radio" value="<?php echo UserDataVisibility::MEMBERS_ONLY; ?>" <?php if ($userSettings->getDisplayEmail() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
+                        <label><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
                         <br/>
-                        <input type="radio" name="settings_DisplayEmail" id="radio" value="<?php echo \Sb\Entity\UserDataVisibility::FRIENDS; ?>" <?php if ($userSettings->getDisplayEmail() == \Sb\Entity\UserDataVisibility::FRIENDS) echo "checked" ?> />
+                        <input type="radio" name="settings_DisplayEmail" id="radio" value="<?php echo UserDataVisibility::FRIENDS; ?>" <?php if ($userSettings->getDisplayEmail() == UserDataVisibility::FRIENDS) echo "checked" ?> />
                         <label><?php _e("seulement mes amis", "s1b"); ?></label>
                         <br/>
-                        <input type="radio" name="settings_DisplayEmail" id="radio" value="<?php echo \Sb\Entity\UserDataVisibility::NO_ONE; ?>" <?php if ($userSettings->getDisplayEmail() == \Sb\Entity\UserDataVisibility::NO_ONE) echo "checked" ?> />
+                        <input type="radio" name="settings_DisplayEmail" id="radio" value="<?php echo UserDataVisibility::NO_ONE; ?>" <?php if ($userSettings->getDisplayEmail() == UserDataVisibility::NO_ONE) echo "checked" ?> />
                         <label><?php _e("personne", "s1b"); ?></label>
                     </div>
                 </div>                
@@ -62,13 +66,13 @@ require_once 'user_profile_settings_1.php';
                         <?php _e("N'oubliez pas que si vos amis y ont accès on leur rappelera de penser à vous !!!", "s1b"); ?>
                     </div>
                     <div class="pes-question-field">
-                        <input type="radio" name="settings_DisplayBirthDay" id="radio" value="<?php echo \Sb\Entity\UserDataVisibility::MEMBERS_ONLY?>" <?php if ($userSettings->getDisplayBirthDay() == \Sb\Entity\UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
-                        <label><?php echo __("membres", "s1b") . " " . \Sb\Entity\Constants::SITENAME; ?></label>
+                        <input type="radio" name="settings_DisplayBirthDay" id="radio" value="<?php echo UserDataVisibility::MEMBERS_ONLY?>" <?php if ($userSettings->getDisplayBirthDay() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
+                        <label><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
                         <br/>
-                        <input type="radio" name="settings_DisplayBirthDay" id="radio" value="<?php echo \Sb\Entity\UserDataVisibility::FRIENDS; ?>" <?php if ($userSettings->getDisplayBirthDay() == \Sb\Entity\UserDataVisibility::FRIENDS) echo "checked" ?> />
+                        <input type="radio" name="settings_DisplayBirthDay" id="radio" value="<?php echo UserDataVisibility::FRIENDS; ?>" <?php if ($userSettings->getDisplayBirthDay() == UserDataVisibility::FRIENDS) echo "checked" ?> />
                         <label><?php _e("seulement mes amis", "s1b"); ?></label>
                         <br/>
-                        <input type="radio" name="settings_DisplayBirthDay" id="radio" value=<?php echo \Sb\Entity\UserDataVisibility::NO_ONE; ?> <?php if ($userSettings->getDisplayBirthDay() == \Sb\Entity\UserDataVisibility::NO_ONE) echo "checked" ?> />
+                        <input type="radio" name="settings_DisplayBirthDay" id="radio" value=<?php echo UserDataVisibility::NO_ONE; ?> <?php if ($userSettings->getDisplayBirthDay() == UserDataVisibility::NO_ONE) echo "checked" ?> />
                         <label><?php _e("personne", "s1b"); ?></label>
                     </div>
                 </div>
@@ -77,10 +81,10 @@ require_once 'user_profile_settings_1.php';
                         <?php _e("Qui peut vous envoyer des messages ?", "s1b"); ?>
                     </div>
                     <div class="pes-question-field">
-                        <input type="radio" name="settings_SendMessages" id="radio" value="<?php echo \Sb\Entity\UserDataVisibility::MEMBERS_ONLY;?>" <?php if ($userSettings->getSendMessages() == \Sb\Entity\UserDataVisibility::MEMBERS_ONLY) echo "checked" ?>/>
-                        <label><?php echo __("membres", "s1b") . " " . \Sb\Entity\Constants::SITENAME; ?></label>
+                        <input type="radio" name="settings_SendMessages" id="radio" value="<?php echo UserDataVisibility::MEMBERS_ONLY;?>" <?php if ($userSettings->getSendMessages() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?>/>
+                        <label><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
                         <br/>
-                        <input type="radio" name="settings_SendMessages" id="radio" value=<?php echo \Sb\Entity\UserDataVisibility::FRIENDS; ?> <?php if ($userSettings->getSendMessages() == \Sb\Entity\UserDataVisibility::FRIENDS) echo "checked" ?>/>
+                        <input type="radio" name="settings_SendMessages" id="radio" value=<?php echo UserDataVisibility::FRIENDS; ?> <?php if ($userSettings->getSendMessages() == UserDataVisibility::FRIENDS) echo "checked" ?>/>
                         <label><?php _e("seulement mes amis", "s1b"); ?></label>
                     </div>
                 </div>
@@ -114,7 +118,7 @@ require_once 'user_profile_settings_1.php';
                 </div>
                 <div class="pes-line">
                     <div class="pes-question">
-                        <?php echo sprintf(__("Souhaitez-vous recevoir la newsletter de %s ?", "s1b"), \Sb\Entity\Constants::SITENAME); ?>
+                        <?php echo sprintf(__("Souhaitez-vous recevoir la newsletter de %s ?", "s1b"), Constants::SITENAME); ?>
                     </div>
                     <div class="pes-question-field">
                         <input type="radio" name="settings_AcceptNewsletter" id="radio" value="1" <?php if ($userSettings->getAccept_newsletter()) echo "checked" ?> />
@@ -122,6 +126,19 @@ require_once 'user_profile_settings_1.php';
                         <br/>
                         <input type="radio" name="settings_AcceptNewsletter" id="radio" value="0" <?php if (!$userSettings->getAccept_newsletter()) echo "checked" ?> />
                         <label><?php _e("non", "s1b"); ?></label>
+                    </div>
+                </div>
+                <br/>
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php echo __("Votre liste de souhait est visible pour ?", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_DisplayWishList" id="settings_DisplayWishList" value="<?php echo UserDataVisibility::ALL?>" <?php if ($userSettings->getDisplay_wishlist() == UserDataVisibility::ALL) echo "checked" ?> />
+                        <label for="settings_DisplayWishList"><?php echo __("tout le monde", "s1b"); ?></label>
+                        <br/>
+                        <input type="radio" name="settings_DisplayWishList" id="settings_DisplayWishList" value="<?php echo UserDataVisibility::MEMBERS_ONLY?>" <?php if ($userSettings->getDisplay_wishlist() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
+                        <label for="settings_DisplayWishList"><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>                        
                     </div>
                 </div>
                 <br/>
