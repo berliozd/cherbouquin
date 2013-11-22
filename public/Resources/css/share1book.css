@@ -170,7 +170,7 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px; text-indent: 
 
 .right-frame {float: left;margin-bottom: 15px;width: 100%;}
 .right-col-buttons {margin-bottom:5px; float:left; width:100%;}
-.rcb-buttons {float:left;}
+.rcb-buttons {float:left; width: 200px;}
 .rcb-label {border-right: 1px solid #CCCCCC;float: left;font-size: 1.1em;font-weight: bold;height: 27px;padding-right: 5px;padding-top: 13px; width: 80px;}
 
 
@@ -203,9 +203,12 @@ DIV.rating {float: left;height: 18px;width: 83px; margin-top: 3px; text-indent: 
 .pf-title {background-color: #fff;color: #f14e07;font-size: 1.6em;font-weight: bold;text-align: center; border-bottom: 1px solid #f14e07;}
 
 /* profile visibility picto */
-.profile-picto-small-myfriends {background: url("../images/sprite.png?v=6") repeat-x scroll 90px -1014px transparent;}
-.profile-picto-small-public {background: url("../images/sprite.png?v=6") repeat-x scroll 90px -1048px transparent;}
-.profile-picto-small-private {background: url("../images/sprite.png?v=6") repeat-x scroll 90px -1082px transparent;}
+.profile-picto-small-myfriends {background: url("../images/sprite.png?v=6") repeat-x scroll left -1014px transparent;}
+.profile-picto-small-public {background: url("../images/sprite.png?v=6") repeat-x scroll left -1048px transparent;}
+.profile-picto-small-private {background: url("../images/sprite.png?v=6") repeat-x scroll left -1082px transparent;}
+.profile-picto-small-myfriends.nurs-status {background-position: 90px -1014px;}
+.profile-picto-small-public.nurs-status {background-position: 90px -1048px;}
+.profile-picto-small-private.nurs-status {background-position: 90px -1082px;}
 
 SELECT {height: 28px;}
 A.link, A:visited.link, A:hover.link {color:#239cd3 !important; font-weight: bold;}

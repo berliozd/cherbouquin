@@ -19,14 +19,17 @@ class UserSetting implements \Sb\Db\Model\Model {
     protected $display_profile;
 
     /** @Column(type="string", length=45) */
-    protected $allow_followers;
-
-    /** @Column(type="string", length=255) */
     protected $display_email;
-
+    
     /** @Column(type="string", length=45) */
     protected $display_birthday;
 
+    /** @Column(type="string", length=11) */
+    protected $display_wishlist;    
+
+    /** @Column(type="string", length=45) */
+    protected $allow_followers;
+    
     /** @Column(type="string", length=45) */
     protected $send_messages;
 
@@ -54,8 +57,16 @@ class UserSetting implements \Sb\Db\Model\Model {
     public function setDisplayProfile($displayProfile) {
         $this->display_profile = $displayProfile;
     }
+    
+    public function getDisplay_wishlist() {
+        return $this->display_wishlist;
+    }
 
-    public function getAllowFollowers() {
+    public function setDisplay_wishlist($display_wishlist) {
+        $this->display_wishlist = $display_wishlist;
+    }
+
+	public function getAllowFollowers() {
         return $this->allow_followers;
     }
 
@@ -127,24 +138,4 @@ class UserSetting implements \Sb\Db\Model\Model {
         $this->user = $user;
     }
 
-//        // TODO : delete
-//
-//    protected $user_id;
-//    protected $user_email;
-//
-//    public function getUserId() {
-//        return $this->user_id;
-//    }
-//
-//    public function setUserId($userId) {
-//        $this->user_id = $userId;
-//    }
-//
-//    public function getUserEmail() {
-//        return $this->user_email;
-//    }
-//
-//    public function setUserEmail($userEmail) {
-//        $this->user_email = $userEmail;
-//    }
 }
