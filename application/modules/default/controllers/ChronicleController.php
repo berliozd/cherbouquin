@@ -39,9 +39,6 @@ class Default_ChronicleController extends Zend_Controller_Action {
 
     public function init() {
         
-        // Add css
-        $this->view->headLink()->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
-        
         // Add js files
         $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
         $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/content.js?v=' . VERSION . "\"></script>");
@@ -52,9 +49,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
      */
     public function indexAction() {
         try {
-            
-            $this->view->headLink()->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
-            
+           
             // Get chronicle id from request
             $chronicleId = $this->getParam("cid");
             

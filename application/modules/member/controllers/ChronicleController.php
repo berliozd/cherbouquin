@@ -28,10 +28,6 @@ class Member_ChronicleController extends Zend_Controller_Action {
         
         // Check if user is connected
         AuthentificationSvc::getInstance()->checkUserIsConnected();
-        
-        // Add chronicle css to head
-        $this->view->headLink()
-            ->appendStylesheet(BASE_URL . "Resources/css/groupAdmin.css?v=" . VERSION);
     }
 
     public function addAction() {

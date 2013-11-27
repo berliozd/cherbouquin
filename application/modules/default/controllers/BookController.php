@@ -41,8 +41,7 @@ class Default_BookController extends Zend_Controller_Action {
                 
                 if ($bookPage) {
                     
-                    // Add css and js files
-                    $this->view->headLink()->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
+                    // Add and js files
                     $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
                     $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
                     

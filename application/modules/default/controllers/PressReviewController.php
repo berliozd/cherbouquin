@@ -22,11 +22,7 @@ class Default_PressReviewController extends Zend_Controller_Action {
     private $navigationParamName = "pagenumber";
 
     public function init() {
-        
-        // Add css
-        $this->view->headLink()
-            ->appendStylesheet(BASE_URL . "Resources/css/contents.css?v=" . VERSION);
-        
+
         // Add js
         $this->view->placeholder('footer')
             ->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");
