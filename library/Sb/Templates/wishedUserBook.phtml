@@ -14,14 +14,17 @@ global $globalContext;
         </div>
         <a class="book-link" href="<?php echo $viewBookLink; ?>"><?php echo "Découvrir ce livre"; ?> </a>
         <div class="wbi-giftoption">
-            <?php if ($isConnected) {?>
             <div class="wbi-giftoption-addoption">
                 <?php if (!$isOffered) { ?>
                     <span class="wbi-giftoption-notbought"><?php _e("Ce livre n'a pas encore été offert.","s1b");?></span>
+                    <?php if ($isConnected) { ?>
                     <a href="<?php echo $setAsOfferedLink;?>" class="button bt-blue-xxxl"><?php _e("Marquez-le comme acheté", "s1b"); ?></a>
+                    <?php }?>
                 <?php } else { ?>
-                    <?php 
-                    $giftOptionFromMe = ($offerer->getId() == $globalContext->getConnectedUser()->getId());
+                    <?php
+                    $giftOptionFromMe = false;
+                    if ($isConnected)
+                        $giftOptionFromMe = ($offerer->getId() == $globalContext->getConnectedUser()->getId());
                     ?>
                     <span class="wbi-giftoption-bought">
                         <?php 
@@ -36,7 +39,6 @@ global $globalContext;
                     ?>
                 <?php } ?>            
             </div>
-            <?php }?>
             <div class="wbi-giftoption-buy">
                 <a class="button bt-amazon float-left margin-right" target="_blank" href="<?php echo $buyOnAmazonLink; ?>" title="<?php _e("Acheter sur Amazon", "s1b");?>"></a>
                 <?php if ($buyOnFnacLink) { ?>

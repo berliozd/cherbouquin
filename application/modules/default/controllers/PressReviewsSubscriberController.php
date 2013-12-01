@@ -28,21 +28,10 @@ class Default_PressReviewsSubscriberController extends \Zend_Controller_Action {
             
             // Check the form validity
             $form = new PressReviewsSusbcriptionForm();
-            if (!$form->isValid($_POST)) {
+            if (!$form->isValid($_POST))
                 
-                // Walk through all errors to set the error flash messages
-                foreach ($form->getErrors() as $errorKey => $errorValue) {
-                    if ($errorValue && count($errorValue) > 0) {
-                        foreach ($errorValue as $key => $value) {
-                            $fieldMessages = ArrayHelper::getSafeFromArray($form->getMessages(), $errorKey, null);
-                            if ($fieldMessages) {
-                                $errorMessage = ArrayHelper::getSafeFromArray($fieldMessages, $value, null);
-                                Flash::addItem($errorMessage);
-                            }
-                        }
-                    }
-                }
-            } else {
+                Flash::addItems($form->getFailureMessages());
+            else {
                 
                 // Try to get an existing PressReviewsSubscriber
                 /* @var $existingPressReviewSubscriber PressReviewsSubscriber */

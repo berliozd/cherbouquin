@@ -71,6 +71,12 @@ class Flash {
         self::initItems();
         self::$items[] = $message;
     }
+    
+    public static function addItems($messages) {
+        
+        foreach ($messages as $message)
+            self::addItem($message);
+    }
 
     /**
      * Get flash messages and clear them.

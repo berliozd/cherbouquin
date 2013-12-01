@@ -23,6 +23,8 @@ toInit.push("attachRegistrationFormEvents()");
 toInit.push("attachFriendSearchEvents()");
 toInit.push("attachLoginEvents()");
 toInit.push("attachAddUserBook()");
+toInit.push("autoClearAndRestore()");
+
 
 /* Hide the flahes messages when clicking anywhere */
 function attachFlashHiding() {
@@ -181,6 +183,26 @@ function _attachInputClearingAndRestore(defClass, selector) {
             $(this).val(bookSearchTermDef);
         }
     });
+}
+
+
+function autoClearAndRestore() {
+    $("[auto-restore]").each(
+        function() {
+            var defaultValue = $(".default-value", $(this).parent()).val();            
+            $(this).focus(function() {
+                if ($(this).val() == defaultValue) {
+                    $(this).val("");
+                }
+            });
+
+            $(this).blur(function() {
+                if ($(this).val() == "") {
+                    $(this).val(defaultValue);
+                }
+            });         
+        }
+    );
 }
 
 function _addFlashMessage(message) {

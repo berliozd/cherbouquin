@@ -8,7 +8,7 @@ use Sb\ZendValidator\PressReviewsSubscriberExists;
  *
  * @author Didier
  */
-class PressReviewsSusbcriptionForm extends \Zend_Form {
+class PressReviewsSusbcriptionForm extends ZendForm {
 
     /**
      *
@@ -24,6 +24,8 @@ class PressReviewsSusbcriptionForm extends \Zend_Form {
         $this->setAction('/default/press-reviews-subscriber/post')
             ->setMethod('post');
         
+        $emailDefaultValue = __("Email", "s1b");
+        
         // Email element
         $emailElement = new \Zend_Form_Element_Text("email");
         $emailElement->addValidator("emailAddress", false, array(
@@ -38,13 +40,10 @@ class PressReviewsSusbcriptionForm extends \Zend_Form {
         ))
             ->addValidator(new PressReviewsSubscriberExists(), false)
             ->setRequired(true)
-            ->setValue(__("Email", "s1b"));
-        $this->removeAllDecorators($emailElement);
-        $emailElement->addDecorator("HtmlTag", array(
-                "tag" => "div",
-                "class" => "prsf-text"
-        ));
+            ->setValue($emailDefaultValue);
+        $this->removeAllDecorators($emailElement);        
         $emailElement->class = "input-item";
+        $emailElement->setAttrib("auto-restore", "");
         
         // Submit button element
         $subscribeButtonElement = new \Zend_Form_Element_Submit("subscribe");
@@ -52,16 +51,12 @@ class PressReviewsSusbcriptionForm extends \Zend_Form {
                 'label' => __("S'abonner", "s1b")
         ));
         $this->removeAllDecorators($subscribeButtonElement);
-        $subscribeButtonElement->class = "button bt-blue-m";
-        $subscribeButtonElement->addDecorator("HtmlTag", array(
-                "tag" => "div",
-                "class" => "prsf-button"
-        ));
+        $subscribeButtonElement->class = "button bt-blue-m";        
         
         // Email default label element
         $emailDefaultLabelHidden = new \Zend_Form_Element_Hidden("emailDefaultLabel");
-        $emailDefaultLabelHidden->setValue(__("Email", "s1b"));
-        $emailDefaultLabelHidden->class = "pressReviewFormEmailDefaultLabel";
+        $emailDefaultLabelHidden->setValue($emailDefaultValue);
+        $emailDefaultLabelHidden->class = "default-value";
         $this->removeAllDecorators($emailDefaultLabelHidden);
         
         $this->addElements(array(
@@ -76,19 +71,6 @@ class PressReviewsSusbcriptionForm extends \Zend_Form {
     public function getEmail() {
 
         return $this->getValue("email");
-    }
-
-    /**
-     * Remove all decorators to the specified zend form element
-     * @param \Zend_Form_Element $element the element to remove the decorators from
-     */
-    private function removeAllDecorators(\Zend_Form_Element $element) {
-
-        $element->removeDecorator("Description");
-        $element->removeDecorator("HtmlTag");
-        $element->removeDecorator("Label");
-        $element->removeDecorator("DtDdWrapper");
-        $element->removeDecorator("Errors");
     }
 
 }

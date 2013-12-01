@@ -1,4 +1,4 @@
-@version: 7;
+@version: 8;
 
 @sprite: "../images/sprite.png?v=@{version}";
 @spriteButtons: "../images/sprite-buttons.png?v=@{version}";
@@ -8,6 +8,10 @@
 @import "layout.less";
 
 @import "modules/buttons.less";
+
+@import "modules/forms.less";
+
+@import "modules/compactFormWidget.less";
 
 @import "modules/contents.less";
 
@@ -2172,6 +2176,10 @@ TABLE TH.llh-title {
     float: left;
     width: 33%;
     min-height: 325px;
+}
+
+.wishlist-list .friend-item {    
+    min-height: 245px;
 }
 
 .friend-selection .friend-item {

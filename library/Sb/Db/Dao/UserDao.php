@@ -2,6 +2,8 @@
 
 namespace Sb\Db\Dao;
 
+use Sb\Trace\Trace;
+use Sb\Entity\UserDataVisibility;
 /**
  * Description of UserDao
  *
@@ -113,6 +115,31 @@ class UserDao extends \Sb\Db\Dao\AbstractDao {
                 ->setParameter("keyword", "%" . $keyword . "%");
 
         $result = $this->getResults($queryBuilder->getQuery());
+        return $result;
+    }
+    
+    public function getListByKeywordAndWishedUserBooks($keyword) {
+    
+        $dql = "SELECT u FROM " . self::MODEL . " u 
+            JOIN u.userbooks ub 
+            JOIN u.setting s
+            WHERE (u.email LIKE :keyword 
+                OR u.user_name LIKE :keyword 
+                OR u.last_name LIKE :keyword 
+                OR u.first_name LIKE :keyword 
+                OR u.user_name LIKE :keyword)
+            AND ub.is_deleted != 1 
+            AND ub.is_wished = 1
+            AND s.display_wishlist = '" . UserDataVisibility::ALL . "'  
+            ORDER BY ub.last_modification_date DESC";
+
+        $query = $this->entityManager->createQuery($dql);
+        $query->setParameter("keyword", "%" . $keyword . "%");
+        $query->setMaxResults(10);
+        
+        Trace::addItem($query->getSQL());
+        $result = $this->getResults($query);
+
         return $result;
     }
 

@@ -36,6 +36,7 @@ use Sb\Authentification\Service\AuthentificationSvc;
 use Sb\Facebook\Service\FacebookSvc;
 use Sb\Entity\Constants;
 use Sb\Entity\ConnexionType;
+use Sb\View\Components\WishListSearchWidget;
 
 class Default_IndexController extends Zend_Controller_Action {
 
@@ -78,9 +79,9 @@ class Default_IndexController extends Zend_Controller_Action {
             $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>");
             $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-items', 980, 340)});</script>");
             
-            // Getting auto promo widget
-            $autoPromoWishlist = new AutoPromoWishlistWidget();
-            $this->view->autoPromoWishlist = $autoPromoWishlist->get();
+            // Getting wish list search widget
+            $wishListSearchWidget = new WishListSearchWidget();
+            $this->view->wishListSearchWidget = $wishListSearchWidget->get();
             
             // Set chronicles (last one, last from any groups except bloggers and bookstore, last from bloggers, last from bookstores)
             $this->setViewChronicles();
