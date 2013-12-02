@@ -138,8 +138,6 @@ class Default_UsersController extends Zend_Controller_Action {
                 $friendBooks = $selectedFriend->getNotDeletedUserBooks();
                 $friendWishedBooks = array_filter($friendBooks, array($this,"isWished"));
                 $this->view->friendWishedBooks = $friendWishedBooks;
-            
-                $this->view->booksHeCouldLikes = BookSvc::getInstance()->getBooksUserCouldLike($selectedFriendId);
             }
             
         } catch (\Exception $e) {

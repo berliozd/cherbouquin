@@ -47,6 +47,7 @@ class WishedUserBook extends AbstractView {
         if ($this->book->getISBN13())
             $buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[recherche.fnac.com/search/quick.do?text=" . $this->book->getISBN13() . "]]";
         $setAsOfferedLink = HTTPHelper::Link(Urls::WISHED_USERBOOK_SET_AS_OFFERED, array("ubid" => $this->userbook->getId()));
+        $subscribeLink = HTTPHelper::Link(Urls::SUBSCRIBE);
 
         // Set variables
         $tplBook->setVariables(array(
@@ -59,6 +60,7 @@ class WishedUserBook extends AbstractView {
             "buyOnFnacLink" => $buyOnFnacLink,
             "offerer" => $offerer,
             "setAsOfferedLink" => $setAsOfferedLink,
+            "subscribeLink" => $subscribeLink,
             "deactivateGiftOptionLink" => $deactivateGiftOptionLink,
             "isConnected" => $this->getContext()->getConnectedUser()));
 

@@ -4,16 +4,17 @@ use Sb\Entity\Urls;
 use Sb\View\Components\FriendsWidget;
 use Sb\View\Components\Ad;
 use Sb\Helpers\HTTPHelper;
-use Sb\Helpers\BookHelper;
 use Sb\Helpers\ArrayHelper;
 use Sb\Helpers\StringHelper;
 use Sb\Helpers\UserHelper;
+use Sb\View\Components\WishListSearchWidget;
 
 global $globalContext;
 
 ?>
 <div id="content-wide">
     <?php
+    // User is null if not connected
     if ($this->user) { 
     ?>
     <div class="friends-list-header">
@@ -81,23 +82,6 @@ global $globalContext;
             <?php } else { ?>
                 <div class="fl-friendnobooks"><?php _e("Cet ami n'a aucun livre souhaité.", "s1b"); ?> </div>
             <?php } ?>
-            <?php if ($this->booksHeCouldLikes && count($this->booksHeCouldLikes) > 0) { ?>
-            <div class="pushed-books pushedBooks">
-                <div class="pb-title">
-                    <?php _e("Idées cadeaux... ça pourrait lui plaire","s1b"); ?>
-                </div>
-                <div class="pb-shelf">
-                    <div class="inner-side-padding-30">
-                    <?php foreach ($this->booksHeCouldLikes as $bookHeCouldLikes) { ?>
-                        <div class="pb-bookOnShelf">
-                            <a href="<?php echo HTTPHelper::Link($bookHeCouldLikes->getLink()); ?>"><?php echo BookHelper::getMediumImageTag($bookHeCouldLikes, $globalContext->getDefaultImage());?></a>
-                        </div>
-                    <?php }?>
-                    </div>
-                </div>
-            </div>
-            <div class="horizontal-sep-1"></div>
-            <?php } ?>
             
         <?php } elseif (!$this->selectedFriend) { ?>
             <div class="fwb-subtitle"><?php _e("Offrez et faites vous offrir des cadeaux qui plaisent vraiment en utilisant la liste d'envies.", "s1b"); ?> </div>
@@ -110,12 +94,20 @@ global $globalContext;
 <div id="content-right">
     <div class="right-frame">
         <?php
+        // User is null if not connected
         if ($this->user) {
             $friendWidget = new FriendsWidget;
             echo $friendWidget->get();
         }
         ?>
     </div>
+    <div class="right-frame">
+        <?php
+            // Getting wish list search widget
+            $wishListSearchWidget = new WishListSearchWidget();
+            echo $wishListSearchWidget->get();
+        ?>
+    </div>            
     <div class="right-frame">
         <?php
         $ad = new Ad("user_friends", "2432422854");

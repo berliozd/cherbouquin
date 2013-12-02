@@ -50,7 +50,7 @@ class Default_WishedUserbookController extends Zend_Controller_Action {
     }
 
     public function searchListAction() {
-        
+
         global $globalContext;
         
         // Check the form validity
@@ -63,26 +63,49 @@ class Default_WishedUserbookController extends Zend_Controller_Action {
             $searchTerm = $this->_getParam('wishedListSearchTerm', "");
             Trace::addItem($searchTerm);
             $users = UserDao::getInstance()->getListByKeywordAndWishedUserBooks($searchTerm);
-            
-            
-            $cleanedUsers = array();            
-            foreach ($users as $user) {
-                
-                // Don't add connected user and Admin
-                if ($globalContext->getConnectedUser() && ($globalContext->getConnectedUser()->getId() != $user->getId()) || !$globalContext->getConnectedUser()) {
-                    if ($user->getId() != 1)
-                        $cleanedUsers[] = $user;
-                }   
-            }
-            
-            if (count($cleanedUsers) == 0) {                
-                
-                Flash::addItem(__("Aucune liste d'envie n'a pu être trouvée avec vos termes de recherche.", "s1b"));
+
+            // Remove connected user and admin user
+            $cleanedUsers = $this->cleanUsersList($users);
+
+            if (count($cleanedUsers) == 0) {
+
+                // Getting user without wish list
+                $usersWithoutWishList = UserDao::getInstance()->getListByKeyword($searchTerm);
+                $cleanedUsersWithoutWishList = $this->cleanUsersList($usersWithoutWishList);
+
+                if (count($cleanedUsersWithoutWishList) != 0)
+                    Flash::addItem(sprintf(__("Aucun utilisateur '%s' n'a créé de liste d'envies.", "s1b"), $searchTerm));
+                else
+                    Flash::addItem(__("Aucun utilisateur ne correspond à votre recherche.", "s1b"));
+
                 HTTPHelper::redirectToReferer();
             }
             $this->view->users = $cleanedUsers;
             $this->view->form = $form;
         }
+    }
+
+    /**
+     * Remove current connected user (if one) and admin user (id=1
+     * @param array of User $users
+     * @return array of User
+     */
+    private function cleanUsersList($users) {
+
+        $cleanedUsers = array();
+        global $globalContext;
+        
+        foreach ($users as $user) {
+            
+            // Don't add connected user and Admin
+            if (($globalContext->getConnectedUser() && ($globalContext->getConnectedUser()
+                ->getId() != $user->getId())) || !$globalContext->getConnectedUser()) {
+                if ($user->getId() != 1)
+                    $cleanedUsers[] = $user;
+            }
+        }
+        
+        return $cleanedUsers;
     }
 
 }

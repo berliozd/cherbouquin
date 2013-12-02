@@ -31,6 +31,11 @@ global $globalContext;
             if (($i % 3 == 0) && ($i != 0)) {
                 echo "<div class=\"horizontal-sep-1\"></div>";
             }
+            
+            // Display emails if user setting is ALL or if connected and user setting is MEMBER ONLY
+            $displayEmail = (($friend->getSetting()->getDisplayEmail() == UserDataVisibility::ALL) 
+                                    || ($globalContext->getConnectedUser() && ($friend->getSetting()->getDisplayEmail() == UserDataVisibility::MEMBERS_ONLY)));
+            
             $i += 1;
             ?>                        
             <div class="friend-item">
@@ -42,13 +47,13 @@ global $globalContext;
                         </span>
                 </div>
                 <div class="fi-line">
-                    <span class="fil-label"><?php _e("Email : ","s1b");?></span> <span class="fil-value"><?php echo (($friend->getSetting()->getDisplayEmail() != UserDataVisibility::NO_ONE)? StringHelper::tronque($friend->getEmail(), 30) : __("donnée privée", "s1b"));?></span>
+                    <span class="fil-label"><?php _e("Email : ","s1b");?></span> <span class="fil-value"><?php echo ($displayEmail ? StringHelper::tronque($friend->getEmail(), 30) : __("donnée privée", "s1b"));?></span>
                 </div>                
                 <div class="fi-line">
                     <span class="fil-label"><?php _e("Identifiant : ","s1b");?></span> <span class="fil-value"><?php echo $friend->getUserName();?></span>
                 </div>                                
                 <div class="fi-line">
-                    <a href="<?php echo $friendWishListLink; ?>" class="link"><?php echo __("Voir sa liste d'envie", "s1b"); ?></a>
+                    <a href="<?php echo $friendWishListLink; ?>" class="link"><?php echo __("Voir sa liste d'envies", "s1b"); ?></a>
                 </div>
             </div>
         </div>
