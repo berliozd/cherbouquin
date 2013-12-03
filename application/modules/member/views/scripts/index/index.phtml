@@ -72,21 +72,14 @@ use Sb\View\PushedBooks;
         <!-- BLOCK members top 10 START -->
 
     </div>
-    <div id="content-right">
+    <div id="content-right">        
         
         
-        <!-- BLOCK ad START -->
+        <!-- BLOCK wish list search START -->        
         <div class="right-frame">
-            <?php echo $this->ad->get();?>
-        </div>  
-        <!-- BLOCK ad END -->        
-        
-        
-        <!-- BLOCK auto promo START -->        
-        <div class="right-frame">
-            <?php echo $this->autoPromoWishList->get();?>
+            <?php echo $this->wishListSearchWidget->get();?>
         </div>
-        <!-- BLOCK auto promo END -->
+        <!-- BLOCK wish list search END -->
         
         
         <!-- BLOCK user reading START -->
@@ -110,6 +103,13 @@ use Sb\View\PushedBooks;
             <?php echo $this->createChroniclesLinkView;?>
         </div>
         <!-- BLOCK create chonicle links END -->
+        
+        
+        <!-- BLOCK ad START -->
+        <div class="right-frame">
+            <?php echo $this->ad->get();?>
+        </div>  
+        <!-- BLOCK ad END -->
         
         
         <!-- BLOCK facebook START -->

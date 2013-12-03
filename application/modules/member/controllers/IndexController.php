@@ -8,7 +8,6 @@ use Sb\Db\Service\BookSvc;
 use Sb\Db\Service\UserEventSvc;
 use Sb\Authentification\Service\AuthentificationSvc;
 use Sb\Entity\EventTypes;
-use Sb\View\Components\AutoPromoWishlistWidget;
 use Sb\View\LastReviews;
 use Sb\View\Components\UserReadingWidget;
 use Sb\View\Components\UserWishedBooksWidget;
@@ -17,6 +16,7 @@ use Sb\View\Components\TwitterWidget;
 use Sb\View\Components\FacebookFrame;
 use Sb\View\Components\CreateChroniclesLinks;
 use Sb\Trace\Trace;
+use Sb\View\Components\WishListSearchWidget;
 
 class Member_IndexController extends Zend_Controller_Action {
 
@@ -93,8 +93,8 @@ class Member_IndexController extends Zend_Controller_Action {
             $userWishedBooks = new UserWishedBooksWidget($connectedUser, true);
             $this->view->userWishedBooks = $userWishedBooks;
             
-            // Getting auto prom wishlist widget
-            $this->view->autoPromoWishList = new AutoPromoWishlistWidget();
+            // Getting wish list search widget
+            $this->view->wishListSearchWidget = new WishListSearchWidget();            
             
             // Getting the ad (second paramters is not used anymore)
             $this->view->ad = new Ad("user_homepage", "6697829998");

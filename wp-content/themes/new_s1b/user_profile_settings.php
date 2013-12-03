@@ -20,7 +20,7 @@ use \Sb\Entity\Constants;
         <div class="profile-edit-settings">
             <div class="pes-description">
                 <?php
-                echo __("Vous pouvez gérer ici le paramétrage de votre compte. Vos Gravatar, prénom, identifiant, pays, langue, sexe et date d'inscription seront toujours visibles sur le site.", "s1b")
+                echo __("Vous pouvez gérer ici le paramétrage de votre compte. Vos Gravatar, prénom, nom, identifiant, pays, langue, sexe et date d'inscription seront toujours visibles sur le site.", "s1b")
                 . " " . __("En revanche vous pouvez masquer votre email ainsi que votre anniversaire et pamétrer la confidentialité du reste de votre profil.", "s1b");
                 ?>
             </div>
@@ -131,7 +131,7 @@ use \Sb\Entity\Constants;
                 <br/>
                 <div class="pes-line">
                     <div class="pes-question">
-                        <?php echo __("Votre liste de souhait est visible pour ?", "s1b"); ?>
+                        <?php echo __("Votre liste d'envies est visible pour ?", "s1b"); ?>
                     </div>
                     <div class="pes-question-field">
                         <input type="radio" name="settings_DisplayWishList" id="settings_DisplayWishList" value="<?php echo UserDataVisibility::ALL?>" <?php if ($userSettings->getDisplay_wishlist() == UserDataVisibility::ALL) echo "checked" ?> />
