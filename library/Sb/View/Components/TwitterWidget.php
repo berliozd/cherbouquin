@@ -17,7 +17,7 @@ class TwitterWidget extends \Sb\View\AbstractView {
             ->getIsProduction()) {
             
             $content = TwitterSvc::getInstance()->getContent();
-            $user_image = "https://si0.twimg.com/profile_images/2583277032/yxdfpkrxzfqs5et4s5vt.png";
+            $user_image = "https://pbs.twimg.com/profile_images/2583277032/yxdfpkrxzfqs5et4s5vt.png";
             $user = "Cherbouquin"; /* Nom d'utilisateur sur Twitter */
             
             $tpl = new \Sb\Templates\Template("components/twitterWidget");
