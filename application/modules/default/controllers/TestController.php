@@ -3,6 +3,7 @@
 // use Doctrine\Common\Util\Debug;
 // use Sb\Db\Model\User;
 use Sb\Db\Model\Chronicle;
+use Sb\Trace\Trace;
 // use Sb\Db\Model\PressReview;
 // use Sb\Db\Model\PressReviewsSubscriber;
 // use Sb\Db\Dao\UserDao;
@@ -10,12 +11,27 @@ use Sb\Db\Dao\ChronicleDao;
 // use Sb\Db\Dao\PressReviewDao;
 // use Sb\Db\Dao\PressReviewsSubscriberDao;
 // use Sb\Entity\GroupTypes;
+
 class Default_TestController extends Zend_Controller_Action {
 
     public function init() {
         /* Initialize action controller here */
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('ajax', 'html')->initContext();
+    }
+
+    public function exampleAction() {
+
+        try {
+            global $globalContext;
+
+            /* @var $chronicle Chronicle */
+
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
     }
 
     public function indexAction() {
