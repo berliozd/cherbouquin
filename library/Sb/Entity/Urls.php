@@ -47,7 +47,8 @@ class Urls {
     const USER_PROFILE_GRAVATAR = 'member/profile/gravatar';                        // Zend : member / profile / gravatar
     const USER_PROFILE_SETTINGS = 'profil-membre/parametrage'; // user_profile_settings
     const USER_PROFILE_DELETE_ACCOUNT = 'member/profile/delete';                    // Zend : member / profile / delete
-    const USER_PROFILE_EDIT_PASSWORD = 'profil-membre/modification-mot-de-passe'; // user_profile_edit_password
+    const USER_PROFILE_EDIT_PASSWORD = 'member/profile/edit-password';              // Zend : member /profile /edit-password
+    const USER_PROFILE_SUBMIT_PASSWORD = 'member/profile/submit-password';          // Zend : member /profile /submit-password
     // User mailbox
     const USER_MAILBOX = 'member/mailbox/index';                                    // Zend : member / mailbox / index
     const USER_MAILBOX_DELETE_MESSAGE = 'member/mailbox/delete';                    // Zend : member / mailbox / delete
