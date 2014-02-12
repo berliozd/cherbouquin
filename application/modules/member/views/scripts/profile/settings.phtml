@@ -1,0 +1,203 @@
+<?php
+
+use Sb\Entity\UserDataVisibility,
+    Sb\View\UserProfile,
+    Sb\Entity\Constants,
+    Sb\Helpers\HTTPHelper,
+    Sb\View\Components\Ad,
+    Sb\Entity\Urls;
+
+?>
+<div class="user-profile-bkg">
+    <div id="content-center">
+        <?php
+        $profileView = new UserProfile($this->user, $this->userSettings, true, true, false);
+        echo $profileView->get();
+        ?>
+        <div class="profile-edit-settings">
+            <div class="pes-description">
+                <?php
+                echo __("Vous pouvez gérer ici le paramétrage de votre compte. Vos Gravatar, prénom, nom, identifiant, pays, langue, sexe et date d'inscription seront toujours visibles sur le site.", "s1b")
+                    . " " . __("En revanche vous pouvez masquer votre email ainsi que votre anniversaire et pamétrer la confidentialité du reste de votre profil.", "s1b");
+                ?>
+            </div>
+            <form action="<?php echo HTTPHelper::Link(Urls::USER_PROFILE_SUBMIT_SETTINGS); ?>" method="post">
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php _e("Qui peut voir votre profil ?", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-description">
+                        <?php _e("Si vous limitez l'accès à vos amis seuls vos paramètres publics mentionnés ci-dessus seront visibles pour les autres utilisateurs.", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_DisplayProfile" id="settings_DisplayProfile1"
+                               value="<?php echo UserDataVisibility::MEMBERS_ONLY; ?>"
+                            <?php if ($this->userSettings->getDisplayProfile() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
+                        <label for="settings_DisplayProfile1"><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
+                        <br/>
+                        <input type="radio" name="settings_DisplayProfile" id="settings_DisplayProfile2"
+                               value="<?php echo UserDataVisibility::FRIENDS; ?>"
+                            <?php if ($this->userSettings->getDisplayProfile() == UserDataVisibility::FRIENDS) echo "checked" ?> />
+                        <label for="settings_DisplayProfile2"><?php _e("seulement mes amis", "s1b"); ?></label>
+                    </div>
+                </div>
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php _e("Votre email est visible pour ?", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-description">
+                        <?php _e("Si vous limitez l'accès à vos amis et que vous avez choisi de ne pas limiter votre profil, votre adresse email ne sera visible que par vos amis.", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_DisplayEmail" id="settings_DisplayEmail1"
+                               value="<?php echo UserDataVisibility::MEMBERS_ONLY; ?>"
+                            <?php if ($this->userSettings->getDisplayEmail() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
+                        <label for="settings_DisplayEmail1"><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
+                        <br/>
+                        <input type="radio" name="settings_DisplayEmail" id="settings_DisplayEmail2"
+                               value="<?php echo UserDataVisibility::FRIENDS; ?>"
+                            <?php if ($this->userSettings->getDisplayEmail() == UserDataVisibility::FRIENDS) echo "checked" ?> />
+                        <label for="settings_DisplayEmail2"><?php _e("seulement mes amis", "s1b"); ?></label>
+                        <br/>
+                        <input type="radio" name="settings_DisplayEmail" id="settings_DisplayEmail3"
+                               value="<?php echo UserDataVisibility::NO_ONE; ?>"
+                            <?php if ($this->userSettings->getDisplayEmail() == UserDataVisibility::NO_ONE) echo "checked" ?> />
+                        <label for="settings_DisplayEmail3"><?php _e("personne", "s1b"); ?></label>
+                    </div>
+                </div>
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php _e("Votre date d'anniversaire est visible pour ?", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-description">
+                        <?php _e("N'oubliez pas que si vos amis y ont accès on leur rappelera de penser à vous !!!", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_DisplayBirthDay" id="settings_DisplayBirthDay1"
+                               value="<?php echo UserDataVisibility::MEMBERS_ONLY ?>"
+                            <?php if ($this->userSettings->getDisplayBirthDay() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
+                        <label for="settings_DisplayBirthDay1"><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
+                        <br/>
+                        <input type="radio" name="settings_DisplayBirthDay" id="settings_DisplayBirthDay2"
+                               value="<?php echo UserDataVisibility::FRIENDS; ?>"
+                            <?php if ($this->userSettings->getDisplayBirthDay() == UserDataVisibility::FRIENDS) echo "checked" ?> />
+                        <label for="settings_DisplayBirthDay2"><?php _e("seulement mes amis", "s1b"); ?></label>
+                        <br/>
+                        <input type="radio" name="settings_DisplayBirthDay" id="settings_DisplayBirthDay3"
+                               value=<?php echo UserDataVisibility::NO_ONE; ?>
+                            <?php if ($this->userSettings->getDisplayBirthDay() == UserDataVisibility::NO_ONE) echo "checked" ?>/>
+                        <label for="settings_DisplayBirthDay3"><?php _e("personne", "s1b"); ?></label>
+                    </div>
+                </div>
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php _e("Qui peut vous envoyer des messages ?", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_SendMessages" id="settings_SendMessages1"
+                               value="<?php echo UserDataVisibility::MEMBERS_ONLY; ?>"
+                            <?php if ($this->userSettings->getSendMessages() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?>/>
+                        <label for="settings_SendMessages1"><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
+                        <br/>
+                        <input type="radio" name="settings_SendMessages" id="settings_SendMessages2"
+                               value=<?php echo UserDataVisibility::FRIENDS; ?>
+                            <?php if ($this->userSettings->getSendMessages() == UserDataVisibility::FRIENDS) echo "checked" ?>/>
+                        <label for="settings_SendMessages2"><?php _e("seulement mes amis", "s1b"); ?></label>
+                    </div>
+                </div>
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php _e("Autorisez-vous un membre qui n'est pas votre ami à suivre votre activité ?", "s1b"); ?>
+                        <br/>
+                    </div>
+                    <div class="pes-question-description">
+                        <?php _e("Le follower peut suivre vos lectures, il n'est pour autant pas votre ami et ne pourra de fait pas avoir accès aux informations que vous avez limitées.", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_AllowFollowers" id="settings_AllowFollowers1" value="Yes"
+                            <?php if ($this->userSettings->getAllowFollowers() == "Yes") echo "checked" ?> />
+                        <label for="settings_AllowFollowers1"><?php _e("oui", "s1b"); ?></label>
+                        <br/>
+                        <input type="radio" name="settings_AllowFollowers" id="settings_AllowFollowers2" value="No"
+                            <?php if ($this->userSettings->getAllowFollowers() == "No") echo "checked" ?> />
+                        <label for="settings_AllowFollowers2"><?php _e("non", "s1b"); ?></label>
+                    </div>
+                </div>
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php _e("Souhaitez-vous recevoir un email lorsqu'un message vous est envoyé ?", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_EmailMe" id="settings_EmailMe1" value="Yes"
+                            <?php if ($this->userSettings->getEmailMe() == "Yes") echo "checked" ?> />
+                        <label for="settings_EmailMe1"><?php _e("oui", "s1b"); ?></label>
+                        <br/>
+                        <input type="radio" name="settings_EmailMe" id="settings_EmailMe2" value="No"
+                            <?php if ($this->userSettings->getEmailMe() == "No") echo "checked" ?> />
+                        <label for="settings_EmailMe2"><?php _e("non", "s1b"); ?></label>
+                    </div>
+                </div>
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php echo sprintf(__("Souhaitez-vous recevoir la newsletter de %s ?", "s1b"), Constants::SITENAME); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_AcceptNewsletter" id="settings_AcceptNewsletter1" value="1"
+                            <?php if ($this->userSettings->getAccept_newsletter()) echo "checked" ?> />
+                        <label for="settings_AcceptNewsletter1"><?php _e("oui", "s1b"); ?></label>
+                        <br/>
+                        <input type="radio" name="settings_AcceptNewsletter" id="settings_AcceptNewsletter2" value="0"
+                            <?php if (!$this->userSettings->getAccept_newsletter()) echo "checked" ?> />
+                        <label for="settings_AcceptNewsletter2"><?php _e("non", "s1b"); ?></label>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="pes-line">
+                    <div class="pes-question">
+                        <?php echo __("Votre liste d'envies est visible pour ?", "s1b"); ?>
+                    </div>
+                    <div class="pes-question-field">
+                        <input type="radio" name="settings_DisplayWishList" id="settings_DisplayWishList1"
+                               value="<?php echo UserDataVisibility::ALL ?>"
+                            <?php if ($this->userSettings->getDisplay_wishlist() == UserDataVisibility::ALL) echo "checked" ?> />
+                        <label for="settings_DisplayWishList1"><?php echo __("tout le monde", "s1b"); ?></label>
+                        <br/>
+                        <input type="radio" name="settings_DisplayWishList" id="settings_DisplayWishList2"
+                               value="<?php echo UserDataVisibility::MEMBERS_ONLY ?>"
+                            <?php if ($this->userSettings->getDisplay_wishlist() == UserDataVisibility::MEMBERS_ONLY) echo "checked" ?> />
+                        <label
+                            for="settings_DisplayWishList2"><?php echo __("membres", "s1b") . " " . Constants::SITENAME; ?></label>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="buttons-bar">
+                    <div class="inner-padding">
+                        <button
+                            class="float-right button bt-blue-m margin-right margin-left"><?php _e("Valider", "s1b"); ?></button>
+                        <?php if (!$_POST) { ?>
+                            <a class="button bt-black-xs float-right" href="javascript:history.back()"
+                               class="link"><?php _e("Annuler", "s1b") ?></a>
+                        <?php } ?>
+                    </div>
+                </div>
+            </form>
+            <div class="horizontal-sep-1"></div>
+            <div class="profile-delete">
+                <div><?php _e("Vous souhaitez supprimer votre compte?", "s1b"); ?></div>
+                <a class="button bt-black-l bt-delete-account"
+                   href="<?php echo HTTPHelper::Link(Urls::USER_PROFILE_DELETE_ACCOUNT); ?>">
+                    <?php echo _e("supprimer votre compte", "s1b"); ?></a>
+            </div>
+        </div>
+    </div>
+    <div id="content-right">
+        <div class="right-frame">
+            <?php
+            $ad = new Ad("", "");
+            echo $ad->get();
+            ?>
+        </div>
+    </div>
+</div>

@@ -1,14 +1,15 @@
 <?php
-use Sb\Authentification\Service\AuthentificationSvc;
-use Sb\View\UserProfile;
-use Sb\Helpers\ArrayHelper;
-use Sb\Db\Dao\CountryDao;
-use Sb\Db\Dao\UserDao;
-use Sb\Flash\Flash;
-use Sb\Helpers\DateHelper;
-use Sb\Helpers\HTTPHelper;
-use Sb\Entity\Urls;
-use Sb\Trace\Trace;
+use Sb\Authentification\Service\AuthentificationSvc,
+    Sb\View\UserProfile,
+    Sb\Helpers\ArrayHelper,
+    Sb\Db\Dao\CountryDao,
+    Sb\Db\Dao\UserDao,
+    Sb\Flash\Flash,
+    Sb\Helpers\DateHelper,
+    Sb\Helpers\HTTPHelper,
+    Sb\Entity\Urls,
+    Sb\Trace\Trace,
+    Sb\Db\Dao\UserSettingDao;
 
 class Member_ProfileController extends Zend_Controller_Action {
 
@@ -201,6 +202,9 @@ class Member_ProfileController extends Zend_Controller_Action {
         }
     }
 
+    /**
+     * Called when submitting password
+     */
     public function submitPasswordAction() {
 
         try {
@@ -267,6 +271,74 @@ class Member_ProfileController extends Zend_Controller_Action {
                     HTTPHelper::redirect(Urls::USER_PROFILE_EDIT_PASSWORD);
             }
 
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    /**
+     * Show profile settings form
+     */
+    public function settingsAction() {
+
+        try {
+            global $globalContext;
+
+            /* @var $user \Sb\Db\Model\User */
+            $user = $globalContext->getConnectedUser();
+            $this->view->user = $user;
+            $this->view->userSettings = $user->getSetting();
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    /**
+     * Called when submitting profile settings form
+     */
+    public function submitSettingsAction() {
+
+        try {
+
+            global $globalContext;
+
+            /* @var $user \Sb\Db\Model\User */
+            $user = $globalContext->getConnectedUser();
+            $userSettings = $user->getSetting();
+
+
+            if (!empty($_POST)) {
+
+                $settings_DisplayProfile = $_POST['settings_DisplayProfile'];
+                $settings_DisplayEmail = $_POST['settings_DisplayEmail'];
+                $settings_SendMessages = $_POST['settings_SendMessages'];
+                $settings_DisplayBirthDay = $_POST['settings_DisplayBirthDay'];
+                $settings_DisplayWishList = $_POST['settings_DisplayWishList'];
+                $settings_AllowFollowers = $_POST['settings_AllowFollowers'];
+                $settings_EmailMe = $_POST['settings_EmailMe'];
+                $settings_AcceptNewsletter = ($_POST['settings_AcceptNewsletter'] == 1 ? true : false);
+
+                $userSettings->setDisplayProfile($settings_DisplayProfile);
+                $userSettings->setDisplayEmail($settings_DisplayEmail);
+                $userSettings->setSendMessages($settings_SendMessages);
+                $userSettings->setDisplayBirthday($settings_DisplayBirthDay);
+                $userSettings->setDisplay_wishlist($settings_DisplayWishList);
+                $userSettings->setAllowFollowers($settings_AllowFollowers);
+                $userSettings->setEmailMe($settings_EmailMe);
+                $userSettings->setAccept_newsletter($settings_AcceptNewsletter);
+
+
+                UserSettingDao::getInstance()->update($userSettings);
+
+                Flash::addItem(__("Vos modifications ont bien été enregistrées", "s1b"));
+            }
+
+            // Redirect to settings action
+            HTTPHelper::redirect(Urls::USER_PROFILE_SETTINGS);
 
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
