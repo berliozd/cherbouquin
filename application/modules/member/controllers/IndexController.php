@@ -119,36 +119,6 @@ class Member_IndexController extends Zend_Controller_Action {
         }
     }
 
-    public function refuseInvitationAction() {
-
-        try {
-
-            if (!empty($_GET)) {
-
-                $email = $_GET['Email'];
-                $token = $_GET['Token'];
-                $invitation = InvitationDao::getInstance()->getByEmailAndToken($email, $token);
-                if ($invitation) {
-                    $invitation->setIs_accepted(false);
-                    $invitation->setIs_validated(true);
-                    $invitation->setLast_modification_date(new \DateTime);
-                    InvitationDao::getInstance()->update($invitation);
-                    Flash::addItem(sprintf(__("L'invitation à rejoindre %s a été refusée.", "s1b"), Constants::SITENAME));
-                } else {
-                    //Invitation unknown
-                    Flash::addItem(__("Une erreur est survenue lors du refus de l'invitation", "s1b"));
-                }
-            }
-            HTTPHelper::redirectToHome();
-
-
-        } catch (\Exception $e) {
-            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
-            $this->forward("error", "error", "default");
-        }
-    }
-
-
     private function notInArray(Book $book) {
 
         return !in_array($book->getId(), $this->blowOfHeartFriendsBooksId);
