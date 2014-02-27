@@ -34,7 +34,7 @@ class Urls {
     const LOGOUT = 'membre/deconnexion'; // user_logout
     const LOGIN_FACEBOOK = 'default/index/facebook-log';                            // Zend : default / index / facebook-log
     const SUBSCRIBE = 'membre/inscription'; //user_registration
-    const REFUSE_INVITATION = 'membre/refus-invitation'; //user_refuse_invitation
+    const REFUSE_INVITATION = 'member/index/refuse-invitation';                     // Zend : member /index / refuse-invitation
     const LOST_PASSWORD = 'mot-de-passe-perdu';
     // User
     const USER_LIBRARY = "bibliotheque"; // library_fullwidth    
@@ -48,8 +48,8 @@ class Urls {
     const USER_PROFILE_SETTINGS = 'member/profile/settings';                        // Zend : member / profile / settings
     const USER_PROFILE_SUBMIT_SETTINGS = 'member/profile/submit-settings';          // Zend : member / profile / submit-settings
     const USER_PROFILE_DELETE_ACCOUNT = 'member/profile/delete';                    // Zend : member / profile / delete
-    const USER_PROFILE_EDIT_PASSWORD = 'member/profile/edit-password';              // Zend : member /profile /edit-password
-    const USER_PROFILE_SUBMIT_PASSWORD = 'member/profile/submit-password';          // Zend : member /profile /submit-password
+    const USER_PROFILE_EDIT_PASSWORD = 'member/profile/edit-password';              // Zend : member / profile / edit-password
+    const USER_PROFILE_SUBMIT_PASSWORD = 'member/profile/submit-password';          // Zend : member / profile / submit-password
     // User mailbox
     const USER_MAILBOX = 'member/mailbox/index';                                    // Zend : member / mailbox / index
     const USER_MAILBOX_DELETE_MESSAGE = 'member/mailbox/delete';                    // Zend : member / mailbox / delete
