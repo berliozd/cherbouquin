@@ -56,7 +56,9 @@ class Urls {
     const USER_MAILBOX_READ_MESSAGE = 'member/mailbox/read-message';                // Zend : member / mailbox / read
     const USER_MAILBOX_REPLY_MESSAGE = 'member/mailbox/reply';                      // Zend : member / mailbox / reply
     const USER_MAILBOX_SEND_MESSAGE = 'member/mailbox/send';                        // Zend : member / mailbox / send
-    const USER_MAILBOX_RECOMMAND = "messagerie/recommander"; // user_message_recommandation
+    const USER_MAILBOX_RECOMMAND = "member/book/recommand";                         // Zend : member / book /recommand
+    const USER_MAILBOX_SUBMIT_RECOMMAND = "member/book/submit-recommand";           // Zend : member / book /submit-recommand
+
     // User friends
     const USER_FRIENDS = 'member/friends/list';                                     // Zend : member / friends / list
     const USER_FRIENDS_WISHLIST = 'default/users/wish-list';                        // Zend : default / users / wish-list
