@@ -172,102 +172,102 @@ BUTTON.button {
 }
 /* buttons specific definitions */
 .bt-black-xs {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -34px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -34px transparent;
   width: 63px;
 }
 .bt-black-s {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -653px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -653px transparent;
   width: 72px;
 }
 .bt-black-m {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 0px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 0px transparent;
   width: 102px;
 }
 .bt-black-l {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -546px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -546px transparent;
   width: 120px;
 }
 .bt-blue-xs {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -75px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -75px transparent;
   width: 60px;
 }
 .bt-blue-s {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -110px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -110px transparent;
   width: 65px;
 }
 .bt-blue-m {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -145px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -145px transparent;
   width: 88px;
 }
 .bt-red-m {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -903px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -903px transparent;
   width: 88px;
 }
 .bt-blue-l {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -178px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -178px transparent;
   width: 121px;
 }
 .bt-blue-addfriend {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -616px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -616px transparent;
   padding-left: 28px;
   width: 99px;
 }
 .bt-blue-xl {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -211px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -211px transparent;
   width: 127px;
 }
 .bt-blue-xxl {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -694px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -694px transparent;
   font-size: 16px;
   height: 29px;
   padding-top: 18px;
   width: 175px;
 }
 .bt-blue-xxxl {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -859px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -859px transparent;
   height: 18px;
   padding: 2px 0;
   width: 165px;
 }
 .bt-facebook-s {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -243px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -243px transparent;
   width: 78px;
 }
 .bt-facebook-m {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -580px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -580px transparent;
   padding-left: 10px;
   width: 68px;
 }
 .bt-carroussel {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -286px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -286px transparent;
   font-size: 1.1em;
   height: 26px;
   padding: 9px 0;
   width: 139px;
 }
 .bt-delete {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -391px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -391px transparent;
   height: 30px;
   padding: 0;
   width: 30px;
 }
 .bv-share {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -2138px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -2138px transparent;
   height: 45px;
   width: 45px;
 }
 .bt-amazon {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -762px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -762px transparent;
   height: 27px;
   width: 92px;
 }
 .bt-fnac {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 0 -810px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -810px transparent;
   height: 30px;
   width: 92px;
 }
 .search-button {
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 5px -343px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 5px -343px transparent;
   border: medium none;
   cursor: pointer;
   float: right;
@@ -299,10 +299,10 @@ BUTTON.button {
   float: left;
 }
 .cfw-press-review-subscription {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 3px -2200px #1e1e1e;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 3px -2200px #1e1e1e;
 }
 .cfw-wish-list-search {
-  background: url("../images/sprite.png?v=8") no-repeat scroll left -2417px #1e1e1e;
+  background: url("../images/sprite.png?v=9") no-repeat scroll left -2417px #1e1e1e;
 }
 .cfw-title {
   color: #239CD3;
@@ -369,22 +369,22 @@ BUTTON.button {
   padding: 14px 25px 0;
 }
 .chr-link-other {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1515px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1515px transparent;
 }
 .chr-link-video {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1712px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1712px transparent;
 }
 .chr-link-podcast {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1763px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1763px transparent;
 }
 .chr-link-url {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1515px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1515px transparent;
 }
 .chr-link-image {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1812px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1812px transparent;
 }
 .chr-link-press {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1956px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1956px transparent;
 }
 .chr-source {
   font-style: italic;
@@ -418,7 +418,7 @@ BUTTON.button {
   text-decoration: none;
   margin-top: 2px;
   padding: 3px 25px 0;
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1525px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1525px transparent;
 }
 /* -------------------------- */
 /* ---- Chronicles Blocks --- */
@@ -651,16 +651,16 @@ BUTTON.button {
   float: left;
 }
 .nr-list .prevButton {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -2352px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -2352px transparent;
 }
 .nr-list .prevButton.disabled {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -2373px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -2373px transparent;
 }
 .nr-list .nextButton {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -2329px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -2329px transparent;
 }
 .nr-list .nextButton.disabled {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -2393px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -2393px transparent;
 }
 .nr-footer {
   height: 15px;
@@ -808,10 +808,10 @@ BUTTON.button {
   color: #FFF;
 }
 .picto-facebook-s {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -353px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -353px transparent;
 }
 .picto-facebook-m {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0px -1230px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0px -1230px transparent;
   height: 45px;
   width: 45px;
   display: block;
@@ -826,7 +826,7 @@ BUTTON.button {
   text-transform: none;
 }
 .search-field {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 0 transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 0 transparent;
   float: left;
   height: 32px;
   width: 266px;
@@ -879,32 +879,32 @@ DIV.rating {
   text-indent: -999em;
 }
 .blowofheart {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 2px -392px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 2px -392px transparent;
   float: left;
   width: 22px;
   height: 18px;
   padding-top: 5px;
 }
 .no-rating {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -569px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -569px transparent;
 }
 .rating-0 {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -427px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -427px transparent;
 }
 .rating-1 {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -449px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -449px transparent;
 }
 .rating-2 {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -472px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -472px transparent;
 }
 .rating-3 {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -495px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -495px transparent;
 }
 .rating-4 {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -521px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -521px transparent;
 }
 .rating-5 {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -546px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -546px transparent;
 }
 .star-sep,
 .star-0-label {
@@ -916,27 +916,27 @@ DIV.rating {
   height: 26px;
 }
 .picto-wished-small {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 2px -821px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 2px -821px transparent;
 }
 .picto-owned-small {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 2px -602px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 2px -602px transparent;
   width: 75px;
 }
 .picto-lent-small {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 2px -642px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 2px -642px transparent;
 }
 .picto-borrowed-small {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 2px -687px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 2px -687px transparent;
 }
 .picto-returntovalidate-small {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 2px -735px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 2px -735px transparent;
   height: 39px;
 }
 .picto-lendable-small {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 2px -780px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 2px -780px transparent;
 }
 .boh {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -393px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -393px transparent;
   float: left;
   height: 20px;
   width: 20px;
@@ -1072,7 +1072,7 @@ DIV.rating {
   padding: 15px;
 }
 #flashes-close-button {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1328px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1328px transparent;
   float: right;
   height: 33px;
   width: 32px;
@@ -1223,13 +1223,13 @@ DIV.rating {
 }
 /* profile visibility picto */
 .profile-picto-small-myfriends {
-  background: url("../images/sprite.png?v=8") repeat-x scroll left -1014px transparent;
+  background: url("../images/sprite.png?v=9") repeat-x scroll left -1014px transparent;
 }
 .profile-picto-small-public {
-  background: url("../images/sprite.png?v=8") repeat-x scroll left -1048px transparent;
+  background: url("../images/sprite.png?v=9") repeat-x scroll left -1048px transparent;
 }
 .profile-picto-small-private {
-  background: url("../images/sprite.png?v=8") repeat-x scroll left -1082px transparent;
+  background: url("../images/sprite.png?v=9") repeat-x scroll left -1082px transparent;
 }
 .profile-picto-small-myfriends.nurs-status {
   background-position: 90px -1014px;
@@ -1292,7 +1292,7 @@ A:hover.link {
   margin: 10px 0;
 }
 .hyperlink {
-  background: url("../images/sprite.png?v=8") repeat scroll 0 -1525px transparent;
+  background: url("../images/sprite.png?v=9") repeat scroll 0 -1525px transparent;
   padding-bottom: 10px;
   padding-left: 23px;
   word-wrap: break-word;
@@ -1319,7 +1319,7 @@ A:hover.link {
   width: 980px;
 }
 #header .connected .search-field {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -40px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -40px transparent;
   width: 658px;
 }
 #header .connected .search-field INPUT {
@@ -1378,25 +1378,25 @@ A:hover.link {
   margin-top: 0;
 }
 .ft-facebook {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0px -1230px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0px -1230px transparent;
   display: block;
   height: 45px;
   width: 45px;
 }
 .ft-twitter {
-  background: url("../images/sprite.png?v=8") no-repeat scroll -53px -1230px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll -53px -1230px transparent;
   display: block;
   height: 45px;
   width: 45px;
 }
 .ft-pinterest {
-  background: url("../images/sprite.png?v=8") no-repeat scroll -105px -1230px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll -105px -1230px transparent;
   display: block;
   height: 45px;
   width: 45px;
 }
 .ft-googleplus {
-  background: url("../images/sprite.png?v=8") no-repeat scroll -160px -1230px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll -160px -1230px transparent;
   display: block;
   height: 45px;
   width: 45px;
@@ -1475,7 +1475,7 @@ A:hover.link {
   padding-top: 5px;
 }
 .nu-indice {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1678px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1678px transparent;
   font-size: 0.7em;
   height: 20px;
   padding-top: 2px;
@@ -1649,7 +1649,7 @@ UL.carousel-pagination {
 }
 .ub-title-wrap {
   padding-bottom: 8px;
-  background: url("../images/sprite.png?v=8") no-repeat scroll 22px -1629px #ffffff;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 22px -1629px #ffffff;
 }
 .ub-title {
   font-size: 1.6em;
@@ -1657,10 +1657,10 @@ UL.carousel-pagination {
   font-weight: bold;
   line-height: 30px;
   padding-left: 30px;
-  background: url("../images/sprite.png?v=8") no-repeat scroll 4px -1563px #239cd3;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 4px -1563px #239cd3;
 }
 .ub-mailbox .ub-title {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 3px -235px #239cd3;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 3px -235px #239cd3;
 }
 .ub-content {
   background-color: #FFF;
@@ -1668,7 +1668,7 @@ UL.carousel-pagination {
   font-size: 1.1em;
 }
 .ub-friends .ub-title {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 2px -203px #239cd3;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 2px -203px #239cd3;
 }
 .ubc-part {
   float: left;
@@ -1765,13 +1765,13 @@ A.utc-bottom-link:visited {
   padding-left: 38px;
 }
 .ubc-friends-of-friends {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -316px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -316px transparent;
 }
 .ubc-friends-invite {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -282px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -282px transparent;
 }
 .ubc-friends-on-facebook {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -353px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -353px transparent;
 }
 .ubc-sep {
   float: left;
@@ -1978,7 +1978,7 @@ A.utc-bottom-link:visited {
   padding-left: 10px;
 }
 .wbi-giftoption-notbought {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1401px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1401px transparent;
   font-weight: bold;
   display: block;
   height: 22px;
@@ -1987,7 +1987,7 @@ A.utc-bottom-link:visited {
   padding-left: 23px;
 }
 .wbi-giftoption-bought {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -1433px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -1433px transparent;
   font-weight: bold;
   display: block;
   height: 22px;
@@ -2093,7 +2093,7 @@ A.utc-bottom-link:visited {
   float: left;
 }
 .ub-boh-label {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 88px -392px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 88px -392px transparent;
   height: 21px;
   width: 115px;
 }
@@ -2418,7 +2418,7 @@ A.utc-bottom-link:visited {
   color: #3e932e;
 }
 .lh-friendlibrarytitle {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -77px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -77px transparent;
   color: #FFF;
   font-size: 2.4em;
   margin-left: 10px;
@@ -2490,22 +2490,22 @@ TABLE TH.llh-title {
   width: 315px;
 }
 .sortLine .sort.ASC {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 55px -122px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 55px -122px transparent;
 }
 .sortLine .llh-title.sort.ASC {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 118px -122px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 118px -122px transparent;
 }
 .sortLine .sort.DESC {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 55px -153px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 55px -153px transparent;
 }
 .sortLine .llh-title.sort.DESC {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 118px -153px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 118px -153px transparent;
 }
 .mb-col-date.ASC {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 55px -122px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 55px -122px transparent;
 }
 .mb-col-date.DESC {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 55px -153px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 55px -153px transparent;
 }
 .ll-nobooks {
   padding: 15px;
@@ -2761,13 +2761,13 @@ TABLE TH.llh-title {
   font-size: 1.8em;
   font-weight: bold;
   margin-top: 5px;
-  background: url("../images/sprite.png?v=8") repeat scroll 125px -1997px transparent;
+  background: url("../images/sprite.png?v=9") repeat scroll 125px -1997px transparent;
 }
 .pl-coordinate {
   line-height: 16px;
 }
 .pl-add-as-friend {
-  background: url("../images/sprite.png?v=8") repeat scroll 0 -2043px transparent;
+  background: url("../images/sprite.png?v=9") repeat scroll 0 -2043px transparent;
   padding-left: 20px;
   padding-top: 5px;
 }
@@ -2798,13 +2798,13 @@ TABLE TH.llh-title {
   width: 233px;
 }
 .ps-picto-myfriends {
-  background: url("../images/sprite.png?v=8") repeat-x scroll 0 -854px transparent;
+  background: url("../images/sprite.png?v=9") repeat-x scroll 0 -854px transparent;
 }
 .ps-picto-public {
-  background: url("../images/sprite.png?v=8") repeat-x scroll 0 -906px transparent;
+  background: url("../images/sprite.png?v=9") repeat-x scroll 0 -906px transparent;
 }
 .ps-picto-private {
-  background: url("../images/sprite.png?v=8") repeat-x scroll 0 -906px transparent;
+  background: url("../images/sprite.png?v=9") repeat-x scroll 0 -906px transparent;
 }
 .psl-title {
   font-size: 1.2em;
@@ -2868,7 +2868,7 @@ TABLE TH.llh-title {
   width: 32%;
 }
 .p-friend-title {
-  background: url("../images/sprite.png?v=8") no-repeat scroll 0 -84px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 0 -84px transparent;
   font-size: 1.8em;
   height: 33px;
   margin-bottom: 18px;
@@ -2910,7 +2910,7 @@ TABLE TH.llh-title {
   width: 185px;
 }
 .rw-search .connected .search-field {
-  background: url("../images/sprite.png?v=8") no-repeat scroll -310px 0px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll -310px 0px transparent;
   width: 195px;
 }
 .rw-search .connected .search-field INPUT {
@@ -3067,7 +3067,7 @@ TD.mb-col-state {
   float: left;
 }
 .add-friend-header {
-  background: url("../images/sprite.png?v=8") repeat-x scroll 0 -1120px transparent;
+  background: url("../images/sprite.png?v=9") repeat-x scroll 0 -1120px transparent;
   height: 51px;
   margin-bottom: 10px;
   padding-left: 76px;
@@ -3082,7 +3082,7 @@ TD.mb-col-state {
 }
 /* pending request */
 .pending-request-header {
-  background: url("../images/sprite.png?v=8") repeat-x scroll 0 -1172px transparent;
+  background: url("../images/sprite.png?v=9") repeat-x scroll 0 -1172px transparent;
   height: 51px;
   margin-bottom: 10px;
   padding-left: 76px;
@@ -3425,14 +3425,15 @@ TD.mb-col-state {
   width: 100%;
 }
 #homepage .lrp-title {
+  margin-top: 10px;
   color: #239CD3;
   font-weight: bold;
 }
 #homepage .lrp-image {
-  width: 25%;
+  width: 11%;
 }
 #homepage .lrp-content {
-  width: 75%;
+  width: 89%;
 }
 #other-user-profile .lrp-title,
 #user-homepage .lrp-title {
@@ -3478,7 +3479,7 @@ TD.mb-col-state {
 #press-reviews-subscription-form {
   padding: 10px 5px 10px 85px;
   float: left;
-  background: url("../images/sprite.png?v=8") no-repeat scroll 3px -2200px #1e1e1e;
+  background: url("../images/sprite.png?v=9") no-repeat scroll 3px -2200px #1e1e1e;
 }
 #prsf-title {
   color: #239CD3;
@@ -3517,7 +3518,7 @@ TD.mb-col-state {
   width: 100%;
 }
 #content-search-form .search-field {
-  background: url("../images/sprite.png?v=8") no-repeat scroll -550px -3px transparent;
+  background: url("../images/sprite.png?v=9") no-repeat scroll -550px -3px transparent;
   height: 30px;
   width: 130px;
 }
@@ -3528,7 +3529,7 @@ TD.mb-col-state {
 #content-search-form .search-button {
   width: 35px;
   padding: 0;
-  background: url("../images/sprite-buttons.png?v=8") no-repeat scroll 5px -346px transparent;
+  background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 5px -346px transparent;
 }
 .csf-separator {
   line-height: 45px;

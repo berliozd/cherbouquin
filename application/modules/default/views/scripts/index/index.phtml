@@ -63,13 +63,19 @@ global $globalContext;
         <div class="home-chronicle margin-bottom-xl">
             <?php echo $this->chronicle; ?>
         </div>
-        <div class="margin-bottom-xl">
+        <div class="margin-bottom-xl float-left">
+            <div class="separator cherbouquin">
+                <span><?php echo Constants::SITENAME; ?></span>
+            </div>
+            <?php echo $this->lastReviews; ?>
+        </div>
+        <div class="margin-bottom-xl float-left">
             <?php echo $this->chronicles; ?>
         </div>
-        <div class="margin-bottom-xl">
+        <div class="margin-bottom-xl float-left">
             <?php echo $this->bloggersChronicles; ?>
         </div>
-        <div class="margin-bottom-xl">
+        <div class="margin-bottom-xl float-left">
             <?php echo $this->bookStoresChronicles; ?>
         </div>
     </div>
@@ -81,9 +87,6 @@ global $globalContext;
             <?php echo $this->newsReader;?>            
         </div>
         <div class="right-frame last-rated-books">
-            <div class="separator cherbouquin">
-                <span><?php echo Constants::SITENAME; ?></span>
-            </div>
             <?php echo $this->lastRatedCoverFlip; ?>
         </div>
         <div class="right-frame">
@@ -100,9 +103,6 @@ global $globalContext;
         </div>
         <div class="right-frame">
             <?php echo $this->twitter; ?>
-        </div>
-        <div class="right-frame">
-            <?php echo $this->lastReviews; ?>
         </div>
     </div>
 </div>
