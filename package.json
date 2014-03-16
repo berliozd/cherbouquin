@@ -1,0 +1,25 @@
+{
+  "name": "cherbouquin",
+  "version": "0.0.0",
+  "description": "",
+  "main": "",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.cherbouquin.fr/cherbouquin"
+  },
+  "author": "Didier Berlioz",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-less": "~0.10.0",
+    "grunt-contrib-watch": "~0.6.0"
+  }
+}
