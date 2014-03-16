@@ -357,9 +357,7 @@ class Default_IndexController extends Zend_Controller_Action {
         $lastChronicles = ChronicleSvc::getInstance()->getLastAnyType();
         $lastChronicle = array_slice($lastChronicles, 0, 1);
         $lastChronicle = $lastChronicle[0];
-        $notBloggersOrBookStoresChronicles = ChronicleSvc::getInstance()->getLastChroniclesNotBloggersOrBookStores();
-        $bloggersChronicles = ChronicleSvc::getInstance()->getLastBloggersChronicles();
-        $bookstoresChronicles = ChronicleSvc::getInstance()->getLastBookStoresChronicles();
+        $chronicles = ChronicleSvc::getInstance()->getLastChronicles(7);
 
         // Init chronicle view model adapter
         $chronicleListAdapter = new ChronicleListAdapter();
@@ -368,27 +366,11 @@ class Default_IndexController extends Zend_Controller_Action {
         $this->view->chronicle = $chronicleView->get();
 
         // Set chronicles from any groups except bloggers and bookstores
-        if ($notBloggersOrBookStoresChronicles && count($notBloggersOrBookStoresChronicles) > 0) {
-            // We take 3 first chronicles only and different from the last chronicle
-            $notBloggersOrBookStoresChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $notBloggersOrBookStoresChronicles, 3);
+        if ($chronicles && count($chronicles) > 0) {
+            // We take 6 first chronicles only and different from the last chronicle
+            $chronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $chronicles, 6);
             // Set chronicles view
-            $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $notBloggersOrBookStoresChronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles", $this->view->url(array(), 'chroniclesLastAnyType'), __("Voir d'autres chroniques", "s1b"));
-        }
-
-        // Set bloggers chronicles
-        if ($bloggersChronicles && count($bloggersChronicles) > 0) {
-            // We take 3 first chronicles only and different from the last chronicle
-            $bloggersChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $bloggersChronicles, 3);
-            // Set bloggers chronicle view
-            $this->view->bloggersChronicles = $this->getChronicleView($chronicleListAdapter, $bloggersChronicles, __("En direct des blogs", "s1b"), "bloggers", $this->view->url(array(), 'chroniclesLastBloggers'), __("Voir tous les billets des bloggeurs", "s1b"));
-        }
-
-        // Set bookstores chronicles
-        if ($bookstoresChronicles && count($bookstoresChronicles) > 0) {
-            // We take 3 first chronicles only and different from the last chronicle
-            $bookstoresChronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $bookstoresChronicles, 3);
-            // Set bookstores view
-            $this->view->bookStoresChronicles = $this->getChronicleView($chronicleListAdapter, $bookstoresChronicles, __("Le mot des libraires", "s1b"), "bookstores", $this->view->url(array(), 'chroniclesLastBookStores'), __("Voir tous les billets des libraires", "s1b"));
+            $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $chronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles", $this->view->url(array(), 'chroniclesLastAnyType'), __("Voir d'autres chroniques", "s1b"));
         }
     }
 

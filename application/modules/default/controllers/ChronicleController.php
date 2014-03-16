@@ -129,7 +129,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
             // Get 100 last chronicles from cache
             switch ($key) {
                 case self::PAGE_KEY_ANY_GROUPS :
-                    $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, null, GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE);
+                    $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100);
                     break;
                 case self::PAGE_KEY_BLOGGERS :
                     $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, GroupTypes::BLOGGER);
