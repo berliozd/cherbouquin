@@ -573,7 +573,6 @@ BUTTON.button {
   vertical-align: top;
   _zoom: 1;
   /*offre le layout à un élément (*)*/
-
   _display: inline;
 }
 .pc-image {

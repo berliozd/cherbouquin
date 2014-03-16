@@ -2,7 +2,7 @@
 global $globalConfig;
 global $globalContext;
 ?>
-<link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book.css?v=<?php echo VERSION;?>"  />
+<link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book<?php echo(IS_PRODUCTION ? "-min": "");?>.css?v=<?php echo VERSION;?>"  />
 <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/overcast/jquery-ui-1.8.18.custom.css"  />
 
 <?php
