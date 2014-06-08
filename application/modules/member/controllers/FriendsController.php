@@ -3,22 +3,25 @@ use Sb\Trace\Trace;
 use Sb\Helpers\ArrayHelper;
 use Sb\Flash\Flash;
 use Sb\Helpers\HTTPHelper;
-use Sb\Db\Dao\MessageDao;
-use Sb\Db\Dao\FriendShipDao;
-use Sb\Db\Dao\UserDao;
-use Sb\Db\Model\FriendShip;
 use Sb\Lists\PaginatedList;
 use Sb\Entity\Constants;
 use Sb\Helpers\MailHelper;
-use Sb\Db\Model\Message;
-use Sb\Db\Model\User;
 use Sb\Service\MailSvc;
 use Sb\Entity\Urls;
 use Sb\Helpers\StringHelper;
-use Sb\Db\Dao\InvitationDao;
-use Sb\Db\Dao\GuestDao;
+
+use Sb\Db\Model\FriendShip;
+use Sb\Db\Model\Message;
+use Sb\Db\Model\User;
 use Sb\Db\Model\Invitation;
 use Sb\Db\Model\Guest;
+
+use Sb\Db\Dao\MessageDao;
+use Sb\Db\Dao\FriendShipDao;
+use Sb\Db\Dao\UserDao;
+use Sb\Db\Dao\InvitationDao;
+use Sb\Db\Dao\GuestDao;
+
 
 /**
  *
@@ -329,6 +332,37 @@ class Member_FriendsController extends Zend_Controller_Action {
         }
     }
 
+    public function friendsOfFriendsAction() {
+
+        try {
+            global $globalContext;
+
+            $user = $globalContext->getConnectedUser();
+            $friendsFriendShips = \Sb\Db\Dao\FriendShipDao::getInstance()->getFriendsFriendShips($user->getId());
+            $friendsFriends = array_map(array(&$this, "getTargetUser"), $friendsFriendShips);
+            $friendsFriends = array_filter($friendsFriends, array(&$this, "isNotMe"));
+            $friendsFriends = array_filter($friendsFriends, array(&$this, "isNotDeleted"));
+
+            $allUsers = UserDao::getInstance()->getAll();
+            $allUsers = array_filter($allUsers, array(&$this, "isNotDeleted"));
+            $this->view->nbUsers = count($allUsers);
+
+            if ($friendsFriends && count($friendsFriends) > 0) {
+                // preparing pagination
+                $paginatedList = new \Sb\Lists\PaginatedList($friendsFriends, 9);
+                $this->view->firstItemIdx = $paginatedList->getFirstPage();
+                $this->view->lastItemIdx = $paginatedList->getLastPage();
+                $this->view->nbItemsTot = $paginatedList->getTotalPages();
+                $this->view->navigation = $paginatedList->getNavigationBar();
+                $this->view->friendsFriends = $paginatedList->getItems();
+            }
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
     private function sortByUserName(&$friends) {
 
         usort($friends, array(
@@ -357,6 +391,20 @@ class Member_FriendsController extends Zend_Controller_Action {
             return 0;
         }
         return ($val1 < $val2) ? -1 : 1;
+    }
+
+    private function getTargetUser(FriendShip $friendShip) {
+        return $friendShip->getUser_target();
+    }
+
+    private function isNotMe(User $friend) {
+        global $globalContext;
+        $user = $globalContext->getConnectedUser();
+        return $friend->getId() != $user->getId();
+    }
+
+    private function isNotDeleted(User $friend) {
+        return !$friend->getDeleted();
     }
 
 }

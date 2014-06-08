@@ -62,8 +62,8 @@ class Urls {
     // User friends
     const USER_FRIENDS = 'member/friends/list';                                     // Zend : member / friends / list
     const USER_FRIENDS_WISHLIST = 'default/users/wish-list';                        // Zend : default / users / wish-list
-    const USER_FRIENDS_SELECTION = 'member/friends/select';                         // Zend : default / friends / select
-    const USER_FRIENDS_FRIENDS = 'amis/amis-d-amis'; // user_friends_of_friends
+    const USER_FRIENDS_SELECTION = 'member/friends/select';                         // Zend : member / friends / select
+    const USER_FRIENDS_FRIENDS = 'member/friends/friends-of-friends';               // Zend : member / friends / friends-of-friends
     const USER_FRIENDS_INVITE = 'member/friends/show-invite-form';                  // Zend : member / friends / show-invite-form
     const USER_FRIENDS_INVITE_SUBMIT = 'member/friends/invite';                     // Zend : member / friends / invite
     //const USER_FRIENDS_REQUEST = 'amis/ami-requete'; // user_friends_request
