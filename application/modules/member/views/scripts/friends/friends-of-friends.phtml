@@ -5,6 +5,9 @@ use Sb\View\Components\Ad;
 use Sb\Helpers\HTTPHelper;
 use Sb\Helpers\UserHelper;
 use Sb\Entity\Urls;
+
+global $globalContext;
+
 ?>
 <div class="add-friend-bkg">
     <div id="content-center">
@@ -40,7 +43,7 @@ use Sb\Entity\Urls;
                                 <?php
                                 $avatar = $friendFriend->getGravatar();
                                 if ($avatar == "")
-                                    $avatar = $context->getBaseUrl() . "/Resources/images/avatars/noavatar.png";
+                                    $avatar = $globalContext->getBaseUrl() . "/Resources/images/avatars/noavatar.png";
                                 ?>
                                 <img class="image-frame image-thumb-square" src="<?php echo $avatar; ?>" />
                             </a>

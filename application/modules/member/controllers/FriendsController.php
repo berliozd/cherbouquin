@@ -332,6 +332,9 @@ class Member_FriendsController extends Zend_Controller_Action {
         }
     }
 
+    /**
+     * Show friends of friends list of user
+     */
     public function friendsOfFriendsAction() {
 
         try {
@@ -356,6 +359,51 @@ class Member_FriendsController extends Zend_Controller_Action {
                 $this->view->navigation = $paginatedList->getNavigationBar();
                 $this->view->friendsFriends = $paginatedList->getItems();
             }
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    /**
+     * Shows friends search
+     */
+    public function searchAction() {
+
+        try {
+
+            $allUsers = UserDao::getInstance()->getAll();
+            $allUsers = array_filter($allUsers, array(&$this, "isNotDeleted"));
+            $this->view->nbUsers = count($allUsers);
+
+            $this->view->query = null;
+            if ($_GET) {
+                $this->view->query = ArrayHelper::getSafeFromArray($_GET, 'q', null);
+
+                if (strpos($this->view->query, "%") !== false && strlen($this->view->query) == 1) {
+                    Flash::addItem(__("Le caractère % n'est pas autorisé lors des recherches.", "s1b"));
+                    HTTPHelper::redirectToReferer();
+                }
+
+                if ($this->view->query) {
+                    $foundUsers = \Sb\Db\Dao\UserDao::getInstance()->getListByKeyword($this->view->query);
+                    $foundUsers = array_filter($foundUsers, array(&$this, "isNotMe"));
+                    $foundUsers = array_filter($foundUsers, array(&$this, "isNotAdmin"));
+                    $foundUsers = array_filter($foundUsers, array(&$this, "isNotDeleted"));
+
+                    if ($foundUsers && count($foundUsers) > 0) {
+                        // preparing pagination
+                        $paginatedList = new PaginatedList($foundUsers, 9);
+                        $this->view->firstItemIdx = $paginatedList->getFirstPage();
+                        $this->view->lastItemIdx = $paginatedList->getLastPage();
+                        $this->view->nbItemsTot = $paginatedList->getTotalPages();
+                        $this->view->navigation = $paginatedList->getNavigationBar();
+                        $this->view->foundUsers = $paginatedList->getItems();
+                    }
+                }
+            }
+
 
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
@@ -407,4 +455,7 @@ class Member_FriendsController extends Zend_Controller_Action {
         return !$friend->getDeleted();
     }
 
+    private function isNotAdmin(User $foundUser) {
+        return $foundUser->getId() != 1;
+    }
 }
