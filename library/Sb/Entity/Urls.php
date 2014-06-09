@@ -31,7 +31,7 @@ class Urls {
     
     // account connection-registration-activation
     const LOGIN = 'default/index/log';                                              // Zend : default / index / log
-    const LOGOUT = 'member/member/log-off';                                         // Zend : member / index/ log-off
+    const LOGOUT = 'member/index/log-off';                                          // Zend : member / index/ log-off
     const LOGIN_FACEBOOK = 'default/index/facebook-log';                            // Zend : default / index / facebook-log
     const SUBSCRIBE = 'membre/inscription'; //user_registration
     const REFUSE_INVITATION = 'default/index/refuse-invitation';                    // Zend : default /index / refuse-invitation
