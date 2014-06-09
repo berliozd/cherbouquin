@@ -17,9 +17,10 @@ use Sb\Db\Model\Book,
     Sb\View\Components\CreateChroniclesLinks,
     Sb\Trace\Trace,
     Sb\View\Components\WishListSearchWidget,
-    Sb\Db\Dao\InvitationDao,
     Sb\Helpers\HTTPHelper,
-    Sb\Entity\Constants;
+    Sb\Entity\Urls,
+    Sb\Facebook\Service\FacebookSvc,
+    Sb\Flash\Flash;
 
 class Member_IndexController extends Zend_Controller_Action {
 
@@ -113,6 +114,48 @@ class Member_IndexController extends Zend_Controller_Action {
                 $createChroniclesLink = new CreateChroniclesLinks($connectedUser->getGroupusers());
                 $this->view->createChroniclesLinkView = $createChroniclesLink->get();
             }
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    public function logOffAction() {
+
+        try {
+
+            global $globalConfig;
+
+            if (isset($_COOKIES) && array_key_exists("PHPSESSID", $_COOKIES)) {
+                unset($_COOKIES["PHPSESSID"]);
+            }
+
+            // destruction du cookie de connexion PHPSESSID 3600 correspond à 60 min
+            if (ini_get("session.use_cookies")) {
+                $params = session_get_cookie_params();
+                setcookie(session_name(), '', time() - 3600, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+            }
+
+            $tmpLang = null;
+            if (isset($_SESSION) && array_key_exists('WPLANG', $_SESSION))
+                $tmpLang = $_SESSION['WPLANG'];
+            session_destroy();
+
+            $_SESSION['WPLANG'] = $tmpLang;
+
+            $facebookSvc = new FacebookSvc($globalConfig->getFacebookApiId(), $globalConfig->getFacebookSecret(), HTTPHelper::Link(Urls::USER_HOME), HTTPHelper::Link(Urls::LOGIN), HTTPHelper::Link(Urls::LOGIN));
+            $faceBookUser = $facebookSvc->getUser();
+            $facebookSvc->cleanUser();
+            if ($faceBookUser) {
+                HTTPHelper::redirect($facebookSvc->getFacebookLogOutUrl());
+            }
+
+            Flash::addItem(__("Déconnexion réussie", "s1b"));
+
+            // Redirecting to login page
+            HTTPHelper::redirect("");
+
+
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
