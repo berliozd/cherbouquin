@@ -1,26 +1,31 @@
 <?php
-use Sb\Trace\Trace;
-use Sb\Helpers\ArrayHelper;
-use Sb\Flash\Flash;
-use Sb\Helpers\HTTPHelper;
-use Sb\Lists\PaginatedList;
-use Sb\Entity\Constants;
-use Sb\Helpers\MailHelper;
-use Sb\Service\MailSvc;
-use Sb\Entity\Urls;
-use Sb\Helpers\StringHelper;
+use Sb\Trace\Trace,
+    Sb\Flash\Flash,
+    Sb\Lists\PaginatedList,
+    Sb\Service\MailSvc;
 
-use Sb\Db\Model\FriendShip;
-use Sb\Db\Model\Message;
-use Sb\Db\Model\User;
-use Sb\Db\Model\Invitation;
-use Sb\Db\Model\Guest;
+use Sb\Entity\Constants,
+    Sb\Entity\Urls,
+    Sb\Entity\EventTypes;
 
-use Sb\Db\Dao\MessageDao;
-use Sb\Db\Dao\FriendShipDao;
-use Sb\Db\Dao\UserDao;
-use Sb\Db\Dao\InvitationDao;
-use Sb\Db\Dao\GuestDao;
+use Sb\Helpers\StringHelper,
+    Sb\Helpers\MailHelper,
+    Sb\Helpers\ArrayHelper,
+    Sb\Helpers\HTTPHelper;
+
+use Sb\Db\Model\FriendShip,
+    Sb\Db\Model\Message,
+    Sb\Db\Model\User,
+    Sb\Db\Model\Invitation,
+    Sb\Db\Model\Guest,
+    Sb\Db\Model\UserEvent;
+
+use Sb\Db\Dao\MessageDao,
+    Sb\Db\Dao\FriendShipDao,
+    Sb\Db\Dao\UserDao,
+    Sb\Db\Dao\InvitationDao,
+    Sb\Db\Dao\GuestDao,
+    Sb\Db\Dao\UserEventDao;
 
 
 /**
@@ -404,6 +409,131 @@ class Member_FriendsController extends Zend_Controller_Action {
                 }
             }
 
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    /**
+     * Show pending friends request and allow to accepet or refuse it
+     */
+    public function pendingRequestsAction() {
+
+        try {
+            global $globalContext;
+            $user = $globalContext->getConnectedUser();
+            $this->view->user = $user;
+
+            // Show pending requests
+            if (!$_POST) {
+
+                $totalPendingRequests = $user->getPendingFriendShips();
+                if ($totalPendingRequests && count($totalPendingRequests) > 0) {
+                    // Preparing pagination
+                    $paginatedList = new PaginatedList($totalPendingRequests, 6);
+                    $this->view->firstItemIdx = $paginatedList->getFirstPage();
+                    $this->view->lastItemIdx = $paginatedList->getLastPage();
+                    $this->view->nbItemsTot = $paginatedList->getTotalPages();
+                    $this->view->navigation = $paginatedList->getNavigationBar();
+                    $this->view->pendingRequests = $paginatedList->getItems();
+                }
+            } // Acceptation ou refusal is submitted
+            else {
+
+                $friendShipId = ArrayHelper::getSafeFromArray($_POST, 'friendShipId', null);
+                $Title = ArrayHelper::getSafeFromArray($_POST, 'Title', null);
+                $Message = ArrayHelper::getSafeFromArray($_POST, 'Message', null);
+                $Refused = ArrayHelper::getSafeFromArray($_POST, 'Refused', null);
+                if ($friendShipId) {
+                    if ($Refused == 0) {
+
+                        // Update the requested friendship
+                        $friendShip = FriendShipDao::getInstance()->get($friendShipId);
+                        if ($friendShip) {
+                            $friendShip->setAccepted(true);
+                            $friendShip->setValidated(true);
+                            if (FriendShipDao::getInstance()->update($friendShip)) {
+                                // Add the userEvent
+                                try {
+                                    $userEvent = new UserEvent;
+                                    $userEvent->setNew_value($user->getId());
+                                    $userEvent->setType_id(EventTypes::USER_ADD_FRIEND);
+                                    $userEvent->setUser($friendShip->getUser_source());
+                                    UserEventDao::getInstance()->add($userEvent);
+                                } catch (\Exception $exc) {
+                                    Trace::addItem("Erreur lors de l'ajout de l'événement : " . $exc->getMEssage());
+                                }
+                            }
+                        }
+
+                        // Create a friendship on the other side
+                        $inverseFriendShip = new FriendShip;
+                        $inverseFriendShip->setAccepted(true);
+                        $inverseFriendShip->setValidated(true);
+                        $inverseFriendShip->setCreationDate(new \DateTime());
+                        $inverseFriendShip->setUser_source($user);
+                        $inverseFriendShip->setUser_target($friendShip->getUser_source());
+                        if (FriendShipDao::getInstance()->add($inverseFriendShip)) {
+                            // Add the userEvent
+                            try {
+                                $userEvent = new UserEvent();
+                                $userEvent->setNew_value($friendShip->getUser_source()->getId());
+                                $userEvent->setType_id(EventTypes::USER_ADD_FRIEND);
+                                $userEvent->setUser($user);
+                                UserEventDao::getInstance()->add($userEvent);
+                            } catch (\Exception $exc) {
+                                Trace::addItem("Erreur lors de l'ajout de l'événement : " . $exc->getMEssage());
+                            }
+                        }
+
+                        // Send email to the requesting user
+                        MailSvc::getInstance()->send($friendShip->getUser_source()->getEmail(), __("Demande d'ami", "s1b"), MailHelper::friendShipAcceptationEmailBody($user->getFirstName() . " " . $user->getLastName()));
+
+                        // add a message in requesting user internal mailbox
+                        $message = new \Sb\Db\Model\Message;
+                        $message->setDate(new \DateTime());
+                        $message->setMessage($Message);
+                        $message->setTitle($Title);
+                        $message->setRecipient($friendShip->getUser_source());
+                        $message->setSender($user);
+                        MessageDao::getInstance()->add($message);
+
+                        // redirect to pending request page
+                        Flash::addItem("Demande acceptée.");
+                        HTTPHelper::redirect(Urls::USER_FRIENDS_PENDING_REQUEST);
+                    } elseif ($Refused == 1) {
+
+                        // update the requested friendship
+                        $friendShip = FriendShipDao::getInstance()->get($friendShipId);
+                        if ($friendShip) {
+                            $friendShip->setAccepted(false);
+                            $friendShip->setValidated(true);
+                            FriendShipDao::getInstance()->update($friendShip);
+                        }
+
+                        // send email to the requesting user
+                        MailSvc::getInstance()->send($friendShip->getUser_source()->getEmail(), __("Votre demande d'ami a été refusée", "s1b"), MailHelper::friendShipDenyEmailBody($user->getFirstName() . " " . $user->getLastName()));
+
+                        // add a message in requesting user internal mailbox
+                        $message = new Message;
+                        $message->setDate(new \DateTime());
+                        $message->setMessage($Message);
+                        $message->setTitle($Title);
+                        $message->setRecipient($friendShip->getUser_source());
+                        $message->setSender($user);
+                        MessageDao::getInstance()->add($message);
+
+                        // redirect to pending request page
+                        Flash::addItem(__("Demande refusée.", "s1b"));
+                        HTTPHelper::redirectUrls(Urls::USER_FRIENDS_PENDING_REQUEST);
+                    }
+                } else {
+                    Flash::addItem(__("Vous devez sélectionner une demande d'ami.", "s1b"));
+                    HTTPHelper::redirect(Urls::USER_FRIENDS_PENDING_REQUEST);
+                }
+            }
 
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));

@@ -1,0 +1,119 @@
+<?php
+
+use Sb\Helpers\HTTPHelper,
+    Sb\Helpers\UserHelper,
+    Sb\Helpers\StringHelper,
+    Sb\Entity\Urls,
+    Sb\View\Components\FriendsWidget,
+    Sb\View\Components\Ad;
+
+global $globalContext;
+
+?>
+
+<div class="add-friend-bkg">
+    <div id="content-center">
+        <div class="pending-request-header">
+            <div class="adh-title"><?php _e("Demande(s) d'ami", "s1b"); ?></div>
+            <div
+                class="adh-subtitle"><?php echo sprintf(__("%s demande(s) en attente", "s1b"), count($this->totalPendingRequests)); ?></div>
+        </div>
+        <?php
+        if (count($this->pendingRequests) == 0) {
+            ?>
+            <div class="message_info">
+                <span
+                    class="message_info_arrondi"><?php echo __("Vous n'avez aucune requête à valider", "s1b"); ?></span>
+            </div>
+        <?php } else { ?>
+            <div class="navigation">
+                <div class="inner-padding">
+                    <div class="nav-links">
+                        <?php echo $this->navigation; ?>
+                    </div>
+                    <div
+                        class="nav-position"><?php echo sprintf(__("Demande d'ami(s) %s à %s sur %s", "s1b"), $this->firstItemIdx, $this->lastItemIdx, $this->nbItemsTot); ?></div>
+                </div>
+            </div>
+            <div class="friends-list">
+                <?php foreach ($this->pendingRequests as $pendingRequest) {
+                    $userRequested = $pendingRequest->getUser_source();
+                    $userProfileLink = HTTPHelper::Link(Urls::USER_PROFILE, array("uid" => $userRequested->getId())); ?>
+
+                    <div class="friend-item">
+                        <div class="inner-padding">
+                            <a href="<?php echo $userProfileLink; ?>">
+                                <?php
+                                $avatar = $userRequested->getGravatar();
+                                if ($avatar == "")
+                                    $avatar = $globalContext->getBaseUrl() . "/Resources/images/avatars/noavatar.png";
+                                ?>
+                                <img class="image-frame image-thumb-square" src="<?php echo $avatar; ?>"/>
+                            </a>
+
+                            <div class="fi-line margin-top-l">
+                            <span class="fil-username">
+                                <?php echo StringHelper::tronque(UserHelper::getFullName($userRequested), 30); ?>
+                            </span>
+                            </div>
+                            <div class="fi-line">
+                                <?php _e("vous demande de l'ajouter à vos amis", "s1b"); ?>
+                            </div>
+                            <div class="fi-line">
+                            <span class="fil-label">
+                                <?php echo __("Demande reçue : ", "s1b"); ?>
+                            </span>
+                                <?php echo $pendingRequest->getCreationDate()->format('d/m/Y'); ?>
+                            </div>
+                            <div class="fi-line margin-top-l">
+                                <form action="" name="validation" method="post" class="float-left">
+                                    <input type="hidden" name="friendShipId"
+                                           value="<?php echo $pendingRequest->getId(); ?>"/>
+                                    <input type="hidden" name="Title" value="<?php echo __("Demande d'ami", "s1b"); ?>">
+                                    <input type="hidden" name="Message"
+                                           value="<?php echo $this->user->getUserName() . " " . __("a accepté votre demande d'ami", "s1b"); ?>"/>
+                                    <input type="hidden" name="Refused" value="0">
+                                    <button
+                                        class="float-left button bt-black-s margin-right"><?php echo __("Accepter", "s1b"); ?></button>
+                                </form>
+                                <form action="" name="refused" method="post" class="float-left">
+                                    <input type="hidden" name="friendShipId"
+                                           value="<?php echo $pendingRequest->getId(); ?>"/>
+                                    <input type="hidden" name="Title"
+                                           value="<?php echo __("Votre demande d'ami a été refusée", "s1b"); ?>">
+                                    <input type="hidden" name="Message"
+                                           value="<?php echo __("Votre demande d'ami a été ignorée par", "s1b") . " " . $this->user->getUserName(); ?>"/>
+                                    <input type="hidden" name="Refused" value="1">
+                                    <button
+                                        class="float-left button bt-blue-s"><?php echo __("Refuser", "s1b"); ?></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php } ?>
+            </div>
+            <div class="navigation">
+                <div class="inner-padding">
+                    <div class="nav-links">
+                        <?php echo $this->navigation; ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <div id="content-right">
+        <div class="right-frame">
+            <?php
+            $friendWidget = new FriendsWidget;
+            echo $friendWidget->get();
+            ?>
+        </div>
+        <div class="right-frame">
+            <?php
+            $ad = new Ad("user_friends", "2432422854");
+            echo $ad->get();
+            ?>
+        </div>
+    </div>
+</div>
