@@ -365,7 +365,7 @@ class Default_IndexController extends Zend_Controller_Action {
 
                     $user = UserDao::getInstance()->getByEmail($email);
                     if ($user) {
-                        $new_pass = gen_reg_key();
+                        $new_pass = $this->getNewPassword();
                         $new_pass_md5 = sha1($new_pass);
                         $user->setPassword($new_pass_md5);
                         // update password in db
@@ -469,7 +469,7 @@ class Default_IndexController extends Zend_Controller_Action {
         return $ok;
     }
 
-    private function gen_reg_key() {
+    private function getNewPassword() {
         $key = ""; /* on initialise la variable $key à "vide" */
         $max_length_reg_key = 8; /* on définit la taille de la chaine (8 caractères ca suffit ) */
 
