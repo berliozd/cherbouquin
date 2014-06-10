@@ -1,17 +1,28 @@
 <?php
 use Sb\Db\Model\User,
     Sb\Db\Model\UserSetting,
+
     Sb\Db\Mapping\UserMapper,
+
     Sb\Db\Dao\UserDao,
+    Sb\Db\Dao\InvitationDao,
+
     Sb\Db\Service\BookSvc,
     Sb\Db\Service\ChronicleSvc,
     Sb\Db\Service\UserEventSvc,
     Sb\Db\Service\InvitationSvc,
     Sb\Db\Service\PressReviewSvc,
     Sb\Db\Service\MessageSvc,
+    Sb\Service\MailSvc,
+    Sb\Facebook\Service\FacebookSvc,
+    Sb\Authentification\Service\AuthentificationSvc,
+
     Sb\Entity\EventTypes,
     Sb\Entity\Urls,
     Sb\Entity\PressReviewTypes,
+    Sb\Entity\Constants,
+    Sb\Entity\ConnexionType,
+
     Sb\View\Components\FacebookFrame,
     Sb\View\LastReviews,
     Sb\View\PushedChronicle,
@@ -22,21 +33,18 @@ use Sb\Db\Model\User,
     Sb\View\Components\PressReviewsSubscriptionWidget,
     Sb\View\Components\NewsReader,
     Sb\View\Components\GooglePlus,
+    Sb\View\Components\WishListSearchWidget,
+
     Sb\Flash\Flash,
+    Sb\Trace\Trace,
+
     Sb\Helpers\HTTPHelper,
     Sb\Helpers\ChronicleHelper,
     Sb\Helpers\ArrayHelper,
     Sb\Helpers\UserSettingHelper,
     Sb\Helpers\MailHelper,
-    Sb\Adapter\ChronicleListAdapter,
-    Sb\Trace\Trace,
-    Sb\Service\MailSvc,
-    Sb\Authentification\Service\AuthentificationSvc,
-    Sb\Facebook\Service\FacebookSvc,
-    Sb\Entity\Constants,
-    Sb\Entity\ConnexionType,
-    Sb\View\Components\WishListSearchWidget,
-    Sb\Db\Dao\InvitationDao;
+
+    Sb\Adapter\ChronicleListAdapter;
 
 class Default_IndexController extends Zend_Controller_Action {
 
@@ -387,6 +395,81 @@ class Default_IndexController extends Zend_Controller_Action {
         }
     }
 
+    /**
+     * Show and submit registration page
+     */
+    public function registerAction() {
+
+        try {
+
+            if ($_POST) {
+
+                if ($this->validateRegistrationForm()) {
+
+                    // Test if user already in DB
+                    $userInDB = UserDao::getInstance()->getByEmail($_POST['email']);
+
+                    // If yes => show message and redirect to login page
+                    if ($userInDB) {
+
+                        if ($userInDB->getDeleted())
+                            Flash::addItem(__("Un compte correspondant à cet email existe mais il a été supprimé. Merci de nous contacter via le formulaire de contact.", "s1b"));
+                        else
+                            Flash::addItem(__("Vous avez déjà créé un compte avec cet email. Si vous l'avez créé avec Facebook, vous pouvez vous connecter avec Facebook et ajouter un mot de passe dans votre profil section mot de passe. Si ce n'est pas le cas et que vous ne vous souvenez pas du mot de passe, vous pouvez demandez à réinitialiser le mot de passe en cliquant sur le lien \"Mot de passe perdu\"", "s1b"));
+
+                        HTTPHelper::redirect(\Sb\Entity\Urls::LOGIN);
+                    } else {
+
+                        // If Not
+                        // ==> create user
+                        // ==> send welcome email
+                        // ==> create welcome message in internal mailbox
+                        //
+                        $userFromPost = new User;
+                        UserMapper::map($userFromPost, $_POST);
+                        $userFromPost->setToken(sha1(uniqid(rand())));
+                        $userFromPost->setActivated(false);
+                        $userFromPost->setDeleted(false);
+                        $userFromPost->setFacebookId("");
+                        $userFromPost->setGender("");
+                        $userFromPost->setFacebookLanguage("");
+                        $userFromPost->setTokenFacebook("");
+                        $userFromPost->setPicture("");
+                        $userFromPost->setPictureBig("");
+
+                        $setting = new UserSetting();
+                        UserSettingHelper::loadDefaultSettings($setting);
+                        $userFromPost->setSetting($setting);
+
+                        $userInDB = UserDao::getInstance()->add($userFromPost);
+
+                        // send confirmation email
+                        $subject = sprintf(__("Votre compte %s a été créé", "s1b"), Constants::SITENAME);
+                        MailSvc::getInstance()->send($userInDB->getEmail(), $subject, MailHelper::validationAccountEmailBody($userInDB->getFirstName(), $userInDB->getToken(), $userInDB->getEmail()));
+
+                        // Send warning email to webmaster
+                        MailSvc::getInstance()->send(Constants::WEBMASTER_EMAIL . ", berliozd@gmail.com, rebiffe_olivier@yahoo.fr", __("nouveau user", "s1b"), $userInDB->getEmail());
+
+                        // create message in user internal mailbox
+                        MessageSvc::getInstance()->createWelcomeMessage($userInDB->getId());
+
+                        // redirect to user homepage
+                        $successMsg = __("Votre compte a été créé correctement. N'oubliez pas de l'activer grâce à l'email que vous avez reçu avant toute première connexion. <strong>Attention cet email pourrait tomber dans vos spams.</strong>", "s1b");
+                        Flash::addItem($successMsg);
+
+                        // Testing if the user registering match invitations and set them to validated and accepted if they exist
+                        InvitationSvc::getInstance()->setInvitationsAccepted($userInDB->getEmail());
+
+                        HTTPHelper::redirect(Urls::LOGIN);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
     private function setViewChronicles() {
 
         // Getting chronicles
@@ -484,5 +567,34 @@ class Default_IndexController extends Zend_Controller_Action {
             $key .= $chaine[rand(0, $count)]; /* on tire aléatoirement les $max_length_reg_key carac de la chaine */
         return ($key); /* on renvois la clé générée */
         /* Fin de le génération de clé */
+    }
+
+    private function validateRegistrationForm() {
+        $ret = true;
+        if (strlen($_POST['last_name']) < 3) {
+            Flash::addItem(__("Votre nom doit comprendre au moins 3 caractères.", "s1b"));
+            $ret = false;
+        }
+        if (strlen($_POST['first_name']) < 1) {
+            Flash::addItem(__("Merci d'indiquer votre prénom.", "s1b"));
+            $ret = false;
+        }
+        if (strlen($_POST['user_name']) < 1) {
+            Flash::addItem(__("Merci d'indiquer un identifiant.", "s1b"));
+            $ret = false;
+        }
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            Flash::addItem(__("Votre email n'est pas valide, merci de réessayer.", "s1b"));
+            $ret = false;
+        }
+        if (strlen($_POST['password']) < 8) {
+            Flash::addItem(__("Votre mot de passe doit faire au moins 8 caractères.", "s1b"));
+            $ret = false;
+        }
+        if (!ArrayHelper::getSafeFromArray($_POST, 'cgu_validation', false)) {
+            Flash::addItem(__("Vous devez accepter les CGU.", "s1b"));
+            $ret = false;
+        }
+        return $ret;
     }
 }

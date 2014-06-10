@@ -31,11 +31,11 @@ class Urls {
     
     // account connection-registration-activation
     const LOGIN = 'default/index/log';                                              // Zend : default / index / log
-    const LOGOUT = 'member/index/log-off';                                          // Zend : member / index/ log-off
+    const LOGOUT = 'member/index/log-off';                                          // Zend : member / index / log-off
     const LOGIN_FACEBOOK = 'default/index/facebook-log';                            // Zend : default / index / facebook-log
-    const SUBSCRIBE = 'membre/inscription'; //user_registration
-    const REFUSE_INVITATION = 'default/index/refuse-invitation';                    // Zend : default /index / refuse-invitation
-    const LOST_PASSWORD = 'default/index/lost-password';                             // Zend : default / index/ lost-password
+    const SUBSCRIBE = 'default/index/register';                                     // Zend : default / index / register
+    const REFUSE_INVITATION = 'default/index/refuse-invitation';                    // Zend : default / index / refuse-invitation
+    const LOST_PASSWORD = 'default/index/lost-password';                            // Zend : default / index / lost-password
     // User
     const USER_LIBRARY = "bibliotheque"; // library_fullwidth    
     const USER_LIBRARY_DETAIL = "bibliotheque-detail"; // page
@@ -68,7 +68,7 @@ class Urls {
     const USER_FRIENDS_INVITE_SUBMIT = 'member/friends/invite';                     // Zend : member / friends / invite
     const USER_FRIENDS_REQUEST = 'member/friends/request';                          // Zend : member / friends / request
     const USER_FRIENDS_PENDING_REQUEST = 'member/friends/pending-requests';         // Zend : member / friends / pending-requests
-    const USER_FRIENDS_FIND = 'member/friends/search';                              // Zend : member / friends /search
+    const USER_FRIENDS_FIND = 'member/friends/search';                              // Zend : member / friends / search
 
     // Users
     const USER_PROFILE = 'users/profile';

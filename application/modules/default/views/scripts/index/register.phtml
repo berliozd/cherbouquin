@@ -1,0 +1,101 @@
+<?php
+use Sb\Entity\Constants,
+    Sb\Entity\Urls,
+    Sb\Helpers\ArrayHelper,
+    Sb\Helpers\HTTPHelper;
+?>
+
+<div id="content-wide">
+    <div class="registration">
+        <div class="r-left">
+            <form action="" method="POST">
+                <div class="inner-padding-10">
+                    <input type="hidden" name="connexion_type" value="S1B"/>
+
+                    <div class="r-title">
+                        <?php _e("Inscription", "s1b"); ?>
+                    </div>
+                    <div class="r-subtitle r-reassurance">
+                        <?php echo sprintf(__("L'inscription à %s est gratuite et vous permettra de gérer votre bibliothèque sans limitation de livres.", "s1b"), Constants::SITENAME); ?>
+                    </div>
+                    <div class="r-subtitle">
+                        <?php _e("Pour activer votre compte utilisez l'email que vous allez recevoir<br/><strong>Attention cet email pourrait tomber dans vos spams.</strong>", "s1b"); ?>
+                    </div>
+                    <div class="r-line">
+                        <div class="rl-label">
+                            <?php _e("Nom *", "s1b"); ?>
+                        </div>
+                        <div class="r-field">
+                            <input type="text" class="textinput input-item" name="last_name"
+                                   value="<?php echo ArrayHelper::getSafeFromArray($_POST, "last_name", ""); ?>"/>
+                        </div>
+                    </div>
+                    <div class="r-line">
+                        <div class="rl-label">
+                            <?php _e("Prénom *", "s1b"); ?>
+                        </div>
+                        <div class="r-field">
+                            <input type="text" class="textinput input-item" name="first_name"
+                                   value="<?php echo ArrayHelper::getSafeFromArray($_POST, "first_name", ""); ?>"/>
+                        </div>
+                    </div>
+                    <div class="r-line">
+                        <div class="rl-label">
+                            <?php _e("Identifiant *", "s1b"); ?>
+                        </div>
+                        <div class="r-field">
+                            <input type="text" class="textinput input-item" name="user_name"
+                                   value="<?php echo ArrayHelper::getSafeFromArray($_POST, "user_name", ""); ?>"/>
+                        </div>
+                    </div>
+                    <div class="r-line">
+                        <div class="rl-label">
+                            <?php _e("Email *", "s1b"); ?>
+                        </div>
+                        <div class="r-field">
+                            <input type="text" class="textinput input-item" name="email"
+                                   value="<?php echo ArrayHelper::getSafeFromArray($_POST, "email", ""); ?>"/>
+                        </div>
+                    </div>
+                    <div class="r-line">
+                        <div class="rl-label">
+                            <?php _e("Mot de passe *", "s1b"); ?>
+                        </div>
+                        <div class="r-field">
+                            <input type="password" class="textinput input-item registrationPwd" name="password"
+                                   value=""/>
+                        </div>
+                    </div>
+                    <div class="r-line">
+                        <div class="rl-label">
+                            <input type="checkbox" name="cgu_validation" value="1"/>
+                            <?php echo sprintf(__("J'ai lu et j'accepte les <a href=\"%s\" class=\"cgu\" target=\"_blank\">Conditions générales d'utilisation</a>", "s1b"), HTTPHelper::Link("CGU/CGU-26-09-2012.pdf")); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons-bar">
+                    <div class="inner-padding">
+                        <?php _e("*champs obligatoires", "s1b"); ?>
+                        <button
+                            class="float-right button bt-blue-m margin-right margin-left"><?php _e("S'inscrire", "s1b"); ?></button>
+                        <?php if (!$_POST) { ?>
+                            <a class="button bt-black-xs float-right" href="javascript:history.back()"
+                               class="link"><?php _e("Annuler", "s1b") ?></a>
+                        <?php } ?>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="r-right">
+            <div class="inner-padding-10">
+                <div class="rr-label"><?php _e("Ou inscrivez vous via votre compte Facebook *", "s1b"); ?></div>
+                <div class="rr-button">
+                    <a class="button bt-facebook-s"
+                       href="<?php echo HTTPHelper::Link(Urls::LOGIN_FACEBOOK); ?>"><?php _e("connect", "s1b"); ?></a>
+                </div>
+                <span><?php _e("* en créant votre compte avec Facebook, vous acceptez automatiquement nos CGU.", "s1b"); ?></span>
+            </div>
+
+        </div>
+    </div>
+</div>
