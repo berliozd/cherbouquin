@@ -527,7 +527,7 @@ class Member_FriendsController extends Zend_Controller_Action {
 
                         // redirect to pending request page
                         Flash::addItem(__("Demande refusée.", "s1b"));
-                        HTTPHelper::redirectUrls(Urls::USER_FRIENDS_PENDING_REQUEST);
+                        HTTPHelper::redirect(Urls::USER_FRIENDS_PENDING_REQUEST);
                     }
                 } else {
                     Flash::addItem(__("Vous devez sélectionner une demande d'ami.", "s1b"));
