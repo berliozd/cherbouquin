@@ -351,6 +351,42 @@ class Default_IndexController extends Zend_Controller_Action {
         }
     }
 
+    /**
+     * Send new password
+     */
+    public function lostPasswordAction() {
+
+        try {
+
+            if ($_POST) {
+
+                $email = htmlspecialchars($_POST['lostpassword-email']);
+                if ($email) {
+
+                    $user = UserDao::getInstance()->getByEmail($email);
+                    if ($user) {
+                        $new_pass = gen_reg_key();
+                        $new_pass_md5 = sha1($new_pass);
+                        $user->setPassword($new_pass_md5);
+                        // update password in db
+                        UserDao::getInstance()->update($user);
+                        // send email with new password
+                        $body = MailHelper::newPasswordBody($new_pass);
+                        MailSvc::getInstance()->send($user->getEmail(), __("Votre nouveau mot de passe", "s1b") . " " . Constants::SITENAME, $body);
+                        Flash::addItem(__("Votre mot de passe a été mis à jour et un email vous a été envoyé.", "s1b"));
+                    } else {
+                        Flash::addItem(__("Nous n'avons pas trouvé de compte correspondant à l'email saisi.", "s1b"));
+                    }
+                } else {
+                    Flash::addItem(__("Vous devez renseigner un email.", "s1b"));
+                }
+            }
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
     private function setViewChronicles() {
 
         // Getting chronicles
@@ -433,4 +469,20 @@ class Default_IndexController extends Zend_Controller_Action {
         return $ok;
     }
 
+    private function gen_reg_key() {
+        $key = ""; /* on initialise la variable $key à "vide" */
+        $max_length_reg_key = 8; /* on définit la taille de la chaine (8 caractères ca suffit ) */
+
+        /* on définit le type de caractères ascii de la chaine */
+        $chaine = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+            "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+            "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+
+        $count = count($chaine) - 1;
+        srand((double)microtime() * 1000000); /* on initialise la fonction rand pour le tirage aléatoire */
+        for ($i = 0; $i < $max_length_reg_key; $i++)
+            $key .= $chaine[rand(0, $count)]; /* on tire aléatoirement les $max_length_reg_key carac de la chaine */
+        return ($key); /* on renvois la clé générée */
+        /* Fin de le génération de clé */
+    }
 }

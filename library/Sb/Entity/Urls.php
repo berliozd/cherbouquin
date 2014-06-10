@@ -35,7 +35,7 @@ class Urls {
     const LOGIN_FACEBOOK = 'default/index/facebook-log';                            // Zend : default / index / facebook-log
     const SUBSCRIBE = 'membre/inscription'; //user_registration
     const REFUSE_INVITATION = 'default/index/refuse-invitation';                    // Zend : default /index / refuse-invitation
-    const LOST_PASSWORD = 'mot-de-passe-perdu';
+    const LOST_PASSWORD = 'default/index/lost-password';                             // Zend : default / index/ lost-password
     // User
     const USER_LIBRARY = "bibliotheque"; // library_fullwidth    
     const USER_LIBRARY_DETAIL = "bibliotheque-detail"; // page
