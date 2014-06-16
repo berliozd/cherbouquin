@@ -14,7 +14,6 @@ if ($globalConfig->getIsProduction()) { ?>
 <link rel="shortcut icon" type="image/x-icon" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/favicons/favicon.ico" />
 
 <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/tiny_mce/tiny_mce_src.js"></script>
 
 <meta charset="UTF-8" />
 <meta name="language" content="fr-FR" />

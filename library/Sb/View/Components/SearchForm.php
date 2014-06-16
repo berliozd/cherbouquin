@@ -2,6 +2,11 @@
 
 namespace Sb\View\Components;
 
+use Sb\Entity\Urls,
+    Sb\Templates\Template,
+    Sb\Helpers\HTTPHelper,
+    Sb\Helpers\ArrayHelper;
+
 /**
  * @author Didier
  */
@@ -15,11 +20,11 @@ class SearchForm extends \Sb\View\AbstractView {
     }
 
     public function get() {
-        $tpl = new \Sb\Templates\Template("components/searchForm");
+        $tpl = new Template("components/searchForm");
 
-        $formAction = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BOOK_SEARCH, array("page" => \Sb\Entity\LibraryPages::SEARCH_SUBMIT));
+        $formAction = HTTPHelper::Link(Urls::BOOK_SEARCH_SUBMIT);
         $searchTermDef = "Titre, auteur, ISBN";
-        $searchTerm = \Sb\Helpers\ArrayHelper::getSafeFromArray($_REQUEST, "searchTerm", $searchTermDef);
+        $searchTerm = ArrayHelper::getSafeFromArray($_REQUEST, "searchTerm", $searchTermDef);
         $isConnected = false;
         if ($this->getContext()->getConnectedUser())
             $isConnected = true;

@@ -47,7 +47,7 @@ if (empty($session_id))
 $connecteUserId = \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getConnectedUserId();
 
 // Context is created without passing friend library info. These infos will be set in Controller later
-$globalContext = \Sb\Context\Model\Context::createContext($connecteUserId, false, null);
+$globalContext = \Sb\Context\Model\Context::createContext($connecteUserId);
 
 // Set Config
 $globalConfig = new \Sb\Config\Model\Config();

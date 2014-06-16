@@ -1,16 +1,7 @@
-<?php 
-$baseUrl = \Sb\Entity\Urls::USER_LIBRARY;
-if ($friendLibrary) { 
-    $baseUrl = \Sb\Entity\Urls::FRIEND_LIBRARY;
-    ?>
+<?php
+if ($friendLibrary) { ?>
     <div class="lh-friendlibrarytitle"><?php echo sprintf(__("La bibliothèque de <strong>%s</strong>", "s1b"), $friendUserName); ?></div>
-<?php } 
-$allBooksUrl = \Sb\Helpers\HTTPHelper::Link($baseUrl, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::ALL_BOOKS_KEY, "reset" => 1));
-$borrowedBooksUrl = \Sb\Helpers\HTTPHelper::Link($baseUrl, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::BORROWED_BOOKS_KEY, "reset" => 1));
-$lendedBooksUrl = \Sb\Helpers\HTTPHelper::Link($baseUrl, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::LENDED_BOOKS_KEY, "reset" => 1));
-$wishedBooksUrl = \Sb\Helpers\HTTPHelper::Link($baseUrl, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::WISHED_BOOKS_KEY, "reset" => 1));
-$myBooksUrl = \Sb\Helpers\HTTPHelper::Link($baseUrl, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::MY_BOOKS_KEY, "reset" => 1));
-?>
+<?php } ?>
 <ul>
     <li class="[@cssAll]"><a href="<?php echo $allBooksUrl; ?>"><div class="lh-wrapper <?php echo ($friendLibrary ? "lh-friend-library-all" : "lh-all"); ?> first"><?php ($friendLibrary ? _e("Tous ses livres", "s1b") : _e("Ma bibliothèque", "s1b")); ?></div></a></li>
     <li class="[@cssOwned]"><a href="<?php echo $myBooksUrl;?>"><div class="lh-wrapper lh-owned"><?php _e("Possédés", "s1b") ?></div></a></li>

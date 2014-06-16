@@ -1,5 +1,4 @@
 <?php
-use \Sb\Helpers\EntityHelper;
 
 date_default_timezone_set('Europe/Paris');
 
@@ -48,10 +47,7 @@ if (!class_exists('share1Book')) {
         private $msgInternalError; //= __("Une erreur interne s'est produite.");
         private $pagesWithoutAuthentification = array("search/show", "search/submit", "book/view");
         private $isFriendLibrary = false;
-        private $friendUserId = null; // friend user id when showing friend library
         private $userId = null; // connected user's userid
-        private $libraryUserId = null; // userid used for showing books, is the connected user id when not showing a friend library otherwise is the friend id
-        private $libraryPageName = "";
         private $javascriptKeys = array();
         private $config = null;
         private $context = null;
@@ -61,14 +57,6 @@ if (!class_exists('share1Book')) {
 
         public function getIsSubmit() {
             return $this->isSubmit;
-        }
-
-        /**
-         * Is set with the friend user id when a friend library is shown, otherwise is not shown
-         * @return type
-         */
-        public function getFriendUserId() {
-            return $this->friendUserId;
         }
 
         public function getFlashes() {
@@ -81,10 +69,6 @@ if (!class_exists('share1Book')) {
 
         public function getMsgNotConnectedUser() {
             return $this->msgNotConnectedUser;
-        }
-
-        public function getLibraryUserId() {
-            return $this->libraryUserId;
         }
 
         public function getJavascriptKeys() {
@@ -134,12 +118,6 @@ if (!class_exists('share1Book')) {
 
             try {
 
-                // Detect if plugin is loaded as a "friend library" or not, based on the shortcode attribute 'isfriendlibrary'
-                extract(shortcode_atts(array('friendlibrary' => '0',), $atts));
-                if ($friendlibrary == '1') {
-                    $this->isFriendLibrary = true;
-                }
-
                 // prépare le module (load  css et js, auto register des classes, démarrage de la session, initialisation des variables
                 $this->prepare();
 
@@ -152,7 +130,6 @@ if (!class_exists('share1Book')) {
                 }
 
                 $requested_page = self::BOOKS_PAGE;
-                $pageContent = "";
                 $page = $this->formatPagePath(self::BOOKS_PAGE);
 
                 // Récupération de la page de demandée
@@ -188,24 +165,7 @@ if (!class_exists('share1Book')) {
                 }
 
                 // header only needed for book list page
-                if ($requested_page == self::BOOKS_PAGE) {
-                    // Préparation du header
-                    $tplHeader = new \Sb\Templates\Template("header");
-
-                    if ($this->context->getIsShowingFriendLibrary()) {
-                        $friend = \Sb\Db\Dao\UserDao::getInstance()->get($this->friendUserId);
-                        $friendUserName = $friend->getFirstName();
-                        $tplHeader->setVariables(array("friendLibrary" => true,
-                            "friendUserName" => $friendUserName));
-                    } else {
-                        $tplHeader->setVariables(array("friendLibrary" => false));
-                    }
-
-                    $this->setActiveTab($tplHeader); // Assigne le css class adéquat en fonction de la page
-                    $moduleOutput = $this->getMasterLoaded($pageContent, $this->outputStuff($this->traces, "traces"), $tplHeader->output());
-                } else {
-                    $moduleOutput = $this->getMasterLoaded($pageContent, $this->outputStuff($this->traces, "traces"), null);
-                }
+                $moduleOutput = $this->getMasterLoaded($pageContent, $this->outputStuff($this->traces, "traces"), null);
 
                 return $moduleOutput;
             } catch (\Sb\Exception\UserException $exUser) {
@@ -252,7 +212,6 @@ if (!class_exists('share1Book')) {
          * Class loader.
          */
         public function loadClass($name) {
-            //echo $name . "<br/>";
             $isProxy = false;
             if (strpos($name, "Proxies\\__CG__\\") !== false)
                 $isProxy = true;
@@ -262,16 +221,12 @@ if (!class_exists('share1Book')) {
                 $name = $prefix . str_replace("\\", "", $name);
             }
             
-            //echo $name . "<br/>";
             require(str_replace("\\", "/", $name) . ".php");
             return;
         }
 
         //////////////////////// FIN hooks
 
-        public function setIsFriendLibrary($isFriendLibrary) {
-            $this->isFriendLibrary = $isFriendLibrary;
-        }
 
         public function compareWithConnectedUserId($bookUserId) {
             \Sb\Trace\Trace::addItem("user connecté : " . $this->userId . " == userBook id demandé : " . $bookUserId . " ?");
@@ -323,96 +278,15 @@ if (!class_exists('share1Book')) {
         }
 
         /**
-         * Determine if the current library shown is a friend's one or not
-         * @return boolean
-         */
-        public function isShowingFriendLibrary() {
-            if ($this->isFriendLibrary) {
-                if ($this->friendUserId) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /**
-         * Set the shown library's user id :
-         * the connected user id in most of the case
-         * the friend user id when a friend library is requested
-         */
-        public function setLibraryUserId() {
-            if ($this->isShowingFriendLibrary()) {
-                $this->libraryUserId = $this->friendUserId;
-            } else {
-                $this->libraryUserId = $this->userId;
-            }
-        }
-
-        public function setLibraryPageName() {
-            if ($this->isShowingFriendLibrary()) {
-                $this->libraryPageName = $this->config->getFriendLibraryPageName();
-            } else {
-                $this->libraryPageName = $this->config->getUserLibraryPageName();
-            }
-        }
-
-        private function createBookList($books, $listOptions) {
-            return new \Sb\Lists\BookList($this->config->getListNbBooksPerPage(), $books, $listOptions);
-        }
-
-        public function formateListKey($key) {
-            $tmpFriendId = "";
-            if ($this->friendUserId) {
-                $tmpFriendId = $this->friendUserId;
-            }
-            $fullKey = sprintf("%s_%s_%s_%s", $key, $this->userId, $tmpFriendId, session_id());
-            return $fullKey;
-        }
-
-        public function createBookTableView($key, $books) {
-
-            // Get full key for list option cache
-            $fullKey = $this->formateListKey($key);
-
-            // Get list options
-            $listOpts = $this->getListOptions($fullKey);
-            // Get potential search value and filtering
-            $searchValue = "";
-            $filteringType = "";
-            $filter = "";
-            if ($listOpts) {
-                if ($listOpts->getSearch()) {
-                    $searchValue = $listOpts->getSearch()->getValue();
-                }
-                if ($listOpts->getFiltering()) {
-                    $filteringType = $listOpts->getFiltering()->getType();
-                    $filter = $listOpts->getFiltering()->getValue();
-                }
-            }
-
-            // Prepare list
-            $list = $this->createBookList($books, $listOpts);
-
-            $authorsFirstLetters = $this->getListMetaData($fullKey, Sb\Lists\MetaDataType::AUTHORS_FIRST_LETTERS);
-            $titlesFirstLetters = $this->getListMetaData($fullKey, Sb\Lists\MetaDataType::TITLES_FIRST_LETTERS);
-
-            return new \Sb\View\BookTable($key, $this->config->getUserLibraryPageName(), $this->config->getFriendLibraryPageName(),
-                            $list->getShownResults(), $list->getPagerLinks(),
-                            $list->getFirstItemIdx(), $list->getLastItemIdx(),
-                            $list->getNbItemsTot(), $listOpts, $this->isShowingFriendLibrary(), $searchValue,
-                            $authorsFirstLetters, $titlesFirstLetters, $filteringType, $filter);
-        }
-
-        /**
          * renvoit un bloc HTML correspond à une vue d'une partie du module mis à disposition par le biais d'une fonction
-         * @global share1Book $s1b
          * @param type $functionToCall
-         * @param type $needAuthentification
+         * @param null $prmArray
+         * @param bool|\type $needAuthentification
+         * @throws Sb\Exception\UserException
          * @return type
          */
         public function functionOutput($functionToCall, $prmArray = null, $needAuthentification = true) {
 
-            $content = "";
             if ($needAuthentification && !$this->getIsConnected()) {
                 Throw new \Sb\Exception\UserException($this->msgNotConnectedUser);
             } else {
@@ -469,14 +343,9 @@ if (!class_exists('share1Book')) {
             $connecteUserId = \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getConnectedUserId();
             if ($connecteUserId)
                 $this->userId = $connecteUserId;            
-            if ($this->isFriendLibrary) {
-                $this->setFriendUserId();
-            }
-            $this->setLibraryUserId();
-            $this->setLibraryPageName();
 
             // Set context
-            $context = \Sb\Context\Model\Context::createContext($this->userId, $this->isShowingFriendLibrary(), $this->libraryUserId);
+            $context = \Sb\Context\Model\Context::createContext($this->userId);
             $this->context = $context;       
             // Set context in global variable for Zend pages
             global $globalContext;
@@ -491,53 +360,8 @@ if (!class_exists('share1Book')) {
             return \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getIsConnected();
         }
 
-        /**
-         * Function called when shortcode attribute friendlibray is set to 1
-         * @throws \Sb\Exception\UserException
-         */
-        private function setFriendUserId() {
-            $temporayFriendUSerId = null;
-            // Get fid from QS
-            if (array_key_exists("fid", $_GET)) {
-                $temporayFriendUSerId = $_GET['fid'];
-            } else { // Get fid from SESSION
-                if (array_key_exists("fid", $_SESSION)) {
-                    $temporayFriendUSerId = $_SESSION['fid'];
-                }
-            }
-
-            // if fid is set, test if fid is a friend of the connected user or if the user has accepted everyone to see his library
-            if ($temporayFriendUSerId) {
-
-                $canAccessLibrary = $this->canAccessLibrary($temporayFriendUSerId);
-                if ($canAccessLibrary) {
-                    // if ok, fid is stored in SESSION and in private variables
-                    $_SESSION['fid'] = $temporayFriendUSerId;
-                    $this->friendUserId = $temporayFriendUSerId;
-                } else {
-                    throw new \Sb\Exception\UserException(__("Cette bibliothèque n'est pas accessible.", "s1b"));
-                    unset($_SESSION['fid']);
-                }
-            } else {
-                throw new \Sb\Exception\UserException(__("No friend id received."));
-                unset($_SESSION['fid']);
-            }
-        }
-
         private function formatPagePath($page) {
             return  __DIR__ . '/Page/' . $page . '.php';
-        }
-
-        private function setActiveTab(&$tplHeader) {
-            $key = "";
-            if ($_GET && array_key_exists("key", $_GET) && $this->isValidBooksKey($_GET["key"])) {
-                $key = $_GET["key"];
-            }
-            $tplHeader->set("cssAll", ($key == "allBooks" ? "active" : ""));
-            $tplHeader->set("cssOwned", ($key == "myBooks" ? "active" : ""));
-            $tplHeader->set("cssWished", ($key == "wishedBooks" ? "active" : ""));
-            $tplHeader->set("cssLended", ($key == "lendedBooks" ? "active" : ""));
-            $tplHeader->set("cssBorrowed", ($key == "borrowedBooks" ? "active" : ""));
         }
 
         private function outputStuff($stuffs, $stuffName) {
@@ -571,154 +395,7 @@ if (!class_exists('share1Book')) {
             $fullKey = $fullKey . self::LIST_OPTIONS_SUFFIX;
             \Sb\Cache\ZendFileCache::getInstance()->remove($fullKey);
         }
-
-        public function setListOptionsForSearching($listKey, $searchValue) {
-            $listOptions = $this->getListOptions($listKey);
-            if ($searchValue) {
-                // Un objet Sb\Lists\Options a été récupéré pour cette liste : on assigne uniquement le search value
-                if ($listOptions) {
-                    if ($listOptions->getSearch()) {
-                        $listOptions->getSearch()->setValue($searchValue);
-                    } else {
-                        $search = new \Sb\Lists\Search();
-                        $search->setValue($searchValue);
-                        $listOptions->setSearch($search);
-                    }
-                } else { // Aucun objet Sb\Lists\Options n'a été récupéré pour cette liste : on en créé un avec le numéro de page
-                    $search = new \Sb\Lists\Search();
-                    $search->setValue($searchValue);
-                    $listOptions = new \Sb\Lists\Options();
-                    $listOptions->setSearch($search);
-                }
-            }
-//            var_dump($listOptions);
-            $this->setListOptions($listKey, $listOptions);
-        }
-
-        public function setListOptionsForFiltering($listKey, $filteringValue, $filteringType) {
-            $listOptions = $this->getListOptions($listKey);
-            if ($filteringValue) {
-                // Un objet Sb\Lists\Options a été récupéré pour cette liste : on assigne uniquement le filtering
-                if ($listOptions) {
-                    if ($listOptions->getFiltering()) {
-                        $listOptions->getFiltering()->setType($filteringType);
-                        $listOptions->getFiltering()->setValue($filteringValue);
-                    } else {
-                        $filtering = new \Sb\Lists\Filtering();
-                        $filtering->setType($filteringType);
-                        $filtering->setValue($filteringValue);
-                        $listOptions->setFiltering($filtering);
-                    }
-                } else { // Aucun objet Sb\Lists\Options n'a été récupéré pour cette liste : on en créé un avec le filtering
-                    $filtering = new \Sb\Lists\Filtering();
-                    $filtering->setType($filteringType);
-                    $filtering->setValue($filteringValue);
-                    $listOptions = new \Sb\Lists\Options();
-                    $listOptions->setFiltering($filtering);
-                }
-            }
-//            var_dump($listOptions);
-            $this->setListOptions($listKey, $listOptions);
-        }
-
-        public function setListOptionsForNavigation($listKey, $pageId) {
-            $listOptions = $this->getListOptions($listKey);
-            if ($pageId) {
-                // Un objet Sb\Lists\Options a été récupéré pour cette liste : on assigne uniquement le numéro de page
-                if ($listOptions) {
-                    if ($listOptions->getPaging()) {
-                        $listOptions->getPaging()->setCurrentPageId($pageId);
-                    } else {
-                        $paging = new \Sb\Lists\Paging();
-                        $paging->setCurrentPageId($pageId);
-                        $listOptions->setPaging($paging);
-                    }
-                } else { // Aucun objet Sb\Lists\Options n'a été récupéré pour cette liste : on en créé un avec le numéro de page
-                    $paging = new \Sb\Lists\Paging();
-                    $paging->setCurrentPageId($pageId);
-                    $listOptions = new \Sb\Lists\Options();
-                    $listOptions->setPaging($paging);
-                }
-            }
-            $this->setListOptions($listKey, $listOptions);
-        }
-
-        public function setListOptionsForSorting($listKey, $sortCriteria) {
-            \Sb\Trace\Trace::addItem("setListOptionsForSorting");
-            $listOptions = $this->getListOptions($listKey);
-            if ($sortCriteria) {
-                \Sb\Trace\Trace::addItem("paramètre sortCriteria passé  : " . $sortCriteria);
-                // Un objet Sb\Lists\Options a été récupéré pour cette liste : on assigne uniquement les infos de sorting
-                if ($listOptions) {
-                    \Sb\Trace\Trace::addItem("Un listOptions trouvé en session pour " . $listKey);
-                    if ($listOptions->getSorting()) {
-                        if ($listOptions->getSorting()->getField() == $sortCriteria) {
-                            $sortDirection = ($listOptions->getSorting()->getDirection() == EntityHelper::ASC ? EntityHelper::DESC : EntityHelper::ASC);
-                        } else {
-                            $sortDirection = EntityHelper::ASC;
-                        }
-                        $listOptions->getSorting()->setField($sortCriteria);
-                        $listOptions->getSorting()->setDirection($sortDirection);
-                    } else {
-                        $sorting = new \Sb\Lists\Sorting();
-                        $sorting->setField($sortCriteria);
-                        $sorting->setDirection(EntityHelper::ASC);
-                        $listOptions->setSorting($sorting);
-                    }
-                } else { // Aucun objet Sb\Lists\Options n'a été récupéré pour cette liste : on en créé un avec le numéro de page
-                    \Sb\Trace\Trace::addItem("Pas de listOptions trouvé en session pour " . $listKey);
-                    $sorting = new \Sb\Lists\Sorting();
-                    $sorting->setField($sortCriteria);
-                    $sorting->setDirection(EntityHelper::ASC);
-                    $listOptions = new \Sb\Lists\Options();
-                    $listOptions->setSorting($sorting);
-                }
-            }
-            $this->setListOptions($listKey, $listOptions);
-        }
-
-        public function setListMetaData($fullKey, $value, $metaDataType) {
-            switch ($metaDataType) {
-                case Sb\Lists\MetaDataType::AUTHORS_FIRST_LETTERS:
-                    $fullKey = $fullKey . self::LIST_AUTHORS_FIRST_LETTER_SUFFIX;
-                    break;
-                case Sb\Lists\MetaDataType::TITLES_FIRST_LETTERS:
-                    $fullKey = $fullKey . self::LIST_TITLES_FIRST_LETTER_SUFFIX;
-                    break;
-                default:
-                    break;
-            }
-            \Sb\Cache\ZendFileCache::getInstance()->save($value, $fullKey);
-        }
-
-        public function getListMetaData($fullKey, $metaDataType) {
-            switch ($metaDataType) {
-                case Sb\Lists\MetaDataType::AUTHORS_FIRST_LETTERS:
-                    $fullKey = $fullKey . self::LIST_AUTHORS_FIRST_LETTER_SUFFIX;
-                    break;
-                case Sb\Lists\MetaDataType::TITLES_FIRST_LETTERS:
-                    $fullKey = $fullKey . self::LIST_TITLES_FIRST_LETTER_SUFFIX;
-                    break;
-                default:
-                    break;
-            }
-            return \Sb\Cache\ZendFileCache::getInstance()->load($fullKey);
-        }
-
-        /**
-         * Defines if we can access the user library (depends if is has accepted it or if he is a friend)
-         * @param type $userId
-         * @return boolean
-         */
-        private function canAccessLibrary($userId) {
-
-            $requestedUser = \Sb\Db\Dao\UserDao::getInstance()->get($userId);
-            $requestingUser = \Sb\Db\Dao\UserDao::getInstance()->get($this->userId);
-            return \Sb\Helpers\SecurityHelper::IsUserAccessible($requestedUser, $requestingUser);
-        }
-
     }
-
 }
 
 $s1b = new share1Book();

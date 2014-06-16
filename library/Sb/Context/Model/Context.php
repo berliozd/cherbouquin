@@ -81,7 +81,7 @@ class Context {
         $this->libraryUserId = $libraryUserId;
     }
 
-    public static function createContext($userId, $isShowFriendLibrary, $libraryUserId) {
+    public static function createContext($userId) {
 
         // Set context params except isShowingFriendLibrary and user
         $context = new \Sb\Context\Model\Context();
@@ -94,15 +94,6 @@ class Context {
             $user = \Sb\Db\Dao\UserDao::getInstance()->get($userId);
             $context->setConnectedUser($user);
         }
-
-        // Set context param isShowingFriendLibrary
-        $context->setIsShowingFriendLibrary($isShowFriendLibrary);
-
-        if ($isShowFriendLibrary)
-            $context->setLibraryUserId($libraryUserId);
-        else
-            $context->setLibraryUserId($userId);
-
 
         // Set the singleton for future use
         \Sb\Context\Model\Context::setInstance($context);

@@ -7,10 +7,8 @@ namespace Sb\View;
  *
  * @author Didier
  */
-class BookTable extends \Sb\View\AbstractView {
+class BookTable extends AbstractView {
 
-    private $mainPageName;
-    private $currentLibraryPageName;
     private $shownResults;
     private $listOptions;
     private $pagerLinks;
@@ -25,15 +23,13 @@ class BookTable extends \Sb\View\AbstractView {
     private $filter;
     private $key;
 
-    function __construct($key, $mainPageName, $friendLibraryPageName, $shownResults, $pagerLinks, $firstItemIdx, $lastItemIdx, $nbItemsTot, $listOptions, $friendLibrary, $searchValue, $authorsFirstLetters, $titlesFirstLetters, $filteringType, $filter) {
+    function __construct($key, $shownResults, $pagerLinks, $firstItemIdx,
+                         $lastItemIdx, $nbItemsTot, $listOptions, $friendLibrary,
+                         $searchValue, $authorsFirstLetters, $titlesFirstLetters,
+                         $filteringType, $filter) {
         parent::__construct();
 
         $this->key = $key;
-        $this->mainPageName = $mainPageName;
-        if ($friendLibrary)
-            $this->currentLibraryPageName = $friendLibraryPageName;
-        else
-            $this->currentLibraryPageName = $mainPageName;
         $this->shownResults = $shownResults;
         $this->listOptions = $listOptions;
         $this->pagerLinks = $pagerLinks;
@@ -220,9 +216,6 @@ class BookTable extends \Sb\View\AbstractView {
             }
             $key = \Sb\Helpers\ArrayHelper::getSafeFromArray($_GET, "key", null);
             $bookListTpl->set("key", $key);
-            $bookListTpl->set("reinitUrl", \Sb\Helpers\HTTPHelper::Link($this->currentLibraryPageName, array("key" => $key,
-                        "page" => \Sb\Entity\LibraryPages::BOOK_LIST)));
-
 
             $selectedAuthorLetter = null;
             $selectedTitleLetter = null;
@@ -236,7 +229,7 @@ class BookTable extends \Sb\View\AbstractView {
                 "titlesFirstLetters" => $this->titlesFirstLetters,
                 "selectedTitleLetter" => $selectedTitleLetter,
                 "selectedAuthorLetter" => $selectedAuthorLetter,
-                "emptyList" => false));            
+                "emptyList" => false));
         } else
             $bookListTpl->setVariables(array("emptyList" => true));
         

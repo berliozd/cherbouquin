@@ -9,8 +9,6 @@ namespace Sb\Entity;
  */
 class Urls {
 
-    const BOOK_SEARCH = "resultats"; // library_fullwidth
-
     const ACTIVATE = 'default/index/activate';                      // Zend : default / index / activate
     
     const CONTACT = "contact";                                      // Zend : default / static / index
@@ -37,7 +35,7 @@ class Urls {
     const REFUSE_INVITATION = 'default/index/refuse-invitation';                    // Zend : default / index / refuse-invitation
     const LOST_PASSWORD = 'default/index/lost-password';                            // Zend : default / index / lost-password
     // User
-    const USER_LIBRARY = "bibliotheque"; // library_fullwidth    
+    const USER_LIBRARY = "default/library/index";                                   // Zend : default /library /index
     const USER_LIBRARY_DETAIL = "bibliotheque-detail"; // page
     const USER_HOME = "membre/a-la-page";                                           // Zend : member / index / index
     // User profile
@@ -72,10 +70,10 @@ class Urls {
 
     // Users
     const USER_PROFILE = 'users/profile';
-    
-    // Friend    
-    const FRIEND_LIBRARY = 'bibliotheque-damis';
-    
+
+    // Friend
+    const FRIEND_LIBRARY = 'default/library/friend-library';
+
     // SEO Content pages
     const LAST_ADDED_BOOKS = 'livres/derniers-livres-ajoutes';                      // Zend : default / books / last-added
     const BLOW_OF_HEARTS_BOOKS = 'livres/coups-de-coeur';                           // Zend : default / books / blow-of-hearts
@@ -91,4 +89,8 @@ class Urls {
     const USERBOOK_GIFTS_SEND_BY_EMAIL= "userbook-gifts/send-by-email";             // Zend : default / userbook-gifts / send-by-email
     
     const BOOK_WARN_OFFENSIVE_COMMENT = "book/warn-offensive-comment";              // Zend : default / book / warn-offensive-comment
+
+    // Book search
+    const BOOK_SEARCH_SUBMIT = "default/book-search/search";                        // Zend : default / book-search / search
+    const BOOK_SEARCH_SHOW = "default/book-search/show";                            // Zend : default / book-search / show
 }

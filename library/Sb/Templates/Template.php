@@ -25,7 +25,7 @@ class Template {
     /**
      * Set an array of variables.
      * Ex : with array("addMode" => true), $addMode will be available in Template
-     * @param type $variables
+     * @param array $variables
      */
     public function setVariables($variables) {
         $this->variables = $variables;
