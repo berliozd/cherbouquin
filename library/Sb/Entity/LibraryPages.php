@@ -10,7 +10,6 @@ class LibraryPages {
     
     //
     const BOOK_VIEW = "book/view";
-    const BOOK_LIST = "book/list";
     const BOOK_WARNOFFENSIVECOMMENT = "book/warnoffensivecomment";
     //
     const LENDING_BORROW = "lending/borrow";
@@ -23,7 +22,6 @@ class LibraryPages {
     //
     const USERBOOK_ADDCHOICE = "userbook/addchoice";
     const USERBOOK_DELETE = "userbook/delete";
-    const USERBOOK_EDIT = "userbook/edit";
     const USERBOOK_IMPORT = "userbook/import";
     const USERBOOK_PREPAREADD = "userbook/prepareadd";
 
