@@ -39,14 +39,14 @@
                                                 <?php echo sprintf(__("Page %s sur %s","s1b"), $userBook->getNb_of_pages_read(), $userBook->getNb_of_pages());?>    
                                             </div>
                                             <?php if ($isCurrentConnectedUser) { ?>
-                                                <a class="link" href="<?php echo \Sb\Helpers\HTTPHelper::Link(Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));?>"><?php _e("Modifier l'avancement", "s1b");?></a>
+                                                <a class="link" href="<?php echo \Sb\Helpers\HTTPHelper::Link(Sb\Entity\Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));?>"><?php _e("Modifier l'avancement", "s1b");?></a>
                                             <?php } ?>
                                         </div>                                        
                                     <?php } else {?>
                                     <div class="ubcb-nopagesread">
                                         <?php if ($isCurrentConnectedUser) { ?>
                                             <?php 
-                                            $userBookEditLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
+                                            $userBookEditLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));
                                             echo sprintf(__("Renseigner l'<a href=\"%s\" class=\"link\">état d'avancement</a> de ce livre.","s1b"), $userBookEditLink);
                                             ?>
                                         <?php } else { ?>

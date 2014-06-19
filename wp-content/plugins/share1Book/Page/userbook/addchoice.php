@@ -112,7 +112,7 @@ if (!$s1b->getIsSubmit()) {
         }
     }
 
-    HTTPHelper::redirect(Urls::USER_LIBRARY_DETAIL, array("page" => LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
+    HTTPHelper::redirect(Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));
 }
 
 function showBookDetail(Book $book, $booksAlsoLiked, $booksWithSameTags, $reviewdUserBooks) {

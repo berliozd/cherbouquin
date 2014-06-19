@@ -176,19 +176,13 @@ class UserBookSvc extends \Sb\Db\Service\Service {
                 $addOk = false;
                 if ($existingUserBook) {
                     if (UserBookDao::getInstance()->update($userBook)) {
-                        $editUserBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array(
-                                "page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT,
-                                "ubid" => $userBook->getId()
-                        ));
+                        $editUserBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));
                         $returnMsg = sprintf(__("Vous aviez déjà le livre \"%s\" dans votre bibliothèque mais l'aviez supprimé. Il a été rajouté.<br/><a class=\"link\" href=\"%s\">Remplir votre fiche de lecture</a> ou <a class=\"link\" href=\"%s\">Voir ce livre</a>", "s1b"), $book->getTitle(), $editUserBookLink, $bookLink);
                         $addOk = true;
                     }
                 } else {
                     if (UserBookDao::getInstance()->add($userBook)) {
-                        $editUserBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array(
-                                "page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT,
-                                "ubid" => $userBook->getId()
-                        ));
+                        $editUserBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));
                         $returnMsg = sprintf(__("Le livre \"%s\" a été ajouté à votre bibliothèque.<br/><a class=\"link\" href=\"%s\">Remplir votre fiche de lecture</a> ou <a class=\"link\" href=\"%s\">Voir ce livre</a>", "s1b"), $book->getTitle(), $editUserBookLink, $bookLink);
                         $addOk = true;
                     }

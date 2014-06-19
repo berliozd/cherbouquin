@@ -80,7 +80,7 @@ class Book extends \Sb\View\AbstractView {
                 if ($userBook->getActiveLending())
                     $lendingText = __("Prêt", "s1b");
 
-                $editBookLink = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
+                $editBookLink = HTTPHelper::Link(Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));
                 
                 $owned = $userBook->getIsOwned();
                 $requestBorrowLink = "";
