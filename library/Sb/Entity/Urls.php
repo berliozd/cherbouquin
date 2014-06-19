@@ -93,4 +93,8 @@ class Urls {
     // Book search
     const BOOK_SEARCH_SUBMIT = "default/book-search/search";                        // Zend : default / book-search / search
     const BOOK_SEARCH_SHOW = "default/book-search/show";                            // Zend : default / book-search / show
+
+    // UserBook
+    const USER_BOOK_EDIT = "member/user-book/edit";                                 // Zend : member / user-book / edit
+    const USER_BOOK_SUBMIT = "member/user-book/submit";                             // Zend : member / user-book / submit
 }

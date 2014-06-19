@@ -2,6 +2,8 @@
 
 namespace Sb\View;
 
+use Sb\Entity\Urls;
+
 /**
  * Description of BookList
  *
@@ -117,11 +119,8 @@ class BookTable extends AbstractView {
                     $rowTpl->set("bohCssClass", "");
                 }
 
-                $editLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_EDIT, "ubid" => $userBook->getId()));
-
+                $editLink = \Sb\Helpers\HTTPHelper::Link(Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));
                 $deleteLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_DELETE, "ubid" => $userBook->getId()));
-
-                //$viewLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::BOOK_VIEW, "bid" => $book->getId()));
                 $viewLink = \Sb\Helpers\HTTPHelper::Link($book->getLink());
 
                 // Showing "Borrow this book" link only if:
