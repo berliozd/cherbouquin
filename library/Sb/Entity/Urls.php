@@ -69,7 +69,7 @@ class Urls {
     const USER_FRIENDS_FIND = 'member/friends/search';                              // Zend : member / friends / search
 
     // Users
-    const USER_PROFILE = 'users/profile';
+    const USER_PROFILE = 'default/users/profile';                                   // Zend : default / users / profile
 
     // Friend
     const FRIEND_LIBRARY = 'default/library/friend-library';
