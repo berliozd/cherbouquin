@@ -22,8 +22,6 @@ Class Config {
     private $listNbBooksPerPage = SHARE1BOOK_LIST_NB_BOOKS_PER_PAGE;
     private $amazonNumberOfPageRequested = SHARE1BOOK_AMAZON_NB_OF_PAGE_REQUESTED;
     private $maxImportNb = SHARE1BOOK_MAX_IMPORT_NB;
-    private $userLibraryPageName = SHARE1BOOK_USER_LIBRARY_PAGE_NAME; // Wordpress page for main library
-    private $friendLibraryPageName = SHARE1BOOK_FRIEND_LIBRARY_PAGE_NAME; // Wordpress page for friend library
     private $facebookApiId = SHARE1BOOK_FACEBOOK_API_ID;
     private $facebookSecret = SHARE1BOOK_FACEBOOK_SECRET;
     private $maximumNbUserBooksForPublic = SHARE1BOOK_MAX_NB_BOOKS_FOR_PUBLIC;
@@ -75,14 +73,6 @@ Class Config {
 
     public function getMaxImportNb() {
         return $this->maxImportNb;
-    }
-
-    public function getUserLibraryPageName() {
-        return $this->userLibraryPageName;
-    }
-
-    public function getFriendLibraryPageName() {
-        return $this->friendLibraryPageName;
     }
 
     public function getFacebookApiId() {

@@ -43,7 +43,7 @@ class HTTPHelper {
      * Redirect to a library page (book/view, userbook/add, etc...)
      */
     public static function redirectToLibrary(array $params = array()) {
-        self::redirect(self::getConfig()->getUserLibraryPageName(), $params);
+        self::redirect(Urls::USER_LIBRARY, $params);
     }
 
     /**
