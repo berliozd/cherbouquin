@@ -32,7 +32,7 @@ use Sb\Helpers\StringHelper;
                     <?php } ?>
                     <?php if (count($wishedBooks) > 3) { ?>
                     <div class="ubwb-link">
-                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("page" => \Sb\Entity\LibraryPages::BOOK_LIST, "key" => \Sb\Entity\LibraryListKeys::WISHED_BOOKS_KEY, "reset" => 1));?>" class="link"><?php _e("Voir plus de livres", "s1b");?></a>
+                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("key" => \Sb\Entity\LibraryListKeys::WISHED_BOOKS_KEY, "reset" => 1));?>" class="link"><?php _e("Voir plus de livres", "s1b");?></a>
                     </div>
                     <?php } ?>
                 <?php } else { ?>
