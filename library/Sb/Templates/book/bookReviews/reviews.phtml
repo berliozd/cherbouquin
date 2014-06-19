@@ -5,7 +5,7 @@
                 <div class="nav-resume"><?php echo sprintf(__("Dernière(s) critique(s) postée(s)", "s1b")); ?></div>
                 <?php if ($connectedUser) { ?>
                     <div class="bvr-warnlink">
-                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BOOK_WARN_OFFENSIVE_COMMENT, array("bid" => \Sb\Entity\LibraryPages::BOOK_WARNOFFENSIVECOMMENT, "bid" => $bookId)); ?>" class="link js_warnOffensiveComment">
+                        <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BOOK_WARN_OFFENSIVE_COMMENT, array("bid" => $bookId)); ?>" class="link js_warnOffensiveComment">
                             <?php _e("Signaler un abus.", "s1b"); ?>
                         </a>
                     </div>

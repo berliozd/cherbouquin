@@ -27,7 +27,6 @@ class PushedBook extends \Sb\View\AbstractView {
 
         $roundedRating = floor($avgRating);
         $ratingCss = "rating-" . $roundedRating;
-        //$viewBookLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::BOOK_VIEW, "bid" => $this->book->getId()));
         $viewBookLink = \Sb\Helpers\HTTPHelper::Link($this->book->getLink());
 
         $img = \Sb\Helpers\BookHelper::getMediumImageTag($this->book, $this->defImg);
