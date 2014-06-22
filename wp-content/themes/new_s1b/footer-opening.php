@@ -74,7 +74,7 @@ use Sb\Entity\Constants;
                         </div>
                         <div id="footer-bottom">
                             <div class="inner-padding">
-                                <div class="fb-left float-left">&copy; 2013 <?php echo \Sb\Entity\Constants::SITENAME;?></div>
+                                <div class="fb-left float-left">&copy; 2014 <?php echo \Sb\Entity\Constants::SITENAME;?></div>
                                 <div class="fb-right float-right">
                                     <ul>
                                         <li>
