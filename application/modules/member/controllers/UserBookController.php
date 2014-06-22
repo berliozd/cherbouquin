@@ -1,12 +1,15 @@
 <?php
-use Sb\Db\Dao\UserBookDao,
+use Sb\Db\Model\Book,
+    Sb\Db\Dao\UserBookDao,
     Sb\Db\Dao\ReadingStateDao,
     Sb\Db\Dao\TagDao,
+    Sb\Db\Dao\BookDao,
 
     Sb\Db\Service\UserEventSvc,
 
     Sb\Helpers\HTTPHelper,
     Sb\Helpers\ArrayHelper,
+    Sb\Helpers\BookHelper,
 
     Sb\Flash\Flash,
     Sb\Trace\Trace,
@@ -18,8 +21,14 @@ use Sb\Db\Dao\UserBookDao,
     Sb\Authentification\Service\AuthentificationSvc,
 
     Sb\Entity\Urls,
+    Sb\Entity\Constants,
+    Sb\Entity\LibraryPages,
 
-    Sb\Form\UserBook as UserBookForm;
+    Sb\Form\UserBook as UserBookForm,
+
+    Sb\Cache\ZendFileCache,
+
+    Sb\Db\Mapping\BookMapper;
 
 /**
  *
@@ -176,6 +185,86 @@ class Member_UserBookController extends Zend_Controller_Action {
                 HTTPHelper::redirectToUrl($referer);
             else
                 HTTPHelper::redirectToLibrary();
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    /**
+     * Store book to add in cache and redirect to correct page
+     */
+    public function prepareAddAction() {
+
+        try {
+            global $globalContext;
+
+            // checking if book is already in DB
+            $isBookInDb = false;
+            $bookInUserLib = false;
+
+            if ($globalContext->getIsShowingFriendLibrary())
+                Flash::addItem(__("Vous ne pouvez pas ajouter un livre à la bibliothèque d'un ami.", "s1b"));
+
+            $destination = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => LibraryPages::USERBOOK_ADDCHOICE), false, false);
+            if (ArrayHelper::getSafeFromArray($_POST, LibraryPages::LENDING_BORROWFROMFRIENDS, null))
+                $destination = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => LibraryPages::LENDING_BORROWFROMFRIENDS), false, false);
+
+            // Remove book to add in cache
+            ZendFileCache::getInstance()->remove(Constants::BOOK_TO_ADD_PREFIX . session_id());
+
+            // Get Book from POST
+            $book = new Book();
+            BookMapper::map($book, $_POST, "book_");
+
+            if ($book->getId()) {
+                $isBookInDb = true;
+            } else {
+                $bookInDb = BookDao::getInstance()->getOneByCodes($book->getISBN10(), $book->getISBN13(), $book->getASIN());
+                if ($bookInDb) {
+                    $isBookInDb = true;
+                    $book = $bookInDb;
+                }
+            }
+
+            // Si le livre existe déjà en base
+            // Vérification de l'existence du livre pour l'utilisateur
+            // et si oui redirection vers la page d'édition
+            if ($isBookInDb) {
+
+                $userBook = UserBookDao::getInstance()->getByBookIdAndUserId($globalContext->getConnectedUser()->getId(), $book->getId());
+                if ($userBook && !$userBook->getIs_deleted()) {
+
+                    $bookInUserLib = true;
+
+                    // If the user is trying to borrow the book we display a flash message
+                    if (ArrayHelper::getSafeFromArray($_POST, LibraryPages::LENDING_BORROWFROMFRIENDS, null))
+                        Flash::addItem(__("Vous avez déjà ce livre dans votre bibliothèque.", "s1b"));
+                }
+            }
+
+            // On complète les infos qui manquent éventuellement
+            if (!$book->IsComplete()) {
+                Trace::addItem('Requêtage de Google.');
+                BookHelper::completeInfos($book);
+            }
+
+            if (!$book->IsValid()) {
+                Flash::addItem('Il manque certaines données pour ajouter ce livre à notre base de données.');
+                HTTPHelper::redirectToReferer();
+            } else
+                ZendFileCache::getInstance()->save($book, Constants::BOOK_TO_ADD_PREFIX . session_id());
+
+            if ($isBookInDb) {
+                if ($bookInUserLib) {
+                    HTTPHelper::redirect($book->getLink());
+                } else {
+                    HTTPHelper::redirect($destination);
+                }
+            } else
+                HTTPHelper::redirect($destination);
+
 
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));

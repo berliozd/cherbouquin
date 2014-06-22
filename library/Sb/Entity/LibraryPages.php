@@ -16,6 +16,4 @@ class LibraryPages {
     //
     const USERBOOK_ADDCHOICE = "userbook/addchoice";
     const USERBOOK_IMPORT = "userbook/import";
-    const USERBOOK_PREPAREADD = "userbook/prepareadd";
-
 }

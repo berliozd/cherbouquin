@@ -7,7 +7,7 @@ use Sb\Helpers\HTTPHelper,
     <div class="horizontal-sep-2"></div>
 <?php } ?>
 <div class="book-data">
-    <form method="post" action="<?php echo HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => LibraryPages::USERBOOK_PREPAREADD)); ?>">
+    <form method="post" action="<?php echo HTTPHelper::Link(Urls::USER_BOOK_PREPARE_ADD); ?>">
         <input type="hidden" name="book_Id" class="book_Id" value="[@id]" />
         <input type="hidden" name="book_ISBN10" class="book_ISBN10" value="[@isbn10]" />
         <input type="hidden" name="book_ISBN13" class="book_ISBN13" value="[@isbn13]" />
