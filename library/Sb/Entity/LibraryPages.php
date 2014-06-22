@@ -15,7 +15,6 @@ class LibraryPages {
     const LENDING_VALIDATE = "lending/validate";
     //
     const USERBOOK_ADDCHOICE = "userbook/addchoice";
-    const USERBOOK_DELETE = "userbook/delete";
     const USERBOOK_IMPORT = "userbook/import";
     const USERBOOK_PREPAREADD = "userbook/prepareadd";
 

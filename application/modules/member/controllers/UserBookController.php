@@ -131,7 +131,7 @@ class Member_UserBookController extends Zend_Controller_Action {
 
                 Flash::addItem(sprintf(__('Le livre "%s" a été mis à jour.', "s1b"), urldecode($userBook->getBook()->getTitle())));
             } else
-                Flash::addItem(__('Une erreur s\'est produite lors de la mise à jour de votre fiche de lecture','s1b'));
+                Flash::addItem(__('Une erreur s\'est produite lors de la mise à jour de votre fiche de lecture', 's1b'));
 
             $referer = ArrayHelper::getSafeFromArray($_POST, "referer", null);
             if ($referer)
@@ -146,4 +146,40 @@ class Member_UserBookController extends Zend_Controller_Action {
         }
     }
 
+    public function deleteAction() {
+
+        try {
+            global $globalContext;
+
+            if ($globalContext->getIsShowingFriendLibrary())
+                Flash::addItem(__("Vous ne pouvez pas supprimer le livre d'un ami.", "s1b"));
+            else {
+
+                $userBook = UserBookDao::getInstance()->get($_GET['ubid']);
+                if ($userBook) {
+                    if ($userBook->getUser()->getId() != $globalContext->getConnectedUser()->getId())
+                        Flash::addItem(__("Vous ne pouvez pas supprimer un livre qui ne vous appartient pas.", "s1b"));
+                    else {
+                        if ($userBook->getActiveLending() || $userBook->getActiveborrowing())
+                            Flash::addItem(sprintf(__("Le livre \"%s\" ne peut pas être supprimé de votre bibliothèque car il est associé à un prêt en cours.", "share1book"), $userBook->getBook()->getTitle()));
+                        else {
+                            UserBookDao::getInstance()->delete($userBook);
+                            Flash::addItem(sprintf(__("Le livre \"%s\" a été supprimé de votre bibliothèque.", "s1b"), $userBook->getBook()->getTitle()));
+                        }
+                    }
+                } else
+                    Flash::addItem(__("Le livre que vous souhaitez supprimer n'existe pas.", "s1b"));
+            }
+
+            $referer = HTTPHelper::getReferer();
+            if ($referer)
+                HTTPHelper::redirectToUrl($referer);
+            else
+                HTTPHelper::redirectToLibrary();
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
 }

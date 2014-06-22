@@ -2,7 +2,8 @@
 
 namespace Sb\View;
 
-use Sb\Entity\Urls;
+use Sb\Entity\Urls,
+    Sb\Helpers\HTTPHelper;
 
 /**
  * Description of BookList
@@ -119,16 +120,16 @@ class BookTable extends AbstractView {
                     $rowTpl->set("bohCssClass", "");
                 }
 
-                $editLink = \Sb\Helpers\HTTPHelper::Link(Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));
-                $deleteLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::USERBOOK_DELETE, "ubid" => $userBook->getId()));
-                $viewLink = \Sb\Helpers\HTTPHelper::Link($book->getLink());
+                $editLink = HTTPHelper::Link(Urls::USER_BOOK_EDIT, array("ubid" => $userBook->getId()));
+                $deleteLink = HTTPHelper::Link(Urls::USER_BOOK_DELETE, array("ubid" => $userBook->getId()));
+                $viewLink = HTTPHelper::Link($book->getLink());
 
                 // Showing "Borrow this book" link only if:
                 // - friend ownes the book
                 // - book is not lent
                 $borrowLink = null;
                 if ($this->friendLibrary && $userBook->getIsOwned() && !$userBook->getActiveLending())
-                    $borrowLink = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROW, "ubid" => $userBook->getId()));
+                    $borrowLink = \Sb\Helpers\HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROW, "ubid" => $userBook->getId()));
 
                 $rowTpl->setVariables(array("addSep" => $addSep,
                     "friendLibrary" => $this->friendLibrary,
