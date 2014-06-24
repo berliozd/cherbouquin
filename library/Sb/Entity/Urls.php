@@ -99,4 +99,5 @@ class Urls {
     const USER_BOOK_SUBMIT = "member/user-book/submit";                             // Zend : member / user-book / submit
     const USER_BOOK_DELETE = "member/user-book/delete";                             // Zend : member / user-book / delete
     const USER_BOOK_PREPARE_ADD = "member/user-book/prepare-add";                   // Zend : member / user-book / prepare-add
+    const USER_BOOK_ADD_CHOICE = "member/user-book/display-adding-choice";          // Zend : member / user-book / display-adding-choice
 }

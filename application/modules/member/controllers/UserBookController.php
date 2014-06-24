@@ -4,6 +4,7 @@ use Sb\Db\Model\Book,
     Sb\Db\Dao\ReadingStateDao,
     Sb\Db\Dao\TagDao,
     Sb\Db\Dao\BookDao,
+    Sb\Service\BookPageSvc,
 
     Sb\Db\Service\UserEventSvc,
 
@@ -207,7 +208,7 @@ class Member_UserBookController extends Zend_Controller_Action {
             if ($globalContext->getIsShowingFriendLibrary())
                 Flash::addItem(__("Vous ne pouvez pas ajouter un livre à la bibliothèque d'un ami.", "s1b"));
 
-            $destination = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => LibraryPages::USERBOOK_ADDCHOICE), false, false);
+            $destination = HTTPHelper::Link(Urls::USER_BOOK_ADD_CHOICE, null, false, false);
             if (ArrayHelper::getSafeFromArray($_POST, LibraryPages::LENDING_BORROWFROMFRIENDS, null))
                 $destination = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => LibraryPages::LENDING_BORROWFROMFRIENDS), false, false);
 
@@ -258,14 +259,51 @@ class Member_UserBookController extends Zend_Controller_Action {
 
             if ($isBookInDb) {
                 if ($bookInUserLib) {
-                    HTTPHelper::redirect($book->getLink());
+                    HTTPHelper::redirectToUrl($book->getLink());
                 } else {
-                    HTTPHelper::redirect($destination);
+                    HTTPHelper::redirectToUrl($destination);
                 }
             } else
-                HTTPHelper::redirect($destination);
+                HTTPHelper::redirectToUrl($destination);
 
 
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    public function displayAddingChoiceAction() {
+
+        try {
+
+            global $globalContext;
+
+            if ($globalContext->getIsShowingFriendLibrary())
+                Flash::addItem(__("Vous ne pouvez pas ajouter un livre à la bibliothèque d'un ami.", "s1b"));
+
+            // Récupération du Book depuis le cache
+            $book = ZendFileCache::getInstance()->load(Constants::BOOK_TO_ADD_PREFIX . session_id());
+
+            // If id is known, getting the book from db to have all associated members and userbooks to show the potential reviews
+            $booksAlsoLiked = null;
+            $booksWithSameTags = null;
+            $reviewdUserBooks = null;
+            if ($book->getId()) {
+                $book = BookDao::getInstance()->get($book->getId());
+                $bookPage = BookPageSvc::getInstance()->get($book->getId());
+                $booksAlsoLiked = $bookPage->getBooksAlsoLiked();
+                $booksWithSameTags = $bookPage->getBooksWithSameTags();
+                $reviewdUserBooks = $bookPage->getReviewedUserBooks();
+            }
+
+            $bookView = new BookView($book, true, true, true, $booksAlsoLiked, $booksWithSameTags, $reviewdUserBooks);
+            $this->view->book = $bookView->get();
+
+            $buttonsBar = new ButtonsBar(false);
+            $this->view->buttonsBar = $buttonsBar->get();
+
+            $this->view->referer = HTTPHelper::getReferer();
         } catch (\Exception $e) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
             $this->forward("error", "error", "default");
