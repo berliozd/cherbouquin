@@ -10,7 +10,7 @@ namespace Sb\Entity;
 class Urls {
 
     const ACTIVATE = 'default/index/activate';                      // Zend : default / index / activate
-    
+
     const CONTACT = "contact";                                      // Zend : default / static / index
     const ABOUT = "a-propos";                                       // Zend : default / static / index
     const TEAM = "lequipe";                                         // Zend : default / static / index
@@ -26,7 +26,7 @@ class Urls {
     const BOOKSTORES_CHRONICLES = "chroniques/libraires";           // Zend : default / chronicle / list
     const PRESS_REVIEWS_IN_MEDIAS = "revues-de-presse/articles";    // Zend : default / press-review / list
     const PRESS_REVIEWS_ALL_VIDEOS = "revues-de-presse/videos";     // Zend : default / press-review / list
-    
+
     // account connection-registration-activation
     const LOGIN = 'default/index/log';                                              // Zend : default / index / log
     const LOGOUT = 'member/index/log-off';                                          // Zend : member / index / log-off
@@ -81,13 +81,13 @@ class Urls {
 
     // Wished User Book
     const WISHED_USERBOOK_SET_AS_OFFERED = "default/wished-userbook/set-as-offered"; // Zend : default / wished-userbook/ set-as-offered
-    
+
     // Userbook Gift
     const USERBOOK_GIFT_DISABLE = "userbook-gift/disable";                          // Zend : default / userbook-gift / disable
-    
+
     // Userbook Gifts
     const USERBOOK_GIFTS_SEND_BY_EMAIL= "userbook-gifts/send-by-email";             // Zend : default / userbook-gifts / send-by-email
-    
+
     const BOOK_WARN_OFFENSIVE_COMMENT = "book/warn-offensive-comment";              // Zend : default / book / warn-offensive-comment
 
     // Book search
@@ -103,4 +103,8 @@ class Urls {
     const USER_BOOK_BORROW_FROM_FRIENDS = "member/user-book/borrow-from-friends";   // Zend : member / user-book / borrow-from-friends
     const USER_BOOK_BORROW_FROM_GUEST = "member/user-book/borrow-from-guest";       // Zend : member / user-book / borrow-from-guest
     const USER_BOOK_BORROW = "member/user-book/borrow";                             // Zend : member / user-book / borrow
+
+    // Lending
+    const LENDING_EDIT = "member/lending/edit";                                     // Zend : member / lending / edit
+    const LENDING_SUBMIT = "member/lending/submit";                                 // Zend : member / lending / submit
 }

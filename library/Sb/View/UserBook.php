@@ -141,7 +141,7 @@ class UserBook extends \Sb\View\AbstractView {
 
         $tpl->set("isOwned", ($this->userBook->getIsOwned() ? "checked" : ""));
         $tpl->set("isWished", ($this->userBook->getIsWished() ? "checked" : ""));
-        $tpl->set("editLendingLink", \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_EDIT, "ubid" => $this->userBook->getId())));
+        $tpl->set("editLendingLink", \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LENDING_EDIT, array("ubid" => $this->userBook->getId())));
 
 
         $tpl->set("readingDate", ($this->userBook->getReadingDate() ? $this->userBook->getReadingDate()->format(__("d/m/Y", "s1b")) : ""));

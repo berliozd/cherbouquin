@@ -74,7 +74,7 @@ class Book extends \Sb\View\AbstractView {
 
                 $lendingLink = "";
                 if ($userBook->getIsOwned())
-                    $lendingLink = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_EDIT, "ubid" => $userBook->getId()));
+                    $lendingLink = HTTPHelper::Link(Urls::LENDING_EDIT, array( "ubid" => $userBook->getId()));
 
                 $lendingText = __("Prêter à un ami", "s1b");
                 if ($userBook->getActiveLending())

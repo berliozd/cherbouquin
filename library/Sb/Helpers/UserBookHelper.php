@@ -33,7 +33,7 @@ class UserBookHelper {
         $isWished = $userBook->getIsWished();
         $borrowedOnce = $userBook->getBorrowedOnce();
 
-        $link = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_EDIT, "ubid" => $userBook->getId()));
+        $link = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LENDING_EDIT, array("ubid" => $userBook->getId()));
 
         $borrowerName = "";
         $lenderName = "";
