@@ -129,7 +129,7 @@ class BookTable extends AbstractView {
                 // - book is not lent
                 $borrowLink = null;
                 if ($this->friendLibrary && $userBook->getIsOwned() && !$userBook->getActiveLending())
-                    $borrowLink = \Sb\Helpers\HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROW, "ubid" => $userBook->getId()));
+                    $borrowLink = \Sb\Helpers\HTTPHelper::Link(Urls::USER_BOOK_BORROW, array("ubid" => $userBook->getId()));
 
                 $rowTpl->setVariables(array("addSep" => $addSep,
                     "friendLibrary" => $this->friendLibrary,

@@ -14,7 +14,7 @@ use \Sb\Helpers\ArrayHelper;
                 <ul>
                     <?php
                     foreach ($friendUserBooks as $friendUserBook) {
-                        $link = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROW, "ubid" => $friendUserBook->getId()));
+                        $link = \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_BOOK_BORROW, array("ubid" => $friendUserBook->getId()));
                         ?>
                         <li>
                             <a href="<?php echo $link ?>" class="link"><?php echo $friendUserBook->getUser()->getFirstName() ?> <?php echo $friendUserBook->getUser()->getLastName() ?></a>

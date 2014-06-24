@@ -102,4 +102,5 @@ class Urls {
     const USER_BOOK_ADD_CHOICE = "member/user-book/display-adding-choice";          // Zend : member / user-book / display-adding-choice
     const USER_BOOK_BORROW_FROM_FRIENDS = "member/user-book/borrow-from-friends";   // Zend : member / user-book / borrow-from-friends
     const USER_BOOK_BORROW_FROM_GUEST = "member/user-book/borrow-from-guest";       // Zend : member / user-book / borrow-from-guest
+    const USER_BOOK_BORROW = "member/user-book/borrow";                             // Zend : member / user-book / borrow
 }

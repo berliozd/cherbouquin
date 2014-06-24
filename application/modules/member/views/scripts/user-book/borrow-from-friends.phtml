@@ -21,7 +21,7 @@ global $globalContext;
                         <ul>
                             <?php
                             foreach ($this->friendUserBooks as $friendUserBook) {
-                                $link = HTTPHelper::Link(Urls::USER_LIBRARY, array("page" => LibraryPages::LENDING_BORROW, "ubid" => $friendUserBook->getId()));
+                                $link = HTTPHelper::Link(Urls::USER_BOOK_BORROW, array("ubid" => $friendUserBook->getId()));
                                 ?>
                                 <li>
                                     <a href="<?php echo $link ?>"

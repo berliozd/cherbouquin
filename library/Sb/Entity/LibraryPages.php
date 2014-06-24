@@ -8,7 +8,6 @@ namespace Sb\Entity;
  */
 class LibraryPages {
 
-    const LENDING_BORROW = "lending/borrow";
     const LENDING_EDIT = "lending/edit";
     const LENDING_VALIDATE = "lending/validate";
 }

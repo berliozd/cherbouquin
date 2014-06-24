@@ -8,11 +8,13 @@ use Sb\Db\Model\Book,
     Sb\Db\Dao\InvitationDao,
     Sb\Db\Dao\GuestDao,
     Sb\Db\Dao\LendingDao,
+    Sb\Db\Dao\UserEventDao,
 
     Sb\Db\Model\UserBook,
     Sb\Db\Model\Guest,
     Sb\Db\Model\Invitation,
     Sb\Db\Model\Lending,
+    Sb\Db\Model\UserEvent,
 
     Sb\Service\BookPageSvc,
 
@@ -35,6 +37,8 @@ use Sb\Db\Model\Book,
 
     Sb\Entity\Urls,
     Sb\Entity\Constants,
+    Sb\Entity\EventTypes,
+
     Sb\Lending\Model\LendingState,
 
     Sb\Form\UserBook as UserBookForm,
@@ -540,6 +544,106 @@ class Member_UserBookController extends Zend_Controller_Action {
         }
     }
 
+    public function borrowAction() {
+
+        try {
+            global $globalContext;
+
+            $idUserBook = $_GET['ubid'];
+
+            if ($idUserBook) {
+
+                $userBook = UserBookDao::getInstance()->get($idUserBook);
+
+                if ($userBook) {
+                    $bookId = $userBook->getBook()->getId();
+
+                    // We check that the userbook we want to bororow is really owned by a friend
+                    $userBookCheck = UserBookDao::getInstance()->getBookInFriendsUserBook($bookId, $globalContext->getConnectedUser()->getId());
+                    if ($userBookCheck) {
+
+                        // We check if the book is owned by the user we want to borrow the book from
+                        if ($userBook->getIsOwned()) {
+                            // We check that the book is not currently lent (no lending or an inactive lending)
+                            if (!$userBook->getActiveLending()) {
+
+                                $existingUserBook = UserBookDao::getInstance()->getByBookIdAndUserId($globalContext->getConnectedUser()->getId(), $bookId);
+
+                                // We check that the connect user doesn't already have the book
+                                if ($existingUserBook) {
+                                    // the user already had that book but had deleted it
+                                    if ($existingUserBook->getIs_deleted()) {
+                                        $newUserBook = $existingUserBook;
+                                        $newUserBook->setIs_deleted(false);
+                                        $newUserBook->setLastModificationDate(new \DateTime());
+                                        $newUserBook->setBorrowedOnce(true);
+                                        $newUserBookPersisted = UserBookDao::getInstance()->update($newUserBook);
+                                        Flash::addItem(__("Vous aviez déjà ce livre dans votre bibliothèque mais l'aviez supprimé.", "s1b"));
+                                    } else {
+                                        Flash::addItem(__("Vous avez déjà ce livre dans votre bibliothèque.", "s1b"));
+                                        // Redirect to the main library page
+                                        HTTPHelper::redirectToLibrary();
+                                    }
+                                } else {
+                                    // We create a userbook for the connected user
+                                    $newUserBook = new UserBook;
+                                    $newUserBook->setBook($userBook->getBook());
+                                    $newUserBook->setCreationDate(new \DateTime());
+                                    $newUserBook->setLastModificationDate(new \DateTime());
+                                    $newUserBook->setUser($globalContext->getConnectedUser());
+                                    $newUserBook->setBorrowedOnce(true);
+                                    $newUserBookPersisted = UserBookDao::getInstance()->add($newUserBook);
+                                }
+
+                                if ($newUserBookPersisted) {
+
+                                    // update lent userbook with Lent Once = 1
+                                    $userBook->setLentOnce(true);
+                                    UserBookDao::getInstance()->update($userBook);
+
+                                    // Lending line creation
+                                    $lending = new Lending;
+                                    $lending->setUserbook($userBook);
+                                    $lending->setBorrower_userbook($newUserBook);
+                                    $lending->setStartDate(new \DateTime());
+                                    $lending->setState(LendingState::ACTIV);
+                                    $lendingId = LendingDao::getInstance()->Add($lending);
+                                    // if ok : prepare flash message
+                                    if ($lendingId) {
+                                        try {
+                                            $userEvent = new UserEvent;
+                                            $userEvent->setNew_value($lending->getId());
+                                            $userEvent->setType_id(EventTypes::USER_BORROW_USERBOOK);
+                                            $userEvent->setUser($globalContext->getConnectedUser());
+                                            UserEventDao::getInstance()->add($userEvent);
+                                        } catch (Exception $exc) {
+                                            Trace::addItem("erreur lors de l'ajout de l'évènement suite au prêt : " . $exc->getMessages());
+                                        }
+                                        Flash::addItem(sprintf(__("Le livre %s a été emprunté à %s et ajouté à votre bibliothèque.", "sharebook"), $userBook->getBook()->getTitle(), $userBook->getUser()->getFirstName() . " " . $userBook->getUser()->getLastName()));
+                                    }
+                                }
+                            } else {
+                                Flash::addItem(__("Ce livre fait l'objet d'un prêt en cours", "s1b"));
+                            }
+                        } else {
+                            Flash::addItem(__("Ce livre n'est pas possédé par l'utilisateur à qui vous tentez d'emprunter ce livre.", "s1b"));
+                        }
+                    } else {
+                        Flash::addItem(__("Vous n'êtes pas amis avec le propriétaire de ce livre.", "s1b"));
+                    }
+                } else {
+                    Flash::addItem(__("Le livre que vous voulez emprunter n'existe pas dans la base.", "s1b"));
+                }
+            }
+
+            // Redirect to the main library page
+            HTTPHelper::redirectToLibrary();
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
 
     // Function for import action
 
