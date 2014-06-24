@@ -1,0 +1,111 @@
+<?php
+use Sb\Helpers\ArrayHelper,
+    Sb\Helpers\HTTPHelper,
+    Sb\Entity\Urls,
+    Sb\Entity\LibraryPages,
+    Sb\Entity\Constants;
+
+global $globalContext;
+?>
+
+<div id="content-center">
+    <div class="user-book-edit">
+        <form action="<?php echo "/" . Urls::USER_BOOK_BORROW_FROM_GUEST?>" method="post" id="userBookFrm">
+            <input type="hidden" name="mode" value="SUBMIT"/>
+            <?php echo $this->book; ?>
+            <div class="horizontal-sep-1"></div>
+            <?php if ($this->friendUserBooks) { ?>
+                <div class="friendstoborrow-list">
+                    <div class="ftb-title"><?php _e("Empruntez ce livre à un ami : ", "s1b"); ?></div>
+                    <div class="ftb-list">
+                        <ul>
+                            <?php
+                            foreach ($this->friendUserBooks as $friendUserBook) {
+                                $link = HTTPHelper::Link(Urls::USER_LIBRARY, array("page" => LibraryPages::LENDING_BORROW, "ubid" => $friendUserBook->getId()));
+                                ?>
+                                <li>
+                                    <a href="<?php echo $link ?>"
+                                       class="link"><?php echo $friendUserBook->getUser()->getFirstName() ?> <?php echo $friendUserBook->getUser()->getLastName() ?></a>
+                                </li>
+                            <?php
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="ftb-title">
+                    <?php echo sprintf(__("Aucun de vos amis sur %s ne dispose de ce livre dans sa bibliothèque.", "s1b"), Constants::SITENAME); ?>
+                </div>
+            <?php } ?>
+            <div class="horizontal-sep-1"></div>
+            <div class="quick-registration-form">
+                <div class="qrf-title">
+                    <?php echo sprintf(__("Emprunter ce livre à un ami pas encore inscrit sur %s.", "s1b"), Constants::SITENAME); ?>
+                </div>
+                <div class="qrf-baseline">
+                    <?php echo sprintf(__("Vous pouvez emprunter ce livre à un ami qui le possède mais ne dispose pas de compte sur %s.", "s1b"), Constants::SITENAME); ?>
+                    <br/>
+                    <?php echo sprintf(__("Renseignez son email et une invitation à rejoindre %s lui sera transmise.", "s1b"), Constants::SITENAME); ?>
+                </div>
+                <div class="qrf-form">
+                    <table style="width:100%">
+                        <tr>
+                            <td class="qrf-fieldlabel"><?php _e("Nom *", "s1b"); ?></td>
+                            <td><input class="input-item textinput quickRegistrationFormInput" type="text"
+                                       name="guest_name"
+                                       value="<?php echo ArrayHelper::getSafeFromArray($_POST, "guest_name", ""); ?>"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="qrf-fieldlabel"><?php _e("Email", "s1b"); ?></td>
+                            <td><input class="input-item textinput quickRegistrationFormInput" type="text"
+                                       name="guest_email"
+                                       value="<?php echo ArrayHelper::getSafeFromArray($_POST, "guest_email", ""); ?>"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="buttons-bar">
+                        <div class="inner-padding">
+                            * Champs obligatoires
+                            <button class="bt-blue-s button float-right margin-left">Envoyer</button>
+                            <a class="bt-black-s button float-right" href="javascript:history.back()">Annuler</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="content-right">
+    <div class="right-frame">
+        <?php
+        $ad = new \Sb\View\Components\Ad("bibliotheque", "1223994660");
+        echo $ad->get();
+        ?>
+    </div>
+    <?php
+    $bookId = ArrayHelper::getSafeFromArray($_GET, "bid", null);
+    if ($bookId) {
+        $bookId = str_replace("/", "", $bookId);
+        // Books with same contributors
+        $sameAuthorBooks = \Sb\Db\Service\BookSvc::getInstance()->getBooksWithSameContributors($bookId);
+        if (count($sameAuthorBooks) > 0) {
+            ?>
+            <script
+                src='<?php echo $globalContext->getBaseUrl(); ?>Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js'></script>
+            <script>
+                $(function () {
+                    initCoverFlip('sameAuthorBooks', 30)
+                });
+            </script>
+            <div class="right-frame">
+                <?php
+                $sameAuthorBooksView = new Sb\View\SameAuthorBooks($sameAuthorBooks);
+                echo $sameAuthorBooksView->get();
+                ?>
+            </div>
+        <?php } ?>
+    <?php } ?>
+
+</div>

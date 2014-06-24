@@ -9,6 +9,7 @@ class Constants {
     const WEBMASTER_EMAIL = "webmaster@cherbouquin.fr"; // email used when user warn offensive comment
     const MAIL_FROM = "webmaster@cherbouquin.fr"; // passed in all mail header as "from" value
     const MAIL_REPLY_TO = "no-reply@cherbouquin.fr"; // email used as reply to in all email sent from the site (emails sent by admin or between users)
-    const BOOK_TO_ADD_PREFIX = "bookToAdd_";    
+    const BOOK_TO_ADD_PREFIX = "bookToAdd_";
+    const BORROW_FROM_FRIENDS = "borrow_from_friends";
 
 }

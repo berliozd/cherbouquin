@@ -87,7 +87,7 @@ class Book extends \Sb\View\AbstractView {
                 
                 $recommandLink = HTTPHelper::Link(Urls::USER_MAILBOX_RECOMMAND, array("id" => $this->book->getId()));
             } else
-                $requestBorrowLink = HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY_DETAIL, array("page" => \Sb\Entity\LibraryPages::LENDING_BORROWFROMFRIENDS, "bid" => $this->book->getId()));
+                $requestBorrowLink = HTTPHelper::Link(\Sb\Entity\Urls::USER_BOOK_BORROW_FROM_FRIENDS, array("bid" => $this->book->getId()));
         } else {
             $isConnected = false;
         }

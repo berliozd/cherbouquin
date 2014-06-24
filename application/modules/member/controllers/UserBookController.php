@@ -4,6 +4,16 @@ use Sb\Db\Model\Book,
     Sb\Db\Dao\ReadingStateDao,
     Sb\Db\Dao\TagDao,
     Sb\Db\Dao\BookDao,
+    Sb\Db\Dao\UserDao,
+    Sb\Db\Dao\InvitationDao,
+    Sb\Db\Dao\GuestDao,
+    Sb\Db\Dao\LendingDao,
+
+    Sb\Db\Model\UserBook,
+    Sb\Db\Model\Guest,
+    Sb\Db\Model\Invitation,
+    Sb\Db\Model\Lending,
+
     Sb\Service\BookPageSvc,
 
     Sb\Db\Service\UserEventSvc,
@@ -11,6 +21,7 @@ use Sb\Db\Model\Book,
     Sb\Helpers\HTTPHelper,
     Sb\Helpers\ArrayHelper,
     Sb\Helpers\BookHelper,
+    Sb\Helpers\StringHelper,
 
     Sb\Flash\Flash,
     Sb\Trace\Trace,
@@ -20,12 +31,14 @@ use Sb\Db\Model\Book,
     Sb\View\Components\ButtonsBar,
 
     Sb\Authentification\Service\AuthentificationSvc,
+    Sb\Service\MailSvc,
 
     Sb\Entity\Urls,
     Sb\Entity\Constants,
-    Sb\Entity\LibraryPages,
+    Sb\Lending\Model\LendingState,
 
     Sb\Form\UserBook as UserBookForm,
+    Sb\Form\Book as BookForm,
 
     Sb\Cache\ZendFileCache,
 
@@ -209,8 +222,8 @@ class Member_UserBookController extends Zend_Controller_Action {
                 Flash::addItem(__("Vous ne pouvez pas ajouter un livre à la bibliothèque d'un ami.", "s1b"));
 
             $destination = HTTPHelper::Link(Urls::USER_BOOK_ADD_CHOICE, null, false, false);
-            if (ArrayHelper::getSafeFromArray($_POST, LibraryPages::LENDING_BORROWFROMFRIENDS, null))
-                $destination = HTTPHelper::Link(Urls::USER_LIBRARY_DETAIL, array("page" => LibraryPages::LENDING_BORROWFROMFRIENDS), false, false);
+            if (ArrayHelper::getSafeFromArray($_POST, Constants::BORROW_FROM_FRIENDS, null))
+                $destination = HTTPHelper::Link(Urls::USER_BOOK_BORROW_FROM_FRIENDS, null, false, false);
 
             // Remove book to add in cache
             ZendFileCache::getInstance()->remove(Constants::BOOK_TO_ADD_PREFIX . session_id());
@@ -240,7 +253,7 @@ class Member_UserBookController extends Zend_Controller_Action {
                     $bookInUserLib = true;
 
                     // If the user is trying to borrow the book we display a flash message
-                    if (ArrayHelper::getSafeFromArray($_POST, LibraryPages::LENDING_BORROWFROMFRIENDS, null))
+                    if (ArrayHelper::getSafeFromArray($_POST, Constants::BORROW_FROM_FRIENDS, null))
                         Flash::addItem(__("Vous avez déjà ce livre dans votre bibliothèque.", "s1b"));
                 }
             }
@@ -365,6 +378,168 @@ class Member_UserBookController extends Zend_Controller_Action {
             $this->forward("error", "error", "default");
         }
     }
+
+    public function borrowFromFriendsAction() {
+
+        try {
+
+            global $globalContext;
+
+            $bookIdInIQS = ArrayHelper::getSafeFromArray($_GET, "bid", null);
+            if ($bookIdInIQS)
+                $book = BookDao::getInstance()->get($bookIdInIQS);
+            else
+                // Get Book to add from cache
+                $book = ZendFileCache::getInstance()->load(Constants::BOOK_TO_ADD_PREFIX . session_id());
+
+            if ($book) {
+
+                $userBookInDb = UserBookDao::getInstance()->getByBookIdAndUserId($globalContext->getConnectedUser()->getId(), $book->getId());
+                if ($userBookInDb && !$userBookInDb->getIs_deleted()) {
+
+                    Flash::addItem(__("Vous avez déjà ce livre dans votre bibliothèque.", "s1b"));
+                    HTTPHelper::redirectToLibrary();
+
+                } else {
+
+                    // Checking if a friend has this book in his library
+                    $userBookDao = UserBookDao::getInstance();
+
+                    $user = $globalContext->getConnectedUser();
+                    $friends = $user->getAcceptedFriends();
+                    if ($friends) {
+                        $userBooks = $userBookDao->getBookInFriendsUserBook($book->getId(), $globalContext->getConnectedUser()->getId());
+                        if ($userBooks)
+                            $this->view->friendUserBooks = array_filter($userBooks, array(&$this, "IsBorrowable"));
+                    }
+
+                    $bookView = new \Sb\View\Book($book, false, false, true, null, null, null, false);
+                    $this->view->book = $bookView->get();
+                }
+
+            } else
+                HTTPHelper::redirectToHome();
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
+    public function borrowFromGuestAction() {
+
+        try {
+
+            global $globalContext;
+
+            if ($this->validateUserInputForm()) {
+
+                $bookForm = new BookForm($_POST);
+
+                // testing if book can be found in db by id
+                if ($bookForm->getId())
+                    $bookInDb = BookDao::getInstance()->get($bookForm->getId());
+
+                // testing if book can be found in db by isbn10, isbn13, asin
+                if (!$bookInDb)
+                    $bookInDb = BookDao::getInstance()->getOneByCodes($bookForm->getISBN10(), $bookForm->getISBN13(), $bookForm->getASIN());
+
+                // getting the book data from post and adding to db
+                if (!$bookInDb) {
+                    // Récupération du Book depuis le POST
+                    $bookInDb = new Book();
+                    BookMapper::map($bookInDb, $_POST, "book_");
+                    // book not in db : need to add it
+                    $bookInDb->setCreationDate(new \DateTime());
+                    $bookInDb->setLastModificationDate(new \DateTime());
+                    BookDao::getInstance()->add($bookInDb);
+                }
+
+                if ($bookInDb) {
+
+                    $guestName = ArrayHelper::getSafeFromArray($_POST, "guest_name", null);
+                    $guestEmail = ArrayHelper::getSafeFromArray($_POST, "guest_email", null);
+
+                    $guest = new Guest;
+                    $guest->setName($guestName);
+                    $guest->setEmail($guestEmail);
+                    $guest->setCreation_date(new \DateTime);
+
+                    if ($guestEmail) {
+
+                        $friendToBorrowInDb = UserDao::getInstance()->getByEmail($guestEmail);
+
+                        if ($friendToBorrowInDb) {
+
+                            Flash::addItem(sprintf(__("Un utilisateur existe déjà avec l'email que vous avez saisi. Nous vous proposons de lui envoyer une demande d'ami. Vous pourrez ensuite lui emprunter ce livre directement depuis sa bibliothèque. <a class=\"link\" href=\"%s\">Envoyer une demande d'ami</a>", "s1b"), HTTPHelper::Link(Urls::USER_FRIENDS_REQUEST, array("fid" => $friendToBorrowInDb->getId()))));
+                            HTTPHelper::redirectToReferer();
+
+                        } else {
+                            $token = sha1(uniqid(rand()));
+
+                            // Send invite email
+                            $message = __(sprintf("%s vous invite à rejoindre %s, réseau communautaire autour du livre et de la lecture.", sprintf("%s %s", $globalContext->getConnectedUser()->getFirstName(), $globalContext->getConnectedUser()->getLastName()), $_SERVER["SERVER_NAME"]), "s1b");
+                            $message .= "<br/><br/>";
+                            $message .= sprintf(__("Il a utilisé %s pour noter qu'il vous a emprunté \"%s\"."), Constants::SITENAME, $bookInDb->getTitle());
+                            $message .= "<br/><br/>";
+                            $message .= __("Venez échanger sur vos lectures et coups de coeur, chercher l'inspiration grâce aux recommandations, gérer et partager votre bibliothèque avec vos amis et trouver dans leurs listes d'envies des idées de cadeaux.");
+                            $message .= "<br/><br/>";
+                            $subscriptionLink = HTTPHelper::Link(Urls::SUBSCRIBE);
+                            $refuseInvitationLink = HTTPHelper::Link(Urls::REFUSE_INVITATION, array("Token" => $token, "Email" => $guestEmail));
+                            $message .= sprintf(__("L'inscription est gratuite ! Rejoignez-nous... <a href=\"%s\">S'inscrire</a> ou <a href=\"%s\">Refuser l'invitation</a>"), $subscriptionLink, $refuseInvitationLink);
+                            $message .= "<br/><br/>";
+                            $message .= sprintf(__("<strong>L'équipe Cherbouquin</strong>", "s1b"), Constants::SITENAME);
+                            MailSvc::getInstance()->send($guestEmail, sprintf(__("Invitation à rejoindre %s", "s1b"), Constants::SITENAME), $message);
+
+                            // Create invitation in DB
+                            $invitation = new Invitation;
+                            $invitation->setSender($globalContext->getConnectedUser());
+                            $invitation->setGuest($guest);
+                            $invitation->setCreation_date(new \DateTime);
+                            $invitation->setToken($token);
+
+                            InvitationDao::getInstance()->add($invitation);
+                            Flash::addItem(__("Un email d'invitation a été envoyé à votre ami.", "s1b"));
+                        }
+                    } else
+                        GuestDao::getInstance()->add($guest);
+
+                    // Testing if the user has the book in his lib but marked as deleted
+                    $userBookBorrower = UserBookDao::getInstance()->getByBookIdAndUserId($globalContext->getConnectedUser()->getId(), $bookInDb->getId());
+                    if ($userBookBorrower && $userBookBorrower->getIs_deleted()) {
+                        $userBookBorrower->setIs_deleted(false);
+                        $userBookBorrower->setLastModificationDate(new \DateTime);
+                        UserBookDao::getInstance()->update($userBookBorrower);
+                        Flash::addItem(sprintf(__("Vous aviez déjà le livre \"%s\" dans votre bibliothèque mais l'aviez supprimé. Il a été rajouté.", "s1b"), $bookInDb->getTitle()));
+                    } else {
+                        // Create userbook for connected user
+                        $userBookBorrower = new UserBook;
+                        $userBookBorrower->setUser($globalContext->getConnectedUser());
+                        $userBookBorrower->setBook($bookInDb);
+                        $userBookBorrower->setCreationDate(new \DateTime());
+                        $userBookBorrower->setBorrowedOnce(true);
+                        UserBookDao::getInstance()->add($userBookBorrower);
+                        Flash::addItem(__("Le livre a été ajouté à votre bibliothèque.", "s1b"));
+                    }
+
+                    $lending = new Lending;
+                    $lending->setBorrower_userbook($userBookBorrower);
+                    $lending->setGuest($guest);
+                    $lending->setCreationDate(new \DateTime());
+                    $lending->setState(LendingState::ACTIV);
+                    $lending->setStartDate(new \DateTime());
+                    LendingDao::getInstance()->add($lending);
+                }
+                HTTPHelper::redirectToLibrary();
+            } else
+                HTTPHelper::redirectToReferer();
+
+        } catch (\Exception $e) {
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            $this->forward("error", "error", "default");
+        }
+    }
+
 
     // Function for import action
 
@@ -582,4 +757,44 @@ class Member_UserBookController extends Zend_Controller_Action {
     }
 
     // End Function for import action
+
+    private function IsBorrowable(UserBook $userBook) {
+        // test if user owns the book
+        if (!$userBook->getIsOwned())
+            return false;
+        // test if books is not lent
+        $activeLending = $userBook->getActiveLending();
+        if ($activeLending) {
+            return false;
+        }
+        return true;
+    }
+
+    private function validateUserInputForm() {
+        $ret = true;
+        if ($_POST) {
+
+            if (strlen(ArrayHelper::getSafeFromArray($_POST, "guest_name", NULL)) < 3) {
+                Flash::addItem(__("Le nom doit comprendre au moins 3 caractères.", "s1b"));
+                $ret = false;
+            }
+
+            if (ArrayHelper::getSafeFromArray($_POST, "send_invitation", NULL) == 1) {
+                $guestEmail = ArrayHelper::getSafeFromArray($_POST, "guest_email", NULL);
+                if (!$guestEmail) {
+                    Flash::addItem(__("Vous devez renseigné un email si vous souhaitez envoyer une invitation.", "s1b"));
+                    $ret = false;
+                } else {
+                    if (!StringHelper::isValidEmail($guestEmail)) {
+                        Flash::addItem(__("L'email que vous avez renseigné n'est pas valide. Merci de réessayer.", "s1b"));
+                        $ret = false;
+                    }
+                }
+            }
+        } else {
+            $ret = false;
+        }
+        return $ret;
+    }
+
 }

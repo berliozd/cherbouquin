@@ -100,4 +100,6 @@ class Urls {
     const USER_BOOK_DELETE = "member/user-book/delete";                             // Zend : member / user-book / delete
     const USER_BOOK_PREPARE_ADD = "member/user-book/prepare-add";                   // Zend : member / user-book / prepare-add
     const USER_BOOK_ADD_CHOICE = "member/user-book/display-adding-choice";          // Zend : member / user-book / display-adding-choice
+    const USER_BOOK_BORROW_FROM_FRIENDS = "member/user-book/borrow-from-friends";   // Zend : member / user-book / borrow-from-friends
+    const USER_BOOK_BORROW_FROM_GUEST = "member/user-book/borrow-from-guest";       // Zend : member / user-book / borrow-from-guest
 }
