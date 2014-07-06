@@ -275,11 +275,10 @@ class Member_UserBookController extends Zend_Controller_Action {
                 ZendFileCache::getInstance()->save($book, Constants::BOOK_TO_ADD_PREFIX . session_id());
 
             if ($isBookInDb) {
-                if ($bookInUserLib) {
-                    HTTPHelper::redirectToUrl($book->getLink());
-                } else {
+                if ($bookInUserLib)
+                    HTTPHelper::redirectToUrl(HTTPHelper::Link($book->getLink()));
+                else
                     HTTPHelper::redirectToUrl($destination);
-                }
             } else
                 HTTPHelper::redirectToUrl($destination);
 
