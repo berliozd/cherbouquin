@@ -303,7 +303,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
 
     private function getImageUploadPath($groupId) {
 
-        return BASE_PATH . "/images/chronicles/group_" . $groupId;
+        return BASE_PATH . "/public/images/chronicles/group_" . $groupId;
     }
 
     private function getImageUrl($groupId) {

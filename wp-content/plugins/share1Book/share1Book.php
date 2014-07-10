@@ -152,6 +152,7 @@ if (!class_exists('share1Book')) {
                     // Récupération du flux de la page
                     ob_start();
                     \Sb\Trace\Trace::addItem("including : " . $page);
+                    \Sb\Trace\Trace::addItem("referer : " . $_SERVER["HTTP_REFERER"]);
                     include $page;
                     $pageContent = ob_get_contents();
                     ob_end_clean();

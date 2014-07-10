@@ -76,7 +76,7 @@ global $globalContext;
                                     <?php
                                     $avatar = $foundUser->getGravatar();
                                     if ($avatar == "")
-                                        $avatar = $globalContext->getBaseUrl() . "/Resources/images/avatars/noavatar.png";
+                                        $avatar = $globalContext->getBaseUrl() . "Resources/images/avatars/noavatar.png";
                                     ?>
                                     <img class="image-frame image-thumb-square" src="<?php echo $avatar; ?>"/>
                                 </a>
