@@ -10,6 +10,7 @@ use Sb\Authentification\Service\AuthentificationSvc,
     Sb\Db\Dao\UserBookDao,
     Sb\Db\Dao\LendingDao,
     Sb\Db\Dao\UserEventDao,
+    Sb\Db\Dao\UserDao,
 
     Sb\Db\Model\UserBook,
     Sb\Db\Model\Lending,

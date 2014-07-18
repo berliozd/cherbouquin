@@ -95,8 +95,8 @@ class LendingForm extends \Sb\View\AbstractView {
                 foreach ($userFriends as $userFriend) {
                     $oneFriendAtLeast = true;
                     $options .= "<option value=" . $userFriend->getId() . ">" .
-                            $userFriend->getFirstName() . " " . $userFriend->getLastName() .
-                            "</option>";
+                        $userFriend->getFirstName() . " " . $userFriend->getLastName() .
+                        "</option>";
                 }
             }
             if (!$oneFriendAtLeast) {
@@ -111,10 +111,20 @@ class LendingForm extends \Sb\View\AbstractView {
             $lendingText = __("Vous ne pouvez pas prêter ce livre car vous ne le possédez pas.", "s1b");
         }
 
-        $tpl->setVariables(array("lendingText" => $lendingText,
-            "warningText" => $warningText,
-            "button1Text" => $button1Text,
-            "friendSelection" => $friendSelection));
+        $variables = array("lendingText" => $lendingText,
+            "warningText" => $warningText);
+
+        if (isset($friendSelection))
+            $variables["friendSelection"] = $friendSelection;
+        else
+            $variables["friendSelection"] = null;
+
+        if (isset($button1Text))
+            $variables["button1Text"] = $button1Text;
+        else
+            $variables["button1Text"] = "";
+
+        $tpl->setVariables($variables);
 
         return $tpl->output();
     }
