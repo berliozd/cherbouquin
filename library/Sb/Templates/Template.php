@@ -18,6 +18,9 @@ class Template {
         $this->file = BASE_PATH . "/library/Sb/Templates/" . $file;
     }
 
+    /**
+     * @deprecated use setVariables instead
+     */
     public function set($key, $value) {
         $this->values[$key] = $value;
     }

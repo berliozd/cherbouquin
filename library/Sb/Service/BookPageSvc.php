@@ -42,66 +42,67 @@ class BookPageSvc extends Service {
     public function get($bookId) {
 
         try {
-            
+
             $key = self::BOOK_PAGE . "_id_" . $bookId;
-            
+
             $result = $this->getData($key);
-            
+
             if ($result === false) {
                 $result = new BookPage();
-                
+
+                /* @var Book $book */
                 $book = BookDao::getInstance()->get($bookId);
-                
+
                 $result->setBook($book);
-                
+
                 $booksAlsoLiked = BookSvc::getInstance()->getBooksAlsoLiked($bookId, false);
                 $result->setBooksAlsoLiked($booksAlsoLiked);
-                
+
                 $booksWithSameAuthor = BookSvc::getInstance()->getBooksWithSameContributors($bookId, false);
                 $result->setBooksWithSameAuthor($booksWithSameAuthor);
-                
+
                 $booksWithSameTags = BookSvc::getInstance()->getBooksWithSameTags($bookId, false);
                 $result->setBooksWithSameTags($booksWithSameTags);
-                
+
                 $lastlyReadUserbooks = UserBookSvc::getInstance()->getLastlyReadUserbookByBookId($bookId, 5, false);
                 $result->setLastlyReadUserbooks($lastlyReadUserbooks);
-                
+
                 $reviewedUserBooks = $this->getReviewedUserBooks($book->getNotDeletedUserBooks());
                 $result->setReviewedUserBooks($reviewedUserBooks);
-                
+
                 $pressReviews = $this->getBookPressReviews($book);
                 $result->setPressReviews($pressReviews);
-                
+
                 $relatedChronicles = $this->getChroniclesRelativeToBook($book);
                 $result->setRelatedChronicles($relatedChronicles);
-                
+
                 $criteria = array(
-                        "type" => array(
-                                false,
-                                "=",
-                                PressReviewTypes::VIDEO
-                        ),
-                        "book" => array(
-                                true,
-                                "=",
-                                $book
-                        ),
-                		// Add is_validated criteria
-                		"is_validated" => array (
-                				false,
-                				"=",
-                				1
-                		)
+                    "type" => array(
+                        false,
+                        "=",
+                        PressReviewTypes::VIDEO
+                    ),
+                    "book" => array(
+                        true,
+                        "=",
+                        $book
+                    ),
+                    // Add is_validated criteria
+                    "is_validated" => array(
+                        false,
+                        "=",
+                        1
+                    )
                 );
                 $videoPressReviews = PressReviewSvc::getInstance()->getList($criteria, 1, false);
                 if ($videoPressReviews) {
                     $video = $videoPressReviews[0];
                     $result->setVideoPressReview($video);
                 }
-                
+
                 $this->setData($key, $result);
             }
-            
+
             return $result;
         } catch (\Exception $e) {
             $this->logException(get_class(), __FUNCTION__, $e);
@@ -111,40 +112,40 @@ class BookPageSvc extends Service {
     private function getBookPressReviews(Book $book) {
 
         $criteria = array(
-                "type" => array(
-                        false,
-                        "=",
-                        PressReviewTypes::ARTICLE
-                ),
-                "book" => array(
-                        true,
-                        "=",
-                        $book
-                ),
-        		"is_validated" => array (
-        				false,
-        				"=",
-        				1
-        		)
+            "type" => array(
+                false,
+                "=",
+                PressReviewTypes::ARTICLE
+            ),
+            "book" => array(
+                true,
+                "=",
+                $book
+            ),
+            "is_validated" => array(
+                false,
+                "=",
+                1
+            )
         );
-        
+
         $bookPressReviews = PressReviewSvc::getInstance()->getList($criteria, 3, false);
-        
+
         // If not enough press reviews associated to book, getting general press reviews
         if (!$bookPressReviews || count($bookPressReviews) < 3) {
-            
+
             // Get general press reviews
             $criteria = array(
-                    "type" => array(
-                            false,
-                            "=",
-                            PressReviewTypes::ARTICLE
-                    )
+                "type" => array(
+                    false,
+                    "=",
+                    PressReviewTypes::ARTICLE
+                )
             );
             $generalPressReviews = PressReviewSvc::getInstance()->getList($criteria, 3, false);
-            
+
             if (!$bookPressReviews) {
-                
+
                 $bookPressReviews = $generalPressReviews;
             } else {
                 if ($generalPressReviews) {
@@ -158,43 +159,43 @@ class BookPageSvc extends Service {
                                 break;
                             }
                         }
-                        
+
                         if ($add)
                             $bookPressReviews[] = $generalPressReview;
                     }
                 }
             }
         }
-        
+
         if ($bookPressReviews)
             $bookPressReviews = array_slice($bookPressReviews, 0, 3);
-        
+
         return $bookPressReviews;
     }
 
     private function getChroniclesRelativeToBook(Book $book) {
 
         $chronicles = null;
-        
+
         // Get book userbook's tag
         $bookTags = TagSvc::getInstance()->getTagsForBooks(array(
-                $book
+            $book
         ), false);
         $bookTagIds = null;
         foreach ($bookTags as $bookTag) {
             /* @var $bookTag Tag */
             $bookTagIds[] = $bookTag->getId();
         }
-        
+
         // Get 3 chronicles with same tags
         if ($bookTags && count($bookTags) > 0)
             $chronicles = ChronicleSvc::getInstance()->getChroniclesWithTags($bookTagIds, 3, false); //
-                                                                                                         
+
         // Get last chronicles of any types and add them to previously set list of chronicles
         if (!$chronicles || count($chronicles) < 3) {
             $lastChronicles = ChronicleSvc::getInstance()->getLastChronicles(3);
             foreach ($lastChronicles as $lastChronicle) {
-                
+
                 $add = true;
                 if ($chronicles) {
                     foreach ($chronicles as $chronicle) {
@@ -204,30 +205,37 @@ class BookPageSvc extends Service {
                         }
                     }
                 }
-                
+
                 if ($add)
                     $chronicles[] = $lastChronicle;
             }
         }
-        
+
         if ($chronicles)
             $chronicles = array_slice($chronicles, 0, 3);
-        
+
         return $chronicles;
     }
 
     private function getReviewedUserBooks($userBooks) {
 
         $results = array();
-        
+
         foreach ($userBooks as $userBook) {
-            
+
             /* @var $userBook UserBook */
             if ($userBook->getReview())
                 $results[] = $userBook;
         }
-        
+
+        // Sort userbooks by last modification date
+        usort($results, array(&$this, "sort"));
+
         return $results;
+    }
+
+    private function sort(UserBook $userBook1, UserBook $userBook2) {
+        return $userBook1->getLastModificationDate() < $userBook2->getLastModificationDate();
     }
 
 }

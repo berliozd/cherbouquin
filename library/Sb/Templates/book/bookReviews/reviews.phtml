@@ -81,11 +81,11 @@
                                     <?php } ?>
                                     <?php
                                     $commentIndex = 0;
-                                    foreach ($userBook->getComments() as $comment) { 
-                                        $commentIndex++;                                        
-                                        $showCommentAtLoad = (($commentIndex > $nbComments - 2) || $nbComments < 2) ? true : false;
+                                    foreach ($userBook->getComments() as $comment) {
+                                        $showCommentAtLoad = ($commentIndex < 2) ? true : false;
+                                        $commentIndex++;
                                     ?>
-                                    <li class="comment-item" style="<?php echo (!$showCommentAtLoad? "display:none;" : "");?>">
+                                    <li class="comment-item" style="<?php echo ($showCommentAtLoad ? "" : "display:none;");?>">
                                         <div class="bvrc-owner">
                                             <?php echo Sb\Helpers\UserHelper::getXSmallImageTag($comment->getOwner());?>
                                         </div>                                        

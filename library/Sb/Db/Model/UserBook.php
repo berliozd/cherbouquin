@@ -8,10 +8,10 @@ use \Doctrine\Common\Collections\ArrayCollection;
 class UserBook implements \Sb\Db\Model\Model {
 
     private $needToUpdateBook = false; // Flag to tell if the associated book need to be updated
-    private $ratingDiff; // used when updating the userbook to pass the onfo to the book to update the aggregate fields
-    private $ratingAdded; // used when updating the userbook to pass the onfo to the book to update the aggregate fields
-    private $blowOfHeartAdded; // used when updating the userbook to pass the onfo to the book to update the aggregate fields
-    private $blowOfHeartRemoved; // used when updating the userbook to pass the onfo to the book to update the aggregate fields
+    private $ratingDiff; // used when updating the userbook to pass the info to the book to update the aggregate fields
+    private $ratingAdded; // used when updating the userbook to pass the info to the book to update the aggregate fields
+    private $blowOfHeartAdded; // used when updating the userbook to pass the info to the book to update the aggregate fields
+    private $blowOfHeartRemoved; // used when updating the userbook to pass the info to the book to update the aggregate fields
 
     function __construct() {
         $this->tags = new ArrayCollection();
@@ -112,8 +112,10 @@ class UserBook implements \Sb\Db\Model\Model {
     protected $giftsRelated;
 
     /**
-     * @OneToMany(targetEntity="UserbookComment", mappedBy="userbook")
+     * @OneToMany(targetEntity="UserbookComment", mappedBy="userbook", fetch="EAGER")
      * @JoinColumn(name="id", referencedColumnName="userbook_id")
+     * @OrderBy({"creation_date" = "DESC"})
+     * fetch mode is set to EAGER in order to get the comments automatically and have them set in caches
      * */
     protected $comments;
 
