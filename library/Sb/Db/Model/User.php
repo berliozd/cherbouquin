@@ -82,7 +82,7 @@ class User implements \Sb\Db\Model\Model {
     protected $deleted = 0;
 
     /** @Column(type="string", length=255) */
-    protected $gravatar = "/public/Resources/images/avatars/avatar02.jpg";
+    protected $gravatar = "/Resources/images/avatars/avatar02.jpg";
 
     /** @Column(type="string", length=255) */
     protected $picture;
@@ -117,10 +117,13 @@ class User implements \Sb\Db\Model\Model {
     /** @OneToMany(targetEntity="Invitation", mappedBy="sender", fetch="EXTRA_LAZY") */
     protected $invitations;
 
+    /** @OneToMany(targetEntity="UserbookComment", mappedBy="owner", fetch="EXTRA_LAZY") */
+    protected $comments;
+
     /** @Column(type="boolean") */
     protected $is_partner = false;
-    
-    /** 
+
+    /**
      * @OneToMany(targetEntity="Chronicle", mappedBy="user", fetch="EXTRA_LAZY")
      * @JoinColumn(name="id", referencedColumnName="user_id")
      */
@@ -128,7 +131,7 @@ class User implements \Sb\Db\Model\Model {
 
     /**
      * @OneToMany(targetEntity="PressReview", mappedBy="user", fetch="EXTRA_LAZY")
-     * @JoinColumn(name="id", referencedColumnName="user_id") 
+     * @JoinColumn(name="id", referencedColumnName="user_id")
      */
     protected $pressreviews;
 
@@ -137,8 +140,8 @@ class User implements \Sb\Db\Model\Model {
      * @JoinColumn(name="id", referencedColumnName="user_id")
      */
     protected $groupusers;
-    
-    
+
+
     public function getId() {
         return $this->id;
     }
@@ -555,7 +558,7 @@ class User implements \Sb\Db\Model\Model {
     public function setPressreviews($pressreviews) {
         $this->pressreviews = $pressreviews;
     }
-    
+
 	/**
 	 * @return Collection of GroupUser $groupusers
 	 */
@@ -569,7 +572,7 @@ class User implements \Sb\Db\Model\Model {
 	public function setGroupusers($groupusers) {
 		$this->groupusers = $groupusers;
 	}
-	
+
 	/**
      * @return boolean $is_partner
      */
@@ -589,8 +592,8 @@ class User implements \Sb\Db\Model\Model {
 
 
 
-	
-	
 
-    
+
+
+
 }

@@ -68,9 +68,7 @@ class HTTPHelper {
         $base = "";
         if (array_key_exists("SCRIPT_NAME", $_SERVER)) {
             // For Zend pages
-            $base = str_replace("public/index.php", "", $_SERVER['SCRIPT_NAME']);
-            // For Wordpress pages
-            $base = str_replace("index.php", "", $base);
+            $base = str_replace("index.php", "", $_SERVER['SCRIPT_NAME']);
             $base = str_replace("wp-admin/admin-ajax.php", "", $base);
         }
 
@@ -92,12 +90,12 @@ class HTTPHelper {
     }
 
     /**
-     * Return the referer : when the referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting 
+     * Return the referer : when the referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting
       values to be reset when returning to the page
      * @return string
      */
     public static function getReferer() {
-        // When referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting 
+        // When referer is the library list page, we remove the "reset=1" parameters because we don't want the filtering, paging, sorting
         // values to be reset when returning to the page
         $referer = ArrayHelper::getSafeFromArray($_SERVER, "HTTP_REFERER", null);
         if ($referer && (strpos($referer, self::Link(Urls::USER_LIBRARY)) !== false))

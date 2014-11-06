@@ -6,7 +6,7 @@ namespace Sb\Db\Model;
 class UserbookComment implements \Sb\Db\Model\Model {
 
     function __construct() {
-        
+
     }
 
     /**
@@ -20,9 +20,9 @@ class UserbookComment implements \Sb\Db\Model\Model {
      * @JoinColumn(name="userbook_id", referencedColumnName="id")
      */
     protected $userbook;
-    
+
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ManyToOne(targetEntity="User", inversedBy="comments", fetch="EAGER")
      * @JoinColumn(name="owner_id", referencedColumnName="id")
      */
     protected $owner;
@@ -49,7 +49,10 @@ class UserbookComment implements \Sb\Db\Model\Model {
     public function setUserbook($userbook) {
         $this->userbook = $userbook;
     }
-        
+
+    /**
+     * @return \Sb\Db\Model\User
+     */
     public function getOwner() {
         return $this->owner;
     }
