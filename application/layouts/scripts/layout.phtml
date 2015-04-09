@@ -216,7 +216,7 @@ global $globalContext;
                 <div id="footer-bottom">
                     <div class="inner-padding">
                         <div class="fb-left float-left">&copy;
-                            2014 <?php echo Constants::SITENAME; ?></div>
+                        	<?php $date = new Zend_Date(); echo $date->toString('yyyy');?> <?php echo Constants::SITENAME; ?></div>
                         <div class="fb-right float-right">
                             <ul>
                                 <li>
