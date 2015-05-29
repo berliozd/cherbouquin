@@ -6,7 +6,7 @@ namespace Sb\Db\Service;
  * Description of UserSvc
  * @author Didier
  */
-class MessageSvc extends \Sb\Db\Service\Service {
+class MessageSvc extends AbstractService {
 
     private static $instance;
 
@@ -30,9 +30,9 @@ class MessageSvc extends \Sb\Db\Service\Service {
     public function createWelcomeMessage($userId) {
 
         $siteName = \Sb\Entity\Constants::SITENAME;
-        
+
         $title = __("Bienvenue au sein de la communauté", "s1b") . " " . $siteName;
-        
+
         $body = __("Bonjour,", "s1b") . "<br/><br/>";
         $body .= __("Merci d'avoir rejoint", "s1b") . " " . $siteName . "<br/>";
         $body .= __("Toute l'équipe espère que vous profiterez pleinement des fonctionnalités du site, à savoir:", "s1b") . "<br/>";
@@ -45,14 +45,14 @@ class MessageSvc extends \Sb\Db\Service\Service {
         $body .= '<a href=' . \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS_FIND) . ' onclick="newInvite(); return false;">' . __("Inviter vos amis de Facebook à rejoindre", "s1b") . " " . $siteName . '</a>' . "<br/>";
         $body .= __("Bonne expérience.", "s1b") . "<br/><br/>";
         $body .= __("L'équipe", "s1b") . " " . $siteName;
-        
+
         $message = new \Sb\Db\Model\Message();
         $message->setMessage($body);
         $message->setTitle($title);
         $message->setIs_read(false);
         $message->setRecipient(\Sb\Db\Dao\UserDao::getInstance()->get($userId));
         $message->setSender(\Sb\Db\Dao\UserDao::getInstance()->get(1));
-        
+
         return \Sb\Db\Dao\MessageDao::getInstance()->add($message);
     }
 

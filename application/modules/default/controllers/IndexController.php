@@ -101,10 +101,10 @@ class Default_IndexController extends Zend_Controller_Action {
             $lastRatedCoverFlip = new BookCoverFlip($lastRatedBooks, __("Derniers livres notés", "s1b"), "lastRatedBooks", "");
             $this->view->lastRatedCoverFlip = $lastRatedCoverFlip->get();
 
-            // Get last reviews
-            $lastReviews = UserEventSvc::getInstance()->getLastEventsOfType(EventTypes::USERBOOK_REVIEW_CHANGE);
-            $lastReviewsView = new LastReviews($lastReviews, __("Dernières critiques postées", "s1b"));
-            $this->view->lastReviews = $lastReviewsView->get();
+//             // Get last reviews
+//             $lastReviews = UserEventSvc::getInstance()->getLastEventsOfType(EventTypes::USERBOOK_REVIEW_CHANGE);
+//             $lastReviewsView = new LastReviews($lastReviews, __("Dernières critiques postées", "s1b"));
+//             $this->view->lastReviews = $lastReviewsView->get();
 
             // Press reviews subscription widget
             $pressReviewsSubscriptionWidget = new PressReviewsSubscriptionWidget();
@@ -476,7 +476,7 @@ class Default_IndexController extends Zend_Controller_Action {
         $lastChronicles = ChronicleSvc::getInstance()->getLastAnyType();
         $lastChronicle = array_slice($lastChronicles, 0, 1);
         $lastChronicle = $lastChronicle[0];
-        $chronicles = ChronicleSvc::getInstance()->getLastChronicles(7);
+        $chronicles = ChronicleSvc::getInstance()->getLastChronicles(13);
 
         // Init chronicle view model adapter
         $chronicleListAdapter = new ChronicleListAdapter();
@@ -486,8 +486,8 @@ class Default_IndexController extends Zend_Controller_Action {
 
         // Set chronicles from any groups except bloggers and bookstores
         if ($chronicles && count($chronicles) > 0) {
-            // We take 6 first chronicles only and different from the last chronicle
-            $chronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $chronicles, 6);
+            // We take 12 first chronicles only and different from the last chronicle
+            $chronicles = ChronicleHelper::getDifferentChronicles($lastChronicle, $chronicles, 12);
             // Set chronicles view
             $this->view->chronicles = $this->getChronicleView($chronicleListAdapter, $chronicles, __("Dernières <strong>chroniques</strong>", "s1b"), "last-chronicles", $this->view->url(array(), 'chroniclesLastAnyType'), __("Voir d'autres chroniques", "s1b"));
         }

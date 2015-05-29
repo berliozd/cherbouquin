@@ -6,7 +6,7 @@ namespace Sb\Db\Dao;
  * Description of BookDao
  * @author Didier
  */
-class BookDao extends \Sb\Db\Dao\AbstractDao {
+class BookDao extends AbstractDao {
 
     private static $instance;
 
@@ -19,7 +19,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public static function getInstance() {
 
         if (!self::$instance)
-            self::$instance = new \Sb\Db\Dao\BookDao();
+            self::$instance = new BookDao();
         return self::$instance;
     }
 
@@ -39,12 +39,12 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
                 $this->entityManager->persist($contributor);
             }
         }
-        
+
         if ($book->getPublisher())
             $this->entityManager->persist($book->getPublisher());
-        
+
         $this->entityManager->persist($book);
-        
+
         $this->entityManager->flush();
         return true;
     }
@@ -56,7 +56,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListByKeyword($keyword) {
 
         $reference = $keyword;
-        
+
         $queryBuilder = new \Doctrine\ORM\QueryBuilder($this->entityManager);
         $queryBuilder->select("b, allcontributors, p")
             ->from(self::MODEL, "b")
@@ -70,7 +70,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ->orWhere("b.asin = :reference")
             ->setParameter("keyword", "%" . $keyword . "%")
             ->setParameter("reference", $reference);
-        
+
         $result = $this->getResults($queryBuilder->getQuery());
         return $result;
     }
@@ -96,7 +96,7 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ->setParameter("isbn10", $isbn10)
             ->setParameter("isbn13", $isbn13)
             ->setParameter("asin", $asin);
-        
+
         return $this->getOneResult($queryBuilder->getQuery());
     }
 
@@ -115,10 +115,10 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ->orderBy("b.average_rating", "DESC")
             ->addOrderBy("ub.creation_date", "DESC")
             ->setMaxResults($nbMaxResults);
-        
+
         // We don't use cache as this is called always by service which cache the result
         $result = $this->getResults($queryBuilder->getQuery());
-        
+
         return $result;
     }
 
@@ -137,10 +137,10 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ->where("ub.is_blow_of_heart = 1")
             ->orderBy("ub.last_modification_date", "DESC")
             ->setMaxResults($nbMaxResults);
-        
+
         // We don't use cache as this is called always by service which cache the result
         $result = $this->getResults($queryBuilder->getQuery());
-        
+
         return $result;
     }
 
@@ -159,10 +159,10 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ->where("ub.rating >= 0")
             ->orderBy("ub.last_modification_date", "DESC")
             ->setMaxResults($nbMaxResults);
-        
+
         // We don't use cache as this is called always by service which cache the result
         $result = $this->getResults($queryBuilder->getQuery());
-        
+
         return $result;
     }
 
@@ -187,9 +187,9 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ->orderBy("ub.last_modification_date", "DESC")
             ->addOrderBy("b.nb_blow_of_hearts", "DESC")
             ->setParameter("user_id", $userId);
-        
+
         $result = $this->getResults($queryBuilder->getQuery());
-        
+
         return $result;
     }
 
@@ -207,10 +207,10 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ->setMaxResults($nbMaxResults)
             ->orderBy("ub.creation_date", "DESC")
             ->distinct(true);
-        
+
         // We don't use cache as this function is always called by a service which do the caching
         $result = $this->getResults($queryBuilder->getQuery());
-        
+
         return $result;
     }
 
@@ -226,48 +226,48 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ->andWhere("ub.is_deleted != 1")
             ->orderBy("ub.last_modification_date", "DESC")
             ->setParameter("user_id", $userId);
-        
+
         // We don't cache this result as the function is only called by the book svc which does the caching
         $result = $this->getResults($queryBuilder->getQuery());
-        
+
         return $result;
     }
 
     public function getListLikedByUsers($userIds) {
 
         $userIdsAsStr = implode(", ", $userIds);
-        
-        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b 
-            JOIN b.userbooks ub 
-            JOIN ub.user u 
-            JOIN b.contributors c 
+
+        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b
+            JOIN b.userbooks ub
+            JOIN ub.user u
+            JOIN b.contributors c
             WHERE u.id IN (%s)
-            AND ub.is_deleted != 1 
+            AND ub.is_deleted != 1
             AND (ub.rating >=4 OR ub.is_wished = 1)
             ORDER BY b.average_rating DESC", $userIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
         $query->setMaxResults(30);
-        
+
         $result = $this->getResults($query);
-        
+
         return $result;
     }
 
     public function getListWithTags($tagIds) {
 
         $tagIdsAsStr = implode(",", $tagIds);
-        
-        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b 
+
+        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b
             JOIN b.contributors c
-            JOIN b.userbooks ub 
-            JOIN ub.tags t             
+            JOIN b.userbooks ub
+            JOIN ub.tags t
             WHERE t.id IN (%s)
             ORDER BY ub.last_modification_date DESC", $tagIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
         $query->setMaxResults(30);
-        
+
         $result = $this->getResults($query);
-        
+
         return $result;
     }
 
@@ -279,17 +279,17 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
     public function getListWithSameContributors($contributorIds) {
 
         $contributorIdsAsStr = implode(",", $contributorIds);
-        
-        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b 
+
+        $dql = sprintf("SELECT b,c FROM " . self::MODEL . " b
             JOIN b.contributors c
-            JOIN b.userbooks ub             
+            JOIN b.userbooks ub
             WHERE c.id IN (%s)
             ORDER BY ub.last_modification_date DESC", $contributorIdsAsStr);
         $query = $this->entityManager->createQuery($dql);
         $query->setMaxResults(30);
-        
+
         $result = $this->getResults($query);
-        
+
         return $result;
     }
 
@@ -301,9 +301,9 @@ class BookDao extends \Sb\Db\Dao\AbstractDao {
             ORDER BY pr.date DESC";
         $query = $this->entityManager->createQuery($dql);
         $query->setMaxResults(100);
-        
+
         $result = $this->getResults($query);
-        
+
         return $result;
     }
 

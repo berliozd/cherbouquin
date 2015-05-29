@@ -6,7 +6,7 @@ namespace Sb\Db\Service;
  * Description of InvitationSvc
  * @author Didier
  */
-class InvitationSvc extends \Sb\Db\Service\Service {
+class InvitationSvc extends AbstractService {
 
     private static $instance;
 

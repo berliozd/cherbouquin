@@ -10,20 +10,15 @@ use Sb\Db\Dao\BookDao;
  * Description of UserBookSvc
  * @author Didier
  */
-class UserBookSvc extends \Sb\Db\Service\Service {
+class UserBookSvc extends AbstractService {
 
     private static $instance;
 
     const ALL_BOOKS_KEY = 'allBooks';
-
     const WISHED_BOOKS_KEY = 'wishedBooks';
-
     const BORROWED_BOOKS_KEY = 'borrowedBooks';
-
     const LENDED_BOOKS_KEY = 'lendedBooks';
-
     const MY_BOOKS_KEY = 'myBooks';
-
     const LASTY_READ = 'LASTLY_READ';
 
     /**
@@ -45,21 +40,21 @@ class UserBookSvc extends \Sb\Db\Service\Service {
     public function getUserBooks($key, $id, $useCache) {
 
         try {
-            
+
             $result = null;
-            
+
             $fullKey = $key . "_uid_" . $id;
-            
+
             // Build cache key and try to get result in cache
             if ($useCache)
                 $result = $this->getData($fullKey); //
-                                                        
+
             // if result not retrieved, get it
             if (!isset($result) || $result === false) {
-                
+
                 /* @var $userBookDao UserBookDao */
                 $userBookDao = $this->getDao();
-                
+
                 switch ($key) {
                     case self::ALL_BOOKS_KEY :
                         $result = $userBookDao->getListAllBooks($id, false);
@@ -80,10 +75,10 @@ class UserBookSvc extends \Sb\Db\Service\Service {
                         $result = $userBookDao->getListMyBooks($id, false);
                         break;
                 }
-                
+
                 $this->setData($fullKey, $result);
             }
-            
+
             return $result;
         } catch (\Exception $e) {
             $this->logException(get_class(), __FUNCTION__, $e);
@@ -93,7 +88,7 @@ class UserBookSvc extends \Sb\Db\Service\Service {
     public function addFromPost(\Sb\Db\Model\User $user,\Sb\Config\Model\Config $config) {
 
         $bookForm = new \Sb\Form\Book($_POST);
-        
+
         // Testing if book can be found in db by id
         $book = null;
         if ($bookForm->getId())
@@ -101,21 +96,21 @@ class UserBookSvc extends \Sb\Db\Service\Service {
             // Testing if book can be found in db by isbn10, isbn13, asin
         if (!$book)
             $book = BookDao::getInstance()->getOneByCodes($bookForm->getISBN10(), $bookForm->getISBN13(), $bookForm->getASIN());
-            
+
             // Testing if we need to add the book first
         if (!$book) {
             // Getting book from POST
             $book = new \Sb\Db\Model\Book();
             \Sb\Db\Mapping\BookMapper::map($book, $_POST, "book_");
-            
+
             // Completing Book data by calling google in needed
             if (!$book->IsComplete())
                 \Sb\Helpers\BookHelper::completeInfos($book);
-            
+
             $book->setCreationDate(new \DateTime());
             $book->setLastModificationDate(new \DateTime());
             BookDao::getInstance()->add($book);
-            
+
             // Updating the book in cache to make it available for adding a userbook on form (borrowfromfriends, etc...)
             \Sb\Cache\ZendFileCache::getInstance()->save($book, \Sb\Entity\Constants::BOOK_TO_ADD_PREFIX . session_id());
         }
@@ -137,7 +132,7 @@ class UserBookSvc extends \Sb\Db\Service\Service {
 
         $userBookDao = UserBookDao::getInstance();
         $userBook = $userBookDao->getByBookIdAndUserId($user->getId(), $book->getId());
-        
+
         // Testing if the user :
         // - doesn't already have that book or
         // - have it but is deleted : in this case we will undelete the book
@@ -146,12 +141,12 @@ class UserBookSvc extends \Sb\Db\Service\Service {
         else {
             // Getting current user current nb userbooks in libary
             $userNbUserBooks = count($user->getNotDeletedUserBooks());
-            
+
             if ($userNbUserBooks >= $config->getMaximumNbUserBooksForPublic())
                 $returnMsg = sprintf(__("Vous ne pouvez pas avoir plus de %s livres dans votre bibliothèque.", "s1b"), $config->getMaximumNbUserBooksForPublic());
             else {
                 // Ajout du UserBook
-                
+
                 $existingUserBook = false;
                 $userBook = UserBookDao::getInstance()->getByBookIdAndUserId($user->getId(), $book->getId());
                 // testing if the user already had the book but deleted it :
@@ -164,13 +159,13 @@ class UserBookSvc extends \Sb\Db\Service\Service {
                     $userBook = new \Sb\Db\Model\UserBook();
                     $userBook->setCreationDate(new \DateTime());
                 }
-                
+
                 // Updating userbook data
                 $userBook->setLastModificationDate(new \DateTime());
-                
+
                 $userBook->setUser($user);
                 $userBook->setBook($book);
-                
+
                 $bookLink = \Sb\Helpers\HTTPHelper::Link($book->getLink());
                 // Persisting userbook in DB
                 $addOk = false;
@@ -187,7 +182,7 @@ class UserBookSvc extends \Sb\Db\Service\Service {
                         $addOk = true;
                     }
                 }
-                
+
                 if ($addOk) {
                     try {
                         $userEvent = new \Sb\Db\Model\UserEvent();
@@ -213,20 +208,20 @@ class UserBookSvc extends \Sb\Db\Service\Service {
     public function getLastlyReadUserbookByBookId($bookId, $nbBooks = null, $useCache = true) {
 
         try {
-            
+
             $result = null;
-            
+
             $maxResult = 25; // Number of userbooks in the list cached. Items are alays taken from that list.
                              // This value will have to be changed if a bigger list needs to be return.
-            
+
             if ($useCache) {
                 $dataKey = self::LASTY_READ . "_bid_" . $bookId . "_m_" . $maxResult;
                 $result = $this->getData($dataKey);
             }
-            
+
             if (!isset($result) || $result === false) {
                 $result = UserBookDao::getInstance()->getLastlyReadUserbookByBookId($bookId, $maxResult);
-                
+
                 // Loop all the userbooks and set the user's userbooks as they are not fetched automatically
                 foreach ($result as $userbook) {
                     $user = $userbook->getUser();
@@ -234,11 +229,11 @@ class UserBookSvc extends \Sb\Db\Service\Service {
                     $user->setUserBooks($userbooks);
                     $userbook->setUser($user);
                 }
-                
+
                 if ($useCache)
                     $this->setData($dataKey, $result);
             }
-            
+
             if ($nbBooks)
                 return array_slice($result, 0, $nbBooks);
             else

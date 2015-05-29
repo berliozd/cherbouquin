@@ -11,7 +11,7 @@ use Sb\Db\Model\UserSetting;
  * Description of UserSvc
  * @author Didier
  */
-class UserSvc extends \Sb\Db\Service\Service {
+class UserSvc extends AbstractService {
 
     private static $instance;
 
@@ -45,7 +45,7 @@ class UserSvc extends \Sb\Db\Service\Service {
     public function addLightUser($lastname, $firstname, $username, $email, $password) {
 
         $user = null;
-        
+
         $userTmp = new User();
         // Création du user dans la table s1b_users
         $userTmp->setToken(sha1(uniqid(rand())));
@@ -63,13 +63,13 @@ class UserSvc extends \Sb\Db\Service\Service {
         $userTmp->setTokenFacebook("");
         $userTmp->setPicture("");
         $userTmp->setPictureBig("");
-        
+
         $setting = new UserSetting();
         UserSettingHelper::loadDefaultSettings($setting);
         $userTmp->setSetting($setting);
-        
+
         $user = UserDao::getInstance()->add($userTmp);
-        
+
         return $user;
     }
 
@@ -81,7 +81,7 @@ class UserSvc extends \Sb\Db\Service\Service {
                     return true;
             }
         }
-        
+
         return false;
     }
 

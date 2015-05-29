@@ -9,14 +9,11 @@ use Sb\Db\Dao\TagDao;
  *
  * @author Didier
  */
-class TagSvc extends \Sb\Db\Service\Service {
+class TagSvc extends AbstractService {
 
     const ALL_TAGS = "ALL_TAGS";
-
     const TAGS_BOOK = "TAGS_BOOK";
-
     const TAGS_PRESSREVIEWS = "TAGS_PRESSREVIEWS";
-
     const TAGS_CHRONICLES = "TAGS_CHRONICLES";
 
     private static $instance;
@@ -59,26 +56,26 @@ class TagSvc extends \Sb\Db\Service\Service {
     public function getTagsForBooks($books, $useCache = true) {
 
         try {
-            
+
             $data = null;
-            
+
             $bookIds = array_map(array(
                     &$this,
                     "getId"
             ), $books);
-            
+
             if ($useCache) {
                 $dataKey = self::TAGS_BOOK . "_bids_" . implode("_", $bookIds);
                 $data = $this->getData($dataKey);
             }
-            
+
             // If no data are cached
             if (!isset($data) || $data === false) {
                 $data = TagDao::getInstance()->getTagsForBooks($bookIds);
                 if ($useCache)
                     $this->setData($dataKey, $data);
             }
-            
+
             return $data;
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
@@ -93,17 +90,17 @@ class TagSvc extends \Sb\Db\Service\Service {
     public function getTagsForPressReviews($orderColumn = "label") {
 
         try {
-            
+
             $data = null;
-            
+
             $dataKey = self::TAGS_PRESSREVIEWS;
             $data = $this->getData($dataKey);
-            
+
             if (!isset($data) || $data === false) {
                 $data = TagDao::getInstance()->getTagsForPressReviews($orderColumn);
                 $this->setData($dataKey, $data);
             }
-            
+
             return $data;
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);
@@ -118,17 +115,17 @@ class TagSvc extends \Sb\Db\Service\Service {
     public function getTagsForChronicles($orderColumn = "label") {
 
         try {
-            
+
             $data = null;
-            
+
             $dataKey = self::TAGS_CHRONICLES;
             $data = $this->getData($dataKey);
-            
+
             if (!isset($data) || $data === false) {
                 $data = TagDao::getInstance()->getTagsForChronicles($orderColumn);
                 $this->setData($dataKey, $data);
             }
-            
+
             return $data;
         } catch (\Exception $exc) {
             $this->logException(get_class(), __FUNCTION__, $exc);

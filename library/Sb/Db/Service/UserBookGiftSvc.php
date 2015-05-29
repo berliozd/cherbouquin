@@ -6,7 +6,7 @@ namespace Sb\Db\Service;
  *
  * @author Didier
  */
-class UserBookGiftSvc extends \Sb\Db\Service\Service {
+class UserBookGiftSvc extends AbstractService {
 
     private static $instance;
 

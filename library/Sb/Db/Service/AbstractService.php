@@ -8,16 +8,14 @@ use \Sb\Trace\Trace;
  * Description of Service
  * @author Didier
  */
-class Service {
+abstract class AbstractService {
 
     const CRITERIA_TYPE_MODEL = "MODEL";
 
     const CRITERIA_TYPE_STRING = "STRING";
 
     private $cache;
-
     private $dao;
-
     private $serviceName;
 
     protected function __construct($dao, $serviceName) {
@@ -25,6 +23,13 @@ class Service {
         $this->cache = \Sb\Cache\ZendFileCache::getInstance();
         $this->dao = $dao;
         $this->serviceName = $serviceName;
+    }
+
+    public static function getInstance() {
+
+        if (!self::$instance)
+            self::$instance = new BookSvc();
+        return self::$instance;
     }
 
     protected function getData($dataKey) {
@@ -74,7 +79,7 @@ class Service {
                 }
             }
         }
-        
+
         return $suffix;
     }
 

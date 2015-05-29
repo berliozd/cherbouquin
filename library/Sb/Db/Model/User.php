@@ -591,9 +591,20 @@ class User implements \Sb\Db\Model\Model {
     }
 
 
-
-
-
-
+    /**
+     * Determine if user is a blogger
+     *
+     * @return boolean
+     */
+    public function IsBlogger() {
+        $groupUsers = $this->getGroupusers();
+        /* @var $group Sb\Db\Model\Groupuser */
+        foreach ($groupUsers as $group) {
+            if ($group->getGroup()->getId() === 2) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

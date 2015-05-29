@@ -57,11 +57,11 @@ class UserBook {
         if (array_key_exists('ReadingDate', $post)) {
             $this->readingDate = \Sb\Helpers\DateHelper::createDateBis($post['ReadingDate']);
         }
-        
+
         if (array_key_exists('HyperLink', $post)) {
             $this->hyperLink = $post['HyperLink'];
         }
-        
+
         $this->nb_of_pages = \Sb\Helpers\ArrayHelper::getSafeFromArray($post, "nb_of_pages", null);
         $this->nb_of_pages_read = \Sb\Helpers\ArrayHelper::getSafeFromArray($post, "nb_of_pages_read", null);
     }
@@ -101,11 +101,11 @@ class UserBook {
     public function getTags() {
         return $this->tags;
     }
-    
+
     public function getHyperLink() {
         return $this->hyperLink;
     }
-    
+
     public function getNb_of_pages() {
         return $this->nb_of_pages;
     }

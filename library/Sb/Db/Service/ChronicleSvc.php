@@ -2,30 +2,30 @@
 
 namespace Sb\Db\Service;
 
-use Sb\Db\Dao\ChronicleDao;
-use Sb\Entity\GroupTypes;
-use Sb\Helpers\StringHelper;
-use Sb\Db\Dao\GroupTypeDao;
-use Sb\Db\Dao\TagDao;
-use Sb\Db\Dao\UserDao;
+use Sb\Db\Dao\ChronicleDao,
+    Sb\Entity\GroupTypes,
+    Sb\Helpers\StringHelper,
+    Sb\Db\Dao\GroupTypeDao,
+    Sb\Db\Dao\TagDao,
+    Sb\Db\Dao\UserDao,
+    Sb\Db\Dao\BookDao,
+    Sb\Db\Model\Chronicle,
+    Sb\Entity\ChronicleType,
+    Sb\Entity\ChronicleLinkType;
 
 /**
  * Description of ChronicleSvc
  * @author Didier
  */
-class ChronicleSvc extends Service {
+class ChronicleSvc extends AbstractService {
 
     const ANY_GROUPS_CHRONICLES = "CHRONICLES_OF_ANY_GROUPS";
-
     const BLOGGERS_CHRONICLES = "BLOGGERS_CHRONICLES";
-
     const BOOK_STORES_CHRONICLES = "BOOK_STORES_CHRONICLES";
-
     const CHRONICLES_WITH_TAG = "CHRONICLES_WITH_TAG";
-
     const CHRONICLES_WITH_KEYWORDS = "CHRONICLES_WITH_KEYWORDS";
-
     const AUTHORS_CHRONICLES = "AUTHORS_CHRONICLES";
+    const CHRONICLE_FROM_USER_BOOK = "CHRONICLE_FROM_USER_BOOK";
 
     private static $instance;
 
@@ -49,9 +49,9 @@ class ChronicleSvc extends Service {
 
         return $this->getLastChronicles(4, null, null);
     }
-    
+
     public function getLastChroniclesNotBloggersOrBookStores() {
-        
+
         // When getting any group types chronicles, we don't want bloggers and book stores chronicles
         $excludeGroupTypes = GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE;
         return $this->getLastChronicles(4, null, $excludeGroupTypes);
@@ -70,7 +70,7 @@ class ChronicleSvc extends Service {
     public function getLastChronicles($nbOfItems, $groupTypeId = null, $excludeGroupTypesIds = null, $useCache = true, $searchTerm = null, $orderBy = null, $tagId = null) {
 
         try {
-            
+
             switch ($groupTypeId) {
                 case GroupTypes::BLOGGER :
                     $key = self::BLOGGERS_CHRONICLES;
@@ -82,32 +82,32 @@ class ChronicleSvc extends Service {
                     $key = self::ANY_GROUPS_CHRONICLES;
                     break;
             }
-            
+
             $key = $key . "_m_" . $nbOfItems;
             if ($excludeGroupTypesIds)
                 $key .= "_eg_" . str_replace(",", "_", $excludeGroupTypesIds);
             if ($orderBy)
                 $key .= "_ob_" . $orderBy[0] . "_" . $orderBy[1];
-            
+
             $results = $this->getData($key);
-            
+
             if ($results === false || !$useCache) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                
+
                 $criterias = $this->getCriterias($searchTerm, $groupTypeId, $excludeGroupTypesIds, $tagId);
-                
+
                 $newOrderBy = array();
                 if ($orderBy)
                     $newOrderBy[$orderBy[0]] = $orderBy[1];
                 else
                     $newOrderBy["creation_date"] = "DESC";
                 $results = $dao->getList($criterias, $newOrderBy, 100);
-                
+
                 if ($useCache)
                     $this->setData($key, $results);
             }
-            
+
             $results = array_slice($results, 0, $nbOfItems);
             return $results;
         } catch (\Exception $exc) {
@@ -126,7 +126,7 @@ class ChronicleSvc extends Service {
     private function getCriterias($searchTerm = null, $groupTypeId = null, $excludedGroupTypeIds = null, $tagId = null) {
 
         $criteria = array();
-        
+
         // Add keywords criteria
         if ($searchTerm)
             $criteria["keywords"] = array(
@@ -134,7 +134,7 @@ class ChronicleSvc extends Service {
                     "LIKE",
                     $searchTerm
             );
-            
+
             // Add single group type criteria
         if ($groupTypeId) {
             $groupType = GroupTypeDao::getInstance()->get($groupTypeId);
@@ -144,7 +144,7 @@ class ChronicleSvc extends Service {
                     $groupType
             );
         }
-        
+
         // Add excluded group types criteria
         if ($excludedGroupTypeIds) {
             $groupTypeCriteria = array(
@@ -161,7 +161,7 @@ class ChronicleSvc extends Service {
                     $excludedGroupTypes
             );
         }
-        
+
         // Add tag criteria
         $tag = null;
         if ($tagId) {
@@ -181,28 +181,28 @@ class ChronicleSvc extends Service {
                     null
             );
         }
-        
+
         // Add user criteria only to be returned in results
         $criteria["user"] = array(
                 true,
                 null,
                 null
         );
-        
+
         // Add book criteria only to be returned in results
         $criteria["book"] = array(
                 true,
                 null,
                 null
         );
-        
+
         // Add is_validated criteria
         $criteria["is_validated"] = array(
                 false,
                 "=",
                 1
         );
-        
+
         return $criteria;
     }
 
@@ -215,20 +215,20 @@ class ChronicleSvc extends Service {
     public function getChroniclesWithTags($tagIds, $numberOfChronicles, $useCache = true) {
 
         try {
-            
+
             $results = null;
-            
+
             if ($useCache) {
                 $key = self::CHRONICLES_WITH_TAG . "_tid_" . implode("_", $tagIds) . "_m_" . $numberOfChronicles;
                 $results = $this->getData($key);
             }
-            
+
             if (!isset($results) || $results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                
+
                 $criteria = array();
-                
+
                 // Add tag criteria
                 $tags = TagDao::getInstance()->getList(array(
                         "id" => array(
@@ -248,17 +248,17 @@ class ChronicleSvc extends Service {
                         "=",
                         1
                 );
-                
+
                 $orderBy = array(
                         "creation_date" => "DESC"
                 );
-                
+
                 $results = $dao->getList($criteria, $orderBy, $numberOfChronicles);
-                
+
                 if ($useCache)
                     $this->setData($key, $results);
             }
-            
+
             return $results;
         } catch (\Exception $e) {
             $this->logException(get_class(), __FUNCTION__, $e);
@@ -274,41 +274,41 @@ class ChronicleSvc extends Service {
     public function getChroniclesWithKeywords($keywords, $numberOfChronicles, $useCache = true) {
 
         try {
-            
+
             $results = null;
-            
+
             if ($useCache) {
                 // Get cache key : sanitize keywords string and replace "-" by "_"
                 $key = self::CHRONICLES_WITH_KEYWORDS . "_k_" . str_replace("-", "_", StringHelper::sanitize(implode("_", $keywords))) . "_m_" . $numberOfChronicles;
                 $results = $this->getData($key);
             }
-            
+
             if (!isset($results) || $results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                
+
                 $criteria = array();
-                
+
                 // Add is_validated criteria
                 $criteria["is_validated"] = array(
                         false,
                         "=",
                         1
                 );
-                
+
                 // Add keywords criteria
                 $criteria["keywords"] = array(
                         false,
                         "LIKE",
                         $keywords
                 );
-                
+
                 $orderBy = array(
                         "creation_date" => "DESC"
                 );
-                
+
                 $results = $dao->getList($criteria, $orderBy, $numberOfChronicles);
-                
+
                 if ($useCache)
                     $this->setData($key, $results);
             }
@@ -326,42 +326,42 @@ class ChronicleSvc extends Service {
     public function getAuthorChronicles($authorId, $useCache = true) {
 
         try {
-            
+
             $numberOfChronicles = 10;
-            
+
             $results = null;
-            
+
             if ($useCache) {
                 $key = self::AUTHORS_CHRONICLES . "_aid_" . $authorId . "_m_" . $numberOfChronicles;
                 $results = $this->getData($key);
             }
-            
+
             if (!isset($results) || $results === false) {
                 /* @var $dao ChronicleDao */
                 $dao = $this->getDao();
-                
+
                 $criteria = array();
-                
+
                 // Add is_validated criteria
                 $criteria["is_validated"] = array(
                         false,
                         "=",
                         1
                 );
-                
+
                 $author = UserDao::getInstance()->get($authorId);
                 $criteria["user"] = array(
                         true,
                         "=",
                         $author
                 );
-                
+
                 $orderBy = array(
                         "nb_views" => "DESC"
                 );
-                
+
                 $results = $dao->getList($criteria, $orderBy, $numberOfChronicles);
-                
+
                 if ($useCache)
                     $this->setData($key, $results);
             }
@@ -371,4 +371,82 @@ class ChronicleSvc extends Service {
         }
     }
 
+    /**
+     * Add or update a chronicle based on a userbook review
+     *
+     * @param \Sb\Db\Model\UserBook $userBook
+     * @param unknown $groupId
+     */
+    public function addOrUpdateFromUserBook(\Sb\Db\Model\UserBook $userBook)
+    {
+        $bloggerGroupId = 2;
+        /* @var $user \Sb\Db\Model\User */
+        $user = $userBook->getUser();
+        /* @var $user \Sb\Db\Model\Book */
+        $book = $userBook->getBook();
+
+        /* @var $existingChronicle \Sb\Db\Model\Chronicle */
+        $chronicle = $this->getChronicle($user->getId(), $book->getId());
+        if (is_null($chronicle)) {
+            $chronicle = new Chronicle();
+        }
+
+        $chronicle->setUser($user);
+        $chronicle->setBook($userBook->getBook());
+        $chronicle->setCreation_date(new \DateTime());
+        $chronicle->setGroup(\Sb\Db\Dao\GroupDao::getInstance()->get($bloggerGroupId));
+        $chronicle->setIs_validated(true);
+        $chronicle->setLink($userBook->getHyperlink()? 'http://' . $userBook->getHyperlink(): '');
+        $chronicle->setLink_type(ChronicleLinkType::URL);
+        $chronicle->setText($userBook->getReview());
+        $chronicle->setTitle($book->getTitle());
+        $chronicle->setType_id(ChronicleType::BOOK_CHRONICLE);
+        $chronicle->setKeywords($book->getTitle() . ', '. $book->getOrderableContributors() . ', '. $book->getPublisher()->getName());
+        $tags = $userBook->getTags();
+        if (count($tags) > 0) {
+            $chronicle->setTag($userBook->getTags()->first());
+        }
+
+        $this->getDao()->add($chronicle);
+    }
+
+    /**
+     * Return a chronicle from a user id and a book id
+     *
+     * @param unknown $userId
+     * @param unknown $bookId
+     * @param string $useCache
+     * @return \Sb\Db\Dao\Ambigous|NULL
+     */
+    public function getChronicle($userId, $bookId, $useCache = true) {
+
+        try {
+
+            $results = null;
+
+            if ($useCache) {
+                $key = self::CHRONICLE_FROM_USER_BOOK . "_uid_" . $userId . "_bid_" . $bookId;
+                $result = $this->getData($key);
+            }
+
+            if (!isset($results) || $results === false) {
+                $criteria["user"] = array(true, "=", UserDao::getInstance()->get($userId));
+                $criteria["book"] = array(true, "=", BookDao::getInstance()->get($bookId));
+                $result = $this->getDao()->getList($criteria, array('id' => 'DESC'), 1);
+            }
+
+            if ($useCache)
+                $this->setData($key, $results);
+
+            if (is_array($result) && count($result) > 0) {
+                return $result[0];
+            }
+            return null;
+
+        } catch (\Exception $e) {
+            $this->logException(get_class(), __FUNCTION__, $e);
+        }
+
+        return $results;
+    }
 }

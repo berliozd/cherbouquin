@@ -6,7 +6,7 @@ namespace Sb\Db\Service;
  * Description of ReadingState
  * @author Didier
  */
-class ReadingStateSvc extends \Sb\Db\Service\Service {
+class ReadingStateSvc extends AbstractService {
 
     const READ_STATE_DATA_KEY = "readState";
 

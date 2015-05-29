@@ -19,6 +19,7 @@ use Sb\Db\Model\Book,
     Sb\Service\BookPageSvc,
 
     Sb\Db\Service\UserEventSvc,
+    Sb\Db\Service\ChronicleSvc,
 
     Sb\Helpers\HTTPHelper,
     Sb\Helpers\ArrayHelper,
@@ -64,6 +65,7 @@ class Member_UserBookController extends Zend_Controller_Action {
 
         try {
 
+            /* @var $globalContext \Sb\Context\Model\Context */
             global $globalContext;
 
             $idUserBook = $_GET['ubid'];
@@ -109,7 +111,11 @@ class Member_UserBookController extends Zend_Controller_Action {
 
         try {
 
+            /* @var $globalContext \Sb\Context\Model\Context */
             global $globalContext;
+
+            /* @var $user Sb\Db\Model\User */
+            $user = $globalContext->getConnectedUser();
 
             // getting form data
             $userBookForm = new UserBookForm($_POST);
@@ -121,7 +127,7 @@ class Member_UserBookController extends Zend_Controller_Action {
             $userEvents = UserEventSvc::getInstance()->prepareUserBookEvents($userBook, $userBookForm);
 
             // On vérifit la correspondance du user
-            if ($globalContext->getConnectedUser()->getId() != $userBook->getUser()->getId()) {
+            if ($user->getId() != $userBook->getUser()->getId()) {
                 Flash::addItem(__("Le livre que vous souhaitez éditer ne correspond pas à l'utilisateur connecté.", "share1book"));
                 HTTPHelper::redirectToLibrary();
             }
@@ -156,6 +162,11 @@ class Member_UserBookController extends Zend_Controller_Action {
                 // persisting the userevent related to the userbook changes
                 UserEventSvc::getInstance()->persistAll($userEvents);
 
+                // Add review as chronicle
+                If ($this->_reviewIsModified($userEvents) && $user->IsBlogger()) {
+                    ChronicleSvc::getInstance()->addOrUpdateFromUserBook($userBook);
+                }
+
                 Flash::addItem(sprintf(__('Le livre "%s" a été mis à jour.', "s1b"), urldecode($userBook->getBook()->getTitle())));
             } else
                 Flash::addItem(__('Une erreur s\'est produite lors de la mise à jour de votre fiche de lecture', 's1b'));
@@ -168,7 +179,7 @@ class Member_UserBookController extends Zend_Controller_Action {
 
 
         } catch (\Exception $e) {
-            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $e->getTraceAsString()));
+            Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", MESSAGE : %s , TRACE : %s\"", get_class(), __FUNCTION__, $e->getMessage(), $e->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
     }
@@ -900,4 +911,14 @@ class Member_UserBookController extends Zend_Controller_Action {
         return $ret;
     }
 
+    private function _reviewIsModified($userEvents)
+    {
+        /* @var $userEvent \Sb\Db\Model\UserEvent */
+        foreach ($userEvents as $userEvent) {
+            if($userEvent->getType_id() === \Sb\Entity\EventTypes::USERBOOK_REVIEW_CHANGE) {
+                return true;
+            }
+
+        }
+    }
 }
