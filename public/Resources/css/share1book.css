@@ -7,13 +7,18 @@
 }
 HTML {
   margin-top: 0px !important;
-  font-size: 15px;
-  font-family: 'Dosis';
+  font-size: 12px;
+  font-family: 'Dosis', Arial, sans-serif;
 }
 body {
   margin: 0;
   background: url("../images/background.png") repeat scroll 0 0 transparent;
-  font-size: .8em;
+  font-size: 1em;
+}
+input,
+select {
+  font-size: 1.2em;
+  color: #000;
 }
 /* main layout */
 #page {
@@ -29,7 +34,7 @@ body {
 #header-top .header-inner {
   background: url("../images/header-background.png") no-repeat scroll 0 0 transparent;
   padding-left: 80px;
-  width: 1060px;
+  width: 1140px;
 }
 #header-bottom {
   height: 50px;
@@ -78,12 +83,12 @@ body {
 #content-center {
   float: left;
   padding: 10px 0px 10px 10px;
-  width: 645px;
+  width: 655px;
 }
 #content-right {
   float: right;
   padding: 10px 10px 10px 15px;
-  width: 300px;
+  width: 325px;
 }
 #footer-top {
   background-color: #363a3d;
@@ -148,7 +153,7 @@ body {
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
-  height: 18px;
+  height: 28px;
   font-size: 11px;
   font-weight: bold;
   display: block;
@@ -168,7 +173,7 @@ INPUT.button,
 BUTTON.button {
   height: 28px;
   padding: 0;
-  font-size: 10px;
+  font-size: 13px;
 }
 /* buttons specific definitions */
 .bt-black-xs {
@@ -210,7 +215,7 @@ BUTTON.button {
 .bt-blue-addfriend {
   background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -616px transparent;
   padding-left: 28px;
-  width: 99px;
+  width: 127px;
 }
 .bt-blue-xl {
   background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -211px transparent;
@@ -219,13 +224,13 @@ BUTTON.button {
 .bt-blue-xxl {
   background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -694px transparent;
   font-size: 16px;
-  height: 29px;
+  height: 47px;
   padding-top: 18px;
   width: 175px;
 }
 .bt-blue-xxxl {
   background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -859px transparent;
-  height: 18px;
+  height: 22px;
   padding: 2px 0;
   width: 165px;
 }
@@ -236,12 +241,12 @@ BUTTON.button {
 .bt-facebook-m {
   background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -580px transparent;
   padding-left: 10px;
-  width: 68px;
+  width: 78px;
 }
 .bt-carroussel {
   background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -286px transparent;
   font-size: 1.1em;
-  height: 26px;
+  height: 44px;
   padding: 9px 0;
   width: 139px;
 }
@@ -258,12 +263,12 @@ BUTTON.button {
 }
 .bt-amazon {
   background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -762px transparent;
-  height: 27px;
+  height: 37px;
   width: 92px;
 }
 .bt-fnac {
   background: url("../images/sprite-buttons.png?v=9") no-repeat scroll 0 -810px transparent;
-  height: 30px;
+  height: 40px;
   width: 92px;
 }
 .search-button {
@@ -956,11 +961,11 @@ DIV.rating {
 }
 .image-thumb {
   height: 160px;
-  width: 95px;
+  width: 99px;
 }
 .image-thumb-small {
-  height: 75px;
-  width: 50px;
+  height: 83px;
+  width: 58px;
 }
 .image-thumb-medium {
   height: 100px;
@@ -971,8 +976,8 @@ DIV.rating {
   width: 160px;
 }
 .image-thumb-square-small {
-  height: 47px;
-  width: 47px;
+  height: 55px;
+  width: 55px;
 }
 .image-thumb-square-medium {
   height: 90px;
@@ -981,14 +986,14 @@ DIV.rating {
 .user-thumb {
   background: url("../images/sprite-user-backgrounds.png") no-repeat scroll 0px -80px transparent;
   padding: 9px 0 20px 9px;
-  height: 93px;
-  width: 96px;
+  height: 122px;
+  width: 107px;
 }
 .user-thumb-small {
   background: url("../images/sprite-user-backgrounds.png") no-repeat scroll 0 -11px transparent;
   padding: 2px 18px 6px 12px;
-  height: 53px;
-  width: 53px;
+  height: 61px;
+  width: 83px;
 }
 .book-link,
 .book-link:hover,
@@ -1184,7 +1189,7 @@ DIV.rating {
   float: left;
   font-size: 1.1em;
   font-weight: bold;
-  height: 27px;
+  height: 40px;
   padding-right: 5px;
   padding-top: 13px;
   width: 80px;
@@ -1454,7 +1459,7 @@ A:hover.link {
 }
 .nu-resume {
   float: left;
-  width: 185px;
+  width: 197px;
   background-color: #323639;
   box-shadow: 0 0 10px #000000 inset;
   border-radius: 0 0 0 10px;
@@ -1462,8 +1467,8 @@ A:hover.link {
 }
 .nu-resume IMG {
   border: 2px #313538 solid;
-  width: 53px;
-  height: 53px;
+  width: 60px;
+  height: 60px;
 }
 .nur-image,
 .nur-status {
@@ -1474,7 +1479,7 @@ A:hover.link {
   font-size: 1.2em;
 }
 .nurs-status {
-  height: 25px;
+  height: 30px;
   padding-right: 33px;
   padding-top: 5px;
 }
@@ -1495,7 +1500,7 @@ span.nu-indice {
 .nu-links {
   float: left;
   padding: 20px 20px 20px 10px;
-  width: 750px;
+  width: 780px;
 }
 .nul-links {
   list-style: none outside none;
@@ -1533,7 +1538,6 @@ span.nu-indice {
 }
 #nul-news ul li {
   list-style: disc outside none;
-  padding-right: 3px;
   color: #fff;
   font-weight: normal;
   float: left;
@@ -1649,6 +1653,7 @@ UL.carousel-pagination {
 /* User box (box in right col) */
 .user-box {
   float: left;
+  width: 100%;
   border: 1px solid #239CD3;
 }
 .ub-title-wrap {
@@ -1676,8 +1681,8 @@ UL.carousel-pagination {
 }
 .ubc-part {
   float: left;
+  width: 100%;
   font-weight: bold;
-  width: 278px;
   padding: 10px;
 }
 .ubc-part-title {
@@ -1786,6 +1791,7 @@ A.utc-bottom-link:visited {
 /* User box - wished books */
 .ub-wished {
   float: left;
+  width: 100%;
 }
 .ub-wished .ub-title {
   background-position: 4px -1605px;
@@ -1824,7 +1830,7 @@ A.utc-bottom-link:visited {
 }
 .ubu-text {
   float: right;
-  width: 70%;
+  width: 65%;
 }
 .user-box .ub-users UL.carousel-pagination {
   left: 100px;
@@ -2363,7 +2369,7 @@ A.utc-bottom-link:visited {
 .lh-wrapper {
   background-color: #FFF;
   margin: 0 5px 0 5px;
-  height: 42px;
+  height: 142px;
   width: 184px;
   padding-top: 100px;
 }
@@ -2586,7 +2592,7 @@ TABLE TH.llh-title {
 .flh-item {
   color: #B1B3B4;
   font-size: 1.8em;
-  height: 65px;
+  height: 105px;
   padding-left: 50px;
   padding-top: 40px;
 }
@@ -3038,9 +3044,9 @@ TD.mb-col-state {
   width: 300px;
 }
 .mnm-emails {
-  height: 20px;
+  height: 30px;
   padding: 5px;
-  width: 500px;
+  width: 510px;
 }
 /* friend selection */
 .friend-selection {
@@ -3415,7 +3421,7 @@ TD.mb-col-state {
 .coverflip-caption {
   position: relative;
   text-align: center;
-  top: 200px;
+  top: 195px;
 }
 /* Last reviews posted */
 .last-reviews-posted {

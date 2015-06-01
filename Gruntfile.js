@@ -16,15 +16,17 @@ module.exports = function (grunt) {
         },
         cssmin: {
             combine: {
-                files: {
-                    'public/Resources/css/share1book-min.css': ['public/Resources/css/share1book.css']
-                }
+                files:
+                	[
+                	 	{'public/Resources/css/share1book-min.css': ['public/Resources/css/share1book.css']},
+                	 	{'public/Resources/css/bootstrap.min.css': ['public/Resources/css/bootstrap.css']}
+                	 ]
             }
 
         },
         watch: {
             styles: {
-                files: [ 'public/Resources/css/**/*.less' ],
+                files: [ 'public/Resources/css/**/*.less', 'public/Resources/css/bootstrap.css' ],
                 tasks: ['less', 'cssmin']
             }
         }

@@ -89,7 +89,7 @@ class Member_IndexController extends Zend_Controller_Action {
             // If more than one book as 'being read', we need to set the javascript carousel
             if (count($allCurrentlyReadingUserBooks) > 1) {
                 $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>\n");
-                $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-currentreadings', 298, 210)});</script>\n");
+                $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-currentreadings', 270, 210)});</script>\n");
             }
             $this->view->userReading = $userReading;
 
