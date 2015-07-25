@@ -15,7 +15,7 @@ use Sb\Model\BookPage;
 class Default_BookController extends Zend_Controller_Action {
 
     public function init() {
-
+        
         /* Initialize actions called in AJAX mode */
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('get-reviews-page', 'html')->addActionContext('warn-offensive-comment', 'json')->addActionContext('warn-bad-description', 'json')->initContext();
@@ -26,92 +26,93 @@ class Default_BookController extends Zend_Controller_Action {
      */
     public function indexAction() {
         try {
-
+            
             global $globalContext;
-
-            $noBook = false;
+            
             $bookId = $this->_getParam('bid');
 
-            // Get books with same contributors
-            if ($bookId) {
-
-                // Get book page
-                /* @var $bookPage BookPage */
-                $bookPage = BookPageSvc::getInstance()->get($bookId);
-
-                if ($bookPage) {
-
-                    // Add and js files
-                    $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
-                    $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
-
-                    // Get book view and add it to view model
-                    $bookView = new BookView($bookPage->getBook(), true, true, true, $bookPage->getBooksAlsoLiked(), $bookPage->getBooksWithSameTags(), $bookPage->getReviewedUserBooks(), false, true);
-                    $this->view->bookView = $bookView;
-
-                    // Get book buttonbar and add it to view model
-                    $buttonsBar = new ButtonsBar(false);
-                    $this->view->buttonsBar = $buttonsBar;
-
-                    // Get Books with same contributors and add it to view model
-                    $this->view->sameAuthorBooks = $bookPage->getBooksWithSameAuthor();
-
-                    // We pass ASIN code to be used by amazon url builder widget
-                    $this->view->bookAsin = $bookPage->getBook()->getASIN();
-
-                    // Get fnac buy link and add it to view model
-                    $this->view->buyOnFnacLink = null;
-                    if ($bookPage->getBook()->getISBN13())
-                        $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[recherche.fnac.com/search/quick.do?text=" . $bookPage->getBook()->getISBN13() . "]]"; //
-
-                    // Get social network bar and add it to view model
-                    $socialBar = new SocialNetworksBar($bookPage->getBook()->getLargeImageUrl(), $bookPage->getBook()->getTitle());
-                    $this->view->socialBar = $socialBar->get();
-
-                    // Get ad and add it to view model
-                    $ad = new Ad("bibliotheque", "1223994660");
-                    $this->view->ad = $ad;
-
-                    // Get Header Information and add it to view model
-                    $headerInformation = HeaderInformationSvc::getInstance()->get($bookPage->getBook());
-                    $this->view->tagTitle = $headerInformation->getTitle();
-                    $this->view->metaDescription = $headerInformation->getDescription();
-                    $this->view->metaKeywords = $headerInformation->getKeywords();
-                    $this->view->urlCanonical = $headerInformation->getUrlCanonical();
-                    $this->view->pageImage = $headerInformation->getPageImage();
-
-                    // Get last read userbooks for the book and add it to view model
-                    $this->view->lastlyReadUserbooks = $bookPage->getLastlyReadUserbooks();
-
-                    if (count($this->view->lastlyReadUserbooks) > 1) {
-                        $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>\n");
-                        $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-lastUsersWhoReadThatBook', 270, 85)});</script>\n");
-                    }
-
-                    // Get chronicles and add it to view model
-                    $this->view->chronicles = $this->getChronicleView($bookPage->getRelatedChronicles());
-
-                    // Get video press review associated to book
-                    $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
-                    $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
-
-                    $video = $bookPage->getVideoPressReview();
-                    if ($video)
-                        $this->view->videoUrl = $video->getLink(); //
-
-                    // Get book press reviews
-                    $bookPressReviews = $bookPage->getPressReviews();
-                    if ($bookPressReviews) {
-                        $bookPressReviewsView = new BookPressReviews($bookPressReviews);
-                        $this->view->pressReviews = $bookPressReviewsView->get();
-                    }
-                } else
-                    $noBook = true;
-            } else
-                $noBook = true;
-
-            if ($noBook)
+            if (!$bookId) {
+                $this->getResponse()->setHttpResponseCode(404);
                 $this->forward("error", "error", "default");
+                return;
+            }
+
+            // Get book page
+            /* @var $bookPage BookPage */
+            $bookPage = BookPageSvc::getInstance()->get($bookId);
+
+            if (!$bookPage) {
+                $this->getResponse()->setHttpResponseCode(404);
+                $this->forward("error", "error", "default");
+                return;
+            }
+
+            // Add and js files
+            $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+            $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
+
+            // Get book view and add it to view model
+            $bookView = new BookView($bookPage->getBook(), true, true, true, $bookPage->getBooksAlsoLiked(), $bookPage->getBooksWithSameTags(), $bookPage->getReviewedUserBooks(), false, true);
+            $this->view->bookView = $bookView;
+
+            // Get book buttonbar and add it to view model
+            $buttonsBar = new ButtonsBar(false);
+            $this->view->buttonsBar = $buttonsBar;
+
+            // Get Books with same contributors and add it to view model
+            $this->view->sameAuthorBooks = $bookPage->getBooksWithSameAuthor();
+
+            // We pass ASIN code to be used by amazon url builder widget
+            $this->view->bookAsin = $bookPage->getBook()->getASIN();
+
+            // Get fnac buy link and add it to view model
+            $this->view->buyOnFnacLink = null;
+            if ($bookPage->getBook()->getISBN13())
+                $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[recherche.fnac.com/search/quick.do?text=" . $bookPage->getBook()->getISBN13() . "]]"; //
+
+            // Get social network bar and add it to view model
+            $socialBar = new SocialNetworksBar($bookPage->getBook()->getLargeImageUrl(), $bookPage->getBook()->getTitle());
+            $this->view->socialBar = $socialBar->get();
+
+            // Get ad and add it to view model
+            $ad = new Ad("bibliotheque", "1223994660");
+            $this->view->ad = $ad;
+
+            // Get Header Information and add it to view model
+            $headerInformation = HeaderInformationSvc::getInstance()->get($bookPage->getBook());
+            $this->view->tagTitle = $headerInformation->getTitle();
+            $this->view->metaDescription = $headerInformation->getDescription();
+            $this->view->metaKeywords = $headerInformation->getKeywords();
+            $this->view->urlCanonical = $headerInformation->getUrlCanonical();
+            $this->view->pageImage = $headerInformation->getPageImage();
+
+            // Get last read userbooks for the book and add it to view model
+            $this->view->lastlyReadUserbooks = $bookPage->getLastlyReadUserbooks();
+
+            if (count($this->view->lastlyReadUserbooks) > 1) {
+                $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/simple-carousel/simple.carousel.js' . "\"></script>\n");
+                $this->view->placeholder('footer')->append("<script>$(function() {initCarousel('carousel-lastUsersWhoReadThatBook', 298, 85)});</script>\n");
+            }
+
+            // Get chronicles and add it to view model
+            $this->view->chronicles = $this->getChronicleView($bookPage->getRelatedChronicles());
+
+            // Get video press review associated to book
+            $this->view->placeholder('footer')->append("<script src=\"" . $globalContext->getBaseUrl() . 'Resources/js/waterwheel-carousel/jquery.waterwheelCarousel.min.js' . "\"></script>\n");
+            $this->view->placeholder('footer')->append("<script>$(function () {initCoverFlip('sameAuthorBooks', 30)});</script>\n");
+
+            $video = $bookPage->getVideoPressReview();
+            if ($video)
+                $this->view->videoUrl = $video->getLink(); //
+
+            // Get book press reviews
+            $bookPressReviews = $bookPage->getPressReviews();
+            if ($bookPressReviews) {
+                $bookPressReviewsView = new BookPressReviews($bookPressReviews);
+                $this->view->pressReviews = $bookPressReviewsView->get();
+            }
+
+
         } catch ( \Exception $exc ) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $exc->getTraceAsString()));
             $this->forward("error", "error", "default");

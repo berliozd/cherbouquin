@@ -53,6 +53,10 @@ class BookPageSvc extends Service {
                 /* @var Book $book */
                 $book = BookDao::getInstance()->get($bookId);
 
+                if (!$book) {
+                    return null;
+                }
+
                 $result->setBook($book);
 
                 $booksAlsoLiked = BookSvc::getInstance()->getBooksAlsoLiked($bookId, false);
