@@ -33,8 +33,6 @@ global $globalContext;
     <meta property="og:image" content="<?php echo $this->pageImage; ?>"/>
     <?php endif; ?>
 
-    <?php echo 'IS_PROD : ' . IS_PRODUCTION;?>
-
     <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/bootstrap.min.css"/>
     <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book<?php echo(IS_PRODUCTION ? "-min" : ""); ?>.css?v=<?php echo VERSION; ?>"/>
     <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/overcast/jquery-ui-1.8.18.custom.css"/>
