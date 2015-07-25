@@ -17,10 +17,69 @@ $(function() {
         if (isVisible)
             $('#links-hover').css('display','none');
         else
-            $('#links-hover').css('display','block');        
+            $('#links-hover').css('display','block');
     });
 });
 </script>
+
+
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+            <img src="<?php echo $user->getGravatar(); ?>" />
+            <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_SETTINGS); ?>">Mes paramètres</a>
+            <a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::MY_PROFILE); ?>"><?php _e("Mon profil","s1b"); ?>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php _e("Actualités","s1b");?> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LAST_CHRONICLES); ?>"><?php _e("Chroniques","s1b");?></a></li>
+            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::PRESS_REVIEWS_IN_MEDIAS); ?>"><?php _e("Dans les medias","s1b");?></a></li>
+            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BLOGGERS_CHRONICLES); ?>"><?php _e("En direct des blogs","s1b");?></a></li>
+            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::BOOKSTORES_CHRONICLES); ?>"><?php _e("Le mot des libraires","s1b");?></a></li>
+            <li><a href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::PRESS_REVIEWS_ALL_VIDEOS); ?>"><?php _e("Toutes les vidéos","s1b");?></a></li>
+          </ul>
+        </li>
+        <li>
+            <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_HOME); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_HOME); ?>"><?php _e("A la page","");?></a></li>
+        </li>
+        <li>
+            <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_LIBRARY); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_LIBRARY, array("reset" => 1)); ?>"><?php _e("Mes livres","s1b");?></a></li>
+        </li>
+        <li>
+            <?php if ($nbPendingFriendRequests>0){ ?>
+            <span class="nu-indice"><?php echo $nbPendingFriendRequests;?></span>
+            <?php } ?>
+            <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_FRIENDS); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS); ?>"><?php _e("Mes amis","s1b");?></a></li>
+        </li>
+        <li>
+            <?php if ($nbMessagesToRead>0){ ?>
+            <span class="nu-indice"><?php echo $nbMessagesToRead;?></span>
+            <?php } ?>
+            <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_MAILBOX); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX); ?>"><?php _e("Ma messagerie","s1b");?></a>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <a class="button bt-black-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGOUT); ?>"><?php _e("Se déconnecter","s1b");?></a>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 <div id="nav-wrap">
     <div id="nav-user">
@@ -67,7 +126,9 @@ $(function() {
             </ul>
             <div class="nul-button">
                 <a class="button bt-black-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGOUT); ?>"><?php _e("Se déconnecter","s1b");?></a>
-            </div>            
+            </div>
         </div>
     </div>
+
+
 </div>

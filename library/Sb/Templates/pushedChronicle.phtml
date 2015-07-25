@@ -1,15 +1,15 @@
-<?php use Sb\Helpers\BookHelper; 
+<?php use Sb\Helpers\BookHelper;
 ?>
-<div class="chronicle">
+
     <div class="inner-padding-20">
-        <div class="chr-top">
-            <div class="chr-left">
+        <div class="row">
+            <div class="col-xs-12 col-sm-3">
                 <div class="chr-userimage">
                     <a title="<?php echo $chronicle->getUserName(); ?>" href="<?php echo $chronicle->getUserProfileLink(); ?>"> <?php echo $chronicle->getUserImage();?>
                     </a>
                 </div>
             </div>
-            <div class="chr-right">
+            <div class="col-xs-12 col-sm-9">
                 <div class="chr-head">
                     <h1><?php _e("<strong>Un jour, un livre,</strong> la chronique", "s1b"); ?></h1>
                 </div>
@@ -22,8 +22,8 @@
                 </div>
             </div>
         </div>
-        <div class="chr-bottom">
-            <div class="chr-left">
+        <div class="row">
+            <div class="col-xs-12 col-sm-3">
                 <?php if ($chronicle->getChronicleHasBook()) { ?>
                 <div class="chr-bookimage">
                     <a title="<?php echo $chronicle->getBook()->getTitle(); ?> - <?php echo $chronicle->getBook()->getOrderableContributors(); ?>"
@@ -31,7 +31,7 @@
                 </div>
                 <?php } ?>
             </div>
-            <div class="chr-right">                
+            <div class="col-xs-12 col-sm-9">
                 <div class="chr-text">
                     <?php echo $chronicle->getText(); ?>
                 </div>
@@ -47,6 +47,4 @@
                 <?php } ?>
             </div>
         </div>
-
     </div>
-</div>

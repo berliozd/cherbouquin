@@ -14,31 +14,6 @@
     box-shadow: 0 0 30px -15px #000000 inset;
 }
 
-.chronicle {
-    float: left;
-    width: 100%;
-}
-
-.chr-top {
-    float: left;
-    width: 100%;
-}
-
-.chr-bottom {
-    float: left;
-    width: 100%;
-}
-
-.chr-left {
-    float: left;
-    width: 120px;
-}
-
-.chr-right {
-    float: right;
-    width: 485px;
-}
-
 .chr-head h1 {
     font-size: 2.6em;
     font-weight: normal;
@@ -310,13 +285,13 @@
 
 .pushed-chronicles LI {
     list-style: none;
-    width: 202px;
-    margin-left: 10px;
+    vertical-align: top;    
     margin-bottom: 10px;
-    display: inline-block;
-    vertical-align: top;
-    _zoom: 1; /*offre le layout à un élément (*)*/
-    _display: inline;
+}
+@media (min-width: 768px) {
+    .pushed-chronicles LI {
+        height: 280px;
+    }
 }
 
 .pc-image {

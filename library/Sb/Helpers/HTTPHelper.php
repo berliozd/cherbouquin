@@ -115,10 +115,14 @@ class HTTPHelper {
         }
 
         $parts = explode(".", $host);
-        if (count($parts) == 2)
-            return $parts[0] . "." . $parts[1];
-        else
-            return $parts[1] . "." . $parts[2];
+        $last = end($parts);
+        $res = $last;
+        $count = 0;
+        while (($prev = prev($parts)) && $count < 1) {
+            $res = $prev . '.' . $res;
+            $count++;
+        }
+        return $res;
 
     }
 

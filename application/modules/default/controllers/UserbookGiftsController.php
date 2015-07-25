@@ -34,7 +34,7 @@ class Default_UserbookGiftsController extends Zend_Controller_Action {
                 $wishedUserbooks = $user->getNotDeletedUserBooks();
                 $wishedUserbooks = array_filter($wishedUserbooks, array(&$this, "isWished"));
 
-                // Cheking if some valid emails are passed    
+                // Cheking if some valid emails are passed
                 $emailsArray = array($emails);
                 if (strpos(",", $emails) !== 0)
                     $emailsArray = explode(",", $emails);
@@ -49,7 +49,7 @@ class Default_UserbookGiftsController extends Zend_Controller_Action {
 
                 // Building the mail content
                 $emailContent = \Sb\Helpers\MailHelper::wishedUserBooksEmailBody($user, $wishedUserbooks);
-                
+
                 // Sending mail
                 MailSvc::getInstance()->send($emails, sprintf(__("%s - Liste des livres souhaités par %s", "s1b"), Constants::SITENAME, $user->getFriendlyName()), $emailContent);
 

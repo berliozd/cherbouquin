@@ -33,6 +33,8 @@ global $globalContext;
     <meta property="og:image" content="<?php echo $this->pageImage; ?>"/>
     <?php endif; ?>
 
+    <?php echo 'IS_PROD : ' . IS_PRODUCTION;?>
+
     <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/bootstrap.min.css"/>
     <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book<?php echo(IS_PRODUCTION ? "-min" : ""); ?>.css?v=<?php echo VERSION; ?>"/>
     <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/overcast/jquery-ui-1.8.18.custom.css"/>
@@ -45,7 +47,8 @@ global $globalContext;
 
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/favicons/favicon.ico"/>
 
-    <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/bootstrap/bootstrap.min.js"></script>
 
     <meta charset="UTF-8"/>
     <meta name="language" content="fr-FR"/>
@@ -60,6 +63,9 @@ global $globalContext;
     <meta name="msvalidate.01" content="E62B545AC4DE99DA99D381175475444F"/>
     <meta name="norton-safeweb-site-verification" content="jh6la0lgxqne8t-qrkb1vtxf9tqfdhqepiff6e6qkbcv6951uvuam70bh7fp2e371h08q687xlh7v1641xjypiwmqs03aaii5sh9gwbns3hptuzhdp2mk5d-hkj4jwz7"/>
     <?php echo $this->headLink(); ?>
+
+
+
 </head>
 <body>
 
@@ -69,6 +75,39 @@ global $globalContext;
 
 <!-- Debut div page -->
 <div id="page">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Debut div header -->
     <div id="header">
         <div id="header-top">
@@ -104,7 +143,7 @@ global $globalContext;
         }
         ?>
         <!-- Debut div content-wrap -->
-        <div id="content-wrap">
+        <div id="content-wrap" class="col-xs-12">
 
             <?php echo $this->layout()->content; ?>
 

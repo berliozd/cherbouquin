@@ -16,6 +16,7 @@ class Template {
     public function __construct($file) {
         $file .= ".phtml";
         $this->file = BASE_PATH . "/library/Sb/Templates/" . $file;
+//         var_dump($this->file);
     }
 
     /**

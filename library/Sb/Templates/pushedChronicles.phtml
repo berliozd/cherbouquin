@@ -3,13 +3,11 @@
         <span><?php echo $title; ?></span>
     </div>
     <ul>
-        <?php
-        $first = true;
-        foreach ($chronicles as $chronicle) { ?>
-        <li class="<?php echo ($first ? "first" : "");?>">
+        <?php foreach ($chronicles as $chronicle) : ?>
+        <li class="col-xs-12 col-sm-4">
         	<a href="<?php echo $chronicle->getDetailLink();?>" title="<?php echo $chronicle->getTitle(); ?>">
         		<div class="pc-image" title="<?php echo $chronicle->getTitle(); ?>" style="background-image: url('<?php echo $chronicle->getImage(); ?>');">&nbsp;</div>
-        	</a>        	
+        	</a>
             <div class="pc-title">
                 <a href="<?php echo $chronicle->getDetailLink();?>" title="<?php echo $chronicle->getTitle(); ?>">
                     <?php echo $chronicle->getTitle(); ?>
@@ -19,9 +17,7 @@
                 <?php echo $chronicle->getShortenText(); ?>
             </div>
 		</li>
-        <?php
-        $first = false; 
-		} ?>
+        <?php endforeach; ?>
     </ul>
     <div class="pc-link">
         <a href="<?php echo $link;?>"><?php echo $textLink;?> ---></a>

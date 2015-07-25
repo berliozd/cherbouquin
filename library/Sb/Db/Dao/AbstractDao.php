@@ -68,20 +68,20 @@ abstract class AbstractDao {
         $models = "model,";
         $joins = null;
         $criterias = null;
-        
+
         // Parse all criterias
         foreach ($criteria as $key => $value) {
-            
+
             // Get the criteria value, int, string, model or array of models
             $criteriaValue = $value[2];
-            
+
             // Get if criteria passed is a model or an array of model
             $criteriaIsModel = $value[0];
-            
+
             // Get the 'model part' X,X,X. It will be in query right after 'Select X,X,X'
             if ($criteriaIsModel && !strpos($key, "."))
                 $models .= $key . ","; //
-                                           
+
             // Get 'join part' of Dql query
             if ($criteriaIsModel) { // Value passed is a model or an array of models
                 if (strpos($key, ".")) {
@@ -95,7 +95,7 @@ abstract class AbstractDao {
                         $joins .= " LEFT JOIN model." . $key . " " . $key . " ";
                 }
             }
-            
+
             // Get the 'criteria part' separated by AND
             $operator = $value[1];
             if (isset($criteriaValue)) {
@@ -110,19 +110,19 @@ abstract class AbstractDao {
                         $criteriaValue = $conditionValueIds;
                     } else
                         $criteriaValue = $criteriaValue->getId(); //
-                                                                      
+
                     // Transform for specific operator (like, in, not in)
                     if ($operator == "LIKE")
                         $criteriaValue = "'%" . $criteriaValue . "%'";
                     if ($operator == 'NOT IN' || $operator == 'IN')
                         $criteriaValue = "(" . $criteriaValue . ")";
-                    
+
                     if (strpos($key, "."))
                         $criterias .= str_replace(".", "_", $key) . ".id " . $operator . " " . $criteriaValue . " AND ";
                     else
                         $criterias .= $key . ".id " . $operator . " " . $criteriaValue . " AND ";
                 } else { // if the value is not a model, it is an array with first element being the operator (=, LIKE) and the second element being the value to compare
-                    
+
                     if ($operator == "LIKE" && is_array($criteriaValue)) {
                         $criterias .= "(" . $this->getLikeQuery($criteriaValue, $key) . ") AND ";
                     } else {
@@ -132,28 +132,28 @@ abstract class AbstractDao {
                             $criteriaValue = "(" . $criteriaValue . ")";
                         else
                             $criteriaValue = "'" . $criteriaValue . "'";
-                        
+
                         $criterias .= "model." . $key . " " . $operator . " " . $criteriaValue . " AND ";
                     }
                 }
             }
         }
-        
+
         // Remove the final ',' from the models string
         $models = substr($models, 0, strlen($models) - 1);
-        
+
         // Build the main dql query
         $dql = "SELECT " . $models . " FROM " . $this->entityName . " model";
-        
+
         // Add join part to dql query
         $dql .= $joins;
-        
+
         // Add criterias to dql query
         if ($criterias) {
             $criterias = substr($criterias, 0, strlen($criterias) - 5);
             $dql .= " WHERE " . $criterias;
         }
-        
+
         // Add order by part to Dql query
         if ($orderBy) {
             $orderBySql = null;
@@ -163,12 +163,12 @@ abstract class AbstractDao {
             }
             $dql .= $orderBySql;
         }
-        
+
         $query = $this->entityManager->createQuery($dql);
-        
+
         if ($maxResults)
             $query->setMaxResults($maxResults);
-        
+
         return $this->getResults($query);
     }
 
@@ -248,12 +248,12 @@ abstract class AbstractDao {
     private function getLikeQuery($words, $fieldName) {
 
         $likeWords = array();
-        
+
         foreach ($words as $word)
             $likeWords[] = " model." . $fieldName . " LIKE '%" . $word . "%' ";
-        
+
         $result = implode(" OR ", $likeWords);
-        
+
         return $result;
     }
 
