@@ -172,7 +172,8 @@ class Default_ChronicleController extends Zend_Controller_Action {
                     if ($pageNumber) { // Get chronicles from session when paging
                         $chronicles = $this->getResultsInSession($key);
                     } else { // Get chronicles from SQL without using cache and store them into session
-                        $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, null, GroupTypes::BLOGGER . "," . GroupTypes::BOOK_STORE, false, $searchTerm, null, $tagId);
+                        $chronicles = ChronicleSvc::getInstance()->getLastChronicles(100, null, null, false, $searchTerm, null, $tagId);
+
                         $this->setResultsInSession($key, $chronicles);
                     }
                     
