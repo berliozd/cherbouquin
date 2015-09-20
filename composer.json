@@ -1,0 +1,19 @@
+{
+    "name": "berliozd/chebouquin",
+    "require": {
+        "doctrine/orm": "2.3.*",
+        "zendframework/zendframework1" : "1.12.*"
+    },
+    "authors": [
+        {
+            "name": "Didier Berlioz",
+            "email": "berliozd@gmail.com"
+        }
+    ],
+    "autoload" : {
+        "classmap" : [
+            "library/Sb"
+        ]
+    }
+}
+
