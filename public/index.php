@@ -2,18 +2,20 @@
 
 // Define path to application directory
 defined('APPLICATION_PATH')
-        || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 // Define application environment
 defined('APPLICATION_ENV')
-        || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-            realpath(APPLICATION_PATH . '/../library'),
-            get_include_path(),
-        )));
+    realpath(APPLICATION_PATH . '/../vendor'),
+    realpath(APPLICATION_PATH . '/../library'),
+    get_include_path(),
+)));
 
+require_once 'autoload.php';
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
@@ -24,19 +26,11 @@ $application = new Zend_Application(
                 APPLICATION_PATH . '/configs/application.ini'
 );
 
-
 // ==========================================================
 // =========== DEBUT cherbouquin specicific code ============
 // ==========================================================
 
 require_once(APPLICATION_PATH . '/configs/share1Book-config.php');
-
-// Registering Doctrine autoload
-require_once 'Doctrine/Doctrine/ORM/Tools/Setup.php';
-Doctrine\ORM\Tools\Setup::registerAutoloadGit("Doctrine");
-
-// Init internal autloloader for loading all Sb class 
-spl_autoload_register('loadClass');
 
 // Démarrage de la session si besoin
 $session_id = session_id();
@@ -76,22 +70,6 @@ function __($stringId, $domain = "") {
 
 function _e($stringId, $domain = "") {
     echo \Sb\Helpers\LocalizationHelper::getZendTranslate()->_($stringId);
-}
-
-// Declare general autoloading function for all Sb classes
-function loadClass($name) {
-
-    $isProxy = false;
-    if (strpos($name, "Proxies\\__CG__\\") !== false)
-        $isProxy = true;
-    if ($isProxy) {
-        $prefix = "Sb\\Db\\Proxies\\__CG__";
-        $name = str_replace("Proxies\\__CG__\\", "", $name);
-        $name = $prefix . str_replace("\\", "", $name);
-    }
-    
-    require(str_replace("\\", "/", $name) . ".php");
-    return;
 }
 
 // ========================================================
