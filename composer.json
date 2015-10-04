@@ -12,7 +12,10 @@
     ],
     "autoload" : {
         "classmap" : [
-            "library/Sb"
+            "library/Sb",
+            "library/Facebook",
+            "library/GoogleBooks",
+            "library/Twitter"
         ]
     }
 }
