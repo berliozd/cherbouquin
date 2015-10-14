@@ -27,7 +27,7 @@ class Default_BookController extends Zend_Controller_Action {
     public function indexAction() {
         try {
             
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();;
             
             $bookId = $this->_getParam('bid');
 
@@ -142,7 +142,7 @@ class Default_BookController extends Zend_Controller_Action {
     }
 
     public function warnOffensiveCommentAction() {
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         $bookId = $this->_getParam('bid');
         if ($globalContext->getConnectedUser()) {
@@ -164,7 +164,7 @@ class Default_BookController extends Zend_Controller_Action {
     }
 
     public function warnBadDescriptionAction() {
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         $bookId = $this->_getParam('bid');
         if ($globalContext->getConnectedUser()) {

@@ -18,8 +18,7 @@ class BookHelper {
      * @return Config
      */
     private static function getConfig() {
-        global $globalConfig;
-        return $globalConfig;
+        return new \Sb\Config\Model\Config();
     }
 
     public static function getSmallImageTag(Book $book, $defaultImg) {

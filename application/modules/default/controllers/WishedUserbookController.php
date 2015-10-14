@@ -33,7 +33,7 @@ class Default_WishedUserbookController extends Zend_Controller_Action {
                 if (!$userBook->getActiveGiftRelated()) {
                     $userBookGift = new UserBookGift();
                     $userBookGift->setUserbook($userBook);
-                    global $globalContext;
+                    $globalContext = new \Sb\Context\Model\Context();
                     $connectedUser = $globalContext->getConnectedUser();
                     $userBookGift->setOfferer($connectedUser);
                     $userBookGift->setIs_active(true);
@@ -52,7 +52,7 @@ class Default_WishedUserbookController extends Zend_Controller_Action {
 
     public function searchListAction() {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
         
         // Check the form validity
         $form = new WishListSearchForm();
@@ -98,7 +98,7 @@ class Default_WishedUserbookController extends Zend_Controller_Action {
     private function cleanUsersList($users) {
 
         $cleanedUsers = array();
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
         
         foreach ($users as $user) {
             

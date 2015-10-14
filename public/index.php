@@ -30,22 +30,15 @@ $application = new Zend_Application(
 // =========== DEBUT cherbouquin specicific code ============
 // ==========================================================
 
-require_once(APPLICATION_PATH . '/configs/share1Book-config.php');
+defined('BASE_URL') || define('BASE_URL', '/');
+defined('BASE_PATH') || define('BASE_PATH', str_replace('public', '', dirname(__FILE__)));
+defined('VERSION') || define('VERSION', '2.9');
+
 
 // Démarrage de la session si besoin
 $session_id = session_id();
 if (empty($session_id))
     Zend_Session::start();
-
-// Set context
-$connecteUserId = \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getConnectedUserId();
-
-// Context is created without passing friend library info. These infos will be set in Controller later
-$globalContext = \Sb\Context\Model\Context::createContext($connecteUserId);
-
-// Set Config
-$globalConfig = new \Sb\Config\Model\Config();
-
 
 // Set WPLANG constant identically as in wordpress code
 $isWPLangDefined = defined('WPLANG');

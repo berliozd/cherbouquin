@@ -66,7 +66,7 @@ class Member_UserBookController extends Zend_Controller_Action {
         try {
 
             /* @var $globalContext \Sb\Context\Model\Context */
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $idUserBook = $_GET['ubid'];
             /* @var $userBook \Sb\Db\Model\UserBook */
@@ -112,7 +112,7 @@ class Member_UserBookController extends Zend_Controller_Action {
         try {
 
             /* @var $globalContext \Sb\Context\Model\Context */
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             /* @var $user Sb\Db\Model\User */
             $user = $globalContext->getConnectedUser();
@@ -187,7 +187,7 @@ class Member_UserBookController extends Zend_Controller_Action {
     public function deleteAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             if ($globalContext->getIsShowingFriendLibrary())
                 Flash::addItem(__("Vous ne pouvez pas supprimer le livre d'un ami.", "s1b"));
@@ -227,7 +227,7 @@ class Member_UserBookController extends Zend_Controller_Action {
     public function prepareAddAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             // checking if book is already in DB
             $isBookInDb = false;
@@ -304,7 +304,7 @@ class Member_UserBookController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             if ($globalContext->getIsShowingFriendLibrary())
                 Flash::addItem(__("Vous ne pouvez pas ajouter un livre à la bibliothèque d'un ami.", "s1b"));
@@ -355,8 +355,8 @@ class Member_UserBookController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
-            global $globalConfig;
+            $globalContext = new \Sb\Context\Model\Context();
+            $globalConfig = new Sb\Config\Model\Config();
 
             $tpl = new \Sb\Templates\Template("import");
 
@@ -397,7 +397,7 @@ class Member_UserBookController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $bookIdInIQS = ArrayHelper::getSafeFromArray($_GET, "bid", null);
             if ($bookIdInIQS)
@@ -444,7 +444,7 @@ class Member_UserBookController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             if ($this->validateUserInputForm()) {
 
@@ -557,7 +557,7 @@ class Member_UserBookController extends Zend_Controller_Action {
     public function borrowAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $idUserBook = $_GET['ubid'];
 

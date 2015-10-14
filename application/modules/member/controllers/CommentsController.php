@@ -19,9 +19,9 @@ class Member_CommentsController extends Zend_Controller_Action {
     public function addUserbookCommentAction() {
 
         $this->view->setEncoding('utf-8');
-        
-        global $globalContext;
-        
+
+        $globalContext = new \Sb\Context\Model\Context();
+
         $this->view->errorMessage = __("Une erreur s'est produite et votre commentaire n'a pas été posté correctement.", "s1b");
         
         if ($globalContext->getConnectedUser()) {

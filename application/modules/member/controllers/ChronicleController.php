@@ -33,7 +33,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
     public function addAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $groupId = $this->getParam("gid", null);
 
@@ -76,7 +76,6 @@ class Member_ChronicleController extends Zend_Controller_Action {
     public function updateAction() {
 
         try {
-            global $globalContext;
 
             $chronicleId = $this->getParam("cid", null);
 
@@ -116,7 +115,6 @@ class Member_ChronicleController extends Zend_Controller_Action {
     public function postAction() {
 
         try {
-            global $globalContext;
 
             // Form is not posted correctly, we redirect to the previous page
             if (!$this->getRequest()
@@ -228,7 +226,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
 
     private function setChronicleData(ChronicleForm $form, Chronicle $chronicle) {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         $book = BookDao::getInstance()->get($form->getChronicleBookId());
         $chronicle->setBook($book);
@@ -257,7 +255,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
 
     private function checkUserIsMemberOfGroup($groupId) {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         /* @var $user User */
         $user = UserDao::getInstance()->get($globalContext->getConnectedUser()
@@ -279,7 +277,7 @@ class Member_ChronicleController extends Zend_Controller_Action {
 
     private function checkUserCanEditChronicle(Chronicle $chronicle) {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         $chronicleGroupId = $chronicle->getGroup()
             ->getId();
@@ -321,7 +319,9 @@ class Member_ChronicleController extends Zend_Controller_Action {
         try {
 
             Trace::addItem("postOnFacebook");
-            global $globalContext;
+
+            $globalContext = new \Sb\Context\Model\Context();
+
             // Set facebook posts variables using a ChronicleAdapter and a PushedChronicle
             $chronicleAdapter = new ChronicleAdapter($chronicle);
             $pushedChronicle = $chronicleAdapter->getAsChronicleViewModelLight();

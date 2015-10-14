@@ -4,15 +4,11 @@ use Sb\Trace\Trace;
 class Default_UserbookController extends Zend_Controller_Action {
 
     private function getConfig() {
-
-        global $globalConfig;
-        return $globalConfig;
+        return new Sb\Config\Model\Config();
     }
 
     private function getContext() {
-
-        global $globalContext;
-        return $globalContext;
+        return new \Sb\Context\Model\Context();
     }
 
     public function init() {

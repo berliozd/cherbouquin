@@ -10,22 +10,51 @@ namespace Sb\Config\Model;
 Class Config {
 
 
-    private $tracesEnabled = SHARE1BOOK_TRACES_ENABLED;
-    private $logsEnabled = SHARE1BOOK_LOGS_ENABLED;
-    private $cacheTemplatingEnabled = SHARE1BOOK_CACHE_TEMPLATING_ENABLED;
-    private $amazonApiKey = SHARE1BOOK_AMAZON_API_KEY;
-    private $amazonSecretKey = SHARE1BOOK_AMAZON_SECRET_KEY;
-    private $amazonAssociateTag = SHARE1BOOK_AMAZON_ASSOCIATE_TAG;
-    private $googleApiKey = SHARE1BOOK_GOOGLE_API_KEY;
-    private $searchNbResultsToShow = SHARE1BOOK_NB_RESULTS_TO_SHOW;
-    private $searchNbResultsPerPage = SHARE1BOOK_NB_RESULTS_PER_PAGE;
-    private $listNbBooksPerPage = SHARE1BOOK_LIST_NB_BOOKS_PER_PAGE;
-    private $amazonNumberOfPageRequested = SHARE1BOOK_AMAZON_NB_OF_PAGE_REQUESTED;
-    private $maxImportNb = SHARE1BOOK_MAX_IMPORT_NB;
-    private $facebookApiId = SHARE1BOOK_FACEBOOK_API_ID;
-    private $facebookSecret = SHARE1BOOK_FACEBOOK_SECRET;
-    private $maximumNbUserBooksForPublic = SHARE1BOOK_MAX_NB_BOOKS_FOR_PUBLIC;
-    private $isProduction = IS_PRODUCTION;
+    private $tracesEnabled;
+    private $logsEnabled;
+    private $cacheTemplatingEnabled;
+    private $amazonApiKey;
+    private $amazonSecretKey;
+    private $amazonAssociateTag;
+    private $googleApiKey;
+    private $searchNbResultsToShow;
+    private $searchNbResultsPerPage;
+    private $listNbBooksPerPage;
+    private $amazonNumberOfPageRequested;
+    private $maxImportNb;
+    private $facebookApiId;
+    private $facebookSecret;
+    private $maximumNbUserBooksForPublic;
+    private $isProduction;
+    private $databaseParams;
+    private $apcCacheNamespace;
+
+
+    /**
+     * Config constructor.
+     */
+    public function __construct() {
+        $config = new \Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+
+        $this->databaseParams = $config->database->params;
+        $this->tracesEnabled = $config->debug->traces->enabled;
+        $this->logsEnabled = $config->debug->logs->enabled;
+        $this->cacheTemplatingEnabled = $config->performance->cache_templating->enabled;
+        $this->amazonApiKey = $config->amazon->api_key;
+        $this->amazonSecretKey = $config->amazon->secret_key;
+        $this->amazonAssociateTag = $config->amazon->associate_tag;
+        $this->googleApiKey = $config->google->api_key;
+        $this->searchNbResultsToShow = $config->search->minimum_nb_of_books_displayed;
+        $this->searchNbResultsPerPage = $config->search->nb_results_per_page;
+        $this->listNbBooksPerPage = $config->list->nb_books_per_page;
+        $this->amazonNumberOfPageRequested = $config->amazon->nb_of_page_requested;
+        $this->maxImportNb = $config->import->max;
+        $this->facebookApiId = $config->facebook->api_id;
+        $this->facebookSecret = $config->facebook->secret;
+        $this->maximumNbUserBooksForPublic = $config->general->max_nb_books_for_users;
+        $this->isProduction = (APPLICATION_ENV == "production" ? true : false);
+        $this->apcCacheNamespace = $config->apc->cache->namespace;
+    }
 
     public function getTracesEnabled() {
         return $this->tracesEnabled;
@@ -90,5 +119,20 @@ Class Config {
     public function getIsProduction() {
         return $this->isProduction;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDatabaseParams() {
+        return $this->databaseParams;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApcCacheNamespace() {
+        return $this->apcCacheNamespace;
+    }
+
 
 }

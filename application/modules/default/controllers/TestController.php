@@ -23,7 +23,7 @@ class Default_TestController extends Zend_Controller_Action {
     public function exampleAction() {
 
         try {
-            global $globalContext;
+            //global $globalContext;
 
             /* @var $chronicle Chronicle */
 

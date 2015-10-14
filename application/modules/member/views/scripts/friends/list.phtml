@@ -11,7 +11,7 @@ use Sb\Entity\Urls;
 use Sb\Entity\UserDataVisibility;
 use Sb\Db\Dao\UserBookDao;
 
-global $globalContext;
+$globalContext = new \Sb\Context\Model\Context();
 ?>
 <div id="content-wide">
     <div class="friends-list-header">

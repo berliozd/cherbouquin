@@ -13,9 +13,7 @@ class ImageHelper {
      * @return Config
      */
     private static function getConfig() {
-
-        global $globalConfig;
-        return $globalConfig;
+        return new \Sb\Config\Model\Config();
     }
 
     private static function getImageSrc($url, $defaultImg) {

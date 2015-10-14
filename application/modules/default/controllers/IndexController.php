@@ -55,7 +55,8 @@ class Default_IndexController extends Zend_Controller_Action {
     public function indexAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
+            $config = new Sb\Config\Model\Config();
 
             $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");
             $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
@@ -67,7 +68,7 @@ class Default_IndexController extends Zend_Controller_Action {
 
             $this->view->subscribeLink = HTTPHelper::Link(Urls::SUBSCRIBE);
 
-            if (IS_PRODUCTION) {
+            if ($config->getIsProduction()) {
                 $facebookFrame = new FacebookFrame();
                 $this->view->faceBookFrame = $facebookFrame->get();
 
@@ -158,7 +159,7 @@ class Default_IndexController extends Zend_Controller_Action {
     public function facebookLogAction() {
 
         try {
-            global $globalConfig;
+            $globalConfig = new Sb\Config\Model\Config();
 
             $accountDeleted = __("Votre compte a été supprimé.", "s1b");
             $home = HTTPHelper::Link("");

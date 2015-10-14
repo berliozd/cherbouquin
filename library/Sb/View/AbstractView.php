@@ -15,13 +15,11 @@ abstract class AbstractView {
      * @return Config
      */
     protected function getConfig() {
-        global $globalConfig;
-        return $globalConfig;
+        return new \Sb\Config\Model\Config();
     }
 
     protected function getContext() {
-        global $globalContext;
-        return $globalContext;
+        return new \Sb\Context\Model\Context();
     }
 
     function __construct() {

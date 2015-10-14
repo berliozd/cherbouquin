@@ -27,7 +27,7 @@ class Member_BookController extends Zend_Controller_Action {
     public function recommandAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             // getting user
             /* @var \Sb\Db\Model\User $user */
@@ -62,7 +62,7 @@ class Member_BookController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $user = $globalContext->getConnectedUser();
 

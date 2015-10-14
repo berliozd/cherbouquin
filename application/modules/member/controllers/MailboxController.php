@@ -23,9 +23,9 @@ class Member_MailboxController extends Zend_Controller_Action {
     public function indexAction() {
 
         try {
-            
-            global $globalContext;
-            
+
+            $globalContext = new \Sb\Context\Model\Context();
+
             // post for deleting messages
             if ($_POST) {
                 $messagesToDeleteIds = ArrayHelper::getSafeFromArray($_POST, 'delete', null);
@@ -70,8 +70,8 @@ class Member_MailboxController extends Zend_Controller_Action {
     public function readMessageAction() {
 
         try {
-            global $globalContext;
-            
+            $globalContext = new \Sb\Context\Model\Context();
+
             $redirect = false;
             
             $messageId = $this->_getParam('mid');
@@ -107,8 +107,8 @@ class Member_MailboxController extends Zend_Controller_Action {
     public function deleteAction() {
 
         try {
-            
-            global $globalContext;
+
+            $globalContext = new \Sb\Context\Model\Context();
             
             $messageId = ArrayHelper::getSafeFromArray($_GET, 'mid', null);
             if ($messageId) {
@@ -131,8 +131,9 @@ class Member_MailboxController extends Zend_Controller_Action {
     public function sendAction() {
 
         try {
-            
-            global $globalContext;
+
+            $globalContext = new \Sb\Context\Model\Context();
+
             $user = $globalContext->getConnectedUser();
             $friends = $user->getFriendsForEmailing();
             $nbRecipients = count($friends);
@@ -214,9 +215,9 @@ class Member_MailboxController extends Zend_Controller_Action {
     public function replyAction() {
 
         try {
-            
-            global $globalContext;
-            
+
+            $globalContext = new \Sb\Context\Model\Context();
+
             $messageId = ArrayHelper::getSafeFromArray($_GET, 'mid', null);
             
             $redirect = false;
