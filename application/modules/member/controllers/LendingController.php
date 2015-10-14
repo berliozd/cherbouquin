@@ -39,7 +39,8 @@ class Member_LendingController extends Zend_Controller_Action {
     public function editAction() {
 
         try {
-            global $globalContext;
+
+            $globalContext = new \Sb\Context\Model\Context();
 
             if ($globalContext->getIsShowingFriendLibrary()) {
                 Flash::addItem(__("You cannot edit a lending from a friend's library"));
@@ -81,8 +82,7 @@ class Member_LendingController extends Zend_Controller_Action {
     public function submitAction() {
 
         try {
-            global $globalContext;
-
+            $globalContext = new \Sb\Context\Model\Context();
 
             if ($_REQUEST['LendingType'] == "NEW") {
 

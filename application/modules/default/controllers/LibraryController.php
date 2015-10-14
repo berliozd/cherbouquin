@@ -376,15 +376,11 @@ class Default_LibraryController extends Zend_Controller_Action {
     }
 
     private function getConfig() {
-
-        global $globalConfig;
-        return $globalConfig;
+        return new Sb\Config\Model\Config();
     }
 
     private function getContext() {
-
-        global $globalContext;
-        return $globalContext;
+        return new \Sb\Context\Model\Context();
     }
 
     private function isValidBooksKey($key) {

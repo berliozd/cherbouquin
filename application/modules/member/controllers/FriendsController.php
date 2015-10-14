@@ -38,7 +38,7 @@ class Member_FriendsController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $user = $globalContext->getConnectedUser();
             $friends = $user->getAcceptedFriends();
@@ -76,7 +76,8 @@ class Member_FriendsController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
+
             $user = $globalContext->getConnectedUser();
 
             $requestFriendId = ArrayHelper::getSafeFromArray($_GET, 'fid', null);
@@ -153,7 +154,7 @@ class Member_FriendsController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $user = $globalContext->getConnectedUser();
             $friends = $user->getFriendsForEmailing();
@@ -178,7 +179,7 @@ class Member_FriendsController extends Zend_Controller_Action {
     public function showInviteFormAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $user = $globalContext->getConnectedUser();
             $this->view->user = $user;
@@ -197,7 +198,8 @@ class Member_FriendsController extends Zend_Controller_Action {
     public function inviteAction() {
 
         try {
-            global $globalContext;
+
+            $globalContext = new \Sb\Context\Model\Context();
 
             $user = $globalContext->getConnectedUser();
             $continue = true;
@@ -343,7 +345,8 @@ class Member_FriendsController extends Zend_Controller_Action {
     public function friendsOfFriendsAction() {
 
         try {
-            global $globalContext;
+
+            $globalContext = new \Sb\Context\Model\Context();
 
             $user = $globalContext->getConnectedUser();
             $friendsFriendShips = \Sb\Db\Dao\FriendShipDao::getInstance()->getFriendsFriendShips($user->getId());
@@ -422,7 +425,8 @@ class Member_FriendsController extends Zend_Controller_Action {
     public function pendingRequestsAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
+
             $user = $globalContext->getConnectedUser();
             $this->view->user = $user;
 
@@ -576,7 +580,7 @@ class Member_FriendsController extends Zend_Controller_Action {
     }
 
     private function isNotMe(User $friend) {
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
         $user = $globalContext->getConnectedUser();
         return $friend->getId() != $user->getId();
     }

@@ -21,7 +21,7 @@ class Member_ProfileController extends Zend_Controller_Action {
 
     public function editAction() {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         $user = $globalContext->getConnectedUser();
         $userSettings = $user->getSetting();
@@ -49,7 +49,7 @@ class Member_ProfileController extends Zend_Controller_Action {
 
     public function submitAction() {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
         $user = $globalContext->getConnectedUser();
         $userSettings = $user->getSetting();
 
@@ -115,7 +115,7 @@ class Member_ProfileController extends Zend_Controller_Action {
     public function indexAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
             $user = $globalContext->getConnectedUser();
             $this->view->user = $user;
             $this->view->userSettings = $user->getSetting();
@@ -129,7 +129,7 @@ class Member_ProfileController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $user = $globalContext->getConnectedUser();
             $userSettings = $user->getSetting();
@@ -152,7 +152,7 @@ class Member_ProfileController extends Zend_Controller_Action {
     public function gravatarAction() {
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             $user = $globalContext->getConnectedUser();
             $userSettings = $user->getSetting();
@@ -184,7 +184,7 @@ class Member_ProfileController extends Zend_Controller_Action {
     public function editPasswordAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             /* @var $user \Sb\Db\Model\User */
             $user = $globalContext->getConnectedUser();
@@ -209,7 +209,7 @@ class Member_ProfileController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             /* @var $user \Sb\Db\Model\User */
             $user = $globalContext->getConnectedUser();
@@ -284,7 +284,7 @@ class Member_ProfileController extends Zend_Controller_Action {
     public function settingsAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             /* @var $user \Sb\Db\Model\User */
             $user = $globalContext->getConnectedUser();
@@ -304,7 +304,7 @@ class Member_ProfileController extends Zend_Controller_Action {
 
         try {
 
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             /* @var $user \Sb\Db\Model\User */
             $user = $globalContext->getConnectedUser();

@@ -14,8 +14,7 @@ class UserBookHelper {
      * @return Config
      */
     private static function getConfig() {
-        global $globalConfig;
-        return $globalConfig;
+        return new \Sb\Config\Model\Config();
     }
 
     // $friendLibraryView : if true, then no link will be rendered

@@ -18,7 +18,16 @@ class Context {
     private static $instance;
 
     public function __construct() {
-        
+        $this->setBaseDirectory(BASE_PATH);
+        $this->setBaseUrl(BASE_URL);
+        $this->setDefaultImage(\Sb\Helpers\BookHelper::getDefaultImage());
+
+        // Set context param user
+        $userId= \Sb\Authentification\Service\AuthentificationSvc::getInstance()->getConnectedUserId();
+        if ($userId) {
+            $user = \Sb\Db\Dao\UserDao::getInstance()->get($userId);
+            $this->setConnectedUser($user);
+        }
     }
 
     /**
@@ -79,26 +88,6 @@ class Context {
 
     public function setLibraryUserId($libraryUserId) {
         $this->libraryUserId = $libraryUserId;
-    }
-
-    public static function createContext($userId) {
-
-        // Set context params except isShowingFriendLibrary and user
-        $context = new \Sb\Context\Model\Context();
-        $context->setBaseDirectory(BASE_PATH);
-        $context->setBaseUrl(BASE_URL);
-        $context->setDefaultImage(\Sb\Helpers\BookHelper::getDefaultImage());
-
-        // Set context param user
-        if ($userId) {
-            $user = \Sb\Db\Dao\UserDao::getInstance()->get($userId);
-            $context->setConnectedUser($user);
-        }
-
-        // Set the singleton for future use
-        \Sb\Context\Model\Context::setInstance($context);
-
-        return $context;
     }
 
 }

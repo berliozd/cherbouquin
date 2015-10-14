@@ -33,7 +33,7 @@ class Member_IndexController extends Zend_Controller_Action {
         // Checks is user is connected
         AuthentificationSvc::getInstance()->checkUserIsConnected();
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
         $this->context = $globalContext;
     }
 
@@ -44,7 +44,7 @@ class Member_IndexController extends Zend_Controller_Action {
     public function indexAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
 
             /* @var $connectedUser User */
             $connectedUser = $globalContext->getConnectedUser();
@@ -124,7 +124,7 @@ class Member_IndexController extends Zend_Controller_Action {
 
         try {
 
-            global $globalConfig;
+            $globalConfig = new Sb\Config\Model\Config();
 
             if (isset($_COOKIES) && array_key_exists("PHPSESSID", $_COOKIES)) {
                 unset($_COOKIES["PHPSESSID"]);

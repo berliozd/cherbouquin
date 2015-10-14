@@ -26,7 +26,7 @@ class Default_UserbookGiftController extends Zend_Controller_Action
             $userbookGift = UserBookGiftDao::getInstance()->get($id);
             if ($userbookGift) {
                 // Checking if the connected user is the offerer
-                global $globalContext;
+                $globalContext = new \Sb\Context\Model\Context();
                 $connectedUser = $globalContext->getConnectedUser();
                 if ($userbookGift->getOfferer()->getId() == $connectedUser->getId()) {
                     $userbookGift->setIs_active(false);

@@ -15,8 +15,7 @@ use Sb\Lists\BookSearch,
 class Default_BookSearchController extends Zend_Controller_Action {
 
     private function getConfig() {
-        global $globalConfig;
-        return $globalConfig;
+        return new Sb\Config\Model\Config();
     }
 
     public function init() {

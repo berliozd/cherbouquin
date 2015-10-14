@@ -26,7 +26,7 @@ class UserEvent extends \Sb\View\AbstractView {
 
     public function get() {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         $tplEvent = new \Sb\Templates\Template("userEvents/userEvent");
 

@@ -15,7 +15,7 @@ use Sb\Service\MailSvc;
 class Member_MailboxController extends Zend_Controller_Action {
 
     public function init() {
-        
+
         // Checks is user is connected
         AuthentificationSvc::getInstance()->checkUserIsConnected();
     }
@@ -23,9 +23,9 @@ class Member_MailboxController extends Zend_Controller_Action {
     public function indexAction() {
 
         try {
-            
-            global $globalContext;
-            
+
+            $globalContext = new \Sb\Context\Model\Context();
+
             // post for deleting messages
             if ($_POST) {
                 $messagesToDeleteIds = ArrayHelper::getSafeFromArray($_POST, 'delete', null);
@@ -42,16 +42,16 @@ class Member_MailboxController extends Zend_Controller_Action {
                     Flash::addItem(__("Le ou les messages ont été supprimés.", "s1b"));
                 }
             }
-            
+
             $user = $globalContext->getConnectedUser();
             $messages = MessageDao::getInstance()->getAll(array(
                     "recipient" => $user
             ), array(
                     "date" => ArrayHelper::getSafeFromArray($_GET, "sortby", "DESC")
             ));
-            
+
             $this->view->dateCSSClass = ArrayHelper::getSafeFromArray($_GET, "sortby", "DESC");
-            
+
             if ($messages && count($messages) > 0) {
                 // preparing pagination
                 $paginatedList = new PaginatedList($messages, 4);
@@ -70,10 +70,10 @@ class Member_MailboxController extends Zend_Controller_Action {
     public function readMessageAction() {
 
         try {
-            global $globalContext;
-            
+            $globalContext = new \Sb\Context\Model\Context();
+
             $redirect = false;
-            
+
             $messageId = $this->_getParam('mid');
             if ($messageId) {
                 $message = MessageDao::getInstance()->get($messageId);
@@ -93,7 +93,7 @@ class Member_MailboxController extends Zend_Controller_Action {
                 $redirect = true;
                 Flash::addItem(__("Le message que vous tentez de lire n'existe pas.", "s1b"));
             }
-            
+
             if ($redirect)
                 $this->_redirect(Urls::USER_MAILBOX);
             else
@@ -107,9 +107,9 @@ class Member_MailboxController extends Zend_Controller_Action {
     public function deleteAction() {
 
         try {
-            
-            global $globalContext;
-            
+
+            $globalContext = new \Sb\Context\Model\Context();
+
             $messageId = ArrayHelper::getSafeFromArray($_GET, 'mid', null);
             if ($messageId) {
                 $message = MessageDao::getInstance()->get($messageId);
@@ -133,21 +133,22 @@ class Member_MailboxController extends Zend_Controller_Action {
         return;
 
         try {
-            
-            global $globalContext;
+
+            $globalContext = new \Sb\Context\Model\Context();
+
             $user = $globalContext->getConnectedUser();
             $friends = $user->getFriendsForEmailing();
             $nbRecipients = count($friends);
-            
+
             if ($nbRecipients <= 0) {
                 Flash::addItem(__("Pas de destinataire possible. Vous devez ajouter des amis pour pouvoir envoyer des messages.", "s1b"));
                 HTTPHelper::redirectToReferer();
             }
-            
+
             $friendSelectionsFromPost = ArrayHelper::getSafeFromArray($_POST, 'selection', null);
             $friendSelectionsFromGet = ArrayHelper::getSafeFromArray($_GET, 'selection', null);
             $sendingMessage = ArrayHelper::getSafeFromArray($_POST, 'go', null);
-            
+
             $friendList = null;
             if ($friendSelectionsFromGet || $friendSelectionsFromPost || $sendingMessage) {
                 // coming from friend selection page
@@ -190,7 +191,7 @@ class Member_MailboxController extends Zend_Controller_Action {
                                     $message->setTitle($titleVal);
                                     $message->setMessage($messageVal);
                                     MessageDao::getInstance()->add($message);
-                                    
+
                                     // sending email if user authorized it
                                     $userSetting = $recipient->getSetting();
                                     if ($userSetting->getEmailMe() == 'Yes') {
@@ -218,11 +219,11 @@ class Member_MailboxController extends Zend_Controller_Action {
         return;
 
         try {
-            
-            global $globalContext;
-            
+
+            $globalContext = new \Sb\Context\Model\Context();
+
             $messageId = ArrayHelper::getSafeFromArray($_GET, 'mid', null);
-            
+
             $redirect = false;
             if ($messageId) {
                 $message = MessageDao::getInstance()->get($messageId);
@@ -235,13 +236,13 @@ class Member_MailboxController extends Zend_Controller_Action {
                 Flash::addItem(__("Le message auquel vous tentez de répondre n'existe pas.", "s1b"));
                 $redirect = true;
             }
-            
+
             if ($_POST) {
                 $title = htmlspecialchars($_POST['Title']);
                 $messageContent = htmlspecialchars($_POST['Message']);
                 /* test if form is not empty */
                 if (!empty($title) && !empty($messageContent)) {
-                    
+
                     // create new message in db
                     $reply = new Message();
                     $reply->setRecipient($message->getSender());
@@ -252,7 +253,7 @@ class Member_MailboxController extends Zend_Controller_Action {
                     $reply->setMessage($messageContent);
                     $reply->setIs_read(false);
                     MessageDao::getInstance()->add($reply);
-                    
+
                     if ($message->getSender()->getSetting()->getEmailMe() == 'Yes') {
                         // send a email to warn the origianl sender of the email
                         $body = MailHelper::newMessageArrivedBody($replySender->getUserName());
@@ -263,7 +264,7 @@ class Member_MailboxController extends Zend_Controller_Action {
                 } else
                     Flash::addItem(__("Vous devez renseigné le titre et le contenu du message.", "s1b"));
             }
-            
+
             if ($redirect)
                 HTTPHelper::redirect(Urls::USER_MAILBOX);
         } catch (\Exception $e) {

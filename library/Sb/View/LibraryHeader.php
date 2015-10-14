@@ -24,7 +24,7 @@ class LibraryHeader extends AbstractView {
 
     public function get() {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         $tplHeader = new Template("header");
 

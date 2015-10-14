@@ -9,7 +9,6 @@ use Sb\Db\Model\User,
 
     Sb\Db\Service\BookSvc,
     Sb\Db\Service\ChronicleSvc,
-    Sb\Db\Service\UserEventSvc,
     Sb\Db\Service\InvitationSvc,
     Sb\Db\Service\PressReviewSvc,
     Sb\Db\Service\MessageSvc,
@@ -17,14 +16,12 @@ use Sb\Db\Model\User,
     Sb\Facebook\Service\FacebookSvc,
     Sb\Authentification\Service\AuthentificationSvc,
 
-    Sb\Entity\EventTypes,
     Sb\Entity\Urls,
     Sb\Entity\PressReviewTypes,
     Sb\Entity\Constants,
     Sb\Entity\ConnexionType,
 
     Sb\View\Components\FacebookFrame,
-    Sb\View\LastReviews,
     Sb\View\PushedChronicle,
     Sb\View\BookCoverFlip,
     Sb\View\Components\TwitterWidget,
@@ -58,7 +55,8 @@ class Default_IndexController extends Zend_Controller_Action {
     public function indexAction() {
 
         try {
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
+            $config = new Sb\Config\Model\Config();
 
             $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/pressReviews.js?v=' . VERSION . "\"></script>");
             $this->view->placeholder('footer')->append("<script type=\"text/javascript\" src=\"" . BASE_URL . 'Resources/js/newsReader.js?v=' . VERSION . "\"></script>");
@@ -70,7 +68,7 @@ class Default_IndexController extends Zend_Controller_Action {
 
             $this->view->subscribeLink = HTTPHelper::Link(Urls::SUBSCRIBE);
 
-            if (IS_PRODUCTION) {
+            if ($config->getIsProduction()) {
                 $facebookFrame = new FacebookFrame();
                 $this->view->faceBookFrame = $facebookFrame->get();
 
@@ -161,7 +159,7 @@ class Default_IndexController extends Zend_Controller_Action {
     public function facebookLogAction() {
 
         try {
-            global $globalConfig;
+            $globalConfig = new Sb\Config\Model\Config();
 
             $accountDeleted = __("Votre compte a été supprimé.", "s1b");
             $home = HTTPHelper::Link("");

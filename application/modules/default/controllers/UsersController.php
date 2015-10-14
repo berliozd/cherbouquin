@@ -20,7 +20,7 @@ class Default_UsersController extends Zend_Controller_Action {
 
     public function profileAction() {
 
-        global $globalContext;
+        $globalContext = new \Sb\Context\Model\Context();
 
         // Users profile are only accessible for connected users
         AuthentificationSvc::getInstance()->checkUserIsConnected();
@@ -113,7 +113,7 @@ class Default_UsersController extends Zend_Controller_Action {
     public function wishListAction() {
         try {
             
-            global $globalContext;
+            $globalContext = new \Sb\Context\Model\Context();
             
             $user = $globalContext->getConnectedUser();
             if ($user) {

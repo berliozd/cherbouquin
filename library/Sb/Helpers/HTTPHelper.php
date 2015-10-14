@@ -14,8 +14,7 @@ class HTTPHelper {
      * @return Config
      */
     private static function getConfig() {
-        global $globalConfig;
-        return $globalConfig;
+        return new \Sb\Config\Model\Config();
     }
 
     /**
@@ -78,7 +77,9 @@ class HTTPHelper {
             $dest = $base . $pageKey;
         }
         if ($addHost) {
-            $dest = $_SERVER['HTTP_HOST'] . $dest;
+            if (array_key_exists("HTTP_HOST", $_SERVER)) {
+                $dest = $_SERVER['HTTP_HOST'] . $dest;
+            }
 
             if ($secure)
                 $dest = "https://" . $dest;

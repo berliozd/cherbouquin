@@ -14,8 +14,8 @@ use Sb\Helpers\HTTPHelper,
     Sb\View\Components\UserNavigation;
 
 
-global $globalConfig;
-global $globalContext;
+$globalConfig = new Sb\Config\Model\Config();
+$globalContext = new \Sb\Context\Model\Context();
 ?>
 <!DOCTYPE html>
 <!-- layout.html booo-->
@@ -36,7 +36,7 @@ global $globalContext;
     <?php } ?>
 
     <link type="text/css" media="screen" rel="stylesheet"
-          href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book<?php echo(IS_PRODUCTION ? "-min" : ""); ?>.css?v=<?php echo VERSION; ?>"/>
+          href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book<?php echo($globalConfig->getIsProduction() ? "-min" : ""); ?>.css?v=<?php echo VERSION; ?>"/>
 
     <link type="text/css" media="screen" rel="stylesheet"
           href="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/overcast/jquery-ui-1.8.18.custom.css"/>
