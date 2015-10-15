@@ -71,7 +71,9 @@ class Default_BookController extends Zend_Controller_Action {
                 $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[recherche.fnac.com/search/quick.do?text=" . $bookPage->getBook()->getISBN13() . "]]"; //
 
             // Get social network bar and add it to view model
-            $socialBar = new SocialNetworksBar($bookPage->getBook()->getLargeImageUrl(), $bookPage->getBook()->getTitle());
+            $socialBar = new SocialNetworksBar($bookPage->getBook()->getLargeImageUrl(),
+                $bookPage->getBook()->getTitle(),
+                $this->getRequest());
             $this->view->socialBar = $socialBar->get();
 
             // Get ad and add it to view model

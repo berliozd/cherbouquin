@@ -14,7 +14,36 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
+defined('BASE_URL') || define('BASE_URL', '/');
+defined('BASE_PATH') || define('BASE_PATH', str_replace('tests', '', dirname(__FILE__)));
+defined('VERSION') || define('VERSION', '2.9');
+
 require_once 'autoload.php';
-//require_once 'Zend/Loader/Autoloader.php';
-//
-//Zend_Loader_Autoloader::getInstance();
+
+
+// Set WPLANG constant identically as in wordpress code
+$isWPLangDefined = defined('WPLANG');
+if (!$isWPLangDefined) {
+    if (isset($_GET['lang'])) {
+        $_SESSION['WPLANG'] = $_GET['lang'];
+        define('WPLANG', $_SESSION['WPLANG']);
+    } else {
+        if (isset($_SESSION['WPLANG'])) {
+            define('WPLANG', $_SESSION['WPLANG']);
+            $_GET['lang'] = $_SESSION['WPLANG'];
+        } else {
+            define('WPLANG', 'fr_FR');
+        }
+    }
+}
+
+// Declare localization functions used in all pages and codes
+function __($stringId, $domain = "") {
+    return \Sb\Helpers\LocalizationHelper::getZendTranslate()->_($stringId);
+}
+
+function _e($stringId, $domain = "") {
+    echo \Sb\Helpers\LocalizationHelper::getZendTranslate()->_($stringId);
+}
+
+

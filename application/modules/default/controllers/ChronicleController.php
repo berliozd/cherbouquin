@@ -61,7 +61,7 @@ class Default_ChronicleController extends Zend_Controller_Action {
                 $this->incrementChronicleNbViews($chroniclePage->getChronicle()->getId());
                 
                 // Add main chronicle view model to model view
-                $chronicleView = new ChronicleDetail($chroniclePage->getChronicleViewModel());
+                $chronicleView = new ChronicleDetail($this->getRequest(), $chroniclePage->getChronicleViewModel());
                 $this->view->chronicle = $chronicleView->get();
                 
                 // Get similar chronicles (with same tag or with similar keywords) and add it to model view
