@@ -14,14 +14,22 @@ class EntityHelper {
 
     public static function compareBy($entity1, $entity2, $direction, $sortingFunction) {
 
-        $val1 = strtoupper(call_user_func(array(
-                &$entity1,
-                $sortingFunction
-        )));
-        $val2 = strtoupper(call_user_func(array(
-                &$entity2,
-                $sortingFunction
-        )));
+        $val1 = call_user_func(array(
+            &$entity1,
+            $sortingFunction
+        ));
+        if (is_string($val1)) {
+            $val1 = strtoupper($val1);
+        }
+
+        $val2 = call_user_func(array(
+            &$entity2,
+            $sortingFunction
+        ));
+        if (is_string($val2)) {
+            $val2 = strtoupper($val2);
+        }
+
         if ($val1 == $val2) {
             return 0;
         }
