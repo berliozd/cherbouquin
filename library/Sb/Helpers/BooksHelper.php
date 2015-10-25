@@ -2,7 +2,6 @@
 
 namespace Sb\Helpers;
 
-use \Sb\Helpers\EntityHelper;
 /**
  * @author Didier
  */
@@ -15,19 +14,17 @@ class BooksHelper {
     const PICTO_BORROWED_ONCE = "PICTO_WAS_BORROWED";
     const PICTO_LENDING = "PICTO_LENDING";
     const PICTO_RETURN_TO_VALIDATE = "PICTO_RETURN_TO_VALIDATE";
-//    const DESC = "DESC";
-//    const ASC = "ASC";
     const SORTING_FIELD_TITLE = "title";
     const SORTING_FIELD_AUTHOR = "author";
     const SORTING_FIELD_RATING = "rating";
     const SORTING_FIELD_STATE = "state";
+    const SORTING_FIELD_PUBLISHING_DATE = "publishing_date";
 
     private static $searchValue;
     private static $filteringValue;
     private static $filteringType;
 
     public static function sort(&$books, \Sb\Lists\Sorting $sorting) {
-//        var_dump($sorting);
         $className = get_class();
         $sortingField = $sorting->getField();
         $sortingDirection = $sorting->getDirection();
@@ -80,21 +77,20 @@ class BooksHelper {
                         break;
                 }
                 break;
+            case self::SORTING_FIELD_PUBLISHING_DATE:
+                switch ($sortingDirection) {
+                    case EntityHelper::ASC:
+                        \Sb\Trace\Trace::addItem($className . "::compareByPublishingDateAsc");
+                        usort($books, $className . "::compareByPublishingDateAsc");
+                        break;
+                    case EntityHelper::DESC:
+                        \Sb\Trace\Trace::addItem($className . "::compareByPublishingDateDesc");
+                        usort($books, $className . "::compareByPublishingDateDesc");
+                        break;
+                }
+                break;
         }
     }
-
-//    public static function compareBy(\Sb\Db\Model\Model $book1, \Sb\Db\Model\Model $book2, $direction, $sortingFunction) {
-//        $val1 = strtoupper(call_user_func(array(&$book1, $sortingFunction)));
-//        $val2 = strtoupper(call_user_func(array(&$book2, $sortingFunction)));
-//        if ($val1 == $val2) {
-//            return 0;
-//        }
-//        if ($direction == EntityHelper::ASC) {
-//            return ($val1 < $val2) ? -1 : 1;
-//        } else {
-//            return ($val1 > $val2) ? -1 : 1;
-//        }
-//    }
 
     public static function compareByTitleAsc(\Sb\Db\Model\UserBook $book1, \Sb\Db\Model\UserBook $book2) {
         return EntityHelper::compareBy($book1->getBook(), $book2->getBook(), EntityHelper::ASC, "getTitle");
@@ -126,6 +122,14 @@ class BooksHelper {
 
     public static function compareByStateAsc(\Sb\Db\Model\UserBook $book1, \Sb\Db\Model\UserBook $book2) {
         return EntityHelper::compareBy($book1->getReadingState(), $book2->getReadingState(), EntityHelper::ASC, "getId");
+    }
+
+    public static function compareByPublishingDateAsc(\Sb\Db\Model\Book $book1, \Sb\Db\Model\Book $book2) {
+        return EntityHelper::compareBy($book1, $book2, EntityHelper::ASC, "getPublishingDate");
+    }
+
+    public static function compareByPublishingDateDesc(\Sb\Db\Model\Book $book1, \Sb\Db\Model\Book $book2) {
+        return EntityHelper::compareBy($book1, $book2, EntityHelper::DESC, "getPublishingDate");
     }
 
     public static function getStatusPicto($pictoType) {

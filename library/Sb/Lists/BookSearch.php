@@ -2,10 +2,13 @@
 
 namespace Sb\Lists;
 
+use Sb\Helpers\BooksHelper;
+use Sb\Helpers\EntityHelper;
+
 class BookSearch {
 
     const SEARCH_BOOK_KEY = 'searchBook';
-    
+
     private $allResults = null;
     private $hasResults = false;
     private $list;
@@ -66,7 +69,7 @@ class BookSearch {
                     if (!$amazonResults)
                         $amazonResults = $this->getAmazonResults($searchTerm, $amazonApiKey, $amazonSecretKey, $amazonAssociateTag, $amazonNumberOfPageRequested, 'US');
                 }
-                
+
                 // si des résultats ont été trouvés avec Amazon
                 // si des résultats avaient été trouvés dans la base
                 // ==> ils doivent être mergés ensemble
@@ -81,6 +84,13 @@ class BookSearch {
                 } elseif ($amazonResults) {
                     $this->allResults = $amazonResults;
                 }
+
+                // Sort books by publishing date desc
+                $sorting = new Sorting();
+                $sorting->setDirection(EntityHelper::DESC);
+                $sorting->setField('publishing_date');
+                BooksHelper::sort($this->allResults, $sorting);
+
             } catch (\Exception $exc) {
                 \Sb\Trace\Trace::addItem(sprintf("Une erreur s'est produite lors de l'appel à l'api amazon : %s", $exc->getMessage()));
             }
@@ -119,20 +129,20 @@ class BookSearch {
             // recherche faite sur le code isbn10
             if (strlen($searchTerm) == 10) {
                 $tmpAmazonResults = $amazonService->itemSearch(
+                    array('SearchIndex' => 'Books',
+                        'AssociateTag' => $amazonAssociateTag,
+                        'ResponseGroup' => $responsesGroups,
+                        'Power' => 'isbn:' . $searchTerm,
+                        //'Version' => $version,
+                        'ItemPage' => $itemPageNum));
+                if (!$tmpAmazonResults || $tmpAmazonResults->totalResults() == 0) {
+                    $tmpAmazonResults = $amazonService->itemSearch(
                         array('SearchIndex' => 'Books',
                             'AssociateTag' => $amazonAssociateTag,
                             'ResponseGroup' => $responsesGroups,
-                            'Power' => 'isbn:' . $searchTerm,
+                            'Power' => 'asin:' . $searchTerm,
                             //'Version' => $version,
                             'ItemPage' => $itemPageNum));
-                if (!$tmpAmazonResults || $tmpAmazonResults->totalResults() == 0) {
-                    $tmpAmazonResults = $amazonService->itemSearch(
-                            array('SearchIndex' => 'Books',
-                                'AssociateTag' => $amazonAssociateTag,
-                                'ResponseGroup' => $responsesGroups,
-                                'Power' => 'asin:' . $searchTerm,
-                                //'Version' => $version,
-                                'ItemPage' => $itemPageNum));
                 }
             }
 
@@ -140,12 +150,12 @@ class BookSearch {
             // recherche faite sur le mot clé
             if (!$tmpAmazonResults || $tmpAmazonResults->totalResults() == 0) {
                 $tmpAmazonResults = $amazonService->itemSearch(
-                        array('SearchIndex' => 'Books',
-                            'AssociateTag' => $amazonAssociateTag,
-                            'ResponseGroup' => $responsesGroups,
-                            'Keywords' => $searchTerm,
-                            //'Version' => $version,
-                            'ItemPage' => $itemPageNum));
+                    array('SearchIndex' => 'Books',
+                        'AssociateTag' => $amazonAssociateTag,
+                        'ResponseGroup' => $responsesGroups,
+                        'Keywords' => $searchTerm,
+                        //'Version' => $version,
+                        'ItemPage' => $itemPageNum));
             }
 
             $amazonResults = $tmpAmazonResults;
@@ -160,8 +170,8 @@ class BookSearch {
                     // and ISBN10, ISBN13 or ASIN is set                    
                     if (count($result->getContributors()) > 0) {
                         if ($result->getISBN10() || $result->getISBN13() || $result->getASIN())
-                        $booksFromAmazon[$result->getISBN10()] = $result;
-                    }                    
+                            $booksFromAmazon[$result->getISBN10()] = $result;
+                    }
                 }
             }
         }
