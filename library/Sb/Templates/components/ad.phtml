@@ -1,16 +1,23 @@
 <?php
 
 $rand = rand(0, 4);
-$ad1 = new \Sb\Templates\Template(("ads/fnac01_ActuLivresEbooks"));
-$ad2 = new \Sb\Templates\Template(("ads/fnac02_Kobo"));
-$ad3 = new \Sb\Templates\Template(("ads/fnac03_LivresEbooksBD"));
-$ad4 = new \Sb\Templates\Template(("ads/fnac04_LivresEbooksEbooks"));
+//$ad1 = new \Sb\Templates\Template(("ads/fnac01_ActuLivresEbooks"));
+//$ad2 = new \Sb\Templates\Template(("ads/fnac02_Kobo"));
+//$ad3 = new \Sb\Templates\Template(("ads/fnac03_LivresEbooksBD"));
+//$ad4 = new \Sb\Templates\Template(("ads/fnac04_LivresEbooksEbooks"));
 $ad5 = new \Sb\Templates\Template(("ads/amazon01"));
+$ad6 = new \Sb\Templates\Template(("ads/fnac"));
 
-$ads = array($ad1->output(),
-    $ad2->output(),
-    $ad3->output(),
+//$ads = array($ad1->output(),
+//    $ad2->output(),
+//    $ad3->output(),
+//    $ad4->output(),
+//    $ad5->output());
+
+$ads = array(
     $ad4->output(),
-    $ad5->output());
-//echo $ads[$rand];
-echo $ad5->output();
+    $ad5->output()
+);
+
+echo $ads[$rand];
+//echo $ad5->output();
