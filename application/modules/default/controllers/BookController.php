@@ -12,10 +12,11 @@ use Sb\View\PushedChronicles;
 use Sb\View\BookPressReviews;
 use Sb\Service\BookPageSvc;
 use Sb\Model\BookPage;
+
 class Default_BookController extends Zend_Controller_Action {
 
     public function init() {
-        
+
         /* Initialize actions called in AJAX mode */
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('get-reviews-page', 'html')->addActionContext('warn-offensive-comment', 'json')->addActionContext('warn-bad-description', 'json')->initContext();
@@ -28,7 +29,7 @@ class Default_BookController extends Zend_Controller_Action {
         try {
 
             global $globalContext;
-            
+
             $bookId = $this->_getParam('bid');
 
             if (!$bookId) {
@@ -67,8 +68,10 @@ class Default_BookController extends Zend_Controller_Action {
 
             // Get fnac buy link and add it to view model
             $this->view->buyOnFnacLink = null;
-            if ($bookPage->getBook()->getISBN13())
-                $this->view->buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[recherche.fnac.com/search/quick.do?text=" . $bookPage->getBook()->getISBN13() . "]]"; //
+            if ($bookPage->getBook()->getISBN13()) {
+                $this->view->buyOnFnacLink = 'http://track.effiliation.com/servlet/effi.redir?id_compteur=13362685&url=http%3A%2F%2Frecherche.fnac.com%2FSearchResult%2FResultList.aspx%3FSCat%3D2%211%26Search%3D'
+                    . $bookPage->getBook()->getISBN13() . '%26Origin%3Deffinity1395061830';
+            }
 
             // Get social network bar and add it to view model
             $socialBar = new SocialNetworksBar($bookPage->getBook()->getLargeImageUrl(), $bookPage->getBook()->getTitle());
@@ -113,7 +116,7 @@ class Default_BookController extends Zend_Controller_Action {
             }
 
 
-        } catch ( \Exception $exc ) {
+        } catch (\Exception $exc) {
             Trace::addItem(sprintf("Une erreur s'est produite dans \"%s->%s\", TRACE : %s\"", get_class(), __FUNCTION__, $exc->getTraceAsString()));
             $this->forward("error", "error", "default");
         }
@@ -125,13 +128,13 @@ class Default_BookController extends Zend_Controller_Action {
     public function getReviewsPageAction() {
         $bid = $this->_getParam('key');
         $pageId = $this->_getParam('param');
-        
+
         $book = Sb\Db\Dao\BookDao::getInstance()->get($bid);
         $userBooks = $book->getNotDeletedUserBooks();
         $reviewedUserBooks = array_filter($userBooks, array(
-                &$this, "isReviewed"
+            &$this, "isReviewed"
         ));
-        
+
         $nbOfReviewsPerPage = 5;
         if ($reviewedUserBooks && count($reviewedUserBooks) > 0) {
             $paginatedList = new \Sb\Lists\PaginatedList($reviewedUserBooks, $nbOfReviewsPerPage, 'pagenumber', $pageId);
@@ -143,16 +146,16 @@ class Default_BookController extends Zend_Controller_Action {
 
     public function warnOffensiveCommentAction() {
         global $globalContext;
-        
+
         $bookId = $this->_getParam('bid');
         if ($globalContext->getConnectedUser()) {
             if ($bookId) {
-                
+
                 $userId = $globalContext->getConnectedUser()->getId();
-                
+
                 $mailSvc = MailSvc::getNewInstance(null, $globalContext->getConnectedUser()->getEmail());
                 $body = "Un commentaire injurieux a été signalé pour le livre $bookId par l'utilisateur $userId";
-                
+
                 if ($mailSvc->send(Constants::WEBMASTER_EMAIL, "signalisation de commentaire injurieux", $body))
                     $this->view->message = __("Le commentaire injurieux a été signalé à l'administrateur du site.", "s1b");
                 else
@@ -165,16 +168,16 @@ class Default_BookController extends Zend_Controller_Action {
 
     public function warnBadDescriptionAction() {
         global $globalContext;
-        
+
         $bookId = $this->_getParam('bid');
         if ($globalContext->getConnectedUser()) {
             if ($bookId) {
-                
+
                 $userId = $globalContext->getConnectedUser()->getId();
-                
+
                 $mailSvc = MailSvc::getNewInstance(null, $globalContext->getConnectedUser()->getEmail());
                 $body = "Une description erronée a été signalée pour le livre $bookId par l'utilisateur $userId";
-                
+
                 if ($mailSvc->send(Constants::WEBMASTER_EMAIL, "Signalisation de description erronée", $body))
                     $this->view->message = __("L'administrateur du site a été averti. Nous vous remerçions pour votre aide", "s1b");
                 else
