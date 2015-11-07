@@ -43,9 +43,13 @@ class WishedUserBook extends AbstractView {
         }
         $bookDescription = $this->book->getDescription();
         $buyOnAmazonLink = $this->book->getAmazonUrl();
+
         $buyOnFnacLink = null;
-        if ($this->book->getISBN13())
-            $buyOnFnacLink = "http://ad.zanox.com/ppc/?23404800C471235779T&ULP=[[recherche.fnac.com/search/quick.do?text=" . $this->book->getISBN13() . "]]";
+        if ($this->book->getISBN13()) {
+            $buyOnFnacLink = 'http://track.effiliation.com/servlet/effi.redir?id_compteur=13362685&url=http%3A%2F%2Frecherche.fnac.com%2FSearchResult%2FResultList.aspx%3FSCat%3D2%211%26Search%3D'
+                . $this->book->getISBN13() . '%26Origin%3Deffinity1395061830';
+        }
+
         $setAsOfferedLink = HTTPHelper::Link(Urls::WISHED_USERBOOK_SET_AS_OFFERED, array("ubid" => $this->userbook->getId()));
         $subscribeLink = HTTPHelper::Link(Urls::SUBSCRIBE);
 
