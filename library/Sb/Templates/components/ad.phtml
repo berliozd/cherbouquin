@@ -1,6 +1,6 @@
 <?php
 
-$rand = rand(0, 4);
+$rand = rand(0, 1);
 //$ad1 = new \Sb\Templates\Template(("ads/fnac01_ActuLivresEbooks"));
 //$ad2 = new \Sb\Templates\Template(("ads/fnac02_Kobo"));
 //$ad3 = new \Sb\Templates\Template(("ads/fnac03_LivresEbooksBD"));
@@ -15,8 +15,8 @@ $ad6 = new \Sb\Templates\Template(("ads/fnac"));
 //    $ad5->output());
 
 $ads = array(
-    $ad4->output(),
-    $ad5->output()
+    $ad5->output(),
+    $ad6->output()
 );
 
 echo $ads[$rand];
