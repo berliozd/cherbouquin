@@ -28,6 +28,10 @@ Class Config {
     private $isProduction;
     private $databaseParams;
     private $apcCacheNamespace;
+    private $twitterConsummerKey;
+    private $twitterConsummerSecret;
+    private $twitterAuthToken;
+    private $twitterAuthTokenSecret;
 
 
     /**
@@ -54,6 +58,10 @@ Class Config {
         $this->maximumNbUserBooksForPublic = $config->general->max_nb_books_for_users;
         $this->isProduction = (APPLICATION_ENV == "production" ? true : false);
         $this->apcCacheNamespace = $config->apc->cache->namespace;
+        $this->twitterConsummerKey = $config->twitter->consumer_key;
+        $this->twitterConsummerSecret = $config->twitter->consumer_secret;
+        $this->twitterAuthToken = $config->twitter->oauth_token;
+        $this->twitterAuthTokenSecret = $config->twitter->oauth_token_secret;
     }
 
     public function getTracesEnabled() {
@@ -134,5 +142,32 @@ Class Config {
         return $this->apcCacheNamespace;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTwitterConsummerSecret() {
+        return $this->twitterConsummerSecret;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitterConsummerKey() {
+        return $this->twitterConsummerKey;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitterAuthToken() {
+        return $this->twitterAuthToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitterAuthTokenSecret() {
+        return $this->twitterAuthTokenSecret;
+    }
 
 }

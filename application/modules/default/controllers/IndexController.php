@@ -41,7 +41,8 @@ use Sb\Db\Model\User,
     Sb\Helpers\UserSettingHelper,
     Sb\Helpers\MailHelper,
 
-    Sb\Adapter\ChronicleListAdapter;
+    Sb\Adapter\ChronicleListAdapter,
+    Sb\Service\TwitterSvc;
 
 class Default_IndexController extends Zend_Controller_Action {
 
@@ -75,7 +76,7 @@ class Default_IndexController extends Zend_Controller_Action {
                 $ad = new Ad("user_login", "0457389056");
                 $this->view->ad = $ad->get();
 
-                $twitter = new TwitterWidget();
+                $twitter = new TwitterWidget(TwitterSvc::getInstance($config));
                 $this->view->twitter = $twitter->get();
 
                 $googlePlus = new GooglePlus();

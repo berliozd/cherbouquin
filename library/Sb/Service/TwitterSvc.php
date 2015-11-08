@@ -11,9 +11,12 @@ class TwitterSvc extends Service {
     const CONTENT = "CONTENT";
 
     private static $instance;
+    /* @var \Sb\Config\Model\Config $config */
+    private $config;
 
-    protected function __construct() {
+    protected function __construct($config) {
 
+        $this->config = $config;
         parent::__construct("Twitter");
     }
 
@@ -21,10 +24,10 @@ class TwitterSvc extends Service {
      *
      * @return TwitterSvc
      */
-    public static function getInstance() {
+    public static function getInstance($config) {
 
         if (!self::$instance)
-            self::$instance = new TwitterSvc();
+            self::$instance = new TwitterSvc($config);
         return self::$instance;
     }
 
@@ -35,11 +38,11 @@ class TwitterSvc extends Service {
             $content = $this->getData($dataKey);
             if ($content === false) {
                 require_once ('Twitter/twitteroauth.php');
-                $consumer_key = '12cHf5Xj6VybkZxf8JsXQ';
-                $consumer_secret = 'zb7tYe0fACKMULaGBPkrnT9De6qef7iulBkfdSqE';
-                $oauth_token = '420353564-IU7k6sDvko07kwLZ9Z2FNVOB4dkJ6fPOpO9bGYDk';
-                $oauth_token_secret = 'XXpAsdDB2qPiKJNlpZZ1wQ25Ky5KtepjjJGqmt1qNY';
-                
+                $consumer_key = $this->config->getTwitterConsummerKey();
+                $consumer_secret = $this->config->getTwitterConsummerSecret();
+                $oauth_token = $this->config->getTwitterAuthToken();
+                $oauth_token_secret = $this->config->getTwitterAuthTokenSecret();
+
                 /* Create a TwitterOauth object with consumer/user tokens. */
                 $connection = new \TwitterOAuth($consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret);
                 
