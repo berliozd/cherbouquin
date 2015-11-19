@@ -130,6 +130,8 @@ class Member_MailboxController extends Zend_Controller_Action {
 
     public function sendAction() {
 
+        return;
+
         try {
 
             $globalContext = new \Sb\Context\Model\Context();
@@ -213,6 +215,8 @@ class Member_MailboxController extends Zend_Controller_Action {
     }
 
     public function replyAction() {
+
+        return;
 
         try {
 
