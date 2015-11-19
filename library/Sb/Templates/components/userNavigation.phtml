@@ -60,10 +60,10 @@ $(function() {
                     <?php } ?>
                     <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_FRIENDS); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS); ?>"><?php _e("Mes amis","s1b");?></a></li>
                 <li>
-                    <?php if ($nbMessagesToRead>0){ ?>
-                    <span class="nu-indice"><?php echo $nbMessagesToRead;?></span>
-                    <?php } ?>
-                    <a class="<?php echo cssSelected(\Sb\Entity\Urls::USER_MAILBOX); ?>" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX); ?>"><?php _e("Ma messagerie","s1b");?></a></li>
+<!--                    --><?php //if ($nbMessagesToRead>0){ ?>
+<!--                    <span class="nu-indice">--><?php //echo $nbMessagesToRead;?><!--</span>-->
+<!--                    --><?php //} ?>
+<!--                    <a class="--><?php //echo cssSelected(\Sb\Entity\Urls::USER_MAILBOX); ?><!--" href="--><?php //echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::USER_MAILBOX); ?><!--">--><?php //_e("Ma messagerie","s1b");?><!--</a></li>-->
             </ul>
             <div class="nul-button">
                 <a class="button bt-black-m" href="<?php echo \Sb\Helpers\HTTPHelper::Link(\Sb\Entity\Urls::LOGOUT); ?>"><?php _e("Se déconnecter","s1b");?></a>
