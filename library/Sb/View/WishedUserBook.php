@@ -46,8 +46,8 @@ class WishedUserBook extends AbstractView {
 
         $buyOnFnacLink = null;
         if ($this->book->getISBN13()) {
-            $buyOnFnacLink = 'http://track.effiliation.com/servlet/effi.redir?id_compteur=13362685&url=http%3A%2F%2Frecherche.fnac.com%2FSearchResult%2FResultList.aspx%3FSCat%3D2%211%26Search%3D'
-                . $this->book->getISBN13() . '%26Origin%3Deffinity1395061830';
+            $buyOnFnacLink = 'http://clic.reussissonsensemble.fr/click.asp?ref=751772&site=14485&type=text&tnb=3&diurl=http%3A%2F%2Feultech.fnac.com%2Fdynclick%2Ffnac%2F%3Feseg-name%3DaffilieID%26eseg-item%3D%24ref%24%26eaf-publisher%3DAFFILINET%26eaf-name%3Dg%3Fn%3Frique%26eaf-creative%3D%24affmt%24%26eaf-creativetype%3D%24affmn%24%26eurl%3Dhttp%253A%252F%252Frecherche.fnac.com%252FSearchResult%252FResultList.aspx%253FSCat%253D0%2525211%2526Search%253D'
+                . $this->book->getISBN13() . '%2526Origin%253Daffilinet%2524ref%2524';
         }
 
         $setAsOfferedLink = HTTPHelper::Link(Urls::WISHED_USERBOOK_SET_AS_OFFERED, array("ubid" => $this->userbook->getId()));
