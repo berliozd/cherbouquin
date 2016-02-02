@@ -4,6 +4,7 @@
 
 /.project
 /application/configs/share1Book-config.php
+/application/configs/application.ini
 
 /.settings
 
