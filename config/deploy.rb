@@ -23,7 +23,7 @@ set :branch, 'v1.5'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('application/configs/application.ini')
+set :linked_files, fetch(:linked_files, []).push('application/configs/application.ini', 'public/.htaccess')
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('public/CGU', 'public/images', 'public/newsletter', 'static-files', 'var/cache', 'var/log')
