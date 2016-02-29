@@ -2007,72 +2007,84 @@ A.utc-bottom-link:visited {
   padding-left: 23px;
 }
 /* book-search */
-.bs-button {
+.book-search .bs-button {
   float: right;
 }
-.bs-nav {
+.book-search .bs-nav {
   background-color: #DEDFDF;
   float: left;
   width: 100%;
   padding: 5px 0;
 }
-.bs-header-nav {
+.book-search .bs-header-nav {
   border-bottom: 1px solid #FFF;
   border-radius: 10px 10px 0 0;
 }
-.bsn-resume {
+.book-search .bsn-resume {
   float: left;
 }
-.bsr-header {
+.book-search .bsr-header {
   background-color: #EFEFEF;
   float: left;
   width: 100%;
 }
-.bsrh-title {
+.book-search .bsrh-title {
   float: left;
   width: 55%;
 }
-.bsrh-author {
+.book-search .bsrh-author {
   float: left;
   width: 30%;
 }
-.bsrh-button {
+.book-search .bsrh-button {
   float: left;
   width: 15%;
 }
-.bsr-line {
+.book-search .bsr-line {
   float: left;
   width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 }
-.bsr-line .link,
-.bsr-line .link:hover {
+.book-search .bsr-line .link,
+.book-search .bsr-line .link:hover {
   font-size: 12px;
   text-align: right;
   text-decoration: underline;
   text-transform: none;
 }
-.bsl-title {
+.book-search .bsr-line.indb .bslt-desc .title {
+  text-decoration: underline;
+}
+.book-search .bsr-line .bsl-title,
+.book-search .bsr-line .bsl-author,
+.book-search .bsr-line .bsl-button {
+  min-height: 100%;
+}
+.book-search .bsr-line .bsl-title {
   float: left;
-  width: 55%;
+  width: 70%;
+  padding-right: 2%;
   background: url("../images/book-search-vertical-sep.png") no-repeat scroll right top transparent;
 }
-.bslt-image {
+.book-search .bsr-line .bsl-title .bslt-image {
   float: left;
   margin-right: 15px;
 }
-.bslt-desc .title {
+.book-search .bsr-line .bsl-title .bslt-desc .title {
   font-weight: bold;
 }
-.bslt-desc .publisher {
+.book-search .bsr-line .bsl-title .bslt-desc .publisher {
   font-weight: bold;
 }
-.bsl-author {
+.book-search .bsr-line .bsl-author {
+  padding-left: 2%;
   float: left;
-  width: 30%;
+  width: 10%;
   background: url("../images/book-search-vertical-sep.png") no-repeat scroll right top transparent;
   font-weight: bold;
 }
-.bsl-button {
+.book-search .bsr-line .bsl-button {
   float: left;
   width: 15%;
 }
