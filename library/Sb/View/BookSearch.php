@@ -2,12 +2,17 @@
 
 namespace Sb\View;
 
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\StringHelper;
+use Sb\Templates\Template;
+
 /**
  * Description of Sp_View_BookSearch
  *
  * @author Didier
  */
-class BookSearch extends \Sb\View\AbstractView {
+class BookSearch extends AbstractView
+{
 
     private $shownResults;
     private $pagerLinks;
@@ -15,7 +20,8 @@ class BookSearch extends \Sb\View\AbstractView {
     private $lastItemIdx;
     private $nbItemsTot;
 
-    function __construct($shownResults, $pagerLinks, $firstItemIdx, $lastItemIdx, $nbItemsTot) {
+    function __construct($shownResults, $pagerLinks, $firstItemIdx, $lastItemIdx, $nbItemsTot)
+    {
         parent::__construct();
         $this->shownResults = $shownResults;
         $this->pagerLinks = $pagerLinks;
@@ -24,7 +30,11 @@ class BookSearch extends \Sb\View\AbstractView {
         $this->nbItemsTot = $nbItemsTot;
     }
 
-    public function get() {
+    /**
+     * @return mixed|string
+     */
+    public function get()
+    {
         $lineIdx = 0;
         foreach (array_values($this->shownResults) as $book) {
             $lineIdx++;
@@ -37,7 +47,6 @@ class BookSearch extends \Sb\View\AbstractView {
 
             $language = urlencode($bk->getLanguage());
 
-            $imgSrc = "";
             if ($bk->getImageUrl()) {
                 $imgSrc = $bk->getImageUrl();
             } else {
@@ -57,7 +66,7 @@ class BookSearch extends \Sb\View\AbstractView {
             $isbn13 = $bk->getISBN13();
             $asin = $bk->getASIN();
 
-            $desc = \Sb\Helpers\StringHelper::tronque($bk->getDescription(), 350);
+            $desc = StringHelper::tronque($bk->getDescription(), 350);
             $descEsc = urlencode($bk->getDescription()); // encodé
 
             $smallImg = $bk->getSmallImageUrl();
@@ -84,42 +93,41 @@ class BookSearch extends \Sb\View\AbstractView {
             $viewBookLink = null;
             $bookInDB = false;
             if ($bk->getId()) {
-                $viewBookLink = \Sb\Helpers\HTTPHelper::Link($bk->getLink());
+                $viewBookLink = HTTPHelper::Link($bk->getLink());
                 $bookInDB = true;
             }
 
-            $resultTpl = new \Sb\Templates\Template('searchBook/resultRow');
-            $resultTpl->set('cssClass', $cssClass);
-            $resultTpl->set('title', $title);
-            $resultTpl->set('publisher', $pubInfo);
-            $resultTpl->set('author', $author);
-            $resultTpl->set('id', $id);
-            $resultTpl->set('isbn10', $isbn10);
-            $resultTpl->set('isbn13', $isbn13);
-            $resultTpl->set('asin', $asin);
-            $resultTpl->set('titleEsc', $titleEsc);
-            $resultTpl->set('descEsc', $descEsc);
-            $resultTpl->set('desc', $desc);
-            $resultTpl->set('smallImg', $smallImg);
-            $resultTpl->set('img', $img);
-            $resultTpl->set('largeImg', $largeImg);
-            $resultTpl->set('imgSrc', $imgSrc);
-            $resultTpl->set('authorEsc', $authorEsc);
-            $resultTpl->set('pubEsc', $pubEsc);
-            $resultTpl->set('pubDtStr', $pubDtStr);
-            $resultTpl->set('amazonUrl', $amazonUrl);
-            $resultTpl->set('nbOfPages', $nbOfPages);
-            $resultTpl->set('language', $language);
-
+            $resultTpl = new Template('searchBook/resultRow');
             $resultTpl->setVariables(array('addSep' => $addSep,
                 'viewBookLink' => $viewBookLink,
-                'bookInDB' => $bookInDB));
+                'bookInDB' => $bookInDB,
+                'cssClass' => $cssClass . ' ' . ($bookInDB ? 'indb' : ''),
+                'title' => $title,
+                'publisher' => $pubInfo,
+                'author' => $author,
+                'id' => $id,
+                'isbn10' => $isbn10,
+                'isbn13' => $isbn13,
+                'asin' => $asin,
+                'titleEsc' => $titleEsc,
+                'descEsc' => $descEsc,
+                'desc' => $desc,
+                'smallImg' => $smallImg,
+                'img' => $img,
+                'largeImg' => $largeImg,
+                'imgSrc' => $imgSrc,
+                'authorEsc' => $authorEsc,
+                'pubEsc' => $pubEsc,
+                'pubDtStr' => $pubDtStr,
+                'amazonUrl' => $amazonUrl,
+                'language' => $language,
+                'nbOfPages' => $nbOfPages));
             $resultTplArr[] = $resultTpl;
         }
 
-        $results = \Sb\Templates\Template::merge($resultTplArr);
+        $results = Template::merge($resultTplArr);
 
-        $resultsTpl = new \Sb\Templates\Template('searchBook/results');
+        $resultsTpl = new Template('searchBook/results');
         $resultsTpl->set("resultRows", $results);
         $links = $this->pagerLinks;
         $resultsTpl->set("links", $links['all']);

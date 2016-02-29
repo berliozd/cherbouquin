@@ -1,63 +1,66 @@
 <?php
 use Sb\Helpers\HTTPHelper,
     Sb\Entity\Urls;
+
 ?>
 <?php if ($addSep) { ?>
     <div class="horizontal-sep-2"></div>
 <?php } ?>
 <div class="book-data">
     <form method="post" action="<?php echo HTTPHelper::Link(Urls::USER_BOOK_PREPARE_ADD); ?>">
-        <input type="hidden" name="book_Id" class="book_Id" value="[@id]" />
-        <input type="hidden" name="book_ISBN10" class="book_ISBN10" value="[@isbn10]" />
-        <input type="hidden" name="book_ISBN13" class="book_ISBN13" value="[@isbn13]" />
-        <input type="hidden" name="book_ASIN" class="book_ASIN" value="[@asin]" />
-        <input type="hidden" name="book_Title" class="book_Title" value="[@titleEsc]" />
-        <input type="hidden" name="book_Description" class="book_Description" value="[@descEsc]" />
-        <input type="hidden" name="book_ImageUrl" class="book_ImageUrl" value="[@img]" />
-        <input type="hidden" name="book_SmallImageUrl" class="book_SmallImageUrl" value="[@smallImg]" />
-        <input type="hidden" name="book_LargeImageUrl" class="book_LargeImageUrl" value="[@largeImg]" />
-        <input type="hidden" name="book_Author" class="book_Author" value="[@authorEsc]" />
-        <input type="hidden" name="book_Publisher" class="book_Publisher" value="[@pubEsc]" />
-        <input type="hidden" name="book_PublishingDate" class="book_PublishingDate" value="[@pubDtStr]" />
-        <input type="hidden" name="book_AmazonUrl" class="book_AmazonUrl" value="[@amazonUrl]" />
-        <input type="hidden" name="book_NbOfPages" class="book_NbOfPages" value="[@nbOfPages]" />
-        <input type="hidden" name="book_Language" class="book_Language" value="[@language]" />
-        <div class="bsr-line [@cssClass]">
-            <div class="inner-padding">
-                <div class="bsl-title">
-                    <div class="inner-padding">
-                        <div class="bslt-image">
-                            <?php if ($bookInDB) { ?>
-                            <a href="<?php echo $viewBookLink; ?>"><img class="image-thumb image-frame" src="[@imgSrc]"></a>
-                            <?php } else { ?>
-                            <input type="image" class="image-thumb image-frame" src="[@imgSrc]"/>
-                            <?php } ?>
-                        </div>
-                        <div class="bslt-desc">
-                            <span class="title">[@title]</span><br/>
-                            <span class="publication">[@publisher]</span><br/>
-                            <span class="description">[@desc]</span><br/>
-                        </div>
-                    </div>
+        <input type="hidden" name="book_Id" class="book_Id" value="<?php echo $id; ?>"/>
+        <input type="hidden" name="book_ISBN10" class="book_ISBN10" value="<?php echo $isbn10; ?>"/>
+        <input type="hidden" name="book_ISBN13" class="book_ISBN13" value="<?php echo $isbn13; ?>"/>
+        <input type="hidden" name="book_ASIN" class="book_ASIN" value="<?php echo $asin; ?>"/>
+        <input type="hidden" name="book_Title" class="book_Title" value="<?php echo $titleEsc; ?>"/>
+        <input type="hidden" name="book_Description" class="book_Description" value="<?php echo $descEsc; ?>"/>
+        <input type="hidden" name="book_ImageUrl" class="book_ImageUrl" value="<?php echo $img; ?>"/>
+        <input type="hidden" name="book_SmallImageUrl" class="book_SmallImageUrl" value="<?php echo $smallImg; ?>"/>
+        <input type="hidden" name="book_LargeImageUrl" class="book_LargeImageUrl" value="<?php echo $largeImg; ?>"/>
+        <input type="hidden" name="book_Author" class="book_Author" value="<?php echo $authorEsc; ?>"/>
+        <input type="hidden" name="book_Publisher" class="book_Publisher" value="<?php echo $pubEsc; ?>"/>
+        <input type="hidden" name="book_PublishingDate" class="book_PublishingDate" value="<?php echo $pubDtStr; ?>"/>
+        <input type="hidden" name="book_AmazonUrl" class="book_AmazonUrl" value="<?php echo $amazonUrl; ?>"/>
+        <input type="hidden" name="book_NbOfPages" class="book_NbOfPages" value="<?php echo $nbOfPages; ?>"/>
+        <input type="hidden" name="book_Language" class="book_Language" value="<?php echo $language; ?>"/>
+        <div class="bsr-line <?php echo $cssClass; ?>">
+            <div class="bsl-title">
+                <div class="bslt-image">
+                    <?php if ($bookInDB) { ?>
+                        <a href="<?php echo $viewBookLink; ?>"><img class="image-thumb image-frame"
+                                                                    src="<?php echo $imgSrc; ?>"></a>
+                    <?php } else { ?>
+                        <input type="image" class="image-thumb image-frame" src="<?php echo $imgSrc; ?>"/>
+                    <?php } ?>
                 </div>
-                <div class="bsl-author">
-                    <div class="inner-padding">[@author]</div>
+                <div class="bslt-desc">
+                    <span class="title"><?php echo $title; ?></span><br/>
+                    <span class="publication"><?php echo $publisher; ?></span><br/>
+                    <span class="description"><?php echo $desc; ?></span><br/>
                 </div>
-                <div class="bsl-button button">
-                    <div class="inner-padding">
-                        <ul>
-                            <li><button class="addUserBookBtn button bs-button bt-blue-m"><?php _e("Ajouter", 's1b'); ?></button></li>
-                            <li>
-                            <?php if ($bookInDB) { ?>
-                            <a class="link button" href="<?php echo $viewBookLink; ?>"><?php _e("Voir ce livre", 's1b'); ?></a>
-                            <?php } else { ?>
+            </div>
+            <div class="bsl-author">
+                <?php echo $author; ?>
+            </div>
+            <div class="bsl-button button">
+                <ul>
+                    <li>
+                        <button
+                            class="addUserBookBtn button bs-button bt-blue-m"><?php _e("Ajouter", 's1b'); ?></button>
+                    </li>
+                    <li>
+                        <?php if ($bookInDB) { ?>
+                            <a class="link button"
+                               href="<?php echo $viewBookLink; ?>"><?php _e("Voir ce livre", 's1b'); ?></a>
+                        <?php } else { ?>
                             <button class="button link-button"><?php _e("Voir ce livre", 's1b'); ?></button>
-                            <?php } ?>
-                            </li>
-                            <li><button value="1" name="<?php echo \Sb\Entity\Constants::BORROW_FROM_FRIENDS?>" class="button link-button"><?php _e("Emprunter", 's1b'); ?></button></li>
-                        </ul>
-                    </div>
-                </div>
+                        <?php } ?>
+                    </li>
+                    <li>
+                        <button value="1" name="<?php echo \Sb\Entity\Constants::BORROW_FROM_FRIENDS ?>"
+                                class="button link-button"><?php _e("Emprunter", 's1b'); ?></button>
+                    </li>
+                </ul>
             </div>
         </div>
     </form>
