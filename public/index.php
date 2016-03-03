@@ -32,7 +32,7 @@ $application = new Zend_Application(
 
 defined('BASE_URL') || define('BASE_URL', '/');
 defined('BASE_PATH') || define('BASE_PATH', str_replace('public', '', dirname(__FILE__)));
-defined('VERSION') || define('VERSION', '2.9');
+defined('VERSION') || define('VERSION', '2.14');
 
 
 // Démarrage de la session si besoin

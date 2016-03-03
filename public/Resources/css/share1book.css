@@ -946,39 +946,39 @@ DIV.rating {
 }
 .image-thumb {
   height: 160px;
-  width: 99px;
+  width: 95px;
 }
 .image-thumb-small {
-  height: 85px;
-  width: 60px;
+  height: 75px;
+  width: 50px;
 }
 .image-thumb-medium {
   height: 100px;
   width: 70px;
 }
 .image-thumb-square {
-  height: 170px;
-  width: 170px;
+  height: 160px;
+  width: 160px;
 }
 .image-thumb-square-small {
-  height: 65px;
-  width: 65px;
+  height: 47px;
+  width: 47px;
 }
 .image-thumb-square-medium {
-  height: 100px;
-  width: 100px;
+  height: 90px;
+  width: 90px;
 }
 .user-thumb {
   background: url("../images/sprite-user-backgrounds.png") no-repeat scroll 0px -80px transparent;
   padding: 9px 0 20px 9px;
-  height: 122px;
-  width: 107px;
+  height: 93px;
+  width: 96px;
 }
 .user-thumb-small {
   background: url("../images/sprite-user-backgrounds.png") no-repeat scroll 0 -11px transparent;
   padding: 2px 18px 6px 12px;
-  height: 61px;
-  width: 83px;
+  height: 53px;
+  width: 53px;
 }
 .book-link,
 .book-link:hover,
@@ -1100,7 +1100,7 @@ DIV.rating {
 }
 .textinput {
   padding: 5px;
-  width: 260px;
+  width: 250px;
 }
 .xs-textinput {
   padding: 5px;
@@ -1115,16 +1115,6 @@ DIV.rating {
   float: left;
   width: 100%;
   height: 44px;
-}
-@media (min-width: 768px) {
-  nav {
-    display: none;
-  }
-}
-@media (max-width: 768px) {
-  #nav-wrap {
-    display: none;
-  }
 }
 .nav-links {
   color: black;
@@ -1184,7 +1174,7 @@ DIV.rating {
   float: left;
   font-size: 1.1em;
   font-weight: bold;
-  height: 40px;
+  height: 27px;
   padding-right: 5px;
   padding-top: 13px;
   width: 80px;
@@ -1205,12 +1195,6 @@ DIV.rating {
 .separator.cherbouquin SPAN {
   background-color: #239CD3;
   color: #FFF;
-}
-/* carousel general styles */
-.carousel UL {
-  list-style: none;
-  padding: 0px;
-  margin: 0;
 }
 /* pinterest frame */
 .pinterest-frame {
@@ -1454,7 +1438,7 @@ A:hover.link {
 }
 .nu-resume {
   float: left;
-  width: 197px;
+  width: 185px;
   background-color: #323639;
   box-shadow: 0 0 10px #000000 inset;
   border-radius: 0 0 0 10px;
@@ -1462,8 +1446,8 @@ A:hover.link {
 }
 .nu-resume IMG {
   border: 2px #313538 solid;
-  width: 60px;
-  height: 60px;
+  width: 53px;
+  height: 53px;
 }
 .nur-image,
 .nur-status {
@@ -1474,7 +1458,7 @@ A:hover.link {
   font-size: 1.2em;
 }
 .nurs-status {
-  height: 30px;
+  height: 25px;
   padding-right: 33px;
   padding-top: 5px;
 }
@@ -1495,7 +1479,7 @@ span.nu-indice {
 .nu-links {
   float: left;
   padding: 20px 20px 20px 10px;
-  width: 780px;
+  width: 750px;
 }
 .nul-links {
   list-style: none outside none;
@@ -1533,6 +1517,7 @@ span.nu-indice {
 }
 #nul-news ul li {
   list-style: disc outside none;
+  padding-right: 3px;
   color: #fff;
   font-weight: normal;
   float: left;
@@ -1546,7 +1531,6 @@ span.nu-indice {
   position: absolute;
   left: -9px;
   top: -1px;
-  z-index: 1;
 }
 #nul-news:hover #links-hover {
   display: block;
@@ -1561,16 +1545,20 @@ span.nu-indice {
   display: block;
 }
 /* carousel */
-.carousel-wrap {
+/* carousel general styles */
+.carousel.carousel-wrap {
   position: relative;
-  display: block;
 }
-@media (max-width: 768px) {
-  .carousel-wrap {
-    display: none;
-  }
+.carousel.carousel-wrap UL {
+  list-style: none;
+  padding: 0px;
+  margin: 0;
 }
-.carousel-items {
+.carousel.carousel-wrap .carousel-frame {
+  border-radius: 10px 10px 0 0;
+  width: 980px;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1578,20 +1566,62 @@ span.nu-indice {
   height: 400px;
   overflow: hidden;
 }
-.carousel-items li {
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li {
   text-align: left;
   display: block;
   width: 980px;
   height: 400px;
 }
-UL.carousel-pagination {
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche {
+  width: 100%;
+  height: 400px;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche.accroche-1 {
+  background: url("../images/slider/accroche-1.png") no-repeat scroll 0 0 transparent;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche.accroche-2 {
+  background: url("../images/slider/accroche-2.png") no-repeat scroll 0 0 transparent;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche.accroche-2 .ci-content {
+  padding-top: 80px;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche.accroche-2 .ci-text {
+  height: 115px;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche.accroche-3 {
+  background: url("../images/slider/accroche-3.png") no-repeat scroll 0 0 transparent;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche .ci-content {
+  margin-left: 35px;
+  padding-top: 50px;
+  color: #FFF;
+  font-size: 1.4em;
+  text-align: center;
+  width: 276px;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche .ci-content .ci-text {
+  display: block;
+  height: 145px;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche .ci-content .ci-text .ci-maintext {
+  font-size: 4em;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche .ci-content .ci-subtext {
+  font-size: 0.9em;
+}
+.carousel.carousel-wrap .carousel-frame UL.carousel-items li .accroche .ci-content .ci-button {
+  padding: 9px 0;
+  width: 139px;
+  margin-left: 65px;
+}
+.carousel.carousel-wrap .carousel-pagination {
   background: none repeat scroll 0 0 transparent;
   left: 240px;
   position: absolute;
   top: 310px;
   width: 85px;
 }
-.carousel-pagination li {
+.carousel.carousel-wrap .carousel-pagination li {
   display: block;
   width: 10px;
   height: 10px;
@@ -1603,59 +1633,12 @@ UL.carousel-pagination {
   height: 16px;
   border-radius: 10px;
 }
-.carousel-pagination li.carousel-pagination-active {
+.carousel.carousel-wrap .carousel-pagination li.carousel-pagination-active {
   background: #1a83b3;
-}
-.carousel-frame {
-  border-radius: 10px 10px 0 0;
-  width: 980px;
-}
-.accroche {
-  width: 100%;
-  height: 400px;
-}
-.accroche-1 {
-  background: url("../images/slider/accroche-1.png") no-repeat scroll 0 0 transparent;
-}
-.accroche-2 {
-  background: url("../images/slider/accroche-2.png") no-repeat scroll 0 0 transparent;
-}
-.accroche-3 {
-  background: url("../images/slider/accroche-3.png") no-repeat scroll 0 0 transparent;
-}
-.ci-content {
-  margin-left: 35px;
-  padding-top: 50px;
-  color: #FFF;
-  font-size: 1.4em;
-  text-align: center;
-  width: 276px;
-}
-.ci-text {
-  display: block;
-  height: 145px;
-}
-.ci-subtext {
-  font-size: 0.9em;
-}
-.ci-maintext {
-  font-size: 4em;
-}
-.ci-button {
-  padding: 9px 0;
-  width: 139px;
-  margin-left: 65px;
-}
-.accroche-2 .ci-content {
-  padding-top: 80px;
-}
-.accroche-2 .ci-text {
-  height: 115px;
 }
 /* User box (box in right col) */
 .user-box {
   float: left;
-  width: 100%;
   border: 1px solid #239CD3;
 }
 .ub-title-wrap {
@@ -1675,6 +1658,7 @@ UL.carousel-pagination {
 }
 .ub-content {
   background-color: #FFF;
+  float: left;
   font-size: 1.1em;
 }
 .ub-friends .ub-title {
@@ -1682,8 +1666,8 @@ UL.carousel-pagination {
 }
 .ubc-part {
   float: left;
-  width: 100%;
   font-weight: bold;
+  width: 278px;
   padding: 10px;
 }
 .ubc-part-title {
@@ -1792,7 +1776,6 @@ A.utc-bottom-link:visited {
 /* User box - wished books */
 .ub-wished {
   float: left;
-  width: 100%;
 }
 .ub-wished .ub-title {
   background-position: 4px -1605px;
@@ -1831,7 +1814,7 @@ A.utc-bottom-link:visited {
 }
 .ubu-text {
   float: right;
-  width: 65%;
+  width: 70%;
 }
 .user-box .ub-users UL.carousel-pagination {
   left: 100px;
@@ -2382,7 +2365,7 @@ A.utc-bottom-link:visited {
 .lh-wrapper {
   background-color: #FFF;
   margin: 0 5px 0 5px;
-  height: 142px;
+  height: 42px;
   width: 184px;
   padding-top: 100px;
 }
@@ -2605,7 +2588,7 @@ TABLE TH.llh-title {
 .flh-item {
   color: #B1B3B4;
   font-size: 1.8em;
-  height: 105px;
+  height: 65px;
   padding-left: 50px;
   padding-top: 40px;
 }
@@ -3052,14 +3035,14 @@ TD.mb-col-state {
   width: 100%;
 }
 .mnm-subject {
-  height: 30px;
+  height: 20px;
   padding: 5px;
-  width: 310px;
+  width: 300px;
 }
 .mnm-emails {
-  height: 30px;
+  height: 20px;
   padding: 5px;
-  width: 510px;
+  width: 500px;
 }
 /* friend selection */
 .friend-selection {
@@ -3434,7 +3417,7 @@ TD.mb-col-state {
 .coverflip-caption {
   position: relative;
   text-align: center;
-  top: 195px;
+  top: 200px;
 }
 /* Last reviews posted */
 .last-reviews-posted {
