@@ -16,15 +16,14 @@ module.exports = function(grunt) {
     cssmin: {
       combine: {
         files: [
-          {'public/Resources/css/main-min.css': ['public/Resources/css/main.css']},
-          {'public/Resources/css/bootstrap.min.css': ['styles/vendors/bootstrap.css']}
+          {'public/Resources/css/main-min.css': ['public/Resources/css/main.css']}
         ]
       }
 
     },
     watch: {
       styles: {
-        files: ['styles/**/*.scss', 'public/Resources/css/bootstrap.css'],
+        files: ['styles/**/*.scss'],
         tasks: ['sass', 'cssmin']
       }
     }

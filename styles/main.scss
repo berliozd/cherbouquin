@@ -3,6 +3,8 @@ $imageVersion: 10;
 $sprite: "../images/sprite.png?v=" + $imageVersion;
 $spriteButtons: "../images/sprite-buttons.png?v=" + $imageVersion;
 
+@import "vendors/bootstrap";
+
 @import "base/base";
 
 @import "layout/layout";
