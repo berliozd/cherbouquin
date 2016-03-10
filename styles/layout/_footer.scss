@@ -1,0 +1,122 @@
+/* footer */
+
+#footer-wrap {
+  padding: 0px;
+
+  #footer-bottom {
+
+    background-color: #FFF;
+    border-radius: 0px 0px 10px 10px;
+    float: left;
+    width: 100%;
+    height: 70px;
+    UL {
+      list-style: none;
+      margin: 0;
+    }
+
+    LI {
+      float: left;
+      margin-right: 20px;
+    }
+
+    .link {
+      text-decoration: none;
+    }
+  }
+
+  #footer-top {
+
+    background-color: #363a3d;
+    float: left;
+    width: 100%;
+
+    .ft-item {
+
+      padding: 12px;
+
+      @media (min-width: 768px) {
+        width: 25%;
+        float: left;
+        min-height: 166px;
+        background: url("../images/footer-vertical-sep.png") no-repeat scroll right 23px transparent;
+      }
+
+      .link {
+        font-weight: normal;
+        &:hover, &:visited {
+          font-weight: normal;
+        }
+      }
+
+      A {
+        text-decoration: none;
+        color: #fff;
+      }
+
+      UL {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        H3 {
+          font-size: inherit;
+          font-weight: inherit;
+          margin: 0;
+          padding: 0;
+        }
+      }
+
+      &.last {
+        background: none;
+      }
+
+      .ft-item-content {
+
+        @media (max-width: 767px) {
+          display: none;
+        }
+
+        float: left;
+        color: #FFF;
+
+        .ft-facebook {
+          background: url($sprite) no-repeat scroll 0px -1230px transparent;
+          display: block;
+          height: 45px;
+          width: 45px;
+        }
+
+        .ft-twitter {
+          background: url($sprite) no-repeat scroll -53px -1230px transparent;
+          display: block;
+          height: 45px;
+          width: 45px;
+        }
+
+        .ft-pinterest {
+          background: url($sprite) no-repeat scroll -105px -1230px transparent;
+          display: block;
+          height: 45px;
+          width: 45px;
+        }
+
+        .ft-googleplus {
+          background: url($sprite) no-repeat scroll -160px -1230px transparent;
+          display: block;
+          height: 45px;
+          width: 45px;
+        }
+      }
+
+      .ft-item-title {
+        float: left;
+        color: #239cd3;
+        font-size: 1.6em;
+        margin-bottom: 5px;
+        width: 100%;
+        font-weight: normal;
+        margin-top: 0;
+      }
+    }
+  }
+}

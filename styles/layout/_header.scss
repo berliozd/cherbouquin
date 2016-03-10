@@ -1,0 +1,49 @@
+
+#header {
+  overflow: hidden;
+
+  #header-top {
+    background-color: #000;
+    .header-inner {
+      background: url("../images/header-background.png") no-repeat scroll 0 0 transparent;
+      padding-left: 80px;
+      margin: 0 auto;
+      width: 980px;
+      padding-top: 7px;
+    }
+  }
+
+  #header-bottom {
+    height: 50px;
+    background-color: #363a3d;
+    .header-inner {
+      margin: 0 auto;
+      width: 980px;
+      padding-top: 7px;
+    }
+  }
+
+  /* Connected header */
+  .connected {
+    .search-field {
+      background: url($sprite) no-repeat scroll 0 -40px transparent;
+      width: 658px;
+      INPUT {
+        width: 600px;
+      }
+    }
+
+    .sf-label {
+      margin-right: 53px;
+    }
+
+    &.search-form {
+      width: 980px;
+    }
+  }
+
+}
+
+
+
+

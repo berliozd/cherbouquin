@@ -1,0 +1,35 @@
+#chronicle-form {
+  font-size: 1.3em;
+  margin: 30px 150px;
+
+  H1 {
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  .input-text {
+    padding: 5px;
+    width: 410px;
+  }
+
+  .description {
+    font-size: 0.9em;
+  }
+
+  DD {
+    margin-bottom: 15px;
+  }
+
+  .errors {
+    color: red;
+  }
+
+  #post_on_facebook-label {
+    border-top: 1px solid #CCC;
+  }
+
+  .help {
+    color: #F00;
+  }
+}
+

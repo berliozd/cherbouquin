@@ -1,0 +1,42 @@
+#content {
+  @media (min-width: 768px) {
+    margin: 0 auto;
+    width: 980px;
+  }
+
+  #content-wrap {
+    padding: 0px;
+    background-color: #FFF;
+    @media (min-width: 768px) {
+      border-radius: 10px 10px 10px 10px;
+      box-shadow: 0 4px 14px #555555;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    #content-center {
+      padding-top: 10px;
+      @media (min-width: 768px) {
+        float: left;
+        padding: 10px 0px 10px 10px;
+        width: 655px;
+      }
+
+    }
+
+    #content-right {
+      @media (min-width: 768px) {
+        float: right;
+        padding: 10px 10px 10px 15px;
+        width: 325px;
+      }
+    }
+
+    #content-wide {
+      float: left;
+      width: 100%;
+    }
+  }
+
+}
+

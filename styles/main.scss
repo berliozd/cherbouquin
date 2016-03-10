@@ -1,27 +1,23 @@
-$version: 9;
+$imageVersion: 10;
 
-$sprite: "../images/sprite.png?v=" + $version;
-$spriteButtons: "../images/sprite-buttons.png?v=" + $version;
+$sprite: "../images/sprite.png?v=" + $imageVersion;
+$spriteButtons: "../images/sprite-buttons.png?v=" + $imageVersion;
 
-@import "base";
+@import "base/base";
 
-@import "layout";
+@import "layout/layout";
+@import "layout/content";
+@import "layout/footer";
+@import "layout/header";
 
 @import "modules/buttons";
-
 @import "modules/forms";
-
 @import "modules/compactFormWidget";
-
-@import "modules/contents";
-
-@import "modules/groupAdmin";
-
-@import "modules/homepage";
-
 @import "modules/carousel";
 
-@import "modules/footer";
+@import "pages/contents";
+@import "pages/groupAdmin";
+@import "pages/homepage";
 
 .picto-facebook-s {
   background: url($sprite) no-repeat scroll 0 -353px transparent;
@@ -607,23 +603,6 @@ A.link, A:visited.link, A:hover.link {
   margin-right: 2px;
 }
 
-/* in connected header */
-#header .search-form.connected {
-  width: 980px;
-}
-
-#header .connected .search-field {
-  background: url($sprite) no-repeat scroll 0 -40px transparent;
-  width: 658px;
-}
-
-#header .connected .search-field INPUT {
-  width: 600px;
-}
-
-#header .connected .sf-label {
-  margin-right: 53px;
-}
 
 /* login form */
 .login-form {

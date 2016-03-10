@@ -1,9 +1,13 @@
-.wishlist-list .fls-label {
-    width: 230px;
-}
+.wishlist-list {
+  margin-top: 15px;
 
-.wishlist-list .input-item {
+  .fls-label {
+    width: 230px;
+  }
+
+  .input-item {
     float: left;
     height: 25px;
     margin-right: 5px;
+  }
 }

@@ -1,0 +1,35 @@
+.cfw {
+  padding: 10px 5px 10px 88px;
+  overflow: hidden;
+
+  .input-item {
+    width: 105px;
+    height: 24px;
+  }
+
+  .button {
+    float: right;
+  }
+
+  input {
+    float: left;
+  }
+
+  &.cfw-press-review-subscription,
+  &.cfw-wish-list-search {
+    background: url($sprite) no-repeat scroll left -2417px #1E1E1E;
+    .cfw-title {
+      color: #239CD3;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+
+    .cfw-subtitle {
+      color: #FFF;
+      font-size: 1.2em;
+      text-align: justify;
+      margin-bottom: 5px;
+    }
+  }
+
+}
