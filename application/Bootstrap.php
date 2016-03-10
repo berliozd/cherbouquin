@@ -1,10 +1,11 @@
 <?php
 
-class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
+class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+{
 
-    protected function _initRouter() {
-
-    	// Loads routes from specific config file
+    protected function _initRouter()
+    {
+        // Loads routes from specific config file
         $front = $this->bootstrap('FrontController')->getResource('FrontController');
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini', 'production');
         $routing = new Zend_Controller_Router_Rewrite();
@@ -12,8 +13,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $front->setRouter($routing);
     }
 
-    protected function _initFrontControllerOutput() {
-
+    protected function _initFrontControllerOutput()
+    {
         $front = $this->bootstrap('FrontController')->getResource('FrontController');
         $response = new Zend_Controller_Response_Http;
         $response->setHeader('Content-Type', 'text/html; charset=UTF-8', true);

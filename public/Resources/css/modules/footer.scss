@@ -18,10 +18,14 @@
 #footer-top {
   .ft-item {
 
-    width: 25%;
-    float: left;
-    background: url("../../images/footer-vertical-sep.png") no-repeat scroll right 23px transparent;
-    min-height: 166px;
+    padding: 12px;
+
+    @media (min-width: 768px) {
+      width: 25%;
+      float: left;
+      min-height: 166px;
+      background: url("../../images/footer-vertical-sep.png") no-repeat scroll right 23px transparent;
+    }
 
     .link {
       font-weight: normal;
@@ -51,32 +55,37 @@
     }
 
     .ft-item-content {
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+
       float: left;
       color: #FFF;
 
       .ft-facebook {
-        background: url("@{sprite}") no-repeat scroll 0px -1230px transparent;
+        background: url($sprite) no-repeat scroll 0px -1230px transparent;
         display: block;
         height: 45px;
         width: 45px;
       }
 
       .ft-twitter {
-        background: url("@{sprite}") no-repeat scroll -53px -1230px transparent;
+        background: url($sprite) no-repeat scroll -53px -1230px transparent;
         display: block;
         height: 45px;
         width: 45px;
       }
 
       .ft-pinterest {
-        background: url("@{sprite}") no-repeat scroll -105px -1230px transparent;
+        background: url($sprite) no-repeat scroll -105px -1230px transparent;
         display: block;
         height: 45px;
         width: 45px;
       }
 
       .ft-googleplus {
-        background: url("@{sprite}") no-repeat scroll -160px -1230px transparent;
+        background: url($sprite) no-repeat scroll -160px -1230px transparent;
         display: block;
         height: 45px;
         width: 45px;

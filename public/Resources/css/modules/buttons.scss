@@ -1,0 +1,156 @@
+/* buttons */
+
+/* buttons global definitions */
+.button {
+    border: medium none;
+    color: #FFF;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    height: 28px;
+    font-size: 11px;
+    font-weight: bold;
+    display: block;
+    padding: 5px 0;
+    line-height: 20px;
+}
+
+.no-link {
+    cursor: auto;
+}
+
+A.button,A.button:hover,A.button:visited {
+    text-decoration: none;
+    color: #FFF;
+}
+
+INPUT.button,BUTTON.button {
+    height: 28px;
+    padding: 0;
+    font-size: 13px;
+}
+/* buttons specific definitions */
+.bt-black-xs {
+    background: url($spriteButtons) no-repeat scroll 0 -34px transparent;
+    width: 63px;
+}
+
+.bt-black-s {
+    background: url($spriteButtons) no-repeat scroll 0 -653px transparent;
+    width: 72px;
+}
+
+.bt-black-m {
+    background: url($spriteButtons) no-repeat scroll 0 0px transparent;
+    width: 102px;
+}
+
+.bt-black-l {
+    background: url($spriteButtons) no-repeat scroll 0 -546px transparent;
+    width: 120px;
+}
+
+.bt-blue-xs {
+    background: url($spriteButtons) no-repeat scroll 0 -75px transparent;
+    width: 60px;
+}
+
+.bt-blue-s {
+    background: url($spriteButtons) no-repeat scroll 0 -110px transparent;
+    width: 65px;
+}
+
+.bt-blue-m {
+    background: url($spriteButtons) no-repeat scroll 0 -145px transparent;
+    width: 88px;
+}
+
+.bt-red-m {
+    background: url($spriteButtons) no-repeat scroll 0 -903px transparent;
+    width: 88px;
+}
+
+.bt-blue-l {
+    background: url($spriteButtons) no-repeat scroll 0 -178px transparent;
+    width: 121px;
+}
+
+.bt-blue-addfriend {
+    background: url($spriteButtons) no-repeat scroll 0 -616px transparent;
+    padding-left: 28px;
+    width: 127px;
+}
+
+.bt-blue-xl {
+    background: url($spriteButtons) no-repeat scroll 0 -211px transparent;
+    width: 127px;
+}
+
+.bt-blue-xxl {
+    background: url($spriteButtons) no-repeat scroll 0 -694px transparent;
+    font-size: 16px;
+    height: 47px;
+    padding-top: 18px;
+    width: 175px;
+}
+
+.bt-blue-xxxl {
+    background: url($spriteButtons) no-repeat scroll 0 -859px transparent;
+    height: 22px;
+    padding: 2px 0;
+    width: 165px;
+}
+
+.bt-facebook-s {
+    background: url($spriteButtons) no-repeat scroll 0 -243px transparent;
+    width: 78px;
+}
+
+.bt-facebook-m {
+    background: url($spriteButtons) no-repeat scroll 0 -580px transparent;
+    padding-left: 10px;
+    width: 78px;
+}
+
+.bt-carroussel {
+    background: url($spriteButtons) no-repeat scroll 0 -286px transparent;
+    font-size: 1.1em;
+    height: 44px;
+    padding: 9px 0;
+    width: 139px;
+}
+
+.bt-delete {
+    background: url($spriteButtons) no-repeat scroll 0 -391px transparent;
+    height: 30px;
+    padding: 0;
+    width: 30px;
+}
+
+.bv-share {
+    background: url($spriteButtons) no-repeat scroll 0 -2138px transparent;
+    height: 45px;
+    width: 45px;
+}
+
+.bt-amazon {
+    background: url($spriteButtons) no-repeat scroll 0 -762px transparent;
+    height: 37px;
+    width: 92px;
+}
+
+.bt-fnac {
+    background: url($spriteButtons) no-repeat scroll 0 -810px transparent;
+    height: 40px;
+    width: 92px;
+}
+
+.search-button {
+    background: url($spriteButtons) no-repeat scroll 5px -343px transparent;
+    border: medium none;
+    cursor: pointer;
+    float: right;
+    height: 31px;
+    padding: 0;
+    width: 33px;
+}

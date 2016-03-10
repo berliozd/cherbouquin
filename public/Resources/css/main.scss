@@ -1,34 +1,34 @@
-@version: 9;
+$version: 9;
 
-@sprite: "../images/sprite.png?v=@{version}";
-@spriteButtons: "../images/sprite-buttons.png?v=@{version}";
+$sprite: "../images/sprite.png?v=" + $version;
+$spriteButtons: "../images/sprite-buttons.png?v=" + $version;
 
-@import "base.less";
+@import "base";
 
-@import "layout.less";
+@import "layout";
 
-@import "modules/buttons.less";
+@import "modules/buttons";
 
-@import "modules/forms.less";
+@import "modules/forms";
 
-@import "modules/compactFormWidget.less";
+@import "modules/compactFormWidget";
 
-@import "modules/contents.less";
+@import "modules/contents";
 
-@import "modules/groupAdmin.less";
+@import "modules/groupAdmin";
 
-@import "modules/homepage.less";
+@import "modules/homepage";
 
-@import "modules/carousel.less";
+@import "modules/carousel";
 
-@import "modules/footer.less";
+@import "modules/footer";
 
 .picto-facebook-s {
-  background: url("@{sprite}") no-repeat scroll 0 -353px transparent;
+  background: url($sprite) no-repeat scroll 0 -353px transparent;
 }
 
 .picto-facebook-m {
-  background: url("@{sprite}") no-repeat scroll 0px -1230px transparent;
+  background: url($sprite) no-repeat scroll 0px -1230px transparent;
   height: 45px;
   width: 45px;
   display: block;
@@ -45,7 +45,7 @@
 }
 
 .search-field {
-  background: url("@{sprite}") no-repeat scroll 0 0 transparent;
+  background: url($sprite) no-repeat scroll 0 0 transparent;
   float: left;
   height: 32px;
   width: 266px;
@@ -104,7 +104,7 @@ DIV.rating {
 }
 
 .blowofheart {
-  background: url("@{sprite}") no-repeat scroll 2px -392px transparent;
+  background: url($sprite) no-repeat scroll 2px -392px transparent;
   float: left;
   width: 22px;
   height: 18px;
@@ -112,31 +112,31 @@ DIV.rating {
 }
 
 .no-rating {
-  background: url("@{sprite}") no-repeat scroll 0 -569px transparent;
+  background: url($sprite) no-repeat scroll 0 -569px transparent;
 }
 
 .rating-0 {
-  background: url("@{sprite}") no-repeat scroll 0 -427px transparent;
+  background: url($sprite) no-repeat scroll 0 -427px transparent;
 }
 
 .rating-1 {
-  background: url("@{sprite}") no-repeat scroll 0 -449px transparent;
+  background: url($sprite) no-repeat scroll 0 -449px transparent;
 }
 
 .rating-2 {
-  background: url("@{sprite}") no-repeat scroll 0 -472px transparent
+  background: url($sprite) no-repeat scroll 0 -472px transparent
 }
 
 .rating-3 {
-  background: url("@{sprite}") no-repeat scroll 0 -495px transparent
+  background: url($sprite) no-repeat scroll 0 -495px transparent
 }
 
 .rating-4 {
-  background: url("@{sprite}") no-repeat scroll 0 -521px transparent
+  background: url($sprite) no-repeat scroll 0 -521px transparent
 }
 
 .rating-5 {
-  background: url("@{sprite}") no-repeat scroll 0 -546px transparent
+  background: url($sprite) no-repeat scroll 0 -546px transparent
 }
 
 .star-sep, .star-0-label {
@@ -150,33 +150,33 @@ DIV.rating {
 }
 
 .picto-wished-small {
-  background: url("@{sprite}") no-repeat scroll 2px -821px transparent;
+  background: url($sprite) no-repeat scroll 2px -821px transparent;
 }
 
 .picto-owned-small {
-  background: url("@{sprite}") no-repeat scroll 2px -602px transparent;
+  background: url($sprite) no-repeat scroll 2px -602px transparent;
   width: 75px;
 }
 
 .picto-lent-small {
-  background: url("@{sprite}") no-repeat scroll 2px -642px transparent;
+  background: url($sprite) no-repeat scroll 2px -642px transparent;
 }
 
 .picto-borrowed-small {
-  background: url("@{sprite}") no-repeat scroll 2px -687px transparent;
+  background: url($sprite) no-repeat scroll 2px -687px transparent;
 }
 
 .picto-returntovalidate-small {
-  background: url("@{sprite}") no-repeat scroll 2px -735px transparent;
+  background: url($sprite) no-repeat scroll 2px -735px transparent;
   height: 39px;
 }
 
 .picto-lendable-small {
-  background: url("@{sprite}") no-repeat scroll 2px -780px transparent;
+  background: url($sprite) no-repeat scroll 2px -780px transparent;
 }
 
 .boh {
-  background: url("@{sprite}") no-repeat scroll 0 -393px transparent;
+  background: url($sprite) no-repeat scroll 0 -393px transparent;
   float: left;
   height: 20px;
   width: 20px;
@@ -333,7 +333,7 @@ DIV.rating {
 }
 
 #flashes-close-button {
-  background: url("@{sprite}") no-repeat scroll 0 -1328px transparent;
+  background: url($sprite) no-repeat scroll 0 -1328px transparent;
   float: right;
   height: 33px;
   width: 32px;
@@ -497,15 +497,15 @@ DIV.rating {
 
 /* profile visibility picto */
 .profile-picto-small-myfriends {
-  background: url("@{sprite}") repeat-x scroll left -1014px transparent;
+  background: url($sprite) repeat-x scroll left -1014px transparent;
 }
 
 .profile-picto-small-public {
-  background: url("@{sprite}") repeat-x scroll left -1048px transparent;
+  background: url($sprite) repeat-x scroll left -1048px transparent;
 }
 
 .profile-picto-small-private {
-  background: url("@{sprite}") repeat-x scroll left -1082px transparent;
+  background: url($sprite) repeat-x scroll left -1082px transparent;
 }
 
 .profile-picto-small-myfriends.nurs-status {
@@ -581,7 +581,7 @@ A.link, A:visited.link, A:hover.link {
 }
 
 .hyperlink {
-  background: url("@{sprite}") repeat scroll 0 -1525px transparent;
+  background: url($sprite) repeat scroll 0 -1525px transparent;
   padding-bottom: 10px;
   padding-left: 23px;
   word-wrap: break-word;
@@ -613,7 +613,7 @@ A.link, A:visited.link, A:hover.link {
 }
 
 #header .connected .search-field {
-  background: url("@{sprite}") no-repeat scroll 0 -40px transparent;
+  background: url($sprite) no-repeat scroll 0 -40px transparent;
   width: 658px;
 }
 
@@ -704,7 +704,7 @@ A.link, A:visited.link, A:hover.link {
 }
 
 .nu-indice {
-  background: url("@{sprite}") no-repeat scroll 0 -1678px transparent;
+  background: url($sprite) no-repeat scroll 0 -1678px transparent;
   font-size: 0.7em;
   height: 20px;
   padding-top: 2px;
@@ -805,7 +805,7 @@ span.nu-indice {
 
 .ub-title-wrap {
   padding-bottom: 8px;
-  background: url("@{sprite}") no-repeat scroll 22px -1629px #FFF;
+  background: url($sprite) no-repeat scroll 22px -1629px #FFF;
 }
 
 .ub-title {
@@ -814,11 +814,11 @@ span.nu-indice {
   font-weight: bold;
   line-height: 30px;
   padding-left: 30px;
-  background: url("@{sprite}") no-repeat scroll 4px -1563px #239CD3;
+  background: url($sprite) no-repeat scroll 4px -1563px #239CD3;
 }
 
 .ub-mailbox .ub-title {
-  background: url("@{sprite}") no-repeat scroll 3px -235px #239CD3;
+  background: url($sprite) no-repeat scroll 3px -235px #239CD3;
 }
 
 .ub-content {
@@ -828,7 +828,7 @@ span.nu-indice {
 }
 
 .ub-friends .ub-title {
-  background: url("@{sprite}") no-repeat scroll 2px -203px #239CD3;
+  background: url($sprite) no-repeat scroll 2px -203px #239CD3;
 }
 
 .ubc-part {
@@ -941,15 +941,15 @@ A.ubc-bottom-link, A.utc-bottom-link:hover, A.utc-bottom-link:visited {
 }
 
 .ubc-friends-of-friends {
-  background: url("@{sprite}") no-repeat scroll 0 -316px transparent;
+  background: url($sprite) no-repeat scroll 0 -316px transparent;
 }
 
 .ubc-friends-invite {
-  background: url("@{sprite}") no-repeat scroll 0 -282px transparent;
+  background: url($sprite) no-repeat scroll 0 -282px transparent;
 }
 
 .ubc-friends-on-facebook {
-  background: url("@{sprite}") no-repeat scroll 0 -353px transparent;
+  background: url($sprite) no-repeat scroll 0 -353px transparent;
 }
 
 .ubc-sep {
@@ -1211,7 +1211,7 @@ A.ubc-bottom-link, A.utc-bottom-link:hover, A.utc-bottom-link:visited {
 }
 
 .wbi-giftoption-notbought {
-  background: url("@{sprite}") no-repeat scroll 0 -1401px transparent;
+  background: url($sprite) no-repeat scroll 0 -1401px transparent;
   font-weight: bold;
   display: block;
   height: 22px;
@@ -1221,7 +1221,7 @@ A.ubc-bottom-link, A.utc-bottom-link:hover, A.utc-bottom-link:visited {
 }
 
 .wbi-giftoption-bought {
-  background: url("@{sprite}") no-repeat scroll 0 -1433px transparent;
+  background: url($sprite) no-repeat scroll 0 -1433px transparent;
   font-weight: bold;
   display: block;
   height: 22px;
@@ -1362,7 +1362,7 @@ A.ubc-bottom-link, A.utc-bottom-link:hover, A.utc-bottom-link:visited {
 }
 
 .ub-boh-label {
-  background: url("@{sprite}") no-repeat scroll 88px -392px transparent;
+  background: url($sprite) no-repeat scroll 88px -392px transparent;
   height: 21px;
   width: 115px;
 }
@@ -1750,7 +1750,7 @@ A.ubc-bottom-link, A.utc-bottom-link:hover, A.utc-bottom-link:visited {
 }
 
 .lh-friendlibrarytitle {
-  background: url("@{sprite}") no-repeat scroll 0 -77px transparent;
+  background: url($sprite) no-repeat scroll 0 -77px transparent;
   color: #FFF;
   font-size: 2.4em;
   margin-left: 10px;
@@ -1836,27 +1836,27 @@ TABLE TH.llh-title {
 }
 
 .sortLine .sort.ASC {
-  background: url("@{sprite}") no-repeat scroll 55px -122px transparent;
+  background: url($sprite) no-repeat scroll 55px -122px transparent;
 }
 
 .sortLine .llh-title.sort.ASC {
-  background: url("@{sprite}") no-repeat scroll 118px -122px transparent;
+  background: url($sprite) no-repeat scroll 118px -122px transparent;
 }
 
 .sortLine .sort.DESC {
-  background: url("@{sprite}") no-repeat scroll 55px -153px transparent;
+  background: url($sprite) no-repeat scroll 55px -153px transparent;
 }
 
 .sortLine .llh-title.sort.DESC {
-  background: url("@{sprite}") no-repeat scroll 118px -153px transparent;
+  background: url($sprite) no-repeat scroll 118px -153px transparent;
 }
 
 .mb-col-date.ASC {
-  background: url("@{sprite}") no-repeat scroll 55px -122px transparent;
+  background: url($sprite) no-repeat scroll 55px -122px transparent;
 }
 
 .mb-col-date.DESC {
-  background: url("@{sprite}") no-repeat scroll 55px -153px transparent;
+  background: url($sprite) no-repeat scroll 55px -153px transparent;
 }
 
 .ll-nobooks {
@@ -2160,7 +2160,7 @@ TABLE TH.llh-title {
   font-size: 1.8em;
   font-weight: bold;
   margin-top: 5px;
-  background: url("@{sprite}") repeat scroll 125px -1997px transparent;
+  background: url($sprite) repeat scroll 125px -1997px transparent;
 }
 
 .pl-coordinate {
@@ -2168,7 +2168,7 @@ TABLE TH.llh-title {
 }
 
 .pl-add-as-friend {
-  background: url("@{sprite}") repeat scroll 0 -2043px transparent;
+  background: url($sprite) repeat scroll 0 -2043px transparent;
   padding-left: 20px;
   padding-top: 5px;
 }
@@ -2206,15 +2206,15 @@ TABLE TH.llh-title {
 }
 
 .ps-picto-myfriends {
-  background: url("@{sprite}") repeat-x scroll 0 -854px transparent;
+  background: url($sprite) repeat-x scroll 0 -854px transparent;
 }
 
 .ps-picto-public {
-  background: url("@{sprite}") repeat-x scroll 0 -906px transparent;
+  background: url($sprite) repeat-x scroll 0 -906px transparent;
 }
 
 .ps-picto-private {
-  background: url("@{sprite}") repeat-x scroll 0 -906px transparent;
+  background: url($sprite) repeat-x scroll 0 -906px transparent;
 }
 
 .psl-title {
@@ -2295,7 +2295,7 @@ TABLE TH.llh-title {
 }
 
 .p-friend-title {
-  background: url("@{sprite}") no-repeat scroll 0 -84px transparent;
+  background: url($sprite) no-repeat scroll 0 -84px transparent;
   font-size: 1.8em;
   height: 33px;
   margin-bottom: 18px;
@@ -2348,7 +2348,7 @@ TABLE TH.llh-title {
 }
 
 .rw-search .connected .search-field {
-  background: url("@{sprite}") no-repeat scroll -310px 0px transparent;
+  background: url($sprite) no-repeat scroll -310px 0px transparent;
   width: 195px;
 }
 
@@ -2538,7 +2538,7 @@ TD.mb-col-state {
 }
 
 .add-friend-header {
-  background: url("@{sprite}") repeat-x scroll 0 -1120px transparent;
+  background: url($sprite) repeat-x scroll 0 -1120px transparent;
   height: 51px;
   margin-bottom: 10px;
   padding-left: 76px;
@@ -2556,7 +2556,7 @@ TD.mb-col-state {
 
 /* pending request */
 .pending-request-header {
-  background: url("@{sprite}") repeat-x scroll 0 -1172px transparent;
+  background: url($sprite) repeat-x scroll 0 -1172px transparent;
   height: 51px;
   margin-bottom: 10px;
   padding-left: 76px;
@@ -3039,7 +3039,7 @@ TD.mb-col-state {
 #press-reviews-subscription-form {
   padding: 10px 5px 10px 85px;
   float: left;
-  background: url("@{sprite}") no-repeat scroll 3px -2200px #1E1E1E;
+  background: url($sprite) no-repeat scroll 3px -2200px #1E1E1E;
 }
 
 #prsf-title {
@@ -3090,7 +3090,7 @@ TD.mb-col-state {
 }
 
 #content-search-form .search-field {
-  background: url("@{sprite}") no-repeat scroll -550px -3px transparent;
+  background: url($sprite) no-repeat scroll -550px -3px transparent;
   height: 30px;
   width: 130px;
 }
@@ -3103,7 +3103,7 @@ TD.mb-col-state {
 #content-search-form .search-button {
   width: 35px;
   padding: 0;
-  background: url("@{spriteButtons}") no-repeat scroll 5px -346px transparent;
+  background: url($spriteButtons) no-repeat scroll 5px -346px transparent;
 }
 
 .csf-separator {

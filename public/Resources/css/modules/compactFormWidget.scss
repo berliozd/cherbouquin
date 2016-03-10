@@ -2,27 +2,27 @@
 .cfw {
     padding: 10px 5px 10px 88px;
     overflow: hidden;
-    
+
     .input-item {
         width: 105px;
         height: 24px;
     }
-    
+
     .button {
         float: right;
     }
-    
+
     input {
         float: left;
     }
 }
 
 .cfw-press-review-subscription {
-    background: url("@{sprite}") no-repeat scroll 3px -2200px #1E1E1E;
+    background: url($sprite) no-repeat scroll 3px -2200px #1E1E1E;
 }
 
 .cfw-wish-list-search {
-    background: url("@{sprite}") no-repeat scroll left -2417px #1E1E1E;
+    background: url($sprite) no-repeat scroll left -2417px #1E1E1E;
 }
 
 .cfw-title {

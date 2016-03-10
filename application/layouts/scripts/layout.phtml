@@ -24,29 +24,36 @@ $globalContext = new \Sb\Context\Model\Context();
     <title><?php echo $this->tagTitle; ?></title>
 
     <?php if ($this->urlCanonical) : ?>
-    <link rel="canonical" href="<?php echo $this->urlCanonical; ?>"/>
+        <link rel="canonical" href="<?php echo $this->urlCanonical; ?>"/>
     <?php endif; ?>
 
     <meta name="description" content="<?php echo $this->metaDescription; ?>"/>
     <meta name="keywords" content="<?php echo $this->metaKeywords; ?>"/>
     <?php if ($this->pageImage) : ?>
-    <meta property="og:image" content="<?php echo $this->pageImage; ?>"/>
+        <meta property="og:image" content="<?php echo $this->pageImage; ?>"/>
     <?php endif; ?>
 
-    <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/bootstrap.min.css"/>
-    <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/share1book<?php echo($globalConfig->getIsProduction() ? "-min" : ""); ?>.css?v=<?php echo VERSION; ?>"/>
-    <link type="text/css" media="screen" rel="stylesheet" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/overcast/jquery-ui-1.8.18.custom.css"/>
+    <link type="text/css" media="screen" rel="stylesheet"
+          href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/bootstrap.min.css"/>
+    <link type="text/css" media="screen" rel="stylesheet"
+          href="<?php echo $globalContext->getBaseUrl(); ?>Resources/css/main<?php echo($globalConfig->getIsProduction() ? "-min" : ""); ?>.css?v=<?php echo VERSION; ?>"/>
+    <link type="text/css" media="screen" rel="stylesheet"
+          href="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/overcast/jquery-ui-1.8.18.custom.css"/>
 
     <?php if ($globalConfig->getIsProduction()) : ?>
-    <!-- PRODUCTION -->
+        <!-- PRODUCTION -->
     <?php endif; ?>
 
-    <link rel="icon" type="image/png" href="<?php echo $globalContext->getBaseUrl() . "Resources/images/favicons/favicon.ico"; ?>"/>
+    <link rel="icon" type="image/png"
+          href="<?php echo $globalContext->getBaseUrl() . "Resources/images/favicons/favicon.ico"; ?>"/>
 
-    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/favicons/favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon"
+          href="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/favicons/favicon.ico"/>
 
-    <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript"
+            src="<?php echo $globalContext->getBaseUrl(); ?>Resources/js/bootstrap/bootstrap.min.js"></script>
 
     <meta charset="UTF-8"/>
     <meta name="language" content="fr-FR"/>
@@ -59,7 +66,8 @@ $globalContext = new \Sb\Context\Model\Context();
     <meta http-equiv="content-language" content="ll-cc">
     <meta name="verification" content="90976ef46595e2d7ff7ce4419ff6dc05"/>
     <meta name="msvalidate.01" content="E62B545AC4DE99DA99D381175475444F"/>
-    <meta name="norton-safeweb-site-verification" content="jh6la0lgxqne8t-qrkb1vtxf9tqfdhqepiff6e6qkbcv6951uvuam70bh7fp2e371h08q687xlh7v1641xjypiwmqs03aaii5sh9gwbns3hptuzhdp2mk5d-hkj4jwz7"/>
+    <meta name="norton-safeweb-site-verification"
+          content="jh6la0lgxqne8t-qrkb1vtxf9tqfdhqepiff6e6qkbcv6951uvuam70bh7fp2e371h08q687xlh7v1641xjypiwmqs03aaii5sh9gwbns3hptuzhdp2mk5d-hkj4jwz7"/>
     <?php echo $this->headLink(); ?>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -117,102 +125,95 @@ $globalContext = new \Sb\Context\Model\Context();
                 <div id="footer-top">
 
                     <div class="ft-item">
-                        <div class="inner-padding-12">
-                            <h2 class="ft-item-title">
-                                <a class="link"
-                                   href="<?php echo HTTPHelper::Link(Urls::TOPS_BOOKS); ?>"><?php _e("<strong>Top</strong> des livres", "s1b"); ?></a>
-                            </h2>
+                        <h2 class="ft-item-title">
+                            <a class="link"
+                               href="<?php echo HTTPHelper::Link(Urls::TOPS_BOOKS); ?>"><?php _e("<strong>Top</strong> des livres", "s1b"); ?></a>
+                        </h2>
 
-                            <div class="ft-item-content">
-                                <?php
-                                $topsBooks = BookSvc::getInstance()->getTopsFooter();
-                                echo "<ul>";
-                                foreach ($topsBooks as $topsBook) {
-                                    echo "<li><h3><a title=\"" . $topsBook->getTitle() . " - " . $topsBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($topsBook->getLink()) . "\">"
-                                        . \Sb\Helpers\StringHelper::tronque($topsBook->getTitle(), 40)
-                                        . "</a></h3></li>";
-                                }
-                                echo "</ul>";
-                                ?>
-                            </div>
+                        <div class="ft-item-content">
+                            <?php
+                            $topsBooks = BookSvc::getInstance()->getTopsFooter();
+                            echo "<ul>";
+                            foreach ($topsBooks as $topsBook) {
+                                echo "<li><h3><a title=\"" . $topsBook->getTitle() . " - " . $topsBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($topsBook->getLink()) . "\">"
+                                    . \Sb\Helpers\StringHelper::tronque($topsBook->getTitle(), 40)
+                                    . "</a></h3></li>";
+                            }
+                            echo "</ul>";
+                            ?>
                         </div>
                     </div>
                     <div class="ft-item">
-                        <div class="inner-padding-12">
-                            <h2 class="ft-item-title">
-                                <a class="link"
-                                   href="<?php echo HTTPHelper::Link(Urls::BLOW_OF_HEARTS_BOOKS); ?>"><strong><?php _e("Coups de coeur", "s1b"); ?></strong></a>
-                            </h2>
+                        <h2 class="ft-item-title">
+                            <a class="link"
+                               href="<?php echo HTTPHelper::Link(Urls::BLOW_OF_HEARTS_BOOKS); ?>"><strong><?php _e("Coups de coeur", "s1b"); ?></strong></a>
+                        </h2>
 
-                            <div class="ft-item-content">
-                                <?php
-                                $bohs = BookSvc::getInstance()->getBOHForFooter();
-                                echo "<ul>";
-                                foreach ($bohs as $boh) {
-                                    echo "<li><h3><a title=\"" . $boh->getTitle() . " - " . $boh->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($boh->getLink()) . "\">"
-                                        . StringHelper::tronque($boh->getTitle(), 40)
-                                        . "</a></h3></li>";
-                                }
-                                echo "</ul>";
-                                ?>
-                            </div>
+                        <div class="ft-item-content">
+                            <?php
+                            $bohs = BookSvc::getInstance()->getBOHForFooter();
+                            echo "<ul>";
+                            foreach ($bohs as $boh) {
+                                echo "<li><h3><a title=\"" . $boh->getTitle() . " - " . $boh->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($boh->getLink()) . "\">"
+                                    . StringHelper::tronque($boh->getTitle(), 40)
+                                    . "</a></h3></li>";
+                            }
+                            echo "</ul>";
+                            ?>
                         </div>
                     </div>
                     <div class="ft-item">
-                        <div class="inner-padding-12">
-                            <h2 class="ft-item-title">
-                                <a class="link"
-                                   href="<?php echo HTTPHelper::Link(Urls::LAST_ADDED_BOOKS); ?>"><strong><?php _e("Derniers livres ajoutés", "s1b"); ?></strong></a>
-                            </h2>
+                        <h2 class="ft-item-title">
+                            <a class="link"
+                               href="<?php echo HTTPHelper::Link(Urls::LAST_ADDED_BOOKS); ?>"><strong><?php _e("Derniers livres ajoutés", "s1b"); ?></strong></a>
+                        </h2>
 
-                            <div class="ft-item-content">
-                                <?php
-                                $lastlyAddedBooks = BookSvc::getInstance()->getLastlyAddedForFooter();
-                                echo "<ul>";
-                                foreach ($lastlyAddedBooks as $lastlyAddedBook) {
-                                    echo "<li><h3><a title=\"" . $lastlyAddedBook->getTitle() . " - " . $lastlyAddedBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($lastlyAddedBook->getLink()) . "\">"
-                                        . StringHelper::tronque($lastlyAddedBook->getTitle(), 40)
-                                        . "</a></h3></li>";
-                                }
-                                echo "</ul>";
-                                ?>
-                            </div>
+                        <div class="ft-item-content">
+                            <?php
+                            $lastlyAddedBooks = BookSvc::getInstance()->getLastlyAddedForFooter();
+                            echo "<ul>";
+                            foreach ($lastlyAddedBooks as $lastlyAddedBook) {
+                                echo "<li><h3><a title=\"" . $lastlyAddedBook->getTitle() . " - " . $lastlyAddedBook->getOrderableContributors() . "\" href=\"" . HTTPHelper::Link($lastlyAddedBook->getLink()) . "\">"
+                                    . StringHelper::tronque($lastlyAddedBook->getTitle(), 40)
+                                    . "</a></h3></li>";
+                            }
+                            echo "</ul>";
+                            ?>
                         </div>
                     </div>
                     <div class="ft-item last">
-                        <div class="inner-padding-12">
-                            <h2 class="ft-item-title"><?php echo sprintf(__("<strong>%s</strong> sur les réseaux", "s1b"), Constants::SITENAME); ?></h2>
+                        <h2 class="ft-item-title"><?php echo sprintf(__("<strong>%s</strong> sur les réseaux", "s1b"), Constants::SITENAME); ?></h2>
 
-                            <div class="ft-item-content">
-                                <a target="_blank"
-                                   href="http://www.facebook.com/CherBouquin"
-                                   class="picto-facebook-m"
-                                   title="<?php echo sprintf(__("%s sur Facebook", "s1b"), Constants::SITENAME); ?>"></a>
-                            </div>
-                            <div class="ft-item-content">
-                                <a target="_blank"
-                                   href="https://twitter.com/#!/cherbouquin"
-                                   class="ft-twitter"
-                                   title="<?php echo sprintf(__("%s sur Twitter", "s1b"), Constants::SITENAME); ?>"></a>
-                            </div>
-                            <div class="ft-item-content">
-                                <a target="_blank" href="http://pinterest.com/cherbouquin"
-                                   class="ft-pinterest"
-                                   title="<?php echo sprintf(__("%s sur Pinterest", "s1b"), Constants::SITENAME); ?>"></a>
-                            </div>
-                            <div class="ft-item-content">
-                                <a target="_blank"
-                                   href="https://plus.google.com/u/0/b/106650239259479003219/106650239259479003219/posts"
-                                   class="ft-googleplus"
-                                   title="<?php echo sprintf(__("%s sur Google+", "s1b"), Constants::SITENAME); ?>"></a>
-                            </div>
+                        <div class="ft-item-content">
+                            <a target="_blank"
+                               href="http://www.facebook.com/CherBouquin"
+                               class="picto-facebook-m"
+                               title="<?php echo sprintf(__("%s sur Facebook", "s1b"), Constants::SITENAME); ?>"></a>
+                        </div>
+                        <div class="ft-item-content">
+                            <a target="_blank"
+                               href="https://twitter.com/#!/cherbouquin"
+                               class="ft-twitter"
+                               title="<?php echo sprintf(__("%s sur Twitter", "s1b"), Constants::SITENAME); ?>"></a>
+                        </div>
+                        <div class="ft-item-content">
+                            <a target="_blank" href="http://pinterest.com/cherbouquin"
+                               class="ft-pinterest"
+                               title="<?php echo sprintf(__("%s sur Pinterest", "s1b"), Constants::SITENAME); ?>"></a>
+                        </div>
+                        <div class="ft-item-content">
+                            <a target="_blank"
+                               href="https://plus.google.com/u/0/b/106650239259479003219/106650239259479003219/posts"
+                               class="ft-googleplus"
+                               title="<?php echo sprintf(__("%s sur Google+", "s1b"), Constants::SITENAME); ?>"></a>
                         </div>
                     </div>
                 </div>
                 <div id="footer-bottom">
                     <div class="inner-padding">
                         <div class="fb-left float-left">&copy;
-                        	<?php $date = new Zend_Date(); echo $date->toString('yyyy');?> <?php echo Constants::SITENAME; ?></div>
+                            <?php $date = new Zend_Date();
+                            echo $date->toString('yyyy'); ?> <?php echo Constants::SITENAME; ?></div>
                         <div class="fb-right float-right">
                             <ul>
                                 <li>
@@ -296,7 +297,7 @@ $ajaxUrl = str_replace("index.php", "", str_replace("public/index.php", "", $_SE
         _gaq.push(['_setAccount', 'UA-34691855-1']);
         _gaq.push(['_trackPageview']);
         _gaq.push(['_trackPageLoadTime']);
-        (function () {
+        (function() {
             var ga = document.createElement('script');
             ga.type = 'text/javascript';
             ga.async = true;
