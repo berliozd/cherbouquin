@@ -21,6 +21,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/reading-what';
 @import 'modules/user-events';
 @import 'modules/twitter-widget';
+@import 'modules/annex-page';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -2606,89 +2607,7 @@ TD.mb-col-state {
   font-size: 1.2em;
 }
 
-/* annexe-page : contact form , about, team */
-.annexe-page {
-  background-color: #EDEDED;
-  border-radius: 10px 10px 0 0;
-  float: left;
-  width: 100%;
-}
 
-.ap-right {
-  float: left;
-  width: 70%;
-  background-color: #FFF;
-  border-radius: 0 10px 0 0;
-}
-
-.ap-left {
-  float: left;
-  width: 30%;
-  background-color: #ededed;
-  border-radius: 10px 0 0 0;
-}
-
-.ap-description {
-  font-weight: bold;
-  margin-top: 15px;
-}
-
-.ap-label {
-  font-size: 1.2em;
-}
-
-.ap-line {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.ap-title {
-  font-size: 2.5em;
-  color: #239CD3;
-  font-weight: bold;
-}
-
-.apl-title {
-  font-size: 1.3em;
-  color: #239CD3;
-  font-weight: bold;
-}
-
-.annexe-page TEXTAREA {
-  width: 100%;
-  height: 120px;
-}
-
-.apl-label {
-  font-weight: bold;
-}
-
-.team-member {
-  float: left;
-  margin-bottom: 30px;
-}
-
-.tm-description {
-  float: left;
-  font-size: 1.1em;
-  margin-top: 5px;
-  text-align: justify;
-  width: 100%;
-}
-
-.tm-name {
-  font-size: 2em;
-  font-weight: bold;
-}
-
-.tm-resume {
-  float: left;
-}
-
-.tm-image {
-  float: left;
-  margin-right: 20px;
-}
 
 /* SEO book list */
 .book-list .navigation.top {
