@@ -1,0 +1,31 @@
+.rw-search {
+  float: left;
+  margin: 10px;
+  .search-form {
+    float: left;
+    width: 100%;
+  }
+  .sf-label {
+    font-weight: normal;
+    color: #000;
+    font-size: 1em;
+  }
+  .rw-image {
+    float: left;
+    margin-right: 10px;
+  }
+  .rw-field {
+    float: right;
+    width: 185px;
+  }
+  .connected {
+    .search-field {
+      background: url($sprite) no-repeat scroll -310px 0px transparent;
+      width: 195px;
+      INPUT {
+        width: 145px;
+      }
+    }
+  }
+}
+

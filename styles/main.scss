@@ -1,27 +1,29 @@
 $imageVersion: 10;
 
-$sprite: "../images/sprite.png?v=" + $imageVersion;
-$spriteButtons: "../images/sprite-buttons.png?v=" + $imageVersion;
+$sprite: '../images/sprite.png?v=' + $imageVersion;
+$spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 
-@import "vendors/bootstrap";
+@import 'vendors/bootstrap';
 
-@import "base/base";
+@import 'base/base';
 
-@import "layout/layout";
-@import "layout/content";
-@import "layout/footer";
-@import "layout/header";
+@import 'layout/layout';
+@import 'layout/content';
+@import 'layout/footer';
+@import 'layout/header';
 
-@import "modules/buttons";
-@import "modules/forms";
-@import "modules/compact-form-widget";
-@import "modules/carousel";
-@import "modules/home-chronicle";
-@import "modules/news-reader";
+@import 'modules/buttons';
+@import 'modules/forms';
+@import 'modules/compact-form-widget';
+@import 'modules/carousel';
+@import 'modules/home-chronicle';
+@import 'modules/news-reader';
+@import 'modules/reading-what';
+@import 'modules/user-events';
 
-@import "pages/contents";
-@import "pages/groupAdmin";
-@import "pages/homepage";
+@import 'pages/contents';
+@import 'pages/groupAdmin';
+@import 'pages/homepage';
 
 .picto-facebook-s {
   background: url($sprite) no-repeat scroll 0 -353px transparent;
@@ -2304,40 +2306,6 @@ TABLE TH.llh-title {
   font-size: 2.5em;
 }
 
-.rw-search {
-  float: left;
-  margin: 10px;
-}
-
-.rw-search .search-form {
-  float: left;
-  width: 100%;
-}
-
-.rw-search .sf-label {
-  font-weight: normal;
-  color: #000;
-  font-size: 1em;
-}
-
-.rw-search .rw-image {
-  float: left;
-  margin-right: 10px;
-}
-
-.rw-search .rw-field {
-  float: right;
-  width: 185px;
-}
-
-.rw-search .connected .search-field {
-  background: url($sprite) no-repeat scroll -310px 0px transparent;
-  width: 195px;
-}
-
-.rw-search .connected .search-field INPUT {
-  width: 145px;
-}
 
 /* mailbox list */
 .mailbox TABLE {
@@ -2721,100 +2689,6 @@ TD.mb-col-state {
 .tm-image {
   float: left;
   margin-right: 20px;
-}
-
-/* user events */
-.user-events {
-  float: left;
-  width: 100%;
-}
-
-.user-event {
-  float: left;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.ue-friendimage {
-  float: left;
-  width: 15%;
-}
-
-.ue-itemimage {
-  float: left;
-  width: 12%;
-}
-
-.ue-description {
-  float: left;
-  width: 73%;
-}
-
-.ue-resume {
-  float: left;
-  margin-bottom: 3px;
-  width: 100%;
-  font-weight: bold;
-}
-
-.ue-book {
-  float: left;
-  width: 100%;
-}
-
-.ue-additional {
-  background-color: #F2F2F2;
-  float: left;
-  width: 100%;
-  margin: 3px 0;
-}
-
-.ue-bookimage {
-  float: left;
-}
-
-.ue-bookdescription {
-  float: left;
-  width: 100%;
-}
-
-.ue-booktitle {
-  color: #575757;
-  float: left;
-  width: 100%;
-}
-
-.ue-date {
-  font-weight: bold;
-  margin-top: 2px;
-  color: #6B7074;
-  font-weight: lighter;
-}
-
-.ue-rating-label {
-  float: left;
-}
-
-.user-events .rating {
-  margin-left: 5px;
-  margin-top: -5px;
-}
-
-.ue-buttons {
-  float: left;
-  width: 100%;
-}
-
-.ue-viewbooklink {
-  float: left;
-  line-height: 28px;
-}
-
-.ue-addbooklink {
-  float: left;
-  border-left: 1px solid #6B7074;
-  margin-left: 5px;
-  padding-left: 5px;
 }
 
 /* SEO book list */

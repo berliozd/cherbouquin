@@ -1,14 +1,10 @@
 /* carousel */
 
-/* carousel general styles */
+.carousel {
 
-@media (max-width: 767px) {
-  .carousel {
+  @media (max-width: 767px) {
     display: none;
   }
-}
-
-.carousel {
 
   &.carousel-wrap {
     position: relative;
