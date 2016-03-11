@@ -1,0 +1,73 @@
+/* Twitter widget */
+.twitter-widget {
+  position: relative;
+  font-size: 1.2em;
+  background-color: #363A3D !important;
+  background-color: #363A3D;
+  color: black !important;
+  float: right;
+  width: 100%;
+  .twitter-header {
+    margin: 5px 5px 5px 10px;
+    overflow: hidden;
+    a {
+      color: #FFF;
+    }
+
+    .twitter-widget-profile {
+      display: block;
+      float: left;
+      width: 31px;
+      height: 31px;
+      border: 0;
+    }
+
+  }
+  .twitter-body {
+    padding: 0 1px;
+
+    .twitter-timeline {
+      background: white;
+      height: 285px;
+      overflow: auto;
+      .twitter-tweet {
+        border-bottom: 1px dotted #DDD;
+        overflow: hidden;
+        a {
+          color: #239CD3
+        }
+        .twitter-tweet-wrap {
+          padding: 8px;
+          overflow: hidden;
+          .twitter-tweet-text {
+            margin-left: 0;
+            font-size: 0.8em;
+            .tweet-actions {
+              font-size: 0.9em;
+              color: #788087 !important;
+              em {
+                float: right;
+                a {
+                  font-size: 0.9em;
+                  color: #788087 !important;
+                }
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .twitter-footer {
+    font-size: 0.9em;
+    margin: 5px;
+    text-align: right;
+    text-transform: uppercase;
+    a {
+      color: #FFF;
+      text-decoration: none;
+    }
+  }
+}

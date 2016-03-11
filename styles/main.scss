@@ -20,6 +20,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/news-reader';
 @import 'modules/reading-what';
 @import 'modules/user-events';
+@import 'modules/twitter-widget';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -608,7 +609,6 @@ A.link, A:visited.link, A:hover.link {
   line-height: 36px;
   margin-right: 2px;
 }
-
 
 /* login form */
 .login-form {
@@ -2306,7 +2306,6 @@ TABLE TH.llh-title {
   font-size: 2.5em;
 }
 
-
 /* mailbox list */
 .mailbox TABLE {
   float: left;
@@ -2716,83 +2715,6 @@ TD.mb-col-state {
   margin-bottom: 3px;
 }
 
-/* Twitter widget */
-.twitter-widget {
-  position: relative;
-  font-size: 1.2em;
-  background-color: #363A3D !important;
-  background-color: #363A3D;
-  color: black !important;
-  float: right;
-  width: 100%;
-}
-
-.twitter-header {
-  margin: 5px 5px 5px 10px;
-  overflow: hidden;
-}
-
-.twitter-header a {
-  color: #FFF;
-}
-
-.twitter-widget-profile {
-  display: block;
-  float: left;
-  width: 31px;
-  height: 31px;
-  border: 0;
-}
-
-.twitter-body {
-  padding: 0 1px;
-}
-
-.twitter-timeline {
-  background: white;
-  height: 285px;
-  overflow: auto;
-}
-
-.twitter-tweet {
-  border-bottom: 1px dotted #DDD;
-  overflow: hidden;
-}
-
-.twitter-tweet a {
-  color: #239CD3
-}
-
-.twitter-tweet-wrap {
-  padding: 8px;
-  overflow: hidden;
-}
-
-.twitter-tweet-text {
-  margin-left: 0;
-  font-size: 0.8em;
-}
-
-.tweet-actions, .tweet-actions a {
-  font-size: 0.9em;
-  color: #788087 !important;
-}
-
-.tweet-actions em {
-  float: right;
-}
-
-.twitter-footer {
-  font-size: 0.9em;
-  margin: 5px;
-  text-align: right;
-  text-transform: uppercase;
-}
-
-.twitter-footer a {
-  color: #FFF;
-  text-decoration: none;
-}
 
 .coverflip {
   border: 1px #e6e6e6 solid;
