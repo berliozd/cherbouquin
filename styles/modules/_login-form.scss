@@ -1,0 +1,35 @@
+/* login form */
+.login-form {
+  float: left;
+  .lf-label {
+    color: #FFF;
+    float: left;
+    font-size: 1.3em;
+    font-weight: bold;
+    line-height: 36px;
+    margin-right: 3px;
+  }
+
+  .lf-fields {
+    float: left;
+    margin: 0 2px;
+  }
+
+  .lf-button {
+    float: left;
+    width: 92px;
+    .lf-fbconnect {
+      float: left;
+    }
+
+    .lfb-lostpassword {
+      color: #FFF;
+      float: left;
+      font-size: 0.85em;
+      line-height: 9px;
+      margin-left: 5px;
+      text-decoration: none;
+      text-transform: lowercase;
+    }
+  }
+}

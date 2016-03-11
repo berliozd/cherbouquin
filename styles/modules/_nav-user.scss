@@ -1,0 +1,137 @@
+/*nav-user*/
+#nav-user {
+  color: #FFF;
+  A,
+  A:visited,
+  A:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .nu-resume {
+    float: left;
+    width: 185px;
+    background-color: #323639;
+    box-shadow: 0 0 10px #000000 inset;
+    border-radius: 0 0 0 10px;
+    padding: 6px;
+    IMG {
+      border: 2px #313538 solid;
+      width: 53px;
+      height: 53px;
+    }
+    .nur-image {
+      float: left;
+    }
+    .nur-status {
+      float: left;
+      padding-left: 2px;
+      font-size: 1.2em;
+      .nurs-status {
+        height: 25px;
+        padding-right: 33px;
+        padding-top: 5px;
+      }
+    }
+
+  }
+
+  .nu-indice {
+    background: url($sprite) no-repeat scroll 0 -1678px transparent;
+    font-size: 0.7em;
+    height: 20px;
+    padding-top: 2px;
+    position: absolute;
+    right: -10px;
+    text-align: center;
+    top: -18px;
+    width: 21px;
+    color: #fff !important;
+  }
+
+  .nu-links {
+    float: left;
+    padding: 20px 20px 20px 10px;
+    width: 750px;
+    .nul-links {
+      list-style: none outside none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      >li {
+        float: left;
+        font-size: 1.4em;
+        font-weight: bold;
+        margin-right: 30px;
+        text-transform: uppercase;
+        position: relative;
+        &:hover {
+          color: #000;
+        }
+        a {
+          &.selected {
+            color: #000;
+          }
+          &:visited {
+            color: #000;
+          }
+          &:hover {
+            color: #000;
+          }
+        }
+      }
+      #nul-news {
+        padding-left: 22px;
+        position: relative;
+        ul {
+          padding-left: 25px;
+          font-size: 0.95em;
+          text-transform: none;
+          li {
+            list-style: disc outside none;
+            padding-right: 3px;
+            color: #fff;
+            font-weight: normal;
+            float: left;
+            text-align: left;
+          }
+        }
+        #links-hover {
+          display: none;
+          border-radius: 10px;
+          border: 1px solid #363A3D;
+          background-color: #239CD3;
+          width: 147px;
+          position: absolute;
+          left: -9px;
+          top: -1px;
+          span {
+            color: #363A3D;
+            text-align: center;
+            display: block;
+          }
+        }
+        &:hover {
+          #links-hover {
+            display: block;
+            span {
+              cursor: pointer;
+            }
+          }
+        }
+        span {
+          cursor: pointer;
+        }
+      }
+    }
+
+
+
+    .nul-button {
+      float: right;
+    }
+  }
+}
+
+
+

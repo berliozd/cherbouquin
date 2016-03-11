@@ -20,8 +20,10 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/news-reader';
 @import 'modules/reading-what';
 @import 'modules/user-events';
-@import 'modules/twitter-widget';
 @import 'modules/annex-page';
+@import 'modules/login-form';
+@import 'modules/nav-user';
+@import 'modules/search-form';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -524,14 +526,7 @@ DIV.rating {
   background-position: 90px -1082px;
 }
 
-SELECT {
-  height: 28px;
-}
 
-A.link, A:visited.link, A:hover.link {
-  color: #239cd3 !important;
-  font-weight: bold;
-}
 
 .highlight {
   color: #239CD3;
@@ -591,197 +586,6 @@ A.link, A:visited.link, A:hover.link {
   word-wrap: break-word;
 }
 
-/* search form */
-.search-form {
-  float: left;
-  width: 375px;
-}
-
-.sff-input {
-  float: left;
-  margin: 7px 0 7px 7px;
-}
-
-.sf-label {
-  color: #FFF;
-  float: left;
-  font-size: 1.3em;
-  font-weight: bold;
-  line-height: 36px;
-  margin-right: 2px;
-}
-
-/* login form */
-.login-form {
-  float: left;
-}
-
-.lf-label {
-  color: #FFF;
-  float: left;
-  font-size: 1.3em;
-  font-weight: bold;
-  line-height: 36px;
-  margin-right: 3px;
-}
-
-.lf-fields {
-  float: left;
-  margin: 0 2px;
-}
-
-.lf-button {
-  float: left;
-  width: 92px;
-}
-
-.lf-fbconnect {
-  float: left;
-}
-
-.lfb-lostpassword {
-  color: #FFF;
-  float: left;
-  font-size: 0.85em;
-  line-height: 9px;
-  margin-left: 5px;
-  text-decoration: none;
-  text-transform: lowercase;
-}
-
-/*nav-user*/
-#nav-user {
-  color: #FFF;
-}
-
-#nav-user A, #nav-user A:visited, #nav-user A:hover {
-  color: #fff;
-  text-decoration: none;
-}
-
-.nu-resume {
-  float: left;
-  width: 185px;
-  background-color: #323639;
-  box-shadow: 0 0 10px #000000 inset;
-  border-radius: 0 0 0 10px;
-  padding: 6px;
-}
-
-.nu-resume IMG {
-  border: 2px #313538 solid;
-  width: 53px;
-  height: 53px;
-}
-
-.nur-image, .nur-status {
-  float: left;
-}
-
-.nur-status {
-  padding-left: 2px;
-  font-size: 1.2em;
-}
-
-.nurs-status {
-  height: 25px;
-  padding-right: 33px;
-  padding-top: 5px;
-}
-
-.nu-indice {
-  background: url($sprite) no-repeat scroll 0 -1678px transparent;
-  font-size: 0.7em;
-  height: 20px;
-  padding-top: 2px;
-  position: absolute;
-  right: -10px;
-  text-align: center;
-  top: -18px;
-  width: 21px;
-}
-
-span.nu-indice {
-  color: #fff !important;
-}
-
-.nu-links {
-  float: left;
-  padding: 20px 20px 20px 10px;
-  width: 750px;
-}
-
-.nul-links {
-  list-style: none outside none;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-
-.nul-links > LI {
-  float: left;
-  font-size: 1.4em;
-  font-weight: bold;
-  margin-right: 30px;
-  text-transform: uppercase;
-  position: relative;
-}
-
-.nul-button {
-  float: right;
-}
-
-#nav-user .nul-links li a.selected, #nav-user .nul-links li a.selected:visited {
-  color: #000;
-}
-
-#nav-user .nul-links li:hover, #nav-user .nul-links li a:hover {
-  color: #000;
-}
-
-#nul-news {
-  padding-left: 22px;
-  position: relative;
-}
-
-#nul-news ul {
-  padding-left: 25px;
-  font-size: 0.95em;
-  text-transform: none;
-}
-
-#nul-news ul li {
-  list-style: disc outside none;
-  padding-right: 3px;
-  color: #fff;
-  font-weight: normal;
-  float: left;
-}
-
-#nul-news #links-hover {
-  display: none;
-  border-radius: 10px;
-  border: 1px solid #363A3D;
-  background-color: #239CD3;
-  width: 147px;
-  position: absolute;
-  left: -9px;
-  top: -1px;
-}
-
-#nul-news:hover #links-hover {
-  display: block;
-}
-
-#nul-news #links-hover span, #nul-news span {
-  cursor: pointer;
-}
-
-#nul-news #links-hover span {
-  color: #363A3D;
-  text-align: center;
-  display: block;
-}
 
 /* User box (box in right col) */
 .user-box {

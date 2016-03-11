@@ -26,6 +26,15 @@ input, select {
   color: #000;
 }
 
+SELECT {
+  height: 28px;
+}
+
+A.link, A:visited.link, A:hover.link {
+  color: #239cd3 !important;
+  font-weight: bold;
+}
+
 
 /* global */
 .float-left {

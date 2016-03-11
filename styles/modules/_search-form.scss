@@ -1,0 +1,35 @@
+/* search form */
+.search-form {
+  float: left;
+  width: 375px;
+}
+
+.sff-input {
+  float: left;
+  margin: 7px 0 7px 7px;
+}
+
+.sf-label {
+  color: #FFF;
+  float: left;
+  font-size: 1.3em;
+  font-weight: bold;
+  line-height: 36px;
+  margin-right: 2px;
+}
+
+/* Connected header */
+.connected {
+  width: 980px;
+  .search-field {
+    background: url($sprite) no-repeat scroll 0 -40px transparent;
+    width: 658px;
+    INPUT {
+      width: 600px;
+    }
+  }
+
+  .sf-label {
+    margin-right: 53px;
+  }
+}

@@ -23,25 +23,6 @@
     }
   }
 
-  /* Connected header */
-  .connected {
-    .search-field {
-      background: url($sprite) no-repeat scroll 0 -40px transparent;
-      width: 658px;
-      INPUT {
-        width: 600px;
-      }
-    }
-
-    .sf-label {
-      margin-right: 53px;
-    }
-
-    &.search-form {
-      width: 980px;
-    }
-  }
-
 }
 
 
