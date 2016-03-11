@@ -3,7 +3,6 @@
   margin-bottom: 5px;
 }
 
-
 /* ----------------------------------- */
 /* ---- Other chronicles same type --- */
 /* ----------------------------------- */
@@ -265,99 +264,6 @@
   font-weight: bold;
 }
 
-/* --------------------------- */
-/* ---- widget news reader --- */
-/* --------------------------- */
-.nr-page {
-  display: none;
-}
-
-.nr-list {
-  border: 1px solid #E0E0E0;
-  float: left;
-  width: 100%;
-}
-
-.nr-list a {
-  text-decoration: none;
-  color: #000;
-  font-size: 1.1em;
-}
-
-.nr-list ul {
-  list-style: none;
-}
-
-.nr-list ul {
-  padding: 0;
-  margin: 0;
-}
-
-.nr-list li {
-  width: 100%;
-  margin: 0;
-  border-bottom: 1px solid #E0E0E0;
-  float: left;
-}
-
-.nr-image {
-  float: left;
-  margin: 5px;
-}
-
-.nr-text {
-  margin: 5px;
-}
-
-.nr-date {
-  font-weight: bold;
-  color: #8f1b7c;
-}
-
-.nr-list li.odd {
-  background-color: #f5f5f5;
-}
-
-.nr-list .navButton {
-  cursor: pointer;
-  width: 17px;
-  height: 15px;
-  display: block;
-  float: left;
-}
-
-.nr-list .prevButton {
-  background: url($sprite) no-repeat scroll 0 -2352px transparent;
-}
-
-.nr-list .prevButton.disabled {
-  background: url($sprite) no-repeat scroll 0 -2373px transparent;
-}
-
-.nr-list .nextButton {
-  background: url($sprite) no-repeat scroll 0 -2329px transparent;
-}
-
-.nr-list .nextButton.disabled {
-  background: url($sprite) no-repeat scroll 0 -2393px transparent;
-}
-
-.nr-footer {
-  height: 15px;
-  padding: 5px;
-}
-
-.nr-footerlink {
-  float: left;
-  padding: 5px;
-  color: #239CD3;
-  font-weight: bold;
-}
-
-.nr-buttons {
-  float: right;
-  padding: 5px;
-}
 
 /* ---------------------------------- */
 /* ---- General press reviews CSS --- */
