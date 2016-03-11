@@ -14,8 +14,9 @@ $spriteButtons: "../images/sprite-buttons.png?v=" + $imageVersion;
 
 @import "modules/buttons";
 @import "modules/forms";
-@import "modules/compactFormWidget";
+@import "modules/compact-form-widget";
 @import "modules/carousel";
+@import "modules/home-chronicle";
 
 @import "pages/contents";
 @import "pages/groupAdmin";

@@ -1,0 +1,67 @@
+/* ----------------------- */
+/* ---- Home chronicle --- */
+/* ----------------------- */
+.home-chronicle {
+  float: left;
+  background-color: #FBFBFB;
+  width: 100%;
+  text-align: justify;
+  box-shadow: 0 0 30px -15px #000000 inset;
+
+  .chr-head {
+    h1 {
+      font-size: 2.6em;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+
+  .chr-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .chr-text {
+    font-size: 1.3em;
+  }
+
+  .chr-link {
+    A {
+      float: left;
+      margin-top: 2px;
+      padding: 14px 25px 0;
+    }
+  }
+
+  .chr-link-other {
+    background: url($sprite) no-repeat scroll 0 -1515px transparent;
+  }
+
+  .chr-link-video {
+    background: url($sprite) no-repeat scroll 0 -1712px transparent;
+  }
+
+  .chr-link-podcast {
+    background: url($sprite) no-repeat scroll 0 -1763px transparent;
+  }
+
+  .chr-link-url {
+    background: url($sprite) no-repeat scroll 0 -1515px transparent;
+  }
+
+  .chr-link-image {
+    background: url($sprite) no-repeat scroll 0 -1812px transparent;
+  }
+
+  .chr-link-press {
+    background: url($sprite) no-repeat scroll 0 -1956px transparent;
+  }
+
+  .chr-source {
+    font-style: italic;
+    text-decoration: underline;
+    clear: both;
+  }
+}
+
