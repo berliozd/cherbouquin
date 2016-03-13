@@ -117,85 +117,68 @@
 /* ----------------------- */
 #chronicles-list {
   margin-top: 10px;
-}
+  h1 {
+    color: #239CD3;
+  }
+  .navigation.top {
+    margin-bottom: 10px;
+  }
+  UL {
+    list-style: none outside none;
+    padding: 0;
+    margin: 0;
+    LI {
+      &.cl-item {
+        border-bottom: 1px solid #DEDFDF;
+        float: left;
+        margin-bottom: 7px;
+        padding-bottom: 8px;
+        width: 100%;
+      }
+    }
+  }
+  .cl-left {
+    float: left;
+    width: 28%;
+    .cl-image {
+      border: 1px solid #E6E6E6;
+      width: 170px;
+      height: 170px;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-color: #363A3D;
+      background-size: 200px auto;
+    }
+  }
 
-#chronicles-list h1 {
-  color: #239CD3;
-}
+  .cl-right {
+    float: left;
+    width: 72%;
+    .cl-user {
+      margin-bottom: 15px;
+    }
 
-#chronicles-list .navigation.top {
-  margin-bottom: 10px;
-}
+    .cl-text {
+      word-wrap: break-word;
+      margin-bottom: 15px;
+    }
 
-#cl-searchterm {
-  margin-bottom: 10px;
-}
+    H2 {
+      margin: 0;
+      A {
+        text-decoration: none;
+      }
+    }
+  }
 
-#cl-searchterm-value {
-  font-style: italic;
-}
+  .cl-other-chronicles {
+    font-size: 1.2em;
 
-#cl-searchterm SPAN {
-  font-size: 1.3em;
-}
+    .cloc-title {
+      margin-bottom: 5px;
+    }
 
-#chronicles-list UL {
-  list-style: none outside none;
-  padding: 0;
-  margin: 0;
-}
-
-#chronicles-list LI.cl-item {
-  border-bottom: 1px solid #DEDFDF;
-  float: left;
-  margin-bottom: 7px;
-  padding-bottom: 8px;
-  width: 100%;
-}
-
-#chronicles-list .cl-left {
-  float: left;
-  width: 28%;
-}
-
-#chronicles-list .cl-right {
-  float: left;
-  width: 72%;
-}
-
-#chronicles-list .cl-image {
-  border: 1px solid #E6E6E6;
-  width: 170px;
-  height: 170px;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-color: #363A3D;
-  background-size: 200px auto;
-}
-
-#chronicles-list .cl-user {
-  margin-bottom: 15px;
-}
-
-#chronicles-list .cl-text {
-  word-wrap: break-word;
-  margin-bottom: 15px;
-}
-
-#chronicles-list H2 {
-  margin: 0;
-}
-
-#chronicles-list H2 A {
-  text-decoration: none;
-}
-
-#chronicles-list .cl-other-chronicles {
-  font-size: 1.2em;
-}
-
-.cloc-title {
-  margin-bottom: 5px;
+  }
 }
 
 #chronicles .pb-title {
@@ -210,60 +193,56 @@
   float: left;
   padding-bottom: 30px;
   width: 100%;
-}
 
-.pushed-chronicles a {
-  text-decoration: none;
-}
+  ul {
+    padding: 0;
+    li {
+      list-style: none;
+      vertical-align: top;
+      margin-bottom: 10px;
+      a {
+        text-decoration: none;
+      }
 
-.pushed-chronicles UL {
-  padding: 0;
-}
+      @media (min-width: 768px) {
+        height: 280px;
+      }
+      .pc-image {
+        border: 1px solid #E6E6E6;
+        width: 200px;
+        height: 200px;
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-color: #363A3D;
+        background-size: 200px auto;
+      }
 
-.pushed-chronicles LI {
-  list-style: none;
-  vertical-align: top;
-  margin-bottom: 10px;
-}
+      .pc-title {
+        a {
+          color: #239CD3;
+          font-size: 1.2em;
+          font-weight: bold;
+          text-align: left;
+        }
+      }
 
-@media (min-width: 768px) {
-  .pushed-chronicles LI {
-    height: 280px;
+      .pc-link {
+        border-top: 1px solid #E6E6E6;
+        float: left;
+        padding-top: 5px;
+        margin-top: 15px;
+        width: 100%;
+        a {
+          text-decoration: none;
+          text-transform: uppercase;
+          color: #000;
+          font-weight: bold;
+        }
+      }
+    }
   }
-}
 
-.pc-image {
-  border: 1px solid #E6E6E6;
-  width: 200px;
-  height: 200px;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-color: #363A3D;
-  background-size: 200px auto;
 }
-
-.pc-title a {
-  color: #239CD3;
-  font-size: 1.2em;
-  font-weight: bold;
-  text-align: left;
-}
-
-.pc-link {
-  border-top: 1px solid #E6E6E6;
-  float: left;
-  padding-top: 5px;
-  margin-top: 15px;
-  width: 100%
-}
-
-.pc-link A {
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #000;
-  font-weight: bold;
-}
-
 
 /* ---------------------------------- */
 /* ---- General press reviews CSS --- */
