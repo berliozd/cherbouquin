@@ -24,6 +24,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/login-form';
 @import 'modules/nav-user';
 @import 'modules/search-form';
+@import 'modules/last-reviews-posted';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -2463,64 +2464,6 @@ TD.mb-col-state {
   top: 200px;
 }
 
-/* Last reviews posted */
-.last-reviews-posted {
-  float: left;
-  width: 100%;
-}
-
-.lrp {
-  border-bottom: 1px solid #F2F2F2;
-  float: left;
-  padding: 5px 0;
-  width: 100%;
-}
-
-#homepage .lrp-title {
-  margin-top: 10px;
-  color: #239CD3;
-  font-weight: bold;
-}
-
-#homepage .lrp-image {
-  width: 11%;
-}
-
-#homepage .lrp-content {
-  width: 89%;
-}
-
-#other-user-profile .lrp-title, #user-homepage .lrp-title {
-  color: #239CD3;
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-
-.lrp-image {
-  float: left;
-  width: 12%;
-}
-
-.lrp-content {
-  float: right;
-  width: 88%;
-}
-
-.lrp-content-title {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.lrp-content-title .link {
-  text-decoration: none;
-  font-weight: bold;
-}
-
-#homepage .lrp-bottom A {
-  text-decoration: none;
-  font-weight: bold;
-  color: #000;
-}
 
 /* Same author books */
 .same-author-books .pb-title {

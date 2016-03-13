@@ -1,0 +1,36 @@
+/* Last reviews posted */
+.last-reviews-posted {
+  float: left;
+  width: 100%;
+  .lrp {
+    border-bottom: 1px solid #F2F2F2;
+    float: left;
+    padding: 5px 0;
+    width: 100%;
+  }
+
+  .lrp-image {
+    float: left;
+    width: 12%;
+  }
+
+  .lrp-content {
+    float: right;
+    width: 88%;
+    .lrp-content-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      .link {
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+#other-user-profile .lrp-title,
+#user-homepage .lrp-title {
+  color: #239CD3;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
