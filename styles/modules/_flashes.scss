@@ -1,0 +1,47 @@
+
+#flashes-wrap {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  #flashes {
+    margin-left: -220px;
+    margin-top: -180px;
+    position: fixed;
+    top: 50%;
+    width: 440px;
+    z-index: 1002;
+    left: 50%;
+    background: none repeat scroll 0 0 #FFF;
+    border-radius: 10px 10px 10px 10px;
+    ul {
+      color: #239CD3;
+      list-style: none outside none;
+      margin: 0;
+      padding: 15px;
+      li {
+        color: #239cd3;
+        font-size: 2em;
+      }
+    }
+    #flashes-close-button {
+      background: url($sprite) no-repeat scroll 0 -1328px transparent;
+      float: right;
+      height: 33px;
+      width: 32px;
+      cursor: pointer;
+    }
+  }
+
+  #flashes-background {
+    background-color: #000;
+    height: 100%;
+    left: 0;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+}
+

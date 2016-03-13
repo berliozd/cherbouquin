@@ -25,6 +25,8 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/nav-user';
 @import 'modules/search-form';
 @import 'modules/last-reviews-posted';
+@import 'modules/flashes';
+@import 'modules/user-box';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -303,54 +305,6 @@ DIV.rating {
   width: 300px;
 }
 
-#flashes-wrap {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
-#flashes-background {
-  background-color: #000;
-  height: 100%;
-  left: 0;
-  opacity: 0.5;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-#flashes {
-  margin-left: -220px;
-  margin-top: -180px;
-  position: fixed;
-  top: 50%;
-  width: 440px;
-  z-index: 1002;
-  left: 50%;
-  background: none repeat scroll 0 0 #FFF;
-  border-radius: 10px 10px 10px 10px;
-}
-
-#flashes UL {
-  color: #239CD3;
-  list-style: none outside none;
-  margin: 0;
-  padding: 15px;
-}
-
-#flashes-close-button {
-  background: url($sprite) no-repeat scroll 0 -1328px transparent;
-  float: right;
-  height: 33px;
-  width: 32px;
-  cursor: pointer;
-}
-
-#flashes LI {
-  color: #239cd3;
-  font-size: 2em;
-}
 
 /* global button bar */
 .buttons-bar {
@@ -588,113 +542,6 @@ DIV.rating {
 }
 
 
-/* User box (box in right col) */
-.user-box {
-  float: left;
-  border: 1px solid #239CD3;
-}
-
-.ub-title-wrap {
-  padding-bottom: 8px;
-  background: url($sprite) no-repeat scroll 22px -1629px #FFF;
-}
-
-.ub-title {
-  font-size: 1.6em;
-  color: #FFF;
-  font-weight: bold;
-  line-height: 30px;
-  padding-left: 30px;
-  background: url($sprite) no-repeat scroll 4px -1563px #239CD3;
-}
-
-.ub-mailbox .ub-title {
-  background: url($sprite) no-repeat scroll 3px -235px #239CD3;
-}
-
-.ub-content {
-  background-color: #FFF;
-  float: left;
-  font-size: 1.1em;
-}
-
-.ub-friends .ub-title {
-  background: url($sprite) no-repeat scroll 2px -203px #239CD3;
-}
-
-.ubc-part {
-  float: left;
-  font-weight: bold;
-  width: 278px;
-  padding: 10px;
-}
-
-.ubc-part-title {
-  padding-left: 10px;
-  font-size: 1.1em;
-}
-
-.ub-highlight, .ub-highlight:hover, .ub-highlight:visited {
-  color: #239CD3;
-  text-decoration: none;
-}
-
-.user-box UL.carousel-pagination {
-  left: 150px;
-  position: absolute;
-  top: 210px;
-  width: 110px;
-}
-
-.user-box .carousel-pagination li {
-  background-color: #000;
-}
-
-.user-box .carousel-pagination li.carousel-pagination-active {
-  background: #1a83b3;
-}
-
-.ubc-bottom-link {
-  float: right;
-  font-size: 0.8em;
-}
-
-A.ubc-bottom-link, A.utc-bottom-link:hover, A.utc-bottom-link:visited {
-  color: #239CD3;
-}
-
-/* User box - currently reading */
-.ub-currentreadingbook {
-  float: left;
-  width: 100%;
-}
-
-.ub-currentreading {
-  position: relative;
-}
-
-.ubcb-image {
-  float: left;
-}
-
-.ubcb-text {
-  float: right;
-  width: 55%;
-}
-
-.ubcb-progress {
-  margin-top: 10px;
-}
-
-.ubcb-progress-bar {
-  float: left;
-  width: 100%;
-}
-
-.ubcb-progress-value {
-  color: #239CD3;
-  font-size: 1.1em;
-}
 
 .reading-progress-bar-wrapper {
   border-radius: 5px;

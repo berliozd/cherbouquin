@@ -1,0 +1,105 @@
+/* User box (box in right col) */
+.user-box {
+  float: left;
+  border: 1px solid #239CD3;
+  ul {
+    &.carousel-pagination {
+      left: 150px;
+      position: absolute;
+      top: 210px;
+      width: 110px;
+      li {
+        background-color: #000;
+        &.carousel-pagination-active {
+          background: #1a83b3;
+        }
+      }
+    }
+  }
+  .ub-title-wrap {
+    padding-bottom: 8px;
+    background: url($sprite) no-repeat scroll 22px -1629px #FFF;
+    .ub-title {
+      font-size: 1.6em;
+      color: #FFF;
+      font-weight: bold;
+      line-height: 30px;
+      padding-left: 30px;
+      background: url($sprite) no-repeat scroll 4px -1563px #239CD3;
+    }
+  }
+
+  .ub-content {
+    background-color: #FFF;
+    float: left;
+    font-size: 1.1em;
+    .ubc-part {
+      float: left;
+      font-weight: bold;
+      width: 278px;
+      padding: 10px;
+      .ubc-part-title {
+        padding-left: 10px;
+        font-size: 1.1em;
+      }
+    }
+  }
+
+  .ub-currentreading {
+    position: relative;
+    .ub-currentreadingbook {
+      float: left;
+      width: 100%;
+      .ubcb-image {
+        float: left;
+      }
+
+      .ubcb-text {
+        float: right;
+        width: 55%;
+      }
+
+      .ubcb-progress {
+        margin-top: 10px;
+      }
+
+      .ubcb-progress-bar {
+        float: left;
+        width: 100%;
+      }
+
+      .ubcb-progress-value {
+        color: #239CD3;
+        font-size: 1.1em;
+      }
+    }
+  }
+  .ub-mailbox {
+    .ub-title {
+      background: url($sprite) no-repeat scroll 3px -235px #239CD3;
+    }
+  }
+
+  .ub-friends {
+    .ub-title {
+      background: url($sprite) no-repeat scroll 2px -203px #239CD3;
+    }
+  }
+
+  .ub-highlight, .ub-highlight:hover, .ub-highlight:visited {
+    color: #239CD3;
+    text-decoration: none;
+  }
+
+  .ubc-bottom-link {
+    float: right;
+    font-size: 0.8em;
+  }
+
+  A.ubc-bottom-link,
+  A.ubc-bottom-link:hover,
+  A.ubc-bottom-link:visited {
+    color: #239CD3;
+  }
+}
+
