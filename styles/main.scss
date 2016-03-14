@@ -29,6 +29,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/user-box';
 @import 'modules/twitter-widget';
 @import 'modules/friends-wished-books';
+@import 'modules/navigation';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -342,50 +343,6 @@ DIV.rating {
 
 .selectinput {
   width: 155px;
-}
-
-/* global navigation */
-.navigation {
-  background-color: #DEDFDF;
-  float: left;
-  width: 100%;
-  height: 44px;
-}
-
-.nav-links {
-  color: black;
-  font-weight: bold;
-  float: right;
-}
-
-.nav-links a, .nav-links a:hover, .nav-links a:visited {
-  float: left;
-  margin: 2px;
-  padding: 1px;
-  color: #000;
-}
-
-.nav-links SPAN {
-  float: left;
-  margin: 2px;
-  padding: 1px;
-  color: #fff;
-  color: #239CD3;
-}
-
-.nav-links a.next, .nav-links a.back {
-  height: 20px;
-  width: 14px;
-  border: none;
-}
-
-.nav-links a.next, .nav-links a.back {
-  text-decoration: none;
-}
-
-.nav-links {
-  float: right;
-  line-height: 22px;
 }
 
 .nav-resume {
