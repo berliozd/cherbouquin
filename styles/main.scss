@@ -28,6 +28,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/flashes';
 @import 'modules/user-box';
 @import 'modules/twitter-widget';
+@import 'modules/friends-wished-books';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -808,66 +809,6 @@ DIV.rating {
   padding: 0;
 }
 
-/* Wished books */
-.wb-item {
-  float: left;
-  margin-bottom: 10px;
-  width: 100%;
-  font-size: 1.1em;
-}
-
-.wbi-image {
-  float: left;
-  width: 80px;
-}
-
-.wbi-content {
-  float: left;
-  width: 510px;
-}
-
-.wbi-title {
-  font-weight: bold;
-}
-
-.wbi-content-title {
-  font-size: 1.7em;
-}
-
-.wbi-giftoption {
-  margin-top: 20px;
-}
-
-.wbi-giftoption-addoption {
-  float: left;
-  width: 300px;
-}
-
-.wbi-giftoption-buy {
-  border-left: 1px solid #b1b2b3;
-  float: left;
-  padding-left: 10px;
-}
-
-.wbi-giftoption-notbought {
-  background: url($sprite) no-repeat scroll 0 -1401px transparent;
-  font-weight: bold;
-  display: block;
-  height: 22px;
-  line-height: 22px;
-  margin-bottom: 3px;
-  padding-left: 23px;
-}
-
-.wbi-giftoption-bought {
-  background: url($sprite) no-repeat scroll 0 -1433px transparent;
-  font-weight: bold;
-  display: block;
-  height: 22px;
-  line-height: 22px;
-  margin-bottom: 3px;
-  padding-left: 23px;
-}
 
 /* book-search */
 
@@ -1693,38 +1634,6 @@ TABLE TH.llh-title {
   font-size: 1.7em;
 }
 
-/* friend wished books */
-.fwb-title {
-  font-size: 1.9em;
-  margin-bottom: 15px;
-}
-
-.fwb-subtitle {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.fwb-description {
-  font-size: 1.2em;
-}
-
-.fwb-line-title {
-  font-weight: bold;
-}
-
-.fwb-mail {
-  margin-top: 10px;
-}
-
-.fwb-mail-description {
-  font-size: 1.2em;
-  margin-bottom: 5px;
-}
-
-.fwb-autopromo-banner {
-  margin-bottom: 15px;
-}
 
 /* user profile */
 .user-profile-bkg {

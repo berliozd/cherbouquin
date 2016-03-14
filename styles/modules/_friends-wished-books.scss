@@ -1,0 +1,77 @@
+/* friend wished books */
+.friends-wished-books {
+  .fwb-title {
+    font-size: 1.9em;
+    margin-bottom: 15px;
+  }
+  .fwb-subtitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .fwb-autopromo-banner {
+    margin-bottom: 15px;
+  }
+  .fwb-description {
+    font-size: 1.2em;
+  }
+  .fwb-mail {
+    margin-top: 10px;
+    .fwb-mail-description {
+      font-size: 1.2em;
+      margin-bottom: 5px;
+      .fwb-line-title {
+        font-weight: bold;
+      }
+    }
+  }
+  /* Wished books */
+  .wb-item {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 1.1em;
+    .wbi-image {
+      float: left;
+      width: 80px;
+    }
+    .wbi-content {
+      float: left;
+      width: 510px;
+      .wbi-title {
+        font-weight: bold;
+      }
+      .wbi-giftoption {
+        margin-top: 20px;
+        .wbi-giftoption-addoption {
+          float: left;
+          width: 300px;
+          .wbi-giftoption-notbought {
+            background: url($sprite) no-repeat scroll 0 -1401px transparent;
+            font-weight: bold;
+            display: block;
+            height: 22px;
+            line-height: 22px;
+            margin-bottom: 3px;
+            padding-left: 23px;
+          }
+        }
+        .wbi-giftoption-buy {
+          border-left: 1px solid #b1b2b3;
+          float: left;
+          padding-left: 10px;
+          .wbi-giftoption-bought {
+            background: url($sprite) no-repeat scroll 0 -1433px transparent;
+            font-weight: bold;
+            display: block;
+            height: 22px;
+            line-height: 22px;
+            margin-bottom: 3px;
+            padding-left: 23px;
+          }
+        }
+      }
+    }
+  }
+}
+
