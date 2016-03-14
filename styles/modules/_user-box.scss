@@ -101,5 +101,113 @@
   A.ubc-bottom-link:visited {
     color: #239CD3;
   }
+
+  .ubcb-nopagesread {
+    margin-top: 10px;
+  }
+
+  .ubc-find-friend A, .ubc-find-friend A:hover, .ubc-find-friend A:visited {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .ubc-find-friend-link {
+    line-height: 35px;
+    margin-left: 5px;
+    padding-left: 38px;
+  }
+
+  .ubc-friends-of-friends {
+    background: url($sprite) no-repeat scroll 0 -316px transparent;
+  }
+
+  .ubc-friends-invite {
+    background: url($sprite) no-repeat scroll 0 -282px transparent;
+  }
+
+  .ubc-friends-on-facebook {
+    background: url($sprite) no-repeat scroll 0 -353px transparent;
+  }
+
+  .ubc-sep {
+    float: left;
+    width: 100%;
+    border-bottom: 1px dotted #DDDDDD;
+    margin: 0;
+  }
+
+  /* User box - wished books */
+  .ub-wished {
+    float: left;
+    .ub-title {
+      background-position: 4px -1605px;
+    }
+    .ubwb {
+      float: left;
+      width: 95%;
+      margin-bottom: 5px;
+      margin-left: 10px;
+      .ubwb-image {
+        float: left;
+        width: 25%;
+      }
+
+      .ubwb-text {
+        float: right;
+        width: 75%;
+      }
+
+      .ubwb-link {
+        float: right;
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  /* User box - user list */
+  .ub-users {
+    position: relative;
+    .ub-title {
+      background-position: 4px -202px;
+    }
+    .ub-user {
+      float: left;
+      width: 100%;
+      .ubu-image {
+        float: left;
+      }
+      .ubu-text {
+        float: right;
+        width: 70%;
+      }
+    }
+    ul {
+      &.carousel-pagination {
+        left: 100px;
+        position: absolute;
+        top: 120px;
+        width: 110px;
+      }
+    }
+  }
+
+  /* User box - Other user last events*/
+  .ub-lastevents {
+    .ub-title {
+      background-position: 4px -2082px;
+    }
+    .user-event {
+      margin-left: 10px;
+      .ue-itemimage {
+        width: 25%
+      }
+      .ue-description {
+        width: 75%;
+      }
+    }
+  }
+
 }
+
+
 

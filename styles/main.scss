@@ -31,6 +31,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/friends-wished-books';
 @import 'modules/navigation';
 @import 'modules/book-view';
+@import 'modules/friends-list-header';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -309,7 +310,6 @@ DIV.rating {
   width: 300px;
 }
 
-
 /* global button bar */
 .buttons-bar {
   background-color: #F2F2F2;
@@ -441,8 +441,6 @@ DIV.rating {
   background-position: 90px -1082px;
 }
 
-
-
 .highlight {
   color: #239CD3;
   text-decoration: none;
@@ -501,8 +499,6 @@ DIV.rating {
   word-wrap: break-word;
 }
 
-
-
 .reading-progress-bar-wrapper {
   border-radius: 5px;
   box-shadow: 1px 1px 3px #CCC inset;
@@ -521,122 +517,6 @@ DIV.rating {
 .reading-progress-in {
   height: 10px;
   background: url("../images/reading-progress-bar-in.png") repeat-x 0 0 transparent;
-}
-
-.ubcb-nopagesread {
-  margin-top: 10px;
-}
-
-.ubc-find-friend A, .ubc-find-friend A:hover, .ubc-find-friend A:visited {
-  color: #000;
-  text-decoration: none;
-}
-
-.ubc-find-friend-link {
-  line-height: 35px;
-  margin-left: 5px;
-  padding-left: 38px;
-}
-
-.ubc-friends-of-friends {
-  background: url($sprite) no-repeat scroll 0 -316px transparent;
-}
-
-.ubc-friends-invite {
-  background: url($sprite) no-repeat scroll 0 -282px transparent;
-}
-
-.ubc-friends-on-facebook {
-  background: url($sprite) no-repeat scroll 0 -353px transparent;
-}
-
-.ubc-sep {
-  float: left;
-  width: 100%;
-  border-bottom: 1px dotted #DDDDDD;
-  margin: 0;
-}
-
-/* User box - wished books */
-.ub-wished {
-  float: left;
-}
-
-.ub-wished .ub-title {
-  background-position: 4px -1605px;
-}
-
-.ubwb {
-  float: left;
-  width: 95%;
-  margin-bottom: 5px;
-  margin-left: 10px;
-}
-
-.ubwb-image {
-  float: left;
-  width: 25%;
-}
-
-.ubwb-text {
-  float: right;
-  width: 75%;
-}
-
-.ubwb-link {
-  float: right;
-  font-size: 0.8em;
-}
-
-/* User box - user list */
-.ub-users {
-  position: relative;
-}
-
-.ub-users .ub-title {
-  background-position: 4px -202px;
-}
-
-.ub-users .title-wrap {
-
-}
-
-.ub-user {
-  float: left;
-  width: 100%;
-}
-
-.ubu-image {
-  float: left;
-}
-
-.ubu-text {
-  float: right;
-  width: 70%;
-}
-
-.user-box .ub-users UL.carousel-pagination {
-  left: 100px;
-  position: absolute;
-  top: 120px;
-  width: 110px;
-}
-
-/* User box - Other user last events*/
-.ub-lastevents .ub-title {
-  background-position: 4px -2082px;
-}
-
-.user-box .ue-itemimage {
-  width: 25%
-}
-
-.user-box .ue-description {
-  width: 75%;
-}
-
-.ub-lastevents .user-event {
-  margin-left: 10px;
 }
 
 /* pushed books */
@@ -766,7 +646,6 @@ DIV.rating {
   box-shadow: none;
   padding: 0;
 }
-
 
 /* book-search */
 
@@ -1005,7 +884,6 @@ DIV.rating {
 .ubtt-value {
   float: left;
 }
-
 
 /* book-reviews */
 .book-reviews {
@@ -1278,68 +1156,9 @@ TABLE TH.llh-title {
   margin-bottom: 10px;
 }
 
-.flh-menu {
-  list-style: none;
-  float: left;
-  margin: 0;
-  padding: 10px 0;
-  width: 100%;
-}
-
-.flh-menu LI {
-  float: left;
-  list-style: none outside none;
-  text-align: center;
-  width: 50%;
-}
-
-.flh-menu A, .flh-menu A:hover, .flh-menu A:visited {
-  text-decoration: none;
-}
-
-.flh-item {
-  color: #B1B3B4;
-  font-size: 1.8em;
-  height: 65px;
-  padding-left: 50px;
-  padding-top: 40px;
-}
-
-.flh-item.active {
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-.flh-friends.active {
-  background: url("../images/picto-friends-big-off.png") no-repeat scroll 0px -2px transparent;
-  margin: 0 5px 0 10px;
-}
-
-.flh-friends {
-  background: url("../images/picto-friends-big-on.png") no-repeat scroll 0px -3px transparent;
-  margin: 0 5px 0 10px;
-}
-
-.flh-wishes.active {
-  background: url("../images/picto-friends-wished-big-off.png") no-repeat scroll 0px -3px transparent;
-  margin: 0;
-}
-
-.flh-wishes {
-  background: url("../images/picto-friends-wished-big-on.png") no-repeat scroll 0px -3px transparent;
-  margin: 0;
-}
-
 .friends-list {
   padding: 10px 0;
   float: left;
-}
-
-.friends-list-header {
-  background-color: #239CD3;
-  border-radius: 10px 10px 0 0;
-  float: left;
-  width: 100%;
 }
 
 .friend-nav-bar {
@@ -1409,7 +1228,6 @@ TABLE TH.llh-title {
 .fl-choosefriend {
   font-size: 1.7em;
 }
-
 
 /* user profile */
 .user-profile-bkg {
@@ -1945,8 +1763,6 @@ TD.mb-col-state {
   font-size: 1.2em;
 }
 
-
-
 /* SEO book list */
 .book-list .navigation.top {
   margin-bottom: 10px;
@@ -1972,7 +1788,6 @@ TD.mb-col-state {
   margin-bottom: 3px;
 }
 
-
 .coverflip {
   border: 1px #e6e6e6 solid;
   height: 230px;
@@ -1996,7 +1811,6 @@ TD.mb-col-state {
   text-align: center;
   top: 200px;
 }
-
 
 /* Same author books */
 .same-author-books .pb-title {

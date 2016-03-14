@@ -1,0 +1,55 @@
+
+.friends-list-header {
+  background-color: #239CD3;
+  border-radius: 10px 10px 0 0;
+  float: left;
+  width: 100%;
+  .flh-menu {
+    list-style: none;
+    float: left;
+    margin: 0;
+    padding: 10px 0;
+    width: 100%;
+    li {
+      float: left;
+      list-style: none outside none;
+      text-align: center;
+      width: 50%;
+      a, a:hover, a:visited {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .flh-item {
+    color: #B1B3B4;
+    font-size: 1.8em;
+    height: 65px;
+    padding-left: 50px;
+    padding-top: 40px;
+    &.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+
+  .flh-friends {
+    background: url("../images/picto-friends-big-on.png") no-repeat scroll 0px -3px transparent;
+    margin: 0 5px 0 10px;
+    &.active {
+      background: url("../images/picto-friends-big-off.png") no-repeat scroll 0px -2px transparent;
+      margin: 0 5px 0 10px;
+    }
+  }
+
+  .flh-wishes {
+    background: url("../images/picto-friends-wished-big-on.png") no-repeat scroll 0px -3px transparent;
+    margin: 0;
+    &.active {
+      background: url("../images/picto-friends-wished-big-off.png") no-repeat scroll 0px -3px transparent;
+      margin: 0;
+    }
+  }
+
+}
+
