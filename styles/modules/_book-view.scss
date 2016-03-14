@@ -1,0 +1,149 @@
+/* book view*/
+.book-view {
+  .bv-buttons {
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+    text-decoration: none;
+
+    .bv-requestborrow {
+      float: left;
+      margin-right: 5px;
+    }
+
+    .bv-buttons-group {
+      float: left;
+      width: 100%;
+      .bv-edit {
+        float: left;
+        margin-right: 5px;
+      }
+      .bv-lend {
+        float: left;
+        margin-right: 5px;
+      }
+    }
+    A {
+      text-decoration: none;
+    }
+  }
+
+  /* review */
+  .bv-reviews {
+    float: left;
+    width: 100%;
+    .bvr-item {
+      float: left;
+      width: 100%;
+      .bvri-content {
+        float: left;
+        margin-left: 10px;
+        width: 85%;
+      }
+      .bvri-plublication {
+        float: left;
+        margin-right: 7px;
+        margin-top: 7px;
+      }
+
+      .bvri-review {
+        float: left;
+        margin-top: 2px;
+        width: 100%;
+        overflow: hidden;
+      }
+      .bvri-rating {
+        float: left;
+      }
+
+      .bvri-link {
+        float: left;
+      }
+    }
+    .bvr-list {
+      margin: 10px 0;
+      float: left;
+      width: 100%;
+    }
+    .navigation {
+      height: 30px;
+      .nav-resume {
+        float: left;
+        font-size: 1.3em;
+        line-height: 20px;
+      }
+    }
+    .bvr-warnlink {
+      float: right;
+    }
+
+    .bvr-comments {
+      float: left;
+      width: 100%;
+      background-color: #EEEEEE;
+      border: 1px solid #AAAAAA;
+      margin-top: 5px;
+      ul {
+        float: left;
+        list-style: none outside none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        li {
+          border-bottom: 1px solid #fff;
+          float: left;
+          margin-bottom: 2px;
+          width: 100%;
+        }
+      }
+
+      .bvr-comment {
+        float: left;
+        width: 100%;
+        .bvrc-date {
+          float: right;
+          width: 87%;
+          color: #6B7074;
+        }
+
+        .bvrc-value {
+          float: right;
+          width: 87%;
+        }
+
+        .bvrc-owner {
+          float: left;
+        }
+
+        .bvrc-submitlink {
+          border: 0 none;
+          color: #239CD3;
+          font-size: 0.9em;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .bvr-commentswrap {
+      float: left;
+      padding: 5px;
+      width: 540px;
+    }
+  }
+
+  .bvr-commentsform {
+    float: left;
+    width: 100%;
+    TEXTAREA {
+      font-size: 0.9em;
+      height: 20px;
+      margin: 0;
+      padding: 0;
+      resize: none;
+      width: 90%;
+      font-family: Dosis;
+    }
+  }
+
+}
