@@ -42,6 +42,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'pages/groupAdmin';
 @import 'pages/homepage';
 @import 'pages/registration';
+@import 'pages/lost-password';
 
 .picto-facebook-s {
   background: url($sprite) no-repeat scroll 0 -353px transparent;
@@ -1481,26 +1482,6 @@ TD.mb-col-state {
 /* friends search */
 .friends-search {
   font-size: 1.5em;
-}
-
-/* lost-password */
-.lost-password {
-  margin-bottom: 20px;
-  float: left;
-  width: 100%;
-}
-
-.lp-title {
-  font-size: 2.5em;
-  font-weight: bold;
-}
-
-.lp-label {
-  font-weight: bold;
-}
-
-.lp-subtitle {
-  font-size: 1.2em;
 }
 
 /* SEO book list */
