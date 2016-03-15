@@ -1,13 +1,13 @@
-<?php 
+<?php
 use Sb\Helpers\BookHelper;
 ?>
-<div class="pb-title">
+<div class="lrb-title">
     <?php echo $title;?>
 </div>
 <?php if ($books && count($books)>0) {?>
-    <div class="coverflip coverflip-bkg <?php echo $css;?>" id="<?php echo $coverFlipId; ?>">        
+    <div class="coverflip coverflip-bkg <?php echo $css;?>" id="<?php echo $coverFlipId; ?>">
         <div class="carousel-images">
-          <?php 
+          <?php
           foreach ($books as $book) {
               echo "" .
                 "<div>" .

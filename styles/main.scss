@@ -37,6 +37,8 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/friends-list-header';
 @import 'modules/book-search';
 @import 'modules/content-search-form';
+@import 'modules/book-list';
+@import 'modules/pushed-books';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -64,7 +66,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   text-decoration: underline;
   text-transform: none;
 }
-
 
 .see-more {
   background-color: #F2F2F2;
@@ -174,7 +175,6 @@ DIV.rating {
   height: 20px;
   width: 20px;
 }
-
 
 .image-frame {
   border: 1px solid #B2B2B2;
@@ -426,134 +426,6 @@ DIV.rating {
 .reading-progress-in {
   height: 10px;
   background: url("../images/reading-progress-bar-in.png") repeat-x 0 0 transparent;
-}
-
-/* pushed books */
-.pushed-books {
-  float: left;
-  width: 100%;
-}
-
-.book-view .pushed-books {
-  margin: 25px 0;
-}
-
-.pb-title {
-  color: #239CD3;
-  font-size: 2em;
-  margin-bottom: 10px;
-  font-weight: normal;
-}
-
-.pb-title .pb-highlight {
-  font-weight: bold;
-}
-
-.pb-item {
-  float: left;
-  margin-bottom: 10px;
-  width: 100%;
-  font-size: 1.1em;
-}
-
-.pbi-nbBoh {
-  font-size: 1.4em;
-}
-
-.pbi-image {
-  float: left;
-  width: 125px;
-}
-
-.pbi-image-small {
-  float: left;
-  width: 80px;
-}
-
-.pbi-content {
-  float: left;
-  width: 505px;
-}
-
-.pbi-description {
-  float: left;
-}
-
-.pbi-content-title {
-  font-size: 1.7em;
-}
-
-.pbi-content-subtitle {
-  font-size: 1.4em;
-}
-
-.pbi-flags {
-  float: left;
-  width: 100%;
-}
-
-.pbi-flags DIV {
-  height: 20px;
-  padding-top: 5px;
-}
-
-.pbi-avgrating {
-  font-size: 1.3em;
-}
-
-.pbif-rating-label {
-  float: left;
-  height: 21px;
-  margin-right: 4px;
-  padding-top: 5px;
-}
-
-.pbif-readingstate {
-  float: left;
-  color: #6b7074;
-  font-weight: bold;
-}
-
-.pbi-title {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin: 0;
-}
-
-.pbi-publication .publisher {
-  font-weight: bold;
-}
-
-.pbi-authors {
-  font-weight: bold;
-}
-
-.pb-nobooks {
-  font-size: 1.5em;
-}
-
-.pb-shelf {
-  background: url("../images/shelf.png") no-repeat scroll -3px bottom transparent;
-  float: left;
-  padding-bottom: 51px;
-  width: 100%;
-}
-
-.pb-inner-shelf {
-  margin: 0 auto;
-  width: 580px;
-}
-
-.pb-bookOnShelf {
-  background: url("../images/book-onshelf-shadow.png") no-repeat scroll -4px 0 transparent;
-  float: left;
-  padding-left: 0.7em;
-  padding-right: 0.7em;
-}
-
-.pb-bookOnShelf .image-frame {
-  box-shadow: none;
-  padding: 0;
 }
 
 /* user-book */
@@ -1484,31 +1356,6 @@ TD.mb-col-state {
   font-size: 1.5em;
 }
 
-/* SEO book list */
-.book-list .navigation.top {
-  margin-bottom: 10px;
-}
-
-.book-list-title {
-  color: #239CD3;
-  margin-bottom: 20px;
-  margin-top: 0;
-}
-
-.book-list-introduction {
-  font-size: 1.5em;
-  margin-bottom: 20px;
-}
-
-.bl-filter {
-  margin: 10px 0;
-}
-
-.blf-title {
-  font-size: 1.3em;
-  margin-bottom: 3px;
-}
-
 .coverflip {
   border: 1px #e6e6e6 solid;
   height: 230px;
@@ -1542,8 +1389,9 @@ TD.mb-col-state {
 }
 
 /* Last rated books - homepage */
-.last-rated-books .pb-title {
+.last-rated-books .lrb-title {
   font-size: 1.1em;
   font-weight: bold;
   margin: 10px 0 5px;
+  color: #239CD3;
 }
