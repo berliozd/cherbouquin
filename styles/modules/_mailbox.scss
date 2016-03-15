@@ -1,0 +1,153 @@
+/* mailbox list */
+.mailbox TABLE {
+  float: left;
+  width: 100%;
+  text-align: left;
+}
+
+.mb-deletebutton {
+  float: left;
+}
+
+.mb-deletebutton .bt-black-l {
+  line-height: 10px;
+}
+
+.mb-col-check {
+  width: 10%;
+  text-align: center;
+}
+
+.mb-col-avatar {
+  width: 20%;
+}
+
+.mb-col-msg {
+  width: 30%;
+}
+
+.mb-col-date {
+  width: 10%;
+}
+
+.mb-col-state {
+  width: 15%;
+  font-weight: bold;
+}
+
+TD.mb-col-state {
+  color: #f56903;
+}
+
+.mb-col-read {
+  width: 7%;
+}
+
+.mb-col-delete {
+  width: 8%;
+}
+
+.mb-col-date.ASC {
+  background: url($sprite) no-repeat scroll 55px -122px transparent;
+}
+
+.mb-col-date.DESC {
+  background: url($sprite) no-repeat scroll 55px -153px transparent;
+}
+
+.mailbox .navigation {
+  background-color: #efefef;
+}
+
+.mailbox .navigation .nav-resume {
+  float: left;
+  font-size: 1.8em;
+}
+
+.mailbox .navigation.mb-hat {
+  background-color: #363a3d;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+
+.mb-header {
+  background-color: #EFEFEF;
+  color: #33373A;
+  font-size: 1em;
+}
+
+.mailbox TD.border-right {
+  border-right: 2px solid #EFF0F0;
+  padding: 5px;
+}
+
+.mailbox .nav-links a, .mailbox .nav-links a:hover, .mailbox .nav-links a:visited {
+  color: #FFF;
+}
+
+.mailbox .mb-foot .nav-links a, .mailbox .mb-foot .nav-links a:hover, .mailbox .mb-foot .nav-links a:visited {
+  color: #363A3D;
+}
+
+.mailbox A, .mailbox A:visited, .mailbox A:hover {
+  text-decoration: none;
+  color: #000;
+}
+
+/* mailbox message */
+.mm-header {
+  background-color: #363a3d;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+
+.mm-body {
+  margin-top: 10px;
+}
+
+.mmh-label {
+  font-weight: bold;
+}
+
+.mmb-title {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.mm-inputbody {
+  height: 100px;
+  width: 100%;
+}
+
+/* mailbox new message */
+.mnm-title {
+  font-size: 1.9em;
+  margin-bottom: 10px;
+}
+
+.mnm-line {
+  margin-top: 10px;
+}
+
+.mnm-line-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.mnm-body {
+  height: 300px;
+  width: 100%;
+}
+
+.mnm-subject {
+  height: 20px;
+  padding: 5px;
+  width: 300px;
+}
+
+.mnm-emails {
+  height: 20px;
+  padding: 5px;
+  width: 500px;
+}

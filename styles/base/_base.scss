@@ -79,11 +79,9 @@ A.link, A:visited.link, A:hover.link {
   width: 100%;
 }
 
-
 .noDisplay {
   display: none;
 }
-
 
 .highlight {
   color: #239CD3;
@@ -122,4 +120,25 @@ A.link, A:visited.link, A:hover.link {
 .inner-right-padding-45 {
   padding: 0 0 0 45px;
   float: left;
+}
+
+/* global separator */
+.separator {
+  border-top-style: solid;
+  border-top-width: 5px;
+  border-color: #FFF;
+}
+
+.separator SPAN {
+  padding: 3px;
+  font-size: 1.3em;
+}
+
+.separator.cherbouquin {
+  border-color: #239CD3;
+}
+
+.separator.cherbouquin SPAN {
+  background-color: #239CD3;
+  color: #FFF;
 }
