@@ -1,0 +1,40 @@
+
+.input {
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 1px -27px 8px #FFF inset;
+  height: 28px;
+  padding-left: 5px;
+}
+
+input, select {
+  font-size: 1.2em;
+  color: #000;
+}
+
+SELECT {
+  height: 28px;
+}
+
+/* global field style */
+.input-item, #chronicle-form .input-text, .zend_form SELECT, .zend_form TEXTAREA {
+  background-color: #F0EFEF;
+  border: 1px solid #CCC;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 4px 4px 7px #CCC inset;
+}
+
+.textinput {
+  padding: 5px;
+  width: 250px;
+}
+
+.xs-textinput {
+  padding: 5px;
+  width: 50px;
+}
+
+.selectinput {
+  width: 155px;
+}

@@ -5,6 +5,10 @@
 
   #footer-bottom {
 
+    //@include respond-to('medium') {
+    //  display: none;
+    //}
+
     background-color: #FFF;
     border-radius: 0px 0px 10px 10px;
     float: left;

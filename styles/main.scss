@@ -3,9 +3,12 @@ $imageVersion: 10;
 $sprite: '../images/sprite.png?v=' + $imageVersion;
 $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 
+@import 'abstract/mixins';
+
 @import 'vendors/bootstrap';
 
 @import 'base/base';
+@import 'base/forms';
 
 @import 'layout/layout';
 @import 'layout/content';
@@ -32,6 +35,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/navigation';
 @import 'modules/book-view';
 @import 'modules/friends-list-header';
+@import 'modules/book-search';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -58,34 +62,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   text-transform: none;
 }
 
-.search-field {
-  background: url($sprite) no-repeat scroll 0 0 transparent;
-  float: left;
-  height: 32px;
-  width: 266px;
-}
-
-.search-field-input {
-  float: left;
-  margin: 7px;
-}
-
-.search-field INPUT {
-  background: none repeat scroll 0 0 transparent;
-  border: medium none;
-  width: 200px;
-  font-size: 1em;
-  text-overflow: ellipsis;
-}
-
-.input {
-  background: none repeat scroll 0 0 transparent;
-  border: medium none;
-  border-radius: 6px 6px 6px 6px;
-  box-shadow: 1px -27px 8px #FFF inset;
-  height: 28px;
-  padding-left: 5px;
-}
 
 .see-more {
   background-color: #F2F2F2;
@@ -196,9 +172,6 @@ DIV.rating {
   width: 20px;
 }
 
-.noDisplay {
-  display: none;
-}
 
 .image-frame {
   border: 1px solid #B2B2B2;
@@ -324,38 +297,10 @@ DIV.rating {
   font-size: 0.7em;
 }
 
-/* global field style */
-.input-item, #chronicle-form .input-text, .zend_form SELECT, .zend_form TEXTAREA {
-  background-color: #F0EFEF;
-  border: 1px solid #CCC;
-  border-radius: 5px 5px 5px 5px;
-  box-shadow: 4px 4px 7px #CCC inset;
-}
-
-.textinput {
-  padding: 5px;
-  width: 250px;
-}
-
-.xs-textinput {
-  padding: 5px;
-  width: 50px;
-}
-
-.selectinput {
-  width: 155px;
-}
-
 .nav-resume {
   float: right;
   line-height: 29px;
   margin-right: 17px;
-}
-
-.right-frame {
-  float: left;
-  margin-bottom: 15px;
-  width: 100%;
 }
 
 .right-col-buttons {
@@ -439,45 +384,6 @@ DIV.rating {
 
 .profile-picto-small-private.nurs-status {
   background-position: 90px -1082px;
-}
-
-.highlight {
-  color: #239CD3;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.inner-padding {
-  padding: 5px;
-}
-
-.inner-padding-10 {
-  padding: 10px;
-}
-
-.inner-padding-12 {
-  padding: 12px;
-  float: left;
-}
-
-.inner-padding-20 {
-  padding: 20px;
-  float: left;
-}
-
-.inner-side-padding-10 {
-  padding: 0 10px;
-  float: left;
-}
-
-.inner-side-padding-30 {
-  padding: 0 30px;
-  float: left;
-}
-
-.inner-right-padding-45 {
-  padding: 0 0 0 45px;
-  float: left;
 }
 
 .little-grey-bar {
@@ -645,105 +551,6 @@ DIV.rating {
 .pb-bookOnShelf .image-frame {
   box-shadow: none;
   padding: 0;
-}
-
-/* book-search */
-
-.book-search {
-  .bs-button {
-    float: right;
-  }
-  .bs-nav {
-    background-color: #DEDFDF;
-    float: left;
-    width: 100%;
-    padding: 5px 0;
-  }
-
-  .bs-header-nav {
-    border-bottom: 1px solid #FFF;
-    border-radius: 10px 10px 0 0;
-  }
-
-  .bsn-resume {
-    float: left;
-  }
-
-  .bsr-header {
-    background-color: #EFEFEF;
-    float: left;
-    width: 100%;
-  }
-
-  .bsrh-title {
-    float: left;
-    width: 55%;
-  }
-
-  .bsrh-author {
-    float: left;
-    width: 30%;
-  }
-
-  .bsrh-button {
-    float: left;
-    width: 15%;
-  }
-
-  .bsr-line {
-    float: left;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    .link, .link:hover {
-      font-size: 12px;
-      text-align: right;
-      text-decoration: underline;
-      text-transform: none;
-    }
-    &.indb {
-      .bslt-desc .title {
-        text-decoration: underline;
-      }
-    }
-
-    .bsl-title, .bsl-author, .bsl-button {
-      min-height: 100%;
-    }
-
-    .bsl-title {
-      float: left;
-      width: 70%;
-      padding-right: 2%;
-      background: url("../images/book-search-vertical-sep.png") no-repeat scroll right top transparent;
-
-      .bslt-image {
-        float: left;
-        margin-right: 15px;
-      }
-
-      .bslt-desc .title {
-        font-weight: bold;
-      }
-
-      .bslt-desc .publisher {
-        font-weight: bold;
-      }
-    }
-
-    .bsl-author {
-      padding-left: 2%;
-      float: left;
-      width: 10%;
-      background: url("../images/book-search-vertical-sep.png") no-repeat scroll right top transparent;
-      font-weight: bold;
-    }
-
-    .bsl-button {
-      float: left;
-      width: 15%;
-    }
-  }
 }
 
 /* user-book */

@@ -1,0 +1,98 @@
+/* book-search */
+
+.book-search {
+  .bs-button {
+    float: right;
+  }
+  .bs-nav {
+    background-color: #DEDFDF;
+    float: left;
+    width: 100%;
+    padding: 5px 0;
+  }
+
+  .bs-header-nav {
+    border-bottom: 1px solid #FFF;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .bsn-resume {
+    float: left;
+  }
+
+  .bsr-header {
+    background-color: #EFEFEF;
+    float: left;
+    width: 100%;
+  }
+
+  .bsrh-title {
+    float: left;
+    width: 55%;
+  }
+
+  .bsrh-author {
+    float: left;
+    width: 30%;
+  }
+
+  .bsrh-button {
+    float: left;
+    width: 15%;
+  }
+
+  .bsr-line {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    .link, .link:hover {
+      font-size: 12px;
+      text-align: right;
+      text-decoration: underline;
+      text-transform: none;
+    }
+    &.indb {
+      .bslt-desc .title {
+        text-decoration: underline;
+      }
+    }
+
+    .bsl-title, .bsl-author, .bsl-button {
+      min-height: 100%;
+    }
+
+    .bsl-title {
+      float: left;
+      width: 70%;
+      padding-right: 2%;
+      background: url("../images/book-search-vertical-sep.png") no-repeat scroll right top transparent;
+
+      .bslt-image {
+        float: left;
+        margin-right: 15px;
+      }
+
+      .bslt-desc .title {
+        font-weight: bold;
+      }
+
+      .bslt-desc .publisher {
+        font-weight: bold;
+      }
+    }
+
+    .bsl-author {
+      padding-left: 2%;
+      float: left;
+      width: 10%;
+      background: url("../images/book-search-vertical-sep.png") no-repeat scroll right top transparent;
+      font-weight: bold;
+    }
+
+    .bsl-button {
+      float: left;
+      width: 15%;
+    }
+  }
+}

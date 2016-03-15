@@ -33,3 +33,24 @@
     margin-right: 53px;
   }
 }
+
+.search-field {
+  background: url($sprite) no-repeat scroll 0 0 transparent;
+  float: left;
+  height: 32px;
+  width: 266px;
+  INPUT {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    width: 200px;
+    font-size: 1em;
+    text-overflow: ellipsis;
+  }
+}
+
+.search-field-input {
+  float: left;
+  margin: 7px;
+}
+
+
