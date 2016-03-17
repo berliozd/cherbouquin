@@ -1,0 +1,30 @@
+/* edit lending */
+.userbook-lending {
+  float: left;
+  width: 100%;
+  .ul-lendings, .ul-borrowings, .ul-form {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .ul-title {
+    font-size: 1.5em;
+  }
+
+  .ul-detail {
+    float: left;
+    margin-right: 10px;
+    font-size: 1.5em;
+  }
+
+  .ul-button {
+    float: left;
+  }
+
+  .ul-btbutton {
+    line-height: 10px;
+  }
+}
+
+

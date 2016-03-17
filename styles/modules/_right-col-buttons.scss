@@ -1,0 +1,24 @@
+
+.right-col-buttons {
+  margin-bottom: 5px;
+  float: left;
+  width: 100%;
+
+  .rcb-label {
+    border-right: 1px solid #CCCCCC;
+    float: left;
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 27px;
+    padding-right: 5px;
+    padding-top: 13px;
+    width: 80px;
+  }
+
+  .rcb-buttons {
+    float: left;
+    width: 200px;
+  }
+
+}
+

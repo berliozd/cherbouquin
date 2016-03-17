@@ -45,6 +45,9 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/user-book';
 @import 'modules/profile';
 @import 'modules/library-list';
+@import 'modules/library-header';
+@import 'modules/right-col-buttons';
+@import 'modules/user-book-lending';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -312,28 +315,6 @@ DIV.rating {
   margin-right: 17px;
 }
 
-.right-col-buttons {
-  margin-bottom: 5px;
-  float: left;
-  width: 100%;
-}
-
-.rcb-buttons {
-  float: left;
-  width: 200px;
-}
-
-.rcb-label {
-  border-right: 1px solid #CCCCCC;
-  float: left;
-  font-size: 1.1em;
-  font-weight: bold;
-  height: 27px;
-  padding-right: 5px;
-  padding-top: 13px;
-  width: 80px;
-}
-
 /* pinterest frame */
 .pinterest-frame {
   border: 1px #f14e07 solid;
@@ -445,109 +426,6 @@ DIV.rating {
   float: left;
 }
 
-/* library-header */
-.library-header {
-  background-color: #239CD3;
-  border-radius: 10px 10px 0 0;
-  float: left;
-  width: 100%;
-}
-
-.friend-library-header {
-  background-color: #363A3D;
-}
-
-.library-header UL {
-  float: left;
-  margin: 0;
-  padding: 10px 0;
-  width: 100%;
-}
-
-.library-header LI {
-  float: left;
-  width: 20%;
-  list-style: none;
-  text-align: center;
-}
-
-.lh-wrapper.first {
-  margin-left: 10px;
-}
-
-.lh-wrapper {
-  background-color: #FFF;
-  margin: 0 5px 0 5px;
-  height: 42px;
-  width: 184px;
-  padding-top: 100px;
-}
-
-.library-header A, .library-header A:hover, .library-header A:visited {
-  font-size: 1.6em;
-  text-decoration: none;
-  color: #b1b3b4;
-}
-
-.active A .lh-wrapper, .active A:hover .lh-wrapper, .active A:visited .lh-wrapper {
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-.lh-wrapper.last {
-  margin-right: 10px;
-}
-
-.lh-all {
-  background: url("../images/picto-library-big-black.png") no-repeat scroll -2px 4px transparent;
-}
-
-.lh-friend-library-all {
-  background: url("../images/picto-libraryfriend-big-black.png") no-repeat scroll -2px 4px transparent;
-}
-
-.lh-owned {
-  background: url("../images/picto-library-owned-big.png") no-repeat scroll -2px 0 transparent;
-}
-
-.active A .lh-wrapper.lh-owned, .active A:hover .lh-wrapper.lh-owned, .active A:visited .lh-wrapper.lh-owned {
-  color: #239cd3;
-}
-
-.lh-borrowed {
-  background: url("../images/picto-library-borrowed-big.png") no-repeat scroll -2px 0 transparent;
-}
-
-.active A .lh-wrapper.lh-borrowed, .active A:hover .lh-wrapper.lh-borrowed, .active A:visited .lh-wrapper.lh-borrowed {
-  color: #bf0574;
-}
-
-.lh-lent {
-  background: url("../images/picto-library-lent-big.png") no-repeat scroll -2px 0 transparent;
-}
-
-.active A .lh-wrapper.lh-lent, .active A:hover .lh-wrapper.lh-lent, .active A:visited .lh-wrapper.lh-lent {
-  color: #794691;
-}
-
-.lh-wished {
-  background: url("../images/picto-library-wished-big.png") no-repeat scroll -2px 0 transparent;
-}
-
-.active A .lh-wrapper.lh-wished, .active A:hover .lh-wrapper.lh-wished, .active A:visited .lh-wrapper.lh-wished {
-  color: #3e932e;
-}
-
-.lh-friendlibrarytitle {
-  background: url($sprite) no-repeat scroll 0 -77px transparent;
-  color: #FFF;
-  font-size: 2.4em;
-  margin-left: 10px;
-  padding-left: 47px;
-  padding-top: 5px;
-}
-
-
 .library-list .pbi-content {
   width: 315px;
 }
@@ -567,7 +445,6 @@ DIV.rating {
 .sortLine .llh-title.sort.DESC {
   background: url($sprite) no-repeat scroll 118px -153px transparent;
 }
-
 
 .ll-nobooks {
   padding: 15px;
@@ -593,36 +470,6 @@ DIV.rating {
 .qrf-baseline {
   font-size: 1.3em;
   margin: 15px 0;
-}
-
-/* edit lending */
-.userbook-lending {
-  float: left;
-  width: 100%;
-}
-
-.ul-lendings, .ul-borrowings, .ul-form {
-  float: left;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.ul-title {
-  font-size: 1.5em;
-}
-
-.ul-detail {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.5em;
-}
-
-.ul-button {
-  float: left;
-}
-
-.ul-btbutton {
-  line-height: 10px;
 }
 
 /* friend-item */
@@ -727,13 +574,15 @@ DIV.rating {
 }
 
 /* friend profile */
-.friend-profile .p-line-small {
-  font-size: 1.2em;
-  line-height: 17px;
-}
+.friend-profile {
+  .p-line-small {
+    font-size: 1.2em;
+    line-height: 17px;
+  }
+  .pl-birthdate {
+    margin-bottom: 3px;
+  }
 
-.friend-profile .pl-birthdate {
-  margin-bottom: 3px;
 }
 
 .add-friend-bkg {
