@@ -247,34 +247,6 @@ DIV.rating {
   margin-left: 2px;
 }
 
-.horizontal-sep-1 {
-  background: url("../images/horizontal-sep-1.png") no-repeat scroll 0 0 transparent;
-  float: left;
-  height: 23px;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.horizontal-sep-2 {
-  background: url("../images/book-search-sep.png") no-repeat scroll 0 15px transparent;
-  float: left;
-  height: 23px;
-  width: 100%;
-}
-
-.horizontal-sep-3 {
-  background: url("../images/horizontal-sep-3.png") no-repeat scroll 0 15px transparent;
-  float: left;
-  height: 23px;
-  width: 100%;
-}
-
-.horizontal-sep-4 {
-  background: url("../images/horizontal-sep-4.png") no-repeat scroll 35px 15px transparent;
-  float: left;
-  height: 23px;
-  width: 100%;
-}
 
 #loading {
   background-color: #000000;
@@ -644,6 +616,7 @@ DIV.rating {
   text-align: center;
   top: 200px;
 }
+
 
 /* Same author books */
 .same-author-books .pb-title {
