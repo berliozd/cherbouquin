@@ -3,163 +3,162 @@
   float: left;
   width: 100%;
   margin-bottom: 30px;
-}
 
-.p-left {
-  float: left;
-}
+  .p-left {
+    float: left;
+  }
 
-.p-center {
-  float: left;
-  margin-left: 30px;
-  width: 42%;
-}
+  .p-center {
+    float: left;
+    margin-left: 30px;
+    width: 42%;
+  }
 
-.p-right {
-  float: right;
-}
+  .p-right {
+    float: right;
+  }
 
-.p-name {
-  font-size: 1.9em;
-  font-weight: bold;
-}
+  .p-name {
+    font-size: 1.9em;
+    font-weight: bold;
+  }
 
-.p-gender {
-  font-size: 1.9em;
-  font-weight: bold;
-}
+  .p-gender {
+    font-size: 1.9em;
+    font-weight: bold;
+  }
 
-.p-line {
-  font-size: 1.3em;
-  line-height: 22px;
-  float: left;
-  width: 100%;
-}
+  .p-line {
+    font-size: 1.3em;
+    line-height: 22px;
+    float: left;
+    width: 100%;
+    .pl-picto {
+      float: right;
+      height: 30px;
+      margin-left: 10px;
+      width: 35px;
+    }
 
-.pl-picto {
-  float: right;
-  height: 30px;
-  margin-left: 10px;
-  width: 35px;
-}
+    .pl-birthdate {
+      margin-bottom: 18px;
+    }
 
-.pl-birthdate {
-  margin-bottom: 18px;
-}
+    .pl-label {
+      font-weight: bold;
+    }
 
-.pl-label {
-  font-weight: bold;
-}
+    .pl-coordinatetitle {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-top: 5px;
+      background: url($sprite) repeat scroll 125px -1997px transparent;
+    }
 
-.pl-coordinatetitle {
-  font-size: 1.8em;
-  font-weight: bold;
-  margin-top: 5px;
-  background: url($sprite) repeat scroll 125px -1997px transparent;
-}
+    .pl-coordinate {
+      line-height: 16px;
+    }
 
-.pl-coordinate {
-  line-height: 16px;
-}
+    .pl-add-as-friend {
+      background: url($sprite) repeat scroll 0 -2043px transparent;
+      padding-left: 20px;
+      padding-top: 5px;
+    }
+  }
 
-.pl-add-as-friend {
-  background: url($sprite) repeat scroll 0 -2043px transparent;
-  padding-left: 20px;
-  padding-top: 5px;
-}
+  .profile-status {
+    float: left;
+  }
 
-.profile-status {
-  float: left;
-}
+  .ps-current {
+    float: left;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 46px;
+    width: 100%;
+  }
 
-.ps-current {
-  float: left;
-  font-size: 1.8em;
-  font-weight: bold;
-  line-height: 46px;
-  width: 100%;
-}
+  .ps-current-label {
+    float: left;
+  }
 
-.ps-current-label {
-  float: left;
-}
+  .ps-current-value {
+    float: left;
+    margin-left: 5px;
+  }
 
-.ps-current-value {
-  float: left;
-  margin-left: 5px;
-}
+  .ps-description {
+    font-size: 1.5em
+  }
 
-.ps-description {
-  font-size: 1.5em
-}
+  .ps-picto {
+    color: #239CD3;
+    height: 50px;
+    padding-left: 50px;
+    width: 233px;
+  }
 
-.ps-picto {
-  color: #239CD3;
-  height: 50px;
-  padding-left: 50px;
-  width: 233px;
-}
+  .ps-picto-myfriends {
+    background: url($sprite) repeat-x scroll 0 -854px transparent;
+  }
 
-.ps-picto-myfriends {
-  background: url($sprite) repeat-x scroll 0 -854px transparent;
-}
+  .ps-picto-public {
+    background: url($sprite) repeat-x scroll 0 -906px transparent;
+  }
 
-.ps-picto-public {
-  background: url($sprite) repeat-x scroll 0 -906px transparent;
-}
+  .ps-picto-private {
+    background: url($sprite) repeat-x scroll 0 -906px transparent;
+  }
 
-.ps-picto-private {
-  background: url($sprite) repeat-x scroll 0 -906px transparent;
-}
+  .psl-title {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
 
-.psl-title {
-  font-size: 1.2em;
-  font-weight: bold;
-}
+  .psl {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+  }
 
-.psl {
-  list-style: none outside none;
-  margin: 0;
-  padding: 0;
-}
+  .psl-item {
+    float: left;
+    padding-left: 35px;
+  }
 
-.psl-item {
-  float: left;
-  padding-left: 35px;
-}
+  .psl-label {
+    color: #239CD3;
+    font-weight: bold;
+  }
 
-.psl-label {
-  color: #239CD3;
-  font-weight: bold;
-}
+  .profile-delete {
+    float: left;
+  }
 
-.profile-delete {
-  float: left;
-}
+  .p-friend-title {
+    background: url($sprite) no-repeat scroll 0 -84px transparent;
+    font-size: 1.8em;
+    height: 33px;
+    margin-bottom: 18px;
+    padding-left: 50px;
+    padding-left: 50px;
+    color: #FFF;
+  }
 
-.p-friend-title {
-  background: url($sprite) no-repeat scroll 0 -84px transparent;
-  font-size: 1.8em;
-  height: 33px;
-  margin-bottom: 18px;
-  padding-left: 50px;
-  padding-left: 50px;
-  color: #FFF;
-}
+  .p-right-item {
+    text-align: right;
+  }
 
-.p-right-item {
-  text-align: right;
-}
+  .p-nbbooks {
+    font-size: 2em;
+  }
 
-.p-nbbooks {
-  font-size: 2em;
-}
+  /* profile delete */
+  .pd-description {
+    font-size: 1.5em;
+  }
 
-/* profile delete */
-.pd-description {
-  font-size: 1.5em;
-}
-
-.pd-title {
-  font-size: 2.5em;
+  .pd-title {
+    font-size: 2.5em;
+  }
 }

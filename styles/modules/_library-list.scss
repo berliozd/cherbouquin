@@ -13,31 +13,27 @@
 .ll-list {
   float: left;
   width: 100%;
+  TABLE {
+    float: left;
+    width: 100%;
+    TD, TH {
+      margin: 2px;
+      padding: 2px;
+    }
+    TH {
+      height: 30px;
+      cursor: pointer;
+    }
+    TD {
+      vertical-align: top;
+      &.border-right {
+        padding: 5px;
+        border-right: 2px solid #EFF0F0;
+      }
+    }
+  }
 }
 
-.ll-list TABLE {
-  float: left;
-  width: 100%;
-}
-
-.ll-list TABLE TD, .ll-list TABLE TH {
-  margin: 2px;
-  padding: 2px;
-}
-
-.ll-list TABLE TH {
-  height: 30px;
-  cursor: pointer;
-}
-
-.ll-list TD.border-right {
-  padding: 5px;
-  border-right: 2px solid #EFF0F0;
-}
-
-.ll-list TD {
-  vertical-align: top;
-}
 
 .lll-header {
   background-color: #efefef;
@@ -59,14 +55,16 @@
   width: 14%;
 }
 
-.llh-title {
-  width: 42%;
-}
 
 .llh-title, .llh-author, .llh-rating, .llh-state {
   text-align: left;
 }
 
-TABLE TH.llh-title {
-  padding-left: 80px;
+TABLE {
+  TH {
+    &.llh-title {
+      width: 42%;
+      padding-left: 80px;
+    }
+  }
 }
