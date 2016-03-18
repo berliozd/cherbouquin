@@ -24,17 +24,17 @@ class ImageHelper {
 
     public static function getSmallImageTag($url, $title, $defaultImg) {
 
-        return sprintf("<img src='%s' border='0' class='image-thumb-small image-frame' title=\"%s\" alt=\"%s\"/>", self::getImageSrc($url, $defaultImg), $title, $title);
+        return sprintf("<img src='%s' border='0' class='image-thumb-small' title=\"%s\" alt=\"%s\"/>", self::getImageSrc($url, $defaultImg), $title, $title);
     }
 
     public static function getSmallSquareImageTag($url, $title, $defaultImg) {
 
-        return sprintf("<img src='%s' border='0' class='image-thumb-square-small image-frame' title=\"%s\" alt=\"%s\"/>", self::getImageSrc($url, $defaultImg), $title, $title);
+        return sprintf("<img src='%s' border='0' class='image-thumb-square-small' title=\"%s\" alt=\"%s\"/>", self::getImageSrc($url, $defaultImg), $title, $title);
     }
 
     public static function getMediumImageTag($url, $title, $defaultImg, $addItemProd = false) {
 
-        return sprintf("<img src='%s' border='0' class='image-thumb image-frame' title=\"%s\" alt=\"%s\"/ " . ($addItemProd ? "itemprop=\"image\"" : "") . ">", self::getImageSrc($url, $defaultImg), $title, $title);
+        return sprintf("<img src='%s' border='0' class='image-thumb' title=\"%s\" alt=\"%s\"/ " . ($addItemProd ? "itemprop=\"image\"" : "") . ">", self::getImageSrc($url, $defaultImg), $title, $title);
     }
 
     public static function getLargeImageTag($largeImageUrl, $imageUrl, $title, $defaultImg) {

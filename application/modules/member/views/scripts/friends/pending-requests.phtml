@@ -13,10 +13,10 @@ $globalContext = new \Sb\Context\Model\Context();
 
 <div class="add-friend-bkg">
     <div id="content-center">
-        <div class="pending-request-header">
-            <div class="adh-title"><?php _e("Demande(s) d'ami", "s1b"); ?></div>
+        <div class="add-friend-header">
+            <div class="afh-title"><?php _e("Demande(s) d'ami", "s1b"); ?></div>
             <div
-                class="adh-subtitle"><?php echo sprintf(__("%s demande(s) en attente", "s1b"), count($this->totalPendingRequests)); ?></div>
+                class="afh-subtitle"><?php echo sprintf(__("%s demande(s) en attente", "s1b"), count($this->totalPendingRequests)); ?></div>
         </div>
         <?php
         if (count($this->pendingRequests) == 0) {
@@ -48,7 +48,7 @@ $globalContext = new \Sb\Context\Model\Context();
                                 if ($avatar == "")
                                     $avatar = $globalContext->getBaseUrl() . "Resources/images/avatars/noavatar.png";
                                 ?>
-                                <img class="image-frame image-thumb-square" src="<?php echo $avatar; ?>"/>
+                                <img class="image-thumb-square" src="<?php echo $avatar; ?>"/>
                             </a>
 
                             <div class="fi-line margin-top-l">

@@ -46,11 +46,11 @@ $globalContext = new \Sb\Context\Model\Context();
         <div class="navigation">
             <div class="inner-padding">
                 <div class="nav-links">
-                   <?php echo $this->navigation;?>    
+                   <?php echo $this->navigation;?>
                </div>
                 <div class="nav-position"><?php echo sprintf(__("Ami(s) %s à %s sur %s","s1b"), $this->firstItemIdx, $this->lastItemIdx, $this->nbItemsTot) ;?></div>
             </div>
-        </div>        
+        </div>
     <?php
             $i = 0;
             foreach ($this->friends as $friend) {
@@ -64,14 +64,14 @@ $globalContext = new \Sb\Context\Model\Context();
                     echo "<div class=\"horizontal-sep-1\"></div>";
                 }
                 $i += 1;
-                ?>                        
+                ?>
         <div class="friend-item">
             <div class="inner-padding">
-                <a href="<?php echo $friendProfileLink;?>"> <img class="image-frame image-thumb-square" src="<?php echo $friend->getGravatar();?>" />
+                <a href="<?php echo $friendProfileLink;?>"> <img class="image-thumb-square" src="<?php echo $friend->getGravatar();?>" />
                 </a>
                 <div class="fi-line">
                     <span class="fil-value fil-username">
-                        <?php echo StringHelper::tronque(UserHelper::getFullName($friend), 25);?>                            
+                        <?php echo StringHelper::tronque(UserHelper::getFullName($friend), 25);?>
                     </span>
                 </div>
                 <div class="fi-line">
@@ -123,7 +123,7 @@ $globalContext = new \Sb\Context\Model\Context();
                 </div>
                 <?php } else { ?>
                     <div class="fi-image">
-                    <img class="image-thumb-small image-frame" src="<?php echo $globalContext->getDefaultImage(); ?>" />
+                    <img class="image-thumb-small" src="<?php echo $globalContext->getDefaultImage(); ?>" />
                 </div>
                 <?php } ?>
                 <div class="fi-line">
@@ -135,7 +135,7 @@ $globalContext = new \Sb\Context\Model\Context();
         <div class="navigation">
             <div class="inner-padding">
                 <div class="nav-links">
-                    <?php echo $this->navigation;?>    
+                    <?php echo $this->navigation;?>
                 </div>
             </div>
         </div>

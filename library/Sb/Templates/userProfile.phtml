@@ -14,7 +14,7 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
     </div>
     <?php }?>
     <div class="p-left">
-        <img class="image-frame image-thumb-square" src="<?php echo $user->getGravatar();?>">
+        <img class="image-thumb-square" src="<?php echo $user->getGravatar();?>">
         <?php if ($addLinks) {?>
         <div class="margin-top margin-top-l margin-bottom-s">
             <a class="button bt-blue-xl" href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_PROFILE_EDIT); ?>"><?php _e("Modifier mon profil","s1b");?></a>
@@ -38,19 +38,19 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
                     <?php echo StringHelper::tronque($user->getEmail(), 20);?>
                 </span>
             </div>
-            <?php if (!$isOtherUser) {?>            
+            <?php if (!$isOtherUser) {?>
             <?php
             $emailVisibilityCss = "profile-picto-small-private";
-            if ($emailVisibility == UserDataVisibility::FRIENDS) 
+            if ($emailVisibility == UserDataVisibility::FRIENDS)
                 $emailVisibilityCss = "profile-picto-small-myfriends";
             elseif ($emailVisibility == UserDataVisibility::MEMBERS_ONLY)
-                $emailVisibilityCss = "profile-picto-small-public";                
+                $emailVisibilityCss = "profile-picto-small-public";
             ?>
             <div class="<?php echo $emailVisibilityCss;?> pl-picto" ></div>
             <?php }?>
         </div>
         <?php }?>
-        <div class="p-line">                                    
+        <div class="p-line">
             <span class="pl-label"><?php _e("Sexe : ","s1b");?></span>
             <span class="pl-value"><?php echo ( (!$user->getGender())? __("non renseigné", "s1b") : (($user->getGender() == "male") ? __("Masculin", "s1b") : __("Féminin", "s1b"))) ; ?></span>
         </div>
@@ -67,11 +67,11 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
                         }
                      ?>
                 </span>
-            </div>            
+            </div>
             <?php if (!$isOtherUser) {?>
             <?php
             $birthDateVisibilityCss = "profile-picto-small-private";
-            if ($birthDateVisibility == UserDataVisibility::FRIENDS) 
+            if ($birthDateVisibility == UserDataVisibility::FRIENDS)
                 $birthDateVisibilityCss = "profile-picto-small-myfriends";
             elseif ($birthDateVisibility == UserDataVisibility::MEMBERS_ONLY)
                 $birthDateVisibilityCss = "profile-picto-small-public";
@@ -87,10 +87,10 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
         <div class="p-line p-line-small">
             <span class="pl-label"><?php _e("Adresse : ", "s1b"); ?></span>
             <span class="pl-value">
-                <?php 
+                <?php
                     if ($user->getAddress() == "")
                         _e("non renseigné", "s1b");
-                    else 
+                    else
                         echo $user->getAddress();
                 ?>
             </span>
@@ -98,18 +98,18 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
         <div class="p-line p-line-small">
             <span class="pl-label"><?php _e("Code postal : ", "s1b"); ?></span>
             <span class="pl-value">
-                <?php 
+                <?php
                     if ($user->getZipCode() == "" || $user->getZipCode() == "0")
                         _e("non renseigné", "s1b");
                     else
                         echo $user->getZipCode();
                 ?>
             </span>
-        </div>                    
+        </div>
         <div class="p-line p-line-small">
             <span class="pl-label"><?php _e("Ville : ", "s1b"); ?></span>
             <span class="pl-value">
-                <?php 
+                <?php
                     if ($user->getCity() == "")
                         _e("non renseigné", "s1b");
                     else
@@ -120,7 +120,7 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
         <div class="p-line p-line-small">
             <span class="pl-label"><?php _e("Pays : ", "s1b"); ?></span>
             <span class="pl-value">
-                <?php 
+                <?php
                     if ($user->getCountry() == "")
                         _e("non renseigné", "s1b");
                     else {
@@ -133,16 +133,16 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
         <div class="p-line p-line-small">
             <span class="pl-label"><?php _e("Langue : ", "s1b"); ?></span>
             <span class="pl-value">
-                <?php 
+                <?php
                     if ($user->getLanguage() == "")
                         _e("non renseigné", "s1b");
                     else
                         echo $user->getLanguage();
                 ?>
             </span>
-        </div>        
+        </div>
     </div>
-    <div class="p-right">        
+    <div class="p-right">
         <?php if ($isOtherUser) {?>
         <div class="p-right-item">
             <?php echo sprintf(__("<span class=\"p-nbbooks\"><strong>%s</strong> Livre(s)</span>"), count($user->getNotDeletedUserBooks())) ;?>
@@ -164,7 +164,7 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
     <div class="profile-status">
         <div class="ps-current">
             <div class="ps-current-label"><?php echo sprintf(__("Votre statut sur <span class=\"highlight\">%s</span>", "s1b"), \Sb\Entity\Constants::SITENAME);?></div>
-            <div class="ps-current-value">                        
+            <div class="ps-current-value">
             <?php
             if ($userSettings->getDisplayProfile() == UserDataVisibility::NO_ONE) {
             ?>

@@ -31,34 +31,34 @@ $globalContext = new \Sb\Context\Model\Context();
             if (($i % 3 == 0) && ($i != 0)) {
                 echo "<div class=\"horizontal-sep-1\"></div>";
             }
-            
+
             // Display emails if user setting is ALL or if connected and user setting is MEMBER ONLY
-            $displayEmail = (($friend->getSetting()->getDisplayEmail() == UserDataVisibility::ALL) 
+            $displayEmail = (($friend->getSetting()->getDisplayEmail() == UserDataVisibility::ALL)
                                     || ($globalContext->getConnectedUser() && ($friend->getSetting()->getDisplayEmail() == UserDataVisibility::MEMBERS_ONLY)));
-            
+
             $i += 1;
-            ?>                        
+            ?>
             <div class="friend-item">
             <div class="inner-padding">
-                <img class="image-frame image-thumb-square" src="<?php echo $friend->getGravatar();?>" />
+                <img class="image-thumb-square" src="<?php echo $friend->getGravatar();?>" />
                 <div class="fi-line">
                     <span class="fil-value fil-username">
-                            <?php echo StringHelper::tronque(UserHelper::getFullName($friend), 25);?>                            
+                            <?php echo StringHelper::tronque(UserHelper::getFullName($friend), 25);?>
                         </span>
                 </div>
                 <div class="fi-line">
                     <span class="fil-label"><?php _e("Email : ","s1b");?></span> <span class="fil-value"><?php echo ($displayEmail ? StringHelper::tronque($friend->getEmail(), 30) : __("donnée privée", "s1b"));?></span>
-                </div>                
+                </div>
                 <div class="fi-line">
                     <span class="fil-label"><?php _e("Identifiant : ","s1b");?></span> <span class="fil-value"><?php echo $friend->getUserName();?></span>
-                </div>                                
+                </div>
                 <div class="fi-line">
                     <a href="<?php echo $friendWishListLink; ?>" class="link"><?php echo __("Voir sa liste d'envies", "s1b"); ?></a>
                 </div>
             </div>
         </div>
-            <?php }?>      
-        
+            <?php }?>
+
     </div>
     <div id="content-right">
         <div class="right-frame">

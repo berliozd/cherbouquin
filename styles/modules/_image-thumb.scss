@@ -1,0 +1,51 @@
+
+@mixin image-frame() {
+  border: 1px solid #B2B2B2;
+  box-shadow: 0 2px 10px #555555;
+  padding: 4px;
+  background-color: #FFF;
+}
+
+.image-thumb {
+  @include image-frame;
+  height: 160px;
+  width: 95px;
+}
+
+.image-thumb-small {
+  @include image-frame;
+  height: 75px;
+  width: 50px;
+}
+
+.image-thumb-square {
+  @include image-frame;
+  height: 160px;
+  width: 160px;
+}
+
+.image-thumb-square-small {
+  @include image-frame;
+  height: 47px;
+  width: 47px;
+}
+
+.image-thumb-square-medium {
+  @include image-frame;
+  height: 90px;
+  width: 90px;
+}
+
+.user-thumb {
+  background: url("../images/sprite-user-backgrounds.png") no-repeat scroll 0px -80px transparent;
+  padding: 9px 0 20px 9px;
+  height: 93px;
+  width: 96px;
+}
+
+.user-thumb-small {
+  background: url("../images/sprite-user-backgrounds.png") no-repeat scroll 0 -11px transparent;
+  padding: 2px 18px 6px 12px;
+  height: 53px;
+  width: 53px;
+}

@@ -9,12 +9,12 @@ use Sb\Db\Dao\CountryDao;
 $emailVisibility = $userSettings->getDisplayEmail();
 $birthDateVisibility = $userSettings->getDisplayBirthDay();
 ?>
-<div class="profile">    
+<div class="profile">
     <div class="p-friend-title">
     <?php echo sprintf(__("A la page de <strong>%s</strong>","s1b"), StringHelper::tronque(ucwords(strtolower(UserHelper::getFullName($user))), 30));?>
-    </div>    
+    </div>
     <div class="p-left">
-        <img class="image-frame image-thumb-square" src="<?php echo $user->getGravatar();?>">        
+        <img class="image-thumb-square" src="<?php echo $user->getGravatar();?>">
     </div>
     <div class="p-center">
         <div class="p-gender">
@@ -22,18 +22,18 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
                 <?php echo UserHelper::getFullGenderAndAge($user); ?>
             </span>
         </div>
-        
+
         <div class="p-line">
             <span class="pl-label"><?php _e("Identifiant : ", "s1b"); ?></span>
             <span class="pl-value">
                 <?php echo $user->getUserName(); ?>
             </span>
         </div>
-        
+
         <div class="p-line">
             <span class="pl-label"><?php _e("Langue : ", "s1b"); ?></span>
             <span class="pl-value">
-                <?php 
+                <?php
                     if ($user->getLanguage() == "")
                         _e("non renseigné", "s1b");
                     else
@@ -41,7 +41,7 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
                 ?>
             </span>
         </div>
-        
+
         <?php if ($birthDateVisibility != UserDataVisibility::NO_ONE) {?>
         <div class="p-line">
             <div class="float-left">
@@ -55,15 +55,15 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
                         }
                      ?>
                 </span>
-            </div>                        
+            </div>
         </div>
         <?php }?>
-        
+
         <div class="p-line">
             <span class="pl-label"><?php _e("Membre depuis : ", "s1b"); ?></span>
             <span class="pl-value"><?php echo $user->getCreated()->format("d/m/Y"); ?></span>
         </div>
-        
+
         <div class="p-line pl-coordinatetitle">
             <?php _e("Coordonnées","s1b");?>
         </div>
@@ -81,27 +81,27 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
         </div>
         <div class="p-line pl-coordinate">
             <span class="pl-value">
-                <?php 
+                <?php
                 // TODO : temporary code until zipcode column type is changed to varchar (currently bigint)
                 if ($user->getZipCode() > 0) { echo $user->getZipCode(); ?>&nbsp;<?php }
                 ?>
                 <?php echo $user->getCity(); ?>
             </span>
-        </div>        
+        </div>
         <div class="p-line pl-coordinate">
             <span class="pl-value">
-                <?php 
+                <?php
                     if ($user->getCountry()) {
                         $country  = CountryDao::getInstance()->getCountryByCode($user->getCountry());
                         echo (ArrayHelper::getSafeFromArray($_SESSION, "WPLANG", "fr-FR")? $country->getLabel_french() : $country->getLabel_english());
-                    }                    
+                    }
                 ?>
             </span>
         </div>
-        
+
     </div>
-    
-    <div class="p-right">        
+
+    <div class="p-right">
         <div class="p-right-item">
             <?php echo sprintf(__("<span class=\"p-nbbooks\"><strong>%s</strong> Livre(s)</span>"), count($user->getNotDeletedUserBooks())) ;?>
         </div>
@@ -109,7 +109,7 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
             <a href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::FRIEND_LIBRARY, array("fid" => $user->getId()));?>" class="link">
                 <?php _e("Voir sa bibliothèque", "s1b");?>
             </a>
-        </div>  
+        </div>
         <?php if (!$isFriend) {?>
         <div class="p-right-item margin-bottom-l">
             <a href="<?php echo HTTPHelper::Link(\Sb\Entity\Urls::USER_FRIENDS_REQUEST, array("fid" => $user->getId()));?>" class="link pl-add-as-friend">

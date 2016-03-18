@@ -15,13 +15,13 @@ use Sb\Helpers\UserHelper;
         return true;
     }
 </script>
-<div id="content-center">   
-    <div class="mailbox">        
+<div id="content-center">
+    <div class="mailbox">
         <form method="post" action="">
-            <div class="navigation mb-hat">                
+            <div class="navigation mb-hat">
                 <div class="inner-padding">
                     <?php if (count($this->messages) != 0) {?>
-                    <div class="nav-links"><?php echo $this->navigation;;?></div>                    
+                    <div class="nav-links"><?php echo $this->navigation;;?></div>
                     <div class="nav-resume"><?php echo sprintf(__("Message(s) %s à %s sur %s","s1b"), $this->firstItemIdx, $this->lastItemIdx, $this->nbItemsTot) ;?></div>
                     <?php }?>
                 </div>
@@ -77,10 +77,10 @@ use Sb\Helpers\UserHelper;
                         <div class="inner-padding">
                             <input type="checkbox" name="delete[]" value="<?php echo $message->getId(); ?>" />
                         </div>
-                    </td>                    
+                    </td>
                     <td class="mb-col-avatar">
                         <div class="inner-padding">
-                            <?php echo '<a href=' . $senderProfileLink . '><img class="image-frame image-thumb-square-small" src="' . $message->getSender()->getGravatar() . '" /></a>';?>
+                            <?php echo '<a href=' . $senderProfileLink . '><img class="image-thumb-square-small" src="' . $message->getSender()->getGravatar() . '" /></a>';?>
                         </div>
                     </td>
                     <td class="mb-col-msg border-right">
@@ -117,7 +117,7 @@ use Sb\Helpers\UserHelper;
                     <td colspan="6">
                         <div class=""><?php _e("Pas de messages","s1b");?></div>
                     </td>
-                </tr>                    
+                </tr>
             <?php }?>
                 <tr>
                     <td colspan="6">
@@ -125,19 +125,19 @@ use Sb\Helpers\UserHelper;
                     </td>
                 </tr>
             </table>
-            <div class="navigation mb-foot">                
+            <div class="navigation mb-foot">
                 <div class="inner-padding">
                     <div class="mb-deletebutton">
                         <button class="button bt-black-l"><?php _e("Supprimer les messages", "s1b"); ?></button>
                     </div>
                     <div class="nav-links"><?php echo $this->navigation;?></div>
                 </div>
-            </div>            
+            </div>
         </form>
 
     </div>
 </div>
-<div id="content-right">    
+<div id="content-right">
     <div class="right-frame">
         <?php
         $mailboxWidget = new MailboxWidget();

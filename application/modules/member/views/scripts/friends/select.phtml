@@ -19,21 +19,21 @@ use Sb\Helpers\UserHelper;
 </script>
 <div id="content-center">
     <div class="friend-selection">
-        <div class="fs-title"><?php _e("Choisir un destinataire","");?></div>            
+        <div class="fs-title"><?php _e("Choisir un destinataire","");?></div>
         <form class="friends_list_selection_form" action="<?php echo $_SERVER["HTTP_REFERER"];?>" method="post">
             <input type="hidden" name="selection" value="selection"/>
             <div class="fs-list">
                 <?php foreach ($this->friends as $friend) { ?>
                     <div class="friend-item">
                         <div class="inner-padding">
-                            <img class="image-frame image-thumb-square-medium" src="<?php echo $friend->getGravatar();?>" />
+                            <img class="image-thumb-square-medium" src="<?php echo $friend->getGravatar();?>" />
                             <div class="fs-friendname">
                                 <input type="checkbox" name="Friends[]" value="<?php echo $friend->getId(); ?>">
                                 <?php echo StringHelper::tronque(UserHelper::getFullName($friend), 25); ?>
                             </div>
                         </div>
                     </div>
-                <?php } ?>                    
+                <?php } ?>
             </div>
             <div class="horizontal-sep-1"></div>
             <div class="fs-all">
@@ -41,7 +41,7 @@ use Sb\Helpers\UserHelper;
                 <span><?php _e("sélectionner tous vos contacts", "s1b"); ?></span>
             </div>
             <div class="buttons-bar">
-                <div class="inner-padding">   
+                <div class="inner-padding">
                     <button class="button bt-blue-l float-right margin-left"><?php _e("Sélectionner","s1b");?></button>
                     <a class="button bt-black-xs float-right" href="javascript:history.back()" class="link"><?php _e("Annuler", "s1b") ?></a>
                 </div>

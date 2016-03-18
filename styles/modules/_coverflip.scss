@@ -1,0 +1,22 @@
+
+.coverflip {
+  border: 1px #e6e6e6 solid;
+  height: 230px;
+  IMG {
+    cursor: pointer;
+    border: 1px #ccc solid;
+  }
+  &.coverflip-bkg {
+    background: url("../images/homepage/cover-flip-background.png") no-repeat scroll -13px 65% transparent;
+  }
+  &.small-coverflip-bkg {
+    background: url("../images/small-coverflip-background.png") no-repeat scroll 0 66% transparent;
+  }
+  .coverflip-caption {
+    position: relative;
+    text-align: center;
+    top: 200px;
+  }
+}
+
+

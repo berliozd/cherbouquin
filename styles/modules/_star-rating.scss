@@ -1,0 +1,46 @@
+.stars {
+  float: left;
+  margin: 0;
+  width: 80px;
+  height: 20px;
+}
+
+DIV.rating {
+  float: left;
+  height: 18px;
+  width: 83px;
+  margin-top: 3px;
+  text-indent: -999em;
+}
+
+.no-rating {
+  background: url($sprite) no-repeat scroll 0 -569px transparent;
+}
+
+.rating-0 {
+  background: url($sprite) no-repeat scroll 0 -427px transparent;
+}
+
+.rating-1 {
+  background: url($sprite) no-repeat scroll 0 -449px transparent;
+}
+
+.rating-2 {
+  background: url($sprite) no-repeat scroll 0 -472px transparent
+}
+
+.rating-3 {
+  background: url($sprite) no-repeat scroll 0 -495px transparent
+}
+
+.rating-4 {
+  background: url($sprite) no-repeat scroll 0 -521px transparent
+}
+
+.rating-5 {
+  background: url($sprite) no-repeat scroll 0 -546px transparent
+}
+
+.star-sep, .star-0-label {
+  font-size: 1.2em;
+}

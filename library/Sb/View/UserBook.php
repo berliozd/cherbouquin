@@ -9,14 +9,16 @@ use Sb\Helpers\ArrayHelper;
  *
  * @author Didier
  */
-class UserBook extends \Sb\View\AbstractView {
+class UserBook extends \Sb\View\AbstractView
+{
 
     private $userBook;
     private $lendings;
     private $borrowings;
     private $addMode;
 
-    function __construct(\Sb\Db\Model\UserBook $userBook, $addMode) {
+    function __construct(\Sb\Db\Model\UserBook $userBook, $addMode)
+    {
         parent::__construct();
         $this->userBook = $userBook;
         $this->lendings = $userBook->getLendings();
@@ -24,7 +26,8 @@ class UserBook extends \Sb\View\AbstractView {
         $this->addMode = $addMode;
     }
 
-    public function get() {
+    public function get()
+    {
 
         $baseTpl = "book/bookForm/userBook";
 
@@ -89,8 +92,6 @@ class UserBook extends \Sb\View\AbstractView {
 
         // Gettign nb of pages read
         $nb_of_pages_read = $this->userBook->getNb_of_pages_read();
-
-
 
 
         $tpl->set("isBlowOfHeartChecked", ($this->userBook->getIsBlowOfHeart() ? "checked" : ""));
@@ -174,7 +175,8 @@ class UserBook extends \Sb\View\AbstractView {
         return $tpl->output();
     }
 
-    private function isChecked($tag) {
+    private function isChecked($tag)
+    {
         if ($this->userBookTags) {
             foreach ($this->userBookTags as $userBookTag) {
                 if ($tag->getId() == $userBookTag->getId())
@@ -184,13 +186,15 @@ class UserBook extends \Sb\View\AbstractView {
         return new \Sb\UserBookTag\Model\UserBookTag($tag, false);
     }
 
-    private function getRatingCheck($inputRatingId, $currentRating) {
+    private function getRatingCheck($inputRatingId, $currentRating)
+    {
         if (is_numeric($currentRating) && ($currentRating == $inputRatingId)) {
             return "checked";
         }
     }
 
-    private function getTagLabelCol() {        
+    private function getTagLabelCol()
+    {
         switch (ArrayHelper::getSafeFromArray($_SESSION, "WPLANG", "fr_FR")) {
             case "fr_FR":
                 return "label";

@@ -12,7 +12,7 @@ use Sb\Db\Model\User;
 class UserHelper {
 
     public static function getXSmallImageTag(User $user) {
-        return sprintf("<img src=\"%s\" title=\"%s\" border=\"0\" class=\"image-frame image-thumb-square-small\" />", $user->getGravatar(), $user->getUserName());
+        return sprintf("<img src=\"%s\" title=\"%s\" border=\"0\" class=\"image-thumb-square-small\" />", $user->getGravatar(), $user->getUserName());
     }
 
     public static function getMediumImageTag(User $user, $alt) {
@@ -35,12 +35,12 @@ class UserHelper {
     }
 
     public static function getFullGenderAndAge(User $user) {
-        
+
         $age = 0;
         if ($user->getBirthDay())
             $age = $user->getBirthDay()->diff(new \DateTime())->y;
-        
-        if ($user->getGender() && $age > 0) {            
+
+        if ($user->getGender() && $age > 0) {
             return sprintf(__("%s %s ans", "s1b"), ($user->getGender() == "male") ? __("Homme", "s1b") : __("Femme", "s1b"), $age);
         } else if ($user->getGender()) {
             return ($user->getGender() == "male") ? __("Homme", "s1b") : __("Femme", "s1b");
@@ -48,7 +48,7 @@ class UserHelper {
             $age = $user->getBirthDay()->diff(new \DateTime())->y;
             return sprintf(__("%s ans", "s1b"), $age);
         }
-        
+
         return "";
     }
 

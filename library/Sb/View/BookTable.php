@@ -77,9 +77,9 @@ class BookTable extends AbstractView {
 
                 $img = "";
                 if ($book->getSmallImageUrl()) {
-                    $img = sprintf("<img src = '%s' class = 'image-thumb-small image-frame'/>", $book->getSmallImageUrl());
+                    $img = sprintf("<img src = '%s' class = 'image-thumb-small'/>", $book->getSmallImageUrl());
                 } else {
-                    $img = sprintf("<img src = '%s' border = '0' class = 'image-thumb-small image-frame'/>", $this->defImg);
+                    $img = sprintf("<img src = '%s' border = '0' class = 'image-thumb-small'/>", $this->defImg);
                 }
                 $rowTpl->set("img", $img);
 
@@ -163,7 +163,7 @@ class BookTable extends AbstractView {
 
         $bookListTpl = new \Sb\Templates\Template("bookList/bookTable");
         if ($booksTemplates) {
-            
+
             // Get row header template
             $headerTpl = new \Sb\Templates\Template("bookList/bookTableHeader");
 
@@ -232,7 +232,7 @@ class BookTable extends AbstractView {
                 "emptyList" => false));
         } else
             $bookListTpl->setVariables(array("emptyList" => true));
-        
+
         return $bookListTpl->output();
     }
 

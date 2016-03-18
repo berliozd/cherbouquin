@@ -48,6 +48,10 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/library-header';
 @import 'modules/right-col-buttons';
 @import 'modules/user-book-lending';
+@import 'modules/add-friend-header';
+@import 'modules/star-rating';
+@import 'modules/coverflip';
+@import 'modules/image-thumb';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -91,59 +95,12 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   text-decoration: none;
 }
 
-.stars {
-  float: left;
-  margin: 0;
-  width: 80px;
-  height: 20px;
-}
-
-DIV.rating {
-  float: left;
-  height: 18px;
-  width: 83px;
-  margin-top: 3px;
-  text-indent: -999em;
-}
-
 .blowofheart {
   background: url($sprite) no-repeat scroll 2px -392px transparent;
   float: left;
   width: 22px;
   height: 18px;
   padding-top: 5px;
-}
-
-.no-rating {
-  background: url($sprite) no-repeat scroll 0 -569px transparent;
-}
-
-.rating-0 {
-  background: url($sprite) no-repeat scroll 0 -427px transparent;
-}
-
-.rating-1 {
-  background: url($sprite) no-repeat scroll 0 -449px transparent;
-}
-
-.rating-2 {
-  background: url($sprite) no-repeat scroll 0 -472px transparent
-}
-
-.rating-3 {
-  background: url($sprite) no-repeat scroll 0 -495px transparent
-}
-
-.rating-4 {
-  background: url($sprite) no-repeat scroll 0 -521px transparent
-}
-
-.rating-5 {
-  background: url($sprite) no-repeat scroll 0 -546px transparent
-}
-
-.star-sep, .star-0-label {
-  font-size: 1.2em;
 }
 
 .picto-small {
@@ -185,57 +142,6 @@ DIV.rating {
   width: 20px;
 }
 
-.image-frame {
-  border: 1px solid #B2B2B2;
-  box-shadow: 0 2px 10px #555555;
-  padding: 4px;
-  background-color: #FFF;
-}
-
-.image-thumb {
-  height: 160px;
-  width: 95px;
-}
-
-.image-thumb-small {
-  height: 75px;
-  width: 50px;
-}
-
-.image-thumb-medium {
-  height: 100px;
-  width: 70px;
-}
-
-.image-thumb-square {
-  height: 160px;
-  width: 160px;
-}
-
-.image-thumb-square-small {
-  height: 47px;
-  width: 47px;
-}
-
-.image-thumb-square-medium {
-  height: 90px;
-  width: 90px;
-}
-
-.user-thumb {
-  background: url("../images/sprite-user-backgrounds.png") no-repeat scroll 0px -80px transparent;
-  padding: 9px 0 20px 9px;
-  height: 93px;
-  width: 96px;
-}
-
-.user-thumb-small {
-  background: url("../images/sprite-user-backgrounds.png") no-repeat scroll 0 -11px transparent;
-  padding: 2px 18px 6px 12px;
-  height: 53px;
-  width: 53px;
-}
-
 .book-link, .book-link:hover, .book-link A:visited {
   color: #239CD3;
   font-weight: bold;
@@ -246,7 +152,6 @@ DIV.rating {
   padding-left: 5px;
   margin-left: 2px;
 }
-
 
 #loading {
   background-color: #000000;
@@ -563,18 +468,6 @@ DIV.rating {
   float: left;
 }
 
-.add-friend-header {
-  background: url($sprite) repeat-x scroll 0 -1120px transparent;
-  height: 51px;
-  margin-bottom: 10px;
-  padding-left: 76px;
-}
-
-.adh-title {
-  color: #239CD3;
-  font-size: 2em;
-}
-
 /* recommand */
 .recommand .mnm-body {
   height: 200px;
@@ -592,31 +485,6 @@ DIV.rating {
 .friends-search {
   font-size: 1.5em;
 }
-
-.coverflip {
-  border: 1px #e6e6e6 solid;
-  height: 230px;
-}
-
-.coverflip IMG {
-  cursor: pointer;
-  border: 1px #ccc solid;
-}
-
-.coverflip-bkg {
-  background: url("../images/homepage/cover-flip-background.png") no-repeat scroll -13px 65% transparent;
-}
-
-.small-coverflip-bkg {
-  background: url("../images/small-coverflip-background.png") no-repeat scroll 0 66% transparent;
-}
-
-.coverflip-caption {
-  position: relative;
-  text-align: center;
-  top: 200px;
-}
-
 
 /* Same author books */
 .same-author-books .pb-title {

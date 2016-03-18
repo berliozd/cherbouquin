@@ -1,0 +1,10 @@
+.add-friend-header {
+  background: url($sprite) repeat-x scroll 0 -1120px transparent;
+  height: 51px;
+  margin-bottom: 10px;
+  padding-left: 76px;
+  .afh-title {
+    color: #239CD3;
+    font-size: 2em;
+  }
+}
