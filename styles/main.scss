@@ -429,37 +429,8 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   font-size: 1.7em;
 }
 
-/* user profile */
-.user-profile-bkg {
-  background: url("../images/user-profile-bkg.png") repeat-x scroll 0 0 transparent;
-  border-radius: 10px 10px 10px 10px;
-  float: left;
-}
-
-.other-user-profile-bkg {
-  background: url("../images/other-user-profile-bkg.png") repeat-x scroll 0 0 transparent;
-  border-radius: 10px 10px 10px 10px;
-  float: left;
-}
-
-.other-user-profile-bkg #content-right {
-  padding-top: 60px;
-}
-
 .bt-delete-account {
   line-height: 10px;
-}
-
-/* friend profile */
-.friend-profile {
-  .p-line-small {
-    font-size: 1.2em;
-    line-height: 17px;
-  }
-  .pl-birthdate {
-    margin-bottom: 3px;
-  }
-
 }
 
 .add-friend-bkg {
