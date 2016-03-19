@@ -366,41 +366,9 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   width: 100%;
 }
 
-.friend-item {
-  float: left;
-  width: 33%;
-  min-height: 325px;
-}
 
 .wishlist-list .friend-item {
   min-height: 245px;
-}
-
-.friend-selection .friend-item {
-  min-height: 150px;
-}
-
-.fi-line {
-  float: left;
-  width: 100%;
-}
-
-.fi-line-sep {
-  float: left;
-  width: 100%;
-  height: 2px;
-  background-color: #eff0f0;
-  margin-bottom: 5px;
-  margin-top: 5px;
-}
-
-.fil-label, .fi-text .publisher, .fit-title, .fit-author, .fil-username {
-  font-weight: bold;
-}
-
-.fi-image {
-  float: left;
-  margin-right: 10px;
 }
 
 .fl-search {
