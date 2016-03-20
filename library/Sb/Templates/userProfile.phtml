@@ -6,6 +6,13 @@ use Sb\Entity\UserDataVisibility;
 
 $emailVisibility = $userSettings->getDisplayEmail();
 $birthDateVisibility = $userSettings->getDisplayBirthDay();
+
+$emailVisibilityCss = "profile-picto-small-private";
+if ($emailVisibility == UserDataVisibility::FRIENDS)
+    $emailVisibilityCss = "profile-picto-small-myfriends";
+elseif ($emailVisibility == UserDataVisibility::MEMBERS_ONLY)
+    $emailVisibilityCss = "profile-picto-small-public";
+
 ?>
 <div class="profile">
     <?php if ($isOtherUser) {?>
@@ -39,13 +46,6 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
                 </span>
             </div>
             <?php if (!$isOtherUser) {?>
-            <?php
-            $emailVisibilityCss = "profile-picto-small-private";
-            if ($emailVisibility == UserDataVisibility::FRIENDS)
-                $emailVisibilityCss = "profile-picto-small-myfriends";
-            elseif ($emailVisibility == UserDataVisibility::MEMBERS_ONLY)
-                $emailVisibilityCss = "profile-picto-small-public";
-            ?>
             <div class="<?php echo $emailVisibilityCss;?> pl-picto" ></div>
             <?php }?>
         </div>
@@ -69,13 +69,6 @@ $birthDateVisibility = $userSettings->getDisplayBirthDay();
                 </span>
             </div>
             <?php if (!$isOtherUser) {?>
-            <?php
-            $birthDateVisibilityCss = "profile-picto-small-private";
-            if ($birthDateVisibility == UserDataVisibility::FRIENDS)
-                $birthDateVisibilityCss = "profile-picto-small-myfriends";
-            elseif ($birthDateVisibility == UserDataVisibility::MEMBERS_ONLY)
-                $birthDateVisibilityCss = "profile-picto-small-public";
-            ?>
             <div class="<?php echo $birthDateVisibilityCss;?> pl-picto" ></div>
             <?php }?>
         </div>

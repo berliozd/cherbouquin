@@ -1,34 +1,37 @@
 <?php
-use Sb\Db\Model\Book,
-    Sb\Db\Model\User,
-    Sb\Db\Dao\BookDao,
-    Sb\Db\Dao\UserBookDao,
-    Sb\Db\Dao\UserEventDao,
-    Sb\Db\Service\BookSvc,
-    Sb\Db\Service\UserEventSvc,
-    Sb\Authentification\Service\AuthentificationSvc,
-    Sb\Entity\EventTypes,
-    Sb\View\LastReviews,
-    Sb\View\Components\UserReadingWidget,
-    Sb\View\Components\UserWishedBooksWidget,
-    Sb\View\Components\Ad,
-    Sb\View\Components\TwitterWidget,
-    Sb\View\Components\FacebookFrame,
-    Sb\View\Components\CreateChroniclesLinks,
-    Sb\Trace\Trace,
-    Sb\View\Components\WishListSearchWidget,
-    Sb\Helpers\HTTPHelper,
-    Sb\Entity\Urls,
-    Sb\Facebook\Service\FacebookSvc,
-    Sb\Flash\Flash;
+use Sb\Authentification\Service\AuthentificationSvc;
+use Sb\Db\Dao\BookDao;
+use Sb\Db\Dao\UserBookDao;
+use Sb\Db\Dao\UserEventDao;
+use Sb\Db\Model\Book;
+use Sb\Db\Model\User;
+use Sb\Db\Service\BookSvc;
+use Sb\Db\Service\UserEventSvc;
+use Sb\Entity\EventTypes;
+use Sb\Entity\Urls;
+use Sb\Facebook\Service\FacebookSvc;
+use Sb\Flash\Flash;
+use Sb\Helpers\HTTPHelper;
+use Sb\Service\TwitterSvc;
+use Sb\Trace\Trace;
+use Sb\View\Components\Ad;
+use Sb\View\Components\CreateChroniclesLinks;
+use Sb\View\Components\FacebookFrame;
+use Sb\View\Components\TwitterWidget;
+use Sb\View\Components\UserReadingWidget;
+use Sb\View\Components\UserWishedBooksWidget;
+use Sb\View\Components\WishListSearchWidget;
+use Sb\View\LastReviews;
 
-class Member_IndexController extends Zend_Controller_Action {
+class Member_IndexController extends Zend_Controller_Action
+{
 
     private $blowOfHeartFriendsBooksId = null;
 
     private $context = null;
 
-    public function init() {
+    public function init()
+    {
 
         // Checks is user is connected
         AuthentificationSvc::getInstance()->checkUserIsConnected();
@@ -41,10 +44,12 @@ class Member_IndexController extends Zend_Controller_Action {
      * Show member home page action
      * @global type $globalContextMe
      */
-    public function indexAction() {
+    public function indexAction()
+    {
 
         try {
             $globalContext = new \Sb\Context\Model\Context();
+            $globalConfig = new Sb\Config\Model\Config();
 
             /* @var $connectedUser User */
             $connectedUser = $globalContext->getConnectedUser();
@@ -104,7 +109,7 @@ class Member_IndexController extends Zend_Controller_Action {
             $this->view->ad = new Ad("user_homepage", "6697829998");
 
             // Getting twitter widget
-            $this->view->twitter = new TwitterWidget();
+            $this->view->twitter = new TwitterWidget(TwitterSvc::getInstance($globalConfig));
 
             // Getting facebook frame
             $this->view->facebookFrame = new FacebookFrame();
@@ -120,7 +125,8 @@ class Member_IndexController extends Zend_Controller_Action {
         }
     }
 
-    public function logOffAction() {
+    public function logOffAction()
+    {
 
         try {
 
@@ -162,12 +168,14 @@ class Member_IndexController extends Zend_Controller_Action {
         }
     }
 
-    private function notInArray(Book $book) {
+    private function notInArray(Book $book)
+    {
 
         return !in_array($book->getId(), $this->blowOfHeartFriendsBooksId);
     }
 
-    private function getId(Book $book) {
+    private function getId(Book $book)
+    {
 
         return $book->getId();
     }
