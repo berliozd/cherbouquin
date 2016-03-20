@@ -53,6 +53,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/star-rating';
 @import 'modules/coverflip';
 @import 'modules/image-thumb';
+@import 'modules/profile-visibility';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -208,30 +209,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   border-bottom: 1px solid #f14e07;
 }
 
-/* profile visibility picto */
-.profile-picto-small-myfriends {
-  background: url($sprite) repeat-x scroll left -1014px transparent;
-}
-
-.profile-picto-small-public {
-  background: url($sprite) repeat-x scroll left -1048px transparent;
-}
-
-.profile-picto-small-private {
-  background: url($sprite) repeat-x scroll left -1082px transparent;
-}
-
-.profile-picto-small-myfriends.nurs-status {
-  background-position: 90px -1014px;
-}
-
-.profile-picto-small-public.nurs-status {
-  background-position: 90px -1048px;
-}
-
-.profile-picto-small-private.nurs-status {
-  background-position: 90px -1082px;
-}
 
 .little-grey-bar {
   background-color: #F2F2F2;
@@ -372,23 +349,8 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   min-height: 245px;
 }
 
-.fl-search {
-  background-color: #DEDFDF;
-  float: left;
-  width: 100%;
-  padding-bottom: 5px;
-}
 
-.fls-label {
-  float: left;
-  font-size: 1.4em;
-  font-weight: bold;
-  margin-top: 5px;
-}
 
-.fls-form {
-  float: left;
-}
 
 .fl-friendnobooks {
   font-size: 1.7em;

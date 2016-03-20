@@ -1,0 +1,23 @@
+.profile-picto-small-myfriends {
+  background: url($sprite) repeat-x scroll left -1014px transparent;
+}
+
+.profile-picto-small-public {
+  background: url($sprite) repeat-x scroll left -1048px transparent;
+}
+
+.profile-picto-small-private {
+  background: url($sprite) repeat-x scroll left -1082px transparent;
+}
+
+.profile-picto-small-myfriends.nurs-status {
+  background-position: 90px -1014px;
+}
+
+.profile-picto-small-public.nurs-status {
+  background-position: 90px -1048px;
+}
+
+.profile-picto-small-private.nurs-status {
+  background-position: 90px -1082px;
+}

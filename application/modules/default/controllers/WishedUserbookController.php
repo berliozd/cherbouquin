@@ -1,26 +1,30 @@
 <?php
-use Sb\Flash\Flash;
 use Sb\Db\Dao\UserBookDao;
-use Sb\Db\Model\UserBookGift;
 use Sb\Db\Dao\UserBookGiftDao;
-use Sb\Helpers\HTTPHelper;
-use Sb\ZendForm\WishListSearchForm;
 use Sb\Db\Dao\UserDao;
+use Sb\Db\Model\UserBookGift;
+use Sb\Flash\Flash;
+use Sb\Helpers\HTTPHelper;
 use Sb\Trace\Trace;
+use Sb\ZendForm\WishListSearchForm;
 
-class Default_WishedUserbookController extends Zend_Controller_Action {
+class Default_WishedUserbookController extends Zend_Controller_Action
+{
 
     private $connectedUSerFound = false;
-    
-    public function init() {
+
+    public function init()
+    {
 
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
 
     }
 
-    public function setAsOfferedAction() {
+    public function setAsOfferedAction()
+    {
 
         $dest = (HTTPHelper::getReferer() ? HTTPHelper::getReferer() : HTTPHelper::Link());
         $id = $this->_getParam('ubid', -1);
@@ -50,39 +54,38 @@ class Default_WishedUserbookController extends Zend_Controller_Action {
         exit();
     }
 
-    public function searchListAction() {
+    public function searchListAction()
+    {
 
-        $globalContext = new \Sb\Context\Model\Context();
-        
         // Check the form validity
         $form = new WishListSearchForm();
         if (!$form->isValid($_GET)) {
-            
+
             Flash::addItems($form->getFailureMessages());
             HTTPHelper::redirectToReferer();
         } else {
             $searchTerm = $this->_getParam('wishedListSearchTerm', "");
             Trace::addItem($searchTerm);
             $users = UserDao::getInstance()->getListByKeywordAndWishedUserBooks($searchTerm);
-            
+
             // Remove connected user and admin user
             $cleanedUsers = $this->cleanUsersList($users);
-            
+
             // Display specific message when connected user found in list
             if ($this->connectedUSerFound)
                 Flash::addItem(__("Si vous cherchez votre liste, c'est raté ;-) La surprise n'en sera que plus grande.", "s1b"));
-            
+
             if (count($cleanedUsers) == 0) {
-                
+
                 // Getting user without wish list
                 $usersWithoutWishList = UserDao::getInstance()->getListByKeyword($searchTerm);
                 $cleanedUsersWithoutWishList = $this->cleanUsersList($usersWithoutWishList);
-                
+
                 if (count($cleanedUsersWithoutWishList) != 0)
                     Flash::addItem(sprintf(__("Aucun utilisateur '%s' n'a créé de liste d'envies ou bien sa liste est privée.", "s1b"), $searchTerm));
                 else
                     Flash::addItem(__("Aucun utilisateur ne correspond à votre recherche.", "s1b"));
-                
+
                 HTTPHelper::redirectToReferer();
             }
             $this->view->users = $cleanedUsers;
@@ -95,25 +98,28 @@ class Default_WishedUserbookController extends Zend_Controller_Action {
      * @param array of User $users
      * @return array of User
      */
-    private function cleanUsersList($users) {
+    private function cleanUsersList($users)
+    {
 
         $cleanedUsers = array();
         $globalContext = new \Sb\Context\Model\Context();
-        
+
         foreach ($users as $user) {
-            
+
             if ($globalContext->getConnectedUser() && ($globalContext->getConnectedUser()
-                ->getId() == $user->getId()))
+                        ->getId() == $user->getId())
+            )
                 $this->connectedUSerFound = true;
-                
-                // Don't add connected user and Admin
+
+            // Don't add connected user and Admin
             if (($globalContext->getConnectedUser() && ($globalContext->getConnectedUser()
-                ->getId() != $user->getId())) || !$globalContext->getConnectedUser()) {
+                            ->getId() != $user->getId())) || !$globalContext->getConnectedUser()
+            ) {
                 if ($user->getId() != 1)
                     $cleanedUsers[] = $user;
             }
         }
-        
+
         return $cleanedUsers;
     }
 
