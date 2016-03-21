@@ -1,0 +1,48 @@
+.picto-small {
+  float: left;
+  width: 116px;
+  height: 26px
+}
+
+.picto-wished-small {
+  background: url($sprite) no-repeat scroll 2px -821px transparent;
+}
+
+.picto-owned-small {
+  background: url($sprite) no-repeat scroll 2px -602px transparent;
+  width: 75px;
+}
+
+.picto-lent-small {
+  background: url($sprite) no-repeat scroll 2px -642px transparent;
+}
+
+.picto-borrowed-small {
+  background: url($sprite) no-repeat scroll 2px -687px transparent;
+}
+
+.picto-returntovalidate-small {
+  background: url($sprite) no-repeat scroll 2px -735px transparent;
+  height: 39px;
+}
+
+.picto-lendable-small {
+  background: url($sprite) no-repeat scroll 2px -780px transparent;
+}
+
+.picto-sep {
+  border-left: 2px solid #B1B2B3;
+  padding-left: 5px;
+  margin-left: 2px;
+}
+
+.picto-facebook-s {
+  background: url($sprite) no-repeat scroll 0 -353px transparent;
+}
+
+.picto-facebook-m {
+  background: url($sprite) no-repeat scroll 0px -1230px transparent;
+  height: 45px;
+  width: 45px;
+  display: block;
+}

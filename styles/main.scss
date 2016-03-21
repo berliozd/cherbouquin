@@ -54,23 +54,13 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/coverflip';
 @import 'modules/image-thumb';
 @import 'modules/profile-visibility';
+@import 'modules/picto';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
 @import 'pages/homepage';
 @import 'pages/registration';
 @import 'pages/lost-password';
-
-.picto-facebook-s {
-  background: url($sprite) no-repeat scroll 0 -353px transparent;
-}
-
-.picto-facebook-m {
-  background: url($sprite) no-repeat scroll 0px -1230px transparent;
-  height: 45px;
-  width: 45px;
-  display: block;
-}
 
 .link-button {
   background-color: transparent;
@@ -90,11 +80,10 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   width: 100%;
   font-size: 0.9em;
   font-weight: bold;
-}
-
-.see-more A, .see-more A:visited, .see-more A:hover {
-  color: #000000;
-  text-decoration: none;
+  A, A:visited, A:hover {
+    color: #000000;
+    text-decoration: none;
+  }
 }
 
 .blowofheart {
@@ -103,38 +92,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   width: 22px;
   height: 18px;
   padding-top: 5px;
-}
-
-.picto-small {
-  float: left;
-  width: 116px;
-  height: 26px
-}
-
-.picto-wished-small {
-  background: url($sprite) no-repeat scroll 2px -821px transparent;
-}
-
-.picto-owned-small {
-  background: url($sprite) no-repeat scroll 2px -602px transparent;
-  width: 75px;
-}
-
-.picto-lent-small {
-  background: url($sprite) no-repeat scroll 2px -642px transparent;
-}
-
-.picto-borrowed-small {
-  background: url($sprite) no-repeat scroll 2px -687px transparent;
-}
-
-.picto-returntovalidate-small {
-  background: url($sprite) no-repeat scroll 2px -735px transparent;
-  height: 39px;
-}
-
-.picto-lendable-small {
-  background: url($sprite) no-repeat scroll 2px -780px transparent;
 }
 
 .boh {
@@ -147,12 +104,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 .book-link, .book-link:hover, .book-link A:visited {
   color: #239CD3;
   font-weight: bold;
-}
-
-.picto-sep {
-  border-left: 2px solid #B1B2B3;
-  padding-left: 5px;
-  margin-left: 2px;
 }
 
 #loading {
@@ -174,7 +125,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   }
 }
 
-/* global button bar */
 .buttons-bar {
   background-color: #F2F2F2;
   float: left;
@@ -194,7 +144,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   margin-right: 17px;
 }
 
-/* pinterest frame */
 .pinterest-frame {
   border: 1px #f14e07 solid;
   width: 100%;
@@ -238,47 +187,48 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   margin-left: 5px;
 }
 
-.reading-date-block INPUT {
-  width: 150px;
-}
-
 .nb-of-pages-read-block {
   float: left;
   margin-left: 10px;
+
+  INPUT {
+    width: 150px;
+    float: none;
+    text-align: center;
+  }
+  .ub-label {
+    margin-top: 4px;
+  }
 }
 
-.nb-of-pages-read-block INPUT {
-  float: none;
-  text-align: center;
-}
-
-.nb-of-pages-read-block .ub-label {
-  margin-top: 4px;
-}
-
-/* book-reviews */
 .book-reviews {
   float: left;
 }
 
-.library-list .pbi-content {
-  width: 315px;
+.library-list {
+  .pbi-content {
+    width: 315px;
+  }
 }
 
-.sortLine .sort.ASC {
-  background: url($sprite) no-repeat scroll 55px -122px transparent;
-}
-
-.sortLine .llh-title.sort.ASC {
-  background: url($sprite) no-repeat scroll 118px -122px transparent;
-}
-
-.sortLine .sort.DESC {
-  background: url($sprite) no-repeat scroll 55px -153px transparent;
-}
-
-.sortLine .llh-title.sort.DESC {
-  background: url($sprite) no-repeat scroll 118px -153px transparent;
+.sortLine
+.sortLine {
+  .sort {
+    &.ASC {
+      background: url($sprite) no-repeat scroll 55px -122px transparent;
+    }
+    &.DESC {
+      background: url($sprite) no-repeat scroll 55px -153px transparent;
+    }
+    &.llh-title {
+      &.DESC {
+        background: url($sprite) no-repeat scroll 118px -153px transparent;
+      }
+      &.ASC {
+        background: url($sprite) no-repeat scroll 118px -122px transparent;
+      }
+    }
+  }
 }
 
 .ll-nobooks {
@@ -307,33 +257,10 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   margin: 15px 0;
 }
 
-/* friend-item */
-.friend-title {
-  color: #239CD3;
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-
-.friends-list {
-  padding: 10px 0;
-  float: left;
-}
-
-.friend-nav-bar {
-  float: left;
-  width: 100%;
-}
-
-.wishlist-list .friend-item {
-  min-height: 245px;
-}
-
-.fl-friendnobooks {
-  font-size: 1.7em;
-}
-
-.fl-choosefriend {
-  font-size: 1.7em;
+.wishlist-list {
+  .friend-item {
+    min-height: 245px;
+  }
 }
 
 .bt-delete-account {
@@ -344,11 +271,18 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   background: url("../images/add-friend-bkg.png") repeat-x scroll 0 0 transparent;
   border-radius: 10px 10px 10px 10px;
   float: left;
+
+  .friends-list {
+    padding: 10px 0;
+    float: left;
+  }
 }
 
 /* recommand */
-.recommand .mnm-body {
-  height: 200px;
+.recommand {
+  .mnm-body {
+    height: 200px;
+  }
 }
 
 /* pending request */
@@ -359,23 +293,22 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   padding-left: 76px;
 }
 
-/* friends search */
-.friends-search {
-  font-size: 1.5em;
-}
-
 /* Same author books */
-.same-author-books .pb-title {
-  font-size: 1.3em;
-  margin-bottom: 5px;
-  padding-left: 5px;
-  color: #239CD3;
+.same-author-books {
+  .pb-title {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    color: #239CD3;
+  }
 }
 
 /* Last rated books - homepage */
-.last-rated-books .lrb-title {
-  font-size: 1.1em;
-  font-weight: bold;
-  margin: 10px 0 5px;
-  color: #239CD3;
+.last-rated-books {
+  .lrb-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #239CD3;
+  }
 }
