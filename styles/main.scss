@@ -55,6 +55,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'modules/image-thumb';
 @import 'modules/profile-visibility';
 @import 'modules/picto';
+@import 'modules/quick-registration-form';
 
 @import 'pages/contents';
 @import 'pages/groupAdmin';
@@ -242,47 +243,8 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   margin-top: 2px;
 }
 
-/* Friends to borrow from, Quick registration form */
-.ftb-title, .qrf-title {
+.ftb-title {
   font-size: 2em;
-}
-
-.qrf-fieldlabel {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
-.qrf-baseline {
-  font-size: 1.3em;
-  margin: 15px 0;
-}
-
-.wishlist-list {
-  .friend-item {
-    min-height: 245px;
-  }
-}
-
-.bt-delete-account {
-  line-height: 10px;
-}
-
-.add-friend-bkg {
-  background: url("../images/add-friend-bkg.png") repeat-x scroll 0 0 transparent;
-  border-radius: 10px 10px 10px 10px;
-  float: left;
-
-  .friends-list {
-    padding: 10px 0;
-    float: left;
-  }
-}
-
-/* recommand */
-.recommand {
-  .mnm-body {
-    height: 200px;
-  }
 }
 
 /* pending request */

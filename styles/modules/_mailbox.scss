@@ -1,16 +1,17 @@
 /* mailbox list */
-.mailbox TABLE {
-  float: left;
-  width: 100%;
-  text-align: left;
+.mailbox {
+  TABLE {
+    float: left;
+    width: 100%;
+    text-align: left;
+  }
 }
 
 .mb-deletebutton {
   float: left;
-}
-
-.mb-deletebutton .bt-black-l {
-  line-height: 10px;
+  .bt-black-l {
+    line-height: 10px;
+  }
 }
 
 .mb-col-check {
@@ -28,6 +29,12 @@
 
 .mb-col-date {
   width: 10%;
+  &.ASC {
+    background: url($sprite) no-repeat scroll 55px -122px transparent;
+  }
+  &.DESC {
+    background: url($sprite) no-repeat scroll 55px -153px transparent;
+  }
 }
 
 .mb-col-state {
@@ -35,8 +42,10 @@
   font-weight: bold;
 }
 
-TD.mb-col-state {
-  color: #f56903;
+TD {
+  &.mb-col-state {
+    color: #f56903;
+  }
 }
 
 .mb-col-read {
@@ -47,27 +56,37 @@ TD.mb-col-state {
   width: 8%;
 }
 
-.mb-col-date.ASC {
-  background: url($sprite) no-repeat scroll 55px -122px transparent;
-}
+.mailbox {
+  .navigation {
+    background-color: #efefef;
 
-.mb-col-date.DESC {
-  background: url($sprite) no-repeat scroll 55px -153px transparent;
-}
+    &.mb-hat {
+      background-color: #363a3d;
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+    }
 
-.mailbox .navigation {
-  background-color: #efefef;
-}
+    .nav-resume {
+      float: left;
+      font-size: 1.8em;
+    }
+  }
 
-.mailbox .navigation .nav-resume {
-  float: left;
-  font-size: 1.8em;
-}
+  TD.border-right {
+    border-right: 2px solid #EFF0F0;
+    padding: 5px;
+  }
+  .nav-links a, .nav-links a:hover, .nav-links a:visited {
+    color: #FFF;
+  }
+  .mb-foot .nav-links a, .mb-foot .nav-links a:hover, .mb-foot .nav-links a:visited {
+    color: #363A3D;
+  }
 
-.mailbox .navigation.mb-hat {
-  background-color: #363a3d;
-  color: #fff;
-  border-radius: 10px 10px 0 0;
+  A, A:visited, A:hover {
+    text-decoration: none;
+    color: #000;
+  }
 }
 
 .mb-header {
@@ -76,25 +95,6 @@ TD.mb-col-state {
   font-size: 1em;
 }
 
-.mailbox TD.border-right {
-  border-right: 2px solid #EFF0F0;
-  padding: 5px;
-}
-
-.mailbox .nav-links a, .mailbox .nav-links a:hover, .mailbox .nav-links a:visited {
-  color: #FFF;
-}
-
-.mailbox .mb-foot .nav-links a, .mailbox .mb-foot .nav-links a:hover, .mailbox .mb-foot .nav-links a:visited {
-  color: #363A3D;
-}
-
-.mailbox A, .mailbox A:visited, .mailbox A:hover {
-  text-decoration: none;
-  color: #000;
-}
-
-/* mailbox message */
 .mm-header {
   background-color: #363a3d;
   color: #fff;
@@ -119,7 +119,6 @@ TD.mb-col-state {
   width: 100%;
 }
 
-/* mailbox new message */
 .mnm-title {
   font-size: 1.9em;
   margin-bottom: 10px;
@@ -127,6 +126,10 @@ TD.mb-col-state {
 
 .mnm-line {
   margin-top: 10px;
+  .mnm-body {
+    height: 300px;
+    width: 100%;
+  }
 }
 
 .mnm-line-title {
@@ -135,9 +138,10 @@ TD.mb-col-state {
   margin-bottom: 3px;
 }
 
-.mnm-body {
-  height: 300px;
-  width: 100%;
+.recommand {
+  .mnm-body {
+    height: 200px;
+  }
 }
 
 .mnm-subject {
