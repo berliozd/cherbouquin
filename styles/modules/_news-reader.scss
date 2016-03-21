@@ -27,7 +27,7 @@
           margin: 5px;
           a {
             text-decoration: none;
-            color: #000;
+            color: $color6;
             font-size: 1.1em;
           }
           .nr-date {
@@ -48,14 +48,14 @@
     padding: 5px;
     a {
       text-decoration: none;
-      color: #000;
+      color: $color6;
       font-size: 1.1em;
     }
 
     .nr-footerlink {
       float: left;
       padding: 5px;
-      color: #239CD3;
+      color: $color3;
       font-weight: bold;
     }
     .nr-buttons {

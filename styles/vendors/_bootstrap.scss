@@ -75,7 +75,7 @@ h1 {
 }
 mark {
   background: #ff0;
-  color: #000;
+  color: $color6;
 }
 small {
   font-size: 80%;
@@ -203,7 +203,7 @@ th {
   *:before,
   *:after {
     background: transparent !important;
-    color: #000 !important;
+    color: $color6 !important;
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
     text-shadow: none !important;
@@ -252,10 +252,10 @@ th {
   }
   .btn > .caret,
   .dropup > .btn > .caret {
-    border-top-color: #000 !important;
+    border-top-color: $color6 !important;
   }
   .label {
-    border: 1px solid #000;
+    border: 1px solid $color6;
   }
   .table {
     border-collapse: collapse !important;

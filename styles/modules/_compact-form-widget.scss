@@ -19,13 +19,13 @@
   &.cfw-wish-list-search {
     background: url($sprite) no-repeat scroll left -2417px #1E1E1E;
     .cfw-title {
-      color: #239CD3;
+      color: $color3;
       font-size: 1.3em;
       font-weight: bold;
     }
 
     .cfw-subtitle {
-      color: #FFF;
+      color: $color4;
       font-size: 1.2em;
       text-align: justify;
       margin-bottom: 5px;

@@ -1,6 +1,6 @@
 /* library-header */
 .library-header {
-  background-color: #239CD3;
+  background-color: $color3;
   border-radius: 10px 10px 0 0;
   float: left;
   width: 100%;
@@ -19,11 +19,11 @@
 }
 
 .friend-library-header {
-  background-color: #363A3D;
+  background-color: $color5;
 }
 
 .lh-wrapper {
-  background-color: #FFF;
+  background-color: $color4;
   margin: 0 5px 0 5px;
   height: 42px;
   width: 184px;
@@ -60,7 +60,7 @@
 }
 
 .active A .lh-wrapper.lh-owned, .active A:hover .lh-wrapper.lh-owned, .active A:visited .lh-wrapper.lh-owned {
-  color: #239cd3;
+  color: $color3;
 }
 
 .lh-borrowed {
@@ -89,7 +89,7 @@
 
 .lh-friendlibrarytitle {
   background: url($sprite) no-repeat scroll 0 -77px transparent;
-  color: #FFF;
+  color: $color4;
   font-size: 2.4em;
   margin-left: 10px;
   padding-left: 47px;

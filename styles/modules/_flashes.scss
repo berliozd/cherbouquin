@@ -12,15 +12,15 @@
     width: 440px;
     z-index: 1002;
     left: 50%;
-    background: none repeat scroll 0 0 #FFF;
+    background: none repeat scroll 0 0 $color4;
     border-radius: 10px 10px 10px 10px;
     ul {
-      color: #239CD3;
+      color: $color3;
       list-style: none outside none;
       margin: 0;
       padding: 15px;
       li {
-        color: #239cd3;
+        color: $color3;
         font-size: 2em;
       }
     }
@@ -34,7 +34,7 @@
   }
 
   #flashes-background {
-    background-color: #000;
+    background-color: $color6;
     height: 100%;
     left: 0;
     opacity: 0.5;

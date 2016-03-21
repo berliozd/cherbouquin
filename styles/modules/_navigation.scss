@@ -1,6 +1,6 @@
 /* global navigation */
 .navigation {
-  background-color: #DEDFDF;
+  background-color: $color4;
   float: left;
   width: 100%;
   height: 44px;
@@ -13,7 +13,7 @@
       float: left;
       margin: 2px;
       padding: 1px;
-      color: #000;
+      color: $color6;
       &.next, &.back {
         height: 20px;
         width: 14px;
@@ -25,8 +25,8 @@
       float: left;
       margin: 2px;
       padding: 1px;
-      color: #fff;
-      color: #239CD3;
+      color: $color4;
+      color: $color3;
     }
   }
 }

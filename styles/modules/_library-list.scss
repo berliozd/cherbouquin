@@ -1,13 +1,12 @@
 /* library-list */
 .lln-search {
   float: left;
-}
-
-.llns-label {
-  float: left;
-  font-size: 1.3em;
-  font-weight: bold;
-  line-height: 30px;
+  .llns-label {
+    float: left;
+    font-size: 1.3em;
+    font-weight: bold;
+    line-height: 30px;
+  }
 }
 
 .ll-list {
@@ -32,11 +31,21 @@
       }
     }
   }
+  .lll-header {
+    background-color: $color1;
+  }
+
 }
 
+.ll-nobooks {
+  padding: 15px;
+  float: left;
+  font-size: 2em;
+}
 
-.lll-header {
-  background-color: #efefef;
+.lln-filter {
+  float: left;
+  margin-top: 2px;
 }
 
 .llh-author {
@@ -54,7 +63,6 @@
 .llh-button {
   width: 14%;
 }
-
 
 .llh-title, .llh-author, .llh-rating, .llh-state {
   text-align: left;

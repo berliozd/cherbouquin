@@ -5,14 +5,14 @@
     float: right;
   }
   .bs-nav {
-    background-color: #DEDFDF;
+    background-color: $color4;
     float: left;
     width: 100%;
     padding: 5px 0;
   }
 
   .bs-header-nav {
-    border-bottom: 1px solid #FFF;
+    border-bottom: 1px solid $color4;
     border-radius: 10px 10px 0 0;
   }
 
@@ -21,7 +21,7 @@
   }
 
   .bsr-header {
-    background-color: #EFEFEF;
+    background-color: $color1;
     float: left;
     width: 100%;
   }

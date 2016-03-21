@@ -2,7 +2,7 @@
 .login-form {
   float: left;
   .lf-label {
-    color: #FFF;
+    color: $color4;
     float: left;
     font-size: 1.3em;
     font-weight: bold;
@@ -23,7 +23,7 @@
     }
 
     .lfb-lostpassword {
-      color: #FFF;
+      color: $color4;
       float: left;
       font-size: 0.85em;
       line-height: 9px;

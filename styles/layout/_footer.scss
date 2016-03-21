@@ -1,15 +1,7 @@
-/* footer */
-
 #footer-wrap {
   padding: 0px;
-
   #footer-bottom {
-
-    //@include respond-to('medium') {
-    //  display: none;
-    //}
-
-    background-color: #FFF;
+    background-color: $color4;
     border-radius: 0px 0px 10px 10px;
     float: left;
     width: 100%;
@@ -18,46 +10,36 @@
       list-style: none;
       margin: 0;
     }
-
     LI {
       float: left;
       margin-right: 20px;
     }
-
     .link {
       text-decoration: none;
     }
   }
-
   #footer-top {
-
-    background-color: #363a3d;
+    background-color: $color5;
     float: left;
     width: 100%;
-
     .ft-item {
-
       padding: 12px;
-
       @media (min-width: 768px) {
         width: 25%;
         float: left;
         min-height: 166px;
         background: url("../images/footer-vertical-sep.png") no-repeat scroll right 23px transparent;
       }
-
       .link {
         font-weight: normal;
         &:hover, &:visited {
           font-weight: normal;
         }
       }
-
       A {
         text-decoration: none;
-        color: #fff;
+        color: $color4;
       }
-
       UL {
         list-style: none;
         margin: 0;
@@ -69,41 +51,33 @@
           padding: 0;
         }
       }
-
       &.last {
         background: none;
       }
-
       .ft-item-content {
-
         @media (max-width: 767px) {
           display: none;
         }
-
         float: left;
-        color: #FFF;
-
+        color: $color4;
         .ft-facebook {
           background: url($sprite) no-repeat scroll 0px -1230px transparent;
           display: block;
           height: 45px;
           width: 45px;
         }
-
         .ft-twitter {
           background: url($sprite) no-repeat scroll -53px -1230px transparent;
           display: block;
           height: 45px;
           width: 45px;
         }
-
         .ft-pinterest {
           background: url($sprite) no-repeat scroll -105px -1230px transparent;
           display: block;
           height: 45px;
           width: 45px;
         }
-
         .ft-googleplus {
           background: url($sprite) no-repeat scroll -160px -1230px transparent;
           display: block;
@@ -111,10 +85,9 @@
           width: 45px;
         }
       }
-
       .ft-item-title {
         float: left;
-        color: #239cd3;
+        color: $color3;
         font-size: 1.6em;
         margin-bottom: 5px;
         width: 100%;

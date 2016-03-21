@@ -58,11 +58,11 @@ TD {
 
 .mailbox {
   .navigation {
-    background-color: #efefef;
+    background-color: $color1;
 
     &.mb-hat {
-      background-color: #363a3d;
-      color: #fff;
+      background-color: $color5;
+      color: $color4;
       border-radius: 10px 10px 0 0;
     }
 
@@ -77,27 +77,27 @@ TD {
     padding: 5px;
   }
   .nav-links a, .nav-links a:hover, .nav-links a:visited {
-    color: #FFF;
+    color: $color4;
   }
   .mb-foot .nav-links a, .mb-foot .nav-links a:hover, .mb-foot .nav-links a:visited {
-    color: #363A3D;
+    color: $color5;
   }
 
   A, A:visited, A:hover {
     text-decoration: none;
-    color: #000;
+    color: $color6;
   }
 }
 
 .mb-header {
-  background-color: #EFEFEF;
+  background-color: $color1;
   color: #33373A;
   font-size: 1em;
 }
 
 .mm-header {
-  background-color: #363a3d;
-  color: #fff;
+  background-color: $color5;
+  color: $color4;
   border-radius: 10px 10px 0 0;
 }
 

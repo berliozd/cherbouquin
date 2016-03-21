@@ -3,7 +3,7 @@
 /* buttons global definitions */
 .button {
   border: medium none;
-  color: #FFF;
+  color: $color4;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
@@ -21,7 +21,7 @@
 
 A.button, A.button:hover, A.button:visited {
   text-decoration: none;
-  color: #FFF;
+  color: $color4;
 }
 
 INPUT.button, BUTTON.button {

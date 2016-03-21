@@ -1,6 +1,6 @@
 
 .friends-list-header {
-  background-color: #239CD3;
+  background-color: $color3;
   border-radius: 10px 10px 0 0;
   float: left;
   width: 100%;
@@ -52,7 +52,7 @@
   }
 
   .fl-search {
-    background-color: #DEDFDF;
+    background-color: $color4;
     float: left;
     width: 100%;
     padding: 5px;
