@@ -3,29 +3,23 @@
   margin-bottom: 5px;
 }
 
-/* ----------------------------------- */
-/* ---- Other chronicles same type --- */
-/* ----------------------------------- */
 #other-chronicles {
+  .oc-title {
+    border-bottom: 2px solid $color3;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
   float: left;
   width: 100%;
   margin-bottom: 30px;
-}
-
-.oc-title {
-  border-bottom: 2px solid $color3;
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-#other-chronicles UL {
-  margin: 0;
-  padding: 0;
-}
-
-#other-chronicles LI {
-  list-style: none outside none;
+  UL {
+    margin: 0;
+    padding: 0;
+    LI {
+      list-style: none outside none;
+    }
+  }
 }
 
 #other-chronicles LI A, .cl-other-chronicles LI A {
@@ -36,85 +30,65 @@
   background: url($sprite) no-repeat scroll 0 -1525px transparent;
 }
 
-/* -------------------------- */
-/* ---- Chronicles Blocks --- */
-/* -------------------------- */
 #chronicles-block {
-
+  UL {
+    border: 5px solid #E0E0E0;
+    margin: 0;
+    padding: 0;
+    LI {
+      border-bottom: 1px solid #E0E0E0;
+      list-style: none outside none;
+      padding: 5px;
+      A {
+        color: $color6;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+  }
+  .cb-nbviews {
+    font-size: 0.9em;
+  }
+  .cb-date {
+    color: #707070;
+  }
 }
 
-#chronicles-block UL {
-  border: 5px solid #E0E0E0;
-  margin: 0;
-  padding: 0;
+#chronicle-detail {
+  h1 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .navigation {
+    background-color: $color4;
+    > DIV {
+      padding: 0;
+    }
+    .nav-resume {
+      padding: 3px;
+      font-size: 1.3em;
+      background-color: $color3;
+      color: $color4;
+    }
+  }
+  .navigation.top {
+    border-top: 5px solid $color3;
+  }
+  .bv-reviews {
+    margin-top: 10px;
+  }
+  #cd-video {
+    float: left;
+    width: 100%;
+  }
+
+  #cd-video-iframe {
+    margin: 10px auto;
+    width: 560px;
+  }
 }
 
-#chronicles-block LI {
-  border-bottom: 1px solid #E0E0E0;
-  list-style: none outside none;
-  padding: 5px;
-}
-
-#chronicles-block LI A {
-  color: $color6;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.cb-nbviews {
-  font-size: 0.9em;
-}
-
-.cb-date {
-  color: #707070;
-}
-
-/* ------------------------- */
-/* ---- Chronicle Detail --- */
-/* ------------------------- */
-
-#chronicle-detail h1 {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-#chronicle-detail .navigation {
-  background-color: $color4;
-}
-
-#chronicle-detail .navigation.top {
-  border-top: 5px solid $color3;
-}
-
-#chronicle-detail .navigation > DIV {
-  padding: 0;
-}
-
-#chronicle-detail .nav-resume {
-  padding: 3px;
-  font-size: 1.3em;
-  background-color: $color3;
-  color: $color4;
-}
-
-#chronicle-detail .bv-reviews {
-  margin-top: 10px;
-}
-
-#cd-video {
-  float: left;
-  width: 100%;
-}
-
-#cd-video-iframe {
-  margin: 10px auto;
-  width: 560px;
-}
-
-/* ----------------------- */
-/* ---- Chronicle List --- */
-/* ----------------------- */
 #chronicles-list {
   margin-top: 10px;
   h1 {
@@ -150,19 +124,16 @@
       background-size: 200px auto;
     }
   }
-
   .cl-right {
     float: left;
     width: 72%;
     .cl-user {
       margin-bottom: 15px;
     }
-
     .cl-text {
       word-wrap: break-word;
       margin-bottom: 15px;
     }
-
     H2 {
       margin: 0;
       A {
@@ -170,7 +141,6 @@
       }
     }
   }
-
   .cl-other-chronicles {
     font-size: 1.2em;
 
@@ -181,14 +151,13 @@
   }
 }
 
-#chronicles .pb-title {
-  font-size: 1.1em;
-  margin: 10px 0 5px;
+#chronicles {
+  .pb-title {
+    font-size: 1.1em;
+    margin: 10px 0 5px;
+  }
 }
 
-/* ------------------------------------------------------- */
-/* ---- pushed-chronicles on home and book detail page --- */
-/* ------------------------------------------------------- */
 .pushed-chronicles {
   float: left;
   padding-bottom: 30px;
@@ -216,7 +185,6 @@
         background-color: $color5;
         background-size: 200px auto;
       }
-
       .pc-title {
         a {
           color: $color3;
@@ -225,7 +193,6 @@
           text-align: left;
         }
       }
-
       .pc-link {
         border-top: 1px solid #E6E6E6;
         float: left;
@@ -241,19 +208,38 @@
       }
     }
   }
-
 }
 
-/* ---------------------------------- */
-/* ---- General press reviews CSS --- */
-/* ---------------------------------- */
 #press-reviews {
   float: left;
-}
-
-#press-reviews a {
-  text-decoration: none;
-  color: $color6;
+  a {
+    text-decoration: none;
+    color: $color6;
+  }
+  ul {
+    list-style: none outside none;
+    padding: 0;
+    li {
+      border-bottom: 1px solid #E6E6E6;
+      float: left;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      width: 100%;
+    }
+  }
+  .pr-image {
+    float: left;
+    width: 70px;
+  }
+  .pr-text {
+    float: left;
+    width: 560px;
+    font-size: 1.1em;
+  }
+  .pr-title {
+    color: $color3;
+    font-weight: bold;
+  }
 }
 
 #pr-block-title {
@@ -261,95 +247,56 @@
   font-weight: bold;
 }
 
-#press-reviews ul {
-  list-style: none outside none;
-  padding: 0;
+#pressreviews-list {
+  h1 {
+    color: $color3;
+  }
+  h2 {
+    font-weight: normal;
+  }
+  .pb-title {
+    font-size: 1.1em;
+    margin: 10px 0 5px;
+  }
 }
 
-#press-reviews li {
-  border-bottom: 1px solid #E6E6E6;
-  float: left;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  width: 100%;
-}
-
-.pr-image {
-  float: left;
-  width: 70px;
-}
-
-.pr-text {
-  float: left;
-  width: 560px;
-  font-size: 1.1em;
-}
-
-.pr-title {
-  color: $color3;
-  font-weight: bold;
-}
-
-/* -------------------------------- */
-/* ---- Press reviews page list --- */
-/* -------------------------------- */
-#pressreviews-list h1 {
-  color: $color3;
-}
-
-#pressreviews-list h2 {
-  font-weight: normal;
-}
-
-#pressreviews .pb-title {
-  font-size: 1.1em;
-  margin: 10px 0 5px;
-}
-
-/* -------------------- */
-/* ---- Videos List --- */
-/* -------------------- */
 #videos-list {
   margin-top: 10px;
-}
-
-#videos-list h1 {
-  color: $color3;
-}
-
-#videos-list h2 {
-  font-weight: normal;
-}
-
-#videos-list .navigation.top {
-  margin-bottom: 10px;
-}
-
-#videos-list ul {
-  list-style: none outside none;
-  padding: 0;
-  margin: 0;
-}
-
-#videos-list li.vl-item {
-  border-bottom: 1px solid $color4;
-  float: left;
-  margin-bottom: 7px;
-  padding-bottom: 8px;
-  width: 100%;
-}
-
-#videos-list .vl-left {
-  float: left;
-  width: 33%;
-}
-
-#videos-list .vl-right {
-  float: left;
-  width: 67%;
-}
-
-.vl-title {
-  color: $color3;
-  font-weight: bold;
+  h1 {
+    color: $color3;
+  }
+  h2 {
+    font-weight: normal;
+  }
+  .navigation {
+    &.top {
+      margin-bottom: 10px;
+    }
+  }
+  ul {
+    list-style: none outside none;
+    padding: 0;
+    margin: 0;
+    li {
+      &.vl-item {
+        border-bottom: 1px solid $color4;
+        float: left;
+        margin-bottom: 7px;
+        padding-bottom: 8px;
+        width: 100%;
+      }
+    }
+  }
+  .vl-left {
+    float: left;
+    width: 33%;
+  }
+  .vl-right {
+    float: left;
+    width: 67%;
+  }
+  .vl-title {
+    color: $color3;
+    font-weight: bold;
+  }
 }

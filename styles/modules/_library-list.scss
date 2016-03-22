@@ -1,78 +1,86 @@
-/* library-list */
-.lln-search {
-  float: left;
-  .llns-label {
-    float: left;
-    font-size: 1.3em;
-    font-weight: bold;
-    line-height: 30px;
+.library-list {
+  .pbi-content {
+    width: 315px;
   }
-}
-
-.ll-list {
-  float: left;
-  width: 100%;
-  TABLE {
+  .ll-list {
     float: left;
     width: 100%;
-    TD, TH {
-      margin: 2px;
-      padding: 2px;
+    TABLE {
+      float: left;
+      width: 100%;
+      .lll-header {
+        background-color: $color1;
+      }
+      TD, TH {
+        margin: 2px;
+        padding: 2px;
+      }
+      TH {
+        height: 30px;
+        cursor: pointer;
+      }
+      TD {
+        vertical-align: top;
+        &.border-right {
+          padding: 5px;
+          border-right: 2px solid #EFF0F0;
+        }
+      }
     }
-    TH {
-      height: 30px;
-      cursor: pointer;
-    }
-    TD {
-      vertical-align: top;
-      &.border-right {
-        padding: 5px;
-        border-right: 2px solid #EFF0F0;
+    .lll-header {
+      &.sortLine {
+        .sort {
+          &.llh-author {
+            width: 15%;
+          }
+          &.llh-rating {
+            width: 13%;
+          }
+          &.llh-state {
+            width: 16%;
+          }
+          &.llh-button {
+            width: 14%;
+          }
+          &.ASC {
+            background: url($sprite) no-repeat scroll 55px -122px transparent;
+          }
+          &.DESC {
+            background: url($sprite) no-repeat scroll 55px -153px transparent;
+          }
+          &.llh-title {
+            width: 42%;
+            padding-left: 80px;
+            &.DESC {
+              background: url($sprite) no-repeat scroll 118px -153px transparent;
+            }
+            &.ASC {
+              background: url($sprite) no-repeat scroll 118px -122px transparent;
+            }
+          }
+          &.llh-title, &.llh-author, &.llh-rating, &.llh-state {
+            text-align: left;
+          }
+        }
       }
     }
   }
-  .lll-header {
-    background-color: $color1;
-  }
-
-}
-
-.ll-nobooks {
-  padding: 15px;
-  float: left;
-  font-size: 2em;
-}
-
-.lln-filter {
-  float: left;
-  margin-top: 2px;
-}
-
-.llh-author {
-  width: 15%;
-}
-
-.llh-rating {
-  width: 13%;
-}
-
-.llh-state {
-  width: 16%;
-}
-
-.llh-button {
-  width: 14%;
-}
-
-.llh-title, .llh-author, .llh-rating, .llh-state {
-  text-align: left;
-}
-
-TABLE {
-  TH {
-    &.llh-title {
-      width: 42%;
-      padding-left: 80px;
+  .lln-search {
+    float: left;
+    .llns-label {
+      float: left;
+      font-size: 1.3em;
+      font-weight: bold;
+      line-height: 30px;
     }
+    .lln-filter {
+      float: left;
+      margin-top: 2px;
+    }
+  }
+  .ll-nobooks {
+    padding: 15px;
+    float: left;
+    font-size: 2em;
   }
 }

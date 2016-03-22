@@ -15,7 +15,7 @@ $globalContext = new \Sb\Context\Model\Context();
             <div class="horizontal-sep-1"></div>
             <?php if ($this->friendUserBooks) { ?>
                 <div class="friendstoborrow-list">
-                    <div class="ftb-title"><?php _e("Empruntez ce livre à un ami : ", "s1b"); ?></div>
+                    <div class="form-title"><?php _e("Empruntez ce livre à un ami : ", "s1b"); ?></div>
                     <div class="ftb-list">
                         <ul>
                             <?php
@@ -33,7 +33,7 @@ $globalContext = new \Sb\Context\Model\Context();
                     </div>
                 </div>
             <?php } else { ?>
-                <div class="ftb-title">
+                <div class="form-title">
                     <?php echo sprintf(__("Aucun de vos amis sur %s ne dispose de ce livre dans sa bibliothèque.", "s1b"), Constants::SITENAME); ?>
                 </div>
             <?php } ?>

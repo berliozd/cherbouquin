@@ -139,11 +139,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   font-size: 0.7em;
 }
 
-.nav-resume {
-  float: right;
-  line-height: 29px;
-  margin-right: 17px;
-}
+
 
 .pinterest-frame {
   border: 1px #f14e07 solid;
@@ -204,36 +200,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 
 .book-reviews {
   float: left;
-}
-
-.library-list {
-  .pbi-content {
-    width: 315px;
-  }
-}
-
-.sortLine
-.sortLine {
-  .sort {
-    &.ASC {
-      background: url($sprite) no-repeat scroll 55px -122px transparent;
-    }
-    &.DESC {
-      background: url($sprite) no-repeat scroll 55px -153px transparent;
-    }
-    &.llh-title {
-      &.DESC {
-        background: url($sprite) no-repeat scroll 118px -153px transparent;
-      }
-      &.ASC {
-        background: url($sprite) no-repeat scroll 118px -122px transparent;
-      }
-    }
-  }
-}
-
-.ftb-title {
-  font-size: 2em;
 }
 
 /* pending request */
