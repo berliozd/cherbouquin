@@ -139,8 +139,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   font-size: 0.7em;
 }
 
-
-
 .pinterest-frame {
   border: 1px #f14e07 solid;
   width: 100%;
@@ -153,53 +151,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
   font-weight: bold;
   text-align: center;
   border-bottom: 1px solid #f14e07;
-}
-
-.reading-progress-bar-wrapper {
-  border-radius: 5px;
-  box-shadow: 1px 1px 3px $color2 inset;
-  padding: 5px;
-  float: left;
-  width: 93px;
-  margin-right: 5px;
-}
-
-.reading-progress-bar-out {
-  float: left;
-  width: 100%;
-  background: url("../images/reading-progress-bar-out.png") repeat-x 0 0 transparent
-}
-
-.reading-progress-in {
-  height: 10px;
-  background: url("../images/reading-progress-bar-in.png") repeat-x 0 0 transparent;
-}
-
-.reading-state {
-  float: left;
-}
-
-.reading-date-block {
-  float: left;
-  margin-left: 5px;
-}
-
-.nb-of-pages-read-block {
-  float: left;
-  margin-left: 10px;
-
-  INPUT {
-    width: 150px;
-    float: none;
-    text-align: center;
-  }
-  .ub-label {
-    margin-top: 4px;
-  }
-}
-
-.book-reviews {
-  float: left;
 }
 
 /* pending request */

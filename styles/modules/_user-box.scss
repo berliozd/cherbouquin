@@ -61,11 +61,29 @@
 
       .ubcb-progress {
         margin-top: 10px;
-      }
+        .ubcb-progress-bar {
+          float: left;
+          width: 100%;
+          .reading-progress-bar-wrapper {
+            border-radius: 5px;
+            box-shadow: 1px 1px 3px $color2 inset;
+            padding: 5px;
+            float: left;
+            width: 93px;
+            margin-right: 5px;
+            .reading-progress-bar-out {
+              float: left;
+              width: 100%;
+              background: url("../images/reading-progress-bar-out.png") repeat-x 0 0 transparent;
 
-      .ubcb-progress-bar {
-        float: left;
-        width: 100%;
+              .reading-progress-in {
+
+                height: 10px;
+                background: url("../images/reading-progress-bar-in.png") repeat-x 0 0 transparent;
+              }
+            }
+          }
+        }
       }
 
       .ubcb-progress-value {

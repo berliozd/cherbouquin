@@ -81,11 +81,31 @@
   width: 100%;
 }
 
-
 .ub-reading-state {
   float: left;
   width: 100%;
   margin-top: 3px;
+  .reading-state {
+    float: left;
+  }
+  .reading-date-block {
+    float: left;
+    margin-left: 5px;
+  }
+  .nb-of-pages-read-block {
+    float: left;
+    margin-left: 10px;
+
+    INPUT {
+      width: 150px;
+      float: none;
+      text-align: center;
+    }
+    .ub-label {
+      margin-top: 4px;
+    }
+  }
+
 }
 
 .ub-lending {
