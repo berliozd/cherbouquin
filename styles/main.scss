@@ -74,7 +74,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 }
 
 .see-more {
-  background-color: #F2F2F2;
+  background-color: $color4;
   float: left;
   text-align: right;
   text-transform: uppercase;
@@ -127,7 +127,7 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 }
 
 .buttons-bar {
-  background-color: #F2F2F2;
+  background-color: $color4;
   float: left;
   height: 40px;
   margin-top: 10px;
