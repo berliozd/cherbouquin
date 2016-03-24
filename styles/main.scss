@@ -63,15 +63,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'pages/registration';
 @import 'pages/lost-password';
 
-.link-button {
-  background-color: transparent;
-  color: $color3;
-  float: right;
-  font-size: 1em !important;
-  margin: 0 auto;
-  text-decoration: underline;
-  text-transform: none;
-}
 
 .see-more {
   background-color: $color4;
@@ -85,14 +76,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
     color: $color6;
     text-decoration: none;
   }
-}
-
-.blowofheart {
-  background: url($sprite) no-repeat scroll 2px -392px transparent;
-  float: left;
-  width: 22px;
-  height: 18px;
-  padding-top: 5px;
 }
 
 .boh {

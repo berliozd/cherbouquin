@@ -58,11 +58,17 @@
   .pbi-flags {
     float: left;
     width: 100%;
-  }
-
-  .pbi-flags DIV {
-    height: 20px;
-    padding-top: 5px;
+    DIV {
+      height: 20px;
+      padding-top: 5px;
+    }
+    .blowofheart {
+      background: url($sprite) no-repeat scroll 2px -392px transparent;
+      float: left;
+      width: 22px;
+      height: 18px;
+      padding-top: 5px;
+    }
   }
 
   .pbi-avgrating {

@@ -52,6 +52,16 @@
       text-decoration: underline;
       text-transform: none;
     }
+    .link-button {
+      background-color: transparent;
+      color: $color3;
+      float: right;
+      font-size: 1em !important;
+      margin: 0 auto;
+      text-decoration: underline;
+      text-transform: none;
+    }
+
     &.indb {
       .bslt-desc .title {
         text-decoration: underline;

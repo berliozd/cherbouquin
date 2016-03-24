@@ -54,6 +54,13 @@
       }
       .bvri-rating {
         float: left;
+        .blowofheart {
+          background: url($sprite) no-repeat scroll 2px -392px transparent;
+          float: left;
+          width: 22px;
+          height: 18px;
+          padding-top: 5px;
+        }
       }
 
       .bvri-link {
