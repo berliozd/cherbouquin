@@ -63,7 +63,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'pages/registration';
 @import 'pages/lost-password';
 
-
 .see-more {
   background-color: $color4;
   float: left;
@@ -107,41 +106,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
     margin: 245px auto;
     width: 300px;
   }
-}
-
-.buttons-bar {
-  background-color: $color4;
-  float: left;
-  height: 40px;
-  margin-top: 10px;
-  width: 100%;
-}
-
-.bb-btvalidate {
-  float: right;
-  font-size: 0.7em;
-}
-
-.pinterest-frame {
-  border: 1px #f14e07 solid;
-  width: 100%;
-}
-
-.pf-title {
-  background-color: $color4;
-  color: #f14e07;
-  font-size: 1.6em;
-  font-weight: bold;
-  text-align: center;
-  border-bottom: 1px solid #f14e07;
-}
-
-/* pending request */
-.pending-request-header {
-  background: url($sprite) repeat-x scroll 0 -1172px transparent;
-  height: 51px;
-  margin-bottom: 10px;
-  padding-left: 76px;
 }
 
 /* Same author books */

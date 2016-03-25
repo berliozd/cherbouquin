@@ -1,13 +1,23 @@
-/* registration */
-.registration A.cgu {
-  color: $color6;
-  font-weight: normal;
-}
+.registration {
+  A {
+    &.cgu {
+      color: $color6;
+      font-weight: normal;
+    }
+  }
+  .buttons-bar {
+    color: $color4;
+    background-color: $color4;
+    float: left;
+    height: 40px;
+    margin-top: 10px;
+    width: 100%;
+    .bb-btvalidate {
+      float: right;
+      font-size: 0.7em;
+    }
 
-.registration .buttons-bar {
-  background-color: #30a2d6;
-  color: $color4;
-  margin-top: 50px;
+  }
 }
 
 .r-left {
