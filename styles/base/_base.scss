@@ -175,3 +175,17 @@ A.link, A:visited.link, A:hover.link {
 .form-title {
   font-size: 2em;
 }
+
+.see-more {
+  background-color: $color4;
+  float: left;
+  text-align: right;
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 0.9em;
+  font-weight: bold;
+  A, A:visited, A:hover {
+    color: $color6;
+    text-decoration: none;
+  }
+}

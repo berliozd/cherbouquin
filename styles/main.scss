@@ -63,26 +63,6 @@ $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 @import 'pages/registration';
 @import 'pages/lost-password';
 
-.see-more {
-  background-color: $color4;
-  float: left;
-  text-align: right;
-  text-transform: uppercase;
-  width: 100%;
-  font-size: 0.9em;
-  font-weight: bold;
-  A, A:visited, A:hover {
-    color: $color6;
-    text-decoration: none;
-  }
-}
-
-.boh {
-  background: url($sprite) no-repeat scroll 0 -393px transparent;
-  float: left;
-  height: 20px;
-  width: 20px;
-}
 
 .book-link, .book-link:hover, .book-link A:visited {
   color: $color3;
