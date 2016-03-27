@@ -18,6 +18,17 @@
   }
 }
 
+
+/* Same author books */
+.same-author-books {
+  .pb-title {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    color: $color3;
+  }
+}
+
 .pb-item {
   float: left;
   margin-bottom: 10px;
