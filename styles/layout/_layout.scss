@@ -15,9 +15,27 @@
   height: 71px;
 }
 
-
 .right-frame {
   float: left;
   margin-bottom: 15px;
   width: 100%;
+}
+
+#loading {
+  background-color: $color6;
+  display: none;
+  height: 100%;
+  left: 0;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  #loadingMsg {
+    color: $color4;
+    font-size: 2.5em;
+    margin: 245px auto;
+    width: 300px;
+  }
 }

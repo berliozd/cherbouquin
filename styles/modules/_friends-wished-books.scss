@@ -48,6 +48,10 @@
     .wbi-content {
       float: left;
       width: 510px;
+      .book-link, .book-link:hover, .book-link A:visited {
+        color: $color3;
+        font-weight: bold;
+      }
       .wbi-title {
         font-weight: bold;
       }
