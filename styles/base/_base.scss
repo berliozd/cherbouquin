@@ -129,18 +129,19 @@ A.link, A:visited.link, A:hover.link {
   border-color: $color4;
 }
 
-.separator SPAN {
-  padding: 3px;
-  font-size: 1.3em;
-}
+.separator {
+  SPAN {
+    padding: 3px;
+    font-size: 1.3em;
+  }
 
-.separator.cherbouquin {
-  border-color: $color3;
-}
-
-.separator.cherbouquin SPAN {
-  background-color: $color3;
-  color: $color4;
+  &.cherbouquin {
+    border-color: $color3;
+    SPAN {
+      background-color: $color3;
+      color: $color4;
+    }
+  }
 }
 
 .horizontal-sep-1 {
