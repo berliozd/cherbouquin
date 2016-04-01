@@ -1,33 +1,30 @@
 <?php
 
-use Sb\Helpers\EntityHelper,
-    Sb\Helpers\SecurityHelper,
-    Sb\Helpers\ArrayHelper,
-    Sb\Helpers\HTTPHelper,
+use Sb\Authentification\Service\AuthentificationSvc;
+use Sb\Cache\ZendFileCache;
+use Sb\Config\Model\Config;
+use Sb\Context\Model\Context;
+use Sb\Db\Dao\UserDao;
+use Sb\Db\Model\UserBook;
+use Sb\Db\Service\UserBookSvc;
+use Sb\Flash\Flash;
+use Sb\Helpers\ArrayHelper;
+use Sb\Helpers\EntityHelper;
+use Sb\Helpers\HTTPHelper;
+use Sb\Helpers\SecurityHelper;
+use Sb\Lists\BookList;
+use Sb\Lists\Filtering;
+use Sb\Lists\MetaDataType;
+use Sb\Lists\Options;
+use Sb\Lists\Paging;
+use Sb\Lists\Search;
+use Sb\Lists\Sorting;
+use Sb\View\BookList as BookListView;
+use Sb\View\BookTable;
+use Sb\View\LibraryHeader;
 
-    Sb\Db\Model\UserBook,
-
-    Sb\Db\Dao\UserDao,
-
-    Sb\Db\Service\UserBookSvc,
-    Sb\Authentification\Service\AuthentificationSvc,
-
-    Sb\Lists\Filtering,
-    Sb\Lists\Paging,
-    Sb\Lists\Sorting,
-    Sb\Lists\Options,
-    Sb\Lists\MetaDataType,
-    Sb\Lists\BookList,
-    Sb\Lists\Search,
-    Sb\View\BookList as BookListView,
-    Sb\View\LibraryHeader,
-
-    Sb\Cache\ZendFileCache,
-    Sb\Flash\Flash,
-
-    Sb\View\BookTable;
-
-class Default_LibraryController extends Zend_Controller_Action {
+class Default_LibraryController extends Zend_Controller_Action
+{
 
     const LIST_OPTIONS_SUFFIX = "_options";
     const LIST_AUTHORS_FIRST_LETTER_SUFFIX = "_authorsFirstLetter";
@@ -39,7 +36,8 @@ class Default_LibraryController extends Zend_Controller_Action {
     const LENDED_BOOKS_KEY = 'lendedBooks';
     const MY_BOOKS_KEY = 'myBooks';
 
-    public function init() {
+    public function init()
+    {
 
         // Checks is user is connected
         AuthentificationSvc::getInstance()->checkUserIsConnected();
@@ -51,7 +49,8 @@ class Default_LibraryController extends Zend_Controller_Action {
             ->initContext();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
 
         try {
 
@@ -89,7 +88,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         }
     }
 
-    public function friendLibraryAction() {
+    public function friendLibraryAction()
+    {
 
         try {
 
@@ -130,7 +130,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         }
     }
 
-    public function sortAction() {
+    public function sortAction()
+    {
 
         if ($_POST["friendlib"])
             $this->setLibraryUserIdForFriend();
@@ -143,7 +144,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         $this->view->libraryPage = $this->getPage($_POST["key"]);
     }
 
-    public function getPageAction() {
+    public function getPageAction()
+    {
 
         if ($_POST["friendlib"])
             $this->setLibraryUserIdForFriend();
@@ -156,7 +158,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         $this->view->libraryPage = $this->getPage($_POST["key"]);
     }
 
-    private function getPage($key) {
+    private function getPage($key)
+    {
 
         $userId = ($this->getContext()->getIsShowingFriendLibrary() ? $this->getContext()->getLibraryUserId() : $this->getContext()->getConnectedUser()->getId());
 
@@ -170,7 +173,8 @@ class Default_LibraryController extends Zend_Controller_Action {
             return "";
     }
 
-    private function setListOptionsForNavigation($listKey, $pageId) {
+    private function setListOptionsForNavigation($listKey, $pageId)
+    {
 
         $listOptions = $this->getListOptions($listKey);
         if ($pageId) {
@@ -199,7 +203,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         $this->setListOptions($listKey, $listOptions);
     }
 
-    private function setListOptionsForSorting($key, $sortCriteria) {
+    private function setListOptionsForSorting($key, $sortCriteria)
+    {
 
         $listOptions = $this->getListOptions($key);
 
@@ -239,7 +244,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         $this->setListOptions($key, $listOptions);
     }
 
-    public function setListOptionsForSearching($key, $searchValue) {
+    public function setListOptionsForSearching($key, $searchValue)
+    {
 
         $listOptions = $this->getListOptions($key);
 
@@ -268,7 +274,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         $this->setListOptions($key, $listOptions);
     }
 
-    public function setListOptionsForFiltering($key, $filteringValue, $filteringType) {
+    public function setListOptionsForFiltering($key, $filteringValue, $filteringType)
+    {
 
         $listOptions = $this->getListOptions($key);
 
@@ -301,7 +308,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         $this->setListOptions($key, $listOptions);
     }
 
-    private function getListOptions($key) {
+    private function getListOptions($key)
+    {
 
         $opts = ZendFileCache::getInstance()->load($key . self::LIST_OPTIONS_SUFFIX);
         if ($opts instanceof Options)
@@ -310,18 +318,21 @@ class Default_LibraryController extends Zend_Controller_Action {
             return null;
     }
 
-    private function setListOptions($key, $value) {
+    private function setListOptions($key, $value)
+    {
 
         ZendFileCache::getInstance()->save($value, $key . self::LIST_OPTIONS_SUFFIX);
     }
 
-    public function resetListOption($key) {
+    public function resetListOption($key)
+    {
 
         $key = $key . self::LIST_OPTIONS_SUFFIX;
         ZendFileCache::getInstance()->remove($key);
     }
 
-    private function setFilteringAndSearching($key) {
+    private function setFilteringAndSearching($key)
+    {
 
         if (array_key_exists("searchvalue", $_GET)) {
 
@@ -342,7 +353,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         $this->setListOptionsForNavigation($key, 1);
     }
 
-    private function createBookTableView($key, $books) {
+    private function createBookTableView($key, $books)
+    {
 
         // Get full key for list option cache
         $fullKey = $this->formateListKey($key);
@@ -375,15 +387,18 @@ class Default_LibraryController extends Zend_Controller_Action {
             $authorsFirstLetters, $titlesFirstLetters, $filteringType, $filter);
     }
 
-    private function getConfig() {
-        return new Sb\Config\Model\Config();
+    private function getConfig()
+    {
+        return new Config();
     }
 
-    private function getContext() {
-        return new \Sb\Context\Model\Context();
+    private function getContext()
+    {
+        return Context::getInstance();
     }
 
-    private function isValidBooksKey($key) {
+    private function isValidBooksKey($key)
+    {
 
         $booksKeys = array(self::ALL_BOOKS_KEY, self::MY_BOOKS_KEY, self::WISHED_BOOKS_KEY, self::BORROWED_BOOKS_KEY, self::LENDED_BOOKS_KEY);
 
@@ -396,7 +411,8 @@ class Default_LibraryController extends Zend_Controller_Action {
      * Set user id of user's library we are acccessing in session
      * @throws Sb\Exception\UserException
      */
-    private function setFriendLibaryData() {
+    private function setFriendLibaryData()
+    {
 
         $temporayFriendUSerId = null;
         // Get fid from QS
@@ -429,8 +445,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         }
     }
 
-    private function setLibraryUserIdForFriend() {
-
+    private function setLibraryUserIdForFriend()
+    {
         $this->getContext()->setIsShowingFriendLibrary(true);
         $this->getContext()->setLibraryUserId($_SESSION['fid']);
     }
@@ -440,7 +456,8 @@ class Default_LibraryController extends Zend_Controller_Action {
      * @param $userId
      * @return bool
      */
-    private function canAccessLibrary($userId) {
+    private function canAccessLibrary($userId)
+    {
 
         $requestedUser = UserDao::getInstance()->get($userId);
         $requestingUser = UserDao::getInstance()->get($this->getContext()->getConnectedUser()->getId());
@@ -448,7 +465,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         return SecurityHelper::IsUserAccessible($requestedUser, $requestingUser);
     }
 
-    private function getListMetaData($fullKey, $metaDataType) {
+    private function getListMetaData($fullKey, $metaDataType)
+    {
         switch ($metaDataType) {
             case MetaDataType::AUTHORS_FIRST_LETTERS:
                 $fullKey = $fullKey . self::LIST_AUTHORS_FIRST_LETTER_SUFFIX;
@@ -467,7 +485,8 @@ class Default_LibraryController extends Zend_Controller_Action {
      * @param $books
      * @param $fullKey
      */
-    private function setListMetaData($books, $fullKey) {
+    private function setListMetaData($books, $fullKey)
+    {
 
         if ($books) {
 
@@ -483,7 +502,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         }
     }
 
-    private function getListKey() {
+    private function getListKey()
+    {
 
         $key = self::ALL_BOOKS_KEY;
         if ($_GET && array_key_exists("key", $_GET) && $this->isValidBooksKey($_GET["key"])) {
@@ -493,7 +513,8 @@ class Default_LibraryController extends Zend_Controller_Action {
         return $key;
     }
 
-    private function formateListKey($key) {
+    private function formateListKey($key)
+    {
 
         $tmpFriendId = "";
         if ($this->getContext()->getIsShowingFriendLibrary()) {
@@ -504,15 +525,18 @@ class Default_LibraryController extends Zend_Controller_Action {
         return $fullKey;
     }
 
-    function firstLetterFromTitle(UserBook $userBook) {
+    function firstLetterFromTitle(UserBook $userBook)
+    {
         return strtoupper(substr($userBook->getBook()->getTitle(), 0, 1));
     }
 
-    function firstLetterFromAuthor(UserBook $userBook) {
+    function firstLetterFromAuthor(UserBook $userBook)
+    {
         return strtoupper(substr($userBook->getBook()->getOrderableContributors(), 0, 1));
     }
 
-    function compareLetters($letterA, $letterB) {
+    function compareLetters($letterA, $letterB)
+    {
         return ($letterA < $letterB) ? -1 : 1;
     }
 }
