@@ -35,6 +35,9 @@ class Context {
      * @return \Sb\Context\Model\Context
      */
     public static function getInstance() {
+        if (!self::$instance) {
+            self::$instance = new Context();
+        }
         return self::$instance;
     }
 

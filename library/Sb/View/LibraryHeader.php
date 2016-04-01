@@ -2,19 +2,21 @@
 
 namespace Sb\View;
 
-use Sb\Db\Dao\UserDao,
-    Sb\Templates\Template,
-    Sb\Entity\Urls,
-    Sb\Entity\LibraryListKeys,
-    Sb\Helpers\HTTPHelper;
+use Sb\Db\Dao\UserDao;
+use Sb\Entity\LibraryListKeys;
+use Sb\Entity\Urls;
+use Sb\Helpers\HTTPHelper;
+use Sb\Templates\Template;
 
 
-class LibraryHeader extends AbstractView {
+class LibraryHeader extends AbstractView
+{
 
     private $friendUserId = null;
     private $key = null;
 
-    function __construct($friendUserId, $key) {
+    function __construct($friendUserId, $key)
+    {
 
         $this->friendUserId = $friendUserId;
         $this->key = $key;
@@ -22,9 +24,10 @@ class LibraryHeader extends AbstractView {
         parent::__construct();
     }
 
-    public function get() {
+    public function get()
+    {
 
-        $globalContext = new \Sb\Context\Model\Context();
+        $globalContext = \Sb\Context\Model\Context::getInstance();
 
         $tplHeader = new Template("header");
 
@@ -56,7 +59,8 @@ class LibraryHeader extends AbstractView {
         return $tplHeader->output();
     }
 
-    private function setActiveTab(&$tplHeader, $key) {
+    private function setActiveTab(&$tplHeader, $key)
+    {
         $tplHeader->set("cssAll", ($key == "allBooks" ? "active" : ""));
         $tplHeader->set("cssOwned", ($key == "myBooks" ? "active" : ""));
         $tplHeader->set("cssWished", ($key == "wishedBooks" ? "active" : ""));
