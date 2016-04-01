@@ -16,30 +16,44 @@
     list-style: none;
     text-align: center;
   }
+  A, A:hover, A:visited {
+    font-size: 1.6em;
+    text-decoration: none;
+    color: #b1b3b4;
+  }
+  .lh-wrapper {
+    background-color: $color4;
+    margin: 0 5px 0 5px;
+    height: 42px;
+    width: 184px;
+    padding-top: 100px;
+    &.first {
+      margin-left: 10px;
+    }
+    &.last {
+      margin-right: 10px;
+    }
+    &.lh-lent {
+      background: url("../images/picto-library-lent-big.png") no-repeat scroll -2px 0 transparent;
+    }
+    &.lh-all {
+      background: url("../images/picto-library-big-black.png") no-repeat scroll -2px 4px transparent;
+    }
+    &.lh-owned {
+      background: url("../images/picto-library-owned-big.png") no-repeat scroll -2px 0 transparent;
+    }
+    &.lh-borrowed {
+      background: url("../images/picto-library-borrowed-big.png") no-repeat scroll -2px 0 transparent;
+    }
+    &.lh-wished {
+      background: url("../images/picto-library-wished-big.png") no-repeat scroll -2px 0 transparent;
+    }
+  }
+
 }
 
 .friend-library-header {
   background-color: $color5;
-}
-
-.lh-wrapper {
-  background-color: $color4;
-  margin: 0 5px 0 5px;
-  height: 42px;
-  width: 184px;
-  padding-top: 100px;
-  &.first {
-    margin-left: 10px;
-  }
-  &.last {
-    margin-right: 10px;
-  }
-}
-
-.library-header A, .library-header A:hover, .library-header A:visited {
-  font-size: 1.6em;
-  text-decoration: none;
-  color: #b1b3b4;
 }
 
 .active A .lh-wrapper, .active A:hover .lh-wrapper, .active A:visited .lh-wrapper {
@@ -47,40 +61,20 @@
   text-decoration: underline;
 }
 
-.lh-all {
-  background: url("../images/picto-library-big-black.png") no-repeat scroll -2px 4px transparent;
-}
-
 .lh-friend-library-all {
   background: url("../images/picto-libraryfriend-big-black.png") no-repeat scroll -2px 4px transparent;
-}
-
-.lh-owned {
-  background: url("../images/picto-library-owned-big.png") no-repeat scroll -2px 0 transparent;
 }
 
 .active A .lh-wrapper.lh-owned, .active A:hover .lh-wrapper.lh-owned, .active A:visited .lh-wrapper.lh-owned {
   color: $color3;
 }
 
-.lh-borrowed {
-  background: url("../images/picto-library-borrowed-big.png") no-repeat scroll -2px 0 transparent;
-}
-
 .active A .lh-wrapper.lh-borrowed, .active A:hover .lh-wrapper.lh-borrowed, .active A:visited .lh-wrapper.lh-borrowed {
   color: #bf0574;
 }
 
-.lh-lent {
-  background: url("../images/picto-library-lent-big.png") no-repeat scroll -2px 0 transparent;
-}
-
 .active A .lh-wrapper.lh-lent, .active A:hover .lh-wrapper.lh-lent, .active A:visited .lh-wrapper.lh-lent {
   color: #794691;
-}
-
-.lh-wished {
-  background: url("../images/picto-library-wished-big.png") no-repeat scroll -2px 0 transparent;
 }
 
 .active A .lh-wrapper.lh-wished, .active A:hover .lh-wrapper.lh-wished, .active A:visited .lh-wrapper.lh-wished {
