@@ -2,131 +2,133 @@
 .user-book {
   float: left;
   width: 100%;
-}
 
-.ub-comment TEXTAREA {
-  height: 100px;
-  width: 100%;
-}
 
-.ubc-label {
-  color: $color3;
-  font-weight: bold;
-}
-
-/*flags*/
-.ub-flags {
-  float: left;
-}
-
-.ub-label {
-  color: $color3;
-  font-weight: bold;
-  float: left;
-  padding-top: 2px;
-}
-
-.ubfs-label, .ubt-label {
-  float: left;
-}
-
-.ub-boh-label {
-  background: url($sprite) no-repeat scroll 88px -392px transparent;
-  height: 21px;
-  width: 115px;
-}
-
-.ubf-state {
-  float: left;
-  margin-top: 10px;
-}
-
-.ubfr-value {
-  float: left;
-  cursor: pointer;
-}
-
-.ubf-state {
-  float: left;
-  width: 100%;
-}
-
-.ub-flags #stars {
-  float: left;
-  margin: 0;
-  width: 80px;
-  list-style-type: none;
-  padding: 0;
-  height: 20px;
-}
-
-.ub-flags #stars LI {
-  float: left;
-  margin: 0;
-  padding: 0;
-  width: 15px;
-}
-
-.ub-field {
-  margin: 0 4px 0 4px;
-  float: left;
-}
-
-.ub-field INPUT {
-  float: left;
-}
-
-.ub-group-fields {
-  float: left;
-  width: 100%;
-}
-
-.ub-reading-state {
-  float: left;
-  width: 100%;
-  margin-top: 3px;
-  .reading-state {
-    float: left;
-  }
-  .reading-date-block {
-    float: left;
-    margin-left: 5px;
-  }
-  .nb-of-pages-read-block {
-    float: left;
-    margin-left: 10px;
-
-    INPUT {
-      width: 150px;
-      float: none;
-      text-align: center;
-    }
-    .ub-label {
-      margin-top: 4px;
+  .ub-comment TEXTAREA {
+    height: 100px;
+    width: 100%;
+    .ubc-label {
+      color: $color3;
+      font-weight: bold;
     }
   }
 
-}
 
-.ub-lending {
-  font-size: 1.2em;
-}
+  /*flags*/
+  .ub-flags {
+    float: left;
+  }
 
-/*tags*/
-.ub-tags {
-  float: left;
-}
+  .ub-label {
+    color: $color3;
+    font-weight: bold;
+    float: left;
+    padding-top: 2px;
+  }
 
-.ubt-value {
-  float: left;
-  width: 100%;
-}
+  .ubfs-label, .ubt-label {
+    float: left;
+  }
 
-.ubt-tag {
-  float: left;
-  width: 300px;
-}
+  .ub-boh-label {
+    background: url($sprite) no-repeat scroll 88px -392px transparent;
+    height: 21px;
+    width: 115px;
+  }
 
-.ubtt-value {
-  float: left;
+  .ubf-state {
+    float: left;
+    margin-top: 10px;
+  }
+
+  .ubfr-value {
+    float: left;
+    cursor: pointer;
+  }
+
+  .ubf-state {
+    float: left;
+    width: 100%;
+  }
+
+  .ub-flags #stars {
+    float: left;
+    margin: 0;
+    width: 80px;
+    list-style-type: none;
+    padding: 0;
+    height: 20px;
+  }
+
+  .ub-flags #stars LI {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 15px;
+  }
+
+  .ub-field {
+    margin: 0 4px 0 4px;
+    float: left;
+  }
+
+  .ub-field INPUT {
+    float: left;
+  }
+
+  .ub-group-fields {
+    float: left;
+    width: 100%;
+  }
+
+  .ub-reading-state {
+    float: left;
+    width: 100%;
+    margin-top: 3px;
+    .reading-state {
+      float: left;
+    }
+    .reading-date-block {
+      float: left;
+      margin-left: 5px;
+    }
+    .nb-of-pages-read-block {
+      float: left;
+      margin-left: 10px;
+
+      INPUT {
+        width: 150px;
+        float: none;
+        text-align: center;
+      }
+      .ub-label {
+        margin-top: 4px;
+      }
+    }
+
+  }
+
+  .ub-lending {
+    font-size: 1.2em;
+  }
+
+  /*tags*/
+  .ub-tags {
+    float: left;
+  }
+
+  .ubt-value {
+    float: left;
+    width: 100%;
+  }
+
+  .ubt-tag {
+    float: left;
+    width: 300px;
+  }
+
+  .ubtt-value {
+    float: left;
+  }
+
 }
