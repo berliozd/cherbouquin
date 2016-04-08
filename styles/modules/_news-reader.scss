@@ -3,7 +3,7 @@
 /* --------------------------- */
 
 .nr-list {
-  border: 1px solid #E0E0E0;
+  border: 1px solid $color1;
   float: left;
   width: 100%;
 
@@ -16,7 +16,7 @@
       li {
         width: 100%;
         margin: 0;
-        border-bottom: 1px solid #E0E0E0;
+        border-bottom: 1px solid $color1;
         float: left;
         .nr-image {
           float: left;

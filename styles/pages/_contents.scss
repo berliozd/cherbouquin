@@ -32,11 +32,11 @@
 
 #chronicles-block {
   UL {
-    border: 5px solid #E0E0E0;
+    border: 5px solid $color1;
     margin: 0;
     padding: 0;
     LI {
-      border-bottom: 1px solid #E0E0E0;
+      border-bottom: 1px solid $color1;
       list-style: none outside none;
       padding: 5px;
       A {
