@@ -1,7 +1,7 @@
 /* User box (box in right col) */
 .user-box {
   float: left;
-  border: 1px solid $color3;
+  border: 1px solid $color101;
   ul {
     &.carousel-pagination {
       left: 150px;
@@ -9,28 +9,28 @@
       top: 210px;
       width: 110px;
       li {
-        background-color: $color6;
+        background-color: $color071;
         &.carousel-pagination-active {
-          background: #1a83b3;
+          background: $color101;
         }
       }
     }
   }
   .ub-title-wrap {
     padding-bottom: 8px;
-    background: url($sprite) no-repeat scroll 22px -1629px $color4;
+    background: url($sprite) no-repeat scroll 22px -1629px $color001;
     .ub-title {
       font-size: 1.6em;
-      color: $color4;
+      color: $color001;
       font-weight: bold;
       line-height: 30px;
       padding-left: 30px;
-      background: url($sprite) no-repeat scroll 4px -1563px $color3;
+      background: url($sprite) no-repeat scroll 4px -1563px $color101;
     }
   }
 
   .ub-content {
-    background-color: $color4;
+    background-color: $color001;
     float: left;
     font-size: 1.1em;
     .ubc-part {
@@ -66,7 +66,7 @@
           width: 100%;
           .reading-progress-bar-wrapper {
             border-radius: 5px;
-            box-shadow: 1px 1px 3px $color2 inset;
+            box-shadow: 1px 1px 3px $color031 inset;
             padding: 5px;
             float: left;
             width: 93px;
@@ -87,25 +87,25 @@
       }
 
       .ubcb-progress-value {
-        color: $color3;
+        color: $color101;
         font-size: 1.1em;
       }
     }
   }
   .ub-mailbox {
     .ub-title {
-      background: url($sprite) no-repeat scroll 3px -235px $color3;
+      background: url($sprite) no-repeat scroll 3px -235px $color101;
     }
   }
 
   .ub-friends {
     .ub-title {
-      background: url($sprite) no-repeat scroll 2px -203px $color3;
+      background: url($sprite) no-repeat scroll 2px -203px $color101;
     }
   }
 
   .ub-highlight, .ub-highlight:hover, .ub-highlight:visited {
-    color: $color3;
+    color: $color101;
     text-decoration: none;
   }
 
@@ -117,7 +117,7 @@
   A.ubc-bottom-link,
   A.ubc-bottom-link:hover,
   A.ubc-bottom-link:visited {
-    color: $color3;
+    color: $color101;
   }
 
   .ubcb-nopagesread {
@@ -125,7 +125,7 @@
   }
 
   .ubc-find-friend A, .ubc-find-friend A:hover, .ubc-find-friend A:visited {
-    color: $color6;
+    color: $color071;
     text-decoration: none;
   }
 
@@ -150,7 +150,7 @@
   .ubc-sep {
     float: left;
     width: 100%;
-    border-bottom: 1px dotted #DDDDDD;
+    border-bottom: 1px dotted $color031;
     margin: 0;
   }
 

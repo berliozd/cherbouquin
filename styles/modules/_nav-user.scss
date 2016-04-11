@@ -1,22 +1,22 @@
 /*nav-user*/
 #nav-user {
-  color: $color4;
+  color: $color001;
   A,
   A:visited,
   A:hover {
-    color: $color4;
+    color: $color001;
     text-decoration: none;
   }
 
   .nu-resume {
     float: left;
     width: 185px;
-    background-color: #323639;
-    box-shadow: 0 0 10px $color6 inset;
+    background-color: $color061;
+    box-shadow: 0 0 10px $color071 inset;
     border-radius: 0 0 0 10px;
     padding: 6px;
     IMG {
-      border: 2px #313538 solid;
+      border: 2px $color061 solid;
       width: 53px;
       height: 53px;
     }
@@ -46,7 +46,7 @@
     text-align: center;
     top: -18px;
     width: 21px;
-    color: $color4 !important;
+    color: $color001 !important;
   }
 
   .nu-links {
@@ -66,17 +66,17 @@
         text-transform: uppercase;
         position: relative;
         &:hover {
-          color: $color6;
+          color: $color071;
         }
         a {
           &.selected {
-            color: $color6;
+            color: $color071;
           }
           &:visited {
-            color: $color6;
+            color: $color071;
           }
           &:hover {
-            color: $color6;
+            color: $color071;
           }
         }
       }
@@ -90,7 +90,7 @@
           li {
             list-style: disc outside none;
             padding-right: 3px;
-            color: $color4;
+            color: $color001;
             font-weight: normal;
             float: left;
             text-align: left;
@@ -99,14 +99,14 @@
         #links-hover {
           display: none;
           border-radius: 10px;
-          border: 1px solid $color5;
-          background-color: $color3;
+          border: 1px solid $color061;
+          background-color: $color101;
           width: 147px;
           position: absolute;
           left: -9px;
           top: -1px;
           span {
-            color: $color5;
+            color: $color061;
             text-align: center;
             display: block;
           }

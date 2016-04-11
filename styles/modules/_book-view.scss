@@ -87,8 +87,8 @@
     .bvr-comments {
       float: left;
       width: 100%;
-      background-color: #EEEEEE;
-      border: 1px solid #AAAAAA;
+      background-color: $color001;
+      border: 1px solid $color031;
       margin-top: 5px;
       ul {
         float: left;
@@ -97,7 +97,7 @@
         padding: 0;
         width: 100%;
         li {
-          border-bottom: 1px solid $color4;
+          border-bottom: 1px solid $color001;
           float: left;
           margin-bottom: 2px;
           width: 100%;
@@ -110,7 +110,7 @@
         .bvrc-date {
           float: right;
           width: 87%;
-          color: #6B7074;
+          color: $color041;
         }
 
         .bvrc-value {
@@ -124,7 +124,7 @@
 
         .bvrc-submitlink {
           border: 0 none;
-          color: $color3;
+          color: $color101;
           font-size: 0.9em;
           text-decoration: underline;
           cursor: pointer;
@@ -149,7 +149,6 @@
       padding: 0;
       resize: none;
       width: 90%;
-      font-family: Dosis;
     }
   }
 

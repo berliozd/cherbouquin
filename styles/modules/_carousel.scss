@@ -52,7 +52,7 @@
               .ci-content {
                 margin-left: 35px;
                 padding-top: 50px;
-                color: $color4;
+                color: $color001;
                 font-size: 1.4em;
                 text-align: center;
                 width: 276px;
@@ -90,13 +90,13 @@
         margin-right: 5px;
         cursor: pointer;
         float: left;
-        background: #333;
+        background-color: $color061;
         width: 16px;
         height: 16px;
         border-radius: 10px;
 
         &.carousel-pagination-active {
-          background: #1a83b3;
+          background-color: $color101;
         }
       }
     }

@@ -5,7 +5,7 @@
 
 #other-chronicles {
   .oc-title {
-    border-bottom: 2px solid $color3;
+    border-bottom: 2px solid $color101;
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 10px;
@@ -32,15 +32,15 @@
 
 #chronicles-block {
   UL {
-    border: 5px solid $color1;
+    border: 5px solid $color031;
     margin: 0;
     padding: 0;
     LI {
-      border-bottom: 1px solid $color1;
+      border-bottom: 1px solid $color031;
       list-style: none outside none;
       padding: 5px;
       A {
-        color: $color6;
+        color: $color071;
         text-decoration: none;
         font-weight: bold;
       }
@@ -61,19 +61,19 @@
     margin-bottom: 5px;
   }
   .navigation {
-    background-color: $color4;
+    background-color: $color001;
     > DIV {
       padding: 0;
     }
     .nav-resume {
       padding: 3px;
       font-size: 1.3em;
-      background-color: $color3;
-      color: $color4;
+      background-color: $color101;
+      color: $color001;
     }
   }
   .navigation.top {
-    border-top: 5px solid $color3;
+    border-top: 5px solid $color101;
   }
   .bv-reviews {
     margin-top: 10px;
@@ -92,7 +92,7 @@
 #chronicles-list {
   margin-top: 10px;
   h1 {
-    color: $color3;
+    color: $color101;
   }
   .navigation.top {
     margin-bottom: 10px;
@@ -103,7 +103,7 @@
     margin: 0;
     LI {
       &.cl-item {
-        border-bottom: 1px solid $color4;
+        border-bottom: 1px solid $color001;
         float: left;
         margin-bottom: 7px;
         padding-bottom: 8px;
@@ -120,7 +120,7 @@
       height: 170px;
       background-position: center top;
       background-repeat: no-repeat;
-      background-color: $color5;
+      background-color: $color061;
       background-size: 200px auto;
     }
   }
@@ -182,12 +182,12 @@
         height: 200px;
         background-position: center top;
         background-repeat: no-repeat;
-        background-color: $color5;
+        background-color: $color061;
         background-size: 200px auto;
       }
       .pc-title {
         a {
-          color: $color3;
+          color: $color101;
           font-size: 1.2em;
           font-weight: bold;
           text-align: left;
@@ -202,7 +202,7 @@
         a {
           text-decoration: none;
           text-transform: uppercase;
-          color: $color6;
+          color: $color071;
           font-weight: bold;
         }
       }
@@ -214,7 +214,7 @@
   float: left;
   a {
     text-decoration: none;
-    color: $color6;
+    color: $color071;
   }
   ul {
     list-style: none outside none;
@@ -237,7 +237,7 @@
     font-size: 1.1em;
   }
   .pr-title {
-    color: $color3;
+    color: $color101;
     font-weight: bold;
   }
 }
@@ -249,7 +249,7 @@
 
 #pressreviews-list {
   h1 {
-    color: $color3;
+    color: $color101;
   }
   h2 {
     font-weight: normal;
@@ -263,7 +263,7 @@
 #videos-list {
   margin-top: 10px;
   h1 {
-    color: $color3;
+    color: $color101;
   }
   h2 {
     font-weight: normal;
@@ -279,7 +279,7 @@
     margin: 0;
     li {
       &.vl-item {
-        border-bottom: 1px solid $color4;
+        border-bottom: 1px solid $color001;
         float: left;
         margin-bottom: 7px;
         padding-bottom: 8px;
@@ -296,7 +296,7 @@
     width: 67%;
   }
   .vl-title {
-    color: $color3;
+    color: $color101;
     font-weight: bold;
   }
 }

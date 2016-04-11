@@ -44,7 +44,7 @@
 
 TD {
   &.mb-col-state {
-    color: #f56903;
+    color: $color111;
   }
 }
 
@@ -58,11 +58,11 @@ TD {
 
 .mailbox {
   .navigation {
-    background-color: $color1;
+    background-color: $color001;
 
     &.mb-hat {
-      background-color: $color5;
-      color: $color4;
+      background-color: $color061;
+      color: $color001;
       border-radius: 10px 10px 0 0;
     }
 
@@ -73,31 +73,31 @@ TD {
   }
 
   TD.border-right {
-    border-right: 2px solid #EFF0F0;
+    border-right: 2px solid $color001;
     padding: 5px;
   }
   .nav-links a, .nav-links a:hover, .nav-links a:visited {
-    color: $color4;
+    color: $color001;
   }
   .mb-foot .nav-links a, .mb-foot .nav-links a:hover, .mb-foot .nav-links a:visited {
-    color: $color5;
+    color: $color061;
   }
 
   A, A:visited, A:hover {
     text-decoration: none;
-    color: $color6;
+    color: $color071;
   }
 }
 
 .mb-header {
-  background-color: $color1;
-  color: #33373A;
+  background-color: $color001;
+  color: $color061;
   font-size: 1em;
 }
 
 .mm-header {
-  background-color: $color5;
-  color: $color4;
+  background-color: $color061;
+  color: $color001;
   border-radius: 10px 10px 0 0;
 }
 

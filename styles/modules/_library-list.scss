@@ -9,7 +9,7 @@
       float: left;
       width: 100%;
       .lll-header {
-        background-color: $color1;
+        background-color: $color001;
       }
       TD, TH {
         margin: 2px;
@@ -23,7 +23,7 @@
         vertical-align: top;
         &.border-right {
           padding: 5px;
-          border-right: 2px solid #EFF0F0;
+          border-right: 2px solid $color001;
         }
       }
     }

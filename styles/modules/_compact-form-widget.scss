@@ -17,15 +17,15 @@
 
   &.cfw-press-review-subscription,
   &.cfw-wish-list-search {
-    background: url($sprite) no-repeat scroll left -2417px #1E1E1E;
+    background: url($sprite) no-repeat scroll left -2417px $color071;
     .cfw-title {
-      color: $color3;
+      color: $color101;
       font-size: 1.3em;
       font-weight: bold;
     }
 
     .cfw-subtitle {
-      color: $color4;
+      color: $color001;
       font-size: 1.2em;
       text-align: justify;
       margin-bottom: 5px;

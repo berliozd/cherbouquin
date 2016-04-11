@@ -9,7 +9,7 @@
 }
 
 .pb-title {
-  color: $color3;
+  color: $color101;
   font-size: 2em;
   margin-bottom: 10px;
   font-weight: normal;
@@ -24,7 +24,7 @@
     font-size: 1.3em;
     margin-bottom: 5px;
     padding-left: 5px;
-    color: $color3;
+    color: $color101;
   }
 }
 
@@ -34,7 +34,7 @@
     font-size: 1.1em;
     font-weight: bold;
     margin: 10px 0 5px;
-    color: $color3;
+    color: $color101;
   }
 }
 
@@ -62,7 +62,7 @@
     float: left;
     width: 505px;
     .book-link, .book-link:hover, .book-link A:visited {
-      color: $color3;
+      color: $color101;
       font-weight: bold;
     }
   }
@@ -108,7 +108,7 @@
 
   .pbif-readingstate {
     float: left;
-    color: #6b7074;
+    color: $color041;
     font-weight: bold;
   }
 

@@ -1,13 +1,13 @@
 .registration {
   A {
     &.cgu {
-      color: $color6;
+      color: $color071;
       font-weight: normal;
     }
   }
   .buttons-bar {
-    color: $color4;
-    background-color: $color4;
+    color: $color001;
+    background-color: $color001;
     float: left;
     height: 40px;
     margin-top: 10px;
@@ -21,7 +21,7 @@
 }
 
 .r-left {
-  background: url("../images/registration-bkg.png") no-repeat scroll right top $color3;
+  background: url("../images/registration-bkg.png") no-repeat scroll right top $color101;
   border-radius: 10px 0 0 0;
   float: left;
   width: 50%;
@@ -38,7 +38,7 @@
 }
 
 .r-title {
-  color: $color4;
+  color: $color001;
   font-size: 2.5em;
   font-weight: bold;
 }
@@ -49,13 +49,13 @@
 
 .r-reassurance {
   font-size: 1.3em;
-  color: $color4;
+  color: $color001;
   font-weight: bold;
   margin: 10px 0;
 }
 
 .rl-label {
-  color: $color4;
+  color: $color001;
   font-weight: bold;
 }
 

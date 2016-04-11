@@ -1,7 +1,7 @@
 /* friend wished books */
 .friends-wished-books {
   .friend-title {
-    color: $color3;
+    color: $color101;
     font-size: 2em;
     margin-bottom: 10px;
   }
@@ -49,7 +49,7 @@
       float: left;
       width: 510px;
       .book-link, .book-link:hover, .book-link A:visited {
-        color: $color3;
+        color: $color101;
         font-weight: bold;
       }
       .wbi-title {
@@ -71,7 +71,7 @@
           }
         }
         .wbi-giftoption-buy {
-          border-left: 1px solid #b1b2b3;
+          border-left: 1px solid $color031;
           float: left;
           padding-left: 10px;
           .wbi-giftoption-bought {

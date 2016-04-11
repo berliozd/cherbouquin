@@ -1,5 +1,5 @@
 .annexe-page {
-  background-color: $color2;
+  background-color: $color011;
   border-radius: 10px 10px 0 0;
   float: left;
   width: 100%;
@@ -10,7 +10,7 @@
   .ap-right {
     float: left;
     width: 70%;
-    background-color: $color4;
+    background-color: $color001;
     border-radius: 0 10px 0 0;
     .ap-description {
       font-weight: bold;
@@ -46,7 +46,7 @@
       }
       .apl-title {
         font-size: 1.3em;
-        color: $color3;
+        color: $color101;
         font-weight: bold;
       }
       .apl-label {
@@ -57,11 +57,11 @@
   .ap-left {
     float: left;
     width: 30%;
-    background-color: $color2;
+    background-color: $color011;
     border-radius: 10px 0 0 0;
     .ap-title {
       font-size: 2.5em;
-      color: $color3;
+      color: $color101;
       font-weight: bold;
     }
   }

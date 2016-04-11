@@ -2,8 +2,7 @@
 .twitter-widget {
   position: relative;
   font-size: 1.2em;
-  background-color: $color5 !important;
-  background-color: $color5;
+  background-color: $color061 !important;
   color: black !important;
   float: right;
   width: 100%;
@@ -11,7 +10,7 @@
     margin: 5px 5px 5px 10px;
     overflow: hidden;
     a {
-      color: $color4;
+      color: $color001;
     }
 
     .twitter-widget-profile {
@@ -27,14 +26,14 @@
     padding: 0 1px;
 
     .twitter-timeline {
-      background: white;
+      background: $color001;
       height: 285px;
       overflow: auto;
       .twitter-tweet {
-        border-bottom: 1px dotted #DDD;
+        border-bottom: 1px dotted $color031;
         overflow: hidden;
         a {
-          color: $color3;
+          color: $color101;
         }
         .twitter-tweet-wrap {
           padding: 8px;
@@ -44,12 +43,12 @@
             font-size: 0.8em;
             .tweet-actions {
               font-size: 0.9em;
-              color: #788087 !important;
+              color: $color041 !important;
               em {
                 float: right;
                 a {
                   font-size: 0.9em;
-                  color: #788087 !important;
+                  color: $color041 !important;
                 }
               }
 
@@ -66,7 +65,7 @@
     text-align: right;
     text-transform: uppercase;
     a {
-      color: $color4;
+      color: $color001;
       text-decoration: none;
     }
   }

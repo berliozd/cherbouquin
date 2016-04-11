@@ -5,12 +5,12 @@
     float: right;
   }
   .bs-nav {
-    background-color: $color4;
+    background-color: $color001;
     float: left;
     width: 100%;
     padding: 5px 0;
     &.bs-header-nav {
-      border-bottom: 1px solid $color4;
+      border-bottom: 1px solid $color001;
       border-radius: 10px 10px 0 0;
       .bsn-resume {
         float: left;
@@ -20,7 +20,7 @@
 
   .bs-results {
     .bsr-header {
-      background-color: $color1;
+      background-color: $color001;
       float: left;
       width: 100%;
       padding: 5px;
@@ -51,7 +51,7 @@
       }
       .link-button {
         background-color: transparent;
-        color: $color3;
+        color: $color101;
         float: right;
         font-size: 1em !important;
         margin: 0 auto;

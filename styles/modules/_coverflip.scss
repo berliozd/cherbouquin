@@ -1,10 +1,10 @@
 
 .coverflip {
-  border: 1px #e6e6e6 solid;
+  border: 1px $color031 solid;
   height: 230px;
   IMG {
     cursor: pointer;
-    border: 1px $color2 solid;
+    border: 1px $color031 solid;
   }
   &.coverflip-bkg {
     background: url("../images/homepage/cover-flip-background.png") no-repeat scroll -13px 65% transparent;

@@ -3,10 +3,10 @@
 /* ----------------------- */
 .home-chronicle {
   float: left;
-  background-color: #FBFBFB;
+  background-color: $color011;
   width: 100%;
   text-align: justify;
-  box-shadow: 0 0 30px -15px $color6 inset;
+  box-shadow: 0 0 30px -15px $color071 inset;
 
   .chr-head {
     h1 {

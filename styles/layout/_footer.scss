@@ -1,7 +1,7 @@
 #footer-wrap {
   padding: 0px;
   #footer-bottom {
-    background-color: $color4;
+    background-color: $color001;
     border-radius: 0px 0px 10px 10px;
     float: left;
     width: 100%;
@@ -19,7 +19,7 @@
     }
   }
   #footer-top {
-    background-color: $color5;
+    background-color: $color061;
     float: left;
     width: 100%;
     .ft-item {
@@ -38,7 +38,7 @@
       }
       A {
         text-decoration: none;
-        color: $color4;
+        color: $color001;
       }
       UL {
         list-style: none;
@@ -59,7 +59,7 @@
           display: none;
         }
         float: left;
-        color: $color4;
+        color: $color001;
         .ft-facebook {
           background: url($sprite) no-repeat scroll 0px -1230px transparent;
           display: block;
@@ -87,7 +87,7 @@
       }
       .ft-item-title {
         float: left;
-        color: $color3;
+        color: $color101;
         font-size: 1.6em;
         margin-bottom: 5px;
         width: 100%;

@@ -22,7 +22,7 @@ body {
 }
 
 A.link, A:visited.link, A:hover.link {
-  color: $color3 !important;
+  color: $color101 !important;
   font-weight: bold;
 }
 
@@ -84,7 +84,7 @@ A.link, A:visited.link, A:hover.link {
 }
 
 .highlight {
-  color: $color3;
+  color: $color101;
   text-decoration: none;
   font-weight: bold;
 }
@@ -126,7 +126,7 @@ A.link, A:visited.link, A:hover.link {
 .separator {
   border-top-style: solid;
   border-top-width: 5px;
-  border-color: $color4;
+  border-color: $color001;
 }
 
 .separator {
@@ -136,10 +136,10 @@ A.link, A:visited.link, A:hover.link {
   }
 
   &.cherbouquin {
-    border-color: $color3;
+    border-color: $color101;
     SPAN {
-      background-color: $color3;
-      color: $color4;
+      background-color: $color101;
+      color: $color001;
     }
   }
 }
@@ -178,7 +178,7 @@ A.link, A:visited.link, A:hover.link {
 }
 
 .see-more {
-  background-color: $color4;
+  background-color: $color001;
   float: left;
   text-align: right;
   text-transform: uppercase;
@@ -186,7 +186,7 @@ A.link, A:visited.link, A:hover.link {
   font-size: 0.9em;
   font-weight: bold;
   A, A:visited, A:hover {
-    color: $color6;
+    color: $color071;
     text-decoration: none;
   }
 }
