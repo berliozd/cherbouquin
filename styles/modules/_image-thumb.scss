@@ -1,29 +1,29 @@
 .image-thumb {
-  @include image-frame;
+  @extend %image-frame;
   height: 160px;
   width: 95px;
 }
 
 .image-thumb-small {
-  @include image-frame;
+  @extend %image-frame;
   height: 75px;
   width: 50px;
 }
 
 .image-thumb-square {
-  @include image-frame;
+  @extend %image-frame;
   height: 160px;
   width: 160px;
 }
 
 .image-thumb-square-small {
-  @include image-frame;
+  @extend %image-frame;
   height: 47px;
   width: 47px;
 }
 
 .image-thumb-square-medium {
-  @include image-frame;
+  @extend %image-frame;
   height: 90px;
   width: 90px;
 }

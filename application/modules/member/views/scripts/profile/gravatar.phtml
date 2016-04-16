@@ -24,32 +24,32 @@ $globalContext = new \Sb\Context\Model\Context();
             <div class="pef-line">
                 <?php _e("Ou choisissez l'un des gravatars suivants : ", "s1b"); ?>
             </div>
-            <div class="pef-gravatar-choice">                    
+            <div class="pef-gravatar-choice">
             <form action="" method="post">
                 <div class="pef-gravatar">
                     <input type="radio" name="gravatar" value="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($this->user->getEmail()))); ?>" />
-                    <label><img class="image-frame" src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($this->user->getEmail()))); ?>" /></label>
+                    <label><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($this->user->getEmail()))); ?>" /></label>
                 </div>
-                
+
                 <?php if ($this->user->getPictureBig() != "") {?>
                 <div class="pef-gravatar">
                     <input type="radio" name="gravatar" value="<?php echo $this->user->getPictureBig(); ?>" />
-                    <label><img class="image-frame" src="<?php echo $this->user->getPictureBig(); ?>" /></label>
+                    <label><img src="<?php echo $this->user->getPictureBig(); ?>" /></label>
                 </div>
                 <?php } ?>
 
                 <div class="pef-gravatar">
                     <input type="radio" name="gravatar" value="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/avatars/avatar01.jpg" />
-                    <label><img class="image-frame" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/avatars/avatar01.jpg" /></label>
-                </div>                
-                
-                <div class="pef-gravatar">
-                    <input type="radio" name="gravatar" value="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/avatars/avatar02.jpg" />
-                    <label><img class="image-frame" src="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/avatars/avatar02.jpg" /></label>
+                    <label><img src="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/avatars/avatar01.jpg" /></label>
                 </div>
 
-                
-                <div class="buttons-bar">                   
+                <div class="pef-gravatar">
+                    <input type="radio" name="gravatar" value="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/avatars/avatar02.jpg" />
+                    <label><img src="<?php echo $globalContext->getBaseUrl(); ?>Resources/images/avatars/avatar02.jpg" /></label>
+                </div>
+
+
+                <div class="buttons-bar">
                     <div class="inner-padding">
                         <button class="float-right button bt-blue-m margin-right margin-left"><?php _e("Valider","s1b");?></button>
                         <?php if (!$_POST) {?>

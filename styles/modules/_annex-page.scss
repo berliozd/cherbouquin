@@ -35,13 +35,19 @@
         .tm-image {
           float: left;
           margin-right: 20px;
+          img {
+            @extend %image-frame
+          }
         }
         .tm-description {
           float: left;
+          width: 100%;
           font-size: 1.1em;
           margin-top: 5px;
           text-align: justify;
-          width: 100%;
+          img {
+            @extend %image-frame
+          }
         }
       }
       .apl-title {

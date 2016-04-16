@@ -18,6 +18,9 @@
     float: left;
     margin: 2px;
     width: 32%;
+    img {
+      @extend %image-frame;
+    }
   }
 }
 

@@ -28,7 +28,7 @@ $breakpoints: (
   }
 }
 
-@mixin image-frame() {
+%image-frame {
   border: 1px solid $color031;
   box-shadow: 0 2px 10px $color051;
   padding: 4px;

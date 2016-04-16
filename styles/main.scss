@@ -3,8 +3,8 @@ $imageVersion: 10;
 $sprite: '../images/sprite.png?v=' + $imageVersion;
 $spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
 
-@import 'abstract/mixins';
 @import 'abstract/variables';
+@import 'abstract/mixins';
 
 @import 'vendors/bootstrap';
 
