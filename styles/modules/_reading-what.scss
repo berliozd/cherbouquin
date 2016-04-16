@@ -2,8 +2,7 @@
   float: left;
   margin: 10px;
   .search-form {
-    float: left;
-    width: 100%;
+    @extend %full_left;
   }
   .sf-label {
     font-weight: normal;

@@ -4,14 +4,13 @@
 }
 
 #other-chronicles {
+  @extend %full_left;
   .oc-title {
     border-bottom: 2px solid $color101;
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 10px;
   }
-  float: left;
-  width: 100%;
   margin-bottom: 30px;
   UL {
     margin: 0;
@@ -23,7 +22,7 @@
 }
 
 #other-chronicles LI A, .cl-other-chronicles LI A {
-  color: #707070;
+  color: $color041;
   text-decoration: none;
   margin-top: 2px;
   padding: 3px 25px 0;
@@ -50,7 +49,7 @@
     font-size: 0.9em;
   }
   .cb-date {
-    color: #707070;
+    color: $color041;
   }
 }
 
@@ -79,8 +78,7 @@
     margin-top: 10px;
   }
   #cd-video {
-    float: left;
-    width: 100%;
+    @extend %full_left;
   }
 
   #cd-video-iframe {
@@ -103,11 +101,10 @@
     margin: 0;
     LI {
       &.cl-item {
+        @extend %full_left;
         border-bottom: 1px solid $color001;
-        float: left;
         margin-bottom: 7px;
         padding-bottom: 8px;
-        width: 100%;
       }
     }
   }
@@ -147,7 +144,6 @@
     .cloc-title {
       margin-bottom: 5px;
     }
-
   }
 }
 
@@ -159,9 +155,8 @@
 }
 
 .pushed-chronicles {
-  float: left;
+  @extend %full_left;
   padding-bottom: 30px;
-  width: 100%;
 
   ul {
     padding: 0;
@@ -194,11 +189,10 @@
         }
       }
       .pc-link {
+        @extend %full_left;
         border-top: 1px solid #E6E6E6;
-        float: left;
         padding-top: 5px;
         margin-top: 15px;
-        width: 100%;
         a {
           text-decoration: none;
           text-transform: uppercase;
@@ -220,11 +214,10 @@
     list-style: none outside none;
     padding: 0;
     li {
+      @extend %full_left;
       border-bottom: 1px solid #E6E6E6;
-      float: left;
       margin-bottom: 10px;
       padding-bottom: 5px;
-      width: 100%;
     }
   }
   .pr-image {

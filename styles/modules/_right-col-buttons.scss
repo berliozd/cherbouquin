@@ -1,9 +1,7 @@
 
 .right-col-buttons {
+  @extend %full_left;
   margin-bottom: 5px;
-  float: left;
-  width: 100%;
-
   .rcb-label {
     border-right: 1px solid $color031;
     float: left;
@@ -14,11 +12,9 @@
     padding-top: 13px;
     width: 80px;
   }
-
   .rcb-buttons {
     float: left;
     width: 200px;
   }
-
 }
 

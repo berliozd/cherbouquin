@@ -1,8 +1,7 @@
 /* global navigation */
 .navigation {
+  @extend %full_left;
   background-color: $color001;
-  float: left;
-  width: 100%;
   height: 44px;
   .nav-links {
     color: black;

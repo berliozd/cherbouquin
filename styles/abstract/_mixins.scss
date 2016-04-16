@@ -34,3 +34,8 @@ $breakpoints: (
   padding: 4px;
   background-color: $color001;
 }
+
+%full_left {
+  width: 100%;
+  float: left
+}

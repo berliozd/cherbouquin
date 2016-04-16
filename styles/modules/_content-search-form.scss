@@ -1,6 +1,5 @@
 #content-search-form {
-  float: left;
-  width: 100%;
+  @extend %full_left;
   .search-field {
     background: url($sprite) no-repeat scroll -550px -3px transparent;
     height: 30px;

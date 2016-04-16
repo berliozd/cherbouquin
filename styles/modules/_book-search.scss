@@ -6,8 +6,7 @@
   }
   .bs-nav {
     background-color: $color001;
-    float: left;
-    width: 100%;
+    @extend %full_left;
     padding: 5px 0;
     &.bs-header-nav {
       border-bottom: 1px solid $color001;
@@ -21,8 +20,7 @@
   .bs-results {
     .bsr-header {
       background-color: $color001;
-      float: left;
-      width: 100%;
+      @extend %full_left;
       padding: 5px;
       .bsrh-title {
         float: left;
@@ -40,8 +38,7 @@
       }
     }
     .bsr-line {
-      float: left;
-      width: 100%;
+      @extend %full_left;
       padding: 10px;
       .link, .link:hover {
         font-size: 12px;

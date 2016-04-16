@@ -1,7 +1,6 @@
 /* pushed books */
 .pushed-books {
-  float: left;
-  width: 100%;
+  @extend %full_left;
 }
 
 .book-view .pushed-books {
@@ -39,9 +38,8 @@
 }
 
 .pb-item {
-  float: left;
+  @extend %full_left;
   margin-bottom: 10px;
-  width: 100%;
   font-size: 1.1em;
 
   .pbi-nbBoh {
@@ -80,8 +78,7 @@
   }
 
   .pbi-flags {
-    float: left;
-    width: 100%;
+    @extend %full_left;
     DIV {
       height: 20px;
       padding-top: 5px;
@@ -133,10 +130,9 @@
 }
 
 .pb-shelf {
+  @extend %full_left;
   background: url("../images/shelf.png") no-repeat scroll -3px bottom transparent;
-  float: left;
   padding-bottom: 51px;
-  width: 100%;
 }
 
 .pb-inner-shelf {

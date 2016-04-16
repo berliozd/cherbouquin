@@ -1,16 +1,16 @@
 .separator {
   &.bloggers {
-    border-color: #794692;
+    border-color: $color081;
     SPAN {
-      background-color: #794692;
+      background-color: $color081;
       color: $color001;
     }
   }
 
   &.bookstores {
-    border-color: #be0574;
+    border-color: $color091;
     SPAN {
-      background-color: #be0574;
+      background-color: $color091;
       color: $color001;
     }
   }

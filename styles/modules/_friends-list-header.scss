@@ -2,14 +2,12 @@
 .friends-list-header {
   background-color: $color101;
   border-radius: 10px 10px 0 0;
-  float: left;
-  width: 100%;
+  @extend %full_left;
   .flh-menu {
+    @extend %full_left;
     list-style: none;
-    float: left;
     margin: 0;
     padding: 10px 0;
-    width: 100%;
     li {
       float: left;
       list-style: none outside none;
@@ -52,9 +50,8 @@
   }
 
   .fl-search {
+    @extend %full_left;
     background-color: $color001;
-    float: left;
-    width: 100%;
     padding: 5px;
     .fls-label {
       float: left;

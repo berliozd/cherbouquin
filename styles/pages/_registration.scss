@@ -6,12 +6,11 @@
     }
   }
   .buttons-bar {
+    @extend %full_left;
     color: $color001;
     background-color: $color001;
-    float: left;
     height: 40px;
     margin-top: 10px;
-    width: 100%;
     .bb-btvalidate {
       float: right;
       font-size: 0.7em;

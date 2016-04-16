@@ -1,10 +1,7 @@
-/* edit lending */
 .userbook-lending {
-  float: left;
-  width: 100%;
+  @extend %full_left;
   .ul-lendings, .ul-borrowings, .ul-form {
-    float: left;
-    width: 100%;
+    @extend %full_left;
     margin-bottom: 10px;
   }
 

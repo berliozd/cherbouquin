@@ -1,7 +1,6 @@
 /* Last reviews posted */
 .last-reviews-posted {
-  float: left;
-  width: 100%;
+  @extend %full_left;
   .lrp {
     border-bottom: 1px solid $color001;
     float: left;

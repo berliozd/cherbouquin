@@ -1,9 +1,8 @@
 /* library-header */
 .library-header {
+  @extend %full_left;
   background-color: $color101;
   border-radius: 10px 10px 0 0;
-  float: left;
-  width: 100%;
   UL {
     float: left;
     margin: 0;

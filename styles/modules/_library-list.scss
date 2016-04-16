@@ -6,8 +6,7 @@
     float: left;
     width: 100%;
     TABLE {
-      float: left;
-      width: 100%;
+      @extend %full_left;
       .lll-header {
         background-color: $color001;
       }

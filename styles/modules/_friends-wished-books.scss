@@ -37,9 +37,8 @@
   }
   /* Wished books */
   .wb-item {
-    float: left;
+    @extend %full_left;
     margin-bottom: 10px;
-    width: 100%;
     font-size: 1.1em;
     .wbi-image {
       float: left;

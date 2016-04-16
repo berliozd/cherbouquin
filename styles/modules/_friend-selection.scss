@@ -14,8 +14,7 @@
     }
 
     .fi-line-sep {
-      float: left;
-      width: 100%;
+      @extend %full_left;
       height: 2px;
       background-color: $color001;
       margin-bottom: 5px;
@@ -41,8 +40,7 @@
   }
 
   .fs-list {
-    float: left;
-    width: 100%
+    @extend %full_left;
   }
 
   .fs-friendname {

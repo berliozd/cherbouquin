@@ -1,7 +1,6 @@
 
 .profile {
-  float: left;
-  width: 100%;
+  @extend %full_left;
   margin-bottom: 30px;
 
   .p-left {
@@ -29,10 +28,9 @@
   }
 
   .p-line {
+    @extend %full_left;
     font-size: 1.3em;
     line-height: 22px;
-    float: left;
-    width: 100%;
     .pl-picto {
       float: right;
       height: 30px;
@@ -82,11 +80,10 @@
   }
 
   .ps-current {
-    float: left;
+    @extend %full_left;
     font-size: 1.8em;
     font-weight: bold;
     line-height: 46px;
-    width: 100%;
   }
 
   .ps-current-label {

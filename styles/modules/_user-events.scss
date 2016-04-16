@@ -1,10 +1,7 @@
-/* user events */
 .user-events {
-  float: left;
-  width: 100%;
+  @extend %full_left;
   .user-event {
-    float: left;
-    width: 100%;
+    @extend %full_left;
     margin-bottom: 10px;
 
     .ue-friendimage {
@@ -37,25 +34,20 @@
         }
       }
       .ue-bookdescription {
-        float: left;
-        width: 100%;
+        @extend %full_left;
 
         .ue-booktitle {
+          @extend %full_left;
           color: $color051;
-          float: left;
-          width: 100%;
         }
 
       }
-
       .ue-buttons {
-        float: left;
-        width: 100%;
+        @extend %full_left;
         .ue-viewbooklink {
           float: left;
           line-height: 28px;
         }
-
         .ue-addbooklink {
           float: left;
           border-left: 1px solid $color041;
@@ -64,9 +56,8 @@
         }
       }
       .ue-additional {
+        @extend %full_left;
         background-color: $color001;
-        float: left;
-        width: 100%;
         margin: 3px 0;
       }
       .ue-date {
@@ -75,7 +66,5 @@
         font-weight: lighter;
       }
     }
-
   }
-
 }

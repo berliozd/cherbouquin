@@ -33,8 +33,7 @@
     }
 
     #content-wide {
-      float: left;
-      width: 100%;
+      @extend %full_left;
     }
   }
 

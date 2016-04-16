@@ -1,9 +1,8 @@
 /* book view*/
 .book-view {
   .bv-buttons {
-    float: left;
+    @extend %full_left;
     margin-top: 10px;
-    width: 100%;
     text-decoration: none;
 
     .bv-requestborrow {
@@ -12,8 +11,7 @@
     }
 
     .bv-buttons-group {
-      float: left;
-      width: 100%;
+      @extend %full_left;
       .bv-edit {
         float: left;
         margin-right: 5px;
@@ -30,15 +28,13 @@
 
   /* review */
   .bv-reviews {
-    float: left;
-    width: 100%;
+    @extend %full_left;
     .bvr-item {
-      float: left;
-      width: 100%;
+      @extend %full_left;
       .bvri-content {
         float: left;
-        margin-left: 10px;
         width: 85%;
+        margin-left: 10px;
       }
       .bvri-plublication {
         float: left;
@@ -47,9 +43,8 @@
       }
 
       .bvri-review {
-        float: left;
+        @extend %full_left;
         margin-top: 2px;
-        width: 100%;
         overflow: hidden;
       }
       .bvri-rating {
@@ -69,8 +64,7 @@
     }
     .bvr-list {
       margin: 10px 0;
-      float: left;
-      width: 100%;
+      @extend %full_left;
     }
     .navigation {
       height: 30px;
@@ -85,28 +79,24 @@
     }
 
     .bvr-comments {
-      float: left;
-      width: 100%;
+      @extend %full_left;
       background-color: $color001;
       border: 1px solid $color031;
       margin-top: 5px;
       ul {
-        float: left;
+        @extend %full_left;
         list-style: none outside none;
         margin: 0;
         padding: 0;
-        width: 100%;
         li {
           border-bottom: 1px solid $color001;
-          float: left;
+          @extend %full_left;
           margin-bottom: 2px;
-          width: 100%;
         }
       }
 
       .bvr-comment {
-        float: left;
-        width: 100%;
+        @extend %full_left;
         .bvrc-date {
           float: right;
           width: 87%;
@@ -140,8 +130,7 @@
   }
 
   .bvr-commentsform {
-    float: left;
-    width: 100%;
+    @extend %full_left;
     TEXTAREA {
       font-size: 0.9em;
       height: 20px;

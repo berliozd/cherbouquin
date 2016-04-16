@@ -1,9 +1,6 @@
 /* user-book */
 .user-book {
-  float: left;
-  width: 100%;
-
-
+  @extend %full_left;
   .ub-comment TEXTAREA {
     height: 100px;
     width: 100%;
@@ -12,7 +9,6 @@
       font-weight: bold;
     }
   }
-
 
   /*flags*/
   .ub-flags {
@@ -47,8 +43,7 @@
   }
 
   .ubf-state {
-    float: left;
-    width: 100%;
+    @extend %full_left;
   }
 
   .ub-flags #stars {
@@ -77,13 +72,11 @@
   }
 
   .ub-group-fields {
-    float: left;
-    width: 100%;
+    @extend %full_left;
   }
 
   .ub-reading-state {
-    float: left;
-    width: 100%;
+    @extend %full_left;
     margin-top: 3px;
     .reading-state {
       float: left;
@@ -112,14 +105,12 @@
     font-size: 1.2em;
   }
 
-  /*tags*/
   .ub-tags {
     float: left;
   }
 
   .ubt-value {
-    float: left;
-    width: 100%;
+    @extend %full_left;
   }
 
   .ubt-tag {

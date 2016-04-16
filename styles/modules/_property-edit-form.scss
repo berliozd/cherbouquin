@@ -1,6 +1,5 @@
 .profile-edit-form {
-  float: left;
-  width: 100%;
+  @extend %full_left;
   TABLE {
     width: 100%;
   }
@@ -8,12 +7,10 @@
     width: 190px;
     font-size: 1.2em;
   }
-
   .pef-line {
     font-size: 1.4em;
     margin-bottom: 10px;
   }
-
   .pef-gravatar {
     float: left;
     margin: 2px;

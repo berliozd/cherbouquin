@@ -48,8 +48,7 @@
   .ub-currentreading {
     position: relative;
     .ub-currentreadingbook {
-      float: left;
-      width: 100%;
+      @extend %full_left;
       .ubcb-image {
         float: left;
       }
@@ -62,8 +61,7 @@
       .ubcb-progress {
         margin-top: 10px;
         .ubcb-progress-bar {
-          float: left;
-          width: 100%;
+          @extend %full_left;
           .reading-progress-bar-wrapper {
             border-radius: 5px;
             box-shadow: 1px 1px 3px $color031 inset;
@@ -148,8 +146,7 @@
   }
 
   .ubc-sep {
-    float: left;
-    width: 100%;
+    @extend %full_left;
     border-bottom: 1px dotted $color031;
     margin: 0;
   }
@@ -189,8 +186,7 @@
       background-position: 4px -202px;
     }
     .ub-user {
-      float: left;
-      width: 100%;
+      @extend %full_left;
       .ubu-image {
         float: left;
       }

@@ -2,9 +2,8 @@
 /* ---- Home chronicle --- */
 /* ----------------------- */
 .home-chronicle {
-  float: left;
+  @extend %full_left;
   background-color: $color011;
-  width: 100%;
   text-align: justify;
   box-shadow: 0 0 30px -15px $color071 inset;
 

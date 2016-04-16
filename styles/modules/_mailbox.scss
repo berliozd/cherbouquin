@@ -1,8 +1,7 @@
 /* mailbox list */
 .mailbox {
   TABLE {
-    float: left;
-    width: 100%;
+    @extend %full_left;
     text-align: left;
   }
 }
