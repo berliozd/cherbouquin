@@ -1,3 +1,8 @@
+$imageVersion: 10;
+
+$sprite: '../images/sprite.png?v=' + $imageVersion;
+$spriteButtons: '../images/sprite-buttons.png?v=' + $imageVersion;
+
 $color001: #ffffff;
 $color011: #f5f5f5;
 $color031: #cccccc;
