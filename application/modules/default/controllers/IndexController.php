@@ -399,6 +399,9 @@ class Default_IndexController extends Zend_Controller_Action {
      */
     public function registerAction() {
 
+        Flash::addItem('Il n\'est plus possible de créer de compte.');
+        HTTPHelper::redirect('');
+
         try {
 
             if ($_POST) {
